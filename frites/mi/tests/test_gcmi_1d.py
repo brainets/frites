@@ -1,9 +1,10 @@
 """Test 1d implementations of gcmi."""
 import numpy as np
 
-from frites.mi import (ent_1d_g, mi_1d_gg, gcmi_1d_cc, mi_model_1d_gd,
-                       gcmi_model_1d_cd, mi_mixture_1d_gd, gcmi_mixture_1d_cd,
-                       cmi_1d_ggg, gccmi_1d_ccc, gccmi_1d_ccd)
+from frites.mi.gcmi_1d import (ent_1d_g, mi_1d_gg, gcmi_1d_cc, mi_model_1d_gd,
+                               gcmi_model_1d_cd, mi_mixture_1d_gd,
+                               gcmi_mixture_1d_cd, cmi_1d_ggg, gccmi_1d_ccc,
+                               gccmi_1d_ccd)
 
 class TestGcmi1d(object):  # noqa
 
