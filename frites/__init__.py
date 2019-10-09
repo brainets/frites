@@ -6,6 +6,7 @@ Framework of Information Theory for Electrophysiological data and Statistics
 """
 import logging
 
+from frites import io, mi, stats, utils, workflow  # noqa
 
 # Set 'info' as the default logging level
 logger = logging.getLogger('frites')
