@@ -2,11 +2,18 @@
 frites
 ======
 
+.. image:: https://travis-ci.org/brainets/frites.svg?branch=master
+    :target: https://travis-ci.org/brainets/frites
+
+.. figure::  https://github.com/brainets/frites/tree/master/docs/source/_static/frites_128x128.png
+    :align:  center
 
 Description
 -----------
 
 Framework of Information Theory for Electrophysiological data and Statistics
+
+
 
 Installation
 ------------

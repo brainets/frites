@@ -160,6 +160,16 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'fritesdoc'
 
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
+html_logo = '_static/frites_128x128.png'
+
+# The name of an image file (relative to this directory) to use as a favicon of
+# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+html_favicon = '_static/favicon.ico'
+
+
 
 # -- Options for LaTeX output ------------------------------------------------
 
