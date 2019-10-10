@@ -1,12 +1,44 @@
 API
 ===
 
-Information theoretical measures
---------------------------------
+Dataset
+-------
 
-.. currentmodule:: frites.mi
+.. currentmodule:: frites.dataset
 
-.. automodule:: frites.mi
+.. automodule:: frites.dataset
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   DatasetEphy
+   DatasetFMRI
+
+
+Simulations
+-----------
+
+.. currentmodule:: frites.simulations
+
+.. automodule:: frites.simulations
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   sim_single_suj_ephy
+   sim_multi_suj_ephy
+
+
+Core
+----
+
+.. currentmodule:: frites.core
+
+.. automodule:: frites.core
    :no-members:
    :no-inherited-members:
 
