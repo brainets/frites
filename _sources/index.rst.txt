@@ -4,7 +4,7 @@ Frites
 .. image:: https://travis-ci.org/brainets/frites.svg?branch=master
     :target: https://travis-ci.org/brainets/frites
 
-.. figure::  https://github.com/brainets/frites/blob/master/docs/source/_static/frites.png
+.. figure::  _static/frites.png
     :align:  center
 
 .. toctree::
