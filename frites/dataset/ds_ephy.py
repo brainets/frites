@@ -28,15 +28,21 @@ class DatasetEphy(object):
         # check input
 
         assert all([isinstance(k, (list, tuple)) for k in (x, y)])
-        assert len(x) == len(y)
+        assert len(x) == len(y) == len(roi), (
+            "the data (x), condition variable (y) and roi must all be lists "
+            "with a length of `n_subjects`")
+        roi = [np.asarray(k) for k in roi]
 
+        # data related
         self.nb_min_suj = nb_min_suj
         self.n_subjects = len(x)
         self.times = times
-
-        logger.info(f"Creation of a dataset composed with {self.n_subjects} "
-                    f"subjects. A minimum of {self.nb_min_suj} per roi is"
-                    "required")
+        self.roi = roi
+        # unique roi list
+        merged_roi = np.r_[tuple(self.roi)]
+        _, u_idx = np.unique(merged_roi, return_index=True)
+        self.roi_names = merged_roi[np.sort(u_idx)]
+        self.n_roi = len(self.roi_names)
 
         # internals
         self.modality = "electrophysiological"
@@ -44,11 +50,21 @@ class DatasetEphy(object):
         self._groupedby = "subject"
         self.__version__ = frites.__version__
 
+        logger.info(f"Creation of a dataset composed with {self.n_subjects} "
+                    f"subjects. A minimum of {self.nb_min_suj} per roi is"
+                    "required")
+
         # ---------------------------------------------------------------------
         # load the data of each subject
 
         logger.info("    Load the data of each subject")
         self._x = [self._load_single_suj_ephy(x[k]) for k in range(len(self))]
+        self._y = [np.asarray(k) for k in y]
+        self._z = z
+        if isinstance(z, list) and all([k.shape == i.shape for k, i in zip(
+                y, z)]):
+            self._y = [np.c_[k, i] for k, i in zip(self._y, z)]
+
         # check the time vector
         _x_times = np.unique([self._x[k].shape[1] for k in range(len(self))])
         assert _x_times.size == 1, ("Inconsistent number of time points across"
@@ -56,6 +72,12 @@ class DatasetEphy(object):
         self.n_times = self._x[0].shape[1]
         if not isinstance(self.times, np.ndarray):
             self.times = np.arange(self.n_times)
+
+        # check consistency between x and y
+        _const = [self._x[k].shape == (len(roi[k]), self.n_times,
+                                       len(self._y[k])) for k in range(
+            self.n_subjects)]
+        assert all(_const), "Inconsistent shape between x, y and roi"
 
         # ---------------------------------------------------------------------
         # reorganize by roi
@@ -69,7 +91,8 @@ class DatasetEphy(object):
         """String representation."""
         sep = '-' * 79
         rep = (f"{sep}\n"
-               f"number of subjects : {self.n_subjects}\n"
+               f"number of (subjects, roi, time points) : "
+               f"{self.n_subjects, self.n_roi, self.n_times}\n"
                f"minimum number of subject per roi: {self.nb_min_suj}\n"
                f"modality : {self.modality}\n"
                f"data grouped by : {self._groupedby}\n"
@@ -132,14 +155,66 @@ class DatasetEphy(object):
             exit()
         logger.info(f"    Group data by {groupby}")
 
-        if groupby == "roi":
-            pass
-        elif groupby == "subject":
+        if groupby == "roi":  # -----------------------------------------------
+            roi, x_roi, y_roi, suj_roi, suj_roi_u = [], [], [], [], []
+            for r in self.roi_names:
+                # loop over subjects to find if roi is present. If not, discard
+                _x, _y, _suj, _suj_u = [], [], [], []
+                for n_s, data in enumerate(self._x):
+                    # skip missing roi
+                    if r not in self.roi[n_s]:
+                        continue  # noqa
+                    # sEEG data can have multiple sites inside a specific roi
+                    # so we need to identify thos sites
+                    idx = self.roi[n_s] == r
+                    __x = np.array(data[idx, ...]).squeeze()
+                    __y = self._y[n_s]
+                    # in case there's multiple sites in this roi, we reshape
+                    # as if the data were coming from a single site, hence
+                    # increasing the number of trials
+                    n_sites = idx.sum()
+                    if n_sites != 1:
+                        __x = np.moveaxis(__x, 0, -1).reshape(self.n_times, -1)
+                        if __y.ndim == 1: __y = __y[:, np.newaxis]  # noqa
+                        __y = np.tile(__y, (n_sites, 1)).squeeze()
+                    # at this point the data are (n_times, n_epochs)
+                    _x += [__x]
+                    _y += [__y]
+                    _suj += [n_s] * len(__y)
+                    _suj_u += [n_s]
+                # test if the minimum number of unique subject is met inside
+                # the roi
+                u_suj = len(np.unique(_suj))
+                if u_suj < self.nb_min_suj:
+                    logger.warning(f"ROI {r} ignored because there's only "
+                                   f"{u_suj} inside")
+                    continue
+                # concatenate across the trial axis
+                _x = np.concatenate(_x, axis=1)
+                _y = np.r_[tuple(_y)]
+                _suj = np.array(_suj)
+                # keep latest version
+                x_roi += [_x[:, np.newaxis, :]]
+                y_roi += [_y]
+                suj_roi += [_suj]
+                suj_roi_u += [np.array(_suj_u)]
+                roi += [r]
+            # update variables
+            self._x = x_roi
+            if self._y[0].ndim == 1:
+                self._y = y_roi
+            else:
+                self._y = [k[:, 0] for k in y_roi]
+                self._z = [k[:, 1:] for k in y_roi]
+            self.suj_roi = suj_roi
+            self.suj_roi_u = suj_roi_u
+            self.roi_names = roi
+        elif groupby == "subject":  # -----------------------------------------
             pass
 
         self._groupedby = groupby
 
-    def copnorm(self):
+    def copnorm(self, condition='cc', stats='rfx'):
         pass
 
     def save(self):
@@ -160,23 +235,43 @@ class DatasetEphy(object):
         return self._y
 
     @property
+    def z(self):
+        """Get the z value."""
+        return self._z
+
+    @property
     def nb_min_suj(self):
         """Get the minimum number of subjects needed per roi."""
         return self._nb_min_suj
-    
+
     @nb_min_suj.setter
     def nb_min_suj(self, value):
         """Set nb_min_suj value."""
         self._nb_min_suj = -np.inf if not isinstance(value, int) else value
-    
-    
-    
-    
 
 
 if __name__ == '__main__':
-    x = [0, 1, 2]
-    y = [10, 1, 23]
+    from frites.simulations import sim_multi_suj_ephy
 
-    dt = DatasetEphy(x, y, nb_min_suj=None)
-    print(str(dt))
+    modality = 'intra'
+    n_subjects = 4
+    n_epochs = 10
+    n_times = 100
+    n_roi = 5
+    n_sites_per_roi = 3
+    as_mne = False
+    x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
+                                      n_times=n_times, n_roi=n_roi,
+                                      n_sites_per_roi=n_sites_per_roi,
+                                      as_mne=as_mne, modality=modality,
+                                      random_state=1)
+    if as_mne:
+        y = [k.get_data()[..., 50:100].sum(axis=(1, 2)) for k in x]
+    else:
+        y = [k[..., 50:100].sum(axis=(1, 2)) for k in x]
+    z = [np.random.randint(0, 10, len(k)) for k in y]
+    # time -= 5
+    # [print(k.shape, i.shape) for k, i in zip(x, y)]
+
+    dt = DatasetEphy(x, y, roi=roi, )
+    # print(dt)

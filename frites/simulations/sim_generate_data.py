@@ -61,7 +61,7 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
     _rnd = np.random.RandomState(random_state)
     # number of sites / sources
     if modality == "intra":
-        n_sites_per_roi = np.random.randint(1, n_sites_per_roi)
+        n_sites_per_roi = np.random.randint(1, n_sites_per_roi + 1)
     # select roi names
     select_roi = np.repeat(np.arange(n_roi), n_sites_per_roi)
     roi = ma[select_roi]
