@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.simulations.sim_mi_cc &#8212; frites 0.0.0 documentation</title>
+    <title>frites.workflow.wf_mi_cd &#8212; frites 0.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -15,8 +15,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.simulations.sim_mi_cd" href="frites.simulations.sim_mi_cd.html" />
-    <link rel="prev" title="frites.simulations.sim_multi_suj_ephy" href="frites.simulations.sim_multi_suj_ephy.html" />
+    <link rel="next" title="frites.dataset.DatasetEphy" href="frites.dataset.DatasetEphy.html" />
+    <link rel="prev" title="frites.workflow.wf_mi_cc" href="frites.workflow.wf_mi_cc.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -61,23 +61,23 @@
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.wf_mi_cc.html">frites.workflow.wf_mi_cc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.workflow.wf_mi_cd.html">frites.workflow.wf_mi_cd</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.workflow.wf_mi_cd</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.dataset">Dataset</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
 </ul>
@@ -129,7 +129,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.simulations.sim_mi_cc.rst.txt"
+  <a href="../_sources/generated/frites.workflow.wf_mi_cd.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -153,48 +153,12 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-simulations-sim-mi-cc">
-<h1>frites.simulations.sim_mi_cc<a class="headerlink" href="#frites-simulations-sim-mi-cc" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-workflow-wf-mi-cd">
+<h1>frites.workflow.wf_mi_cd<a class="headerlink" href="#frites-workflow-wf-mi-cd" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.simulations.sim_mi_cc">
-<code class="sig-prename descclassname">frites.simulations.</code><code class="sig-name descname">sim_mi_cc</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">snr=0.9</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_mi.html#sim_mi_cc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.sim_mi_cc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract a continuous variable from data.</p>
-<p>This function can be used to then evaluate the mutual information between
-some neurophysiological data and a continuous variable (e.g regressor,
-model based regressions etc.).</p>
-<p>This function takes as an input some random or real data and generates a
-continuous variable from it. If you want to generate some compatible
-random data see the function <a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_multi_suj_ephy()</span></code></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of data coming from multiple subjects. Each element of this must
-be an array of shape (n_epochs, n_sites, n_pts)</p>
-</dd>
-<dt><strong>snr</strong><span class="classifier">float | 80.</span></dt><dd><p>Signal to noise ratio between [0, 1] (0 = no noise ; 1 = pure noise)</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>y</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of continuous variables. Each array has a
-shape of (n_epochs,)</p>
-</dd>
-<dt><strong>gt</strong><span class="classifier">array_like</span></dt><dd><p>Ground truth array of length (n_times,). This boolean array contains
-True where a cluster has been defined</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_multi_suj_ephy</span></code></a></dt><dd></dd>
-<dt><a class="reference internal" href="frites.simulations.sim_mi_cd.html#frites.simulations.sim_mi_cd" title="frites.simulations.sim_mi_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cd</span></code></a></dt><dd></dd>
-<dt><a class="reference internal" href="frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="frites.simulations.sim_mi_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_ccd</span></code></a></dt><dd></dd>
-</dl>
-</div>
-</dd></dl>
+<dt id="frites.workflow.wf_mi_cd">
+<code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">wf_mi_cd</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_fun=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi_cd.html#wf_mi_cd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.wf_mi_cd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 
