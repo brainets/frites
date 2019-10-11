@@ -55,7 +55,7 @@ install:
 
 script:
     - if [[ "${TEST}" == "standard" ]]; then
-          pytest --verbose;
+          pytest --cov;
       elif [[ "${TEST}" == "flake" ]]; then
           flake8;
       fi;
