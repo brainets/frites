@@ -71,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
@@ -85,6 +86,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
@@ -174,6 +176,34 @@
     <span class="k">return</span> <span class="n">ndtri</span><span class="p">(</span><span class="n">ctransform</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
 
 
+<div class="viewcode-block" id="copnorm_cat_1d"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_cat_1d.html#frites.core.copnorm_cat_1d">[docs]</a><span class="k">def</span> <span class="nf">copnorm_cat_1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Categorical Copula normalization for a single vector.</span>
+
+<span class="sd">    This function apply the copnorm per categories.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Array of data of shape (n_epochs,)</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Array of shape (n_epochs,) of integers describing the categories.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cx : array_like</span>
+<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">]</span>
+    <span class="n">x_cop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">y_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y_u</span><span class="p">:</span>
+        <span class="n">_idx</span> <span class="o">=</span> <span class="n">y</span> <span class="o">==</span> <span class="n">yi</span>
+        <span class="n">x_cop</span><span class="p">[</span><span class="n">_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">copnorm_1d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">_idx</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">x_cop</span></div>
+
+
 <div class="viewcode-block" id="copnorm_nd"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_nd.html#frites.core.copnorm_nd">[docs]</a><span class="k">def</span> <span class="nf">copnorm_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Copula normalization for a multidimentional array.</span>
 
@@ -191,6 +221,29 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">copnorm_1d</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="copnorm_cat_nd"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_cat_nd.html#frites.core.copnorm_cat_nd">[docs]</a><span class="k">def</span> <span class="nf">copnorm_cat_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Categorical Copula normalization for multidimentional array.</span>
+
+<span class="sd">    This function apply the copnorm per categories.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Array of data</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Array of shape (n_epochs,) of integers describing the categories.</span>
+<span class="sd">    axis : int | -1</span>
+<span class="sd">        Epoch (or trial) axis. By default, the last axis is considered</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cx : array_like</span>
+<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">copnorm_cat_1d</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
 </pre></div>
 
     </div>

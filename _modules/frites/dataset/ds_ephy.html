@@ -71,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
@@ -85,6 +86,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
@@ -146,17 +148,30 @@
 <div class="viewcode-block" id="DatasetEphy"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy">[docs]</a><span class="k">class</span> <span class="nc">DatasetEphy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Dataset of electrophysiological data coming from several subjects.</span>
 
-<span class="sd">    The following steps are performed :</span>
-
-<span class="sd">        * Load the data of each subject (support for MNE types) and convert</span>
-<span class="sd">          into NumPy arrays</span>
-<span class="sd">        *</span>
+<span class="sd">    </span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    x : list</span>
+<span class="sd">        List of length (n_subjects,). Each element of the list should either be</span>
+<span class="sd">        an array of shape (n_epochs, n_sites, n_pts), mne.Epochs,</span>
+<span class="sd">        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</span>
+<span class="sd">    roi : list</span>
+<span class="sd">        List of arrays of shape (n_channels,) describing the ROI name of each</span>
+<span class="sd">        channel.</span>
+<span class="sd">    y, z : list</span>
+<span class="sd">        List of length (n_subjects,) of continuous or discret variables. Each</span>
+<span class="sd">        element of the list should be an array of shape (n_trials,) describing</span>
+<span class="sd">        the continuous variable</span>
+<span class="sd">    times : array_like | None</span>
+<span class="sd">        The time vector to use. If the data are defined using MNE-Python, the</span>
+<span class="sd">        time vector is directly infered from thos files.</span>
+<span class="sd">    nb_min_suj : int | 10</span>
+<span class="sd">        The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj</span>
+<span class="sd">        are going to be skipped. Use None to skip this parameter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DatasetEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DatasetEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># check input</span>
@@ -192,7 +207,8 @@
         <span class="c1"># load the data of each subject</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Load the data of each subject&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_single_suj_ephy</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_single_suj_ephy</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="n">z</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">i</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
@@ -200,22 +216,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="n">z</span><span class="p">)]</span>
 
         <span class="c1"># check the time vector</span>
-        <span class="n">_x_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))])</span>
+        <span class="n">_x_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)])</span>
         <span class="k">assert</span> <span class="n">_x_times</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;Inconsistent number of time points across&quot;</span>
                                     <span class="s2">&quot; subjects&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No time vector found. A default will be used &quot;</span>
+                           <span class="s2">&quot;instead&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">)</span>
 
         <span class="c1"># check consistency between x and y</span>
         <span class="n">_const</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">,</span>
                                        <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">_const</span><span class="p">),</span> <span class="s2">&quot;Inconsistent shape between x, y and roi&quot;</span>
-
-        <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># reorganize by roi</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span></div>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">_const</span><span class="p">),</span> <span class="s2">&quot;Inconsistent shape between x, y and roi&quot;</span></div>
 
     <span class="c1">###########################################################################</span>
     <span class="c1"># INTERNALS</span>
@@ -275,7 +290,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DatasetEphy.groupby"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.groupby">[docs]</a>    <span class="k">def</span> <span class="nf">groupby</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;roi&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reorganize the data.</span>
+        <span class="sd">&quot;&quot;&quot;Reorganize the data inplace.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -348,8 +363,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">=</span> <span class="n">groupby</span></div>
 
-    <span class="k">def</span> <span class="nf">copnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">):</span>
-        <span class="k">pass</span>
+<div class="viewcode-block" id="DatasetEphy.copnorm"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.copnorm">[docs]</a>    <span class="k">def</span> <span class="nf">copnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply the Gaussian-Copula rank normalization.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">condition</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">]</span></div>
 
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>

@@ -51,6 +51,7 @@ Gaussian-Copula based measures to apply to unidimensional vectors
    :toctree: generated/
 
    copnorm_1d
+   copnorm_cat_1d
    ent_1d_g
    mi_1d_gg
    mi_model_1d_gd
@@ -71,6 +72,7 @@ Gaussian-Copula based measures to apply to multidimensional vectors
    :toctree: generated/
 
    copnorm_nd
+   copnorm_cat_nd
    mi_nd_gg
    mi_model_nd_gd
    cmi_nd_ggg

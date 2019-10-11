@@ -73,6 +73,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
@@ -87,6 +88,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
@@ -141,19 +143,34 @@
 <h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="frites.dataset.DatasetEphy">
-<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">roi</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataset of electrophysiological data coming from several subjects.</p>
-<p>The following steps are performed :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Load the data of each subject (support for MNE types) and convert
-into NumPy arrays</p></li>
-<li></li>
-</ul>
-</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,). Each element of the list should either be
+an array of shape (n_epochs, n_sites, n_pts), mne.Epochs,
+mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</p>
+</dd>
+<dt><strong>roi</strong><span class="classifier">list</span></dt><dd><p>List of arrays of shape (n_channels,) describing the ROI name of each
+channel.</p>
+</dd>
+<dt><strong>y, z</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of continuous or discret variables. Each
+element of the list should be an array of shape (n_trials,) describing
+the continuous variable</p>
+</dd>
+<dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>The time vector to use. If the data are defined using MNE-Python, the
+time vector is directly infered from thos files.</p>
+</dd>
+<dt><strong>nb_min_suj</strong><span class="classifier">int | 10</span></dt><dd><p>The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj
+are going to be skipped. Use None to skip this parameter</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">roi</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -164,14 +181,14 @@ into NumPy arrays</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x, y[, z, roi, times, nb_min_suj])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x, y, roi[, z, times, nb_min_suj])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code>(self[, condition, stats])</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, condition, inference])</p></td>
+<td><p>Apply the Gaussian-Copula rank normalization.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self[, groupby])</p></td>
-<td><p>Reorganize the data.</p></td>
+<td><p>Reorganize the data inplace.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(self)</p></td>
 <td><p></p></td>
@@ -200,9 +217,15 @@ into NumPy arrays</p></li>
 </tbody>
 </table>
 <dl class="method">
+<dt id="frites.dataset.DatasetEphy.copnorm">
+<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">condition='cc'</em>, <em class="sig-param">inference='rfx'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the Gaussian-Copula rank normalization.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="frites.dataset.DatasetEphy.groupby">
 <code class="sig-name descname">groupby</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='roi'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.groupby" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reorganize the data.</p>
+<dd><p>Reorganize the data inplace.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">

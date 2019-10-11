@@ -73,6 +73,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
@@ -87,6 +88,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
@@ -150,7 +152,7 @@ data coming from several subjects.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a>(x, y[, z, roi, times, nb_min_suj])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a>(x, y, roi[, z, times, nb_min_suj])</p></td>
 <td><p>Dataset of electrophysiological data coming from several subjects.</p></td>
 </tr>
 </tbody>
@@ -191,34 +193,37 @@ entropy etc..</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.copnorm_1d.html#frites.core.copnorm_1d" title="frites.core.copnorm_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm_1d</span></code></a>(x)</p></td>
 <td><p>Copula normalization for a single vector.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.ent_1d_g.html#frites.core.ent_1d_g" title="frites.core.ent_1d_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ent_1d_g</span></code></a>(x[, biascorrect])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.copnorm_cat_1d.html#frites.core.copnorm_cat_1d" title="frites.core.copnorm_cat_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm_cat_1d</span></code></a>(x, y)</p></td>
+<td><p>Categorical Copula normalization for a single vector.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.ent_1d_g.html#frites.core.ent_1d_g" title="frites.core.ent_1d_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ent_1d_g</span></code></a>(x[, biascorrect])</p></td>
 <td><p>Entropy of a Gaussian variable in bits.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.mi_1d_gg.html#frites.core.mi_1d_gg" title="frites.core.mi_1d_gg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_1d_gg</span></code></a>(x, y[, biascorrect, demeaned])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.mi_1d_gg.html#frites.core.mi_1d_gg" title="frites.core.mi_1d_gg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_1d_gg</span></code></a>(x, y[, biascorrect, demeaned])</p></td>
 <td><p>Mutual information (MI) between two Gaussian variables in bits.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.mi_model_1d_gd.html#frites.core.mi_model_1d_gd" title="frites.core.mi_model_1d_gd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_model_1d_gd</span></code></a>(x, y[, biascorrect, demeaned])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.mi_model_1d_gd.html#frites.core.mi_model_1d_gd" title="frites.core.mi_model_1d_gd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_model_1d_gd</span></code></a>(x, y[, biascorrect, demeaned])</p></td>
 <td><p>Mutual information between a Gaussian and a discrete variable in bits.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.mi_mixture_1d_gd.html#frites.core.mi_mixture_1d_gd" title="frites.core.mi_mixture_1d_gd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_mixture_1d_gd</span></code></a>(x, y)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.mi_mixture_1d_gd.html#frites.core.mi_mixture_1d_gd" title="frites.core.mi_mixture_1d_gd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_mixture_1d_gd</span></code></a>(x, y)</p></td>
 <td><p>Mutual information between a Gaussian and a discrete variable in bits.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.cmi_1d_ggg.html#frites.core.cmi_1d_ggg" title="frites.core.cmi_1d_ggg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmi_1d_ggg</span></code></a>(x, y, z[, biascorrect, demeaned])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.cmi_1d_ggg.html#frites.core.cmi_1d_ggg" title="frites.core.cmi_1d_ggg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmi_1d_ggg</span></code></a>(x, y, z[, biascorrect, demeaned])</p></td>
 <td><p>Conditional MI between two Gaussian variables conditioned on a third.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gcmi_1d_cc.html#frites.core.gcmi_1d_cc" title="frites.core.gcmi_1d_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_1d_cc</span></code></a>(x, y[, verbose])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gcmi_1d_cc.html#frites.core.gcmi_1d_cc" title="frites.core.gcmi_1d_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_1d_cc</span></code></a>(x, y[, verbose])</p></td>
 <td><p>Gaussian-Copula MI between two continuous variables.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gcmi_model_1d_cd.html#frites.core.gcmi_model_1d_cd" title="frites.core.gcmi_model_1d_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_model_1d_cd</span></code></a>(x, y[, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gcmi_model_1d_cd.html#frites.core.gcmi_model_1d_cd" title="frites.core.gcmi_model_1d_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_model_1d_cd</span></code></a>(x, y[, verbose])</p></td>
 <td><p>Gaussian-Copula MI between a continuous and a discrete variable.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gcmi_mixture_1d_cd.html#frites.core.gcmi_mixture_1d_cd" title="frites.core.gcmi_mixture_1d_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_mixture_1d_cd</span></code></a>(x, y[, verbose])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gcmi_mixture_1d_cd.html#frites.core.gcmi_mixture_1d_cd" title="frites.core.gcmi_mixture_1d_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_mixture_1d_cd</span></code></a>(x, y[, verbose])</p></td>
 <td><p>Gaussian-Copula MI between a continuous and a discrete variable.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gccmi_1d_ccc.html#frites.core.gccmi_1d_ccc" title="frites.core.gccmi_1d_ccc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_1d_ccc</span></code></a>(x, y, z[, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gccmi_1d_ccc.html#frites.core.gccmi_1d_ccc" title="frites.core.gccmi_1d_ccc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_1d_ccc</span></code></a>(x, y, z[, verbose])</p></td>
 <td><p>Gaussian-Copula CMI between three continuous variables.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gccmi_1d_ccd.html#frites.core.gccmi_1d_ccd" title="frites.core.gccmi_1d_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_1d_ccd</span></code></a>(x, y, z[, verbose])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gccmi_1d_ccd.html#frites.core.gccmi_1d_ccd" title="frites.core.gccmi_1d_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_1d_ccd</span></code></a>(x, y, z[, verbose])</p></td>
 <td><p>GCCMI between 2 continuous variables conditioned on a discrete variable.</p></td>
 </tr>
 </tbody>
@@ -236,28 +241,31 @@ entropy etc..</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.copnorm_nd.html#frites.core.copnorm_nd" title="frites.core.copnorm_nd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm_nd</span></code></a>(x[, axis])</p></td>
 <td><p>Copula normalization for a multidimentional array.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.mi_nd_gg.html#frites.core.mi_nd_gg" title="frites.core.mi_nd_gg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_nd_gg</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.copnorm_cat_nd.html#frites.core.copnorm_cat_nd" title="frites.core.copnorm_cat_nd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm_cat_nd</span></code></a>(x, y[, axis])</p></td>
+<td><p>Categorical Copula normalization for multidimentional array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.mi_nd_gg.html#frites.core.mi_nd_gg" title="frites.core.mi_nd_gg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_nd_gg</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
 <td><p>Multi-dimentional MI between two Gaussian variables in bits.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.mi_model_nd_gd.html#frites.core.mi_model_nd_gd" title="frites.core.mi_model_nd_gd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_model_nd_gd</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.mi_model_nd_gd.html#frites.core.mi_model_nd_gd" title="frites.core.mi_model_nd_gd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_model_nd_gd</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
 <td><p>Multi-dimentional MI between a Gaussian and a discret variables in bits.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.cmi_nd_ggg.html#frites.core.cmi_nd_ggg" title="frites.core.cmi_nd_ggg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmi_nd_ggg</span></code></a>(x, y, z[, mvaxis, traxis, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.cmi_nd_ggg.html#frites.core.cmi_nd_ggg" title="frites.core.cmi_nd_ggg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmi_nd_ggg</span></code></a>(x, y, z[, mvaxis, traxis, …])</p></td>
 <td><p>Multi-dimentional MI between three Gaussian variables in bits.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gcmi_nd_cc.html#frites.core.gcmi_nd_cc" title="frites.core.gcmi_nd_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_nd_cc</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gcmi_nd_cc.html#frites.core.gcmi_nd_cc" title="frites.core.gcmi_nd_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_nd_cc</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
 <td><p>GCMI between two continuous variables.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gcmi_model_nd_cd.html#frites.core.gcmi_model_nd_cd" title="frites.core.gcmi_model_nd_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_model_nd_cd</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gcmi_model_nd_cd.html#frites.core.gcmi_model_nd_cd" title="frites.core.gcmi_model_nd_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcmi_model_nd_cd</span></code></a>(x, y[, mvaxis, traxis, …])</p></td>
 <td><p>GCMI between a continuous and discret variables.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gccmi_nd_ccnd.html#frites.core.gccmi_nd_ccnd" title="frites.core.gccmi_nd_ccnd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_nd_ccnd</span></code></a>(x, y, \*z[, mvaxis, traxis, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gccmi_nd_ccnd.html#frites.core.gccmi_nd_ccnd" title="frites.core.gccmi_nd_ccnd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_nd_ccnd</span></code></a>(x, y, \*z[, mvaxis, traxis, …])</p></td>
 <td><p>Conditional GCMI between two continuous variables.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gccmi_model_nd_cdnd.html#frites.core.gccmi_model_nd_cdnd" title="frites.core.gccmi_model_nd_cdnd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_model_nd_cdnd</span></code></a>(x, y, \*z[, mvaxis, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gccmi_model_nd_cdnd.html#frites.core.gccmi_model_nd_cdnd" title="frites.core.gccmi_model_nd_cdnd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_model_nd_cdnd</span></code></a>(x, y, \*z[, mvaxis, …])</p></td>
 <td><p>Conditional GCMI between a continuous and a discret variable.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.gccmi_nd_ccc.html#frites.core.gccmi_nd_ccc" title="frites.core.gccmi_nd_ccc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_nd_ccc</span></code></a>(x, y, z[, mvaxis, traxis, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gccmi_nd_ccc.html#frites.core.gccmi_nd_ccc" title="frites.core.gccmi_nd_ccc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_nd_ccc</span></code></a>(x, y, z[, mvaxis, traxis, …])</p></td>
 <td><p>GCCMI between two continuous variables conditioned on a third.</p></td>
 </tr>
 </tbody>
