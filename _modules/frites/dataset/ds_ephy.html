@@ -141,6 +141,7 @@
 
 <span class="kn">import</span> <span class="nn">frites</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">copnorm_cat_nd</span><span class="p">,</span> <span class="n">copnorm_nd</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -148,7 +149,9 @@
 <div class="viewcode-block" id="DatasetEphy"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy">[docs]</a><span class="k">class</span> <span class="nc">DatasetEphy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Dataset of electrophysiological data coming from several subjects.</span>
 
-<span class="sd">    </span>
+<span class="sd">    This class is used to represent the neurophysiological data coming from</span>
+<span class="sd">    multiple subjects. Then, the created object can be used to compute the</span>
+<span class="sd">    mutual information and perform statistics on it.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -354,22 +357,64 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">y_roi</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y_roi</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y_roi</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y_roi</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi</span> <span class="o">=</span> <span class="n">suj_roi</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi_u</span> <span class="o">=</span> <span class="n">suj_roi_u</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span> <span class="o">=</span> <span class="n">roi</span>
         <span class="k">elif</span> <span class="n">groupby</span> <span class="o">==</span> <span class="s2">&quot;subject&quot;</span><span class="p">:</span>  <span class="c1"># -----------------------------------------</span>
-            <span class="k">pass</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;TODO FOR FIT + TRANSFERT ENTROPY&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">=</span> <span class="n">groupby</span></div>
 
 <div class="viewcode-block" id="DatasetEphy.copnorm"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.copnorm">[docs]</a>    <span class="k">def</span> <span class="nf">copnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Apply the Gaussian-Copula rank normalization.&quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="n">condition</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">]</span></div>
+        <span class="sd">&quot;&quot;&quot;Apply the Gaussian-Copula rank normalization.</span>
 
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+<span class="sd">        The copnorm is only applied to continuous variables.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        condition : {&#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;}</span>
+<span class="sd">            The copnorm depends on the mutual-information type that is going to</span>
+<span class="sd">            be performed. Choose either &#39;cc&#39; (continuous / continuous), &#39;cd&#39;</span>
+<span class="sd">            (continuous / discret) or &#39;ccd&#39; (continuous / continuous / discret)</span>
+<span class="sd">        inference : {&#39;rfx&#39;, &#39;ffx&#39;}</span>
+<span class="sd">            The copnorm also depends on the inference type. Choose either &#39;ffx&#39;</span>
+<span class="sd">            (fixed effect) to apply the copnorm across subjects or &#39;rfx&#39; (</span>
+<span class="sd">            random effect) to apply the copnorm per subject.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">condition</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">]</span>
+        <span class="c1"># do not enable to copnorm two times</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Data already copnormed.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Apply copnorm (condition=</span><span class="si">{condition}</span><span class="s2">; &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;inference=</span><span class="si">{inference}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="c1"># copnorm applied differently how data have been organized</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s2">&quot;roi&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
+                <span class="c1"># for the fixed effect (ffx) the copnorm is applied across</span>
+                <span class="c1"># subjects across all space and time</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;copnorm applied across subjects&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">condition</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
+                <span class="c1"># for the random effect (rfx) the copnorm is applied per</span>
+                <span class="c1"># subject across space and time</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;copnorm applied per subjects&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">condition</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s2">&quot;subject&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;FUTURE WORK&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="DatasetEphy.save"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the dataset.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;FUTURE WORK&quot;</span><span class="p">)</span></div>
 
     <span class="c1">###########################################################################</span>
     <span class="c1"># PROPERTIES</span>
@@ -398,7 +443,30 @@
     <span class="nd">@nb_min_suj</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">nb_min_suj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set nb_min_suj value.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nb_min_suj</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nb_min_suj</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the shape of the x, y and z (if defined).&quot;&quot;&quot;</span>
+        <span class="n">_ssh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">_xsh</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;...&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_ssh</span><span class="p">]</span>
+        <span class="n">_ysh</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;...&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_ssh</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>  <span class="c1"># Oh my zsh</span>
+            <span class="n">_zsh</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;...&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_ssh</span><span class="p">]</span>
+            <span class="n">_zpr</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;z ({len(self._z)} x </span><span class="si">{self._z[0].dtype}</span><span class="s2">) : &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;{&#39;, &#39;.join(_zsh)}&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_zpr</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;z : </span><span class="si">{None}</span><span class="s2">&quot;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;x ({len(self._x)} x </span><span class="si">{self._x[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_xsh)}&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;y ({len(self._y)} x </span><span class="si">{self._y[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_ysh)}&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">_zpr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -420,11 +488,16 @@
         <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="o">...</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1000</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
     <span class="c1"># time -= 5</span>
     <span class="c1"># [print(k.shape, i.shape) for k, i in zip(x, y)]</span>
 
-    <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">dt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dt</span><span class="o">.</span><span class="n">suj_roi</span><span class="p">])</span>
+    <span class="n">dt</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">dt</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="s2">&quot;cc&quot;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s2">&quot;rfx&quot;</span><span class="p">)</span>
     <span class="c1"># print(dt)</span>
 </pre></div>
 
