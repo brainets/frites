@@ -59,6 +59,8 @@ extensions = [
 templates_path = ['_templates']
 
 autosummary_generate = True
+autodoc_member_order = 'groupwise'
+autodoc_default_flags = ['members', 'inherited-members', 'no-undoc-members']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -102,7 +104,7 @@ html_theme_options = {
     'globaltoc_includehidden': "true",
     'source_link_position': "nav",
     'navbar_class': "navbar",
-    'bootswatch_theme': "readable",
+    'bootswatch_theme': "sandstone",
     'navbar_fixed_top': True,
     'navbar_links': [
                      ("Authors", "authors"),
@@ -130,8 +132,8 @@ sphinx_gallery_conf = {
 }
 
 numpydoc_show_class_members = False
-numpydoc_class_members_toctree = False
-numpydoc_use_blockquotes = False
+# numpydoc_class_members_toctree = False
+# numpydoc_use_blockquotes = False
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
