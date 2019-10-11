@@ -18,9 +18,9 @@ Workflow
 .. autosummary::
    :toctree: generated/
 
-   wc_mi_cc
-   wc_mi_cd
-   wc_mi_ccc
+   wf_mi_cc
+   wf_mi_cd
+   wf_mi_ccc
 
 Dataset
 -------
