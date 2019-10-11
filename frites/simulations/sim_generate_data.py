@@ -88,7 +88,7 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
     if as_mne:
         from mne import create_info, EpochsArray
         info = create_info(roi.tolist(), sf, ch_types='seeg')
-        signal = EpochsArray(signal, info, tmin=float(time[0]))
+        signal = EpochsArray(signal, info, tmin=float(time[0]), verbose=False)
     return signal, roi, time.squeeze()
 
 

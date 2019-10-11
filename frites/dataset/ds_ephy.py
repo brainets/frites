@@ -21,14 +21,14 @@ class DatasetEphy(object):
     ----------
     x : list
         List of length (n_subjects,). Each element of the list should either be
-        an array of shape (n_epochs, n_sites, n_pts), mne.Epochs,
+        an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
         mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).
     roi : list
         List of arrays of shape (n_channels,) describing the ROI name of each
         channel.
     y, z : list
         List of length (n_subjects,) of continuous or discret variables. Each
-        element of the list should be an array of shape (n_trials,) describing
+        element of the list should be an array of shape (n_epochs,) describing
         the continuous variable
     times : array_like | None
         The time vector to use. If the data are defined using MNE-Python, the
@@ -67,7 +67,7 @@ class DatasetEphy(object):
         self.__version__ = frites.__version__
 
         logger.info(f"Creation of a dataset composed with {self.n_subjects} "
-                    f"subjects. A minimum of {self.nb_min_suj} per roi is"
+                    f"subjects. A minimum of {self.nb_min_suj} per roi is "
                     "required")
 
         # ---------------------------------------------------------------------
@@ -78,9 +78,6 @@ class DatasetEphy(object):
             self.n_subjects)]
         self._y = [np.asarray(k) for k in y]
         self._z = z
-        if isinstance(z, list) and all([k.shape == i.shape for k, i in zip(
-                y, z)]):
-            self._y = [np.c_[k, i] for k, i in zip(self._y, z)]
 
         # check the time vector
         _x_times = np.unique([self._x[k].shape[1] for k in range(
@@ -154,7 +151,8 @@ class DatasetEphy(object):
         assert (data.ndim == 3), ("data should be a 3D array of shape "
                                   "(n_trials, n_channels, n_pts)")
 
-        # data.reshape(n_roi, n_times, n_trials)
+        # mne data are (n_epochs, n_channels, n_times). Here, we move the trial
+        # axis to the end
         return np.moveaxis(data, 0, -1)
 
     def groupby(self, groupby="roi"):
@@ -173,6 +171,11 @@ class DatasetEphy(object):
         logger.info(f"    Group data by {groupby}")
 
         if groupby == "roi":  # -----------------------------------------------
+            # first, start by merging (y, z)
+            if isinstance(self._z, list) and all([
+                k.shape == i.shape for k, i in zip(self._y, self._z)]):
+                self._y = [np.c_[k, i] for k, i in zip(self._y, self._z)]
+            # group by roi
             roi, x_roi, y_roi, suj_roi, suj_roi_u = [], [], [], [], []
             for r in self.roi_names:
                 # loop over subjects to find if roi is present. If not, discard
@@ -327,11 +330,12 @@ class DatasetEphy(object):
         else:
             _zpr = f"z : {None}"
 
-        print('-' * 79)
-        print(f"x ({len(self._x)} x {self._x[0].dtype}) : {', '.join(_xsh)}")
-        print(f"y ({len(self._y)} x {self._y[0].dtype}) : {', '.join(_ysh)}")
-        print(_zpr)
-        print('-' * 79)
+        shape = (f"{'-' * 79}\n"
+            f"x ({len(self._x)} x {self._x[0].dtype}) : {', '.join(_xsh)}\n"
+            f"y ({len(self._y)} x {self._y[0].dtype}) : {', '.join(_ysh)}\n"
+            f"{_zpr}\n"
+            f"{'-' * 79}")
+        return shape
 
 
 
@@ -362,6 +366,6 @@ if __name__ == '__main__':
     dt = DatasetEphy(x, y, roi=roi, z=z)
     dt.groupby("roi")
     print([k for k in dt.suj_roi])
-    dt.shape
+    print(dt.shape)
     dt.copnorm(condition="cc", inference="rfx")
     print(dt)

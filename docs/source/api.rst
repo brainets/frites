@@ -5,6 +5,23 @@ API
    :local:
    :depth: 2
 
+
+Workflow
+--------
+
+.. currentmodule:: frites.workflow
+
+.. automodule:: frites.workflow
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   wc_mi_cc
+   wc_mi_cd
+   wc_mi_ccc
+
 Dataset
 -------
 

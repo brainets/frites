@@ -1,6 +1,8 @@
 """Simulate datasets for computing MI (cc / cd / ccd)."""
 import numpy as np
 
+from frites.config import CONFIG
+
 
 def sim_mi_cc(x, snr=.9):
     """Extract a continuous variable from data.
@@ -38,6 +40,9 @@ def sim_mi_cc(x, snr=.9):
     """
     assert 0 < snr <= 1.
     assert isinstance(x, list)
+    # if mne types, turn into arrays
+    if isinstance(x[0], CONFIG["MNE_EPOCHS_TYPE"]):
+        x = [x[k].get_data() for k in range(len(x))]
     n_times, n_epochs = x[0].shape[-1], x[0].shape[0]
     # cluster definition (10% length around central point)
     middle = int(np.round(n_times / 2))
@@ -107,7 +112,7 @@ if __name__ == '__main__':
     n_times = 50
     n_roi = 1
     n_sites_per_roi = 1
-    as_mne = False
+    as_mne = True
     x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                       n_times=n_times, n_roi=n_roi,
                                       n_sites_per_roi=n_sites_per_roi,
