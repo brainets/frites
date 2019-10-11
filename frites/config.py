@@ -26,3 +26,7 @@ MA_NAMES = ['L_VCcm', 'L_VCl', 'L_VCs', 'L_Cu', 'L_VCrm', 'L_ITCm', 'L_ITCr',
             'L_Put', 'L_GP', 'L_Hipp', 'L_Amyg', 'L_NAc', 'R_Thal', 'R_Cd',
             'R_Put', 'R_GP', 'R_Hipp', 'R_Amyg', 'R_NAc']
 CONFIG["MA_NAMES"] = MA_NAMES
+
+# gcmi configuration
+GCMI_BIASCORRECT = True
+GCMI_DEMEANED = True

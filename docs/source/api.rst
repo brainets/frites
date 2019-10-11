@@ -1,6 +1,10 @@
 API
 ===
 
+.. contents::
+   :local:
+   :depth: 2
+
 Dataset
 -------
 
@@ -19,11 +23,15 @@ Dataset
 Simulations
 -----------
 
+
 .. currentmodule:: frites.simulations
 
 .. automodule:: frites.simulations
    :no-members:
    :no-inherited-members:
+
+Simulate random data
+++++++++++++++++++++
 
 .. autosummary::
    :toctree: generated/
@@ -31,6 +39,15 @@ Simulations
    sim_single_suj_ephy
    sim_multi_suj_ephy
 
+Simulate random mutual information
+++++++++++++++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   sim_mi_cc
+   sim_mi_cd
+   sim_mi_ccd
 
 Core
 ----

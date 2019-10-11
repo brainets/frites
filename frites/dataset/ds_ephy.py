@@ -112,6 +112,7 @@ class DatasetEphy(object):
                f"minimum number of subject per roi: {self.nb_min_suj}\n"
                f"modality : {self.modality}\n"
                f"data grouped by : {self._groupedby}\n"
+               f"copnormed : {self._copnormed}\n"
                f"version : {self.__version__}\n"
                f"{sep}")
         return rep
@@ -168,7 +169,7 @@ class DatasetEphy(object):
         if groupby == self._groupedby:
             logger.warning("Grouping ignored because already grouped by "
                            f"{self._groupedby}")
-            exit()
+            return
         logger.info(f"    Group data by {groupby}")
 
         if groupby == "roi":  # -----------------------------------------------
@@ -249,8 +250,9 @@ class DatasetEphy(object):
         assert condition in ['cc', 'cd', 'ccd']
         assert inference in ['rfx', 'ffx']
         # do not enable to copnorm two times
-        if self._copnormed:
-            raise ValueError("Data already copnormed.")
+        if isinstance(self._copnormed, str):
+            logger.warning("Data already copnormed. Copnorm ignored")
+            return None
         logger.info(f"    Apply copnorm (condition={condition}; "
                     f"inference={inference})")
         # copnorm applied differently how data have been organized
@@ -274,7 +276,7 @@ class DatasetEphy(object):
         elif self._groupedby == "subject":
             raise NotImplementedError("FUTURE WORK")
 
-        self._copnormed = True
+        self._copnormed = f"{condition} - {inference}"
 
     def save(self):
         """Save the dataset."""
@@ -362,4 +364,4 @@ if __name__ == '__main__':
     print([k for k in dt.suj_roi])
     dt.shape
     dt.copnorm(condition="cc", inference="rfx")
-    # print(dt)
+    print(dt)

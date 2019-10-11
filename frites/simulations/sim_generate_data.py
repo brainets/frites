@@ -51,6 +51,10 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
         Array of region of interest of shape (n_sites,)
     time : array_like
         The time vector of shape (n_times)
+
+    See also
+    --------
+    sim_multi_suj_ephy
     """
     assert modality in ["meeg", "intra"]
     ma = np.array(CONFIG['MA_NAMES'])
@@ -91,6 +95,9 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
 def sim_multi_suj_ephy(modality="meeg", n_subjects=10, **kwargs):
     """Simulate electrophysiological data of multiple subjects.
 
+    This function basically use :func:`sim_single_suj_ephy` under the hood to
+    generate the data of multiple subjects.
+
     Parameters
     ----------
     n_subjects : int | 10
@@ -113,6 +120,10 @@ def sim_multi_suj_ephy(modality="meeg", n_subjects=10, **kwargs):
         interest's names per subject.
     time : array_like
         The time vector of shape (n_times)
+
+    See also
+    --------
+    sim_single_suj_ephy
     """
     # random state
     random_state = kwargs.get('random_state', None)
