@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.mi_mixture_1d_gd &#8212; frites 0.0.0 documentation</title>
+    <title>frites.simulations.sim_mi_cd &#8212; frites 0.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -15,8 +15,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.cmi_1d_ggg" href="frites.core.cmi_1d_ggg.html" />
-    <link rel="prev" title="frites.core.mi_model_1d_gd" href="frites.core.mi_model_1d_gd.html" />
+    <link rel="next" title="frites.simulations.sim_mi_ccd" href="frites.simulations.sim_mi_ccd.html" />
+    <link rel="prev" title="frites.simulations.sim_mi_cc" href="frites.simulations.sim_mi_cc.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -66,28 +66,28 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.simulations.sim_mi_cd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
@@ -125,7 +125,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.core.mi_mixture_1d_gd.rst.txt"
+  <a href="../_sources/generated/frites.simulations.sim_mi_cd.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -149,30 +149,47 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-mi-mixture-1d-gd">
-<h1>frites.core.mi_mixture_1d_gd<a class="headerlink" href="#frites-core-mi-mixture-1d-gd" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-simulations-sim-mi-cd">
+<h1>frites.simulations.sim_mi_cd<a class="headerlink" href="#frites-simulations-sim-mi-cd" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.core.mi_mixture_1d_gd">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">mi_mixture_1d_gd</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_1d.html#mi_mixture_1d_gd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.mi_mixture_1d_gd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mutual information between a Gaussian and a discrete variable in bits.</p>
-<p>This method evaluate MI from a Gaussian mixture.
-I = mi_mixture_gd(x,y) returns the MI between the (possibly
-multidimensional)</p>
+<dt id="frites.simulations.sim_mi_cd">
+<code class="sig-prename descclassname">frites.simulations.</code><code class="sig-name descname">sim_mi_cd</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">n_conditions=3</em>, <em class="sig-param">snr=0.9</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_mi.html#sim_mi_cd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.sim_mi_cd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a discret variable from data.</p>
+<p>This function can be used to then evaluate the mutual information between
+some neurophysiological data and a discret variable (e.g conditions). This
+is an equivalent to what is done in machine-learning.</p>
+<p>This function takes as an input some random or real data and generates a
+discret variable from it. If you want to generate some compatible
+random data see the function <a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_multi_suj_ephy()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x, y</strong><span class="classifier">array_like</span></dt><dd><p>Gaussian arrays of shape (n_epochs,) or (n_dimensions, n_epochs). y
-must be an array of integers</p>
+<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of data coming from multiple subjects. Each element of this must
+be an array of shape (n_epochs, n_sites, n_pts)</p>
+</dd>
+<dt><strong>snr</strong><span class="classifier">float | 80.</span></dt><dd><p>Signal to noise ratio between [0, 1] (0 = no noise ; 1 = pure noise)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>i</strong><span class="classifier">float</span></dt><dd><p>Information shared by x and y (in bits)</p>
+<dt><strong>y</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of discret variables. Each array has a
+shape of (n_epochs,)</p>
+</dd>
+<dt><strong>gt</strong><span class="classifier">array_like</span></dt><dd><p>Ground truth array of length (n_times,). This boolean array contains
+True where a cluster has been defined</p>
 </dd>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_multi_suj_ephy</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="frites.simulations.sim_mi_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cc</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="frites.simulations.sim_mi_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_ccd</span></code></a></dt><dd></dd>
+</dl>
+</div>
 </dd></dl>
 
 </div>

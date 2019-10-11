@@ -61,13 +61,23 @@
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-frites.workflow">Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.dataset">Dataset</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.simulations">Simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulate-random-data">Simulate random data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.core">Core</a><ul>
@@ -141,8 +151,49 @@
       
   <div class="section" id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-frites.workflow" id="id1">Workflow</a></p></li>
+<li><p><a class="reference internal" href="#module-frites.dataset" id="id2">Dataset</a></p></li>
+<li><p><a class="reference internal" href="#module-frites.simulations" id="id3">Simulations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simulate-random-data" id="id4">Simulate random data</a></p></li>
+<li><p><a class="reference internal" href="#simulate-random-mutual-information" id="id5">Simulate random mutual information</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#module-frites.core" id="id6">Core</a></p>
+<ul>
+<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id7">Gaussian-Copula (1d)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id8">Gaussian-copula (Nd)</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="module-frites.workflow">
+<span id="workflow"></span><h2><a class="toc-backref" href="#id1">Workflow</a><a class="headerlink" href="#module-frites.workflow" title="Permalink to this headline">¶</a></h2>
+<p>Workflow functions for assessing mutual information and statistics.</p>
+<p>The following functions are pipelines designed for computing the mutual
+information and statistics (fixed effect or random effect).</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wc_mi_cc</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wc_mi_cd</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wc_mi_ccc</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="module-frites.dataset">
-<span id="dataset"></span><h2>Dataset<a class="headerlink" href="#module-frites.dataset" title="Permalink to this headline">¶</a></h2>
+<span id="dataset"></span><h2><a class="toc-backref" href="#id2">Dataset</a><a class="headerlink" href="#module-frites.dataset" title="Permalink to this headline">¶</a></h2>
 <p>Dataset’s related functions and classes.</p>
 <p>This submodule contains functions and classes to handle electrophysiological
 data coming from several subjects.</p>
@@ -159,8 +210,10 @@ data coming from several subjects.</p>
 </table>
 </div>
 <div class="section" id="module-frites.simulations">
-<span id="simulations"></span><h2>Simulations<a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
+<span id="simulations"></span><h2><a class="toc-backref" href="#id3">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
 <p>Simulations’ functions.</p>
+<div class="section" id="simulate-random-data">
+<h3><a class="toc-backref" href="#id4">Simulate random data</a><a class="headerlink" href="#simulate-random-data" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -176,13 +229,34 @@ data coming from several subjects.</p>
 </tbody>
 </table>
 </div>
+<div class="section" id="simulate-random-mutual-information">
+<h3><a class="toc-backref" href="#id5">Simulate random mutual information</a><a class="headerlink" href="#simulate-random-mutual-information" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="frites.simulations.sim_mi_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cc</span></code></a>(x[, snr])</p></td>
+<td><p>Extract a continuous variable from data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_mi_cd.html#frites.simulations.sim_mi_cd" title="frites.simulations.sim_mi_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cd</span></code></a>(x[, n_conditions, snr])</p></td>
+<td><p>Extract a discret variable from data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="frites.simulations.sim_mi_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_ccd</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="section" id="module-frites.core">
-<span id="core"></span><h2>Core<a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
+<span id="core"></span><h2><a class="toc-backref" href="#id6">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
 <p>Core functions of information theoretical measures.</p>
 <p>This submodule contains all of the functions to compute mutual-information,
 entropy etc..</p>
 <div class="section" id="gaussian-copula-1d">
-<h3>Gaussian-Copula (1d)<a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to unidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -230,7 +304,7 @@ entropy etc..</p>
 </table>
 </div>
 <div class="section" id="gaussian-copula-nd">
-<h3>Gaussian-copula (Nd)<a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to multidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
