@@ -14,7 +14,6 @@ Dataset
    :toctree: generated/
 
    DatasetEphy
-   DatasetFMRI
 
 
 Simulations
@@ -41,6 +40,7 @@ Core
 .. automodule:: frites.core
    :no-members:
    :no-inherited-members:
+
 
 Gaussian-Copula (1d)
 ++++++++++++++++++++
