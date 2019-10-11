@@ -1,0 +1,28 @@
+{% extends '!layout.html' %}
+
+{% block footer %}
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="{{pathto('_static/baniere.png', 1)}}" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="{{ pathto('genindex.html', 1) }}">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="{{pathto('authors.html', 1) }}">Contributors</a></li>
+                <!--
+                <li>·</li> 
+                <li style="font-weight:bold"><a href="{{pathto('community.html', 1) }}">Community</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="{{pathto('cite.html', 1) }}">Citation</a></li>
+                -->
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright {{ copyright }}.</p>
+    </footer>
+{% endblock %}
