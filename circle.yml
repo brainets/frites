@@ -57,6 +57,7 @@ jobs:
         - run:
             name: Run tests
             command: |
+              source activate testenv;
               pytest --verbose;
         - run:
             name: Build the documentation
