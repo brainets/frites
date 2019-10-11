@@ -5,6 +5,7 @@ import numpy as np
 
 import frites
 from frites.config import CONFIG
+from frites.core import copnorm_cat_nd, copnorm_nd
 
 logger = logging.getLogger("frites")
 
@@ -12,7 +13,9 @@ logger = logging.getLogger("frites")
 class DatasetEphy(object):
     """Dataset of electrophysiological data coming from several subjects.
 
-    
+    This class is used to represent the neurophysiological data coming from
+    multiple subjects. Then, the created object can be used to compute the
+    mutual information and perform statistics on it.
 
     Parameters
     ----------
@@ -218,22 +221,64 @@ class DatasetEphy(object):
                 self._y = y_roi
             else:
                 self._y = [k[:, 0] for k in y_roi]
-                self._z = [k[:, 1:] for k in y_roi]
+                self._z = [k[:, 1:].astype(int) for k in y_roi]
             self.suj_roi = suj_roi
             self.suj_roi_u = suj_roi_u
             self.roi_names = roi
         elif groupby == "subject":  # -----------------------------------------
-            pass
+            raise NotImplementedError("TODO FOR FIT + TRANSFERT ENTROPY")
 
         self._groupedby = groupby
 
     def copnorm(self, condition='cc', inference='rfx'):
-        """Apply the Gaussian-Copula rank normalization."""
+        """Apply the Gaussian-Copula rank normalization.
+
+        The copnorm is only applied to continuous variables.
+
+        Parameters
+        ----------
+        condition : {'cc', 'cd', 'ccd'}
+            The copnorm depends on the mutual-information type that is going to
+            be performed. Choose either 'cc' (continuous / continuous), 'cd'
+            (continuous / discret) or 'ccd' (continuous / continuous / discret)
+        inference : {'rfx', 'ffx'}
+            The copnorm also depends on the inference type. Choose either 'ffx'
+            (fixed effect) to apply the copnorm across subjects or 'rfx' (
+            random effect) to apply the copnorm per subject.
+        """
         assert condition in ['cc', 'cd', 'ccd']
         assert inference in ['rfx', 'ffx']
+        # do not enable to copnorm two times
+        if self._copnormed:
+            raise ValueError("Data already copnormed.")
+        logger.info(f"    Apply copnorm (condition={condition}; "
+                    f"inference={inference})")
+        # copnorm applied differently how data have been organized
+        if self._groupedby == "roi":
+            if inference == 'ffx':
+                # for the fixed effect (ffx) the copnorm is applied across
+                # subjects across all space and time
+                logger.debug("copnorm applied across subjects")
+                self._x = [copnorm_nd(k, axis=-1) for k in self._x]
+                if condition in ['cc', 'ccd']:
+                    self._y = [copnorm_nd(k, axis=0) for k in self._y]
+            elif inference == 'rfx':
+                # for the random effect (rfx) the copnorm is applied per
+                # subject across space and time
+                logger.debug("copnorm applied per subjects")
+                self._x = [copnorm_cat_nd(k, i, axis=-1) for k, i in zip(
+                    self._x, self.suj_roi)]
+                if condition in ['cc', 'ccd']:
+                    self._y = [copnorm_cat_nd(k, i, axis=0) for k, i in zip(
+                        self._y, self.suj_roi)]
+        elif self._groupedby == "subject":
+            raise NotImplementedError("FUTURE WORK")
+
+        self._copnormed = True
 
     def save(self):
-        pass
+        """Save the dataset."""
+        raise NotImplementedError("FUTURE WORK")
 
     ###########################################################################
     # PROPERTIES
@@ -264,6 +309,29 @@ class DatasetEphy(object):
         """Set nb_min_suj value."""
         self._nb_min_suj = -np.inf if not isinstance(value, int) else value
 
+    @property
+    def shape(self):
+        """Get the shape of the x, y and z (if defined)."""
+        _ssh = [0, 1, None, -1]
+        _xsh = [str(self._x[k].shape) if isinstance(
+            k, int) else "..." for k in _ssh]
+        _ysh = [str(self._y[k].shape) if isinstance(
+            k, int) else "..." for k in _ssh]
+        if isinstance(self._z, list):  # Oh my zsh
+            _zsh = [str(self._z[k].shape) if isinstance(
+                k, int) else "..." for k in _ssh]
+            _zpr = (f"z ({len(self._z)} x {self._z[0].dtype}) : "
+                    f"{', '.join(_zsh)}")
+        else:
+            _zpr = f"z : {None}"
+
+        print('-' * 79)
+        print(f"x ({len(self._x)} x {self._x[0].dtype}) : {', '.join(_xsh)}")
+        print(f"y ({len(self._y)} x {self._y[0].dtype}) : {', '.join(_ysh)}")
+        print(_zpr)
+        print('-' * 79)
+
+
 
 if __name__ == '__main__':
     from frites.simulations import sim_multi_suj_ephy
@@ -284,9 +352,14 @@ if __name__ == '__main__':
         y = [k.get_data()[..., 50:100].sum(axis=(1, 2)) for k in x]
     else:
         y = [k[..., 50:100].sum(axis=(1, 2)) for k in x]
-    z = [np.random.randint(0, 10, len(k)) for k in y]
+    z = [np.random.randint(0, 10, (len(k), 2)) for k in y]
+    x = [k + 1000 for k in x]
     # time -= 5
     # [print(k.shape, i.shape) for k, i in zip(x, y)]
 
-    dt = DatasetEphy(x, y, roi=roi, )
+    dt = DatasetEphy(x, y, roi=roi, z=z)
+    dt.groupby("roi")
+    print([k for k in dt.suj_roi])
+    dt.shape
+    dt.copnorm(condition="cc", inference="rfx")
     # print(dt)

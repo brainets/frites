@@ -107,10 +107,10 @@ html_theme_options = {
     'bootswatch_theme': "sandstone",
     'navbar_fixed_top': True,
     'navbar_links': [
-                     ("Authors", "authors"),
-                     ("API", "api"),
-                     ("Examples", "auto_examples/index"),
-                     ],
+        ("Authors", "authors"),
+        ("API", "api"),
+        ("Examples", "auto_examples/index"),
+    ],
 }
 
 sphinx_gallery_conf = {
@@ -167,10 +167,9 @@ htmlhelp_basename = 'fritesdoc'
 html_logo = '_static/frites_128x128.png'
 
 # The name of an image file (relative to this directory) to use as a favicon of
-# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
-# pixels large.
+# the docs.  This file should be a Windows icon file (.ico) being 16x16 or
+# 32x32 pixels large.
 html_favicon = '_static/favicon.ico'
-
 
 
 # -- Options for LaTeX output ------------------------------------------------
