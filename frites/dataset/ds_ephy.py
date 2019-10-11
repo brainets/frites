@@ -12,17 +12,30 @@ logger = logging.getLogger("frites")
 class DatasetEphy(object):
     """Dataset of electrophysiological data coming from several subjects.
 
-    The following steps are performed :
-
-        * Load the data of each subject (support for MNE types) and convert
-          into NumPy arrays
-        *
+    
 
     Parameters
     ----------
+    x : list
+        List of length (n_subjects,). Each element of the list should either be
+        an array of shape (n_epochs, n_sites, n_pts), mne.Epochs,
+        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).
+    roi : list
+        List of arrays of shape (n_channels,) describing the ROI name of each
+        channel.
+    y, z : list
+        List of length (n_subjects,) of continuous or discret variables. Each
+        element of the list should be an array of shape (n_trials,) describing
+        the continuous variable
+    times : array_like | None
+        The time vector to use. If the data are defined using MNE-Python, the
+        time vector is directly infered from thos files.
+    nb_min_suj : int | 10
+        The minimum number of subjects per roi. Roi with n_suj < nb_min_suj
+        are going to be skipped. Use None to skip this parameter
     """
 
-    def __init__(self, x, y, z=None, roi=None, times=None, nb_min_suj=None):
+    def __init__(self, x, y, roi, z=None, times=None, nb_min_suj=None):
         """Init."""
         # ---------------------------------------------------------------------
         # check input
@@ -58,7 +71,8 @@ class DatasetEphy(object):
         # load the data of each subject
 
         logger.info("    Load the data of each subject")
-        self._x = [self._load_single_suj_ephy(x[k]) for k in range(len(self))]
+        self._x = [self._load_single_suj_ephy(x[k]) for k in range(
+            self.n_subjects)]
         self._y = [np.asarray(k) for k in y]
         self._z = z
         if isinstance(z, list) and all([k.shape == i.shape for k, i in zip(
@@ -66,11 +80,14 @@ class DatasetEphy(object):
             self._y = [np.c_[k, i] for k, i in zip(self._y, z)]
 
         # check the time vector
-        _x_times = np.unique([self._x[k].shape[1] for k in range(len(self))])
+        _x_times = np.unique([self._x[k].shape[1] for k in range(
+          self.n_subjects)])
         assert _x_times.size == 1, ("Inconsistent number of time points across"
                                     " subjects")
         self.n_times = self._x[0].shape[1]
         if not isinstance(self.times, np.ndarray):
+            logger.warning("No time vector found. A default will be used "
+                           "instead")
             self.times = np.arange(self.n_times)
 
         # check consistency between x and y
@@ -78,10 +95,6 @@ class DatasetEphy(object):
                                        len(self._y[k])) for k in range(
             self.n_subjects)]
         assert all(_const), "Inconsistent shape between x, y and roi"
-
-        # ---------------------------------------------------------------------
-        # reorganize by roi
-        self.groupby("roi")
 
     ###########################################################################
     # INTERNALS
@@ -141,7 +154,7 @@ class DatasetEphy(object):
         return np.moveaxis(data, 0, -1)
 
     def groupby(self, groupby="roi"):
-        """Reorganize the data.
+        """Reorganize the data inplace.
 
         Parameters
         ----------
@@ -214,8 +227,10 @@ class DatasetEphy(object):
 
         self._groupedby = groupby
 
-    def copnorm(self, condition='cc', stats='rfx'):
-        pass
+    def copnorm(self, condition='cc', inference='rfx'):
+        """Apply the Gaussian-Copula rank normalization."""
+        assert condition in ['cc', 'cd', 'ccd']
+        assert inference in ['rfx', 'ffx']
 
     def save(self):
         pass
