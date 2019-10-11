@@ -39,6 +39,7 @@ jobs:
               conda create -n testenv --yes python=3.6 numpy scipy pip joblib matplotlib;
               source activate testenv;
               pip install -U pip;
+              pip install -U codecov pytest pytest-cov pytest-sugar pytest-travis-fold pytest-faulthandler;
               pip install -U sphinx sphinx-gallery sphinx_bootstrap_theme numpydoc xlrd pillow openpyxl seaborn;
               echo $PATH;
               echo $CIRCLE_BRANCH;
@@ -53,6 +54,10 @@ jobs:
             command: |
               source activate testenv;
               python setup.py develop;
+        - run:
+            name: Run tests
+            command: |
+              pytest --verbose;
         - run:
             name: Build the documentation
             command: |

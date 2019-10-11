@@ -63,3 +63,8 @@ script:
 
 notifications:
     email: false
+
+after_success:
+    - if [ "${TEST}" == "standard" ]; then
+        codecov;
+      fi
