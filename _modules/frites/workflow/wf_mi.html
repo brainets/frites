@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.workflow.wf_mi &#8212; frites 0.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.0.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-data">Simulate random data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.workflow.wf_mi</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Workflow for computing MI and evaluate statistics.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">MI_FUN</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
+<span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="WorkflowMiStats"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats">[docs]</a><span class="k">class</span> <span class="nc">WorkflowMiStats</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Workflow of mutual-information and statistics.</span>
+
+<span class="sd">    This class allows to define a workflow for computing the mutual information</span>
+<span class="sd">    and then to evaluate the significance using non-parametric statistics</span>
+<span class="sd">    (either within-subjects or between subjects).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi_type : {&#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;}</span>
+<span class="sd">        The type of mutual information that is going to be performed. Use</span>
+<span class="sd">        either :</span>
+
+<span class="sd">            * &#39;cc&#39; : mutual information between two continuous variables</span>
+<span class="sd">            * &#39;cd&#39; : mutual information between a continuous and a discret</span>
+<span class="sd">              variables</span>
+<span class="sd">            * &#39;ccd&#39; : mutual information between two continuous variables</span>
+<span class="sd">              conditioned by a third discret one</span>
+<span class="sd">    inference : {&quot;ffx&quot;, &quot;rfx&quot;}</span>
+<span class="sd">        Statistical inferences that is desired. Use either :</span>
+
+<span class="sd">            * &#39;ffx&#39; : fixed-effect to make inferences only for the population</span>
+<span class="sd">              that have been used</span>
+<span class="sd">            * &#39;rfx&#39; : random-effect to generalize inferences to a random</span>
+<span class="sd">              population.</span>
+
+<span class="sd">        By default, the workflow uses group level inference (&#39;rfx&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="WorkflowMiStats.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2">) and&quot;</span>
+                    <span class="n">f</span><span class="s2">&quot; statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
+
+    <span class="c1">###########################################################################</span>
+    <span class="c1">#                                INTERNALS</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        1 - Prepare the data (group by roi and copnorm)</span>
+<span class="sd">        2 - Compute the MI (mi) and the permuted MI (mi_p)</span>
+<span class="sd">        3 - Evaluate the p-values using non-parametric statistics</span>
+<span class="sd">        4 - Post-process outputs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">###########################################################################</span>
+
+    <span class="k">def</span> <span class="nf">_node_prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Prepare the data before computing the mi.</span>
+
+<span class="sd">        The preparation of the data depends both on the type of inferences</span>
+<span class="sd">        that are required and on the type of mutual information that is going</span>
+<span class="sd">        to be performed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># inplace preparation</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
+
+<span class="sd">        Permutations are performed by randomizing the regressor variable. For</span>
+<span class="sd">        the fixed effect, this randomization is performed across subjects. For</span>
+<span class="sd">        the random effect, the randomization is performed per subject.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># get the function for computing mi</span>
+        <span class="n">mi_fun</span> <span class="o">=</span> <span class="n">MI_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="ow">in</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">assert</span> <span class="n">f</span><span class="s2">&quot;_</span><span class="si">{CONFIG[&#39;COPULA_CONV&#39;][self._mi_type]}</span><span class="s2">_&quot;</span> <span class="ow">in</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="c1"># get x, y, z and subject names per roi</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">suj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi</span>
+        <span class="n">n_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_roi</span>
+        <span class="c1"># evaluate true mi</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{n_perm}</span><span class="s2">, &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{n_jobs}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)]</span>
+        <span class="c1"># evaluate permuted mi</span>
+        <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+            <span class="c1"># get the randomize version of y</span>
+            <span class="n">y_p</span> <span class="o">=</span> <span class="n">permute_mi_vector</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span>
+                                    <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
+            <span class="c1"># run permutations using the randomize regressor</span>
+            <span class="n">_mi</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;JOBLIB_CFG&quot;</span><span class="p">])(</span><span class="n">delayed</span><span class="p">(</span>
+               <span class="n">mi_fun</span><span class="p">)(</span><span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
+            <span class="n">mi_p</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_mi</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
+
+
+    <span class="k">def</span> <span class="nf">_node_compute_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1">###########################################################################</span>
+    <span class="c1">#                             EXTERNALS</span>
+    <span class="c1">###########################################################################</span>
+
+<div class="viewcode-block" id="WorkflowMiStats.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
+
+<span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
+<span class="sd">        (see :class:`frites.dataset.DatasetEphy`)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
+<span class="sd">            A dataset instance</span>
+<span class="sd">        n_perm : int | 1000</span>
+<span class="sd">            Number of permutations to perform in order to estimate the random</span>
+<span class="sd">            distribution of mi that can be obtained by chance</span>
+<span class="sd">        n_jobs : int | -1</span>
+<span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
+<span class="sd">            jobs)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+        <span class="n">pvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_stats</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WorkflowMiStats.convert_outputs"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.convert_outputs">[docs]</a>    <span class="k">def</span> <span class="nf">convert_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">convert_to</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert outputs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mi : array_like</span>
+<span class="sd">            Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">        pvalues : array_like</span>
+<span class="sd">            Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">        convert_to : {&#39;dataframe&#39;, &#39;dataarray&#39;, &#39;dataset&#39;}</span>
+<span class="sd">            Convert the mutual information and p-values arrays either to</span>
+<span class="sd">            pandas DataFrames (require pandas to be installed) either to a</span>
+<span class="sd">            xarray DataArray (require xarray to be installed)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># &#39;dataframe&#39;, &#39;dataarray&#39;, &#39;dataset&#39; &lt;-</span>
+        <span class="k">pass</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="k">import</span> <span class="n">sim_multi_suj_ephy</span><span class="p">,</span> <span class="n">sim_mi_cc</span>
+    <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="k">import</span> <span class="n">DatasetEphy</span>
+    <span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">mi_nd_gg</span>
+
+    <span class="n">modality</span> <span class="o">=</span> <span class="s1">&#39;intra&#39;</span>
+    <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">n_times</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">n_sites_per_roi</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">as_mne</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">sim_multi_suj_ephy</span><span class="p">(</span><span class="n">n_subjects</span><span class="o">=</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span>
+                                      <span class="n">n_times</span><span class="o">=</span><span class="n">n_times</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="n">n_roi</span><span class="p">,</span>
+                                      <span class="n">n_sites_per_roi</span><span class="o">=</span><span class="n">n_sites_per_roi</span><span class="p">,</span>
+                                      <span class="n">as_mne</span><span class="o">=</span><span class="n">as_mne</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="n">modality</span><span class="p">,</span>
+                                      <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sim_mi_cc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="mi">512</span>
+
+    <span class="c1"># y_t = np.tile(y[0].reshape(-1, 1, 1), (1, x[0].shape[1], 100))</span>
+    <span class="c1"># print(x[0].shape, y[0].shape)</span>
+    <span class="c1"># mi_t = mi_nd_gg(x[0], y_t, traxis=0)</span>
+
+    <span class="c1"># plt.plot(mi_t.T)</span>
+    <span class="c1"># plt.show()</span>
+    <span class="c1"># exit()</span>
+
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Contributors</a></li>
+                <!--
+                <li>·</li> 
+                <li style="font-weight:bold"><a href="../../../community.html">Community</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../cite.html">Citation</a></li>
+                -->
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright 2019, Etienne Combrisson.</p>
+    </footer>
+
+  </body>
+</html>

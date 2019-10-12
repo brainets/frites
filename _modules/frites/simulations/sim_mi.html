@@ -61,8 +61,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.wf_mi_cc.html">frites.workflow.wf_mi_cc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.wf_mi_cd.html">frites.workflow.wf_mi_cd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
@@ -213,39 +212,6 @@
 
 
 <div class="viewcode-block" id="sim_mi_cd"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_mi_cd.html#frites.simulations.sim_mi_cd">[docs]</a><span class="k">def</span> <span class="nf">sim_mi_cd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_conditions</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">9</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Extract a discret variable from data.</span>
-
-<span class="sd">    This function can be used to then evaluate the mutual information between</span>
-<span class="sd">    some neurophysiological data and a discret variable (e.g conditions). This</span>
-<span class="sd">    is an equivalent to what is done in machine-learning.</span>
-
-<span class="sd">    This function takes as an input some random or real data and generates a</span>
-<span class="sd">    discret variable from it. If you want to generate some compatible</span>
-<span class="sd">    random data see the function :func:`sim_multi_suj_ephy`.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : list</span>
-<span class="sd">        List of data coming from multiple subjects. Each element of this must</span>
-<span class="sd">        be an array of shape (n_epochs, n_sites, n_pts)</span>
-<span class="sd">    snr : float | 80.</span>
-<span class="sd">        Signal to noise ratio between [0, 1] (0 = no noise ; 1 = pure noise)</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    y : list</span>
-<span class="sd">        List of length (n_subjects,) of discret variables. Each array has a</span>
-<span class="sd">        shape of (n_epochs,)</span>
-<span class="sd">    gt : array_like</span>
-<span class="sd">        Ground truth array of length (n_times,). This boolean array contains</span>
-<span class="sd">        True where a cluster has been defined</span>
-
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    sim_multi_suj_ephy</span>
-<span class="sd">    sim_mi_cc</span>
-<span class="sd">    sim_mi_ccd</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;TODO&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="sim_mi_ccd"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd">[docs]</a><span class="k">def</span> <span class="nf">sim_mi_ccd</span><span class="p">():</span>
