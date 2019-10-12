@@ -176,8 +176,33 @@
 <h1>frites.stats.ffx_cluster_tfce<a class="headerlink" href="#frites-stats-ffx-cluster-tfce" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.stats.ffx_cluster_tfce">
-<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">ffx_cluster_tfce</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_ffx.html#ffx_cluster_tfce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.ffx_cluster_tfce" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">ffx_cluster_tfce</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">start=None</em>, <em class="sig-param">step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_ffx.html#ffx_cluster_tfce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.ffx_cluster_tfce" title="Permalink to this definition">¶</a></dt>
+<dd><p>TFCE correction for fixed effect and cluster level inferences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of mutual information of shape (n_roi, n_times)</p>
+</dd>
+<dt><strong>mi_p</strong><span class="classifier">array_like</span></dt><dd><p>Array of permuted mutual information of shape (n_perm, n_roi, n_times)</p>
+</dd>
+<dt><strong>start</strong><span class="classifier">int, float | None</span></dt><dd><p>Starting point for the TFCE integration. If None, <cite>start</cite> is going to
+be set to 0</p>
+</dd>
+<dt><strong>step</strong><span class="classifier">int, float | None</span></dt><dd><p>Step for the TFCE integration. If None, <cite>step</cite> is going to be defined
+in order to have 100 steps</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Smith and Nichols, 2009 <a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id1">[6]</a></p>
+</dd></dl>
 
 </div>
 

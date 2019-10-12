@@ -167,7 +167,7 @@
     <div class="body col-md-12 content" role="main">
       
   <h1>Source code for frites.stats.stats_ffx</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Apply maximum statistics correction.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Fixed effect functions that can also be used for cluster level inference.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -362,8 +362,43 @@
     <span class="k">return</span> <span class="n">_ffx_cluster_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">bonferroni_correction</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ffx_cluster_tfce"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce">[docs]</a><span class="k">def</span> <span class="nf">ffx_cluster_tfce</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+<div class="viewcode-block" id="ffx_cluster_tfce"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce">[docs]</a><span class="k">def</span> <span class="nf">ffx_cluster_tfce</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TFCE correction for fixed effect and cluster level inferences.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    start : int, float | None</span>
+<span class="sd">        Starting point for the TFCE integration. If None, `start` is going to</span>
+<span class="sd">        be set to 0</span>
+<span class="sd">    step : int, float | None</span>
+<span class="sd">        Step for the TFCE integration. If None, `step` is going to be defined</span>
+<span class="sd">        in order to have 100 steps</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Smith and Nichols, 2009 :cite:`smith2009threshold`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># define (start, step) of TFCE integration</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+    <span class="c1"># find clusters and infer p-values</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX TFCE correction at cluster level (start=</span><span class="si">{start}</span><span class="s2">, &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;step=</span><span class="si">{step}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">find_temporal_clusters</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pvalues</span></div>
 </pre></div>
 
     </div>

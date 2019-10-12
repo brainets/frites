@@ -351,11 +351,19 @@
 <span class="sd">                * &#39;ffx_cluster_bonferroni&#39; : Bonferroni correction at</span>
 <span class="sd">                  cluster level (see</span>
 <span class="sd">                  :func:`frites.stats.ffx_cluster_bonferroni`)</span>
+<span class="sd">                * &#39;ffx_cluster_tfce&#39; : Threshold Free Cluster Enhancement for</span>
+<span class="sd">                  cluster level inference (see</span>
+<span class="sd">                  :func:`frites.stats.ffx_cluster_tfce`</span>
+<span class="sd">                  :cite:`smith2009threshold`)</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        pvalues : array_like</span>
 <span class="sd">            Array of p-values of shape (n_roi, n_times)</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
         <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
@@ -417,7 +425,7 @@
     <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
     <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                         <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_fdr&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
+                         <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_cluster_tfce&#39;</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
