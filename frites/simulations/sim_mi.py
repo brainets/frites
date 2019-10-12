@@ -62,39 +62,6 @@ def sim_mi_cc(x, snr=.9):
 
 
 def sim_mi_cd(x, n_conditions=3, snr=.9):
-    """Extract a discret variable from data.
-
-    This function can be used to then evaluate the mutual information between
-    some neurophysiological data and a discret variable (e.g conditions). This
-    is an equivalent to what is done in machine-learning.
-
-    This function takes as an input some random or real data and generates a
-    discret variable from it. If you want to generate some compatible
-    random data see the function :func:`sim_multi_suj_ephy`.
-
-    Parameters
-    ----------
-    x : list
-        List of data coming from multiple subjects. Each element of this must
-        be an array of shape (n_epochs, n_sites, n_pts)
-    snr : float | 80.
-        Signal to noise ratio between [0, 1] (0 = no noise ; 1 = pure noise)
-
-    Returns
-    -------
-    y : list
-        List of length (n_subjects,) of discret variables. Each array has a
-        shape of (n_epochs,)
-    gt : array_like
-        Ground truth array of length (n_times,). This boolean array contains
-        True where a cluster has been defined
-
-    See also
-    --------
-    sim_multi_suj_ephy
-    sim_mi_cc
-    sim_mi_ccd
-    """
     raise NotImplementedError("TODO")
 
 def sim_mi_ccd():

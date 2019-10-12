@@ -10,3 +10,4 @@ from .gcmi_1d import (ent_1d_g, mi_1d_gg, gcmi_1d_cc, mi_model_1d_gd,  # noqa
 from .gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg, gcmi_nd_cc,  # noqa
                       gcmi_model_nd_cd, gccmi_nd_ccnd, gccmi_model_nd_cdnd,
                       gccmi_nd_ccc)
+from .mi_fun import MI_FUN, permute_mi_vector  # noqa

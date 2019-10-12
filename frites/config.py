@@ -28,5 +28,11 @@ MA_NAMES = ['L_VCcm', 'L_VCl', 'L_VCs', 'L_Cu', 'L_VCrm', 'L_ITCm', 'L_ITCr',
 CONFIG["MA_NAMES"] = MA_NAMES
 
 # gcmi configuration
-GCMI_BIASCORRECT = True
-GCMI_DEMEANED = True
+CONFIG["KW_GCMI"] = dict(shape_checking=False, biascorrect=True, demeaned=True,
+                         mvaxis=-2, traxis=-1)
+
+# copula name conversion
+CONFIG["COPULA_CONV"] = dict(cc='gg', cd='gd', ccd='ggd')
+
+# general joblib config
+CONFIG["JOBLIB_CFG"] = dict()
