@@ -38,6 +38,10 @@ class WorkflowMiStats(object):
               population.
 
         By default, the workflow uses group level inference ('rfx')
+
+    References
+    ----------
+    Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
     def __init__(self, mi_type='cc', inference='rfx'):
@@ -104,8 +108,8 @@ class WorkflowMiStats(object):
         return mi, mi_p
 
 
-    def _node_compute_stats(self, mi, mi_p, n_jobs=-1, stat_method='BRUNO',  # <<<<<<<<<<<<<<<<<<<
-                            **kw_stats):
+    def _node_compute_stats(self, mi, mi_p, n_jobs=-1,
+                            stat_method='rfx_cluster_ttest', **kw_stats):
         """Compute the non-parametric statistics.
 
         mi   = list of length n_roi composed with arrays of shape
@@ -113,17 +117,22 @@ class WorkflowMiStats(object):
         mi_p = list of length n_roi composed with arrays of shape
                (n_perm, n_subjects, n_times)
         """
+        # get the function to evaluate statistics
+        stat_fun = STAT_FUN[f"{stat_method}"]
+        assert self._inference in stat_fun.__name__, (
+            f"the select function is not compatible with {self._inference} "
+            "inferences")
+        # concatenate mi (if needed)
         if self._inference == 'ffx':
             # for the fixed effect, since it's computed across subjects it
             # means that each roi has an mi.shape of (1, n_times) and can then
             # been concatenated over the first axis. Same for the permutations,
             # with a shape of (n_perm, 1, n_times)
             mi, mi_p = np.concatenate(mi, axis=0), np.concatenate(mi_p, axis=1)
-            stat_fun = STAT_FUN[f"{stat_method}"]
             # get the p-values
             pvalues = stat_fun(mi, mi_p, **kw_stats)
         elif self._inference == 'rfx':
-            pass
+            pvalues = stat_fun(mi, mi_p, **kw_stats)
 
         return pvalues
 
@@ -139,8 +148,8 @@ class WorkflowMiStats(object):
     #                             EXTERNALS
     ###########################################################################
 
-    def fit(self, dataset, n_perm=1000, n_jobs=-1, stat_method='BRUNO',  # <<<<<<<<<<<<<<<<<<
-            **kw_stats):
+    def fit(self, dataset, n_perm=1000, n_jobs=-1,
+            stat_method='rfx_cluster_ttest', **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -164,10 +173,11 @@ class WorkflowMiStats(object):
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
-        stat_method : string | "BRUNO"
+        stat_method : string | "rfx_cluster_ttest"
             Statistical method to use. Method names depends on the initial
             choice of inference type (ffx=fixed effect or rfx=random effect).
-            For the fixed effect (ffx) :
+
+            **For the fixed effect (ffx) :**
 
                 * 'ffx_maxstat' : maximum statistics correction (see
                   :func:`frites.stats.ffx_maxstat`)
@@ -186,6 +196,18 @@ class WorkflowMiStats(object):
                   cluster level inference (see
                   :func:`frites.stats.ffx_cluster_tfce`
                   :cite:`smith2009threshold`)
+
+            **For the random effect (rfx) :**
+
+                * 'rfx_cluster_ttest' : t-test across subjects for cluster
+                  level inference (see :func:`frites.stats.rfx_cluster_ttest`)
+                * 'rfx_cluster_ttest_tfce' : t-test across subjects combined
+                  with the TFCE for cluster level inference (see
+                  :func:`frites.stats.rfx_cluster_ttest_tfce`
+                  :cite:`smith2009threshold`)
+        kw_stats : dict | {}
+            Additional arguments to pass to the selected statistical method
+            selected using the `stat_method` input parameter
 
         Returns
         -------
@@ -254,9 +276,10 @@ if __name__ == '__main__':
     # exit()
 
     dt = DatasetEphy(x, y, roi=roi, times=time)
-    wf = WorkflowMiStats('cc', 'ffx')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100,
-                         stat_method='ffx_cluster_tfce')
+    wf = WorkflowMiStats('cc', 'rfx')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20,
+                         stat_method='rfx_cluster_ttest_tfce',
+                         center='median', zscore=False)
 
     import matplotlib.pyplot as plt
 

@@ -69,6 +69,12 @@ Fixed effect (ffx)
 Random effect (rfx)
 +++++++++++++++++++
 
+.. autosummary::
+   :toctree: generated/
+
+   rfx_cluster_ttest
+   rfx_cluster_ttest_tfce
+
 Cluster
 +++++++
 
