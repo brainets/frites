@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.stats.stats_ffx &#8212; frites 0.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.0.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-data">Simulate random data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.stats.stats_ffx</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Apply maximum statistics correction.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">mne.stats</span> <span class="k">import</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">bonferroni_correction</span>
+
+<span class="kn">from</span> <span class="nn">.stats_cluster</span> <span class="k">import</span> <span class="n">find_temporal_clusters</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1">#                      FFX / TIME POINTS INFERENCES</span>
+<span class="c1">###############################################################################</span>
+
+<div class="viewcode-block" id="ffx_maxstat"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_maxstat.html#frites.stats.ffx_maxstat">[docs]</a><span class="k">def</span> <span class="nf">ffx_maxstat</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Maximum statistics correction for fixed effect inference.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    alpha : float | 0.05</span>
+<span class="sd">        Significiency level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Holmes et al., 1996 :cite:`holmes1996nonparametric`</span>
+<span class="sd">    Nichols and Holmes, 2002 :cite:`nichols2002nonparametric`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX maximum statistics (alpha=</span><span class="si">{alpha}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="c1"># prepare variables</span>
+    <span class="n">n_perm</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="c1"># value to use as the threshold</span>
+    <span class="n">p_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">mi_p</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
+                          <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;higher&#39;</span><span class="p">)</span>
+    <span class="c1"># infer p-values</span>
+    <span class="n">pvalues</span><span class="p">[</span><span class="n">mi</span> <span class="o">&gt;</span> <span class="n">p_max</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span>
+
+    <span class="k">return</span> <span class="n">pvalues</span></div>
+
+
+<span class="k">def</span> <span class="nf">_ffx_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="c1"># prepare variables</span>
+    <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">meth_name</span> <span class="o">=</span> <span class="s1">&#39;FDR&#39;</span> <span class="k">if</span> <span class="s1">&#39;fdr&#39;</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">else</span> <span class="s1">&#39;Bonferroni&#39;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX </span><span class="si">{meth_name}</span><span class="s2"> correction (alpha=</span><span class="si">{alpha}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="c1"># get p-values and apply the correction to it</span>
+    <span class="n">th_pval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mi_p</span> <span class="o">&gt;</span> <span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">th_pval</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pvalues</span>
+
+
+<div class="viewcode-block" id="ffx_fdr"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_fdr.html#frites.stats.ffx_fdr">[docs]</a><span class="k">def</span> <span class="nf">ffx_fdr</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;FDR correction for fixed effect inferences.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    alpha : float | 0.05</span>
+<span class="sd">        Significiency level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_ffx_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ffx_bonferroni"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_bonferroni.html#frites.stats.ffx_bonferroni">[docs]</a><span class="k">def</span> <span class="nf">ffx_bonferroni</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Bonferroni correction for fixed effect inferences.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    alpha : float | 0.05</span>
+<span class="sd">        Significiency level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_ffx_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">bonferroni_correction</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span></div>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1">#                      FFX / CLUSTER INFERENCES</span>
+<span class="c1">###############################################################################</span>
+
+
+<div class="viewcode-block" id="ffx_cluster_maxstat"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_cluster_maxstat.html#frites.stats.ffx_cluster_maxstat">[docs]</a><span class="k">def</span> <span class="nf">ffx_cluster_maxstat</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Maximum statistics for fixed effect and cluster level inferences.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    alpha : float | 0.05</span>
+<span class="sd">        Significiency level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># find threshold</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">mi_p</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
+                       <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;higher&#39;</span><span class="p">)</span>
+    <span class="c1"># infer p-values from cluster sizes</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX maximum statistics at cluster level (alpha=</span><span class="si">{alpha}</span><span class="s2">,&quot;</span>
+                <span class="n">f</span><span class="s2">&quot; cluster threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">find_temporal_clusters</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pvalues</span></div>
+
+<span class="k">def</span> <span class="nf">_ffx_cluster_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="c1"># prepare variables</span>
+    <span class="n">n_perm</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">meth_name</span> <span class="o">=</span> <span class="s1">&#39;FDR&#39;</span> <span class="k">if</span> <span class="s1">&#39;fdr&#39;</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">else</span> <span class="s1">&#39;Bonferroni&#39;</span>
+    <span class="c1"># get p-values and apply the correction to it</span>
+    <span class="n">th_pval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mi_p</span> <span class="o">&gt;</span> <span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+    <span class="n">is_over_th</span> <span class="o">=</span> <span class="o">~</span><span class="n">func</span><span class="p">(</span><span class="n">th_pval</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">is_over_th</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;No MI exceed the threshold at p=</span><span class="si">{alpha}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="c1"># find the threshold to apply</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">mi</span><span class="p">[</span><span class="n">is_over_th</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="c1"># infer p-values from cluster sizes</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX </span><span class="si">{meth_name}</span><span class="s2"> correction at cluster level &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;(alpha=</span><span class="si">{alpha}</span><span class="s2">, cluster threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">find_temporal_clusters</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pvalues</span>
+
+
+<div class="viewcode-block" id="ffx_cluster_fdr"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_cluster_fdr.html#frites.stats.ffx_cluster_fdr">[docs]</a><span class="k">def</span> <span class="nf">ffx_cluster_fdr</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;FDR correction for fixed effect and cluster level inferences.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    alpha : float | 0.05</span>
+<span class="sd">        Significiency level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_ffx_cluster_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ffx_cluster_bonferroni"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html#frites.stats.ffx_cluster_bonferroni">[docs]</a><span class="k">def</span> <span class="nf">ffx_cluster_bonferroni</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Bonferroni correction for fixed effect and cluster level inferences.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    alpha : float | 0.05</span>
+<span class="sd">        Significiency level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_ffx_cluster_fdr_bonf</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">bonferroni_correction</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ffx_cluster_tfce"><a class="viewcode-back" href="../../../generated/frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce">[docs]</a><span class="k">def</span> <span class="nf">ffx_cluster_tfce</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Contributors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
+                <!--
+                <li>·</li> 
+                <li style="font-weight:bold"><a href="../../../community.html">Community</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../cite.html">Citation</a></li>
+                -->
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright 2019, Etienne Combrisson.</p>
+    </footer>
+
+  </body>
+</html>

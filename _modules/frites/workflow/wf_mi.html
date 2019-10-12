@@ -71,9 +71,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
@@ -328,7 +338,19 @@
 <span class="sd">            choice of inference type (ffx=fixed effect or rfx=random effect).</span>
 <span class="sd">            For the fixed effect (ffx) :</span>
 
-<span class="sd">                * &#39;ffx_maxstat&#39; : maximum statistics</span>
+<span class="sd">                * &#39;ffx_maxstat&#39; : maximum statistics correction (see</span>
+<span class="sd">                  :func:`frites.stats.ffx_maxstat`)</span>
+<span class="sd">                * &#39;ffx_fdr&#39; : False Discovery Rate correction (see</span>
+<span class="sd">                  :func:`frites.stats.ffx_fdr`)</span>
+<span class="sd">                * &#39;ffx_bonferroni&#39; : Bonferroni correction (see</span>
+<span class="sd">                  :func:`frites.stats.ffx_bonferroni`)</span>
+<span class="sd">                * &#39;ffx_cluster_maxstat&#39; : maximum statistics correction at</span>
+<span class="sd">                  cluster level (see :func:`frites.stats.ffx_cluster_maxstat`)</span>
+<span class="sd">                * &#39;ffx_cluster_fdr&#39; : False Discovery Rate correction at</span>
+<span class="sd">                  cluster level (see :func:`frites.stats.ffx_cluster_fdr`)</span>
+<span class="sd">                * &#39;ffx_cluster_bonferroni&#39; : Bonferroni correction at</span>
+<span class="sd">                  cluster level (see</span>
+<span class="sd">                  :func:`frites.stats.ffx_cluster_bonferroni`)</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -394,7 +416,8 @@
 
     <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
-    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_maxstat&#39;</span><span class="p">)</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                         <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_fdr&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 

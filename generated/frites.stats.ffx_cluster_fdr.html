@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.WorkflowMiStats &#8212; frites 0.0.0 documentation</title>
+    <title>frites.stats.ffx_cluster_fdr &#8212; frites 0.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -16,8 +16,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.dataset.DatasetEphy" href="frites.dataset.DatasetEphy.html" />
-    <link rel="prev" title="API" href="../api.html" />
+    <link rel="next" title="frites.stats.ffx_cluster_bonferroni" href="frites.stats.ffx_cluster_bonferroni.html" />
+    <link rel="prev" title="frites.stats.ffx_cluster_maxstat" href="frites.stats.ffx_cluster_maxstat.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -62,21 +62,21 @@
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.workflow.WorkflowMiStats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.dataset">Dataset</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.stats.ffx_cluster_fdr</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
 </ul>
@@ -148,7 +148,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.workflow.WorkflowMiStats.rst.txt"
+  <a href="../_sources/generated/frites.stats.ffx_cluster_fdr.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -172,133 +172,20 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-workflow-workflowmistats">
-<h1>frites.workflow.WorkflowMiStats<a class="headerlink" href="#frites-workflow-workflowmistats" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="frites.workflow.WorkflowMiStats">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WorkflowMiStats</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Workflow of mutual-information and statistics.</p>
-<p>This class allows to define a workflow for computing the mutual information
-and then to evaluate the significance using non-parametric statistics
-(either within-subjects or between subjects).</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’}</span></dt><dd><p>The type of mutual information that is going to be performed. Use
-either :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘cc’ : mutual information between two continuous variables</p></li>
-<li><p>‘cd’ : mutual information between a continuous and a discret
-variables</p></li>
-<li><p>‘ccd’ : mutual information between two continuous variables
-conditioned by a third discret one</p></li>
-</ul>
-</div></blockquote>
-</dd>
-<dt><strong>inference</strong><span class="classifier">{“ffx”, “rfx”}</span></dt><dd><p>Statistical inferences that is desired. Use either :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘ffx’ : fixed-effect to make inferences only for the population
-that have been used</p></li>
-<li><p>‘rfx’ : random-effect to generalize inferences to a random
-population.</p></li>
-</ul>
-</div></blockquote>
-<p>By default, the workflow uses group level inference (‘rfx’)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Init.</p>
-</dd></dl>
-
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.__init__" title="frites.workflow.WorkflowMiStats.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference])</p></td>
-<td><p>Init.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.convert_outputs" title="frites.workflow.WorkflowMiStats.convert_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_outputs</span></code></a>(self, mi, pvalues[, convert_to])</p></td>
-<td><p>Convert outputs.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.fit" title="frites.workflow.WorkflowMiStats.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, stat_method])</p></td>
-<td><p>Run the workflow on a dataset.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.convert_outputs">
-<code class="sig-name descname">convert_outputs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi</em>, <em class="sig-param">pvalues</em>, <em class="sig-param">convert_to='dataframe'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.convert_outputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.convert_outputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert outputs.</p>
+  <div class="section" id="frites-stats-ffx-cluster-fdr">
+<h1>frites.stats.ffx_cluster_fdr<a class="headerlink" href="#frites-stats-ffx-cluster-fdr" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="frites.stats.ffx_cluster_fdr">
+<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">ffx_cluster_fdr</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_ffx.html#ffx_cluster_fdr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.ffx_cluster_fdr" title="Permalink to this definition">¶</a></dt>
+<dd><p>FDR correction for fixed effect and cluster level inferences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of mutual information of shape (n_roi, n_times)</p>
 </dd>
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
+<dt><strong>mi_p</strong><span class="classifier">array_like</span></dt><dd><p>Array of permuted mutual information of shape (n_perm, n_roi, n_times)</p>
 </dd>
-<dt><strong>convert_to</strong><span class="classifier">{‘dataframe’, ‘dataarray’, ‘dataset’}</span></dt><dd><p>Convert the mutual information and p-values arrays either to
-pandas DataFrames (require pandas to be installed) either to a
-xarray DataArray (require xarray to be installed)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">stat_method='BRUNO'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the workflow on a dataset.</p>
-<p>In order to run the worflow, you must first provide a dataset instance
-(see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When performing statistics at the cluster-level, we only test
-the cluster size. This means that in your results, you can only
-discuss about the presence of a significant cluster without being
-precise about its spatio-temporal properties
-(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id1">[4]</a>)</p>
-</div>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance</p>
-</dd>
-<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
-distribution of mi that can be obtained by chance</p>
-</dd>
-<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
-jobs)</p>
-</dd>
-<dt><strong>stat_method</strong><span class="classifier">string | “BRUNO”</span></dt><dd><p>Statistical method to use. Method names depends on the initial
-choice of inference type (ffx=fixed effect or rfx=random effect).
-For the fixed effect (ffx) :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘ffx_maxstat’ : maximum statistics correction (see
-<a class="reference internal" href="frites.stats.ffx_maxstat.html#frites.stats.ffx_maxstat" title="frites.stats.ffx_maxstat"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_maxstat()</span></code></a>)</p></li>
-<li><p>‘ffx_fdr’ : False Discovery Rate correction (see
-<a class="reference internal" href="frites.stats.ffx_fdr.html#frites.stats.ffx_fdr" title="frites.stats.ffx_fdr"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_fdr()</span></code></a>)</p></li>
-<li><p>‘ffx_bonferroni’ : Bonferroni correction (see
-<a class="reference internal" href="frites.stats.ffx_bonferroni.html#frites.stats.ffx_bonferroni" title="frites.stats.ffx_bonferroni"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_bonferroni()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_maxstat’ : maximum statistics correction at
-cluster level (see <a class="reference internal" href="frites.stats.ffx_cluster_maxstat.html#frites.stats.ffx_cluster_maxstat" title="frites.stats.ffx_cluster_maxstat"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_maxstat()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_fdr’ : False Discovery Rate correction at
-cluster level (see <a class="reference internal" href="frites.stats.ffx_cluster_fdr.html#frites.stats.ffx_cluster_fdr" title="frites.stats.ffx_cluster_fdr"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_fdr()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_bonferroni’ : Bonferroni correction at
-cluster level (see
-<a class="reference internal" href="frites.stats.ffx_cluster_bonferroni.html#frites.stats.ffx_cluster_bonferroni" title="frites.stats.ffx_cluster_bonferroni"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_bonferroni()</span></code></a>)</p></li>
-</ul>
-</div></blockquote>
+<dt><strong>alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Significiency level</p>
 </dd>
 </dl>
 </dd>
@@ -309,8 +196,6 @@ cluster level (see
 </dl>
 </dd>
 </dl>
-</dd></dl>
-
 </dd></dl>
 
 </div>

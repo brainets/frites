@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.copnorm &#8212; frites 0.0.0 documentation</title>
+    <title>frites.stats.stats_cluster &#8212; frites 0.0.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -166,117 +166,73 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <h1>Source code for frites.core.copnorm</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Gaussian-copula rank normalization functions.&quot;&quot;&quot;</span>
+  <h1>Source code for frites.stats.stats_cluster</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Cluster related functions.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="k">import</span> <span class="n">ndtri</span>
+
+<span class="kn">from</span> <span class="nn">mne.stats.cluster_level</span> <span class="k">import</span> <span class="n">_find_clusters</span>
 
 
-<span class="k">def</span> <span class="nf">ctransform</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Copula transformation (empirical CDF).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data. The trial axis should be the last one</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    xr : array_like</span>
-<span class="sd">        Empirical CDF value along the last axis of x. Data is ranked and scaled</span>
-<span class="sd">        within [0 1] (open interval)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">xr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-    <span class="n">xr</span> <span class="o">+=</span> <span class="mf">1.</span>
-    <span class="n">xr</span> <span class="o">/=</span> <span class="nb">float</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">xr</span>
-
-
-<div class="viewcode-block" id="copnorm_1d"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_1d.html#frites.core.copnorm_1d">[docs]</a><span class="k">def</span> <span class="nf">copnorm_1d</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Copula normalization for a single vector.</span>
+<div class="viewcode-block" id="find_temporal_clusters"><a class="viewcode-back" href="../../../generated/frites.stats.find_temporal_clusters.html#frites.stats.find_temporal_clusters">[docs]</a><span class="k">def</span> <span class="nf">find_temporal_clusters</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find clusters in the array of true mi.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data of shape (n_epochs,)</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        Array of true mutual information of shape (n_roi, n_times)</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">    th : float</span>
+<span class="sd">        The threshold to use</span>
+<span class="sd">    tail : {-1, 0, 1}</span>
+<span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">        1 for the higher part and 0 for both</span>
+<span class="sd">    kwargs : dict | {}</span>
+<span class="sd">        Additional arguments are send to the</span>
+<span class="sd">        :func:`mne.stats.cluster_level._find_clusters`</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ndtri</span><span class="p">(</span><span class="n">ctransform</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
+    <span class="c1"># get variables</span>
+    <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tail&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># identify clusters for the true mi</span>
+    <span class="n">cl_true</span><span class="p">,</span> <span class="n">cl_mass</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+        <span class="n">_cl_true</span><span class="p">,</span> <span class="n">_cl_mass</span> <span class="o">=</span> <span class="n">_find_clusters</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="p">:],</span> <span class="n">th</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">cl_true</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_cl_true</span><span class="p">]</span>
+        <span class="n">cl_mass</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_cl_mass</span><span class="p">]</span>
 
-<div class="viewcode-block" id="copnorm_cat_1d"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_cat_1d.html#frites.core.copnorm_cat_1d">[docs]</a><span class="k">def</span> <span class="nf">copnorm_cat_1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Categorical Copula normalization for a single vector.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># identify clusters for the permuted mi</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">):</span>
+        <span class="n">_cl_p_null</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">__cl_p_null</span> <span class="o">=</span> <span class="n">_find_clusters</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="p">:],</span> <span class="n">th</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="c1"># if no cluster have been found, set a cluster mass of 0</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">__cl_p_null</span><span class="p">):</span> <span class="n">__cl_p_null</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># noqa</span>
+            <span class="n">_cl_p_null</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__cl_p_null</span><span class="p">]</span>
+        <span class="c1"># if this roi has no clusters, just ignore it</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">_cl_p_null</span><span class="p">):</span> <span class="k">continue</span>  <span class="c1"># noqa</span>
+        <span class="c1"># take the maximum size (MCP)</span>
+        <span class="n">cl_p_mass</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">_cl_p_null</span><span class="p">)]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="p">)</span>
 
-<span class="sd">    This function apply the copnorm per categories.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># infer p-values by comparing cluster sizes</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="n">cl_g</span><span class="p">,</span> <span class="n">clm_g</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cl_true</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">cl</span><span class="p">,</span> <span class="n">clm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cl_g</span><span class="p">,</span> <span class="n">clm_g</span><span class="p">):</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">clm</span> <span class="o">&lt;=</span> <span class="n">cl_p_mass</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+            <span class="n">pvalues</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">cl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data of shape (n_epochs,)</span>
-<span class="sd">    y : array_like</span>
-<span class="sd">        Array of shape (n_epochs,) of integers describing the categories.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">]</span>
-    <span class="n">x_cop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">y_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y_u</span><span class="p">:</span>
-        <span class="n">_idx</span> <span class="o">=</span> <span class="n">y</span> <span class="o">==</span> <span class="n">yi</span>
-        <span class="n">x_cop</span><span class="p">[</span><span class="n">_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">copnorm_1d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">_idx</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">x_cop</span></div>
-
-
-<div class="viewcode-block" id="copnorm_nd"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_nd.html#frites.core.copnorm_nd">[docs]</a><span class="k">def</span> <span class="nf">copnorm_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Copula normalization for a multidimentional array.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data</span>
-<span class="sd">    axis : int | -1</span>
-<span class="sd">        Epoch (or trial) axis. By default, the last axis is considered</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">copnorm_1d</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="copnorm_cat_nd"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_cat_nd.html#frites.core.copnorm_cat_nd">[docs]</a><span class="k">def</span> <span class="nf">copnorm_cat_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Categorical Copula normalization for multidimentional array.</span>
-
-<span class="sd">    This function apply the copnorm per categories.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data</span>
-<span class="sd">    y : array_like</span>
-<span class="sd">        Array of shape (n_epochs,) of integers describing the categories.</span>
-<span class="sd">    axis : int | -1</span>
-<span class="sd">        Epoch (or trial) axis. By default, the last axis is considered</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">copnorm_cat_1d</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">pvalues</span></div>
 </pre></div>
 
     </div>

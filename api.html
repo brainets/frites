@@ -73,9 +73,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#random-effect-rfx">Random effect (rfx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster">Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.simulations">Simulations</a><ul>
@@ -172,18 +182,19 @@
 <ul>
 <li><p><a class="reference internal" href="#fixed-effect-ffx" id="id5">Fixed effect (ffx)</a></p></li>
 <li><p><a class="reference internal" href="#random-effect-rfx" id="id6">Random effect (rfx)</a></p></li>
+<li><p><a class="reference internal" href="#cluster" id="id7">Cluster</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#module-frites.simulations" id="id7">Simulations</a></p>
+<li><p><a class="reference internal" href="#module-frites.simulations" id="id8">Simulations</a></p>
 <ul>
-<li><p><a class="reference internal" href="#simulate-random-data" id="id8">Simulate random data</a></p></li>
-<li><p><a class="reference internal" href="#simulate-random-mutual-information" id="id9">Simulate random mutual information</a></p></li>
+<li><p><a class="reference internal" href="#simulate-random-data" id="id9">Simulate random data</a></p></li>
+<li><p><a class="reference internal" href="#simulate-random-mutual-information" id="id10">Simulate random mutual information</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#module-frites.core" id="id10">Core</a></p>
+<li><p><a class="reference internal" href="#module-frites.core" id="id11">Core</a></p>
 <ul>
-<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id11">Gaussian-Copula (1d)</a></p></li>
-<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id12">Gaussian-copula (Nd)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id12">Gaussian-Copula (1d)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id13">Gaussian-copula (Nd)</a></p></li>
 </ul>
 </li>
 </ul>
@@ -204,7 +215,7 @@ information and statistics (fixed effect or random effect).</p>
 </tr>
 </tbody>
 </table>
-</div>
+<hr></div>
 <div class="section" id="module-frites.dataset">
 <span id="dataset"></span><h2><a class="toc-backref" href="#id3">Dataset</a><a class="headerlink" href="#module-frites.dataset" title="Permalink to this headline">¶</a></h2>
 <p>Dataset’s related functions and classes.</p>
@@ -221,7 +232,7 @@ data coming from several subjects.</p>
 </tr>
 </tbody>
 </table>
-</div>
+<hr></div>
 <div class="section" id="module-frites.stats">
 <span id="statistics"></span><h2><a class="toc-backref" href="#id4">Statistics</a><a class="headerlink" href="#module-frites.stats" title="Permalink to this headline">¶</a></h2>
 <p>Fixed and random effect methods.</p>
@@ -236,18 +247,50 @@ data coming from several subjects.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.ffx_maxstat.html#frites.stats.ffx_maxstat" title="frites.stats.ffx_maxstat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_maxstat</span></code></a>(mi, mi_p[, alpha])</p></td>
 <td><p>Maximum statistics correction for fixed effect inference.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.ffx_fdr.html#frites.stats.ffx_fdr" title="frites.stats.ffx_fdr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_fdr</span></code></a>(mi, mi_p[, alpha])</p></td>
+<td><p>FDR correction for fixed effect inferences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.ffx_bonferroni.html#frites.stats.ffx_bonferroni" title="frites.stats.ffx_bonferroni"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_bonferroni</span></code></a>(mi, mi_p[, alpha])</p></td>
+<td><p>Bonferroni correction for fixed effect inferences.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.ffx_cluster_maxstat.html#frites.stats.ffx_cluster_maxstat" title="frites.stats.ffx_cluster_maxstat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_cluster_maxstat</span></code></a>(mi, mi_p[, alpha])</p></td>
+<td><p>Maximum statistics for fixed effect and cluster level inferences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.ffx_cluster_fdr.html#frites.stats.ffx_cluster_fdr" title="frites.stats.ffx_cluster_fdr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_cluster_fdr</span></code></a>(mi, mi_p[, alpha])</p></td>
+<td><p>FDR correction for fixed effect and cluster level inferences.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.ffx_cluster_bonferroni.html#frites.stats.ffx_cluster_bonferroni" title="frites.stats.ffx_cluster_bonferroni"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_cluster_bonferroni</span></code></a>(mi, mi_p[, alpha])</p></td>
+<td><p>Bonferroni correction for fixed effect and cluster level inferences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce" title="frites.stats.ffx_cluster_tfce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffx_cluster_tfce</span></code></a>(mi, mi_p[, alpha])</p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="random-effect-rfx">
 <h3><a class="toc-backref" href="#id6">Random effect (rfx)</a><a class="headerlink" href="#random-effect-rfx" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="cluster">
+<h3><a class="toc-backref" href="#id7">Cluster</a><a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.find_temporal_clusters.html#frites.stats.find_temporal_clusters" title="frites.stats.find_temporal_clusters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_temporal_clusters</span></code></a>(mi, mi_p, th[, tail])</p></td>
+<td><p>Find clusters in the array of true mi.</p></td>
+</tr>
+</tbody>
+</table>
+<hr></div>
 </div>
 <div class="section" id="module-frites.simulations">
-<span id="simulations"></span><h2><a class="toc-backref" href="#id7">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
+<span id="simulations"></span><h2><a class="toc-backref" href="#id8">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
 <p>Simulations’ functions.</p>
 <div class="section" id="simulate-random-data">
-<h3><a class="toc-backref" href="#id8">Simulate random data</a><a class="headerlink" href="#simulate-random-data" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Simulate random data</a><a class="headerlink" href="#simulate-random-data" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -264,7 +307,7 @@ data coming from several subjects.</p>
 </table>
 </div>
 <div class="section" id="simulate-random-mutual-information">
-<h3><a class="toc-backref" href="#id9">Simulate random mutual information</a><a class="headerlink" href="#simulate-random-mutual-information" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Simulate random mutual information</a><a class="headerlink" href="#simulate-random-mutual-information" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -282,17 +325,17 @@ data coming from several subjects.</p>
 </tr>
 </tbody>
 </table>
-</div>
+<hr></div>
 </div>
 <div class="section" id="module-frites.core">
-<span id="core"></span><h2><a class="toc-backref" href="#id10">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
+<span id="core"></span><h2><a class="toc-backref" href="#id11">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
 <p>Core functions of information theoretical measures.</p>
 <p>This submodule contains all of the functions to compute mutual-information,
 entropy etc..</p>
 <p>For further details about the Gaussian-Copula Mutual information see
 <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[2]</a></p>
 <div class="section" id="gaussian-copula-1d">
-<h3><a class="toc-backref" href="#id11">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to unidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -340,7 +383,7 @@ entropy etc..</p>
 </table>
 </div>
 <div class="section" id="gaussian-copula-nd">
-<h3><a class="toc-backref" href="#id12">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to multidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
