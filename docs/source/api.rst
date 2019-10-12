@@ -20,6 +20,10 @@ Workflow
 
    WorkflowMiStats
 
+.. raw:: html
+
+  <hr>
+
 Dataset
 -------
 
@@ -34,6 +38,9 @@ Dataset
 
    DatasetEphy
 
+.. raw:: html
+
+  <hr>
 
 Statistics
 ----------
@@ -56,7 +63,9 @@ Fixed effect (ffx)
 Random effect (rfx)
 +++++++++++++++++++
 
+.. raw:: html
 
+  <hr>
 
 Simulations
 -----------
@@ -86,6 +95,10 @@ Simulate random mutual information
    sim_mi_cc
    sim_mi_cd
    sim_mi_ccd
+
+.. raw:: html
+
+  <hr>
 
 Core
 ----
