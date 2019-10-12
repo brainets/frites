@@ -1,4 +1,4 @@
-"""Apply maximum statistics correction."""
+"""Fixed effect functions that can also be used for cluster level inference."""
 import logging
 
 import numpy as np
@@ -193,5 +193,40 @@ def ffx_cluster_bonferroni(mi, mi_p, alpha=0.05):
     return _ffx_cluster_fdr_bonf(mi, mi_p, bonferroni_correction, alpha=alpha)
 
 
-def ffx_cluster_tfce(mi, mi_p, alpha=0.05):
-    pass
+def ffx_cluster_tfce(mi, mi_p, start=None, step=None):
+    """TFCE correction for fixed effect and cluster level inferences.
+
+    Parameters
+    ----------
+    mi : array_like
+        Array of mutual information of shape (n_roi, n_times)
+    mi_p : array_like
+        Array of permuted mutual information of shape (n_perm, n_roi, n_times)
+    start : int, float | None
+        Starting point for the TFCE integration. If None, `start` is going to
+        be set to 0
+    step : int, float | None
+        Step for the TFCE integration. If None, `step` is going to be defined
+        in order to have 100 steps
+
+    Returns
+    -------
+    pvalues : array_like
+        Array of p-values of shape (n_roi, n_times)
+
+    References
+    ----------
+    Smith and Nichols, 2009 :cite:`smith2009threshold`
+    """
+    # define (start, step) of TFCE integration
+    if not isinstance(start, (int, float)):
+        start = 0.
+    if not isinstance(step, (int, float)):
+        step = np.ptp(mi) / 100.
+    threshold = dict(start=start, step=step)
+    # find clusters and infer p-values
+    logger.info(f"    FFX TFCE correction at cluster level (start={start}, "
+                f"step={step})")
+    pvalues = find_temporal_clusters(mi, mi_p, threshold, tail=1)
+
+    return pvalues

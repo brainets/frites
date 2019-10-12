@@ -36,6 +36,9 @@ def find_temporal_clusters(mi, mi_p, th, tail=1, **kwargs):
     cl_true, cl_mass = [], []
     for r in range(n_roi):
         _cl_true, _cl_mass = _find_clusters(mi[r, :], th, **kwargs)
+        # for non-tfce, clusters are returned as a list of tuples
+        _cl_true = [k[0] if isinstance(k, tuple) else k for k in _cl_true]
+        # save where clusters have been found and cluster size
         cl_true += [_cl_true]
         cl_mass += [_cl_mass]
 
@@ -61,6 +64,6 @@ def find_temporal_clusters(mi, mi_p, th, tail=1, **kwargs):
     for r, (cl_g, clm_g) in enumerate(zip(cl_true, cl_mass)):
         for cl, clm in zip(cl_g, clm_g):
             pv = (clm <= cl_p_mass.reshape(1, -1)).sum(1) / n_perm
-            pvalues[r, cl[0]] = max(1. / n_perm, pv)
+            pvalues[r, cl] = max(1. / n_perm, pv)
 
     return pvalues

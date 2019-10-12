@@ -182,11 +182,19 @@ class WorkflowMiStats(object):
                 * 'ffx_cluster_bonferroni' : Bonferroni correction at
                   cluster level (see
                   :func:`frites.stats.ffx_cluster_bonferroni`)
+                * 'ffx_cluster_tfce' : Threshold Free Cluster Enhancement for
+                  cluster level inference (see
+                  :func:`frites.stats.ffx_cluster_tfce`
+                  :cite:`smith2009threshold`)
 
         Returns
         -------
         pvalues : array_like
             Array of p-values of shape (n_roi, n_times)
+
+        References
+        ----------
+        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`
         """
         self._node_prepare_data(dataset)
         mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm, n_jobs=n_jobs)
@@ -248,7 +256,7 @@ if __name__ == '__main__':
     dt = DatasetEphy(x, y, roi=roi, times=time)
     wf = WorkflowMiStats('cc', 'ffx')
     mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100,
-                         stat_method='ffx_fdr', alpha=.1)
+                         stat_method='ffx_cluster_tfce')
 
     import matplotlib.pyplot as plt
 
