@@ -3,6 +3,8 @@ import logging
 
 import numpy as np
 
+from mne.stats import fdr_correction, bonferroni_correction
+
 logger = logging.getLogger("frites")
 
 
@@ -41,13 +43,17 @@ def ffx_maxstat(mi, mi_p, alpha=0.05):
     return pvalues
 
 
-def ffx_cluster_fdr():
+def ffx_cluster_fdr(mi, mi_p, alpha=0.05):
+    th_pval = np.sum(mi_p > mi, axis=0) / n_perm
+    is_over_th = ~fdr_correction(th_pval, alpha)[0]
+    if not np.any(is_over_th):
+        logger.warning(f"No gcmi exceed the threshold at p={alpha}")
+        return np.full_like(mi, np.nan)
+
+
+def ffx_cluster_bonferroni(mi, mi_p, alpha=0.05):
     pass
 
 
-def ffx_cluster_bonferroni():
-    pass
-
-
-def ffx_cluster_tfce():
+def ffx_cluster_tfce(mi, mi_p, alpha=0.05):
     pass
