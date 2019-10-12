@@ -169,7 +169,19 @@ class WorkflowMiStats(object):
             choice of inference type (ffx=fixed effect or rfx=random effect).
             For the fixed effect (ffx) :
 
-                * 'ffx_maxstat' : maximum statistics
+                * 'ffx_maxstat' : maximum statistics correction (see
+                  :func:`frites.stats.ffx_maxstat`)
+                * 'ffx_fdr' : False Discovery Rate correction (see
+                  :func:`frites.stats.ffx_fdr`)
+                * 'ffx_bonferroni' : Bonferroni correction (see
+                  :func:`frites.stats.ffx_bonferroni`)
+                * 'ffx_cluster_maxstat' : maximum statistics correction at
+                  cluster level (see :func:`frites.stats.ffx_cluster_maxstat`)
+                * 'ffx_cluster_fdr' : False Discovery Rate correction at
+                  cluster level (see :func:`frites.stats.ffx_cluster_fdr`)
+                * 'ffx_cluster_bonferroni' : Bonferroni correction at
+                  cluster level (see
+                  :func:`frites.stats.ffx_cluster_bonferroni`)
 
         Returns
         -------
@@ -235,7 +247,8 @@ if __name__ == '__main__':
 
     dt = DatasetEphy(x, y, roi=roi, times=time)
     wf = WorkflowMiStats('cc', 'ffx')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100, stat_method='ffx_maxstat')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100,
+                         stat_method='ffx_fdr', alpha=.1)
 
     import matplotlib.pyplot as plt
 

@@ -58,10 +58,24 @@ Fixed effect (ffx)
    :toctree: generated/
 
    ffx_maxstat
+   ffx_fdr
+   ffx_bonferroni
+   ffx_cluster_maxstat
+   ffx_cluster_fdr
+   ffx_cluster_bonferroni
+   ffx_cluster_tfce
 
 
 Random effect (rfx)
 +++++++++++++++++++
+
+Cluster
++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   find_temporal_clusters
 
 .. raw:: html
 
