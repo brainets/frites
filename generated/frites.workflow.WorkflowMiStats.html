@@ -70,6 +70,14 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#random-effect-rfx">Random effect (rfx)</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
@@ -118,6 +126,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
 </ul>
 </li>
@@ -210,7 +219,7 @@ population.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.convert_outputs" title="frites.workflow.WorkflowMiStats.convert_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_outputs</span></code></a>(self, mi, pvalues[, convert_to])</p></td>
 <td><p>Convert outputs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.fit" title="frites.workflow.WorkflowMiStats.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.fit" title="frites.workflow.WorkflowMiStats.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, stat_method])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
@@ -237,10 +246,18 @@ xarray DataArray (require xarray to be installed)</p>
 
 <dl class="method">
 <dt id="frites.workflow.WorkflowMiStats.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">stat_method='BRUNO'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When performing statistics at the cluster-level, we only test
+the cluster size. This means that in your results, you can only
+discuss about the presence of a significant cluster without being
+precise about its spatio-temporal properties
+(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id1">[4]</a>)</p>
+</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
@@ -251,6 +268,21 @@ distribution of mi that can be obtained by chance</p>
 </dd>
 <dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs)</p>
+</dd>
+<dt><strong>stat_method</strong><span class="classifier">string | “BRUNO”</span></dt><dd><p>Statistical method to use. Method names depends on the initial
+choice of inference type (ffx=fixed effect or rfx=random effect).
+For the fixed effect (ffx) :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘ffx_maxstat’ : maximum statistics</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
 </dd>
 </dl>
 </dd>
@@ -279,6 +311,8 @@ jobs)</p>
                 <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="../authors.html">Contributors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../references.html">References</a></li>
                 <!--
                 <li>·</li> 
                 <li style="font-weight:bold"><a href="../community.html">Community</a></li>
