@@ -52,6 +52,7 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.autosummary',
     'sphinx_gallery.gen_gallery',
+    'sphinxcontrib.bibtex',
     'numpydoc'
 ]
 
@@ -104,7 +105,7 @@ html_theme_options = {
     'globaltoc_includehidden': "true",
     'source_link_position': "nav",
     'navbar_class': "navbar",
-    'bootswatch_theme': "sandstone",
+    'bootswatch_theme': "readable",
     'navbar_fixed_top': True,
     'navbar_links': [
         ("Authors", "authors"),

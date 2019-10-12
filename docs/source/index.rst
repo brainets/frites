@@ -19,6 +19,7 @@ Frites
 
    api.rst
    authors.rst
+   references.rst
 
 
 

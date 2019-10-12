@@ -5,6 +5,7 @@ import numpy as np
 from joblib import Parallel, delayed
 
 from frites.core import MI_FUN, permute_mi_vector
+from frites.stats import STAT_FUN
 from frites.config import CONFIG
 
 logger = logging.getLogger("frites")
@@ -103,18 +104,55 @@ class WorkflowMiStats(object):
         return mi, mi_p
 
 
-    def _node_compute_stats(self, mi, mi_p, n_jobs=-1, **kw_stats):
-        pass
+    def _node_compute_stats(self, mi, mi_p, n_jobs=-1, stat_method='BRUNO',  # <<<<<<<<<<<<<<<<<<<
+                            **kw_stats):
+        """Compute the non-parametric statistics.
+
+        mi   = list of length n_roi composed with arrays of shape
+               (n_subjects, n_times)
+        mi_p = list of length n_roi composed with arrays of shape
+               (n_perm, n_subjects, n_times)
+        """
+        if self._inference == 'ffx':
+            # for the fixed effect, since it's computed across subjects it
+            # means that each roi has an mi.shape of (1, n_times) and can then
+            # been concatenated over the first axis. Same for the permutations,
+            # with a shape of (n_perm, 1, n_times)
+            mi, mi_p = np.concatenate(mi, axis=0), np.concatenate(mi_p, axis=1)
+            stat_fun = STAT_FUN[f"{stat_method}"]
+            # get the p-values
+            pvalues = stat_fun(mi, mi_p, **kw_stats)
+        elif self._inference == 'rfx':
+            pass
+
+        return pvalues
+
+    def _node_postprocessing(self, mi, pvalues, mean_mi=True):
+        """Post preocess outputs."""
+        if mean_mi:
+            logger.info("    Mean mi across subjects")
+            mi = np.stack([k.mean(axis=0) for k in mi])
+        return mi, pvalues
+
 
     ###########################################################################
     #                             EXTERNALS
     ###########################################################################
 
-    def fit(self, dataset, n_perm=1000, n_jobs=-1, **kw_stats):
+    def fit(self, dataset, n_perm=1000, n_jobs=-1, stat_method='BRUNO',  # <<<<<<<<<<<<<<<<<<
+            **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
         (see :class:`frites.dataset.DatasetEphy`)
+
+        .. warning::
+
+            When performing statistics at the cluster-level, we only test
+            the cluster size. This means that in your results, you can only
+            discuss about the presence of a significant cluster without being
+            precise about its spatio-temporal properties
+            (see :cite:`sassenhagen2019cluster`)
 
         Parameters
         ----------
@@ -126,13 +164,25 @@ class WorkflowMiStats(object):
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
+        stat_method : string | "BRUNO"
+            Statistical method to use. Method names depends on the initial
+            choice of inference type (ffx=fixed effect or rfx=random effect).
+            For the fixed effect (ffx) :
+
+                * 'ffx_maxstat' : maximum statistics
 
         Returns
         -------
+        pvalues : array_like
+            Array of p-values of shape (n_roi, n_times)
         """
         self._node_prepare_data(dataset)
         mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm, n_jobs=n_jobs)
-        pvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs, **kw_stats)
+        pvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,
+                                           stat_method=stat_method, **kw_stats)
+        mi, pvalues = self._node_postprocessing(mi, pvalues, mean_mi=True)
+
+        return mi, pvalues
 
 
     def convert_outputs(self, mi, pvalues, convert_to='dataframe'):
@@ -160,12 +210,12 @@ if __name__ == '__main__':
     from frites.dataset import DatasetEphy
     from frites.core import mi_nd_gg
 
-    modality = 'intra'
+    modality = 'meeg'
     n_subjects = 3
     n_epochs = 100
-    n_times = 100
-    n_roi = 4
-    n_sites_per_roi = 3
+    n_times = 40
+    n_roi = 3
+    n_sites_per_roi = 1
     as_mne = False
     x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                       n_times=n_times, n_roi=n_roi,
@@ -184,4 +234,14 @@ if __name__ == '__main__':
     # exit()
 
     dt = DatasetEphy(x, y, roi=roi, times=time)
-    WorkflowMiStats('cc', 'ffx').fit(dt, n_jobs=-1, n_perm=5)
+    wf = WorkflowMiStats('cc', 'ffx')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100, stat_method='ffx_maxstat')
+
+    import matplotlib.pyplot as plt
+
+    plt.subplot(211)
+    plt.plot(time, mi.T)
+    plt.subplot(212)
+    plt.plot(time, pvalues.T)
+
+    plt.show()

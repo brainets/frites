@@ -35,6 +35,29 @@ Dataset
    DatasetEphy
 
 
+Statistics
+----------
+
+.. currentmodule:: frites.stats
+
+.. automodule:: frites.stats
+   :no-members:
+   :no-inherited-members:
+
+Fixed effect (ffx)
+++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   ffx_maxstat
+
+
+Random effect (rfx)
++++++++++++++++++++
+
+
+
 Simulations
 -----------
 
