@@ -54,8 +54,8 @@ class WorkflowMiStats(object):
         self._inference = inference
         self.clean()
 
-        logger.info(f"Workflow for computing mutual information ({mi_type}) and"
-                    f" statistics ({inference}) has been defined")
+        logger.info(f"Workflow for computing mutual information ({mi_type}) "
+                    f"and statistics ({inference}) has been defined")
 
     ###########################################################################
     #                                INTERNALS
@@ -125,7 +125,7 @@ class WorkflowMiStats(object):
                (n_perm, n_subjects, n_times)
         """
         # get the function to evaluate statistics
-        stat_fun = STAT_FUN[f"{stat_method}"]
+        stat_fun = STAT_FUN[self._inference][stat_method]
         assert self._inference in stat_fun.__name__, (
             f"the select function is not compatible with {self._inference} "
             "inferences")
@@ -259,6 +259,15 @@ class WorkflowMiStats(object):
         ----------
         Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`
         """
+        # before performing any computations, we check if the statistical
+        # method does exist
+        try:
+            STAT_FUN[self._inference][stat_method]
+        except KeyError:
+            m_names = [k.__name__ for k in STAT_FUN[self._inference].values()]
+            raise KeyError(f"Selected statistical method `{stat_method}` "
+                           f"doesn't exist. For {self._inference} inference, "
+                           f"use either : {', '.join(m_names)}")
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
@@ -333,7 +342,8 @@ if __name__ == '__main__':
     dt = DatasetEphy(x, y, roi=roi, times=time)
     wf = WorkflowMiStats('cd', 'rfx')
     # mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='rfx_cluster_ttest_tfce')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20,
+                         stat_method='rfx_cluster_ttest_tfce')
 
     import matplotlib.pyplot as plt
     plt.subplot(211)
