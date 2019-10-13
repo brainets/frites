@@ -77,6 +77,10 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     -------
     pvalues : array_like
         Array of p-values of shape (n_roi, n_times)
+
+    References
+    ----------
+    Giordano et al., 2017 :cite:`giordano2017contributions`
     """
     # get t-test over true and permuted mi
     t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore)

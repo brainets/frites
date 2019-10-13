@@ -6,6 +6,7 @@ from joblib import Parallel, delayed
 
 from frites.core import MI_FUN, permute_mi_vector
 from frites.stats import STAT_FUN
+from frites.io import is_pandas_installed, is_xarray_installed
 from frites.config import CONFIG
 
 logger = logging.getLogger("frites")
@@ -136,19 +137,45 @@ class WorkflowMiStats(object):
 
         return pvalues
 
-    def _node_postprocessing(self, mi, pvalues, mean_mi=True):
-        """Post preocess outputs."""
+    def _node_postprocessing(self, mi, pvalues, times, roi, mean_mi=True,
+                             output_type='dataframe'):
+        """Post preprocess outputs.
+
+        This node take the mean mi across subjects and also enable to format
+        outputs to NumPy, Pandas or Xarray.
+        """
+        # mean mi across subjects
         if mean_mi:
             logger.info("    Mean mi across subjects")
             mi = np.stack([k.mean(axis=0) for k in mi])
-        return mi, pvalues
+        # output type
+        assert output_type in ['array', 'dataframe', 'dataarray', 'dataset']
+        logger.info(f"    Formatting output type ({output_type})")
+        force_np = not is_pandas_installed() and not is_xarray_installed()
+        if force_np or (output_type is 'array'):       # numpy
+            return mi, pvalues
+        elif output_type is 'dataframe':               # pandas
+            is_pandas_installed(raise_error=True)
+            import pandas as pd
+            mi = pd.DataFrame(mi.T, index=times, columns=roi)
+            pvalues = pd.DataFrame(pvalues.T, index=times, columns=roi)
+            return mi, pvalues
+        elif output_type in ['dataarray', 'dataset']:  # xarray
+            is_xarray_installed(raise_error=True)
+            from xarray import DataArray, Dataset
+            mi = DataArray(mi, dims=('roi', 'times'), coords=(roi, times))
+            pvalues = DataArray(pvalues, dims=('roi', 'times'),
+                                coords=(roi, times))
+            if output_type is 'dataarray':
+                return mi, pvalues
+            return Dataset(dict(mi=mi, pvalues=pvalues))
 
 
     ###########################################################################
     #                             EXTERNALS
     ###########################################################################
 
-    def fit(self, dataset, n_perm=1000, n_jobs=-1,
+    def fit(self, dataset, n_perm=1000, n_jobs=-1, output_type='dataframe',
             stat_method='rfx_cluster_ttest', **kw_stats):
         """Run the workflow on a dataset.
 
@@ -202,17 +229,25 @@ class WorkflowMiStats(object):
                 * 'rfx_cluster_ttest' : t-test across subjects for cluster
                   level inference (see :func:`frites.stats.rfx_cluster_ttest`)
                 * 'rfx_cluster_ttest_tfce' : t-test across subjects combined
-                  with the TFCE for cluster level inference (see
-                  :func:`frites.stats.rfx_cluster_ttest_tfce`
+                  with the Threshold Free Cluster Enhancement for cluster level
+                  inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`
                   :cite:`smith2009threshold`)
+        output_type : {'array', 'dataframe', 'dataarray', 'dataset'}
+            Convert the mutual information and p-values arrays either to
+            pandas DataFrames (require pandas to be installed) either to a
+            xarray DataArray or DataSet (require xarray to be installed)
         kw_stats : dict | {}
             Additional arguments to pass to the selected statistical method
             selected using the `stat_method` input parameter
 
         Returns
         -------
-        pvalues : array_like
-            Array of p-values of shape (n_roi, n_times)
+        mi, pvalues : array_like
+            Array of mean mutual information across subjects and p-values of
+            shape (n_roi, n_times) if `output_type` is 'array'. If
+            `output_type` is 'dataframe', a pandas.DataFrame is returned. If
+            `output_type` is 'dataarray' or 'dataset' a xarray.DataArray or
+            xarray.Dataset are returned
 
         References
         ----------
@@ -222,27 +257,11 @@ class WorkflowMiStats(object):
         mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm, n_jobs=n_jobs)
         pvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,
                                            stat_method=stat_method, **kw_stats)
-        mi, pvalues = self._node_postprocessing(mi, pvalues, mean_mi=True)
+        outs = self._node_postprocessing(mi, pvalues, dataset.times,
+                                         dataset.roi_names,
+                                         output_type=output_type)
 
-        return mi, pvalues
-
-
-    def convert_outputs(self, mi, pvalues, convert_to='dataframe'):
-        """Convert outputs.
-
-        Parameters
-        ----------
-        mi : array_like
-            Array of mutual information of shape (n_roi, n_times)
-        pvalues : array_like
-            Array of p-values of shape (n_roi, n_times)
-        convert_to : {'dataframe', 'dataarray', 'dataset'}
-            Convert the mutual information and p-values arrays either to
-            pandas DataFrames (require pandas to be installed) either to a
-            xarray DataArray (require xarray to be installed)
-        """
-        # 'dataframe', 'dataarray', 'dataset' <-
-        pass
+        return outs
 
 
 if __name__ == '__main__':
@@ -276,16 +295,14 @@ if __name__ == '__main__':
     # exit()
 
     dt = DatasetEphy(x, y, roi=roi, times=time)
-    wf = WorkflowMiStats('cc', 'rfx')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20,
-                         stat_method='rfx_cluster_ttest_tfce',
-                         center='median', zscore=False)
+    wf = WorkflowMiStats('cc', 'ffx')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
 
     import matplotlib.pyplot as plt
-
     plt.subplot(211)
-    plt.plot(time, mi.T)
+    plt.plot(mi)
     plt.subplot(212)
-    plt.plot(time, pvalues.T)
+    plt.plot(pvalues)
+    plt.legend()
 
     plt.show()

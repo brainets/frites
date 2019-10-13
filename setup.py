@@ -39,7 +39,6 @@ setup(
         "numpy",
         "scipy",
         "mne",
-        "pandas",
         "joblib",
     ],
     dependency_links=[],
