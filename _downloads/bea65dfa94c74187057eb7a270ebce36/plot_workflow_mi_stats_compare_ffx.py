@@ -44,7 +44,7 @@ data, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
 # analysis by computing $I(data; y)$ where `data` and `y` are two continuous
 # variables
 
-y, _ = sim_mi_cc(data, snr=.3)
+y, _ = sim_mi_cc(data, snr=.1)
 
 ###############################################################################
 # Create an electrophysiological dataset
@@ -77,7 +77,7 @@ ffx_methods = ('ffx_maxstat', 'ffx_fdr', 'ffx_bonferroni',
                'ffx_cluster_maxstat', 'ffx_cluster_fdr',
                'ffx_cluster_bonferroni', 'ffx_cluster_tfce')
 
-n_perm = 100
+n_perm = 1000
 n_jobs = 1
 pvalues = []
 plt.figure(figsize=(10, 8))

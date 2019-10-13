@@ -217,7 +217,7 @@ information by creating a continuous variable <cite>y</cite> using the function
 <a class="reference internal" href="../../generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="frites.simulations.sim_mi_cc"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.simulations.sim_mi_cc()</span></code></a>. This allows to simulate model-based
 analysis by computing $I(data; y)$ where <cite>data</cite> and <cite>y</cite> are two continuous
 variables</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="View documentation for frites.simulations.sim_mi_cc"><span class="n">sim_mi_cc</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="View documentation for frites.simulations.sim_mi_cc"><span class="n">sim_mi_cc</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -248,7 +248,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
                <span class="s1">&#39;ffx_cluster_maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx_cluster_fdr&#39;</span><span class="p">,</span>
                <span class="s1">&#39;ffx_cluster_bonferroni&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx_cluster_tfce&#39;</span><span class="p">)</span>
 
-<span class="n">n_perm</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_perm</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">pvalues</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -279,7 +279,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
   plt.subplot(212)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.641 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.726 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-workflow-mi-stats-compare-ffx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bea65dfa94c74187057eb7a270ebce36/plot_workflow_mi_stats_compare_ffx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_workflow_mi_stats_compare_ffx.py</span></code></a></p>
