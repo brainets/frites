@@ -13,9 +13,11 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+from datetime import date
 import sys
 import sphinx_bootstrap_theme
 import frites
+from sphinx_gallery.sorting import ExplicitOrder
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('sphinxext'))
 
@@ -23,7 +25,8 @@ sys.path.insert(0, os.path.abspath('sphinxext'))
 # -- Project information -----------------------------------------------------
 
 project = 'frites'
-copyright = '2019, Etienne Combrisson'
+td = date.today()
+copyright = 'Last updated on %s' % td.isoformat()
 author = 'Etienne Combrisson'
 
 # The short X.Y version
@@ -129,6 +132,10 @@ sphinx_gallery_conf = {
     'gallery_dirs': 'auto_examples',
     'backreferences_dir': 'generated',
     'filename_pattern': '/plot_|sim_',
+    'default_thumb_file': 'source/_static/frites.png',
+    'subsection_order': ExplicitOrder(['../../examples/simulations',
+                                       '../../examples/workflow',
+                                       '../../examples/mi']),
     # 'thumbnail_size': (100, 100),
 }
 

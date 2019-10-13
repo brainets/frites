@@ -311,7 +311,7 @@ if __name__ == '__main__':
     n_subjects = 3
     n_epochs = 100
     n_times = 40
-    n_roi = 3
+    n_roi = 1
     n_sites_per_roi = 1
     as_mne = False
     x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
@@ -332,8 +332,8 @@ if __name__ == '__main__':
 
     dt = DatasetEphy(x, y, roi=roi, times=time)
     wf = WorkflowMiStats('cc', 'ffx')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
+    # mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_bonferroni')
 
     import matplotlib.pyplot as plt
     plt.subplot(211)
