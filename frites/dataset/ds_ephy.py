@@ -6,6 +6,7 @@ import numpy as np
 import frites
 from frites.config import CONFIG
 from frites.core import copnorm_cat_nd, copnorm_nd
+from frites.io import set_log_level
 
 logger = logging.getLogger("frites")
 
@@ -38,8 +39,10 @@ class DatasetEphy(object):
         are going to be skipped. Use None to skip this parameter
     """
 
-    def __init__(self, x, y, roi, z=None, times=None, nb_min_suj=None):
+    def __init__(self, x, y, roi, z=None, times=None, nb_min_suj=None,
+                 verbose=None):
         """Init."""
+        set_log_level(verbose)
         # ---------------------------------------------------------------------
         # check input
 

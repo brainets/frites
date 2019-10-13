@@ -6,7 +6,7 @@ from joblib import Parallel, delayed
 
 from frites.core import MI_FUN, permute_mi_vector
 from frites.stats import STAT_FUN
-from frites.io import is_pandas_installed, is_xarray_installed
+from frites.io import is_pandas_installed, is_xarray_installed, set_log_level
 from frites.config import CONFIG
 
 logger = logging.getLogger("frites")
@@ -45,12 +45,14 @@ class WorkflowMiStats(object):
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
-    def __init__(self, mi_type='cc', inference='rfx'):
+    def __init__(self, mi_type='cc', inference='rfx', verbose=None):
         """Init."""
+        set_log_level(verbose)
         assert mi_type in ['cc', 'cd', 'ccd']
         assert inference in ['ffx', 'rfx']
         self._mi_type = mi_type
         self._inference = inference
+        self.clean()
 
         logger.info(f"Workflow for computing mutual information ({mi_type}) and"
                     f" statistics ({inference}) has been defined")
@@ -75,6 +77,8 @@ class WorkflowMiStats(object):
         # inplace preparation
         dataset.groupby("roi")
         dataset.copnorm(mi_type=self._mi_type, inference=self._inference)
+        # track time and roi
+        self._times, self._roi = dataset.times, dataset.roi_names
 
 
     def _node_compute_mi(self, dataset, n_perm=1000, n_jobs=-1):
@@ -105,6 +109,8 @@ class WorkflowMiStats(object):
             _mi = Parallel(n_jobs=n_jobs, **CONFIG["JOBLIB_CFG"])(delayed(
                mi_fun)(x[r], y_p[p], z[r], suj[r]) for p in range(n_perm))
             mi_p += [np.asarray(_mi)]
+
+        self._mi, self._mi_p = mi, mi_p
 
         return mi, mi_p
 
@@ -253,15 +259,45 @@ class WorkflowMiStats(object):
         ----------
         Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`
         """
-        self._node_prepare_data(dataset)
-        mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm, n_jobs=n_jobs)
+        # if mi and mi_p have already been computed, reuse it instead
+        if len(self._mi) and len(self._mi_p):
+            logger.info("    True and permuted mutual-information already "
+                        "computed. Use WorkflowMiStats.clean to reset "
+                        "arguments")
+            mi, mi_p = self._mi, self._mi_p
+        else:
+            self._node_prepare_data(dataset)
+            mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm,
+                                             n_jobs=n_jobs)
+        # infer p-values
         pvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,
                                            stat_method=stat_method, **kw_stats)
+        # mean mi and format outputs
         outs = self._node_postprocessing(mi, pvalues, dataset.times,
                                          dataset.roi_names,
                                          output_type=output_type)
 
         return outs
+
+    def clean(self):
+        """Clean computations."""
+        self._mi, self._mi_p = [], []
+
+    @property
+    def mi(self):
+        """List of length (n_roi) of true mutual information. Each element of
+        this list has a shape of (n_subjects, n_times) if `inference` is 'rfx'
+        (1, n_times) if `inference` is 'ffx'."""
+        return self._mi
+
+    @property
+    def mi_p(self):
+        """List of length (n_roi) of permuted mutual information. Each element
+        of this list has a shape of (n_subjects, n_times) if `inference` is
+        'rfx' (1, n_times) if `inference` is 'ffx'."""
+        return self._mi_p
+    
+    
 
 
 if __name__ == '__main__':
@@ -296,6 +332,7 @@ if __name__ == '__main__':
 
     dt = DatasetEphy(x, y, roi=roi, times=time)
     wf = WorkflowMiStats('cc', 'ffx')
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
     mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
 
     import matplotlib.pyplot as plt
