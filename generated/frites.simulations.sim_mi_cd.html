@@ -181,7 +181,46 @@
 <dl class="function">
 <dt id="frites.simulations.sim_mi_cd">
 <code class="sig-prename descclassname">frites.simulations.</code><code class="sig-name descname">sim_mi_cd</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">n_conditions=3</em>, <em class="sig-param">snr=0.9</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_mi.html#sim_mi_cd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.sim_mi_cd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Extract a discret variable from data.</p>
+<p>This function can be used to then evaluate the mutual information between
+some neurophysiological data and a discret variable (e.g conditions).</p>
+<p>This function takes as an input some random or real data and generates a
+discret variable from it. If you want to generate some compatible
+random data see the function <a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_multi_suj_ephy()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of data coming from multiple subjects. Each element of this must
+be an array of shape (n_epochs, n_sites, n_times)</p>
+</dd>
+<dt><strong>n_conditions</strong><span class="classifier">int | 3</span></dt><dd><p>Number of conditions to extract in the discret variable</p>
+</dd>
+<dt><strong>snr</strong><span class="classifier">float | 80.</span></dt><dd><p>Signal to noise ratio between [0, 1] (0 = no noise ; 1 = pure noise)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of modified data</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of discret variables. Each array has a
+shape of (n_epochs,)</p>
+</dd>
+<dt><strong>gt</strong><span class="classifier">array_like</span></dt><dd><p>Ground truth array of length (n_times,). This boolean array contains
+True where a cluster has been defined</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_multi_suj_ephy</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="frites.simulations.sim_mi_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cc</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="frites.simulations.sim_mi_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_ccd</span></code></a></dt><dd></dd>
+</dl>
+</div>
+</dd></dl>
 
 </div>
 
