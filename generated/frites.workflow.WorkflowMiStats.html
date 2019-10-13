@@ -232,37 +232,14 @@ population.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.__init__" title="frites.workflow.WorkflowMiStats.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.convert_outputs" title="frites.workflow.WorkflowMiStats.convert_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_outputs</span></code></a>(self, mi, pvalues[, convert_to])</p></td>
-<td><p>Convert outputs.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.fit" title="frites.workflow.WorkflowMiStats.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, stat_method])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.fit" title="frites.workflow.WorkflowMiStats.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.convert_outputs">
-<code class="sig-name descname">convert_outputs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi</em>, <em class="sig-param">pvalues</em>, <em class="sig-param">convert_to='dataframe'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.convert_outputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.convert_outputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert outputs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of mutual information of shape (n_roi, n_times)</p>
-</dd>
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
-</dd>
-<dt><strong>convert_to</strong><span class="classifier">{‘dataframe’, ‘dataarray’, ‘dataset’}</span></dt><dd><p>Convert the mutual information and p-values arrays either to
-pandas DataFrames (require pandas to be installed) either to a
-xarray DataArray (require xarray to be installed)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="frites.workflow.WorkflowMiStats.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -272,7 +249,7 @@ xarray DataArray (require xarray to be installed)</p>
 the cluster size. This means that in your results, you can only
 discuss about the presence of a significant cluster without being
 precise about its spatio-temporal properties
-(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[7]</a>)</p>
+(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[8]</a>)</p>
 </div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -306,7 +283,7 @@ cluster level (see
 <li><p>‘ffx_cluster_tfce’ : Threshold Free Cluster Enhancement for
 cluster level inference (see
 <a class="reference internal" href="frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce" title="frites.stats.ffx_cluster_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_tfce()</span></code></a>
-<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id4">[8]</a>)</p></li>
+<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id4">[9]</a>)</p></li>
 </ul>
 </div></blockquote>
 <p><strong>For the random effect (rfx) :</strong></p>
@@ -315,11 +292,15 @@ cluster level inference (see
 <li><p>‘rfx_cluster_ttest’ : t-test across subjects for cluster
 level inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttest.html#frites.stats.rfx_cluster_ttest" title="frites.stats.rfx_cluster_ttest"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest()</span></code></a>)</p></li>
 <li><p>‘rfx_cluster_ttest_tfce’ : t-test across subjects combined
-with the TFCE for cluster level inference (see
-<a class="reference internal" href="frites.stats.rfx_cluster_ttest_tfce.html#frites.stats.rfx_cluster_ttest_tfce" title="frites.stats.rfx_cluster_ttest_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest_tfce()</span></code></a>
-<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id5">[8]</a>)</p></li>
+with the Threshold Free Cluster Enhancement for cluster level
+inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttest_tfce.html#frites.stats.rfx_cluster_ttest_tfce" title="frites.stats.rfx_cluster_ttest_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest_tfce()</span></code></a>
+<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id5">[9]</a>)</p></li>
 </ul>
 </div></blockquote>
+</dd>
+<dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’, ‘dataset’}</span></dt><dd><p>Convert the mutual information and p-values arrays either to
+pandas DataFrames (require pandas to be installed) either to a
+xarray DataArray or DataSet (require xarray to be installed)</p>
 </dd>
 <dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
 selected using the <cite>stat_method</cite> input parameter</p>
@@ -328,13 +309,17 @@ selected using the <cite>stat_method</cite> input parameter</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
+<dt><strong>mi, pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of mean mutual information across subjects and p-values of
+shape (n_roi, n_times) if <cite>output_type</cite> is ‘array’. If
+<cite>output_type</cite> is ‘dataframe’, a pandas.DataFrame is returned. If
+<cite>output_type</cite> is ‘dataarray’ or ‘dataset’ a xarray.DataArray or
+xarray.Dataset are returned</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../references.html#maris2007nonparametric" id="id6">[5]</a></p>
+<p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../references.html#maris2007nonparametric" id="id6">[6]</a></p>
 </dd></dl>
 
 </dd></dl>

@@ -179,6 +179,7 @@
 
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">MI_FUN</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
 <span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="n">is_pandas_installed</span><span class="p">,</span> <span class="n">is_xarray_installed</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
@@ -309,19 +310,45 @@
 
         <span class="k">return</span> <span class="n">pvalues</span>
 
-    <span class="k">def</span> <span class="nf">_node_postprocessing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">mean_mi</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Post preocess outputs.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_node_postprocessing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">mean_mi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Post preprocess outputs.</span>
+
+<span class="sd">        This node take the mean mi across subjects and also enable to format</span>
+<span class="sd">        outputs to NumPy, Pandas or Xarray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># mean mi across subjects</span>
         <span class="k">if</span> <span class="n">mean_mi</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Mean mi across subjects&quot;</span><span class="p">)</span>
             <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span>
+        <span class="c1"># output type</span>
+        <span class="k">assert</span> <span class="n">output_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">,</span> <span class="s1">&#39;dataset&#39;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{output_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">force_np</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">is_pandas_installed</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_xarray_installed</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">force_np</span> <span class="ow">or</span> <span class="p">(</span><span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;array&#39;</span><span class="p">):</span>       <span class="c1"># numpy</span>
+            <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span>
+        <span class="k">elif</span> <span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;dataframe&#39;</span><span class="p">:</span>               <span class="c1"># pandas</span>
+            <span class="n">is_pandas_installed</span><span class="p">(</span><span class="n">raise_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+            <span class="n">mi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mi</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pvalues</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span>
+        <span class="k">elif</span> <span class="n">output_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dataarray&#39;</span><span class="p">,</span> <span class="s1">&#39;dataset&#39;</span><span class="p">]:</span>  <span class="c1"># xarray</span>
+            <span class="n">is_xarray_installed</span><span class="p">(</span><span class="n">raise_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">xarray</span> <span class="k">import</span> <span class="n">DataArray</span><span class="p">,</span> <span class="n">Dataset</span>
+            <span class="n">mi</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span> <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
+                                <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span>
+            <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">mi</span><span class="o">=</span><span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="o">=</span><span class="n">pvalues</span><span class="p">))</span>
 
 
     <span class="c1">###########################################################################</span>
     <span class="c1">#                             EXTERNALS</span>
     <span class="c1">###########################################################################</span>
 
-<div class="viewcode-block" id="WorkflowMiStats.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+<div class="viewcode-block" id="WorkflowMiStats.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span>
             <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
@@ -375,17 +402,25 @@
 <span class="sd">                * &#39;rfx_cluster_ttest&#39; : t-test across subjects for cluster</span>
 <span class="sd">                  level inference (see :func:`frites.stats.rfx_cluster_ttest`)</span>
 <span class="sd">                * &#39;rfx_cluster_ttest_tfce&#39; : t-test across subjects combined</span>
-<span class="sd">                  with the TFCE for cluster level inference (see</span>
-<span class="sd">                  :func:`frites.stats.rfx_cluster_ttest_tfce`</span>
+<span class="sd">                  with the Threshold Free Cluster Enhancement for cluster level</span>
+<span class="sd">                  inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`</span>
 <span class="sd">                  :cite:`smith2009threshold`)</span>
+<span class="sd">        output_type : {&#39;array&#39;, &#39;dataframe&#39;, &#39;dataarray&#39;, &#39;dataset&#39;}</span>
+<span class="sd">            Convert the mutual information and p-values arrays either to</span>
+<span class="sd">            pandas DataFrames (require pandas to be installed) either to a</span>
+<span class="sd">            xarray DataArray or DataSet (require xarray to be installed)</span>
 <span class="sd">        kw_stats : dict | {}</span>
 <span class="sd">            Additional arguments to pass to the selected statistical method</span>
 <span class="sd">            selected using the `stat_method` input parameter</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        pvalues : array_like</span>
-<span class="sd">            Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">        mi, pvalues : array_like</span>
+<span class="sd">            Array of mean mutual information across subjects and p-values of</span>
+<span class="sd">            shape (n_roi, n_times) if `output_type` is &#39;array&#39;. If</span>
+<span class="sd">            `output_type` is &#39;dataframe&#39;, a pandas.DataFrame is returned. If</span>
+<span class="sd">            `output_type` is &#39;dataarray&#39; or &#39;dataset&#39; a xarray.DataArray or</span>
+<span class="sd">            xarray.Dataset are returned</span>
 
 <span class="sd">        References</span>
 <span class="sd">        ----------</span>
@@ -395,27 +430,11 @@
         <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
         <span class="n">pvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_stats</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
                                            <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
-        <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_postprocessing</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">mean_mi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">outs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_postprocessing</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
+                                         <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span><span class="p">,</span>
+                                         <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span></div>
-
-
-<div class="viewcode-block" id="WorkflowMiStats.convert_outputs"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.convert_outputs">[docs]</a>    <span class="k">def</span> <span class="nf">convert_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">convert_to</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert outputs.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        mi : array_like</span>
-<span class="sd">            Array of mutual information of shape (n_roi, n_times)</span>
-<span class="sd">        pvalues : array_like</span>
-<span class="sd">            Array of p-values of shape (n_roi, n_times)</span>
-<span class="sd">        convert_to : {&#39;dataframe&#39;, &#39;dataarray&#39;, &#39;dataset&#39;}</span>
-<span class="sd">            Convert the mutual information and p-values arrays either to</span>
-<span class="sd">            pandas DataFrames (require pandas to be installed) either to a</span>
-<span class="sd">            xarray DataArray (require xarray to be installed)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># &#39;dataframe&#39;, &#39;dataarray&#39;, &#39;dataset&#39; &lt;-</span>
-        <span class="k">pass</span></div></div>
+        <span class="k">return</span> <span class="n">outs</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -449,17 +468,15 @@
     <span class="c1"># exit()</span>
 
     <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-    <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
-    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                         <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest_tfce&#39;</span><span class="p">,</span>
-                         <span class="n">center</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_fdr&#39;</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">pvalues</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pvalues</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
