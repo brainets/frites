@@ -179,7 +179,7 @@
 
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">MI_FUN</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
 <span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="n">is_pandas_installed</span><span class="p">,</span> <span class="n">is_xarray_installed</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="n">is_pandas_installed</span><span class="p">,</span> <span class="n">is_xarray_installed</span><span class="p">,</span> <span class="n">set_log_level</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
@@ -218,12 +218,14 @@
 <span class="sd">    Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WorkflowMiStats.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowMiStats.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
+        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
         <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2">) and&quot;</span>
                     <span class="n">f</span><span class="s2">&quot; statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
@@ -248,6 +250,8 @@
         <span class="c1"># inplace preparation</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">)</span>
+        <span class="c1"># track time and roi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
 
 
     <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
@@ -278,6 +282,8 @@
             <span class="n">_mi</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;JOBLIB_CFG&quot;</span><span class="p">])(</span><span class="n">delayed</span><span class="p">(</span>
                <span class="n">mi_fun</span><span class="p">)(</span><span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
             <span class="n">mi_p</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_mi</span><span class="p">)]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span> <span class="o">=</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
 
@@ -426,15 +432,45 @@
 <span class="sd">        ----------</span>
 <span class="sd">        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-        <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+        <span class="c1"># if mi and mi_p have already been computed, reuse it instead</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    True and permuted mutual-information already &quot;</span>
+                        <span class="s2">&quot;computed. Use WorkflowMiStats.clean to reset &quot;</span>
+                        <span class="s2">&quot;arguments&quot;</span><span class="p">)</span>
+            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span>
+                                             <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+        <span class="c1"># infer p-values</span>
         <span class="n">pvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_stats</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
                                            <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="c1"># mean mi and format outputs</span>
         <span class="n">outs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_postprocessing</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
                                          <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span><span class="p">,</span>
                                          <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">outs</span></div></div>
+        <span class="k">return</span> <span class="n">outs</span></div>
+
+<div class="viewcode-block" id="WorkflowMiStats.clean"><a class="viewcode-back" href="../../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean computations.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List of length (n_roi) of true mutual information. Each element of</span>
+<span class="sd">        this list has a shape of (n_subjects, n_times) if `inference` is &#39;rfx&#39;</span>
+<span class="sd">        (1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mi_p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List of length (n_roi) of permuted mutual information. Each element</span>
+<span class="sd">        of this list has a shape of (n_subjects, n_times) if `inference` is</span>
+<span class="sd">        &#39;rfx&#39; (1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span></div>
+    
+    
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -448,7 +484,7 @@
     <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="n">n_times</span> <span class="o">=</span> <span class="mi">40</span>
-    <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">n_sites_per_roi</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">as_mne</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">sim_multi_suj_ephy</span><span class="p">(</span><span class="n">n_subjects</span><span class="o">=</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span>
@@ -469,7 +505,8 @@
 
     <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
-    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_fdr&#39;</span><span class="p">)</span>
+    <span class="c1"># mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method=&#39;ffx_fdr&#39;)</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;ffx_bonferroni&#39;</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
@@ -509,7 +546,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright 2019, Etienne Combrisson.</p>
+        <p>&copy; Copyright Last updated on 2019-10-13.</p>
     </footer>
 
   </body>

@@ -230,6 +230,8 @@
     <span class="c1"># get p-values and apply the correction to it</span>
     <span class="n">th_pval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mi_p</span> <span class="o">&gt;</span> <span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">th_pval</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+    <span class="c1"># p-values returned by mne can exceed 1. Fix this behavior</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">pvalues</span><span class="p">),</span> <span class="n">pvalues</span><span class="p">))</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span>
 
@@ -433,7 +435,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright 2019, Etienne Combrisson.</p>
+        <p>&copy; Copyright Last updated on 2019-10-13.</p>
     </footer>
 
   </body>
