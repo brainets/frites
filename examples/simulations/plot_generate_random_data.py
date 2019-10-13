@@ -56,7 +56,7 @@ plt.xlabel('Time (s)')
 plt.title(f"Data for {roi[1]}")
 plt.autoscale(tight=True)
 plt.show()
-
+exit()
 ###############################################################################
 # Generate electrophysiological for multiple subjects
 # ---------------------------------------------------

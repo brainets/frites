@@ -27,7 +27,7 @@ plt.style.use('seaborn-white')
 # n_epochs, n_sites, n_times
 
 modality = 'meeg'
-n_subjects = 10
+n_subjects = 5
 n_epochs = 100
 n_times = 100
 data, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
@@ -44,7 +44,7 @@ data, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
 # analysis by computing $I(data; y)$ where `data` and `y` are two continuous
 # variables
 
-y, _ = sim_mi_cc(data, snr=.1)
+y, _ = sim_mi_cc(data, snr=.2)
 
 ###############################################################################
 # Create an electrophysiological dataset

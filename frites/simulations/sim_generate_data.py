@@ -46,7 +46,7 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
     Returns
     -------
     data : array_like
-        Data array of shape (n_epochs, n_sites, n_times) array.
+        Data array of shape (n_epochs, n_sites, n_pts) array.
     roi : array_like
         Array of region of interest of shape (n_sites,)
     time : array_like
