@@ -2,7 +2,7 @@
 import numpy as np
 
 from frites.config import CONFIG
-from frites.core import mi_nd_gg
+from frites.core import mi_nd_gg, mi_model_nd_gd
 
 
 ###############################################################################
@@ -49,14 +49,34 @@ def mi_gg_rfx(x, y, z, suj):
 ###############################################################################
 
 
-def mi_gd_ffx():
-    """I(C; D) for ffx."""
-    pass
+def mi_gd_ffx(x, y, z, suj):
+    """I(C; D) for ffx.
+
+    The returned mi array has a shape of (1, n_times)
+    """
+    # compute mi across subject
+    mi = mi_model_nd_gd(x, y, **CONFIG["KW_GCMI"])[np.newaxis, :]
+
+    return mi
 
 
-def mi_gd_rfx():
-    """I(C; D) for rfx."""
-    pass
+def mi_gd_rfx(x, y, z, suj):
+    """I(C; D) for rfx.
+
+    The returned mi array has a shape of (1, n_times)
+    """
+    n_times, _, _ = x.shape
+    # get subject informations
+    suj_u = np.unique(suj)
+    n_subjects = len(suj_u)
+    # compute mi per subject
+    mi = np.zeros((n_subjects, n_times), dtype=float)
+    for n_s, s in enumerate(suj_u):
+        is_suj = suj == s
+        mi[n_s, :] = mi_model_nd_gd(x[..., is_suj], y[..., is_suj],
+                                    **CONFIG["KW_GCMI"])
+
+    return mi
 
 ###############################################################################
 #                        I(CONTINUOUS; CONTINUOUS | DISCRET)
@@ -72,12 +92,6 @@ def mi_ggd_rfx():
     """I(C; C | D) for rfx."""
     pass
 
-
-MI_FUN = dict(
-    cc=dict(ffx=mi_gg_ffx, rfx=mi_gg_rfx),
-    cd=dict(ffx=mi_gd_ffx, rfx=mi_gd_rfx),
-    ccd=dict(ffx=mi_ggd_ffx, rfx=mi_ggd_rfx)
-)
 
 ###############################################################################
 #                              PERMUTATION VECTOR
