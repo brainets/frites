@@ -15,6 +15,7 @@ from .gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg, gcmi_nd_cc,  # noqa
                       gccmi_nd_ccc)
 from .mi_fun import (mi_gg_ffx, mi_gg_rfx, mi_gd_ffx, mi_gd_rfx, mi_ggd_ffx,  # noqa
                      mi_ggd_rfx, permute_mi_vector)
+from .gcmi_te import (transfert_entropy)  # noqa
 
 MI_FUN = dict(
     cc=dict(ffx=mi_gg_ffx, rfx=mi_gg_rfx),

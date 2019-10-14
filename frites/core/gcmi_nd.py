@@ -667,6 +667,6 @@ def gccmi_nd_ccc(x, y, z, mvaxis=None, traxis=-1, shape_checking=True,
         cx, cy = copnorm_nd(x, axis=-1), copnorm_nd(y, axis=-1)
         cz = copnorm_nd(z, axis=-1)
     else:
-        cx, cy = x, y, z
+        cx, cy, cz = x, y, z
     return cmi_nd_ggg(cx, cy, cz, mvaxis=-2, traxis=-1, biascorrect=True,
                       demeaned=True, shape_checking=False)
