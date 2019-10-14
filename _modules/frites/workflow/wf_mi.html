@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -131,6 +132,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.transfert_entropy.html">frites.core.transfert_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -227,8 +229,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2">) and&quot;</span>
-                    <span class="n">f</span><span class="s2">&quot; statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2">) &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;and statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
 
     <span class="c1">###########################################################################</span>
     <span class="c1">#                                INTERNALS</span>
@@ -298,7 +300,7 @@
 <span class="sd">               (n_perm, n_subjects, n_times)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get the function to evaluate statistics</span>
-        <span class="n">stat_fun</span> <span class="o">=</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{stat_method}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="n">stat_fun</span> <span class="o">=</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="ow">in</span> <span class="n">stat_fun</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="p">(</span>
             <span class="n">f</span><span class="s2">&quot;the select function is not compatible with </span><span class="si">{self._inference}</span><span class="s2"> &quot;</span>
             <span class="s2">&quot;inferences&quot;</span><span class="p">)</span>
@@ -432,6 +434,15 @@
 <span class="sd">        ----------</span>
 <span class="sd">        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># before performing any computations, we check if the statistical</span>
+        <span class="c1"># method does exist</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
+                           <span class="n">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{self._inference}</span><span class="s2"> inference, &quot;</span>
+                           <span class="n">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
         <span class="c1"># if mi and mi_p have already been computed, reuse it instead</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    True and permuted mutual-information already &quot;</span>
@@ -506,7 +517,8 @@
     <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
     <span class="c1"># mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method=&#39;ffx_fdr&#39;)</span>
-    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest_tfce&#39;</span><span class="p">)</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                         <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest_tfce&#39;</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
@@ -546,7 +558,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-10-13.</p>
+        <p>&copy; Copyright Last updated on 2019-10-14.</p>
     </footer>
 
   </body>
