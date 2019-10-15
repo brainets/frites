@@ -445,7 +445,7 @@ def gcmi_model_nd_cd(x, y, mvaxis=None, traxis=-1, shape_checking=True,
 
 
 def gccmi_nd_ccnd(x, y, *z, mvaxis=None, traxis=-1, gcrn=True,
-                  shape_checking=True):
+                  shape_checking=True, biascorrect=True, demeaned=True):
     """Conditional GCMI between two continuous variables.
 
     This function performs a GC-CMI between 2 continuous variables conditioned
@@ -507,7 +507,7 @@ def gccmi_nd_ccnd(x, y, *z, mvaxis=None, traxis=-1, gcrn=True,
             thsx = x[..., idx]
             thsy = y[..., idx]
         icond[..., num] = mi_nd_gg(thsx, thsy, mvaxis=-2, traxis=-1,
-                                   biascorrect=True, demeaned=True,
+                                   biascorrect=biascorrect, demeaned=demeaned,
                                    shape_checking=False)
     pz /= ntrl
 

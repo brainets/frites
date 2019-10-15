@@ -24,11 +24,11 @@ def _get_cluster(n_times, location='center', perc=.2):
     middle = int(np.round(n_times / 2))
     width = int(np.round(n_times * perc / 2))
     if location == 'left':
-        cluster = slice(middle - 2 * width, middle)
+        cluster = slice(width, 2 * width)
     elif location == 'center':
         cluster = slice(middle - width, middle + width)
     elif location == 'right':
-        cluster = slice(middle, middle + 2 * width)
+        cluster = slice(-2 * width, -width)
     return cluster
 
 

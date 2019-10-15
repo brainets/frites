@@ -2,7 +2,7 @@
 import numpy as np
 
 from frites.config import CONFIG
-from frites.core import mi_nd_gg, mi_model_nd_gd
+from frites.core import mi_nd_gg, mi_model_nd_gd, gccmi_nd_ccnd
 
 
 ###############################################################################
@@ -83,14 +83,39 @@ def mi_gd_rfx(x, y, z, suj):
 ###############################################################################
 
 
-def mi_ggd_ffx():
-    """I(C; C | D) for ffx."""
-    pass
+def mi_ggd_ffx(x, y, z, suj):
+    """I(C; C | D) for ffx.
+
+    The returned mi array has a shape of (1, n_times)
+    """
+    # proper shape of the regressor
+    n_times, _, n_trials = x.shape
+    y_t = np.tile(y.reshape(1, 1, -1), (n_times, 1, 1))
+    # compute mi across subject
+    mi = gccmi_nd_ccnd(x, y_t, z, **CONFIG["KW_GCMI"])[np.newaxis, :]
+
+    return mi
 
 
-def mi_ggd_rfx():
-    """I(C; C | D) for rfx."""
-    pass
+def mi_ggd_rfx(x, y, z, suj):
+    """I(C; C | D) for rfx.
+
+    The returned mi array has a shape of (1, n_times)
+    """
+    # proper shape of the regressor
+    n_times, _, n_trials = x.shape
+    y_t = np.tile(y.reshape(1, 1, -1), (n_times, 1, 1))
+    # get subject informations
+    suj_u = np.unique(suj)
+    n_subjects = len(suj_u)
+    # compute mi per subject
+    mi = np.zeros((n_subjects, n_times), dtype=float)
+    for n_s, s in enumerate(suj_u):
+        is_suj = suj == s
+        mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj], z[is_suj],
+                                   **CONFIG["KW_GCMI"])
+
+    return mi
 
 
 ###############################################################################
@@ -122,21 +147,15 @@ def permute_mi_vector(y, suj, mi_type='cc', inference='rfx', n_perm=1000):
     y_p = []
     for p in range(n_perm):
         if inference == 'ffx':    # FFX (FIXED EFFECT)
-            if mi_type in ['cc', 'cd']:
-                y_p += [np.random.permutation(y)]
-            elif mi_type == 'ccd':
-                pass
+            y_p += [np.random.permutation(y)]
         elif inference == 'rfx':  # RFX (RANDOM EFFECT)
-            y_c = y.copy()
+            _y = y.copy()
             for s in np.unique(suj):
                 # find everywhere the subject is present
                 is_suj = suj == s
                 # randomize per subject
-                if mi_type in ['cc', 'cd']:
-                    y_c[is_suj] = np.random.permutation(y[is_suj])
-                elif mi_type == 'ccd':
-                    raise NotImplementedError("TODO NEXT")
-            y_p += [y_c]
+                _y[is_suj] = np.random.permutation(y[is_suj])
+            y_p += [_y]
     assert len(y_p) == n_perm
 
     return y_p

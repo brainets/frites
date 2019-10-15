@@ -312,12 +312,13 @@ class WorkflowMiStats(object):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
-    from frites.simulations import sim_multi_suj_ephy, sim_mi_cc, sim_mi_cd
+    from frites.simulations import (sim_multi_suj_ephy, sim_mi_cc, sim_mi_cd,
+                                    sim_mi_ccd)
     from frites.dataset import DatasetEphy
     from frites.core import mi_nd_gg
 
     modality = 'meeg'
-    n_subjects = 3
+    n_subjects = 10
     n_epochs = 100
     n_times = 40
     n_roi = 5
@@ -328,7 +329,10 @@ if __name__ == '__main__':
                                       n_sites_per_roi=n_sites_per_roi,
                                       as_mne=as_mne, modality=modality,
                                       random_state=1)
+    z = None
     x, y, _ = sim_mi_cd(x, snr=.9)
+    # x, y, _ = sim_mi_cd(x, snr=.9)
+    # y, z, _ = sim_mi_ccd(x, snr=1.)
     time = np.arange(n_times) / 512
 
     # y_t = np.tile(y[0].reshape(-1, 1, 1), (1, x[0].shape[1], 100))
@@ -339,10 +343,10 @@ if __name__ == '__main__':
     # plt.show()
     # exit()
 
-    dt = DatasetEphy(x, y, roi=roi, times=time)
-    wf = WorkflowMiStats('cd', 'rfx')
+    dt = DatasetEphy(x, y, z=z, roi=roi, times=time)
+    wf = WorkflowMiStats('cc', 'rfx')
     # mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
-    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20,
+    mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100,
                          stat_method='rfx_cluster_ttest_tfce')
 
     import matplotlib.pyplot as plt

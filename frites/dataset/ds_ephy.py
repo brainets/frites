@@ -229,7 +229,7 @@ class DatasetEphy(object):
                 self._y = y_roi
             else:
                 self._y = [k[:, 0] for k in y_roi]
-                self._z = [k[:, 1:].astype(int) for k in y_roi]
+                self._z = [k[:, 1:].squeeze().astype(int) for k in y_roi]
             self.suj_roi = suj_roi
             self.suj_roi_u = suj_roi_u
             self.roi_names = roi
