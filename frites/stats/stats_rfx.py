@@ -26,7 +26,8 @@ def _rfx_ttest(mi, mi_p, center=False, zscore=False):
             mi[k] = (mi[k] - _med) / _std
             mi_p[k] = (mi_p[k] - _med) / _std
     # get the mean of surrogates
-    pop_mean_surr = np.mean([mi_p[k].ravel() for k in range(n_roi)])
+    _merge_perm = np.r_[tuple([mi_p[k].ravel() for k in range(n_roi)])]
+    pop_mean_surr = np.mean(_merge_perm)
     # perform the one sample t-test against the mean both on the true and
     # permuted mi
     t_obs = np.stack([ttest_1samp(mi[k], pop_mean_surr, axis=0)[
