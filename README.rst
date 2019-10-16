@@ -18,8 +18,7 @@ frites
 Description
 -----------
 
-Framework of Information Theory for Electrophysiological data and Statistics
-
+Framework for Information Theoretical analysis of Electrophysiological data and Statistics
 
 
 Installation
