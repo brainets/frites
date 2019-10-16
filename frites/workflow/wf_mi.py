@@ -330,9 +330,9 @@ if __name__ == '__main__':
                                       as_mne=as_mne, modality=modality,
                                       random_state=1)
     z = None
-    x, y, _ = sim_mi_cd(x, snr=.9)
     # x, y, _ = sim_mi_cd(x, snr=.9)
-    # y, z, _ = sim_mi_ccd(x, snr=1.)
+    # x, y, _ = sim_mi_cd(x, snr=.9)
+    y, z, _ = sim_mi_ccd(x, snr=.2)
     time = np.arange(n_times) / 512
 
     # y_t = np.tile(y[0].reshape(-1, 1, 1), (1, x[0].shape[1], 100))
@@ -344,7 +344,7 @@ if __name__ == '__main__':
     # exit()
 
     dt = DatasetEphy(x, y, z=z, roi=roi, times=time)
-    wf = WorkflowMiStats('cc', 'rfx')
+    wf = WorkflowMiStats('ccd', 'rfx')
     # mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
     mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100,
                          stat_method='rfx_cluster_ttest_tfce')

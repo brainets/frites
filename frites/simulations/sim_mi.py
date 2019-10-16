@@ -75,7 +75,7 @@ def sim_mi_cc(x, snr=.9):
     # if mne types, turn into arrays
     if isinstance(x[0], CONFIG["MNE_EPOCHS_TYPE"]):
         x = [x[k].get_data() for k in range(len(x))]
-    n_times, n_epochs = x[0].shape[-1], x[0].shape[0]
+    n_times = x[0].shape[-1]
     # cluster definition (20% length around central point)
     cluster = _get_cluster(n_times, location='center', perc=.2)
     # ground truth definition
@@ -86,7 +86,7 @@ def sim_mi_cc(x, snr=.9):
     cat_y = np.r_[tuple(_y)]
     loc, scale = np.mean(cat_y), np.std(cat_y)
     # generate random noise
-    _noise = [k * np.random.normal(loc, scale, size=(n_epochs,)) for k in _y]
+    _noise = [k * np.random.normal(loc, scale, size=(len(k),)) for k in _y]
     y = [snr * k + (1. - snr) * i for k, i in zip(_y, _noise)]
     return y, gt
 
@@ -228,6 +228,6 @@ def sim_mi_ccd(x, snr=.9):
     cat_y = np.r_[tuple(_y)]
     loc, scale = np.mean(cat_y), np.std(cat_y)
     # generate random noise
-    _noise = [k * np.random.normal(loc, scale, size=(n_epochs,)) for k in _y]
+    _noise = [k * np.random.normal(loc, scale, size=(len(k),)) for k in _y]
     y = [snr * k + (1. - snr) * i for k, i in zip(_y, _noise)]
     return y, z, gt

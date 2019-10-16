@@ -223,6 +223,9 @@ class DatasetEphy(object):
                 suj_roi += [_suj]
                 suj_roi_u += [np.array(_suj_u)]
                 roi += [r]
+            # test if the data are not empty
+            assert len(x_roi), ("Empty dataset probably because `nb_min_suj` "
+                                "is too high for your dataset")
             # update variables
             self._x = x_roi
             if self._y[0].ndim == 1:
@@ -233,6 +236,7 @@ class DatasetEphy(object):
             self.suj_roi = suj_roi
             self.suj_roi_u = suj_roi_u
             self.roi_names = roi
+            self.n_roi = len(roi)
         elif groupby == "subject":  # -----------------------------------------
             raise NotImplementedError("TODO FOR FIT + TRANSFERT ENTROPY")
 
