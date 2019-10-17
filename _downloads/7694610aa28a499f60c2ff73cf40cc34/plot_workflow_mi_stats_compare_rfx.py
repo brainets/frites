@@ -28,7 +28,7 @@ plt.style.use('seaborn-white')
 
 modality = 'meeg'
 n_subjects = 5
-n_epochs = 100
+n_epochs = 400
 n_times = 100
 data, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                      n_times=n_times, modality=modality,

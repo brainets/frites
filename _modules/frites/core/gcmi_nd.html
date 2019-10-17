@@ -620,7 +620,7 @@
 
 
 <div class="viewcode-block" id="gccmi_nd_ccnd"><a class="viewcode-back" href="../../../generated/frites.core.gccmi_nd_ccnd.html#frites.core.gccmi_nd_ccnd">[docs]</a><span class="k">def</span> <span class="nf">gccmi_nd_ccnd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="n">mvaxis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">traxis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                  <span class="n">shape_checking</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                  <span class="n">shape_checking</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">biascorrect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">demeaned</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Conditional GCMI between two continuous variables.</span>
 
 <span class="sd">    This function performs a GC-CMI between 2 continuous variables conditioned</span>
@@ -682,7 +682,7 @@
             <span class="n">thsx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">idx</span><span class="p">]</span>
             <span class="n">thsy</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">idx</span><span class="p">]</span>
         <span class="n">icond</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_nd_gg</span><span class="p">(</span><span class="n">thsx</span><span class="p">,</span> <span class="n">thsy</span><span class="p">,</span> <span class="n">mvaxis</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">traxis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-                                   <span class="n">biascorrect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">demeaned</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                   <span class="n">biascorrect</span><span class="o">=</span><span class="n">biascorrect</span><span class="p">,</span> <span class="n">demeaned</span><span class="o">=</span><span class="n">demeaned</span><span class="p">,</span>
                                    <span class="n">shape_checking</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pz</span> <span class="o">/=</span> <span class="n">ntrl</span>
 
@@ -875,7 +875,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-10-14.</p>
+        <p>&copy; Copyright Last updated on 2019-10-17.</p>
     </footer>
 
   </body>

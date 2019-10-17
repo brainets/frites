@@ -487,12 +487,13 @@
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-    <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="k">import</span> <span class="n">sim_multi_suj_ephy</span><span class="p">,</span> <span class="n">sim_mi_cc</span><span class="p">,</span> <span class="n">sim_mi_cd</span>
+    <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="k">import</span> <span class="p">(</span><span class="n">sim_multi_suj_ephy</span><span class="p">,</span> <span class="n">sim_mi_cc</span><span class="p">,</span> <span class="n">sim_mi_cd</span><span class="p">,</span>
+                                    <span class="n">sim_mi_ccd</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="k">import</span> <span class="n">DatasetEphy</span>
     <span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">mi_nd_gg</span>
 
     <span class="n">modality</span> <span class="o">=</span> <span class="s1">&#39;meeg&#39;</span>
-    <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="n">n_times</span> <span class="o">=</span> <span class="mi">40</span>
     <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">5</span>
@@ -503,7 +504,10 @@
                                       <span class="n">n_sites_per_roi</span><span class="o">=</span><span class="n">n_sites_per_roi</span><span class="p">,</span>
                                       <span class="n">as_mne</span><span class="o">=</span><span class="n">as_mne</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="n">modality</span><span class="p">,</span>
                                       <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sim_mi_cd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># x, y, _ = sim_mi_cd(x, snr=.9)</span>
+    <span class="c1"># x, y, _ = sim_mi_cd(x, snr=.9)</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sim_mi_ccd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="mi">512</span>
 
     <span class="c1"># y_t = np.tile(y[0].reshape(-1, 1, 1), (1, x[0].shape[1], 100))</span>
@@ -514,10 +518,10 @@
     <span class="c1"># plt.show()</span>
     <span class="c1"># exit()</span>
 
-    <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-    <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">WorkflowMiStats</span><span class="p">(</span><span class="s1">&#39;ccd&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
     <span class="c1"># mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method=&#39;ffx_fdr&#39;)</span>
-    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                          <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest_tfce&#39;</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -558,7 +562,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-10-14.</p>
+        <p>&copy; Copyright Last updated on 2019-10-17.</p>
     </footer>
 
   </body>

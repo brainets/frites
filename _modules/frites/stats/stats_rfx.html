@@ -201,7 +201,8 @@
             <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
             <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
     <span class="c1"># get the mean of surrogates</span>
-    <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+    <span class="n">_merge_perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])]</span>
+    <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_merge_perm</span><span class="p">)</span>
     <span class="c1"># perform the one sample t-test against the mean both on the true and</span>
     <span class="c1"># permuted mi</span>
     <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span>
@@ -367,7 +368,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-10-14.</p>
+        <p>&copy; Copyright Last updated on 2019-10-17.</p>
     </footer>
 
   </body>
