@@ -4,7 +4,7 @@ import logging
 import numpy as np
 from scipy.stats import trim_mean, ttest_1samp
 
-from .stats_cluster import find_temporal_clusters
+from .stats_cluster import temporal_clusters_permutation_test
 
 logger = logging.getLogger("frites")
 
@@ -93,7 +93,7 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     # infer p-values
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
                 f"threshold={th})")
-    pvalues = find_temporal_clusters(t_obs, t_obs_surr, th, tail=1)
+    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th, tail=1)
 
     return pvalues
 
@@ -160,6 +160,6 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     # infer p-values
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
                 f"threshold={th})")
-    pvalues = find_temporal_clusters(t_obs, t_obs_surr, th, tail=1)
+    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th, tail=1)
 
     return pvalues

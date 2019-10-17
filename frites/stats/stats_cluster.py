@@ -4,8 +4,8 @@ import numpy as np
 from mne.stats.cluster_level import _find_clusters
 
 
-def find_temporal_clusters(mi, mi_p, th, tail=1, **kwargs):
-    """Find clusters in the array of true mi.
+def temporal_clusters_permutation_test(mi, mi_p, th, tail=1, **kwargs):
+    """Infer p-values using nonparametric test on temporal clusters.
 
     Parameters
     ----------
@@ -29,7 +29,8 @@ def find_temporal_clusters(mi, mi_p, th, tail=1, **kwargs):
     """
     # get variables
     n_perm, n_roi, n_times = mi_p.shape
-    kwargs['tail'] = kwargs.get('tail', 1)
+    assert tail in [-1, 0, 1]
+    kwargs['tail'] = tail
 
     # -------------------------------------------------------------------------
     # identify clusters for the true mi
@@ -56,14 +57,19 @@ def find_temporal_clusters(mi, mi_p, th, tail=1, **kwargs):
         if not len(_cl_p_null): continue  # noqa
         # take the maximum size (MCP)
         cl_p_mass += [np.r_[tuple(_cl_p_null)].max()]
-    cl_p_mass = np.array(cl_p_mass)
+    cl_p_mass = np.array(cl_p_mass).reshape(1, -1)
 
     # -------------------------------------------------------------------------
     # infer p-values by comparing cluster sizes
     pvalues = np.full((n_roi, n_times), 1.)
     for r, (cl_g, clm_g) in enumerate(zip(cl_true, cl_mass)):
         for cl, clm in zip(cl_g, clm_g):
-            pv = (clm <= cl_p_mass.reshape(1, -1)).sum(1) / n_perm
+            if tail == 1:
+                pv = (clm <= cl_p_mass).sum(1) / n_perm
+            elif tail == -1:
+                pv = (clm >= cl_p_mass).sum(1) / n_perm
+            elif tail == 0:
+                pv = (np.abs(clm) <= np.abs(cl_p_mass)).sum(1) / n_perm
             pvalues[r, cl] = max(1. / n_perm, pv)
 
     return pvalues

@@ -5,7 +5,7 @@ import numpy as np
 
 from mne.stats import fdr_correction, bonferroni_correction
 
-from .stats_cluster import find_temporal_clusters
+from .stats_cluster import temporal_clusters_permutation_test
 
 logger = logging.getLogger("frites")
 
@@ -131,7 +131,7 @@ def ffx_cluster_maxstat(mi, mi_p, alpha=0.05):
     # infer p-values from cluster sizes
     logger.info(f"    FFX maximum statistics at cluster level (alpha={alpha},"
                 f" cluster threshold={th})")
-    pvalues = find_temporal_clusters(mi, mi_p, th, tail=1)
+    pvalues = temporal_clusters_permutation_test(mi, mi_p, th, tail=1)
 
     return pvalues
 
@@ -150,7 +150,7 @@ def _ffx_cluster_fdr_bonf(mi, mi_p, func, alpha=0.05):
     # infer p-values from cluster sizes
     logger.info(f"    FFX {meth_name} correction at cluster level "
                 f"(alpha={alpha}, cluster threshold={th})")
-    pvalues = find_temporal_clusters(mi, mi_p, th, tail=1)
+    pvalues = temporal_clusters_permutation_test(mi, mi_p, th, tail=1)
 
     return pvalues
 
@@ -229,6 +229,6 @@ def ffx_cluster_tfce(mi, mi_p, start=None, step=None):
     # find clusters and infer p-values
     logger.info(f"    FFX TFCE correction at cluster level (start={start}, "
                 f"step={step})")
-    pvalues = find_temporal_clusters(mi, mi_p, threshold, tail=1)
+    pvalues = temporal_clusters_permutation_test(mi, mi_p, threshold, tail=1)
 
     return pvalues

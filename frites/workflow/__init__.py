@@ -3,4 +3,4 @@
 The following functions are pipelines designed for computing the mutual
 information and statistics (fixed effect or random effect).
 """
-from .wf_mi import WorkflowMiStats  # noqa
+from .wf_mi import WfMi  # noqa

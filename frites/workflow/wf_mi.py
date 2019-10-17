@@ -12,7 +12,7 @@ from frites.config import CONFIG
 logger = logging.getLogger("frites")
 
 
-class WorkflowMiStats(object):
+class WfMi(object):
     """Workflow of mutual-information and statistics.
 
     This class allows to define a workflow for computing the mutual information
@@ -271,7 +271,7 @@ class WorkflowMiStats(object):
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
-                        "computed. Use WorkflowMiStats.clean to reset "
+                        "computed. Use WfMi.clean to reset "
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:
@@ -344,7 +344,7 @@ if __name__ == '__main__':
     # exit()
 
     dt = DatasetEphy(x, y, z=z, roi=roi, times=time)
-    wf = WorkflowMiStats('ccd', 'rfx')
+    wf = WfMi('ccd', 'rfx')
     # mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=20, stat_method='ffx_fdr')
     mi, pvalues = wf.fit(dt, n_jobs=-1, n_perm=100,
                          stat_method='rfx_cluster_ttest_tfce')
