@@ -12,10 +12,9 @@ from .gcmi_1d import (ent_1d_g, mi_1d_gg, gcmi_1d_cc, mi_model_1d_gd,  # noqa
                       cmi_1d_ggg, gccmi_1d_ccc, gccmi_1d_ccd)
 from .gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg, gcmi_nd_cc,  # noqa
                       gcmi_model_nd_cd, gccmi_nd_ccnd, gccmi_model_nd_cdnd,
-                      gccmi_nd_ccc)
+                      gccmi_nd_ccc, transfer_entropy)
 from .mi_fun import (mi_gg_ffx, mi_gg_rfx, mi_gd_ffx, mi_gd_rfx, mi_ggd_ffx,  # noqa
                      mi_ggd_rfx, permute_mi_vector)
-from .gcmi_te import (transfert_entropy)  # noqa
 
 MI_FUN = dict(
     cc=dict(ffx=mi_gg_ffx, rfx=mi_gg_rfx),

@@ -3,7 +3,8 @@ import numpy as np
 
 from frites.core.gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg,
                                  gcmi_nd_cc, gcmi_model_nd_cd, gccmi_nd_ccnd,
-                                 gccmi_model_nd_cdnd, gccmi_nd_ccc)
+                                 gccmi_model_nd_cdnd, gccmi_nd_ccc,
+                                 transfer_entropy)
 
 
 class TestGcmiNd(object):  # noqa
@@ -68,3 +69,19 @@ class TestGcmiNd(object):  # noqa
         z_c = np.random.uniform(0, 50, size=(10, 1000, 20))
         assert gccmi_nd_ccc(x_c, y_c, z_c, traxis=1).shape == (10, 20)
         assert gccmi_nd_ccc(x_c, y_c, z_c, traxis=1, mvaxis=0).shape == (20,)
+
+    def test_transfer_entropy(self):
+        """Test function transfer_entropy."""
+        n_roi, n_times, n_epochs = 4, 100, 20
+        max_delay = 30
+        x = np.random.uniform(0, 1, (n_roi, n_times, n_epochs))
+        # test across all pairs
+        te, pairs = transfer_entropy(x, max_delay=max_delay)
+        assert te.shape == (pairs.shape[0], n_times - max_delay)
+        assert pairs.shape == (n_roi * (n_roi - 1), 2)
+        # test specific pairs
+        pairs = np.c_[np.array([0, 1]), np.array([2, 3])]
+        n_pairs = pairs.shape[0]
+        te, pairs = transfer_entropy(x, max_delay=max_delay, pairs=pairs)
+        assert te.shape == (n_pairs, n_times - max_delay)
+        assert pairs.shape == (n_pairs, 2)
