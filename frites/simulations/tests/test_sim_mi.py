@@ -1,6 +1,6 @@
 """Test functions to generate random mi."""
 from frites.simulations import sim_multi_suj_ephy
-from frites.simulations import sim_mi_cc, sim_mi_cd  #, sim_mi_ccd
+from frites.simulations import sim_mi_cc, sim_mi_cd, sim_mi_ccd
 
 
 modality = 'intra'
@@ -34,4 +34,11 @@ class TestSimMi(object):  # noqa
 
     def test_sim_mi_ccd(self):
         """Test function sim_mi_ccd."""
-        pass
+        y, z, gt = sim_mi_ccd(x, snr=.8)
+        assert len(y) == len(x) == len(z)
+        assert all([k.shape == (n_epochs,) for k in y])
+        assert (len(gt) == n_times) and (gt.dtype == bool)
+
+
+if __name__ == '__main__':
+  TestSimMi().test_sim_mi_ccd()
