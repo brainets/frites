@@ -10,7 +10,7 @@ import numpy as np
 
 from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
 from frites.dataset import DatasetEphy
-from frites.workflow import WorkflowMiStats
+from frites.workflow import WfMi
 
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-white')
@@ -60,13 +60,13 @@ dt = DatasetEphy(data, y, roi=roi, times=time, verbose=False)
 # -------------------
 #
 # We now define the workflow for computing mi and evaluate statistics using the
-# class :class:`frites.workflow.WorkflowMiStats`. Here, the type of mutual
+# class :class:`frites.workflow.WfMi`. Here, the type of mutual
 # information to perform is 'cc' between it's computed between two continuous
 # variables. And we also specify the inference type 'ffx' for fixed-effect
 
 mi_type = 'cc'
 inference = 'ffx'
-wf = WorkflowMiStats(mi_type, inference)
+wf = WfMi(mi_type, inference)
 
 ###############################################################################
 # Compute the mutual information and statistics

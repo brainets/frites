@@ -18,7 +18,7 @@ Workflow
 .. autosummary::
    :toctree: generated/
 
-   WorkflowMiStats
+   WfMi
 
 .. raw:: html
 
@@ -81,7 +81,7 @@ Cluster
 .. autosummary::
    :toctree: generated/
 
-   find_temporal_clusters
+   temporal_clusters_permutation_test
 
 .. raw:: html
 

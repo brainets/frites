@@ -62,7 +62,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
@@ -86,7 +86,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
 </ul>
 </li>
 </ul>
@@ -179,8 +179,8 @@
 <span class="kn">from</span> <span class="nn">mne.stats.cluster_level</span> <span class="k">import</span> <span class="n">_find_clusters</span>
 
 
-<div class="viewcode-block" id="find_temporal_clusters"><a class="viewcode-back" href="../../../generated/frites.stats.find_temporal_clusters.html#frites.stats.find_temporal_clusters">[docs]</a><span class="k">def</span> <span class="nf">find_temporal_clusters</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Find clusters in the array of true mi.</span>
+<div class="viewcode-block" id="temporal_clusters_permutation_test"><a class="viewcode-back" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html#frites.stats.temporal_clusters_permutation_test">[docs]</a><span class="k">def</span> <span class="nf">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Infer p-values using nonparametric test on temporal clusters.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -204,7 +204,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># get variables</span>
     <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tail&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">tail</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tail</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># identify clusters for the true mi</span>
@@ -231,14 +232,19 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">_cl_p_null</span><span class="p">):</span> <span class="k">continue</span>  <span class="c1"># noqa</span>
         <span class="c1"># take the maximum size (MCP)</span>
         <span class="n">cl_p_mass</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">_cl_p_null</span><span class="p">)]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
-    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="p">)</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># infer p-values by comparing cluster sizes</span>
     <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="n">cl_g</span><span class="p">,</span> <span class="n">clm_g</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cl_true</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">cl</span><span class="p">,</span> <span class="n">clm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cl_g</span><span class="p">,</span> <span class="n">clm_g</span><span class="p">):</span>
-            <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">clm</span> <span class="o">&lt;=</span> <span class="n">cl_p_mass</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+            <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">clm</span> <span class="o">&lt;=</span> <span class="n">cl_p_mass</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+            <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">clm</span> <span class="o">&gt;=</span> <span class="n">cl_p_mass</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+            <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">clm</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
             <span class="n">pvalues</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">cl</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span></div>

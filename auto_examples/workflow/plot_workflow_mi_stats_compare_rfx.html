@@ -62,7 +62,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.dataset">Dataset</a><ul>
@@ -86,7 +86,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#cluster">Cluster</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
 </ul>
 </li>
 </ul>
@@ -189,7 +189,7 @@ mutual information and evaluate stastitics. Inference are made within-subjects
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="k">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">,</span> <a href="../../generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="View documentation for frites.simulations.sim_mi_cc"><span class="n">sim_mi_cc</span></a>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="k">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
-<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="k">import</span> <a href="../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats" title="View documentation for frites.workflow.WorkflowMiStats"><span class="n">WorkflowMiStats</span></a>
+<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="k">import</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
@@ -234,12 +234,12 @@ compatible electrophysiological dataset</p>
 <div class="section" id="define-the-workflow">
 <h2>Define the workflow<a class="headerlink" href="#define-the-workflow" title="Permalink to this headline">¶</a></h2>
 <p>We now define the workflow for computing mi and evaluate statistics using the
-class <a class="reference internal" href="../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats" title="frites.workflow.WorkflowMiStats"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WorkflowMiStats</span></code></a>. Here, the type of mutual
+class <a class="reference internal" href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. Here, the type of mutual
 information to perform is ‘cc’ between it’s computed between two continuous
 variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mi_type</span> <span class="o">=</span> <span class="s1">&#39;cc&#39;</span>
 <span class="n">inference</span> <span class="o">=</span> <span class="s1">&#39;rfx&#39;</span>
-<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WorkflowMiStats.html#frites.workflow.WorkflowMiStats" title="View documentation for frites.workflow.WorkflowMiStats"><span class="n">WorkflowMiStats</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="p">)</span>
+<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -279,7 +279,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
   plt.subplot(212)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.535 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.304 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-workflow-mi-stats-compare-rfx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7694610aa28a499f60c2ff73cf40cc34/plot_workflow_mi_stats_compare_rfx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_workflow_mi_stats_compare_rfx.py</span></code></a></p>

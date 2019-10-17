@@ -62,7 +62,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WorkflowMiStats.html">frites.workflow.WorkflowMiStats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
@@ -86,7 +86,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +179,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">trim_mean</span><span class="p">,</span> <span class="n">ttest_1samp</span>
 
-<span class="kn">from</span> <span class="nn">.stats_cluster</span> <span class="k">import</span> <span class="n">find_temporal_clusters</span>
+<span class="kn">from</span> <span class="nn">.stats_cluster</span> <span class="k">import</span> <span class="n">temporal_clusters_permutation_test</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -268,7 +268,7 @@
     <span class="c1"># infer p-values</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    RFX non-parametric group t-test (alpha=</span><span class="si">{alpha}</span><span class="s2">, &quot;</span>
                 <span class="n">f</span><span class="s2">&quot;threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">find_temporal_clusters</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span></div>
 
@@ -335,7 +335,7 @@
     <span class="c1"># infer p-values</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    RFX non-parametric group t-test (alpha=</span><span class="si">{alpha}</span><span class="s2">, &quot;</span>
                 <span class="n">f</span><span class="s2">&quot;threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">find_temporal_clusters</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span></div>
 </pre></div>

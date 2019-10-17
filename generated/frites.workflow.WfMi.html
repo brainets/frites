@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.WorkflowMiStats &#8212; frites 0.0.0 documentation</title>
+    <title>frites.workflow.WfMi &#8212; frites 0.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -64,7 +64,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.workflow.WorkflowMiStats</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.workflow.WfMi</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.dataset">Dataset</a><ul>
@@ -88,7 +88,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#cluster">Cluster</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.find_temporal_clusters.html">frites.stats.find_temporal_clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
 </ul>
 </li>
 </ul>
@@ -154,7 +154,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.workflow.WorkflowMiStats.rst.txt"
+  <a href="../_sources/generated/frites.workflow.WfMi.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -178,11 +178,11 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-workflow-workflowmistats">
-<h1>frites.workflow.WorkflowMiStats<a class="headerlink" href="#frites-workflow-workflowmistats" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-workflow-wfmi">
+<h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="frites.workflow.WorkflowMiStats">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WorkflowMiStats</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.workflow.WfMi">
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of mutual-information and statistics.</p>
 <p>This class allows to define a workflow for computing the mutual information
 and then to evaluate the significance using non-parametric statistics
@@ -219,8 +219,8 @@ population.</p></li>
 <p class="rubric">References</p>
 <p>Friston et al., 1996, 1999 <a class="bibtex reference internal" href="../references.html#friston1996detecting" id="id1">[1]</a><a class="bibtex reference internal" href="../references.html#friston1999many" id="id2">[2]</a></p>
 <dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.workflow.WfMi.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -231,13 +231,13 @@ population.</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.__init__" title="frites.workflow.WorkflowMiStats.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.__init__" title="frites.workflow.WfMi.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference, verbose])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.clean" title="frites.workflow.WorkflowMiStats.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.fit" title="frites.workflow.WorkflowMiStats.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
@@ -249,23 +249,23 @@ population.</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.mi" title="frites.workflow.WorkflowMiStats.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.mi" title="frites.workflow.WfMi.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
 <td><p>List of length (n_roi) of true mutual information.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WorkflowMiStats.mi_p" title="frites.workflow.WorkflowMiStats.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.mi_p" title="frites.workflow.WfMi.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
 <td><p>List of length (n_roi) of permuted mutual information.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.clean" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.workflow.WfMi.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean computations.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WorkflowMiStats.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WorkflowMiStats.fit" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.workflow.WfMi.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -349,16 +349,16 @@ xarray.Dataset are returned</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.mi">
-<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WorkflowMiStats.mi" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.workflow.WfMi.mi">
+<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WfMi.mi" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of length (n_roi) of true mutual information. Each element of
 this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘rfx’
 (1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.workflow.WorkflowMiStats.mi_p">
-<em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WorkflowMiStats.mi_p" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.workflow.WfMi.mi_p">
+<em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WfMi.mi_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of length (n_roi) of permuted mutual information. Each element
 of this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is
 ‘rfx’ (1, n_times) if <cite>inference</cite> is ‘ffx’.</p>

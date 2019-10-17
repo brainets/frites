@@ -21,7 +21,7 @@ mutual information and evaluate stastitics. Inference are made within-subjects
 
     from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
     from frites.dataset import DatasetEphy
-    from frites.workflow import WorkflowMiStats
+    from frites.workflow import WfMi
 
     import matplotlib.pyplot as plt
     plt.style.use('seaborn-white')
@@ -103,7 +103,7 @@ Define the workflow
 -------------------
 
 We now define the workflow for computing mi and evaluate statistics using the
-class :class:`frites.workflow.WorkflowMiStats`. Here, the type of mutual
+class :class:`frites.workflow.WfMi`. Here, the type of mutual
 information to perform is 'cc' between it's computed between two continuous
 variables. And we also specify the inference type 'ffx' for fixed-effect
 
@@ -113,7 +113,7 @@ variables. And we also specify the inference type 'ffx' for fixed-effect
 
     mi_type = 'cc'
     inference = 'ffx'
-    wf = WorkflowMiStats(mi_type, inference)
+    wf = WfMi(mi_type, inference)
 
 
 
@@ -176,7 +176,7 @@ Compute the mutual information and statistics
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.258 seconds)
+   **Total running time of the script:** ( 0 minutes  4.130 seconds)
 
 
 .. _sphx_glr_download_auto_examples_workflow_plot_workflow_mi_stats_compare_ffx.py:
