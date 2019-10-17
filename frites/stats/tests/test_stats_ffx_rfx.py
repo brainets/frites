@@ -1,10 +1,7 @@
 """Test FFX statistics."""
 import numpy as np
 
-from frites.stats import (ffx_maxstat, ffx_fdr, ffx_bonferroni,
-                          ffx_cluster_maxstat, ffx_cluster_fdr,
-                          ffx_cluster_bonferroni, ffx_cluster_tfce)
-from frites.stats import (rfx_cluster_ttest, rfx_cluster_ttest_tfce)
+from frites.stats import STAT_FUN
 
 rnd = np.random.RandomState(0)
 
@@ -30,9 +27,7 @@ class TestFFXRFX(object):  # noqa
         mi_p = rnd.uniform(0, 1, (n_perm, n_roi, n_times))
         mi[:, sl] += 1000
         # test ffx
-        for meth in [ffx_maxstat, ffx_fdr, ffx_bonferroni, ffx_cluster_maxstat,
-                     ffx_cluster_fdr, ffx_cluster_bonferroni,
-                     ffx_cluster_tfce]:
+        for meth in STAT_FUN['ffx'].values():
             pv = meth(mi, mi_p)
             self._is_equals(pv)
 
@@ -46,6 +41,6 @@ class TestFFXRFX(object):  # noqa
             mi += [_mi]
             # permuted mi
             mi_p += [rnd.uniform(0, 1, (n_perm, n_suj, n_times))]
-        for meth in [rfx_cluster_ttest, rfx_cluster_ttest_tfce]:
+        for meth in STAT_FUN['rfx'].values():
             pv = meth(mi, mi_p)
             self._is_equals(pv)
