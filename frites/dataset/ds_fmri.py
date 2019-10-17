@@ -4,6 +4,6 @@
 class DatasetFMRI(object):
     """docstring for DatasetFMRI."""
 
-    def __init__(self, arg):
+    def __init__(self):
         """Init."""
         pass

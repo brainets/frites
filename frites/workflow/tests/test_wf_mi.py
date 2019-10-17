@@ -49,6 +49,11 @@ class TestWfMi(object):  # noqa
             wf = WfMi('cd', inf, verbose=False)
             for meth in STAT_FUN[inf]:
                 mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+        # key error testing
+        try:
+            wf.fit(dt, n_perm=n_perm, stat_method="eat_potatoes")
+        except KeyError:
+            pass
 
     def test_fit_ccd(self):
         """Test method fit."""
