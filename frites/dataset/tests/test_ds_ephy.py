@@ -33,7 +33,8 @@ class TestDatasetEphy(object):  # noqa
                                              random_state=0)
         y, _ = sim_mi_cc(data, snr=.8)
         z = [np.random.randint(0, 3, (10,)) for _ in range(len(y))]
-        DatasetEphy(data, y, roi, z=z, times=time)
+        dt = DatasetEphy(data, y, roi, z=z, times=time)
+        dt.groupby('roi')
         # test mne definition
         data, roi, time = sim_multi_suj_ephy(modality="meeg", n_times=57,
                                              n_roi=5, n_sites_per_roi=1,
