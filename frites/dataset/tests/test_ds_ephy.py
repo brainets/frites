@@ -58,7 +58,7 @@ class TestDatasetEphy(object):  # noqa
         assert len(dt.x) == len(dt.y) == len(dt.z) == 6
         assert all([dt.x[k].shape == (50, 1, 50) for k in range(n_suj)])
         assert all([dt.y[k].shape == (50,) for k in range(n_suj)])
-        assert all([dt.z[k].shape == (50, 1) for k in range(n_suj)])
+        assert all([dt.z[k].shape == (50,) for k in range(n_suj)])
         assert all([dt.suj_roi[k].shape == (50,) for k in range(n_suj)])
         assert all([dt.suj_roi_u[k].shape == (5,) for k in range(n_suj)])
         assert len(dt.roi_names) == 6
