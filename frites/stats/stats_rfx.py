@@ -62,9 +62,9 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     Parameters
     ----------
     mi : array_like
-        Array of mutual information of shape (n_roi, n_times)
-    mi_p : array_like
-        Array of permuted mutual information of shape (n_perm, n_roi, n_times)
+        A list of length n_roi of array of mutual information of shape
+        A list of array of permuted mutual information of shape
+        (n_perm, n_suj, n_times)
     alpha : float | 0.05
         Significiency level
     center : {'mean', "median", "trimmed"} | False
@@ -77,7 +77,7 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     Returns
     -------
     pvalues : array_like
-        Array of p-values of shape (n_roi, n_times)
+        Array of p-values of shape (n_suj, n_times)
 
     References
     ----------
