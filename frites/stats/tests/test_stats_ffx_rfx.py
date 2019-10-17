@@ -44,3 +44,8 @@ class TestFFXRFX(object):  # noqa
         for meth in STAT_FUN['rfx'].values():
             pv = meth(mi, mi_p)
             self._is_equals(pv)
+        # test mean / median / trimmed
+        meth = STAT_FUN['rfx']['rfx_cluster_ttest']
+        for center in ['mean', 'median', 'trimmed']:
+            pv = meth(mi, mi_p, center=center, zscore=True)
+            self._is_equals(pv)
