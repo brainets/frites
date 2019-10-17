@@ -36,7 +36,7 @@ jobs:
             name: Setup Python environment
             command: |
               conda update --yes --quiet conda;
-              conda create -n testenv --yes python=3.6 numpy scipy pip joblib matplotlib pandas;
+              conda create -n testenv --yes python=3.6 numpy scipy pip joblib matplotlib pandas xarray;
               source activate testenv;
               pip install -U pip;
               pip install -U codecov pytest pytest-cov pytest-sugar pytest-travis-fold pytest-faulthandler;
