@@ -205,9 +205,9 @@ region of interest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of mutual information of shape (n_roi, n_times)</p>
-</dd>
-<dt><strong>mi_p</strong><span class="classifier">array_like</span></dt><dd><p>Array of permuted mutual information of shape (n_perm, n_roi, n_times)</p>
+<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>A list of length n_roi of array of mutual information of shape
+A list of array of permuted mutual information of shape
+(n_perm, n_suj, n_times)</p>
 </dd>
 <dt><strong>alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Significiency level</p>
 </dd>
@@ -221,7 +221,7 @@ mi. The median or the 20% trimmed mean can also be removed
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
+<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_suj, n_times)</p>
 </dd>
 </dl>
 </dd>

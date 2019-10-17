@@ -237,9 +237,9 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    mi : array_like</span>
-<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
-<span class="sd">    mi_p : array_like</span>
-<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">        A list of length n_roi of array of mutual information of shape</span>
+<span class="sd">        A list of array of permuted mutual information of shape</span>
+<span class="sd">        (n_perm, n_suj, n_times)</span>
 <span class="sd">    alpha : float | 0.05</span>
 <span class="sd">        Significiency level</span>
 <span class="sd">    center : {&#39;mean&#39;, &quot;median&quot;, &quot;trimmed&quot;} | False</span>
@@ -252,7 +252,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    pvalues : array_like</span>
-<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">        Array of p-values of shape (n_suj, n_times)</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
