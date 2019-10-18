@@ -302,6 +302,6 @@ class WfMi(object):
     @property
     def mi_p(self):
         """List of length (n_roi) of permuted mutual information. Each element
-        of this list has a shape of (n_subjects, n_times) if `inference` is
-        'rfx' (1, n_times) if `inference` is 'ffx'."""
+        of this list has a shape of (n_perm, n_subjects, n_times) if
+        `inference` is 'rfx' (n_perm, 1, n_times) if `inference` is 'ffx'."""
         return self._mi_p
