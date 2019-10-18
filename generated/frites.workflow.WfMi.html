@@ -134,6 +134,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.transfer_entropy.html">frites.core.transfer_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -359,8 +360,8 @@ this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘r
 <dt id="frites.workflow.WfMi.mi_p">
 <em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WfMi.mi_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of length (n_roi) of permuted mutual information. Each element
-of this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is
-‘rfx’ (1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+of this list has a shape of (n_perm, n_subjects, n_times) if
+<cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
 </dd></dl>
 
 </dd></dl>
@@ -384,7 +385,7 @@ of this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is
                 <li>·</li>
                 <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
                 <li>·</li>
-                <li style="font-weight:bold"><a href="../authors.html">Contributors</a></li>
+                <li style="font-weight:bold"><a href="../authors.html">Authors</a></li>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="../references.html">References</a></li>
                 <!--
@@ -396,7 +397,7 @@ of this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-10-17.</p>
+        <p>&copy; Copyright Last updated on 2019-10-18.</p>
     </footer>
 
   </body>

@@ -132,6 +132,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.transfer_entropy.html">frites.core.transfer_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -476,8 +477,8 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mi_p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;List of length (n_roi) of permuted mutual information. Each element</span>
-<span class="sd">        of this list has a shape of (n_subjects, n_times) if `inference` is</span>
-<span class="sd">        &#39;rfx&#39; (1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
+<span class="sd">        of this list has a shape of (n_perm, n_subjects, n_times) if</span>
+<span class="sd">        `inference` is &#39;rfx&#39; (n_perm, 1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span></div>
 </pre></div>
 
@@ -497,7 +498,7 @@
                 <li>·</li>
                 <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
                 <li>·</li>
-                <li style="font-weight:bold"><a href="../../../authors.html">Contributors</a></li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Authors</a></li>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
                 <!--
@@ -509,7 +510,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-10-17.</p>
+        <p>&copy; Copyright Last updated on 2019-10-18.</p>
     </footer>
 
   </body>
