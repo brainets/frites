@@ -124,6 +124,9 @@ class WfMi(object):
         mi_p = list of length n_roi composed with arrays of shape
                (n_perm, n_subjects, n_times)
         """
+        # don't compute statistics
+        if stat_method is None:
+            return np.ones((len(mi), mi[0].shape[-1]), dtype=float)
         # get the function to evaluate statistics
         stat_fun = STAT_FUN[self._inference][stat_method]
         assert self._inference in stat_fun.__name__, (
@@ -262,7 +265,10 @@ class WfMi(object):
         # before performing any computations, we check if the statistical
         # method does exist
         try:
-            STAT_FUN[self._inference][stat_method]
+            if isinstance(stat_method, str):
+                STAT_FUN[self._inference][stat_method]
+            else:
+                n_perm = 0
         except KeyError:
             m_names = [k.__name__ for k in STAT_FUN[self._inference].values()]
             raise KeyError(f"Selected statistical method `{stat_method}` "
