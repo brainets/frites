@@ -17,7 +17,7 @@ def mi_gg_ffx(x, y, z, suj):
     """
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
-    y_t = np.tile(y.reshape(1, 1, -1), (n_times, 1, 1))
+    y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     # compute mi across subject
     mi = mi_nd_gg(x, y_t, **CONFIG["KW_GCMI"])[np.newaxis, :]
 
@@ -31,7 +31,7 @@ def mi_gg_rfx(x, y, z, suj):
     """
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
-    y_t = np.tile(y.reshape(1, 1, -1), (n_times, 1, 1))
+    y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     # get subject informations
     suj_u = np.unique(suj)
     n_subjects = len(suj_u)
@@ -55,7 +55,8 @@ def mi_gd_ffx(x, y, z, suj):
     The returned mi array has a shape of (1, n_times)
     """
     # compute mi across subject
-    mi = mi_model_nd_gd(x, y, **CONFIG["KW_GCMI"])[np.newaxis, :]
+    _y = y.squeeze().astype(int)
+    mi = mi_model_nd_gd(x, _y, **CONFIG["KW_GCMI"])[np.newaxis, :]
 
     return mi
 
@@ -66,6 +67,7 @@ def mi_gd_rfx(x, y, z, suj):
     The returned mi array has a shape of (1, n_times)
     """
     n_times, _, _ = x.shape
+    _y = y.squeeze().astype(int)
     # get subject informations
     suj_u = np.unique(suj)
     n_subjects = len(suj_u)
@@ -73,7 +75,7 @@ def mi_gd_rfx(x, y, z, suj):
     mi = np.zeros((n_subjects, n_times), dtype=float)
     for n_s, s in enumerate(suj_u):
         is_suj = suj == s
-        mi[n_s, :] = mi_model_nd_gd(x[..., is_suj], y[..., is_suj],
+        mi[n_s, :] = mi_model_nd_gd(x[..., is_suj], _y[is_suj],
                                     **CONFIG["KW_GCMI"])
 
     return mi
@@ -90,9 +92,10 @@ def mi_ggd_ffx(x, y, z, suj):
     """
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
-    y_t = np.tile(y.reshape(1, 1, -1), (n_times, 1, 1))
+    y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
+    _z = tuple([z[:, n] for n in range(z.shape[1])])
     # compute mi across subject
-    mi = gccmi_nd_ccnd(x, y_t, z, **CONFIG["KW_GCMI"])[np.newaxis, :]
+    mi = gccmi_nd_ccnd(x, y_t, *_z, **CONFIG["KW_GCMI"])[np.newaxis, :]
 
     return mi
 
@@ -104,7 +107,7 @@ def mi_ggd_rfx(x, y, z, suj):
     """
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
-    y_t = np.tile(y.reshape(1, 1, -1), (n_times, 1, 1))
+    y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     # get subject informations
     suj_u = np.unique(suj)
     n_subjects = len(suj_u)
@@ -112,8 +115,9 @@ def mi_ggd_rfx(x, y, z, suj):
     mi = np.zeros((n_subjects, n_times), dtype=float)
     for n_s, s in enumerate(suj_u):
         is_suj = suj == s
-        mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj], z[is_suj],
-                                   **CONFIG["KW_GCMI"])
+        _z = tuple([z[is_suj, n] for n in range(z.shape[1])])
+        mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj],
+                                   *_z, **CONFIG["KW_GCMI"])
 
     return mi
 

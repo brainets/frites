@@ -80,8 +80,6 @@ class DatasetEphy(object):
             self.n_subjects)]
         self._y = [np.asarray(k) for k in y]
         self._z = z
-        if any([k.ndim > 1 for k in self._y]):
-            raise NotImplementedError("DOESNT SUPPORT MULTIVARIATE Y")
 
         # check the time vector
         _x_times = np.unique([self._x[k].shape[1] for k in range(
@@ -175,15 +173,24 @@ class DatasetEphy(object):
         logger.info(f"    Group data by {groupby}")
 
         if groupby == "roi":  # -----------------------------------------------
-            # first, start by merging (y, z)
-            if isinstance(self._z, list) and all([
-                k.shape == i.shape for k, i in zip(self._y, self._z)]):
-                self._y = [np.c_[k, i] for k, i in zip(self._y, self._z)]
+            # be sure that y is at least (n_epochs, 1)
+            for k in range(len(self._y)):
+                if self._y[k].ndim == 1:
+                    self._y[k] = self._y[k][:, np.newaxis]
+            n_cols_y = self._y[0].shape[1]
+            # then merge (y, z)
+            if isinstance(self._z, list):  # CCD
+                assert all([k.shape[0] == i.shape[0] for k, i in zip(
+                    self._y, self._z)]), ("y and z must have the same number "
+                "of epochs")
+                yz = [np.c_[k, i] for k, i in zip(self._y, self._z)]
+            else:
+                yz = self._y
             # group by roi
-            roi, x_roi, y_roi, suj_roi, suj_roi_u = [], [], [], [], []
+            roi, x_roi, yz_roi, suj_roi, suj_roi_u = [], [], [], [], []
             for r in self.roi_names:
                 # loop over subjects to find if roi is present. If not, discard
-                _x, _y, _suj, _suj_u = [], [], [], []
+                _x, _yz, _suj, _suj_u = [], [], [], []
                 for n_s, data in enumerate(self._x):
                     # skip missing roi
                     if r not in self.roi[n_s]:
@@ -192,19 +199,18 @@ class DatasetEphy(object):
                     # so we need to identify thos sites
                     idx = self.roi[n_s] == r
                     __x = np.array(data[idx, ...]).squeeze()
-                    __y = self._y[n_s]
+                    __yz = yz[n_s]
                     # in case there's multiple sites in this roi, we reshape
                     # as if the data were coming from a single site, hence
                     # increasing the number of trials
                     n_sites = idx.sum()
                     if n_sites != 1:
                         __x = np.moveaxis(__x, 0, -1).reshape(self.n_times, -1)
-                        if __y.ndim == 1: __y = __y[:, np.newaxis]  # noqa
-                        __y = np.tile(__y, (n_sites, 1)).squeeze()
+                        __yz = np.tile(__yz, (n_sites, 1)).squeeze()
                     # at this point the data are (n_times, n_epochs)
                     _x += [__x]
-                    _y += [__y]
-                    _suj += [n_s] * len(__y)
+                    _yz += [__yz]
+                    _suj += [n_s] * len(__yz)
                     _suj_u += [n_s]
                 # test if the minimum number of unique subject is met inside
                 # the roi
@@ -215,11 +221,11 @@ class DatasetEphy(object):
                     continue
                 # concatenate across the trial axis
                 _x = np.concatenate(_x, axis=1)
-                _y = np.r_[tuple(_y)]
+                _yz = np.r_[tuple(_yz)]
                 _suj = np.array(_suj)
                 # keep latest version
                 x_roi += [_x[:, np.newaxis, :]]
-                y_roi += [_y]
+                yz_roi += [_yz]
                 suj_roi += [_suj]
                 suj_roi_u += [np.array(_suj_u)]
                 roi += [r]
@@ -228,11 +234,11 @@ class DatasetEphy(object):
                                 "is too high for your dataset")
             # update variables
             self._x = x_roi
-            if self._y[0].ndim == 1:
-                self._y = y_roi
+            if not isinstance(self._z, list):
+                self._y = yz_roi
             else:
-                self._y = [k[:, 0] for k in y_roi]
-                self._z = [k[:, 1:].squeeze().astype(int) for k in y_roi]
+                self._y = [k[:, 0:n_cols_y] for k in yz_roi]
+                self._z = [k[:, n_cols_y:].astype(int) for k in yz_roi]
             self.suj_roi = suj_roi
             self.suj_roi_u = suj_roi_u
             self.roi_names = roi
