@@ -1,15 +1,16 @@
 """
-Workflow of mutual information a continuous and a discret variables
-===================================================================
+Workflow of conditional mutual information
+==========================================
 
-This example illustrates how to compute the mutual information between a
-continuous and a discret variables. The first variable is an
-electrophysiological data (M/EEG, intracranial). The discret variable, composed
-with integers, can for example describe conditions. This type of mutual
-information is equivalent to was is performed in machine-learning. For further
-details, see Ince et al., 2017 :cite:`ince2017statistical`
+This example illustrates how to compute the mutual information between two
+continuous variables, conditioned by a discret one. The first variable is an
+electrophysiological data (M/EEG, intracranial). The second continuous is
+usually a regressor and the third is a discret variable composed with integers
+generally describing conditions. This type of mutual information is equivalent
+to partial correlation. For further details, see Ince et al., 2017
+:cite:`ince2017statistical`
 """
-from frites.simulations import sim_multi_suj_ephy, sim_mi_cd
+from frites.simulations import sim_multi_suj_ephy, sim_mi_ccd
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
 
@@ -36,19 +37,13 @@ x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                   random_state=0)
 
 ###############################################################################
-# Extract the discret variable
-# ------------------------------
+# Extract the continuous and the discret variable
+# -----------------------------------------------
 #
-# As explains in the top description, the discret variable is used to describes
-# for example conditions. Thus, by computing the mutual information between the
-# electrophysiological data and your discret variable, you are looking for
-# recording sites and time-points of data that correlates with conditions. This
-# kind of analysis is similar to what is done in machine-learning. First,
-# extract the conditions from the random dataset generated above.
+# Here we extract the continuous and the discret variables from the random
+# dataset generated above
 
-x, y, _ = sim_mi_cd(x, snr=1., n_conditions=3)
-# print the conditions for the single subject
-print(y[0])
+y, z, _ = sim_mi_ccd(x, snr=1.)
 
 ###############################################################################
 # Define the electrophysiological dataset
@@ -56,7 +51,7 @@ print(y[0])
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi)
+dt = DatasetEphy(x, y, roi, z=z)
 
 
 ###############################################################################
@@ -67,8 +62,8 @@ dt = DatasetEphy(x, y, roi)
 # :class:`frites.workflow.WfMi`. This instance is used to compute the mutual
 # information
 
-# mutual information type ('cd' = continuous / discret)
-mi_type = 'cd'
+# mutual information type ('ccd' = continuous; continuous | discret)
+mi_type = 'ccd'
 
 # define the workflow
 wf = WfMi(mi_type)
@@ -78,5 +73,5 @@ mi, _ = wf.fit(dt, stat_method=None)
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)
 plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-plt.title('I(C; D)')
+plt.title('I(C; C | D)')
 plt.show()

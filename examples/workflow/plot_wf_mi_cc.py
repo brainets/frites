@@ -61,7 +61,7 @@ y = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi=roi)
+dt = DatasetEphy(x, y, roi)
 
 
 ###############################################################################
@@ -83,6 +83,7 @@ mi, _ = wf.fit(dt, stat_method=None)
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)
 plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
+plt.title('I(C; C)')
 plt.show()
 
 ###############################################################################
@@ -105,7 +106,7 @@ print([k.shape for k in y_mv])
 
 
 # compute the mutual information
-dt = DatasetEphy(x, y_mv, roi=roi)
+dt = DatasetEphy(x, y_mv, roi)
 mi, _ = WfMi('cc').fit(dt, stat_method=None)
 # plot the result
 plt.plot(time, mi)
@@ -127,14 +128,14 @@ y, _ = sim_mi_cc(x, snr=.1)
 
 # within subject statistics (ffx=fixed-effect)
 ffx_stat = 'ffx_cluster_tfce'
-dt_ffx = DatasetEphy(x, y, roi=roi)
+dt_ffx = DatasetEphy(x, y, roi)
 wf_ffx = WfMi(mi_type, 'ffx')
 mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, stat_method=ffx_stat, n_perm=n_perm)
 
 # between-subject statistics (rfx=random-effect)
 rfx_stat = 'rfx_cluster_ttest_tfce'
 
-dt_rfx = DatasetEphy(x, y, roi=roi)
+dt_rfx = DatasetEphy(x, y, roi)
 wf_rfx = WfMi(mi_type, 'rfx')
 mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, stat_method=rfx_stat, n_perm=n_perm)
 
