@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Computation times &#8212; frites 0.0.0 documentation</title>
+    <title>Workflow of conditional mutual information &#8212; frites 0.0.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -152,7 +152,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../../_sources/auto_examples/workflow/sg_execution_times.rst.txt"
+  <a href="../../_sources/auto_examples/workflow/plot_wf_mi_ccd.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -176,16 +176,91 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="computation-times">
-<span id="sphx-glr-auto-examples-workflow-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:18.561</strong> total execution time for <strong>auto_examples_workflow</strong> files:</p>
-<ul class="simple">
-<li><p><strong>00:08.109</strong>: <a class="reference internal" href="plot_wf_mi_cc.html#sphx-glr-auto-examples-workflow-plot-wf-mi-cc-py"><span class="std std-ref">Workflow of mutual information between two continuous variables</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_cc.py</span></code>)</p></li>
-<li><p><strong>00:04.919</strong>: <a class="reference internal" href="plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-workflow-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code>)</p></li>
-<li><p><strong>00:02.513</strong>: <a class="reference internal" href="plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-workflow-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_stats_compare_rfx.py</span></code>)</p></li>
-<li><p><strong>00:01.633</strong>: <a class="reference internal" href="plot_wf_mi_ccd.html#sphx-glr-auto-examples-workflow-plot-wf-mi-ccd-py"><span class="std std-ref">Workflow of conditional mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_ccd.py</span></code>)</p></li>
-<li><p><strong>00:01.386</strong>: <a class="reference internal" href="plot_wf_mi_cd.html#sphx-glr-auto-examples-workflow-plot-wf-mi-cd-py"><span class="std std-ref">Workflow of mutual information a continuous and a discret variables</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_cd.py</span></code>)</p></li>
-</ul>
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-workflow-plot-wf-mi-ccd-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="workflow-of-conditional-mutual-information">
+<span id="sphx-glr-auto-examples-workflow-plot-wf-mi-ccd-py"></span><h1>Workflow of conditional mutual information<a class="headerlink" href="#workflow-of-conditional-mutual-information" title="Permalink to this headline">¶</a></h1>
+<p>This example illustrates how to compute the mutual information between two
+continuous variables, conditioned by a discret one. The first variable is an
+electrophysiological data (M/EEG, intracranial). The second continuous is
+usually a regressor and the third is a discret variable composed with integers
+generally describing conditions. This type of mutual information is equivalent
+to partial correlation. For further details, see Ince et al., 2017
+<a class="bibtex reference internal" href="../../references.html#ince2017statistical" id="id1">[5]</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="k">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">,</span> <a href="../../generated/frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="View documentation for frites.simulations.sim_mi_ccd"><span class="n">sim_mi_ccd</span></a>
+<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="k">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
+<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="k">import</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="simulate-electrophysiological-data">
+<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start by simulating MEG / EEG electrophysiological data coming from
+multiple subjects using the function
+<a class="reference internal" href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.simulations.sim_multi_suj_ephy()</span></code></a>. As a result, the <cite>x</cite> output
+is a list of length <cite>n_subjects</cite> of arrays, each one with a shape of
+n_epochs, n_sites, n_times</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">modality</span> <span class="o">=</span> <span class="s1">&#39;meeg&#39;</span>
+<span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">n_times</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">(</span><span class="n">n_subjects</span><span class="o">=</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span>
+                                  <span class="n">n_times</span><span class="o">=</span><span class="n">n_times</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="n">modality</span><span class="p">,</span>
+                                  <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-the-continuous-and-the-discret-variable">
+<h2>Extract the continuous and the discret variable<a class="headerlink" href="#extract-the-continuous-and-the-discret-variable" title="Permalink to this headline">¶</a></h2>
+<p>Here we extract the continuous and the discret variables from the random
+dataset generated above</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="View documentation for frites.simulations.sim_mi_ccd"><span class="n">sim_mi_ccd</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">snr</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-the-electrophysiological-dataset">
+<h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
+<p>Now we define an instance of <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compute-the-mutual-information">
+<h2>Compute the mutual information<a class="headerlink" href="#compute-the-mutual-information" title="Permalink to this headline">¶</a></h2>
+<p>Once we have the dataset instance, we can then define an instance of workflow
+<a class="reference internal" href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. This instance is used to compute the mutual
+information</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># mutual information type (&#39;ccd&#39; = continuous; continuous | discret)</span>
+<span class="n">mi_type</span> <span class="o">=</span> <span class="s1">&#39;ccd&#39;</span>
+
+<span class="c1"># define the workflow</span>
+<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">)</span>
+<span class="c1"># compute the mutual information</span>
+<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># plot the information shared between the data and the regressor y</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;MI (bits)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;I(C; C | D)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../../_images/sphx_glr_plot_wf_mi_ccd_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_ccd_001.png" />
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.633 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-wf-mi-ccd-py">
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/19c6c8586951735b0dc78e987a440463/plot_wf_mi_ccd.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_ccd.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/2c5c71f0f156b18854402e839ee60dd6/plot_wf_mi_ccd.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_wf_mi_ccd.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
 </div>
 
 

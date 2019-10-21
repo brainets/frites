@@ -235,7 +235,7 @@ the function <a class="reference internal" href="../../generated/frites.simulati
 <div class="section" id="define-the-electrophysiological-dataset">
 <h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Now we define an instance of <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -255,6 +255,7 @@ information</p>
 <span class="c1"># plot the information shared between the data and the regressor y</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;MI (bits)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;I(C; C)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -277,7 +278,7 @@ of multivariate regressor</p>
 
 
 <span class="c1"># compute the mutual information</span>
-<span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_mv</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
+<span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_mv</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="c1"># plot the result</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi</span><span class="p">)</span>
@@ -303,14 +304,14 @@ within (ffx) or between subject (rfx) statistics.</p>
 
 <span class="c1"># within subject statistics (ffx=fixed-effect)</span>
 <span class="n">ffx_stat</span> <span class="o">=</span> <span class="s1">&#39;ffx_cluster_tfce&#39;</span>
-<span class="n">dt_ffx</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
+<span class="n">dt_ffx</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
 <span class="n">wf_ffx</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
 <span class="n">mi_ffx</span><span class="p">,</span> <span class="n">pv_ffx</span> <span class="o">=</span> <span class="n">wf_ffx</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt_ffx</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">ffx_stat</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
 
 <span class="c1"># between-subject statistics (rfx=random-effect)</span>
 <span class="n">rfx_stat</span> <span class="o">=</span> <span class="s1">&#39;rfx_cluster_ttest_tfce&#39;</span>
 
-<span class="n">dt_rfx</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">)</span>
+<span class="n">dt_rfx</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
 <span class="n">wf_rfx</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
 <span class="n">mi_rfx</span><span class="p">,</span> <span class="n">pv_rfx</span> <span class="o">=</span> <span class="n">wf_rfx</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt_rfx</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">rfx_stat</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
 
@@ -336,7 +337,7 @@ within (ffx) or between subject (rfx) statistics.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_cc_003.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cc_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.877 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.109 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-wf-mi-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b4c2c84be9f5804ddfae529ab229ccdc/plot_wf_mi_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_cc.py</span></code></a></p>
