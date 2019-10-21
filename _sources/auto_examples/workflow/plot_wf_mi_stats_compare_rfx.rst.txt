@@ -1,18 +1,18 @@
 .. note::
     :class: sphx-glr-download-link-note
 
-    Click :ref:`here <sphx_glr_download_auto_examples_workflow_plot_workflow_mi_stats_compare_ffx.py>` to download the full example code
+    Click :ref:`here <sphx_glr_download_auto_examples_workflow_plot_wf_mi_stats_compare_rfx.py>` to download the full example code
 .. rst-class:: sphx-glr-example-title
 
-.. _sphx_glr_auto_examples_workflow_plot_workflow_mi_stats_compare_ffx.py:
+.. _sphx_glr_auto_examples_workflow_plot_wf_mi_stats_compare_rfx.py:
 
 
-Compare within-subjects statistics when computing mutual information
-====================================================================
+Compare between-subjects statistics when computing mutual information
+======================================================================
 
 This example illustrates how to define and run a workflow for computing
 mutual information and evaluate stastitics. Inference are made within-subjects
-(fixed effect = ffx). 
+(random effect = rfx). 
 
 
 .. code-block:: default
@@ -73,7 +73,7 @@ variables
 .. code-block:: default
 
 
-    y, _ = sim_mi_cc(data, snr=.1)
+    y, _ = sim_mi_cc(data, snr=.2)
 
 
 
@@ -112,7 +112,7 @@ variables. And we also specify the inference type 'ffx' for fixed-effect
 
 
     mi_type = 'cc'
-    inference = 'ffx'
+    inference = 'rfx'
     wf = WfMi(mi_type, inference)
 
 
@@ -129,24 +129,22 @@ Compute the mutual information and statistics
 
 
     # list of fixed-effect methods to test
-    ffx_methods = ('ffx_maxstat', 'ffx_fdr', 'ffx_bonferroni',
-                   'ffx_cluster_maxstat', 'ffx_cluster_fdr',
-                   'ffx_cluster_bonferroni', 'ffx_cluster_tfce')
+    rfx_methods = ('rfx_cluster_ttest', 'rfx_cluster_ttest_tfce')
 
-    n_perm = 1000
+    n_perm = 100
     n_jobs = 1
     pvalues = []
     plt.figure(figsize=(10, 8))
-    for ffx in ffx_methods:
-        mi, pvalues = wf.fit(dt, n_jobs=n_jobs, n_perm=n_perm, stat_method=ffx,
+    for rfx in rfx_methods:
+        mi, pvalues = wf.fit(dt, n_jobs=n_jobs, n_perm=n_perm, stat_method=rfx,
                              output_type='array')
         # set to 1. everywhere p-values are not significants
         pvalues[pvalues >= .05] = 1.
 
         plt.subplot(212)
-        plt.plot(time, pvalues.squeeze(), label=ffx)
+        plt.plot(time, pvalues.squeeze(), label=rfx)
         plt.xlabel('Time (s)'), plt.ylabel("P-values")
-        plt.title("P-values (ffx)")
+        plt.title("P-values (rfx)")
     plt.legend()
 
     plt.subplot(211)
@@ -158,7 +156,7 @@ Compute the mutual information and statistics
     plt.show()
 
 
-.. image:: /auto_examples/workflow/images/sphx_glr_plot_workflow_mi_stats_compare_ffx_001.png
+.. image:: /auto_examples/workflow/images/sphx_glr_plot_wf_mi_stats_compare_rfx_001.png
     :class: sphx-glr-single-img
 
 
@@ -168,7 +166,7 @@ Compute the mutual information and statistics
 
  .. code-block:: none
 
-    /home/circleci/project/examples/workflow/plot_workflow_mi_stats_compare_ffx.py:90: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+    /home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_rfx.py:88: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
       plt.subplot(212)
 
 
@@ -176,10 +174,10 @@ Compute the mutual information and statistics
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.229 seconds)
+   **Total running time of the script:** ( 0 minutes  2.510 seconds)
 
 
-.. _sphx_glr_download_auto_examples_workflow_plot_workflow_mi_stats_compare_ffx.py:
+.. _sphx_glr_download_auto_examples_workflow_plot_wf_mi_stats_compare_rfx.py:
 
 
 .. only :: html
@@ -191,13 +189,13 @@ Compute the mutual information and statistics
 
   .. container:: sphx-glr-download
 
-     :download:`Download Python source code: plot_workflow_mi_stats_compare_ffx.py <plot_workflow_mi_stats_compare_ffx.py>`
+     :download:`Download Python source code: plot_wf_mi_stats_compare_rfx.py <plot_wf_mi_stats_compare_rfx.py>`
 
 
 
   .. container:: sphx-glr-download
 
-     :download:`Download Jupyter notebook: plot_workflow_mi_stats_compare_ffx.ipynb <plot_workflow_mi_stats_compare_ffx.ipynb>`
+     :download:`Download Jupyter notebook: plot_wf_mi_stats_compare_rfx.ipynb <plot_wf_mi_stats_compare_rfx.ipynb>`
 
 
 .. only:: html

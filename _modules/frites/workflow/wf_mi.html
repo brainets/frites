@@ -299,6 +299,9 @@
 <span class="sd">        mi_p = list of length n_roi composed with arrays of shape</span>
 <span class="sd">               (n_perm, n_subjects, n_times)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># don&#39;t compute statistics</span>
+        <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">),</span> <span class="n">mi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="c1"># get the function to evaluate statistics</span>
         <span class="n">stat_fun</span> <span class="o">=</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="ow">in</span> <span class="n">stat_fun</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="p">(</span>
@@ -437,7 +440,10 @@
         <span class="c1"># before performing any computations, we check if the statistical</span>
         <span class="c1"># method does exist</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stat_method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
