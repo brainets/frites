@@ -10,6 +10,13 @@ Frites
 .. image:: https://codecov.io/gh/brainets/frites/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/brainets/frites
 
+.. image:: https://badge.fury.io/py/frites.svg
+    :target: https://badge.fury.io/py/frites
+
+.. image:: https://pepy.tech/badge/frites
+    :target: https://pepy.tech/project/frites
+
+
 
 .. raw:: html
 
