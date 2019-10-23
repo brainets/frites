@@ -91,7 +91,7 @@ def mi_ggd_ffx(x, y, z, suj):
     The returned mi array has a shape of (1, n_times)
     """
     # discard gcrn
-    kw = CONFIG["KW_GCMI"]
+    kw = CONFIG["KW_GCMI"].copy()
     kw['gcrn'] = False
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
@@ -109,7 +109,7 @@ def mi_ggd_rfx(x, y, z, suj):
     The returned mi array has a shape of (1, n_times)
     """
     # discard gcrn
-    kw = CONFIG["KW_GCMI"]
+    kw = CONFIG["KW_GCMI"].copy()
     kw['gcrn'] = False
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
