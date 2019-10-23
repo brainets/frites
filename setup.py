@@ -47,7 +47,7 @@ setup(
     author_email=EMAIL,
     url=URL,
     download_url=DOWNLOAD_URL,
-    license=read('LICENSE'),
+    license="BSD 3-Clause License",
     keywords=KEYWORDS,
     classifiers=["Development Status :: 3 - Alpha",
                  'Intended Audience :: Science/Research',

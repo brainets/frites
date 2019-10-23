@@ -90,12 +90,15 @@ def mi_ggd_ffx(x, y, z, suj):
 
     The returned mi array has a shape of (1, n_times)
     """
+    # discard gcrn
+    kw = CONFIG["KW_GCMI"]
+    kw['gcrn'] = False
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
     y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     _z = tuple([z[:, n] for n in range(z.shape[1])])
     # compute mi across subject
-    mi = gccmi_nd_ccnd(x, y_t, *_z, **CONFIG["KW_GCMI"])[np.newaxis, :]
+    mi = gccmi_nd_ccnd(x, y_t, *_z, **kw)[np.newaxis, :]
 
     return mi
 
@@ -105,6 +108,9 @@ def mi_ggd_rfx(x, y, z, suj):
 
     The returned mi array has a shape of (1, n_times)
     """
+    # discard gcrn
+    kw = CONFIG["KW_GCMI"]
+    kw['gcrn'] = False
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
     y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
@@ -116,8 +122,7 @@ def mi_ggd_rfx(x, y, z, suj):
     for n_s, s in enumerate(suj_u):
         is_suj = suj == s
         _z = tuple([z[is_suj, n] for n in range(z.shape[1])])
-        mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj],
-                                   *_z, **CONFIG["KW_GCMI"])
+        mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj], *_z, **kw)
 
     return mi
 
