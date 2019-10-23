@@ -12,4 +12,4 @@ from frites import io, core, stats, utils, workflow, simulations  # noqa
 logger = logging.getLogger('frites')
 io.set_log_level('info')
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
