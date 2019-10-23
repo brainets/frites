@@ -89,16 +89,15 @@ class WfMi(object):
         the random effect, the randomization is performed per subject.
         """
         # get the function for computing mi
-        mi_fun = MI_FUN[self._mi_type][self._inference]
-        assert self._inference in mi_fun.__name__
-        assert f"_{CONFIG['COPULA_CONV'][self._mi_type]}_" in mi_fun.__name__
+        mi_fun = MI_FUN[self._mi_type]
+        assert f"mi_{CONFIG['COPULA_CONV'][self._mi_type]}" == mi_fun.__name__
         # get x, y, z and subject names per roi
         x, y, z, suj = dataset.x, dataset.y, dataset.z, dataset.suj_roi
-        n_roi = dataset.n_roi
+        n_roi, inf = dataset.n_roi, self._inference
         # evaluate true mi
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs})")
-        mi = [mi_fun(x[k], y[k], z[k], suj[k]) for k in range(n_roi)]
+        mi = [mi_fun(x[k], y[k], z[k], suj[k], inf) for k in range(n_roi)]
         # evaluate permuted mi
         mi_p = []
         for r in range(n_roi):
@@ -107,7 +106,7 @@ class WfMi(object):
                                     inference=self._inference, n_perm=n_perm)
             # run permutations using the randomize regressor
             _mi = Parallel(n_jobs=n_jobs, **CONFIG["JOBLIB_CFG"])(delayed(
-               mi_fun)(x[r], y_p[p], z[r], suj[r]) for p in range(n_perm))
+               mi_fun)(x[r], y_p[p], z[r], suj[r], inf) for p in range(n_perm))
             mi_p += [np.asarray(_mi)]
 
         self._mi, self._mi_p = mi, mi_p

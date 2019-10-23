@@ -19,11 +19,12 @@ suj = np.round(np.linspace(0, n_suj, n_epochs)).astype(int)
 class TestMiFun(object):  # noqa
 
     def test_mi_fun(self):
+        """Test mi functions."""
         for mi in mi_types:
             for inf in inferences:
-                fun = MI_FUN[mi][inf]
+                fun = MI_FUN[mi]
                 y_c = z if mi is 'cd' else y
-                fun(x, y_c, z, suj)
+                fun(x, y_c, z, suj, inf)
 
     def test_permute_mi_vector(self):
         """Test function permute_mi_vector."""
