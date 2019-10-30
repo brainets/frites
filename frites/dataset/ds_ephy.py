@@ -188,6 +188,7 @@ class DatasetEphy(object):
                 yz = self._y
             # group by roi
             roi, x_roi, yz_roi, suj_roi, suj_roi_u = [], [], [], [], []
+            roi_ignored = []
             for r in self.roi_names:
                 # loop over subjects to find if roi is present. If not, discard
                 _x, _yz, _suj, _suj_u = [], [], [], []
@@ -216,8 +217,7 @@ class DatasetEphy(object):
                 # the roi
                 u_suj = len(np.unique(_suj))
                 if u_suj < self.nb_min_suj:
-                    logger.warning(f"ROI {r} ignored because there's only "
-                                   f"{u_suj} inside")
+                    roi_ignored += [r]
                     continue
                 # concatenate across the trial axis
                 _x = np.concatenate(_x, axis=1)
@@ -232,6 +232,11 @@ class DatasetEphy(object):
             # test if the data are not empty
             assert len(x_roi), ("Empty dataset probably because `nb_min_suj` "
                                 "is too high for your dataset")
+            # warning message if there's ignored ROIs
+            if len(roi_ignored):
+                logger.warning("The following roi have been ignored because of"
+                               f" a number of subjects bellow "
+                               f"{self.nb_min_suj} : {', '.join(roi_ignored)}")
             # update variables
             self._x = x_roi
             if not isinstance(self._z, list):
