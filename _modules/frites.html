@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Overview: module code &#8212; frites 0.1.1 documentation</title>
+    <title>frites &#8212; frites 0.1.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -177,19 +177,52 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="frites.html">frites</a></li>
-<ul><li><a href="frites/core/copnorm.html">frites.core.copnorm</a></li>
-<li><a href="frites/core/gcmi_1d.html">frites.core.gcmi_1d</a></li>
-<li><a href="frites/core/gcmi_nd.html">frites.core.gcmi_nd</a></li>
-<li><a href="frites/dataset/ds_ephy.html">frites.dataset.ds_ephy</a></li>
-<li><a href="frites/simulations/sim_generate_data.html">frites.simulations.sim_generate_data</a></li>
-<li><a href="frites/simulations/sim_mi.html">frites.simulations.sim_mi</a></li>
-<li><a href="frites/stats/stats_cluster.html">frites.stats.stats_cluster</a></li>
-<li><a href="frites/stats/stats_ffx.html">frites.stats.stats_ffx</a></li>
-<li><a href="frites/stats/stats_rfx.html">frites.stats.stats_rfx</a></li>
-<li><a href="frites/workflow/wf_mi.html">frites.workflow.wf_mi</a></li>
-</ul></ul>
+  <h1>Source code for frites</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Frites</span>
+<span class="sd">======</span>
+
+<span class="sd">Framework of Information Theory for Electrophysiological data and Statistics</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">frites</span> <span class="k">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">core</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">utils</span><span class="p">,</span> <span class="n">workflow</span><span class="p">,</span> <span class="n">simulations</span>  <span class="c1"># noqa</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.1&quot;</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Set &#39;info&#39; as the default logging level</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;frites&#39;</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># get / set config</span>
+
+
+<div class="viewcode-block" id="get_config"><a class="viewcode-back" href="../generated/frites.get_config.html#frites.get_config">[docs]</a><span class="k">def</span> <span class="nf">get_config</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Get the global configuration of frites.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
+    <span class="k">return</span> <span class="n">CONFIG</span></div>
+
+
+<div class="viewcode-block" id="set_config"><a class="viewcode-back" href="../generated/frites.set_config.html#frites.set_config">[docs]</a><span class="k">def</span> <span class="nf">set_config</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change the global config of frites.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : string</span>
+<span class="sd">        Entry of the config</span>
+<span class="sd">    value : dict / list</span>
+<span class="sd">        The new value for the selected key. The type should be the same as the</span>
+<span class="sd">        default one</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">io</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">CONFIG</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>  <span class="c1"># noqa</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">CONFIG</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">f</span><span class="s2">&quot;The key </span><span class="si">{key}</span><span class="s2"> doesn&#39;t exist.&quot;</span>
+    <span class="n">CONFIG</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The key </span><span class="si">{key}</span><span class="s2"> has been updated&quot;</span><span class="p">)</span></div>
+</pre></div>
 
     </div>
       

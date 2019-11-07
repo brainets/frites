@@ -120,6 +120,21 @@ Simulate random mutual information
 
   <hr>
 
+Configuration
+-------------
+
+.. currentmodule:: frites
+
+.. autosummary::
+   :toctree: generated/
+
+   get_config
+   set_config
+
+.. raw:: html
+
+  <hr>
+
 Core
 ----
 
