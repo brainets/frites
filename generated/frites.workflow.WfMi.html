@@ -187,7 +187,7 @@
 <h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="frites.workflow.WfMi">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of mutual-information and statistics.</p>
 <p>This class allows to define a workflow for computing the mutual information
 and then to evaluate the significance using non-parametric statistics
@@ -218,6 +218,19 @@ population.</p></li>
 </div></blockquote>
 <p>By default, the workflow uses group level inference (‘rfx’)</p>
 </dd>
+<dt><strong>mi_method</strong><span class="classifier">{‘gc’, ‘bin’}</span></dt><dd><p>Method for computing the mutual information. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘gc’ : gaussian-copula based mutual information. This is the
+fastest method but it can only captures monotonic relationships
+between variables</p></li>
+<li><p>‘bin’ : binning-based method that can captures any kind of
+relationships but is much slower and also required to define the
+number of bins to use. Note that if the Numba package is
+installed computations should be much faster</p></li>
+</ul>
+</div></blockquote>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -225,7 +238,7 @@ population.</p></li>
 <p>Friston et al., 1996, 1999 <a class="bibtex reference internal" href="../references.html#friston1996detecting" id="id1">[1]</a><a class="bibtex reference internal" href="../references.html#friston1999many" id="id2">[2]</a></p>
 <dl class="method">
 <dt id="frites.workflow.WfMi.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -236,13 +249,13 @@ population.</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.__init__" title="frites.workflow.WfMi.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.__init__" title="frites.workflow.WfMi.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_jobs, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, n_perm, n_bins, n_jobs, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
@@ -270,7 +283,7 @@ population.</p></li>
 
 <dl class="method">
 <dt id="frites.workflow.WfMi.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -289,6 +302,11 @@ precise about its spatio-temporal properties
 </dd>
 <dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
 distribution of mi that can be obtained by chance</p>
+</dd>
+<dt><strong>n_bins</strong><span class="classifier">int | None</span></dt><dd><p>Number of bins to use if the method for computing the mutual
+information is based on binning (mi_method=’bin’). If None, the
+number of bins is going to be automatically inferred based on the
+number of trials and variables</p>
 </dd>
 <dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs)</p>
@@ -402,7 +420,7 @@ of this list has a shape of (n_perm, n_subjects, n_times) if
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-07.</p>
+        <p>&copy; Copyright Last updated on 2019-11-14.</p>
     </footer>
 
   </body>

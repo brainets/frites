@@ -184,10 +184,10 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">MI_FUN</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
-<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="k">import</span> <span class="n">config</span>
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="n">is_pandas_installed</span><span class="p">,</span> <span class="n">is_xarray_installed</span><span class="p">,</span> <span class="n">set_log_level</span>
-<span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
+<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -219,23 +219,41 @@
 <span class="sd">              population.</span>
 
 <span class="sd">        By default, the workflow uses group level inference (&#39;rfx&#39;)</span>
+<span class="sd">    mi_method : {&#39;gc&#39;, &#39;bin&#39;}</span>
+<span class="sd">        Method for computing the mutual information. Use either :</span>
+
+<span class="sd">            * &#39;gc&#39; : gaussian-copula based mutual information. This is the</span>
+<span class="sd">              fastest method but it can only captures monotonic relationships</span>
+<span class="sd">              between variables</span>
+<span class="sd">            * &#39;bin&#39; : binning-based method that can captures any kind of</span>
+<span class="sd">              relationships but is much slower and also required to define the</span>
+<span class="sd">              number of bins to use. Note that if the Numba package is</span>
+<span class="sd">              installed computations should be much faster</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">],</span> <span class="p">(</span>
+            <span class="s2">&quot;&#39;mi_type&#39; input parameter should either be &#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">],</span> <span class="p">(</span>
+            <span class="s2">&quot;&#39;inference&#39; input parameter should either be &#39;ffx&#39; or &#39;rfx&#39;&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">mi_method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="s1">&#39;bin&#39;</span><span class="p">],</span> <span class="p">(</span>
+            <span class="s2">&quot;&#39;mi_method&#39; input parameter should either be &#39;gc&#39; or &#39;bin&#39;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span> <span class="o">=</span> <span class="n">mi_method</span> <span class="o">==</span> <span class="s1">&#39;gc&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2">) &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;and statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2"> - &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;</span><span class="si">{mi_method}</span><span class="s2">) and statistics (</span><span class="si">{inference}</span><span class="s2">) has been &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;defined&quot;</span><span class="p">)</span></div>
 
     <span class="c1">###########################################################################</span>
     <span class="c1">#                                INTERNALS</span>
@@ -256,12 +274,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># inplace preparation</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span><span class="p">:</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">)</span>
         <span class="c1"># track time and roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
 
 
-    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
 
 <span class="sd">        Permutations are performed by randomizing the regressor variable. For</span>
@@ -269,15 +288,18 @@
 <span class="sd">        the random effect, the randomization is performed per subject.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get the function for computing mi</span>
-        <span class="n">mi_fun</span> <span class="o">=</span> <span class="n">MI_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">f</span><span class="s2">&quot;mi_</span><span class="si">{CONFIG[&#39;COPULA_CONV&#39;][self._mi_type]}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">mi_fun</span> <span class="o">=</span> <span class="n">get_core_mi_fun</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">f</span><span class="s2">&quot;mi_</span><span class="si">{self._mi_method}</span><span class="s2">_ephy_</span><span class="si">{self._mi_type}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="c1"># get x, y, z and subject names per roi</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">suj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi</span>
         <span class="n">n_roi</span><span class="p">,</span> <span class="n">inf</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
         <span class="c1"># evaluate true mi</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{n_perm}</span><span class="s2">, &quot;</span>
                     <span class="n">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{n_jobs}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">inf</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)]</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span>
+                     <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)]</span>
+        <span class="c1"># get joblib configuration</span>
+        <span class="n">cfg_jobs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;JOBLIB_CFG&quot;</span><span class="p">]</span>
         <span class="c1"># evaluate permuted mi</span>
         <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
@@ -285,8 +307,9 @@
             <span class="n">y_p</span> <span class="o">=</span> <span class="n">permute_mi_vector</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span>
                                     <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
             <span class="c1"># run permutations using the randomize regressor</span>
-            <span class="n">_mi</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;JOBLIB_CFG&quot;</span><span class="p">])(</span><span class="n">delayed</span><span class="p">(</span>
-               <span class="n">mi_fun</span><span class="p">)(</span><span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">inf</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
+            <span class="n">_mi</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">mi_fun</span><span class="p">)(</span>
+                <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span>
+                <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
             <span class="n">mi_p</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_mi</span><span class="p">)]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span> <span class="o">=</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
@@ -363,8 +386,9 @@
     <span class="c1">#                             EXTERNALS</span>
     <span class="c1">###########################################################################</span>
 
-<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span>
-            <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -385,6 +409,11 @@
 <span class="sd">        n_perm : int | 1000</span>
 <span class="sd">            Number of permutations to perform in order to estimate the random</span>
 <span class="sd">            distribution of mi that can be obtained by chance</span>
+<span class="sd">        n_bins : int | None</span>
+<span class="sd">            Number of bins to use if the method for computing the mutual</span>
+<span class="sd">            information is based on binning (mi_method=&#39;bin&#39;). If None, the</span>
+<span class="sd">            number of bins is going to be automatically inferred based on the</span>
+<span class="sd">            number of trials and variables</span>
 <span class="sd">        n_jobs : int | -1</span>
 <span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">            jobs)</span>
@@ -453,6 +482,11 @@
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
                            <span class="n">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{self._inference}</span><span class="s2"> inference, &quot;</span>
                            <span class="n">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
+        <span class="c1"># infer the number of bins if needed</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="ow">is</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">n_bins</span> <span class="o">=</span> <span class="mi">8</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Use an automatic number of bins of </span><span class="si">{n_bins}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span> <span class="o">=</span> <span class="n">n_bins</span>
         <span class="c1"># if mi and mi_p have already been computed, reuse it instead</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    True and permuted mutual-information already &quot;</span>
@@ -462,6 +496,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span>
+                                             <span class="n">n_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span>
                                              <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
         <span class="c1"># infer p-values</span>
         <span class="n">pvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_stats</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
@@ -520,7 +555,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-07.</p>
+        <p>&copy; Copyright Last updated on 2019-11-14.</p>
     </footer>
 
   </body>

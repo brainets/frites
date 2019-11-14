@@ -71,7 +71,7 @@ dt = DatasetEphy(x, y, roi)
 mi_type = 'cd'
 
 # define the workflow
-wf = WfMi(mi_type)
+wf = WfMi(mi_type, mi_method='bin')
 # compute the mutual information
 mi, _ = wf.fit(dt, stat_method=None)
 
