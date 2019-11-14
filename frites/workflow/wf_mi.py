@@ -4,10 +4,10 @@ import logging
 import numpy as np
 from joblib import Parallel, delayed
 
-from frites.core import MI_FUN, permute_mi_vector
-from frites.stats import STAT_FUN
+from frites import config
 from frites.io import is_pandas_installed, is_xarray_installed, set_log_level
-from frites.config import CONFIG
+from frites.core import get_core_mi_fun, permute_mi_vector
+from frites.stats import STAT_FUN
 
 logger = logging.getLogger("frites")
 
@@ -39,23 +39,41 @@ class WfMi(object):
               population.
 
         By default, the workflow uses group level inference ('rfx')
+    mi_method : {'gc', 'bin'}
+        Method for computing the mutual information. Use either :
+
+            * 'gc' : gaussian-copula based mutual information. This is the
+              fastest method but it can only captures monotonic relationships
+              between variables
+            * 'bin' : binning-based method that can captures any kind of
+              relationships but is much slower and also required to define the
+              number of bins to use. Note that if the Numba package is
+              installed computations should be much faster
 
     References
     ----------
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
-    def __init__(self, mi_type='cc', inference='rfx', verbose=None):
+    def __init__(self, mi_type='cc', inference='rfx', mi_method='gc',
+                 verbose=None):
         """Init."""
         set_log_level(verbose)
-        assert mi_type in ['cc', 'cd', 'ccd']
-        assert inference in ['ffx', 'rfx']
+        assert mi_type in ['cc', 'cd', 'ccd'], (
+            "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
+        assert inference in ['ffx', 'rfx'], (
+            "'inference' input parameter should either be 'ffx' or 'rfx'")
+        assert mi_method in ['gc', 'bin'], (
+            "'mi_method' input parameter should either be 'gc' or 'bin'")
         self._mi_type = mi_type
         self._inference = inference
+        self._mi_method = mi_method
+        self._need_copnorm = mi_method == 'gc'
         self.clean()
 
-        logger.info(f"Workflow for computing mutual information ({mi_type}) "
-                    f"and statistics ({inference}) has been defined")
+        logger.info(f"Workflow for computing mutual information ({mi_type} - "
+                    f"{mi_method}) and statistics ({inference}) has been "
+                    f"defined")
 
     ###########################################################################
     #                                INTERNALS
@@ -76,12 +94,13 @@ class WfMi(object):
         """
         # inplace preparation
         dataset.groupby("roi")
-        dataset.copnorm(mi_type=self._mi_type, inference=self._inference)
+        if self._need_copnorm:
+            dataset.copnorm(mi_type=self._mi_type, inference=self._inference)
         # track time and roi
         self._times, self._roi = dataset.times, dataset.roi_names
 
 
-    def _node_compute_mi(self, dataset, n_perm=1000, n_jobs=-1):
+    def _node_compute_mi(self, dataset, n_bins=None, n_perm=1000, n_jobs=-1):
         """Compute mi and permuted mi.
 
         Permutations are performed by randomizing the regressor variable. For
@@ -89,15 +108,18 @@ class WfMi(object):
         the random effect, the randomization is performed per subject.
         """
         # get the function for computing mi
-        mi_fun = MI_FUN[self._mi_type]
-        assert f"mi_{CONFIG['COPULA_CONV'][self._mi_type]}" == mi_fun.__name__
+        mi_fun = get_core_mi_fun(self._mi_method)[self._mi_type]
+        assert f"mi_{self._mi_method}_ephy_{self._mi_type}" == mi_fun.__name__
         # get x, y, z and subject names per roi
         x, y, z, suj = dataset.x, dataset.y, dataset.z, dataset.suj_roi
         n_roi, inf = dataset.n_roi, self._inference
         # evaluate true mi
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs})")
-        mi = [mi_fun(x[k], y[k], z[k], suj[k], inf) for k in range(n_roi)]
+        mi = [mi_fun(x[k], y[k], z[k], suj[k], inf,
+                     n_bins=n_bins) for k in range(n_roi)]
+        # get joblib configuration
+        cfg_jobs = config.CONFIG["JOBLIB_CFG"]
         # evaluate permuted mi
         mi_p = []
         for r in range(n_roi):
@@ -105,8 +127,9 @@ class WfMi(object):
             y_p = permute_mi_vector(y[r], suj[r], mi_type=self._mi_type,
                                     inference=self._inference, n_perm=n_perm)
             # run permutations using the randomize regressor
-            _mi = Parallel(n_jobs=n_jobs, **CONFIG["JOBLIB_CFG"])(delayed(
-               mi_fun)(x[r], y_p[p], z[r], suj[r], inf) for p in range(n_perm))
+            _mi = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(mi_fun)(
+                x[r], y_p[p], z[r], suj[r], inf,
+                n_bins=n_bins) for p in range(n_perm))
             mi_p += [np.asarray(_mi)]
 
         self._mi, self._mi_p = mi, mi_p
@@ -183,8 +206,9 @@ class WfMi(object):
     #                             EXTERNALS
     ###########################################################################
 
-    def fit(self, dataset, n_perm=1000, n_jobs=-1, output_type='dataframe',
-            stat_method='rfx_cluster_ttest', **kw_stats):
+    def fit(self, dataset, n_perm=1000, n_bins=None, n_jobs=-1,
+            output_type='dataframe', stat_method='rfx_cluster_ttest',
+            **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -205,6 +229,11 @@ class WfMi(object):
         n_perm : int | 1000
             Number of permutations to perform in order to estimate the random
             distribution of mi that can be obtained by chance
+        n_bins : int | None
+            Number of bins to use if the method for computing the mutual
+            information is based on binning (mi_method='bin'). If None, the
+            number of bins is going to be automatically inferred based on the
+            number of trials and variables
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
@@ -273,6 +302,11 @@ class WfMi(object):
             raise KeyError(f"Selected statistical method `{stat_method}` "
                            f"doesn't exist. For {self._inference} inference, "
                            f"use either : {', '.join(m_names)}")
+        # infer the number of bins if needed
+        if (self._mi_method is 'bin') and not isinstance(n_bins, int):
+            n_bins = 8
+            logger.info(f"    Use an automatic number of bins of {n_bins}")
+        self._n_bins = n_bins
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
@@ -282,6 +316,7 @@ class WfMi(object):
         else:
             self._node_prepare_data(dataset)
             mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm,
+                                             n_bins=self._n_bins,
                                              n_jobs=n_jobs)
         # infer p-values
         pvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,

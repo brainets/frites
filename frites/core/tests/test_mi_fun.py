@@ -1,10 +1,11 @@
 """Test high-level mutual information functions."""
 import numpy as np
 
-from frites.core import MI_FUN, permute_mi_vector
+from frites.core import permute_mi_vector, get_core_mi_fun
 
 rnd = np.random.RandomState(0)
 
+mi_methods = ['gc', 'bin']
 mi_types = ['cc', 'cd', 'ccd']
 inferences = ['ffx', 'rfx']
 n_perm = 15
@@ -20,11 +21,13 @@ class TestMiFun(object):  # noqa
 
     def test_mi_fun(self):
         """Test mi functions."""
-        for mi in mi_types:
-            for inf in inferences:
-                fun = MI_FUN[mi]
-                y_c = z if mi is 'cd' else y
-                fun(x, y_c, z, suj, inf)
+        for mi_meth in mi_methods:
+            mi_funs = get_core_mi_fun(mi_meth)
+            for mi in mi_types:
+                fun = mi_funs[mi]
+                for inf in inferences:
+                    y_c = z if mi is 'cd' else y
+                    fun(x, y_c, z, suj, inf)
 
     def test_permute_mi_vector(self):
         """Test function permute_mi_vector."""

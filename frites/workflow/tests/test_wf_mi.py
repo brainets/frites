@@ -33,22 +33,26 @@ class TestWfMi(object):  # noqa
         # built the regressor
         y, gt = sim_mi_cc(x, snr=1.)
         # run workflow
-        for inf in ['ffx', 'rfx']:
-            dt = DatasetEphy(x, y, roi, times=time)
-            wf = WfMi('cc', inf, verbose=False)
-            for meth in STAT_FUN[inf]:
-                mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+        for mi_meth in ['gc', 'bin']:
+            for inf in ['ffx', 'rfx']:
+                dt = DatasetEphy(x, y, roi, times=time)
+                wf = WfMi(mi_type='cc', inference=inf, mi_method=mi_meth,
+                          verbose=False)
+                for meth in STAT_FUN[inf]:
+                    mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
 
     def test_fit_cd(self):
         """Test method fit."""
         # built the discret variable
         x_s, y, gt = sim_mi_cd(x, snr=1.)
         # run workflow
-        for inf in ['ffx', 'rfx']:
-            dt = DatasetEphy(x_s, y, roi, times=time)
-            wf = WfMi('cd', inf, verbose=False)
-            for meth in STAT_FUN[inf]:
-                mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+        for mi_meth in ['gc', 'bin']:
+            for inf in ['ffx', 'rfx']:
+                dt = DatasetEphy(x_s, y, roi, times=time)
+                wf = WfMi(mi_type='cd', inference=inf, mi_method=mi_meth,
+                          verbose=False)
+                for meth in STAT_FUN[inf]:
+                    mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
         # key error testing
         try:
             wf.fit(dt, n_perm=n_perm, stat_method="eat_potatoes")
@@ -60,11 +64,13 @@ class TestWfMi(object):  # noqa
         # built the regressor and discret variables
         y, z, gt = sim_mi_ccd(x, snr=1.)
         # run workflow
-        for inf in ['ffx', 'rfx']:
-            dt = DatasetEphy(x, y, roi, z=z, times=time)
-            wf = WfMi('ccd', inf, verbose=False)
-            for meth in STAT_FUN[inf]:
-                mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+        for mi_meth in ['gc', 'bin']:
+            for inf in ['ffx', 'rfx']:
+                dt = DatasetEphy(x, y, roi, z=z, times=time)
+                wf = WfMi(mi_type='ccd', inference=inf, mi_method=mi_meth,
+                          verbose=False)
+                for meth in STAT_FUN[inf]:
+                    mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
 
     def test_output_type(self):
         """Test function output_type."""
