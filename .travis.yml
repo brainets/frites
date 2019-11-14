@@ -42,7 +42,7 @@ install:
     - source activate testenv
     # Install dependencies :
     - if [ "${TEST}" == "standard" ] || [ "${TEST}" == "examples" ]; then
-        pip install -U xlrd pillow openpyxl seaborn;
+        pip install -U xlrd pillow openpyxl seaborn numba;
         pip install -U codecov pytest pytest-cov pytest-sugar pytest-travis-fold pytest-faulthandler;
       fi;
     - if [ "${TEST}" == "flake" ]; then
