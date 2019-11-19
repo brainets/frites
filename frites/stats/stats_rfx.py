@@ -78,6 +78,8 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     -------
     pvalues : array_like
         Array of p-values of shape (n_suj, n_times)
+    tvalues : array_like
+        Array of t-values of shape (n_suj, n_times)
 
     References
     ----------
@@ -95,7 +97,7 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
                 f"threshold={th})")
     pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th, tail=1)
 
-    return pvalues
+    return pvalues, t_obs
 
 
 def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
@@ -143,6 +145,8 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     -------
     pvalues : array_like
         Array of p-values of shape (n_roi, n_times)
+    tvalues : array_like
+        Array of t-values of shape (n_roi, n_times)
 
     References
     ----------
@@ -162,4 +166,4 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
                 f"threshold={th})")
     pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th, tail=1)
 
-    return pvalues
+    return pvalues, t_obs
