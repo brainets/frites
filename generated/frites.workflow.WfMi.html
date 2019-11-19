@@ -273,6 +273,9 @@ installed computations should be much faster</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.mi_p" title="frites.workflow.WfMi.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
 <td><p>List of length (n_roi) of permuted mutual information.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.tvalues" title="frites.workflow.WfMi.tvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></a></p></td>
+<td><p>T-values array of shape (n_times, n_roi) when group level analysis is selected.</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="method">
@@ -347,7 +350,7 @@ inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttes
 </ul>
 </div></blockquote>
 </dd>
-<dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’, ‘dataset’}</span></dt><dd><p>Convert the mutual information and p-values arrays either to
+<dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Convert the mutual information and p-values arrays either to
 pandas DataFrames (require pandas to be installed) either to a
 xarray DataArray or DataSet (require xarray to be installed)</p>
 </dd>
@@ -387,6 +390,13 @@ of this list has a shape of (n_perm, n_subjects, n_times) if
 <cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="frites.workflow.WfMi.tvalues">
+<em class="property">property </em><code class="sig-name descname">tvalues</code><a class="headerlink" href="#frites.workflow.WfMi.tvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>T-values array of shape (n_times, n_roi) when group level analysis
+is selected.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -420,7 +430,7 @@ of this list has a shape of (n_perm, n_subjects, n_times) if
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-14.</p>
+        <p>&copy; Copyright Last updated on 2019-11-19.</p>
     </footer>
 
   </body>
