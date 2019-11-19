@@ -5,7 +5,8 @@ import numpy as np
 from joblib import Parallel, delayed
 
 from frites import config
-from frites.io import is_pandas_installed, is_xarray_installed, set_log_level
+from frites.io import (is_pandas_installed, is_xarray_installed, set_log_level,
+                       convert_spatiotemporal_outputs)
 from frites.core import get_core_mi_fun, permute_mi_vector
 from frites.stats import STAT_FUN
 
@@ -147,8 +148,9 @@ class WfMi(object):
                (n_perm, n_subjects, n_times)
         """
         # don't compute statistics
+        tvalues = []
         if stat_method is None:
-            return np.ones((len(mi), mi[0].shape[-1]), dtype=float)
+            return np.ones((len(mi), mi[0].shape[-1]), dtype=float), tvalues
         # get the function to evaluate statistics
         stat_fun = STAT_FUN[self._inference][stat_method]
         assert self._inference in stat_fun.__name__, (
@@ -164,11 +166,11 @@ class WfMi(object):
             # get the p-values
             pvalues = stat_fun(mi, mi_p, **kw_stats)
         elif self._inference == 'rfx':
-            pvalues = stat_fun(mi, mi_p, **kw_stats)
+            pvalues, tvalues = stat_fun(mi, mi_p, **kw_stats)
 
-        return pvalues
+        return pvalues, tvalues
 
-    def _node_postprocessing(self, mi, pvalues, times, roi, mean_mi=True,
+    def _node_postprocessing(self, mi, pv, times, roi, mean_mi=True,
                              output_type='dataframe'):
         """Post preprocess outputs.
 
@@ -180,26 +182,13 @@ class WfMi(object):
             logger.info("    Mean mi across subjects")
             mi = np.stack([k.mean(axis=0) for k in mi])
         # output type
-        assert output_type in ['array', 'dataframe', 'dataarray', 'dataset']
+        assert output_type in ['array', 'dataframe', 'dataarray']
         logger.info(f"    Formatting output type ({output_type})")
-        force_np = not is_pandas_installed() and not is_xarray_installed()
-        if force_np or (output_type is 'array'):       # numpy
-            return mi, pvalues
-        elif output_type is 'dataframe':               # pandas
-            is_pandas_installed(raise_error=True)
-            import pandas as pd
-            mi = pd.DataFrame(mi.T, index=times, columns=roi)
-            pvalues = pd.DataFrame(pvalues.T, index=times, columns=roi)
-            return mi, pvalues
-        elif output_type in ['dataarray', 'dataset']:  # xarray
-            is_xarray_installed(raise_error=True)
-            from xarray import DataArray, Dataset
-            mi = DataArray(mi, dims=('roi', 'times'), coords=(roi, times))
-            pvalues = DataArray(pvalues, dims=('roi', 'times'),
-                                coords=(roi, times))
-            if output_type is 'dataarray':
-                return mi, pvalues
-            return Dataset(dict(mi=mi, pvalues=pvalues))
+        # apply conversion
+        mi = convert_spatiotemporal_outputs(mi.T, times, roi, output_type)
+        pv = convert_spatiotemporal_outputs(pv.T, times, roi, output_type)
+
+        return mi, pv
 
 
     ###########################################################################
@@ -269,7 +258,7 @@ class WfMi(object):
                   with the Threshold Free Cluster Enhancement for cluster level
                   inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`
                   :cite:`smith2009threshold`)
-        output_type : {'array', 'dataframe', 'dataarray', 'dataset'}
+        output_type : {'array', 'dataframe', 'dataarray'}
             Convert the mutual information and p-values arrays either to
             pandas DataFrames (require pandas to be installed) either to a
             xarray DataArray or DataSet (require xarray to be installed)
@@ -304,7 +293,7 @@ class WfMi(object):
                            f"use either : {', '.join(m_names)}")
         # infer the number of bins if needed
         if (self._mi_method is 'bin') and not isinstance(n_bins, int):
-            n_bins = 8
+            n_bins = 4
             logger.info(f"    Use an automatic number of bins of {n_bins}")
         self._n_bins = n_bins
         # if mi and mi_p have already been computed, reuse it instead
@@ -319,18 +308,23 @@ class WfMi(object):
                                              n_bins=self._n_bins,
                                              n_jobs=n_jobs)
         # infer p-values
-        pvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,
-                                           stat_method=stat_method, **kw_stats)
+        pvalues, tvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,
+                                                    stat_method=stat_method,
+                                                    **kw_stats)
+        # tvalues conversion
+        if isinstance(tvalues, np.ndarray):
+            self._tvalues = convert_spatiotemporal_outputs(
+                tvalues.T, dataset.times, dataset.roi_names, output_type)
         # mean mi and format outputs
         outs = self._node_postprocessing(mi, pvalues, dataset.times,
-                                         dataset.roi_names,
+                                         dataset.roi_names, mean_mi=True,
                                          output_type=output_type)
 
         return outs
 
     def clean(self):
         """Clean computations."""
-        self._mi, self._mi_p = [], []
+        self._mi, self._mi_p , self._tvalues = [], [], []
 
     @property
     def mi(self):
@@ -345,3 +339,10 @@ class WfMi(object):
         of this list has a shape of (n_perm, n_subjects, n_times) if
         `inference` is 'rfx' (n_perm, 1, n_times) if `inference` is 'ffx'."""
         return self._mi_p
+
+    @property
+    def tvalues(self):
+        """T-values array of shape (n_times, n_roi) when group level analysis
+        is selected."""
+        return self._tvalues
+

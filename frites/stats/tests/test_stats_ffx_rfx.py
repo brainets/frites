@@ -42,10 +42,10 @@ class TestFFXRFX(object):  # noqa
             # permuted mi
             mi_p += [rnd.uniform(0, 1, (n_perm, n_suj, n_times))]
         for meth in STAT_FUN['rfx'].values():
-            pv = meth(mi, mi_p)
+            pv = meth(mi, mi_p)[0]
             self._is_equals(pv)
         # test mean / median / trimmed
         meth = STAT_FUN['rfx']['rfx_cluster_ttest']
         for center in ['mean', 'median', 'trimmed']:
-            pv = meth(mi, mi_p, center=center, zscore=True)
+            pv = meth(mi, mi_p, center=center, zscore=True)[0]
             self._is_equals(pv)

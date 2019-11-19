@@ -45,4 +45,4 @@ def convert_spatiotemporal_outputs(arr, index=None, columns=None,
     elif astype is 'dataarray':               # xarray
         is_xarray_installed(raise_error=True)
         from xarray import DataArray
-        return DataArray(arr, dims=('roi', 'times'), coords=(index, columns))
+        return DataArray(arr, dims=('times', 'roi'), coords=(index, columns))

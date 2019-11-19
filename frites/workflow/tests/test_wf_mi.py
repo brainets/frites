@@ -14,7 +14,7 @@ n_times = 40
 n_roi = 2
 n_sites_per_roi = 1
 as_mne = False
-n_perm = 20
+n_perm = 5
 x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                   n_times=n_times, n_roi=n_roi,
                                   n_sites_per_roi=n_sites_per_roi,
@@ -75,7 +75,7 @@ class TestWfMi(object):  # noqa
     def test_output_type(self):
         """Test function output_type."""
         import pandas as pd
-        from xarray import DataArray, Dataset
+        from xarray import DataArray
         y, gt = sim_mi_cc(x, snr=1.)
         dt = DatasetEphy(x, y, roi, times=time)
         wf = WfMi('cc', 'ffx', verbose=False)
@@ -91,10 +91,6 @@ class TestWfMi(object):  # noqa
         mi, pv = wf.fit(dt, n_perm=n_perm, stat_method='ffx_maxstat',
                         output_type='dataarray')
         assert all([isinstance(k, DataArray) for k in [mi, pv]])
-        # dataset
-        out = wf.fit(dt, n_perm=n_perm, stat_method='ffx_maxstat',
-                     output_type='dataset')
-        assert isinstance(out, Dataset)
         # test clean
         mi, mi_p = wf.mi, wf.mi_p
         assert all([isinstance(k, list) for k in [mi, mi_p]])
