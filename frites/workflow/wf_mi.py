@@ -8,7 +8,9 @@ from frites import config
 from frites.io import (is_pandas_installed, is_xarray_installed, set_log_level,
                        convert_spatiotemporal_outputs)
 from frites.core import get_core_mi_fun, permute_mi_vector
+from frites.workflow.wf_stats_ephy import WfStatsEphy
 from frites.stats import STAT_FUN
+
 
 logger = logging.getLogger("frites")
 
@@ -76,16 +78,6 @@ class WfMi(object):
                     f"{mi_method}) and statistics ({inference}) has been "
                     f"defined")
 
-    ###########################################################################
-    #                                INTERNALS
-    """
-        1 - Prepare the data (group by roi and copnorm)
-        2 - Compute the MI (mi) and the permuted MI (mi_p)
-        3 - Evaluate the p-values using non-parametric statistics
-        4 - Post-process outputs
-    """
-    ###########################################################################
-
     def _node_prepare_data(self, dataset):
         """Prepare the data before computing the mi.
 
@@ -99,6 +91,7 @@ class WfMi(object):
             dataset.copnorm(mi_type=self._mi_type, inference=self._inference)
         # track time and roi
         self._times, self._roi = dataset.times, dataset.roi_names
+        self._wf_stats = WfStatsEphy()
 
 
     def _node_compute_mi(self, dataset, n_bins=None, n_perm=1000, n_jobs=-1):
@@ -137,39 +130,6 @@ class WfMi(object):
 
         return mi, mi_p
 
-
-    def _node_compute_stats(self, mi, mi_p, n_jobs=-1,
-                            stat_method='rfx_cluster_ttest', **kw_stats):
-        """Compute the non-parametric statistics.
-
-        mi   = list of length n_roi composed with arrays of shape
-               (n_subjects, n_times)
-        mi_p = list of length n_roi composed with arrays of shape
-               (n_perm, n_subjects, n_times)
-        """
-        # don't compute statistics
-        tvalues = []
-        if stat_method is None:
-            return np.ones((len(mi), mi[0].shape[-1]), dtype=float), tvalues
-        # get the function to evaluate statistics
-        stat_fun = STAT_FUN[self._inference][stat_method]
-        assert self._inference in stat_fun.__name__, (
-            f"the select function is not compatible with {self._inference} "
-            "inferences")
-        # concatenate mi (if needed)
-        if self._inference == 'ffx':
-            # for the fixed effect, since it's computed across subjects it
-            # means that each roi has an mi.shape of (1, n_times) and can then
-            # been concatenated over the first axis. Same for the permutations,
-            # with a shape of (n_perm, 1, n_times)
-            mi, mi_p = np.concatenate(mi, axis=0), np.concatenate(mi_p, axis=1)
-            # get the p-values
-            pvalues = stat_fun(mi, mi_p, **kw_stats)
-        elif self._inference == 'rfx':
-            pvalues, tvalues = stat_fun(mi, mi_p, **kw_stats)
-
-        return pvalues, tvalues
-
     def _node_postprocessing(self, mi, pv, times, roi, mean_mi=True,
                              output_type='dataframe'):
         """Post preprocess outputs.
@@ -180,20 +140,16 @@ class WfMi(object):
         # mean mi across subjects
         if mean_mi:
             logger.info("    Mean mi across subjects")
-            mi = np.stack([k.mean(axis=0) for k in mi])
+            mi = np.stack([k.mean(axis=0) for k in mi]).T
         # output type
         assert output_type in ['array', 'dataframe', 'dataarray']
         logger.info(f"    Formatting output type ({output_type})")
         # apply conversion
-        mi = convert_spatiotemporal_outputs(mi.T, times, roi, output_type)
-        pv = convert_spatiotemporal_outputs(pv.T, times, roi, output_type)
+        mi = convert_spatiotemporal_outputs(mi, times, roi, output_type)
+        pv = convert_spatiotemporal_outputs(pv, times, roi, output_type)
 
         return mi, pv
 
-
-    ###########################################################################
-    #                             EXTERNALS
-    ###########################################################################
 
     def fit(self, dataset, n_perm=1000, n_bins=None, n_jobs=-1,
             output_type='dataframe', stat_method='rfx_cluster_ttest',
@@ -227,37 +183,8 @@ class WfMi(object):
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
         stat_method : string | "rfx_cluster_ttest"
-            Statistical method to use. Method names depends on the initial
-            choice of inference type (ffx=fixed effect or rfx=random effect).
-
-            **For the fixed effect (ffx) :**
-
-                * 'ffx_maxstat' : maximum statistics correction (see
-                  :func:`frites.stats.ffx_maxstat`)
-                * 'ffx_fdr' : False Discovery Rate correction (see
-                  :func:`frites.stats.ffx_fdr`)
-                * 'ffx_bonferroni' : Bonferroni correction (see
-                  :func:`frites.stats.ffx_bonferroni`)
-                * 'ffx_cluster_maxstat' : maximum statistics correction at
-                  cluster level (see :func:`frites.stats.ffx_cluster_maxstat`)
-                * 'ffx_cluster_fdr' : False Discovery Rate correction at
-                  cluster level (see :func:`frites.stats.ffx_cluster_fdr`)
-                * 'ffx_cluster_bonferroni' : Bonferroni correction at
-                  cluster level (see
-                  :func:`frites.stats.ffx_cluster_bonferroni`)
-                * 'ffx_cluster_tfce' : Threshold Free Cluster Enhancement for
-                  cluster level inference (see
-                  :func:`frites.stats.ffx_cluster_tfce`
-                  :cite:`smith2009threshold`)
-
-            **For the random effect (rfx) :**
-
-                * 'rfx_cluster_ttest' : t-test across subjects for cluster
-                  level inference (see :func:`frites.stats.rfx_cluster_ttest`)
-                * 'rfx_cluster_ttest_tfce' : t-test across subjects combined
-                  with the Threshold Free Cluster Enhancement for cluster level
-                  inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`
-                  :cite:`smith2009threshold`)
+            Statistical method to use. For further details, see
+            :class:`frites.WfStatsEphy.fit`
         output_type : {'array', 'dataframe', 'dataarray'}
             Convert the mutual information and p-values arrays either to
             pandas DataFrames (require pandas to be installed) either to a
@@ -279,8 +206,9 @@ class WfMi(object):
         ----------
         Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`
         """
-        # before performing any computations, we check if the statistical
-        # method does exist
+        # ---------------------------------------------------------------------
+        # if stat_method is None, avoid computing permutations
+        # ---------------------------------------------------------------------
         try:
             if isinstance(stat_method, str):
                 STAT_FUN[self._inference][stat_method]
@@ -291,11 +219,19 @@ class WfMi(object):
             raise KeyError(f"Selected statistical method `{stat_method}` "
                            f"doesn't exist. For {self._inference} inference, "
                            f"use either : {', '.join(m_names)}")
+
+        # ---------------------------------------------------------------------
+        # prepare variables that are going to be needed
+        # ---------------------------------------------------------------------
         # infer the number of bins if needed
         if (self._mi_method is 'bin') and not isinstance(n_bins, int):
             n_bins = 4
             logger.info(f"    Use an automatic number of bins of {n_bins}")
         self._n_bins = n_bins
+
+        # ---------------------------------------------------------------------
+        # compute mutual information
+        # ---------------------------------------------------------------------
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
@@ -307,24 +243,31 @@ class WfMi(object):
             mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm,
                                              n_bins=self._n_bins,
                                              n_jobs=n_jobs)
-        # infer p-values
-        pvalues, tvalues = self._node_compute_stats(mi, mi_p, n_jobs=n_jobs,
-                                                    stat_method=stat_method,
-                                                    **kw_stats)
+        # ---------------------------------------------------------------------
+        # compute statistics
+        # ---------------------------------------------------------------------
+        # infer p-values and t-values
+        pvalues, tvalues = self._wf_stats.fit(
+            mi, mi_p, stat_method=stat_method, **kw_stats)
+
+        # ---------------------------------------------------------------------
+        # postprocessing and conversions
+        # ---------------------------------------------------------------------
         # tvalues conversion
         if isinstance(tvalues, np.ndarray):
             self._tvalues = convert_spatiotemporal_outputs(
-                tvalues.T, dataset.times, dataset.roi_names, output_type)
+                tvalues, dataset.times, dataset.roi_names, output_type)
         # mean mi and format outputs
-        outs = self._node_postprocessing(mi, pvalues, dataset.times,
-                                         dataset.roi_names, mean_mi=True,
-                                         output_type=output_type)
+        outs = self._node_postprocessing(
+            mi, pvalues, dataset.times, dataset.roi_names, mean_mi=True,
+            output_type=output_type)
 
         return outs
 
+
     def clean(self):
         """Clean computations."""
-        self._mi, self._mi_p , self._tvalues = [], [], []
+        self._mi, self._mi_p , self._tvalues = [], [], None
 
     @property
     def mi(self):

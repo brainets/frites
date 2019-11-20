@@ -44,7 +44,7 @@ def ffx_maxstat(mi, mi_p, alpha=0.05):
     p_max = np.percentile(mi_p.max(axis=(1, 2)), 100. * (1. - alpha),
                           interpolation='higher')
     # infer p-values
-    pvalues[mi > p_max] = alpha
+    pvalues[mi > p_max] = 1. / n_perm
 
     return pvalues
 
