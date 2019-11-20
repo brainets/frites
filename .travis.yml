@@ -42,13 +42,13 @@ install:
     - source activate testenv
     # Install dependencies :
     - if [ "${TEST}" == "standard" ] || [ "${TEST}" == "examples" ]; then
-        pip install -U xlrd pillow openpyxl seaborn numba;
+        pip install -U numba;
         pip install -U codecov pytest pytest-cov pytest-sugar pytest-travis-fold pytest-faulthandler;
       fi;
     - if [ "${TEST}" == "flake" ]; then
         pip install flake8 pep8-naming;
       fi;
-    # ------------------- BRAINETS -------------------
+    # ------------------- FRITES -------------------
     - cd ${SRC_DIR}
     - pip install -e .
 
