@@ -63,8 +63,13 @@ class TestWfStatsEphy(object):
         """Test fitting the worflow."""
         wf = WfStatsEphy(verbose=False)
 
-        # test ffx
+        # test none
         effect, perms = self._generate_ffx_data(0)
+        pv, tv = wf.fit(effect, perms, stat_method=None)
+        pv_def = np.ones((n_times, n_roi), dtype=float)
+        np.testing.assert_array_equal(pv, pv_def)
+        assert tv is None
+        # test ffx
         for stat in STAT_FUN['ffx'].keys():
             pv, tv = wf.fit(effect, perms, stat_method=stat)
             self._test_outputs(pv, tv, 'ffx', stat)

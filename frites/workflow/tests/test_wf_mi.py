@@ -5,12 +5,11 @@ from frites.workflow import WfMi
 from frites.simulations import (sim_multi_suj_ephy, sim_mi_cc, sim_mi_cd,
                                 sim_mi_ccd)
 from frites.dataset import DatasetEphy
-from frites.stats import STAT_FUN
 
 modality = 'meeg'
 n_subjects = 5
-n_epochs = 100
-n_times = 40
+n_epochs = 30
+n_times = 20
 n_roi = 2
 n_sites_per_roi = 1
 as_mne = False
@@ -34,12 +33,12 @@ class TestWfMi(object):  # noqa
         y, gt = sim_mi_cc(x, snr=1.)
         # run workflow
         for mi_meth in ['gc', 'bin']:
-            for inf in ['ffx', 'rfx']:
-                dt = DatasetEphy(x, y, roi, times=time)
-                wf = WfMi(mi_type='cc', inference=inf, mi_method=mi_meth,
-                          verbose=False)
-                for meth in STAT_FUN[inf]:
-                    mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+            dt = DatasetEphy(x, y, roi, times=time)
+            WfMi(mi_type='cc', inference='ffx', mi_method=mi_meth,
+                 verbose=False).fit(dt, n_perm=n_perm, stat_method='ffx_fdr')
+            WfMi(mi_type='cc', inference='rfx', mi_method=mi_meth,
+                 verbose=False).fit(dt, n_perm=n_perm,
+                                    stat_method='rfx_cluster_ttest')
 
     def test_fit_cd(self):
         """Test method fit."""
@@ -47,14 +46,15 @@ class TestWfMi(object):  # noqa
         x_s, y, gt = sim_mi_cd(x, snr=1.)
         # run workflow
         for mi_meth in ['gc', 'bin']:
-            for inf in ['ffx', 'rfx']:
-                dt = DatasetEphy(x_s, y, roi, times=time)
-                wf = WfMi(mi_type='cd', inference=inf, mi_method=mi_meth,
-                          verbose=False)
-                for meth in STAT_FUN[inf]:
-                    mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+            dt = DatasetEphy(x_s, y, roi, times=time)
+            WfMi(mi_type='cd', inference='ffx', mi_method=mi_meth,
+                 verbose=False).fit(dt, n_perm=n_perm, stat_method='ffx_fdr')
+            WfMi(mi_type='cd', inference='rfx', mi_method=mi_meth,
+                 verbose=False).fit(dt, n_perm=n_perm,
+                                    stat_method='rfx_cluster_ttest')
         # key error testing
         try:
+            wf = WfMi(mi_type='cd', verbose=False)
             wf.fit(dt, n_perm=n_perm, stat_method="eat_potatoes")
         except KeyError:
             pass
@@ -65,12 +65,12 @@ class TestWfMi(object):  # noqa
         y, z, gt = sim_mi_ccd(x, snr=1.)
         # run workflow
         for mi_meth in ['gc', 'bin']:
-            for inf in ['ffx', 'rfx']:
-                dt = DatasetEphy(x, y, roi, z=z, times=time)
-                wf = WfMi(mi_type='ccd', inference=inf, mi_method=mi_meth,
-                          verbose=False)
-                for meth in STAT_FUN[inf]:
-                    mi, pv = wf.fit(dt, n_perm=n_perm, stat_method=meth)
+            dt = DatasetEphy(x, y, roi, z=z, times=time)
+            WfMi(mi_type='ccd', inference='ffx', mi_method=mi_meth,
+                 verbose=False).fit(dt, n_perm=n_perm, stat_method='ffx_fdr')
+            WfMi(mi_type='ccd', inference='rfx', mi_method=mi_meth,
+                 verbose=False).fit(dt, n_perm=n_perm,
+                                    stat_method='rfx_cluster_ttest')
 
     def test_output_type(self):
         """Test function output_type."""
