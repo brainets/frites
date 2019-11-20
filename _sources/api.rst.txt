@@ -19,6 +19,7 @@ Workflow
    :toctree: generated/
 
    WfMi
+   WfStatsEphy
 
 .. raw:: html
 

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.gcmi_nd_cc &#8212; frites 0.1.1 documentation</title>
+    <title>frites.workflow.WfStatsEphy &#8212; frites 0.1.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.gcmi_model_nd_cd" href="frites.core.gcmi_model_nd_cd.html" />
-    <link rel="prev" title="frites.core.cmi_nd_ggg" href="frites.core.cmi_nd_ggg.html" />
+    <link rel="next" title="frites.dataset.DatasetEphy" href="frites.dataset.DatasetEphy.html" />
+    <link rel="prev" title="frites.workflow.WfMi" href="frites.workflow.WfMi.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -63,9 +63,9 @@
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.dataset">Dataset</a><ul>
@@ -113,7 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
@@ -129,13 +129,13 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
@@ -160,7 +160,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.core.gcmi_nd_cc.rst.txt"
+  <a href="../_sources/generated/frites.workflow.WfStatsEphy.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -184,43 +184,113 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-gcmi-nd-cc">
-<h1>frites.core.gcmi_nd_cc<a class="headerlink" href="#frites-core-gcmi-nd-cc" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="frites.core.gcmi_nd_cc">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">gcmi_nd_cc</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">mvaxis=None</em>, <em class="sig-param">traxis=-1</em>, <em class="sig-param">shape_checking=True</em>, <em class="sig-param">gcrn=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_nd.html#gcmi_nd_cc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.gcmi_nd_cc" title="Permalink to this definition">¶</a></dt>
-<dd><p>GCMI between two continuous variables.</p>
-<p>The only difference with <cite>mi_gg</cite> is that a normalization is performed for
-each continuous variable.</p>
-<dl class="field-list simple">
+  <div class="section" id="frites-workflow-wfstatsephy">
+<h1>frites.workflow.WfStatsEphy<a class="headerlink" href="#frites-workflow-wfstatsephy" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frites.workflow.WfStatsEphy">
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfStatsEphy</code><span class="sig-paren">(</span><em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Workflow of non-parametric statistics for electropĥysiological data.</p>
+<p>The goal of this workflow is to provide an interface for assessing non-
+parametric statistics on electrophysiological data based on anatomical
+informations (ROI = Region Of Interest). In particular, it allows to make
+inferences either about a specific population (FFX = fixed effect) or build
+a model of a random population (RFX = Random effect). In addition,
+significant effect can either be detected at the spatio-temporal level
+(i.e at each time point and for each ROI) either at the cluster-level (i.e
+temporal clusters).</p>
+<dl class="method">
+<dt id="frites.workflow.WfStatsEphy.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.__init__" title="frites.workflow.WfStatsEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, verbose])</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, stat_method])</p></td>
+<td><p>Fit the workflow on true data.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="frites.workflow.WfStatsEphy.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the workflow on true data.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>x, y</strong><span class="classifier">array_like</span></dt><dd><p>Continuous variables</p>
+<dd class="field-odd"><dl>
+<dt><strong>effect</strong><span class="classifier">list</span></dt><dd><p>True effect list of length (n_roi,) composed of arrays each one of
+shape (n_subjects, n_times). Number of subjects per ROI could be
+different</p>
 </dd>
-<dt><strong>mvaxis</strong><span class="classifier">int | None</span></dt><dd><p>Spatial location of the axis to consider if multi-variate analysis
-is needed</p>
+<dt><strong>perms</strong><span class="classifier">list</span></dt><dd><p>Permutation list of length (n_roi,) composed of arrays each one of
+shape (n_perm, n_subjects, n_times). Number of subjects per ROI
+could be different</p>
 </dd>
-<dt><strong>traxis</strong><span class="classifier">int | -1</span></dt><dd><p>Spatial location of the trial axis. By default the last axis is
-considered</p>
+<dt><strong>stat_method</strong><span class="classifier">string | “rfx_cluster_ttest”</span></dt><dd><p>Statistical method to use. Method names depends on the initial
+choice of inference type (ffx=fixed effect or rfx=random effect).</p>
+<p><strong>For the fixed effect (ffx) :</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘ffx_maxstat’ : maximum statistics correction (see
+<a class="reference internal" href="frites.stats.ffx_maxstat.html#frites.stats.ffx_maxstat" title="frites.stats.ffx_maxstat"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_maxstat()</span></code></a>)</p></li>
+<li><p>‘ffx_fdr’ : False Discovery Rate correction (see
+<a class="reference internal" href="frites.stats.ffx_fdr.html#frites.stats.ffx_fdr" title="frites.stats.ffx_fdr"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_fdr()</span></code></a>)</p></li>
+<li><p>‘ffx_bonferroni’ : Bonferroni correction (see
+<a class="reference internal" href="frites.stats.ffx_bonferroni.html#frites.stats.ffx_bonferroni" title="frites.stats.ffx_bonferroni"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_bonferroni()</span></code></a>)</p></li>
+<li><p>‘ffx_cluster_maxstat’ : maximum statistics correction at
+cluster level (see <a class="reference internal" href="frites.stats.ffx_cluster_maxstat.html#frites.stats.ffx_cluster_maxstat" title="frites.stats.ffx_cluster_maxstat"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_maxstat()</span></code></a>)</p></li>
+<li><p>‘ffx_cluster_fdr’ : False Discovery Rate correction at
+cluster level (see <a class="reference internal" href="frites.stats.ffx_cluster_fdr.html#frites.stats.ffx_cluster_fdr" title="frites.stats.ffx_cluster_fdr"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_fdr()</span></code></a>)</p></li>
+<li><p>‘ffx_cluster_bonferroni’ : Bonferroni correction at
+cluster level (see
+<a class="reference internal" href="frites.stats.ffx_cluster_bonferroni.html#frites.stats.ffx_cluster_bonferroni" title="frites.stats.ffx_cluster_bonferroni"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_bonferroni()</span></code></a>)</p></li>
+<li><p>‘ffx_cluster_tfce’ : Threshold Free Cluster Enhancement for
+cluster level inference (see
+<a class="reference internal" href="frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce" title="frites.stats.ffx_cluster_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_tfce()</span></code></a>
+<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id1">[9]</a>)</p></li>
+</ul>
+</div></blockquote>
+<p><strong>For the random effect (rfx) :</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘rfx_cluster_ttest’ : t-test across subjects for cluster
+level inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttest.html#frites.stats.rfx_cluster_ttest" title="frites.stats.rfx_cluster_ttest"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest()</span></code></a>)</p></li>
+<li><p>‘rfx_cluster_ttest_tfce’ : t-test across subjects combined
+with the Threshold Free Cluster Enhancement for cluster level
+inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttest_tfce.html#frites.stats.rfx_cluster_ttest_tfce" title="frites.stats.rfx_cluster_ttest_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest_tfce()</span></code></a>
+<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id2">[9]</a>)</p></li>
+</ul>
+</div></blockquote>
 </dd>
-<dt><strong>shape_checking</strong><span class="classifier">bool | True</span></dt><dd><p>Perform a reshape and check that x and y shapes are consistents. For
-high performances and to avoid extensive memory usage, it’s better to
-already have x and y with a shape of (…, mvaxis, traxis) and to set
-this parameter to False</p>
+<dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Convert the mutual information and p-values arrays either to
+pandas DataFrames (require pandas to be installed) either to a
+xarray DataArray or DataSet (require xarray to be installed)</p>
 </dd>
-<dt><strong>gcrn</strong><span class="classifier">bool | True</span></dt><dd><p>Apply a Gaussian Copula rank normalization. This operation is
-relatively slow for big arrays.</p>
+<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
+selected using the <cite>stat_method</cite> input parameter</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>The mutual information with the same shape as x and y, without the
-mvaxis and traxis</p>
+<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_times, n_roi)</p>
+</dd>
+<dt><strong>tvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of t-values of shape (n_times, n_n_roi). This ouput is only
+computed for group-level analysis</p>
 </dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
