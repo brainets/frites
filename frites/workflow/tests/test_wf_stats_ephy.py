@@ -13,7 +13,6 @@ sl = slice(5, 15)
 effect_size = 100.
 
 
-
 class TestWfStatsEphy(object):
     """Test the WfStatsEphy workflow."""
 

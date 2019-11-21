@@ -16,6 +16,7 @@ x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                   as_mne=as_mne, modality=modality,
                                   random_state=1)
 
+
 class TestSimMi(object):  # noqa
 
     def test_sim_mi_cc(self):
@@ -38,7 +39,3 @@ class TestSimMi(object):  # noqa
         assert len(y) == len(x) == len(z)
         assert all([k.shape == (n_epochs,) for k in y])
         assert (len(gt) == n_times) and (gt.dtype == bool)
-
-
-if __name__ == '__main__':
-  TestSimMi().test_sim_mi_ccd()

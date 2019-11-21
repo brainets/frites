@@ -4,6 +4,7 @@ import numpy as np
 from frites.core.mi_bin_ephy import (entropy, histogram, histogram2d, mi_bin,
                                      mi_bin_ccd, mi_bin_time, mi_bin_ccd_time)
 
+
 class TestMiBin(object):   # noqa
 
     def test_entropy(self):
@@ -54,6 +55,3 @@ class TestMiBin(object):   # noqa
         z = np.array([0] * 500 + [1] * 500).astype(np.float32)
         mi = mi_bin_ccd_time(x, y, z, 8)
         assert isinstance(mi, np.ndarray) and (len(mi) == 10)
-
-if __name__ == '__main__':
-    TestMiBin().test_mi_bin_ccd_time()

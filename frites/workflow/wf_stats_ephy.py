@@ -26,7 +26,6 @@ class WfStatsEphy(object):
         set_log_level(verbose)
         logger.info("Definition of a non-parametric statistical workflow")
 
-
     def fit(self, effect, perms, stat_method="rfx_cluster_ttest", **kw_stats):
         """Fit the workflow on true data.
 

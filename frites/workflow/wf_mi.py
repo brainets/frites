@@ -5,8 +5,7 @@ import numpy as np
 from joblib import Parallel, delayed
 
 from frites import config
-from frites.io import (is_pandas_installed, is_xarray_installed, set_log_level,
-                       convert_spatiotemporal_outputs)
+from frites.io import (set_log_level, convert_spatiotemporal_outputs)
 from frites.core import get_core_mi_fun, permute_mi_vector
 from frites.workflow.wf_stats_ephy import WfStatsEphy
 from frites.stats import STAT_FUN
@@ -93,7 +92,6 @@ class WfMi(object):
         self._times, self._roi = dataset.times, dataset.roi_names
         self._wf_stats = WfStatsEphy()
 
-
     def _node_compute_mi(self, dataset, n_bins=None, n_perm=1000, n_jobs=-1):
         """Compute mi and permuted mi.
 
@@ -149,7 +147,6 @@ class WfMi(object):
         pv = convert_spatiotemporal_outputs(pv, times, roi, output_type)
 
         return mi, pv
-
 
     def fit(self, dataset, n_perm=1000, n_bins=None, n_jobs=-1,
             output_type='dataframe', stat_method='rfx_cluster_ttest',
@@ -264,10 +261,9 @@ class WfMi(object):
 
         return outs
 
-
     def clean(self):
         """Clean computations."""
-        self._mi, self._mi_p , self._tvalues = [], [], None
+        self._mi, self._mi_p, self._tvalues = [], [], None
 
     @property
     def mi(self):
@@ -288,4 +284,3 @@ class WfMi(object):
         """T-values array of shape (n_times, n_roi) when group level analysis
         is selected."""
         return self._tvalues
-

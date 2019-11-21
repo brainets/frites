@@ -234,13 +234,13 @@ def mi_bin_ccd_time(x, y, z, bins):
         mi[t] = mi_bin_ccd(x[t, :], y, z, bins)
     return mi
 
+
 ###############################################################################
 ###############################################################################
 #                        HIGH-LEVEL CORE FUNCTIONS
 ###############################################################################
 ###############################################################################
-"""
-This final part defines high level functions for computing the mutual
+"""This final part defines high level functions for computing the mutual
 information on electrophysiological data organized as (n_times, 1, n_trials)
 """
 

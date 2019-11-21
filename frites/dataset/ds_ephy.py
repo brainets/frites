@@ -83,7 +83,7 @@ class DatasetEphy(object):
 
         # check the time vector
         _x_times = np.unique([self._x[k].shape[1] for k in range(
-          self.n_subjects)])
+            self.n_subjects)])
         assert _x_times.size == 1, ("Inconsistent number of time points across"
                                     " subjects")
         self.n_times = self._x[0].shape[1]
@@ -182,7 +182,7 @@ class DatasetEphy(object):
             if isinstance(self._z, list):  # CCD
                 assert all([k.shape[0] == i.shape[0] for k, i in zip(
                     self._y, self._z)]), ("y and z must have the same number "
-                "of epochs")
+                                          "of epochs")
                 yz = [np.c_[k, i] for k, i in zip(self._y, self._z)]
             else:
                 yz = self._y
@@ -352,7 +352,8 @@ class DatasetEphy(object):
         else:
             _zpr = f"z : {None}"
 
-        shape = (f"{'-' * 79}\n"
+        shape = (
+            f"{'-' * 79}\n"
             f"x ({len(self._x)} x {self._x[0].dtype}) : {', '.join(_xsh)}\n"
             f"y ({len(self._y)} x {self._y[0].dtype}) : {', '.join(_ysh)}\n"
             f"{_zpr}\n"

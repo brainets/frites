@@ -14,6 +14,7 @@ logger = logging.getLogger("frites")
 #                      FFX / TIME POINTS INFERENCES
 ###############################################################################
 
+
 def ffx_maxstat(mi, mi_p, alpha=0.05):
     """Maximum statistics correction for fixed effect inference.
 
@@ -134,6 +135,7 @@ def ffx_cluster_maxstat(mi, mi_p, alpha=0.05):
     pvalues = temporal_clusters_permutation_test(mi, mi_p, th, tail=1)
 
     return pvalues
+
 
 def _ffx_cluster_fdr_bonf(mi, mi_p, func, alpha=0.05):
     # prepare variables
