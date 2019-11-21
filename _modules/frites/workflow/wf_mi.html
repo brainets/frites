@@ -186,8 +186,7 @@
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
 <span class="kn">from</span> <span class="nn">frites</span> <span class="k">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="p">(</span><span class="n">is_pandas_installed</span><span class="p">,</span> <span class="n">is_xarray_installed</span><span class="p">,</span> <span class="n">set_log_level</span><span class="p">,</span>
-                       <span class="n">convert_spatiotemporal_outputs</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="k">import</span> <span class="n">WfStatsEphy</span>
 <span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
@@ -274,7 +273,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
 
-
     <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
 
@@ -330,7 +328,6 @@
         <span class="n">pv</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span>
-
 
 <div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span>
@@ -445,10 +442,9 @@
 
         <span class="k">return</span> <span class="n">outs</span></div>
 
-
 <div class="viewcode-block" id="WfMi.clean"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clean computations.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="kc">None</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -469,7 +465,6 @@
         <span class="sd">&quot;&quot;&quot;T-values array of shape (n_times, n_roi) when group level analysis</span>
 <span class="sd">        is selected.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span></div>
-
 </pre></div>
 
     </div>
@@ -500,7 +495,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-20.</p>
+        <p>&copy; Copyright Last updated on 2019-11-21.</p>
     </footer>
 
   </body>

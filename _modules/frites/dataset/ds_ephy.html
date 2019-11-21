@@ -264,7 +264,7 @@
 
         <span class="c1"># check the time vector</span>
         <span class="n">_x_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-          <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)])</span>
         <span class="k">assert</span> <span class="n">_x_times</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;Inconsistent number of time points across&quot;</span>
                                     <span class="s2">&quot; subjects&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -363,7 +363,7 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>  <span class="c1"># CCD</span>
                 <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">)]),</span> <span class="p">(</span><span class="s2">&quot;y and z must have the same number &quot;</span>
-                <span class="s2">&quot;of epochs&quot;</span><span class="p">)</span>
+                                          <span class="s2">&quot;of epochs&quot;</span><span class="p">)</span>
                 <span class="n">yz</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">)]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">yz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span>
@@ -533,7 +533,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_zpr</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;z : </span><span class="si">{None}</span><span class="s2">&quot;</span>
 
-        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;{&#39;-&#39; * 79}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;{&#39;-&#39; * 79}</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="n">f</span><span class="s2">&quot;x ({len(self._x)} x </span><span class="si">{self._x[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_xsh)}</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="n">f</span><span class="s2">&quot;y ({len(self._y)} x </span><span class="si">{self._y[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_ysh)}</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="n">f</span><span class="s2">&quot;</span><span class="si">{_zpr}</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -569,7 +570,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-20.</p>
+        <p>&copy; Copyright Last updated on 2019-11-21.</p>
     </footer>
 
   </body>
