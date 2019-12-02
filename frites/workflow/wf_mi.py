@@ -15,7 +15,7 @@ logger = logging.getLogger("frites")
 
 
 class WfMi(object):
-    """Workflow of mutual-information and statistics.
+    """Workflow of local mutual-information and statistics.
 
     This class allows to define a workflow for computing the mutual information
     and then to evaluate the significance using non-parametric statistics
