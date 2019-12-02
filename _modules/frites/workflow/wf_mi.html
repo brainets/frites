@@ -183,20 +183,20 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">joblib</span> <span class="k">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
-<span class="kn">from</span> <span class="nn">frites</span> <span class="k">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
-<span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="k">import</span> <span class="n">WfStatsEphy</span>
-<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
+<span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="kn">import</span> <span class="n">WfStatsEphy</span>
+<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">STAT_FUN</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="WfMi"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi">[docs]</a><span class="k">class</span> <span class="nc">WfMi</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Workflow of mutual-information and statistics.</span>
+    <span class="sd">&quot;&quot;&quot;Workflow of local mutual-information and statistics.</span>
 
 <span class="sd">    This class allows to define a workflow for computing the mutual information</span>
 <span class="sd">    and then to evaluate the significance using non-parametric statistics</span>
@@ -238,7 +238,7 @@
 <span class="sd">    Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
@@ -254,9 +254,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span> <span class="o">=</span> <span class="n">mi_method</span> <span class="o">==</span> <span class="s1">&#39;gc&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2"> - &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;</span><span class="si">{mi_method}</span><span class="s2">) and statistics (</span><span class="si">{inference}</span><span class="s2">) has been &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;defined&quot;</span><span class="p">)</span></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2"> - &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{mi_method}</span><span class="s2">) and statistics (</span><span class="si">{inference}</span><span class="s2">) has been &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;defined&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_node_prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Prepare the data before computing the mi.</span>
@@ -282,13 +282,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get the function for computing mi</span>
         <span class="n">mi_fun</span> <span class="o">=</span> <span class="n">get_core_mi_fun</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">f</span><span class="s2">&quot;mi_</span><span class="si">{self._mi_method}</span><span class="s2">_ephy_</span><span class="si">{self._mi_type}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;mi_</span><span class="si">{self._mi_method}</span><span class="s2">_ephy_</span><span class="si">{self._mi_type}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="c1"># get x, y, z and subject names per roi</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">suj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi</span>
         <span class="n">n_roi</span><span class="p">,</span> <span class="n">inf</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
         <span class="c1"># evaluate true mi</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{n_perm}</span><span class="s2">, &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{n_jobs}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{n_perm}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{n_jobs}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span>
                      <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)]</span>
         <span class="c1"># get joblib configuration</span>
@@ -322,7 +322,7 @@
             <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
         <span class="c1"># output type</span>
         <span class="k">assert</span> <span class="n">output_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{output_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{output_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="c1"># apply conversion</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
         <span class="n">pv</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
@@ -394,9 +394,9 @@
                 <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
-                           <span class="n">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{self._inference}</span><span class="s2"> inference, &quot;</span>
-                           <span class="n">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
+                           <span class="sa">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{self._inference}</span><span class="s2"> inference, &quot;</span>
+                           <span class="sa">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># prepare variables that are going to be needed</span>
@@ -404,7 +404,7 @@
         <span class="c1"># infer the number of bins if needed</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="ow">is</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">n_bins</span> <span class="o">=</span> <span class="mi">4</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Use an automatic number of bins of </span><span class="si">{n_bins}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Use an automatic number of bins of </span><span class="si">{n_bins}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span> <span class="o">=</span> <span class="n">n_bins</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
@@ -495,7 +495,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-21.</p>
+        <p>&copy; Copyright Last updated on 2019-12-02.</p>
     </footer>
 
   </body>

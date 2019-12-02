@@ -185,9 +185,9 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">frites</span>
-<span class="kn">from</span> <span class="nn">frites.config</span> <span class="k">import</span> <span class="n">CONFIG</span>
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="k">import</span> <span class="n">copnorm_cat_nd</span><span class="p">,</span> <span class="n">copnorm_nd</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="n">set_log_level</span>
+<span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">copnorm_cat_nd</span><span class="p">,</span> <span class="n">copnorm_nd</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -220,7 +220,7 @@
 <span class="sd">        are going to be skipped. Use None to skip this parameter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DatasetEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="DatasetEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
@@ -250,8 +250,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">=</span> <span class="s2">&quot;subject&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__version__</span> <span class="o">=</span> <span class="n">frites</span><span class="o">.</span><span class="n">__version__</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Dataset composed of </span><span class="si">{self.n_subjects}</span><span class="s2"> subjects. At least&quot;</span>
-                    <span class="n">f</span><span class="s2">&quot; </span><span class="si">{self.nb_min_suj}</span><span class="s2"> subjects per roi are required&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset composed of </span><span class="si">{self.n_subjects}</span><span class="s2"> subjects. At least&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{self.nb_min_suj}</span><span class="s2"> subjects per roi are required&quot;</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># load the data of each subject</span>
@@ -283,25 +283,25 @@
     <span class="c1"># INTERNALS</span>
     <span class="c1">###########################################################################</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;String representation.&quot;&quot;&quot;</span>
         <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">79</span>
-        <span class="n">rep</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;number of (subjects, roi, time points) : &quot;</span>
-               <span class="n">f</span><span class="s2">&quot;{self.n_subjects, self.n_roi, self.n_times}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;minimum number of subject per roi: </span><span class="si">{self.nb_min_suj}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;modality : </span><span class="si">{self.modality}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;data grouped by : </span><span class="si">{self._groupedby}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;copnormed : </span><span class="si">{self._copnormed}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;version : </span><span class="si">{self.__version__}</span><span class="se">\n</span><span class="s2">&quot;</span>
-               <span class="n">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">rep</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;number of (subjects, roi, time points) : &quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;{self.n_subjects, self.n_roi, self.n_times}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;minimum number of subject per roi: </span><span class="si">{self.nb_min_suj}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;modality : </span><span class="si">{self.modality}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;data grouped by : </span><span class="si">{self._groupedby}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;copnormed : </span><span class="si">{self._copnormed}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;version : </span><span class="si">{self.__version__}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">rep</span>
 
-    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the number of subjects.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span>
 
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 
     <span class="c1">###########################################################################</span>
@@ -320,7 +320,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_suj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x_suj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">x_suj</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;data type {type(x_suj)} not supported&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data type {type(x_suj)} not supported&quot;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
 
         <span class="c1"># Handle multi-dimentional arrays</span>
@@ -349,9 +349,9 @@
         <span class="k">assert</span> <span class="n">groupby</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;subject&quot;</span><span class="p">,</span> <span class="s2">&quot;roi&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">groupby</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Grouping ignored because already grouped by &quot;</span>
-                           <span class="n">f</span><span class="s2">&quot;</span><span class="si">{self._groupedby}</span><span class="s2">&quot;</span><span class="p">)</span>
+                           <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{self._groupedby}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Group data by </span><span class="si">{groupby}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Group data by </span><span class="si">{groupby}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">groupby</span> <span class="o">==</span> <span class="s2">&quot;roi&quot;</span><span class="p">:</span>  <span class="c1"># -----------------------------------------------</span>
             <span class="c1"># be sure that y is at least (n_epochs, 1)</span>
@@ -416,8 +416,8 @@
             <span class="c1"># warning message if there&#39;s ignored ROIs</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi_ignored</span><span class="p">):</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The following roi have been ignored because of&quot;</span>
-                               <span class="n">f</span><span class="s2">&quot; a number of subjects bellow &quot;</span>
-                               <span class="n">f</span><span class="s2">&quot;</span><span class="si">{self.nb_min_suj}</span><span class="s2"> : {&#39;, &#39;.join(roi_ignored)}&quot;</span><span class="p">)</span>
+                               <span class="sa">f</span><span class="s2">&quot; a number of subjects bellow &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{self.nb_min_suj}</span><span class="s2"> : {&#39;, &#39;.join(roi_ignored)}&quot;</span><span class="p">)</span>
             <span class="c1"># update variables</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x_roi</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -456,8 +456,8 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Data already copnormed. Copnorm ignored&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Apply copnorm (mi_type=</span><span class="si">{mi_type}</span><span class="s2">; &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;inference=</span><span class="si">{inference}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Apply copnorm (mi_type=</span><span class="si">{mi_type}</span><span class="s2">; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;inference=</span><span class="si">{inference}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="c1"># copnorm applied differently how data have been organized</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s2">&quot;roi&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
@@ -479,7 +479,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s2">&quot;subject&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;FUTURE WORK&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{mi_type}</span><span class="s2"> - </span><span class="si">{inference}</span><span class="s2">&quot;</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{mi_type}</span><span class="s2"> - </span><span class="si">{inference}</span><span class="s2">&quot;</span></div>
 
 <div class="viewcode-block" id="DatasetEphy.save"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save the dataset.&quot;&quot;&quot;</span>
@@ -528,17 +528,17 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>  <span class="c1"># Oh my zsh</span>
             <span class="n">_zsh</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
                 <span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;...&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_ssh</span><span class="p">]</span>
-            <span class="n">_zpr</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;z ({len(self._z)} x </span><span class="si">{self._z[0].dtype}</span><span class="s2">) : &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;{&#39;, &#39;.join(_zsh)}&quot;</span><span class="p">)</span>
+            <span class="n">_zpr</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;z ({len(self._z)} x </span><span class="si">{self._z[0].dtype}</span><span class="s2">) : &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;{&#39;, &#39;.join(_zsh)}&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_zpr</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;z : </span><span class="si">{None}</span><span class="s2">&quot;</span>
+            <span class="n">_zpr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;z : </span><span class="si">{None}</span><span class="s2">&quot;</span>
 
         <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">f</span><span class="s2">&quot;{&#39;-&#39; * 79}</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="n">f</span><span class="s2">&quot;x ({len(self._x)} x </span><span class="si">{self._x[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_xsh)}</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="n">f</span><span class="s2">&quot;y ({len(self._y)} x </span><span class="si">{self._y[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_ysh)}</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{_zpr}</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="n">f</span><span class="s2">&quot;{&#39;-&#39; * 79}&quot;</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;{&#39;-&#39; * 79}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;x ({len(self._x)} x </span><span class="si">{self._x[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_xsh)}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;y ({len(self._y)} x </span><span class="si">{self._y[0].dtype}</span><span class="s2">) : {&#39;, &#39;.join(_ysh)}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{_zpr}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;{&#39;-&#39; * 79}&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">shape</span></div>
 </pre></div>
 
@@ -570,7 +570,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-21.</p>
+        <p>&copy; Copyright Last updated on 2019-12-02.</p>
     </footer>
 
   </body>

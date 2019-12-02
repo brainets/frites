@@ -197,9 +197,9 @@ multivariate (multiple columns). For further details, see
 Ince et al., 2017 <a class="bibtex reference internal" href="../../references.html#ince2017statistical" id="id1">[5]</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="k">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">,</span> <a href="../../generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="View documentation for frites.simulations.sim_mi_cc"><span class="n">sim_mi_cc</span></a>
-<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="k">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
-<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="k">import</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a>
+<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">,</span> <a href="../../generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="View documentation for frites.simulations.sim_mi_cc"><span class="n">sim_mi_cc</span></a>
+<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
+<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
@@ -328,14 +328,14 @@ within (ffx) or between subject (rfx) statistics.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi_ffx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;MI (bits)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Mutual information (</span><span class="si">{ffx_stat}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutual information (</span><span class="si">{ffx_stat}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">pv_ffx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P-value&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi_rfx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;MI (bits)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Mutual information (</span><span class="si">{rfx_stat}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutual information (</span><span class="si">{rfx_stat}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">pv_rfx</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P-value&quot;</span><span class="p">)</span>
@@ -343,7 +343,7 @@ within (ffx) or between subject (rfx) statistics.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_cc_003.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cc_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.689 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.371 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-wf-mi-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b4c2c84be9f5804ddfae529ab229ccdc/plot_wf_mi_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_cc.py</span></code></a></p>
@@ -385,7 +385,7 @@ within (ffx) or between subject (rfx) statistics.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-21.</p>
+        <p>&copy; Copyright Last updated on 2019-12-02.</p>
     </footer>
 
   </body>

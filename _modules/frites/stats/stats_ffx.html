@@ -184,9 +184,9 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">mne.stats</span> <span class="k">import</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">bonferroni_correction</span>
+<span class="kn">from</span> <span class="nn">mne.stats</span> <span class="kn">import</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">bonferroni_correction</span>
 
-<span class="kn">from</span> <span class="nn">.stats_cluster</span> <span class="k">import</span> <span class="n">temporal_clusters_permutation_test</span>
+<span class="kn">from</span> <span class="nn">.stats_cluster</span> <span class="kn">import</span> <span class="n">temporal_clusters_permutation_test</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -218,7 +218,7 @@
 <span class="sd">    Holmes et al., 1996 :cite:`holmes1996nonparametric`</span>
 <span class="sd">    Nichols and Holmes, 2002 :cite:`nichols2002nonparametric`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX maximum statistics (alpha=</span><span class="si">{alpha}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    FFX maximum statistics (alpha=</span><span class="si">{alpha}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="c1"># prepare variables</span>
     <span class="n">n_perm</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
@@ -235,7 +235,7 @@
     <span class="c1"># prepare variables</span>
     <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">mi_p</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">meth_name</span> <span class="o">=</span> <span class="s1">&#39;FDR&#39;</span> <span class="k">if</span> <span class="s1">&#39;fdr&#39;</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">else</span> <span class="s1">&#39;Bonferroni&#39;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX </span><span class="si">{meth_name}</span><span class="s2"> correction (alpha=</span><span class="si">{alpha}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    FFX </span><span class="si">{meth_name}</span><span class="s2"> correction (alpha=</span><span class="si">{alpha}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="c1"># get p-values and apply the correction to it</span>
     <span class="n">th_pval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mi_p</span> <span class="o">&gt;</span> <span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">th_pval</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
@@ -311,8 +311,8 @@
     <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">mi_p</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
                        <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;higher&#39;</span><span class="p">)</span>
     <span class="c1"># infer p-values from cluster sizes</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX maximum statistics at cluster level (alpha=</span><span class="si">{alpha}</span><span class="s2">,&quot;</span>
-                <span class="n">f</span><span class="s2">&quot; cluster threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    FFX maximum statistics at cluster level (alpha=</span><span class="si">{alpha}</span><span class="s2">,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; cluster threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span></div>
@@ -326,13 +326,13 @@
     <span class="n">th_pval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mi_p</span> <span class="o">&gt;</span> <span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
     <span class="n">is_over_th</span> <span class="o">=</span> <span class="o">~</span><span class="n">func</span><span class="p">(</span><span class="n">th_pval</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">is_over_th</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;No MI exceed the threshold at p=</span><span class="si">{alpha}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No MI exceed the threshold at p=</span><span class="si">{alpha}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
     <span class="c1"># find the threshold to apply</span>
     <span class="n">th</span> <span class="o">=</span> <span class="n">mi</span><span class="p">[</span><span class="n">is_over_th</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="c1"># infer p-values from cluster sizes</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX </span><span class="si">{meth_name}</span><span class="s2"> correction at cluster level &quot;</span>
-                <span class="n">f</span><span class="s2">&quot;(alpha=</span><span class="si">{alpha}</span><span class="s2">, cluster threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    FFX </span><span class="si">{meth_name}</span><span class="s2"> correction at cluster level &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(alpha=</span><span class="si">{alpha}</span><span class="s2">, cluster threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span>
@@ -410,8 +410,8 @@
         <span class="n">step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span>
     <span class="n">threshold</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
     <span class="c1"># find clusters and infer p-values</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    FFX TFCE correction at cluster level (start=</span><span class="si">{start}</span><span class="s2">, &quot;</span>
-                <span class="n">f</span><span class="s2">&quot;step=</span><span class="si">{step}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    FFX TFCE correction at cluster level (start=</span><span class="si">{start}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;step=</span><span class="si">{step}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span></div>
@@ -445,7 +445,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-21.</p>
+        <p>&copy; Copyright Last updated on 2019-12-02.</p>
     </footer>
 
   </body>

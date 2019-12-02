@@ -184,8 +184,8 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="k">import</span> <span class="n">STAT_FUN</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="k">import</span> <span class="n">set_log_level</span>
+<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">STAT_FUN</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -203,7 +203,7 @@
 <span class="sd">    temporal clusters).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WfStatsEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa</span>
+<div class="viewcode-block" id="WfStatsEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Definition of a non-parametric statistical workflow&quot;</span><span class="p">)</span></div>
 
@@ -286,17 +286,17 @@
         <span class="n">inference</span> <span class="o">=</span> <span class="n">stat_method</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">inference</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">inference</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
-                           <span class="n">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{inference}</span><span class="s2"> inference, &quot;</span>
-                           <span class="n">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
+                           <span class="sa">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{inference}</span><span class="s2"> inference, &quot;</span>
+                           <span class="sa">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
         <span class="n">stat_fun</span> <span class="o">=</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute stats according to inference type</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;cluster&#39;</span> <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">stat_fun</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">else</span> <span class="s2">&quot;time-point&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;    Run the statistical workflow (</span><span class="si">{stat_method}</span><span class="s2">) for &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;inferences at the </span><span class="si">{level}</span><span class="s2">-level&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Run the statistical workflow (</span><span class="si">{stat_method}</span><span class="s2">) for &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;inferences at the </span><span class="si">{level}</span><span class="s2">-level&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
             <span class="c1"># for the fixed effect, since it&#39;s computed across subjects it</span>
             <span class="c1"># means that each roi has an mi.shape of (1, n_times) and can then</span>
@@ -313,8 +313,8 @@
             <span class="n">n_suj_min</span><span class="p">,</span> <span class="n">n_suj_argmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">n_suj_roi</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">n_suj_roi</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">n_suj_min</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="n">f</span><span class="s2">&quot;The number of subjects of roi </span><span class="si">{n_suj_argmin}</span><span class="s2"> has &quot;</span>
-                    <span class="n">f</span><span class="s2">&quot;</span><span class="si">{n_suj_min}</span><span class="s2"> subjects. The minimum number of subjects for&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;The number of subjects of roi </span><span class="si">{n_suj_argmin}</span><span class="s2"> has &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{n_suj_min}</span><span class="s2"> subjects. The minimum number of subjects for&quot;</span>
                     <span class="s2">&quot; random effect should not be under 2.&quot;</span><span class="p">)</span>
             <span class="c1"># compute p-values and t-values</span>
             <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="n">stat_fun</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
@@ -358,7 +358,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-11-21.</p>
+        <p>&copy; Copyright Last updated on 2019-12-02.</p>
     </footer>
 
   </body>
