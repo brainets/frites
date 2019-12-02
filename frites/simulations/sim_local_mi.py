@@ -4,7 +4,7 @@ import numpy as np
 
 """
 ###############################################################################
-                                 I(C, C)
+                                 I(C; C)
 ###############################################################################
 - MI between two continuous variables
 - Single / Multi subjects simulations
@@ -137,7 +137,7 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
 
 """
 ###############################################################################
-                                 I(C, D)
+                                 I(C; D)
 ###############################################################################
 - MI between a continuous and a discret variable
 - Single / Multi subjects simulations
@@ -278,13 +278,97 @@ def sim_local_cd_ss(n_conditions=2, n_epochs=10, n_times=100, n_roi=1,
 
     return x, y.astype(int), roi, times
 
-if __name__ == '__main__':
-    from frites.core import mi_model_nd_gd
-    import matplotlib.pyplot as plt
 
-    x, y, _, _ = sim_local_cd_ss(n_epochs=200, n_roi=1, cl_cov=[.8], n_conditions=5)
-    mi = mi_model_nd_gd(x.squeeze(), y, traxis=0)
-    print(mi.shape)
+"""
+###############################################################################
+                                 I(C; C | D)
+###############################################################################
+- MI between two continuous variables conditioned by a discret variable
+- Single / Multi subjects simulations
+"""
 
-    plt.plot(mi)
-    plt.show()
+def sim_local_ccd_ms(n_subjects, **kwargs):
+    """Multi-subjects simulations for computing local MI (CCD).
+
+    This function can be used for simulating local representations of mutual
+    information between two continuous variables conditioned by a third discret
+    one (CCD) across multiple subjects.
+
+    Parameters
+    ----------
+    n_subjects : int
+        Number of subjects
+    kwargs : dict | {}
+        Additional arguments are send to the function :func:`sim_local_ccd_ss`
+
+    Returns
+    -------
+    x : list
+        List length n_subjects composed of data arrays each one with a shape of
+        (n_epochs, n_channels, n_times)
+    y : list
+        List of length n_subjects composed of regressor arrays each one with a
+        shape of (n_epochs)
+    z : array_like
+        Condition array of shape (n_epochs,)
+    roi : list
+        List of length n_subjects composed of roi arrays each one with a shape
+        of (n_roi)
+    times : array_like
+        Time vector
+    """
+    n_c = kwargs.get('n_conditions', 2)
+    if 'n_conditions' in list(kwargs.keys()):
+        kwargs.pop('n_conditions')
+    x, y, roi, times = sim_local_cc_ms(n_subjects, **kwargs)
+    n_e = len(y[0])
+    z = [np.random.randint(0, n_c, (n_e,)) for k in range(n_subjects)]
+
+    return x, y, z, roi, times
+
+
+def sim_local_ccd_ss(n_epochs=10, n_times=100, n_roi=1, n_conditions=2,
+                     cl_index=[40, 60], cl_cov=[.8], random_state=None):
+    """Single-subject simulations for computing local MI (CC).
+
+    This function can be used for simulating local representations of mutual
+    information between two continuous variables conditioned by a third discret
+    one (CCD) for a single subject.
+
+    Parameters
+    ----------
+    n_epochs : int | 30
+        Number of trials
+    n_times : int | 100
+        Number of time points
+    n_roi : int | 1
+        Number of ROI
+    n_conditions : int | 2
+        Number of conditions
+    cl_index : array_like | [40, 60]
+        Sample indices where the clusters are located. Should be an array of
+        shape (n_clusters, 2)
+    cl_cov : array_like | [.8]
+        Covariance level between the data and the regressor variable. Should be
+        an array of shape (n_clusters,)
+    random_state : int | None
+        Random state (use it for reproducibility)
+
+    Returns
+    -------
+    x : array_like
+        Data array of shape (n_epochs, n_channels, n_times)
+    y : array_like
+        Regressor array of shape (n_epochs,)
+    z : array_like
+        Condition array of shape (n_epochs,)
+    roi : array_like
+        Array of ROI names of shape (n_roi,)
+    times : array_like
+        Time vector of shape (n_times,)
+    """
+    x, y, roi, times = sim_local_cc_ss(
+        n_epochs=n_epochs, n_times=n_times, n_roi=n_roi, cl_index=cl_index,
+        cl_cov=cl_cov, random_state=random_state)
+    z = np.random.randint(0, n_conditions, (n_epochs,))
+    return x, y, z, roi, times
