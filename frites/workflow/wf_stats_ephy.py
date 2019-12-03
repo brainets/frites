@@ -26,7 +26,8 @@ class WfStatsEphy(object):
         set_log_level(verbose)
         logger.info("Definition of a non-parametric statistical workflow")
 
-    def fit(self, effect, perms, stat_method="rfx_cluster_ttest", **kw_stats):
+    def fit(self, effect, perms, stat_method="rfx_cluster_ttest",
+            ttested=False, **kw_stats):
         """Fit the workflow on true data.
 
         Parameters
@@ -71,10 +72,8 @@ class WfStatsEphy(object):
                   with the Threshold Free Cluster Enhancement for cluster level
                   inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`
                   :cite:`smith2009threshold`)
-        output_type : {'array', 'dataframe', 'dataarray'}
-            Convert the mutual information and p-values arrays either to
-            pandas DataFrames (require pandas to be installed) either to a
-            xarray DataArray or DataSet (require xarray to be installed)
+        ttested : bool | False
+            Specify if the inputs have already been t-tested
         kw_stats : dict | {}
             Additional arguments to pass to the selected statistical method
             selected using the `stat_method` input parameter
@@ -130,13 +129,14 @@ class WfStatsEphy(object):
             # other wise the t-test is going to failed
             n_suj_roi = [k.shape[0] for k in effect]
             n_suj_min, n_suj_argmin = np.min(n_suj_roi), np.argmin(n_suj_roi)
-            if n_suj_min < 2:
+            if (n_suj_min < 2) and not ttested:
                 raise ValueError(
                     f"The number of subjects of roi {n_suj_argmin} has "
                     f"{n_suj_min} subjects. The minimum number of subjects for"
                     " random effect should not be under 2.")
             # compute p-values and t-values
-            pvalues, tvalues = stat_fun(effect, perms, **kw_stats)
+            pvalues, tvalues = stat_fun(effect, perms, ttested=ttested,
+                                        **kw_stats)
 
         # ---------------------------------------------------------------------
         # postprocessing
