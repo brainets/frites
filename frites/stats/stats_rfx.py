@@ -2,9 +2,11 @@
 import logging
 
 import numpy as np
-from scipy.stats import trim_mean, ttest_1samp
+from scipy.stats import trim_mean
 
-from .stats_cluster import temporal_clusters_permutation_test
+from frites.stats.stats_cluster import temporal_clusters_permutation_test
+from frites.stats.stats_param import ttest_1samp
+
 
 logger = logging.getLogger("frites")
 
@@ -13,8 +15,14 @@ RECENTER = dict(mean=np.mean, median=np.median,
                 trimmed=lambda x, axis=0: trim_mean(x, .2, axis=axis))
 
 
-def _rfx_ttest(mi, mi_p, center=False, zscore=False):
+def _rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     """Perform the t-test across subjects."""
+    # if data have already been t-tested, just return it
+    if ttested:
+        t_obs = np.concatenate(mi, axis=0)
+        t_obs_surr = np.concatenate(mi_p, axis=1)
+        return t_obs, t_obs_surr
+
     n_roi = len(mi_p)
     # remove the mean / median / trimmed
     if center in RECENTER.keys():
@@ -30,16 +38,16 @@ def _rfx_ttest(mi, mi_p, center=False, zscore=False):
     pop_mean_surr = np.mean(_merge_perm)
     # perform the one sample t-test against the mean both on the true and
     # permuted mi
-    t_obs = np.stack([ttest_1samp(mi[k], pop_mean_surr, axis=0)[
-        0] for k in range(n_roi)])
-    t_obs_surr = np.stack([ttest_1samp(mi_p[k], pop_mean_surr, axis=1)[
-        0] for k in range(n_roi)])
+    t_obs = np.stack([ttest_1samp(mi[k], pop_mean_surr) for k in range(n_roi)])
+    t_obs_surr = np.stack([ttest_1samp(mi_p[k], pop_mean_surr,
+                                       axis=1) for k in range(n_roi)])
     t_obs_surr = np.swapaxes(t_obs_surr, 0, 1)
 
     return t_obs, t_obs_surr
 
 
-def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
+def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False,
+                      ttested=False, tail=1):
     """T-test across subjects for random effect inference.
 
     This function performed the following steps :
@@ -63,8 +71,10 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     ----------
     mi : array_like
         A list of length n_roi of array of mutual information of shape
+        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
+    mi_p : array_like
         A list of array of permuted mutual information of shape
-        (n_perm, n_suj, n_times)
+        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
     alpha : float | 0.05
         Significiency level
     center : {'mean', "median", "trimmed"} | False
@@ -73,6 +83,11 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
         :cite:`wilcox2018guide`
     zscore : bool | False
         Apply z-score normalization to the true and permuted mutual information
+    ttested : bool | False
+        Specify if the inputs have already been t-tested
+    tail : {-1, 0, 1}
+        Type of comparison. Use -1 for the lower part of the distribution,
+        1 for the higher part and 0 for both
 
     Returns
     -------
@@ -86,7 +101,8 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     Giordano et al., 2017 :cite:`giordano2017contributions`
     """
     # get t-test over true and permuted mi
-    t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore)
+    t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore,
+                                   ttested=ttested)
     # at this point, t_obs.shape is (n_roi, n_times) and t_obs_surr.shape is
     # (n_perm, n_roi, n_times). Now, infer the threshold to use for detecting
     # clusters
@@ -94,14 +110,15 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False):
     th = np.nanpercentile(t_obs_surr, perc, interpolation='nearest')
     # infer p-values
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
-                f"threshold={th})")
-    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th, tail=1)
+                f"threshold={th}; tail={tail})")
+    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th,
+                                                 tail=tail)
 
     return pvalues, t_obs
 
 
 def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
-                           center=False, zscore=False):
+                           center=False, zscore=False, ttested=False, tail=1):
     """TFCE and T-test across subjects for random effect inference.
 
     This function performed the following steps :
@@ -123,9 +140,11 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     Parameters
     ----------
     mi : array_like
-        Array of mutual information of shape (n_roi, n_times)
+        A list of length n_roi of array of mutual information of shape
+        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
     mi_p : array_like
-        Array of permuted mutual information of shape (n_perm, n_roi, n_times)
+        A list of array of permuted mutual information of shape
+        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
     alpha : float | 0.05
         Significiency level
     start : int, float | None
@@ -140,6 +159,11 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
         :cite:`wilcox2018guide`
     zscore : bool | False
         Apply z-score normalization to the true and permuted mutual information
+    ttested : bool | False
+        Specify if the inputs have already been t-tested
+    tail : {-1, 0, 1}
+        Type of comparison. Use -1 for the lower part of the distribution,
+        1 for the higher part and 0 for both
 
     Returns
     -------
@@ -153,7 +177,8 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     Smith and Nichols, 2009 :cite:`smith2009threshold`
     """
     # get t-test over true and permuted mi
-    t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore)
+    t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore,
+                                   ttested=ttested)
     # get (start, step) integration parameters
     if not isinstance(start, float):
         start = np.percentile(t_obs_surr, 100. * (1. - alpha))
@@ -163,7 +188,8 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     th = dict(start=start, step=step)
     # infer p-values
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
-                f"threshold={th})")
-    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th, tail=1)
+                f"threshold={th}; tail={tail})")
+    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th,
+                                                 tail=tail)
 
     return pvalues, t_obs
