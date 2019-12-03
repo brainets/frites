@@ -1,20 +1,16 @@
 """Workflow for computing MI and evaluate statistics."""
-import logging
-
 import numpy as np
 from joblib import Parallel, delayed
 
 from frites import config
-from frites.io import (set_log_level, convert_spatiotemporal_outputs)
+from frites.io import (set_log_level, logger, convert_spatiotemporal_outputs)
 from frites.core import get_core_mi_fun, permute_mi_vector
 from frites.workflow.wf_stats_ephy import WfStatsEphy
+from frites.workflow.wf_base import WfBase
 from frites.stats import STAT_FUN
 
 
-logger = logging.getLogger("frites")
-
-
-class WfMi(object):
+class WfMi(WfBase):
     """Workflow of local mutual-information and statistics.
 
     This class allows to define a workflow for computing the mutual information
@@ -60,7 +56,6 @@ class WfMi(object):
     def __init__(self, mi_type='cc', inference='rfx', mi_method='gc',
                  verbose=None):
         """Init."""
-        set_log_level(verbose)
         assert mi_type in ['cc', 'cd', 'ccd'], (
             "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
         assert inference in ['ffx', 'rfx'], (
@@ -71,6 +66,7 @@ class WfMi(object):
         self._inference = inference
         self._mi_method = mi_method
         self._need_copnorm = mi_method == 'gc'
+        set_log_level(verbose)
         self.clean()
 
         logger.info(f"Workflow for computing mutual information ({mi_type} - "
@@ -90,7 +86,6 @@ class WfMi(object):
             dataset.copnorm(mi_type=self._mi_type, inference=self._inference)
         # track time and roi
         self._times, self._roi = dataset.times, dataset.roi_names
-        self._wf_stats = WfStatsEphy()
 
     def _node_compute_mi(self, dataset, n_bins=None, n_perm=1000, n_jobs=-1):
         """Compute mi and permuted mi.
@@ -206,16 +201,9 @@ class WfMi(object):
         # ---------------------------------------------------------------------
         # if stat_method is None, avoid computing permutations
         # ---------------------------------------------------------------------
-        try:
-            if isinstance(stat_method, str):
-                STAT_FUN[self._inference][stat_method]
-            else:
+        if stat_method is not 'discard_stats':
+            if not self._check_stat(self._inference, stat_method):
                 n_perm = 0
-        except KeyError:
-            m_names = [k.__name__ for k in STAT_FUN[self._inference].values()]
-            raise KeyError(f"Selected statistical method `{stat_method}` "
-                           f"doesn't exist. For {self._inference} inference, "
-                           f"use either : {', '.join(m_names)}")
 
         # ---------------------------------------------------------------------
         # prepare variables that are going to be needed
@@ -240,10 +228,20 @@ class WfMi(object):
             mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm,
                                              n_bins=self._n_bins,
                                              n_jobs=n_jobs)
+        """
+        For information transfer (e.g FIT) we only need to compute the true and
+        permuted mi but then, the statistics at the local representation level
+        are discarded in favor of statistics on the information transfer
+        """
+        if stat_method is 'discard_stats':
+            logger.debug("Permutations computed. Stop there")
+            return None
+
         # ---------------------------------------------------------------------
         # compute statistics
         # ---------------------------------------------------------------------
         # infer p-values and t-values
+        self._wf_stats = WfStatsEphy()
         pvalues, tvalues = self._wf_stats.fit(
             mi, mi_p, stat_method=stat_method, **kw_stats)
 
