@@ -7,6 +7,9 @@ import logging
 import sys
 import re
 
+from mne.fixes import _get_args
+from mne.externals.decorator import FunctionMaker
+
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 RESET_SEQ = "\033[0m"
 COLOR_SEQ = "\033[1;%dm"
@@ -90,6 +93,7 @@ class _StreamHandler(logging.StreamHandler):
 
 
 logger = logging.getLogger('frites')
+# logger.propagate = True
 _lf = _Formatter()
 _lh = _StreamHandler()  # needs _lf to exist
 logger.addHandler(_lh)
@@ -128,6 +132,8 @@ def set_log_level(verbose=None, match=None):
     logger = logging.getLogger('frites')
     if isinstance(verbose, bool):
         verbose = 'INFO' if verbose else 'WARNING'
+    if verbose is None:
+        verbose = 'INFO'
     if isinstance(verbose, str):
         if (verbose.upper() in LOGGING_TYPES):
             verbose = verbose.upper()
@@ -140,6 +146,25 @@ def set_log_level(verbose=None, match=None):
         _lh._str_pattern = match
 
 
+class use_log_level(object):  # noqa
+    """Context handler for logging level.
+
+    Parameters
+    ----------
+    level : int
+        The level to use.
+    """
+
+    def __init__(self, level):  # noqa
+        self.level = level
+
+    def __enter__(self):  # noqa
+        self.old_level = set_log_level(self.level, True)
+
+    def __exit__(self, *args):  # noqa
+        set_log_level(self.old_level)
+
+
 def progress_bar(value, endvalue, bar_length=20, pre_st=None):
     """Progress bar."""
     percent = float(value) / endvalue
@@ -150,3 +175,44 @@ def progress_bar(value, endvalue, bar_length=20, pre_st=None):
     sys.stdout.write("\r{0} [{1}] {2}%".format(pre_st, arrow + spaces,
                                                int(round(percent * 100))))
     sys.stdout.flush()
+
+
+def verbose(function):
+    """Verbose decorator to allow functions to override log-level.
+
+    Parameters
+    ----------
+    function : callable
+        Function to be decorated by setting the verbosity level.
+
+    Returns
+    -------
+    dec : callable
+        The decorated function.
+    """
+    arg_names = _get_args(function)
+
+    def wrapper(*args, **kwargs):
+        default_level = verbose_level = None
+        if len(arg_names) > 0 and arg_names[0] == 'self':
+            default_level = getattr(args[0], 'verbose', None)
+        if 'verbose' in kwargs:
+            verbose_level = kwargs.pop('verbose')
+        else:
+            try:
+                verbose_level = args[arg_names.index('verbose')]
+            except (IndexError, ValueError):
+                pass
+
+        # This ensures that object.method(verbose=None) will use object.verbose
+        if verbose_level is None:
+            verbose_level = default_level
+        if verbose_level is not None:
+            # set it back if we get an exception
+            with use_log_level(verbose_level):
+                return function(*args, **kwargs)
+        return function(*args, **kwargs)
+    return FunctionMaker.create(
+        function, 'return decfunc(%(signature)s)',
+        dict(decfunc=wrapper), __wrapped__=function,
+        __qualname__=function.__qualname__)

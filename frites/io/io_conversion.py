@@ -48,7 +48,7 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
     """Convert dynamic functional connectivity outputs.
 
     This functions can be used to convert an array of dynamical functional
-    connectivity (dFC) from a shape (n_pairs, n_times) into either the same
+    connectivity (dFC) from a shape (n_times, n_pairs) into either the same
     shape but using pandas DataFrame or to an array of shape
     (n_sources, n_targets, n_times). The number of pairs n_pairs is defined as
     the length of `sources` or `targets` inputs
@@ -57,7 +57,7 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
     Parameters
     ----------
     arr : array_like
-        Array of connectivity of shape (n_pairs, n_times)
+        Array of connectivity of shape (n_times, n_pairs)
     times : array_like
         Array of time points of shape (n_times,)
     roi : array_like
@@ -90,6 +90,7 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
     assert astype in ['2d_array', '3d_array', '2d_dataframe', '3d_dataframe',
                       'dataarray']
     # get used roi and unique sources / targets
+    roi = np.asarray(roi)
     s_roi, t_roi = roi[sources], roi[targets]
     n_times = arr.shape[0]
     _, s_idx = np.unique(sources, return_index=True)
