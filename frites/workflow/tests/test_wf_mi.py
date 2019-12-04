@@ -20,6 +20,8 @@ x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                   modality=modality, random_state=1)
 time = np.arange(n_times) / 512
 
+kw_mi = dict(n_perm=n_perm, n_jobs=1)
+
 
 class TestWfMi(object):  # noqa
 
@@ -27,7 +29,7 @@ class TestWfMi(object):  # noqa
         """Test workflow definition."""
         WfMi('cc', 'rfx')
 
-    def test_fit_cc(self):
+    def test_mi_cc(self):
         """Test method fit."""
         # built the regressor
         y, gt = sim_mi_cc(x, snr=1.)
@@ -35,12 +37,12 @@ class TestWfMi(object):  # noqa
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x, y, roi, times=time)
             WfMi(mi_type='cc', inference='ffx', mi_method=mi_meth,
-                 verbose=False).fit(dt, n_perm=n_perm, stat_method='ffx_fdr')
+                 verbose=False).fit(dt, stat_method='ffx_fdr', **kw_mi)
             WfMi(mi_type='cc', inference='rfx', mi_method=mi_meth,
-                 verbose=False).fit(dt, n_perm=n_perm,
-                                    stat_method='rfx_cluster_ttest')
+                 verbose=False).fit(dt, stat_method='rfx_cluster_ttest',
+                                    **kw_mi)
 
-    def test_fit_cd(self):
+    def test_mi_cd(self):
         """Test method fit."""
         # built the discret variable
         x_s, y, gt = sim_mi_cd(x, snr=1.)
@@ -48,18 +50,18 @@ class TestWfMi(object):  # noqa
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x_s, y, roi, times=time)
             WfMi(mi_type='cd', inference='ffx', mi_method=mi_meth,
-                 verbose=False).fit(dt, n_perm=n_perm, stat_method='ffx_fdr')
+                 verbose=False).fit(dt, stat_method='ffx_fdr', **kw_mi)
             WfMi(mi_type='cd', inference='rfx', mi_method=mi_meth,
-                 verbose=False).fit(dt, n_perm=n_perm,
-                                    stat_method='rfx_cluster_ttest')
+                 verbose=False).fit(dt, stat_method='rfx_cluster_ttest',
+                                    **kw_mi)
         # key error testing
         try:
             wf = WfMi(mi_type='cd', verbose=False)
-            wf.fit(dt, n_perm=n_perm, stat_method="eat_potatoes")
+            wf.fit(dt, stat_method="eat_potatoes", **kw_mi)
         except KeyError:
             pass
 
-    def test_fit_ccd(self):
+    def test_mi_ccd(self):
         """Test method fit."""
         # built the regressor and discret variables
         y, z, gt = sim_mi_ccd(x, snr=1.)
@@ -67,10 +69,10 @@ class TestWfMi(object):  # noqa
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x, y, roi, z=z, times=time)
             WfMi(mi_type='ccd', inference='ffx', mi_method=mi_meth,
-                 verbose=False).fit(dt, n_perm=n_perm, stat_method='ffx_fdr')
+                 verbose=False).fit(dt, stat_method='ffx_fdr', **kw_mi)
             WfMi(mi_type='ccd', inference='rfx', mi_method=mi_meth,
-                 verbose=False).fit(dt, n_perm=n_perm,
-                                    stat_method='rfx_cluster_ttest')
+                 verbose=False).fit(dt, stat_method='rfx_cluster_ttest',
+                                    **kw_mi)
 
     def test_output_type(self):
         """Test function output_type."""
@@ -80,19 +82,20 @@ class TestWfMi(object):  # noqa
         dt = DatasetEphy(x, y, roi, times=time)
         wf = WfMi('cc', 'ffx', verbose=False)
         # array
-        mi, pv = wf.fit(dt, n_perm=n_perm, stat_method='ffx_maxstat',
-                        output_type='array')
+        mi, pv = wf.fit(dt, stat_method='ffx_maxstat', output_type='array',
+                        **kw_mi)
         assert all([isinstance(k, np.ndarray) for k in [mi, pv]])
         # dataframe
-        mi, pv = wf.fit(dt, n_perm=n_perm, stat_method='ffx_maxstat',
-                        output_type='dataframe')
+        mi, pv = wf.fit(dt, stat_method='ffx_maxstat', output_type='dataframe',
+                        **kw_mi)
         assert all([isinstance(k, pd.DataFrame) for k in [mi, pv]])
         # dataarray
-        mi, pv = wf.fit(dt, n_perm=n_perm, stat_method='ffx_maxstat',
-                        output_type='dataarray')
+        mi, pv = wf.fit(dt, stat_method='ffx_maxstat', output_type='dataarray',
+                        **kw_mi)
         assert all([isinstance(k, DataArray) for k in [mi, pv]])
         # test clean
         mi, mi_p = wf.mi, wf.mi_p
         assert all([isinstance(k, list) for k in [mi, mi_p]])
         wf.clean()
         assert len(wf.mi) == len(wf.mi_p) == 0
+
