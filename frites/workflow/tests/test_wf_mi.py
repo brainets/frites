@@ -98,4 +98,3 @@ class TestWfMi(object):  # noqa
         assert all([isinstance(k, list) for k in [mi, mi_p]])
         wf.clean()
         assert len(wf.mi) == len(wf.mi_p) == 0
-

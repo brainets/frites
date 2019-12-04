@@ -233,6 +233,7 @@ class WfFit(WfBase):
 
     def clean(self):
         """Clean computations."""
+        self._sources, self._targets, self._times = None, None, None
         self._fit_roi, self._fitp_roi, self._fit_m = [], [], []
         self._tvalues = None
         self._wf_mi.clean()
@@ -247,6 +248,11 @@ class WfFit(WfBase):
         """Get the targets indices of shape (n_pairs,) that have been used."""
         return self._targets
 
+    @property
+    def times(self):
+        """Get the time vector."""
+        return self._times
+    
     @property
     def fit_roi(self):
         """Get the true FIT that have been computed per ROI. This attribute
@@ -288,12 +294,6 @@ class WfFit(WfBase):
         of this list has a shape of (n_perm, n_subjects, n_times) if
         `inference` is 'rfx' (n_perm, 1, n_times) if `inference` is 'ffx'."""
         return self._wf_mi._mi_p
-
-    @property
-    def mi_tvalues(self):
-        """T-values array of shape (n_times, n_roi) when group level analysis
-        is selected."""
-        return self._wf_mi._tvalues
 
 
 
