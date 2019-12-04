@@ -118,7 +118,8 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False,
 
 
 def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
-                           center=False, zscore=False, ttested=False, tail=1):
+                           center=False, zscore=False, ttested=False, tail=1,
+                           n_steps=100):
     """TFCE and T-test across subjects for random effect inference.
 
     This function performed the following steps :
@@ -184,7 +185,7 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
         start = np.percentile(t_obs_surr, 100. * (1. - alpha))
     if not isinstance(step, float):
         stop = t_obs.max()
-        step = (stop - start) / 100.
+        step = (stop - start) / n_steps
     th = dict(start=start, step=step)
     # infer p-values
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
