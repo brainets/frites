@@ -178,9 +178,8 @@ class WfMi(WfBase):
             Statistical method to use. For further details, see
             :class:`frites.WfStatsEphy.fit`
         output_type : {'array', 'dataframe', 'dataarray'}
-            Convert the mutual information and p-values arrays either to
-            pandas DataFrames (require pandas to be installed) either to a
-            xarray DataArray or DataSet (require xarray to be installed)
+            Output format of the returned mutual information and p-values. For
+            details, see :func:`frites.io.convert_spatiotemporal_outputs`
         kw_stats : dict | {}
             Additional arguments to pass to the selected statistical method
             selected using the `stat_method` input parameter
@@ -188,11 +187,8 @@ class WfMi(WfBase):
         Returns
         -------
         mi, pvalues : array_like
-            Array of mean mutual information across subjects and p-values of
-            shape (n_roi, n_times) if `output_type` is 'array'. If
-            `output_type` is 'dataframe', a pandas.DataFrame is returned. If
-            `output_type` is 'dataarray' or 'dataset' a xarray.DataArray or
-            xarray.Dataset are returned
+            Array of mean mutual information and p-values. Output types and
+            shapes depends on the `output_type` input parameter.
 
         References
         ----------
