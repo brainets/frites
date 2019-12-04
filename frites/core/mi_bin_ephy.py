@@ -5,7 +5,7 @@ All the functions inside this file can be compiled using Numba.
 import numpy as np
 import logging
 
-from frites.utils.wrapper import jit
+from frites.utils import jit
 
 logger = logging.getLogger('frites')
 
