@@ -81,7 +81,6 @@ class WfFit(WfBase):
         # compute fit on true and permuted mi
         # ---------------------------------------------------------------------
         # get the number of pairs (source, target)
-        max_delay = np.float32(max_delay)
         n_roi = len(mi)
         if directed:
             all_s, all_t = np.where(~np.eye(n_roi, dtype=bool))
@@ -191,6 +190,7 @@ class WfFit(WfBase):
         times = dataset.times
         n_times = len(times)
         # rebuild time vector
+        max_delay = np.float32(max_delay)
         max_delay_i = n_times - len(np.where(times > times[0] + max_delay)[0])
         self._times = times[max_delay_i:]
 
