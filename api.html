@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>API &#8212; frites 0.1.1 documentation</title>
+    <title>API &#8212; frites 0.2.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -94,6 +94,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
@@ -140,7 +145,6 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.transfer_entropy.html">frites.core.transfer_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -197,17 +201,18 @@
 <li><p><a class="reference internal" href="#cluster" id="id7">Cluster</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#module-frites.simulations" id="id8">Simulations</a></p>
+<li><p><a class="reference internal" href="#module-frites.io" id="id8">I/O</a></p></li>
+<li><p><a class="reference internal" href="#module-frites.simulations" id="id9">Simulations</a></p>
 <ul>
-<li><p><a class="reference internal" href="#simulate-random-data" id="id9">Simulate random data</a></p></li>
-<li><p><a class="reference internal" href="#simulate-random-mutual-information" id="id10">Simulate random mutual information</a></p></li>
+<li><p><a class="reference internal" href="#simulate-random-data" id="id10">Simulate random data</a></p></li>
+<li><p><a class="reference internal" href="#simulate-random-mutual-information" id="id11">Simulate random mutual information</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#configuration" id="id11">Configuration</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.core" id="id12">Core</a></p>
+<li><p><a class="reference internal" href="#configuration" id="id12">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#module-frites.core" id="id13">Core</a></p>
 <ul>
-<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id13">Gaussian-Copula (1d)</a></p></li>
-<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id14">Gaussian-copula (Nd)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id14">Gaussian-Copula (1d)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id15">Gaussian-copula (Nd)</a></p></li>
 </ul>
 </li>
 </ul>
@@ -316,11 +321,29 @@ data coming from several subjects.</p>
 </table>
 <hr></div>
 </div>
+<div class="section" id="module-frites.io">
+<span id="i-o"></span><h2><a class="toc-backref" href="#id8">I/O</a><a class="headerlink" href="#module-frites.io" title="Permalink to this headline">¶</a></h2>
+<p>I/O related functions.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs" title="frites.io.convert_spatiotemporal_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_spatiotemporal_outputs</span></code></a>(arr, times, roi)</p></td>
+<td><p>Convert spatio-temporal outputs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs" title="frites.io.convert_dfc_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_dfc_outputs</span></code></a>(arr, times, roi, …[, …])</p></td>
+<td><p>Convert dynamic functional connectivity outputs.</p></td>
+</tr>
+</tbody>
+</table>
+<hr></div>
 <div class="section" id="module-frites.simulations">
-<span id="simulations"></span><h2><a class="toc-backref" href="#id8">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
+<span id="simulations"></span><h2><a class="toc-backref" href="#id9">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
 <p>Simulations’ functions.</p>
 <div class="section" id="simulate-random-data">
-<h3><a class="toc-backref" href="#id9">Simulate random data</a><a class="headerlink" href="#simulate-random-data" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Simulate random data</a><a class="headerlink" href="#simulate-random-data" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -337,7 +360,7 @@ data coming from several subjects.</p>
 </table>
 </div>
 <div class="section" id="simulate-random-mutual-information">
-<h3><a class="toc-backref" href="#id10">Simulate random mutual information</a><a class="headerlink" href="#simulate-random-mutual-information" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">Simulate random mutual information</a><a class="headerlink" href="#simulate-random-mutual-information" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -358,7 +381,7 @@ data coming from several subjects.</p>
 <hr></div>
 </div>
 <div class="section" id="configuration">
-<h2><a class="toc-backref" href="#id11">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -375,14 +398,14 @@ data coming from several subjects.</p>
 </table>
 <hr></div>
 <div class="section" id="module-frites.core">
-<span id="core"></span><h2><a class="toc-backref" href="#id12">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
+<span id="core"></span><h2><a class="toc-backref" href="#id13">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
 <p>Core functions of information theoretical measures.</p>
 <p>This submodule contains all of the functions to compute mutual-information,
 entropy etc..</p>
 <p>For further details about the Gaussian-Copula Mutual information see
 <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[5]</a></p>
 <div class="section" id="gaussian-copula-1d">
-<h3><a class="toc-backref" href="#id13">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to unidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -430,7 +453,7 @@ entropy etc..</p>
 </table>
 </div>
 <div class="section" id="gaussian-copula-nd">
-<h3><a class="toc-backref" href="#id14">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to multidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -468,8 +491,8 @@ entropy etc..</p>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.core.gccmi_nd_ccc.html#frites.core.gccmi_nd_ccc" title="frites.core.gccmi_nd_ccc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gccmi_nd_ccc</span></code></a>(x, y, z[, mvaxis, traxis, …])</p></td>
 <td><p>GCCMI between two continuous variables conditioned on a third.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.core.transfer_entropy.html#frites.core.transfer_entropy" title="frites.core.transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transfer_entropy</span></code></a>(x[, max_delay, pairs, gcrn])</p></td>
-<td><p>Compute the tranfert entropy.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transfer_entropy</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -506,7 +529,7 @@ entropy etc..</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-02.</p>
+        <p>&copy; Copyright Last updated on 2019-12-10.</p>
     </footer>
 
   </body>

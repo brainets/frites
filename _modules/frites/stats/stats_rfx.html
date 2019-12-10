@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.stats.stats_rfx &#8212; frites 0.1.1 documentation</title>
+    <title>frites.stats.stats_rfx &#8212; frites 0.2.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -92,6 +92,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
@@ -138,7 +143,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.transfer_entropy.html">frites.core.transfer_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -183,9 +187,11 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">trim_mean</span><span class="p">,</span> <span class="n">ttest_1samp</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">trim_mean</span>
 
-<span class="kn">from</span> <span class="nn">.stats_cluster</span> <span class="kn">import</span> <span class="n">temporal_clusters_permutation_test</span>
+<span class="kn">from</span> <span class="nn">frites.stats.stats_cluster</span> <span class="kn">import</span> <span class="n">temporal_clusters_permutation_test</span>
+<span class="kn">from</span> <span class="nn">frites.stats.stats_param</span> <span class="kn">import</span> <span class="n">ttest_1samp</span>
+
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -194,8 +200,14 @@
                 <span class="n">trimmed</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span> <span class="n">trim_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Perform the t-test across subjects.&quot;&quot;&quot;</span>
+    <span class="c1"># if data have already been t-tested, just return it</span>
+    <span class="k">if</span> <span class="n">ttested</span><span class="p">:</span>
+        <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi_p</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span>
+
     <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi_p</span><span class="p">)</span>
     <span class="c1"># remove the mean / median / trimmed</span>
     <span class="k">if</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">RECENTER</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -211,16 +223,16 @@
     <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_merge_perm</span><span class="p">)</span>
     <span class="c1"># perform the one sample t-test against the mean both on the true and</span>
     <span class="c1"># permuted mi</span>
-    <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span>
-        <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
-    <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span>
-        <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+    <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+    <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span>
+                                       <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
     <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">t_obs_surr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span>
 
 
-<div class="viewcode-block" id="rfx_cluster_ttest"><a class="viewcode-back" href="../../../generated/frites.stats.rfx_cluster_ttest.html#frites.stats.rfx_cluster_ttest">[docs]</a><span class="k">def</span> <span class="nf">rfx_cluster_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="rfx_cluster_ttest"><a class="viewcode-back" href="../../../generated/frites.stats.rfx_cluster_ttest.html#frites.stats.rfx_cluster_ttest">[docs]</a><span class="k">def</span> <span class="nf">rfx_cluster_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;T-test across subjects for random effect inference.</span>
 
 <span class="sd">    This function performed the following steps :</span>
@@ -244,8 +256,10 @@
 <span class="sd">    ----------</span>
 <span class="sd">    mi : array_like</span>
 <span class="sd">        A list of length n_roi of array of mutual information of shape</span>
+<span class="sd">        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.</span>
+<span class="sd">    mi_p : array_like</span>
 <span class="sd">        A list of array of permuted mutual information of shape</span>
-<span class="sd">        (n_perm, n_suj, n_times)</span>
+<span class="sd">        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.</span>
 <span class="sd">    alpha : float | 0.05</span>
 <span class="sd">        Significiency level</span>
 <span class="sd">    center : {&#39;mean&#39;, &quot;median&quot;, &quot;trimmed&quot;} | False</span>
@@ -254,6 +268,11 @@
 <span class="sd">        :cite:`wilcox2018guide`</span>
 <span class="sd">    zscore : bool | False</span>
 <span class="sd">        Apply z-score normalization to the true and permuted mutual information</span>
+<span class="sd">    ttested : bool | False</span>
+<span class="sd">        Specify if the inputs have already been t-tested</span>
+<span class="sd">    tail : {-1, 0, 1}</span>
+<span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">        1 for the higher part and 0 for both</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -267,7 +286,8 @@
 <span class="sd">    Giordano et al., 2017 :cite:`giordano2017contributions`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># get t-test over true and permuted mi</span>
-    <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">_rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="n">zscore</span><span class="p">)</span>
+    <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">_rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="n">zscore</span><span class="p">,</span>
+                                   <span class="n">ttested</span><span class="o">=</span><span class="n">ttested</span><span class="p">)</span>
     <span class="c1"># at this point, t_obs.shape is (n_roi, n_times) and t_obs_surr.shape is</span>
     <span class="c1"># (n_perm, n_roi, n_times). Now, infer the threshold to use for detecting</span>
     <span class="c1"># clusters</span>
@@ -275,14 +295,16 @@
     <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">perc</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
     <span class="c1"># infer p-values</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    RFX non-parametric group t-test (alpha=</span><span class="si">{alpha}</span><span class="s2">, &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;threshold=</span><span class="si">{th}</span><span class="s2">; tail=</span><span class="si">{tail}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span>
+                                                 <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">t_obs</span></div>
 
 
 <div class="viewcode-block" id="rfx_cluster_ttest_tfce"><a class="viewcode-back" href="../../../generated/frites.stats.rfx_cluster_ttest_tfce.html#frites.stats.rfx_cluster_ttest_tfce">[docs]</a><span class="k">def</span> <span class="nf">rfx_cluster_ttest_tfce</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                           <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;TFCE and T-test across subjects for random effect inference.</span>
 
 <span class="sd">    This function performed the following steps :</span>
@@ -304,9 +326,11 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    mi : array_like</span>
-<span class="sd">        Array of mutual information of shape (n_roi, n_times)</span>
+<span class="sd">        A list of length n_roi of array of mutual information of shape</span>
+<span class="sd">        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.</span>
 <span class="sd">    mi_p : array_like</span>
-<span class="sd">        Array of permuted mutual information of shape (n_perm, n_roi, n_times)</span>
+<span class="sd">        A list of array of permuted mutual information of shape</span>
+<span class="sd">        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.</span>
 <span class="sd">    alpha : float | 0.05</span>
 <span class="sd">        Significiency level</span>
 <span class="sd">    start : int, float | None</span>
@@ -321,6 +345,11 @@
 <span class="sd">        :cite:`wilcox2018guide`</span>
 <span class="sd">    zscore : bool | False</span>
 <span class="sd">        Apply z-score normalization to the true and permuted mutual information</span>
+<span class="sd">    ttested : bool | False</span>
+<span class="sd">        Specify if the inputs have already been t-tested</span>
+<span class="sd">    tail : {-1, 0, 1}</span>
+<span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">        1 for the higher part and 0 for both</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -334,18 +363,20 @@
 <span class="sd">    Smith and Nichols, 2009 :cite:`smith2009threshold`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># get t-test over true and permuted mi</span>
-    <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">_rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="n">zscore</span><span class="p">)</span>
+    <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">_rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="n">zscore</span><span class="p">,</span>
+                                   <span class="n">ttested</span><span class="o">=</span><span class="n">ttested</span><span class="p">)</span>
     <span class="c1"># get (start, step) integration parameters</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">t_obs_surr</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
         <span class="n">stop</span> <span class="o">=</span> <span class="n">t_obs</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_steps</span>
     <span class="n">th</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
     <span class="c1"># infer p-values</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    RFX non-parametric group t-test (alpha=</span><span class="si">{alpha}</span><span class="s2">, &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;threshold=</span><span class="si">{th}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;threshold=</span><span class="si">{th}</span><span class="s2">; tail=</span><span class="si">{tail}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span>
+                                                 <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">t_obs</span></div>
 </pre></div>
@@ -378,7 +409,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-02.</p>
+        <p>&copy; Copyright Last updated on 2019-12-10.</p>
     </footer>
 
   </body>

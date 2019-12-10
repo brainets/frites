@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.gcmi_mixture_1d_cd &#8212; frites 0.2.0 documentation</title>
+    <title>frites.io.convert_spatiotemporal_outputs &#8212; frites 0.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.gccmi_1d_ccc" href="frites.core.gccmi_1d_ccc.html" />
-    <link rel="prev" title="frites.core.gcmi_model_1d_cd" href="frites.core.gcmi_model_1d_cd.html" />
+    <link rel="next" title="frites.io.convert_dfc_outputs" href="frites.io.convert_dfc_outputs.html" />
+    <link rel="prev" title="frites.stats.temporal_clusters_permutation_test" href="frites.stats.temporal_clusters_permutation_test.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -94,8 +94,8 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.io">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.io">I/O</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.io.convert_spatiotemporal_outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
 </ul>
 </li>
@@ -118,8 +118,8 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
@@ -129,7 +129,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
 </ul>
@@ -164,7 +164,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.core.gcmi_mixture_1d_cd.rst.txt"
+  <a href="../_sources/generated/frites.io.convert_spatiotemporal_outputs.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -188,28 +188,30 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-gcmi-mixture-1d-cd">
-<h1>frites.core.gcmi_mixture_1d_cd<a class="headerlink" href="#frites-core-gcmi-mixture-1d-cd" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-io-convert-spatiotemporal-outputs">
+<h1>frites.io.convert_spatiotemporal_outputs<a class="headerlink" href="#frites-io-convert-spatiotemporal-outputs" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.core.gcmi_mixture_1d_cd">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">gcmi_mixture_1d_cd</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_1d.html#gcmi_mixture_1d_cd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.gcmi_mixture_1d_cd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gaussian-Copula MI between a continuous and a discrete variable.</p>
-<p>This method evaluate MI from a Gaussian mixture.</p>
-<p>The Gaussian mixture is fit using robust measures of location (median) and
-scale (median absolute deviation) for each class.
-I = gcmi_mixture_cd(x,y) returns the MI between the (possibly
-multidimensional).</p>
+<dt id="frites.io.convert_spatiotemporal_outputs">
+<code class="sig-prename descclassname">frites.io.</code><code class="sig-name descname">convert_spatiotemporal_outputs</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">astype='array'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/io/io_conversion.html#convert_spatiotemporal_outputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.io.convert_spatiotemporal_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert spatio-temporal outputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x, y</strong><span class="classifier">array_like</span></dt><dd><p>Continuous arrays of shape (n_epochs,) or (n_dimensions, n_epochs). y
-must be an array of integers</p>
+<dt><strong>arr</strong><span class="classifier">array_like</span></dt><dd><p>2d array of shape (n_times, n_roi)</p>
+</dd>
+<dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>Array of roi names</p>
+</dd>
+<dt><strong>roi</strong><span class="classifier">array_like | None</span></dt><dd><p>Array of time index</p>
+</dd>
+<dt><strong>astype</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Convert the array either to a pandas DataFrames (require pandas to be
+installed) either to a xarray DataArray (require xarray to be
+installed)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>i</strong><span class="classifier">float</span></dt><dd><p>Information shared by x and y (in bits)</p>
+<dt><strong>arr_c</strong><span class="classifier">array_like | DataFrame | DataArray</span></dt><dd><p>Converted spatio-temporal array</p>
 </dd>
 </dl>
 </dd>

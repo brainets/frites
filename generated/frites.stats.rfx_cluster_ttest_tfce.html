@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.stats.rfx_cluster_ttest_tfce &#8212; frites 0.1.1 documentation</title>
+    <title>frites.stats.rfx_cluster_ttest_tfce &#8212; frites 0.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html"><span><img src="../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -94,6 +94,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
@@ -140,7 +145,6 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.transfer_entropy.html">frites.core.transfer_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +192,7 @@
 <h1>frites.stats.rfx_cluster_ttest_tfce<a class="headerlink" href="#frites-stats-rfx-cluster-ttest-tfce" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.stats.rfx_cluster_ttest_tfce">
-<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">rfx_cluster_ttest_tfce</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">alpha=0.05</em>, <em class="sig-param">start=None</em>, <em class="sig-param">step=None</em>, <em class="sig-param">center=False</em>, <em class="sig-param">zscore=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_rfx.html#rfx_cluster_ttest_tfce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.rfx_cluster_ttest_tfce" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">rfx_cluster_ttest_tfce</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">alpha=0.05</em>, <em class="sig-param">start=None</em>, <em class="sig-param">step=None</em>, <em class="sig-param">center=False</em>, <em class="sig-param">zscore=False</em>, <em class="sig-param">ttested=False</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">n_steps=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_rfx.html#rfx_cluster_ttest_tfce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.rfx_cluster_ttest_tfce" title="Permalink to this definition">¶</a></dt>
 <dd><p>TFCE and T-test across subjects for random effect inference.</p>
 <p>This function performed the following steps :</p>
 <blockquote>
@@ -210,9 +214,11 @@ region of interest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of mutual information of shape (n_roi, n_times)</p>
+<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>A list of length n_roi of array of mutual information of shape
+(n_suj, n_times). If <cite>ttested</cite> is True, n_suj shoud be 1.</p>
 </dd>
-<dt><strong>mi_p</strong><span class="classifier">array_like</span></dt><dd><p>Array of permuted mutual information of shape (n_perm, n_roi, n_times)</p>
+<dt><strong>mi_p</strong><span class="classifier">array_like</span></dt><dd><p>A list of array of permuted mutual information of shape
+(n_perm, n_suj, n_times). If <cite>ttested</cite> is True, n_suj shoud be 1.</p>
 </dd>
 <dt><strong>alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Significiency level</p>
 </dd>
@@ -227,6 +233,11 @@ mi. The median or the 20% trimmed mean can also be removed
 <a class="bibtex reference internal" href="../references.html#wilcox2018guide" id="id1">[10]</a></p>
 </dd>
 <dt><strong>zscore</strong><span class="classifier">bool | False</span></dt><dd><p>Apply z-score normalization to the true and permuted mutual information</p>
+</dd>
+<dt><strong>ttested</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the inputs have already been t-tested</p>
+</dd>
+<dt><strong>tail</strong><span class="classifier">{-1, 0, 1}</span></dt><dd><p>Type of comparison. Use -1 for the lower part of the distribution,
+1 for the higher part and 0 for both</p>
 </dd>
 </dl>
 </dd>
@@ -274,7 +285,7 @@ mi. The median or the 20% trimmed mean can also be removed
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-02.</p>
+        <p>&copy; Copyright Last updated on 2019-12-10.</p>
     </footer>
 
   </body>

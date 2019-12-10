@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.wf_mi &#8212; frites 0.1.1 documentation</title>
+    <title>frites.workflow.wf_mi &#8212; frites 0.2.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -92,6 +92,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-data">Simulate random data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
@@ -138,7 +143,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.transfer_entropy.html">frites.core.transfer_entropy</a></li>
 </ul>
 </li>
 </ul>
@@ -180,22 +184,18 @@
       
   <h1>Source code for frites.workflow.wf_mi</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Workflow for computing MI and evaluate statistics.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
 <span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="kn">import</span> <span class="n">WfStatsEphy</span>
+<span class="kn">from</span> <span class="nn">frites.workflow.wf_base</span> <span class="kn">import</span> <span class="n">WfBase</span>
 <span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">STAT_FUN</span>
 
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="WfMi"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi">[docs]</a><span class="k">class</span> <span class="nc">WfMi</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi">[docs]</a><span class="k">class</span> <span class="nc">WfMi</span><span class="p">(</span><span class="n">WfBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Workflow of local mutual-information and statistics.</span>
 
 <span class="sd">    This class allows to define a workflow for computing the mutual information</span>
@@ -241,7 +241,6 @@
 <div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
-        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">],</span> <span class="p">(</span>
             <span class="s2">&quot;&#39;mi_type&#39; input parameter should either be &#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;&quot;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">],</span> <span class="p">(</span>
@@ -252,6 +251,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span> <span class="o">=</span> <span class="n">mi_method</span> <span class="o">==</span> <span class="s1">&#39;gc&#39;</span>
+        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2"> - &quot;</span>
@@ -271,7 +271,6 @@
             <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">)</span>
         <span class="c1"># track time and roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
@@ -364,9 +363,8 @@
 <span class="sd">            Statistical method to use. For further details, see</span>
 <span class="sd">            :class:`frites.WfStatsEphy.fit`</span>
 <span class="sd">        output_type : {&#39;array&#39;, &#39;dataframe&#39;, &#39;dataarray&#39;}</span>
-<span class="sd">            Convert the mutual information and p-values arrays either to</span>
-<span class="sd">            pandas DataFrames (require pandas to be installed) either to a</span>
-<span class="sd">            xarray DataArray or DataSet (require xarray to be installed)</span>
+<span class="sd">            Output format of the returned mutual information and p-values. For</span>
+<span class="sd">            details, see :func:`frites.io.convert_spatiotemporal_outputs`</span>
 <span class="sd">        kw_stats : dict | {}</span>
 <span class="sd">            Additional arguments to pass to the selected statistical method</span>
 <span class="sd">            selected using the `stat_method` input parameter</span>
@@ -374,11 +372,8 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        mi, pvalues : array_like</span>
-<span class="sd">            Array of mean mutual information across subjects and p-values of</span>
-<span class="sd">            shape (n_roi, n_times) if `output_type` is &#39;array&#39;. If</span>
-<span class="sd">            `output_type` is &#39;dataframe&#39;, a pandas.DataFrame is returned. If</span>
-<span class="sd">            `output_type` is &#39;dataarray&#39; or &#39;dataset&#39; a xarray.DataArray or</span>
-<span class="sd">            xarray.Dataset are returned</span>
+<span class="sd">            Array of mean mutual information and p-values. Output types and</span>
+<span class="sd">            shapes depends on the `output_type` input parameter.</span>
 
 <span class="sd">        References</span>
 <span class="sd">        ----------</span>
@@ -387,16 +382,9 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># if stat_method is None, avoid computing permutations</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stat_method</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;discard_stats&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="n">stat_method</span><span class="p">):</span>
                 <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
-                           <span class="sa">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{self._inference}</span><span class="s2"> inference, &quot;</span>
-                           <span class="sa">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># prepare variables that are going to be needed</span>
@@ -421,10 +409,20 @@
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span>
                                              <span class="n">n_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span>
                                              <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For information transfer (e.g FIT) we only need to compute the true and</span>
+<span class="sd">        permuted mi but then, the statistics at the local representation level</span>
+<span class="sd">        are discarded in favor of statistics on the information transfer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">is</span> <span class="s1">&#39;discard_stats&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Permutations computed. Stop there&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute statistics</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># infer p-values and t-values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
         <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
@@ -495,7 +493,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-02.</p>
+        <p>&copy; Copyright Last updated on 2019-12-10.</p>
     </footer>
 
   </body>
