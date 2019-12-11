@@ -37,6 +37,9 @@ class WfMi(WfBase):
               population.
 
         By default, the workflow uses group level inference ('rfx')
+    gcrn_per_suj : bool | True
+        Apply the Gaussian-rank normalization either per subject (True) or
+        across subjects (False).
     mi_method : {'gc', 'bin'}
         Method for computing the mutual information. Use either :
 
@@ -53,8 +56,8 @@ class WfMi(WfBase):
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
-    def __init__(self, mi_type='cc', inference='rfx', mi_method='gc',
-                 verbose=None):
+    def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
+                 mi_method='gc', verbose=None):
         """Init."""
         assert mi_type in ['cc', 'cd', 'ccd'], (
             "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
@@ -66,6 +69,7 @@ class WfMi(WfBase):
         self._inference = inference
         self._mi_method = mi_method
         self._need_copnorm = mi_method == 'gc'
+        self._gcrn = gcrn_per_suj
         set_log_level(verbose)
         self.clean()
 
@@ -83,7 +87,7 @@ class WfMi(WfBase):
         # inplace preparation
         dataset.groupby("roi")
         if self._need_copnorm:
-            dataset.copnorm(mi_type=self._mi_type, inference=self._inference)
+            dataset.copnorm(mi_type=self._mi_type, gcrn_per_suj=self._gcrn)
         # track time and roi
         self._times, self._roi = dataset.times, dataset.roi_names
 

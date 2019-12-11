@@ -253,7 +253,7 @@ class DatasetEphy(object):
 
         self._groupedby = groupby
 
-    def copnorm(self, mi_type='cc', inference='rfx'):
+    def copnorm(self, mi_type='cc', gcrn_per_suj=True):
         """Apply the Gaussian-Copula rank normalization.
 
         The copnorm is only applied to continuous variables.
@@ -264,41 +264,35 @@ class DatasetEphy(object):
             The copnorm depends on the mutual-information type that is going to
             be performed. Choose either 'cc' (continuous / continuous), 'cd'
             (continuous / discret) or 'ccd' (continuous / continuous / discret)
-        inference : {'rfx', 'ffx'}
-            The copnorm also depends on the inference type. Choose either 'ffx'
-            (fixed effect) to apply the copnorm across subjects or 'rfx' (
-            random effect) to apply the copnorm per subject.
+        gcrn_per_suj : bool | True
+            Apply the Gaussian-rank normalization either per subject (True)
+            or across subjects (False).
         """
         assert mi_type in ['cc', 'cd', 'ccd']
-        assert inference in ['rfx', 'ffx']
         # do not enable to copnorm two times
         if isinstance(self._copnormed, str):
             logger.warning("Data already copnormed. Copnorm ignored")
             return None
-        logger.info(f"    Apply copnorm (mi_type={mi_type}; "
-                    f"inference={inference})")
+        logger.info(f"    Apply copnorm (per subject={gcrn_per_suj}; "
+                    f"mi_type={mi_type})")
         # copnorm applied differently how data have been organized
         if self._groupedby == "roi":
-            if inference == 'ffx':
-                # for the fixed effect (ffx) the copnorm is applied across
-                # subjects across all space and time
-                logger.debug("copnorm applied across subjects")
-                self._x = [copnorm_nd(k, axis=-1) for k in self._x]
-                if mi_type in ['cc', 'ccd']:
-                    self._y = [copnorm_nd(k, axis=0) for k in self._y]
-            elif inference == 'rfx':
-                # for the random effect (rfx) the copnorm is applied per
-                # subject across space and time
+            if gcrn_per_suj:  # per subject
                 logger.debug("copnorm applied per subjects")
                 self._x = [copnorm_cat_nd(k, i, axis=-1) for k, i in zip(
                     self._x, self.suj_roi)]
                 if mi_type in ['cc', 'ccd']:
                     self._y = [copnorm_cat_nd(k, i, axis=0) for k, i in zip(
                         self._y, self.suj_roi)]
+            else:             # subject-wise
+                logger.debug("copnorm applied across subjects")
+                self._x = [copnorm_nd(k, axis=-1) for k in self._x]
+                if mi_type in ['cc', 'ccd']:
+                    self._y = [copnorm_nd(k, axis=0) for k in self._y]
         elif self._groupedby == "subject":
             raise NotImplementedError("FUTURE WORK")
 
-        self._copnormed = f"{mi_type} - {inference}"
+        self._copnormed = f"{int(gcrn_per_suj)}-{mi_type}"
 
     def save(self):
         """Save the dataset."""
