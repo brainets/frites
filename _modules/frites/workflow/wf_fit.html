@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.workflow.wf_fit &#8212; frites 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-data">Simulate random data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.workflow.wf_fit</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Workflow for Feature Specific Information Transfer.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="kn">from</span> <span class="nn">frites.workflow.wf_base</span> <span class="kn">import</span> <span class="n">WfBase</span>
+<span class="kn">from</span> <span class="nn">frites.workflow.wf_mi</span> <span class="kn">import</span> <span class="n">WfMi</span>
+<span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="kn">import</span> <span class="n">WfStatsEphy</span>
+
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">it_fit</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">convert_dfc_outputs</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span>
+
+
+<div class="viewcode-block" id="WfFit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit">[docs]</a><span class="k">class</span> <span class="nc">WfFit</span><span class="p">(</span><span class="n">WfBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Workflow for Feature Specific Information Transfer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi_type : {&#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;}</span>
+<span class="sd">        The type of mutual information that is going to be performed. Use</span>
+<span class="sd">        either :</span>
+
+<span class="sd">            * &#39;cc&#39; : mutual information between two continuous variables</span>
+<span class="sd">            * &#39;cd&#39; : mutual information between a continuous and a discret</span>
+<span class="sd">              variables</span>
+<span class="sd">            * &#39;ccd&#39; : mutual information between two continuous variables</span>
+<span class="sd">              conditioned by a third discret one</span>
+<span class="sd">    inference : {&quot;ffx&quot;, &quot;rfx&quot;}</span>
+<span class="sd">        Statistical inferences that is desired. Use either :</span>
+
+<span class="sd">            * &#39;ffx&#39; : fixed-effect to make inferences only for the population</span>
+<span class="sd">              that have been used</span>
+<span class="sd">            * &#39;rfx&#39; : random-effect to generalize inferences to a random</span>
+<span class="sd">              population.</span>
+
+<span class="sd">        By default, the workflow uses group level inference (&#39;rfx&#39;)</span>
+<span class="sd">    gcrn_per_suj : bool | True</span>
+<span class="sd">        Apply the Gaussian-rank normalization either per subject (True) or</span>
+<span class="sd">        across subjects (False).</span>
+<span class="sd">    mi_method : {&#39;gc&#39;, &#39;bin&#39;}</span>
+<span class="sd">        Method for computing the mutual information. Use either :</span>
+
+<span class="sd">            * &#39;gc&#39; : gaussian-copula based mutual information. This is the</span>
+<span class="sd">              fastest method but it can only captures monotonic relationships</span>
+<span class="sd">              between variables</span>
+<span class="sd">            * &#39;bin&#39; : binning-based method that can captures any kind of</span>
+<span class="sd">              relationships but is much slower and also required to define the</span>
+<span class="sd">              number of bins to use. Note that if the Numba package is</span>
+<span class="sd">              installed computations should be much faster</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Bim et al. 2019 :cite:`bim2019non`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="WfFit.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa</span>
+        <span class="c1"># define the workflow of mi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span> <span class="o">=</span> <span class="n">WfMi</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span>
+                           <span class="n">mi_method</span><span class="o">=</span><span class="n">mi_method</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="n">gcrn_per_suj</span><span class="p">,</span>
+                           <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
+        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Workflow for computing the FIT (</span><span class="si">{mi_type}</span><span class="s2"> - </span><span class="si">{mi_method}</span><span class="s2">) and &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_node_compute_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">):</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># compute mi and permuted mi</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;discard_stats&#39;</span><span class="p">)</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi</span><span class="p">]</span>
+        <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_p</span><span class="p">]</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># compute fit on true and permuted mi</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># get the number of pairs (source, target)</span>
+        <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">directed</span><span class="p">:</span>
+            <span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+            <span class="n">tail</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># two tail test</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Compute FIT (directed=</span><span class="si">{directed}</span><span class="s2">; max_delay=&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{max_delay}</span><span class="s2">; n_pairs={len(all_s)})&quot;</span><span class="p">)</span>
+        <span class="c1"># get the unique subjects across roi (depends on inference type)</span>
+        <span class="n">inference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
+        <span class="k">if</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
+            <span class="n">sujr</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])]</span> <span class="o">*</span> <span class="n">n_roi</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sujr</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi_u</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="c1"># compute FIT on true gcmi values</span>
+        <span class="n">cfg_jobs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;JOBLIB_CFG&quot;</span><span class="p">]</span>
+        <span class="n">arch</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">fcn_fit</span><span class="p">)(</span>
+            <span class="n">mi</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">mi</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">sujr</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">sujr</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">times</span><span class="p">,</span>
+            <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span> <span class="n">inference</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span><span class="p">))</span>
+        <span class="n">fit_roi</span><span class="p">,</span> <span class="n">fitp_roi</span><span class="p">,</span> <span class="n">fit_m</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">arch</span><span class="p">)]</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For sEEG data, the ROI repartition is not the same across subjects.</span>
+<span class="sd">        Then it&#39;s possible that one element of the fit is an empty array. The</span>
+<span class="sd">        following step clean up empty arrays</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">empty</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fit_roi</span><span class="p">))):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fit_roi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="n">fit_roi</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">fitp_roi</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">fit_m</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>  <span class="c1"># noqa</span>
+                <span class="n">empty</span> <span class="o">+=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sources</span> <span class="o">+=</span> <span class="p">[</span><span class="n">all_s</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+                <span class="n">targets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">all_t</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">reverse</span><span class="p">(),</span> <span class="n">targets</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># noqa</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    The FIT inside {len(empty)} have been removed &quot;</span>
+                        <span class="s2">&quot;because of empty arrays&quot;</span><span class="p">)</span>
+        <span class="c1"># cache variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="n">tail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span> <span class="o">=</span> <span class="n">fit_roi</span><span class="p">,</span> <span class="n">fitp_roi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span> <span class="o">=</span> <span class="n">fit_m</span>
+
+
+<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span>
+            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the Feature Specific Information transfer and statistics.</span>
+
+<span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
+<span class="sd">        (see :class:`frites.dataset.DatasetEphy`)</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            When performing statistics at the cluster-level, we only test</span>
+<span class="sd">            the cluster size. This means that in your results, you can only</span>
+<span class="sd">            discuss about the presence of a significant cluster without being</span>
+<span class="sd">            precise about its spatio-temporal properties</span>
+<span class="sd">            (see :cite:`sassenhagen2019cluster`)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
+<span class="sd">            A dataset instance</span>
+<span class="sd">        max_delay : float | 0.3</span>
+<span class="sd">            Maximum delay to use for defining the past of the source and target</span>
+<span class="sd">        directed : bool | True</span>
+<span class="sd">            Use either a directed FIT (True) or un-directed (False) which is</span>
+<span class="sd">            defined as FIT(s -&gt; t) - FIT(t -&gt; s)</span>
+<span class="sd">        n_perm : int | 1000</span>
+<span class="sd">            Number of permutations to perform in order to estimate the random</span>
+<span class="sd">            distribution of mi that can be obtained by chance</span>
+<span class="sd">        n_jobs : int | -1</span>
+<span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
+<span class="sd">            jobs)</span>
+<span class="sd">        stat_method : string | &quot;rfx_cluster_ttest&quot;</span>
+<span class="sd">            Statistical method to use. For further details, see</span>
+<span class="sd">            :class:`frites.WfStatsEphy.fit`</span>
+<span class="sd">        output_type : string</span>
+<span class="sd">            Output format of the returned FIT and p-values. For details, see</span>
+<span class="sd">            :func:`frites.io.convert_dfc_outputs`. Use either &#39;2d_array&#39;,</span>
+<span class="sd">            &#39;3d_array&#39;, &#39;2d_dataframe&#39;, &#39;3d_dataframe&#39;, &#39;dataarray&#39;.</span>
+<span class="sd">        kw_stats : dict | {}</span>
+<span class="sd">            Additional arguments to pass to the selected statistical method</span>
+<span class="sd">            selected using the `stat_method` input parameter</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fit, pvalues : array_like</span>
+<span class="sd">            Array of FIT and p-values. Output types and shapes depends on the</span>
+<span class="sd">            `output_type` input parameter.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># parameters</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># if stat_method is None, avoid computing permutations</span>
+        <span class="n">inference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stat</span><span class="p">(</span><span class="n">inference</span><span class="p">,</span> <span class="n">stat_method</span><span class="p">):</span>
+            <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span>
+        <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+        <span class="c1"># rebuild time vector</span>
+        <span class="n">max_delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">max_delay</span><span class="p">)</span>
+        <span class="n">max_delay_i</span> <span class="o">=</span> <span class="n">n_times</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">times</span> <span class="o">&gt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">max_delay_i</span><span class="p">:]</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># compute the FIT</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># compute fit (only if not already computed)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span>
+                                   <span class="n">directed</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;    True and permuted FIT already computed. &quot;</span>
+                           <span class="s2">&quot;Use WfFit.clean() to reset arguments&quot;</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># statistical evaluation</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span> <span class="n">kw_stats</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span>  <span class="c1"># noqa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
+        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span>
+            <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># post-processing</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{output_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_targets</span><span class="p">,</span>
+                <span class="n">output_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="n">convert_dfc_outputs</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">pvalues</span> <span class="o">=</span> <span class="n">convert_dfc_outputs</span><span class="p">(</span><span class="n">pvalues</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
+            <span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># mi</span>
+        <span class="k">elif</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
+            <span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>     <span class="c1"># mean mi</span>
+        <span class="n">fit</span> <span class="o">=</span> <span class="n">convert_dfc_outputs</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fit</span><span class="p">,</span> <span class="n">pvalues</span></div>
+
+<div class="viewcode-block" id="WfFit.clean"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean computations.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the sources indices of shape (n_pairs,) that have been used.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">targets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the targets indices of shape (n_pairs,) that have been used.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_targets</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the time vector.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fit_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the true FIT that have been computed per ROI. This attribute</span>
+<span class="sd">        is a list of length (n_roi) composed of arrays of shapes</span>
+<span class="sd">        (1, n_times). For the fixed effect, the 1 is obtained by computing mi</span>
+<span class="sd">        across subjects then each array of the list is in bits. On the other</span>
+<span class="sd">        hand, for the random effect the 1 is obtained by computing a one sample</span>
+<span class="sd">        t-test across subjects. Hence, each array represents t-values per roi.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fitp_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the permuted FIT that have been computed per ROI. This attribute</span>
+<span class="sd">        is a list of length (n_roi) composed of arrays of shapes</span>
+<span class="sd">        (n_perm, 1, n_times). For the fixed effect, the 1 is obtained by</span>
+<span class="sd">        computing mi across subjects then each array of the list is in bits. On</span>
+<span class="sd">        the other hand, for the random effect the 1 is obtained by computing a</span>
+<span class="sd">        one sample t-test across subjects. Hence, each array represents</span>
+<span class="sd">        t-values per roi.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tvalues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;T-values array of shape (n_times, n_roi) when group level analysis</span>
+<span class="sd">        is selected.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List of length (n_roi) of true mutual information. Each element of</span>
+<span class="sd">        this list has a shape of (n_subjects, n_times) if `inference` is &#39;rfx&#39;</span>
+<span class="sd">        (1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">_mi</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mi_p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List of length (n_roi) of permuted mutual information. Each element</span>
+<span class="sd">        of this list has a shape of (n_perm, n_subjects, n_times) if</span>
+<span class="sd">        `inference` is &#39;rfx&#39; (n_perm, 1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">_mi_p</span></div>
+
+
+
+
+<span class="k">def</span> <span class="nf">fcn_fit</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">,</span> <span class="n">xp_s</span><span class="p">,</span> <span class="n">xp_t</span><span class="p">,</span> <span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span>
+            <span class="n">inference</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute FIT in parallel.&quot;&quot;&quot;</span>
+    <span class="c1"># find the unique list of subjects for the source and target</span>
+    <span class="n">u_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span><span class="p">])</span>
+    <span class="n">fit_suj</span><span class="p">,</span> <span class="n">fitp_suj</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">u_suj</span><span class="p">:</span>
+        <span class="c1"># find where the subject is located</span>
+        <span class="n">is_source</span> <span class="o">=</span> <span class="n">suj_s</span> <span class="o">==</span> <span class="n">s</span>
+        <span class="n">is_target</span> <span class="o">=</span> <span class="n">suj_t</span> <span class="o">==</span> <span class="n">s</span>
+        <span class="k">if</span> <span class="n">is_source</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="ow">and</span> <span class="n">is_target</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="c1"># select (source, target) data</span>
+            <span class="n">x_s_suj</span> <span class="o">=</span> <span class="n">x_s</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">is_source</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">x_t_suj</span> <span class="o">=</span> <span class="n">x_t</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">is_target</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">xp_s_suj</span> <span class="o">=</span> <span class="n">xp_s</span><span class="p">[:,</span> <span class="n">is_source</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">xp_t_suj</span> <span class="o">=</span> <span class="n">xp_t</span><span class="p">[:,</span> <span class="n">is_target</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="c1"># FIT on true and permuted gcmi</span>
+            <span class="n">_fit_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_s_suj</span><span class="p">,</span> <span class="n">x_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+            <span class="n">_fitp_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
+            <span class="c1"># compute unidirected FIT</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">directed</span><span class="p">:</span>
+                <span class="c1"># compute target -&gt; source</span>
+                <span class="n">_fit_ts</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_t_suj</span><span class="p">,</span> <span class="n">x_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+                <span class="n">_fitp_ts</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
+                <span class="c1"># subtract to source -&gt; target</span>
+                <span class="n">_fit_suj</span> <span class="o">-=</span> <span class="n">_fit_ts</span>
+                <span class="n">_fitp_suj</span> <span class="o">-=</span> <span class="n">_fitp_ts</span>
+            <span class="c1"># keep the computed (uni/bi)directed FIT</span>
+            <span class="n">fit_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_fit_suj</span><span class="p">]</span>
+            <span class="n">fitp_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_fitp_suj</span><span class="p">]</span>
+    <span class="c1"># if not subjects, return empty arrays</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">fit_suj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns depends on inference types :</span>
+<span class="sd">    * Fixed-effect : do nothing because it has already been computed across</span>
+<span class="sd">      subjects, just returns [0] because there&#39;s only a &quot;single-subject&quot;</span>
+<span class="sd">    * Random-effect : compute the t-test against the mean of permutations in</span>
+<span class="sd">      order to decrease the size in memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fit_suj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fitp_suj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+    <span class="k">elif</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
+        <span class="c1"># concatenate across remaining axis</span>
+        <span class="n">fit_suj_cat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">fit_suj</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">fitp_suj_cat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">fitp_suj</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fit_m</span> <span class="o">=</span> <span class="n">fit_suj_cat</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># skip t-test if there&#39;s only a single subject (sEEG)</span>
+        <span class="k">if</span> <span class="n">fit_suj_cat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="c1"># compute t-test across subject dimension</span>
+        <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">fitp_suj_cat</span><span class="p">])</span>  <span class="c1"># sEEG patch</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="n">ttest_1samp</span><span class="p">(</span><span class="n">fit_suj_cat</span><span class="p">,</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ttp</span> <span class="o">=</span> <span class="n">ttest_1samp</span><span class="p">(</span><span class="n">fitp_suj_cat</span><span class="p">,</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tt</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:],</span> <span class="n">ttp</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:],</span> <span class="n">fit_m</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
+                <!--
+                <li>·</li> 
+                <li style="font-weight:bold"><a href="../../../community.html">Community</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../cite.html">Citation</a></li>
+                -->
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2019-12-11.</p>
+    </footer>
+
+  </body>
+</html>

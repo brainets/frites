@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="frites.stats.ffx_maxstat" href="frites.stats.ffx_maxstat.html" />
-    <link rel="prev" title="frites.workflow.WfStatsEphy" href="frites.workflow.WfStatsEphy.html" />
+    <link rel="prev" title="frites.workflow.WfFit" href="frites.workflow.WfFit.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -66,6 +66,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.dataset">Dataset</a><ul class="current">
@@ -236,7 +237,7 @@ are going to be skipped. Use None to skip this parameter</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x, y, roi[, z, times, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, mi_type, inference])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, mi_type, gcrn_per_suj])</p></td>
 <td><p>Apply the Gaussian-Copula rank normalization.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self[, groupby])</p></td>
@@ -273,7 +274,7 @@ are going to be skipped. Use None to skip this parameter</p>
 </table>
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.copnorm">
-<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">gcrn_per_suj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the Gaussian-Copula rank normalization.</p>
 <p>The copnorm is only applied to continuous variables.</p>
 <dl class="field-list simple">
@@ -283,9 +284,8 @@ are going to be skipped. Use None to skip this parameter</p>
 be performed. Choose either ‘cc’ (continuous / continuous), ‘cd’
 (continuous / discret) or ‘ccd’ (continuous / continuous / discret)</p>
 </dd>
-<dt><strong>inference</strong><span class="classifier">{‘rfx’, ‘ffx’}</span></dt><dd><p>The copnorm also depends on the inference type. Choose either ‘ffx’
-(fixed effect) to apply the copnorm across subjects or ‘rfx’ (
-random effect) to apply the copnorm per subject.</p>
+<dt><strong>gcrn_per_suj</strong><span class="classifier">bool | True</span></dt><dd><p>Apply the Gaussian-rank normalization either per subject (True)
+or across subjects (False).</p>
 </dd>
 </dl>
 </dd>
@@ -375,7 +375,7 @@ random effect) to apply the copnorm per subject.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-10.</p>
+        <p>&copy; Copyright Last updated on 2019-12-11.</p>
     </footer>
 
   </body>

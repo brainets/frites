@@ -20,6 +20,7 @@ Workflow
 
    WfMi
    WfStatsEphy
+   WfFit
 
 .. raw:: html
 

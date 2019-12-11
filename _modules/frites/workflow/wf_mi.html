@@ -64,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
@@ -222,6 +223,9 @@
 <span class="sd">              population.</span>
 
 <span class="sd">        By default, the workflow uses group level inference (&#39;rfx&#39;)</span>
+<span class="sd">    gcrn_per_suj : bool | True</span>
+<span class="sd">        Apply the Gaussian-rank normalization either per subject (True) or</span>
+<span class="sd">        across subjects (False).</span>
 <span class="sd">    mi_method : {&#39;gc&#39;, &#39;bin&#39;}</span>
 <span class="sd">        Method for computing the mutual information. Use either :</span>
 
@@ -238,8 +242,8 @@
 <span class="sd">    Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
-                 <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">],</span> <span class="p">(</span>
             <span class="s2">&quot;&#39;mi_type&#39; input parameter should either be &#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;&quot;</span><span class="p">)</span>
@@ -251,6 +255,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span> <span class="o">=</span> <span class="n">mi_method</span> <span class="o">==</span> <span class="s1">&#39;gc&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span> <span class="o">=</span> <span class="n">gcrn_per_suj</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
@@ -268,7 +273,7 @@
         <span class="c1"># inplace preparation</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span><span class="p">:</span>
-            <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">)</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span><span class="p">)</span>
         <span class="c1"># track time and roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
 
@@ -493,7 +498,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-10.</p>
+        <p>&copy; Copyright Last updated on 2019-12-11.</p>
     </footer>
 
   </body>

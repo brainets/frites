@@ -64,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
@@ -438,7 +439,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">=</span> <span class="n">groupby</span></div>
 
-<div class="viewcode-block" id="DatasetEphy.copnorm"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.copnorm">[docs]</a>    <span class="k">def</span> <span class="nf">copnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DatasetEphy.copnorm"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.copnorm">[docs]</a>    <span class="k">def</span> <span class="nf">copnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Apply the Gaussian-Copula rank normalization.</span>
 
 <span class="sd">        The copnorm is only applied to continuous variables.</span>
@@ -449,41 +450,35 @@
 <span class="sd">            The copnorm depends on the mutual-information type that is going to</span>
 <span class="sd">            be performed. Choose either &#39;cc&#39; (continuous / continuous), &#39;cd&#39;</span>
 <span class="sd">            (continuous / discret) or &#39;ccd&#39; (continuous / continuous / discret)</span>
-<span class="sd">        inference : {&#39;rfx&#39;, &#39;ffx&#39;}</span>
-<span class="sd">            The copnorm also depends on the inference type. Choose either &#39;ffx&#39;</span>
-<span class="sd">            (fixed effect) to apply the copnorm across subjects or &#39;rfx&#39; (</span>
-<span class="sd">            random effect) to apply the copnorm per subject.</span>
+<span class="sd">        gcrn_per_suj : bool | True</span>
+<span class="sd">            Apply the Gaussian-rank normalization either per subject (True)</span>
+<span class="sd">            or across subjects (False).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">]</span>
         <span class="c1"># do not enable to copnorm two times</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Data already copnormed. Copnorm ignored&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Apply copnorm (mi_type=</span><span class="si">{mi_type}</span><span class="s2">; &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;inference=</span><span class="si">{inference}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Apply copnorm (per subject=</span><span class="si">{gcrn_per_suj}</span><span class="s2">; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;mi_type=</span><span class="si">{mi_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="c1"># copnorm applied differently how data have been organized</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s2">&quot;roi&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
-                <span class="c1"># for the fixed effect (ffx) the copnorm is applied across</span>
-                <span class="c1"># subjects across all space and time</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;copnorm applied across subjects&quot;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">]</span>
-            <span class="k">elif</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
-                <span class="c1"># for the random effect (rfx) the copnorm is applied per</span>
-                <span class="c1"># subject across space and time</span>
+            <span class="k">if</span> <span class="n">gcrn_per_suj</span><span class="p">:</span>  <span class="c1"># per subject</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;copnorm applied per subjects&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi</span><span class="p">)]</span>
                 <span class="k">if</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi</span><span class="p">)]</span>
+            <span class="k">else</span><span class="p">:</span>             <span class="c1"># subject-wise</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;copnorm applied across subjects&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">copnorm_nd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">]</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s2">&quot;subject&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;FUTURE WORK&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{mi_type}</span><span class="s2"> - </span><span class="si">{inference}</span><span class="s2">&quot;</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;{int(gcrn_per_suj)}-</span><span class="si">{mi_type}</span><span class="s2">&quot;</span></div>
 
 <div class="viewcode-block" id="DatasetEphy.save"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save the dataset.&quot;&quot;&quot;</span>
@@ -574,7 +569,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-10.</p>
+        <p>&copy; Copyright Last updated on 2019-12-11.</p>
     </footer>
 
   </body>
