@@ -3,9 +3,8 @@ import numpy as np
 from mne.stats import fdr_correction, bonferroni_correction
 
 
-def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', alpha=0.05,
-                               inplace=False):
-    """Correction for multiple comparisons using non-parametric statistics.
+def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', inplace=False):
+    """Correction for MCP using non-parametric statistics.
 
     Parameters
     ----------
@@ -20,8 +19,6 @@ def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', alpha=0.05,
     mcp : {'maxstat', 'fdr', 'bonferroni'}
         Method to use for correcting p-values for the multiple comparison
         problem. By default, maximum statistics is used
-    alpha : float | 0.05
-        Significiency level
     inplace : bool | False
         Specify if operations can be performed inplace (faster and decrease
         ram usage but change the data)
@@ -33,7 +30,6 @@ def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', alpha=0.05,
     """
     assert tail in [-1, 0, 1]
     assert mcp in ['maxstat', 'fdr', 'bonferroni']
-    assert isinstance(alpha, float) and (0. < alpha <= 1.)
     assert isinstance(x, np.ndarray) and isinstance(x_p, np.ndarray)
     n_perm = x_p.shape[-1]
 
@@ -53,28 +49,22 @@ def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', alpha=0.05,
             np.abs(x_p, out=x_p)
         else:
             x, x_p = np.abs(x), np.abs(x_p)
-        alpha = alpha / 2.
     x = x[..., np.newaxis]
 
     # -------------------------------------------------------------------------
-    # maxstat need to take maximum over all dimensions except the perm one
+    # mcp correction
     if mcp is 'maxstat':
-        axis = np.arange(x_p.ndim - 1)
-        perc = 100. * (1. - alpha)
-        x_p = np.percentile(x_p, perc, interpolation='higher', keepdims=True,
-                            axis=axis)
-
-    # -------------------------------------------------------------------------
-    # infer p-values by comparing true effect with permutations
-    pv = (x <= x_p).sum(-1) / n_perm
-    pv = np.clip(pv, 1. / n_perm, 1.)
-
-    # -------------------------------------------------------------------------
-    # MCP for FDR and Bonferroni
-    if mcp is 'fdr':
-        pv = fdr_correction(pv, alpha)[1]
-    if mcp is 'bonferroni':
-        pv = bonferroni_correction(pv, alpha)[1]
+        # maximum over all dimensions except the perm one
+        axis = tuple(np.arange(x_p.ndim - 1).tolist())
+        x_p = np.max(x_p, keepdims=True, axis=axis)
+        pv = (x <= x_p).sum(-1) / n_perm
+        pv = np.clip(pv, 1. / n_perm, 1.)
+    else:
+        pv = (x <= x_p).sum(-1) / n_perm
+        if mcp is 'fdr':
+            pv = fdr_correction(pv, .05)[1]
+        if mcp is 'bonferroni':
+            pv = bonferroni_correction(pv, .05)[1]
     pv = np.clip(pv, 0., 1.)
 
     return pv
