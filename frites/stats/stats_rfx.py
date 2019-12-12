@@ -46,8 +46,8 @@ def _rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     return t_obs, t_obs_surr
 
 
-def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False,
-                      ttested=False, tail=1):
+def rfx_cluster_ttest(mi, mi_p, alpha=0.05, mcp='maxstat', center=False,
+                      zscore=False, ttested=False, tail=1):
     """T-test across subjects for random effect inference.
 
     This function performed the following steps :
@@ -77,6 +77,10 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False,
         (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
     alpha : float | 0.05
         Significiency level
+    mcp : {'maxstat', 'fdr', 'bonferroni'}
+        Method to use for correcting p-values for the multiple comparison
+        problem. By default, the maximum cluster-size across time and space is
+        used.
     center : {'mean', "median", "trimmed"} | False
         If True, substract the mean of the surrogates to the true and permuted
         mi. The median or the 20% trimmed mean can also be removed
@@ -112,14 +116,14 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, center=False, zscore=False,
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
                 f"threshold={th}; tail={tail})")
     pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th,
-                                                 tail=tail)
+                                                 tail=tail, mcp=mcp)
 
     return pvalues, t_obs
 
 
 def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
-                           center=False, zscore=False, ttested=False, tail=1,
-                           n_steps=100):
+                           mcp='maxstat', center=False, zscore=False,
+                           ttested=False, tail=1, n_steps=100):
     """TFCE and T-test across subjects for random effect inference.
 
     This function performed the following steps :
@@ -154,6 +158,10 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     step : int, float | None
         Step for the TFCE integration. If None, `step` is going to be defined
         in order to have 100 steps
+    mcp : {'maxstat', 'fdr', 'bonferroni'}
+        Method to use for correcting p-values for the multiple comparison
+        problem. By default, the maximum cluster-size across time and space is
+        used.
     center : {'mean', "median", "trimmed"} | False
         If True, substract the mean of the surrogates to the true and permuted
         mi. The median or the 20% trimmed mean can also be removed
@@ -191,6 +199,6 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
                 f"threshold={th}; tail={tail})")
     pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th,
-                                                 tail=tail)
+                                                 mcp=mcp, tail=tail)
 
     return pvalues, t_obs

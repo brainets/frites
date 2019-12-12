@@ -59,7 +59,7 @@ def _ffx_fdr_bonf(mi, mi_p, func, alpha=0.05):
     th_pval = np.sum(mi_p > mi, axis=0) / n_perm
     _, pvalues = func(th_pval, alpha)
     # p-values returned by mne can exceed 1. Fix this behavior
-    pvalues = np.stack((np.ones_like(pvalues), pvalues)).min(0)
+    pvalues = np.clip(pvalues, 0., 1.)
 
     return pvalues
 
