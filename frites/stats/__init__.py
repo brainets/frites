@@ -5,6 +5,7 @@ from .stats_ffx import (ffx_maxstat, ffx_fdr, ffx_bonferroni,  # noqa
 from .stats_rfx import (rfx_cluster_ttest, rfx_cluster_ttest_tfce)  # noqa
 from .stats_cluster import temporal_clusters_permutation_test  # noqa
 from .stats_param import ttest_1samp  # noqa
+from .stats_mcp import permutation_mcp_correction  # noqa
 
 STAT_FUN = dict(  # noqa
     ffx=dict(
