@@ -15,8 +15,10 @@ RECENTER = dict(mean=np.mean, median=np.median,
                 trimmed=lambda x, axis=0: trim_mean(x, .2, axis=axis))
 
 
-def _rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
+def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     """Perform the t-test across subjects."""
+    logger.info(f"    T-test across subjects (center={center}; "
+                f"zscore={zscore})")
     # if data have already been t-tested, just return it
     if ttested:
         t_obs = np.concatenate(mi, axis=0)
@@ -105,8 +107,8 @@ def rfx_cluster_ttest(mi, mi_p, alpha=0.05, mcp='maxstat', center=False,
     Giordano et al., 2017 :cite:`giordano2017contributions`
     """
     # get t-test over true and permuted mi
-    t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore,
-                                   ttested=ttested)
+    t_obs, t_obs_surr = rfx_ttest(mi, mi_p, center=center, zscore=zscore,
+                                  ttested=ttested)
     # at this point, t_obs.shape is (n_roi, n_times) and t_obs_surr.shape is
     # (n_perm, n_roi, n_times). Now, infer the threshold to use for detecting
     # clusters
@@ -186,8 +188,8 @@ def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
     Smith and Nichols, 2009 :cite:`smith2009threshold`
     """
     # get t-test over true and permuted mi
-    t_obs, t_obs_surr = _rfx_ttest(mi, mi_p, center=center, zscore=zscore,
-                                   ttested=ttested)
+    t_obs, t_obs_surr = rfx_ttest(mi, mi_p, center=center, zscore=zscore,
+                                  ttested=ttested)
     # get (start, step) integration parameters
     if not isinstance(start, float):
         start = np.percentile(t_obs_surr, 100. * (1. - alpha))

@@ -1,6 +1,10 @@
 """Functions for correction for multiple comparisons."""
+import logging
+
 import numpy as np
 from mne.stats import fdr_correction, bonferroni_correction
+
+logger = logging.getLogger('frites')
 
 
 def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', inplace=False):
@@ -32,6 +36,8 @@ def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', inplace=False):
     assert mcp in ['maxstat', 'fdr', 'bonferroni']
     assert isinstance(x, np.ndarray) and isinstance(x_p, np.ndarray)
     n_perm = x_p.shape[-1]
+
+    logger.info(f"    Perform correction for MCP (mcp={mcp}; tail={tail})")
 
     # -------------------------------------------------------------------------
     # change the distribution according to the tail (support inplace operation)
