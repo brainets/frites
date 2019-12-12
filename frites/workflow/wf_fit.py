@@ -133,7 +133,7 @@ class WfFit(WfBase):
 
 
     def fit(self, dataset, max_delay=0.3, directed=True, n_perm=1000,
-            n_jobs=-1, stat_method='rfx_cluster_ttest',
+            n_jobs=-1, stat_method='rfx_cluster_ttest', mcp='maxstat',
             output_type='3d_dataframe', **kw_stats):
         """Compute the Feature Specific Information transfer and statistics.
 
@@ -166,6 +166,9 @@ class WfFit(WfBase):
         stat_method : string | "rfx_cluster_ttest"
             Statistical method to use. For further details, see
             :class:`frites.WfStatsEphy.fit`
+        mcp : {'maxstat', 'fdr', 'bonferroni'}
+            Method to use for correcting p-values for the multiple comparison
+            problem. By default, the maximum-statistics is used.
         output_type : string
             Output format of the returned FIT and p-values. For details, see
             :func:`frites.io.convert_dfc_outputs`. Use either '2d_array',
@@ -216,7 +219,7 @@ class WfFit(WfBase):
         self._wf_stats = WfStatsEphy()
         pvalues, tvalues = self._wf_stats.fit(
             self._fit_roi, self._fitp_roi, stat_method=stat_method,
-            ttested=True, **kw_stats)
+            ttested=True, mcp=mcp, **kw_stats)
 
         # ---------------------------------------------------------------------
         # post-processing

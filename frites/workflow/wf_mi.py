@@ -148,8 +148,8 @@ class WfMi(WfBase):
         return mi, pv
 
     def fit(self, dataset, n_perm=1000, n_bins=None, n_jobs=-1,
-            output_type='dataframe', stat_method='rfx_cluster_ttest',
-            **kw_stats):
+            stat_method='rfx_cluster_ttest', mcp='maxstat',
+            output_type='dataframe', **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -181,6 +181,9 @@ class WfMi(WfBase):
         stat_method : string | "rfx_cluster_ttest"
             Statistical method to use. For further details, see
             :class:`frites.WfStatsEphy.fit`
+        mcp : {'maxstat', 'fdr', 'bonferroni'}
+            Method to use for correcting p-values for the multiple comparison
+            problem. By default, the maximum-statistics is used.
         output_type : {'array', 'dataframe', 'dataarray'}
             Output format of the returned mutual information and p-values. For
             details, see :func:`frites.io.convert_spatiotemporal_outputs`
@@ -243,7 +246,7 @@ class WfMi(WfBase):
         # infer p-values and t-values
         self._wf_stats = WfStatsEphy()
         pvalues, tvalues = self._wf_stats.fit(
-            mi, mi_p, stat_method=stat_method, **kw_stats)
+            mi, mi_p, stat_method=stat_method, mcp=mcp, **kw_stats)
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions
