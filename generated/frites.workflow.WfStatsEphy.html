@@ -219,14 +219,14 @@ temporal clusters).</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.__init__" title="frites.workflow.WfStatsEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, verbose])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, stat_method, ttested])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, stat_method, mcp, …])</p></td>
 <td><p>Fit the workflow on true data.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="frites.workflow.WfStatsEphy.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">ttested=False</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">ttested=False</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the workflow on true data.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -274,6 +274,9 @@ inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttes
 <a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id2">[10]</a>)</p></li>
 </ul>
 </div></blockquote>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. By default, the maximum-statistics is used.</p>
 </dd>
 <dt><strong>ttested</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the inputs have already been t-tested</p>
 </dd>
@@ -327,7 +330,7 @@ computed for group-level analysis</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-11.</p>
+        <p>&copy; Copyright Last updated on 2019-12-12.</p>
     </footer>
 
   </body>

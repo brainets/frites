@@ -193,7 +193,7 @@
 <h1>frites.stats.rfx_cluster_ttest<a class="headerlink" href="#frites-stats-rfx-cluster-ttest" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.stats.rfx_cluster_ttest">
-<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">rfx_cluster_ttest</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">alpha=0.05</em>, <em class="sig-param">center=False</em>, <em class="sig-param">zscore=False</em>, <em class="sig-param">ttested=False</em>, <em class="sig-param">tail=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_rfx.html#rfx_cluster_ttest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.rfx_cluster_ttest" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">rfx_cluster_ttest</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">alpha=0.05</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">center=False</em>, <em class="sig-param">zscore=False</em>, <em class="sig-param">ttested=False</em>, <em class="sig-param">tail=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_rfx.html#rfx_cluster_ttest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.rfx_cluster_ttest" title="Permalink to this definition">¶</a></dt>
 <dd><p>T-test across subjects for random effect inference.</p>
 <p>This function performed the following steps :</p>
 <blockquote>
@@ -223,6 +223,10 @@ region of interest.</p>
 (n_perm, n_suj, n_times). If <cite>ttested</cite> is True, n_suj shoud be 1.</p>
 </dd>
 <dt><strong>alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Significiency level</p>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. By default, the maximum cluster-size across time and space is
+used.</p>
 </dd>
 <dt><strong>center</strong><span class="classifier">{‘mean’, “median”, “trimmed”} | False</span></dt><dd><p>If True, substract the mean of the surrogates to the true and permuted
 mi. The median or the 20% trimmed mean can also be removed
@@ -281,7 +285,7 @@ mi. The median or the 20% trimmed mean can also be removed
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-11.</p>
+        <p>&copy; Copyright Last updated on 2019-12-12.</p>
     </footer>
 
   </body>

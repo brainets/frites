@@ -319,7 +319,7 @@
 
 
 <div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span>
+            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span>
             <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute the Feature Specific Information transfer and statistics.</span>
 
@@ -352,6 +352,9 @@
 <span class="sd">        stat_method : string | &quot;rfx_cluster_ttest&quot;</span>
 <span class="sd">            Statistical method to use. For further details, see</span>
 <span class="sd">            :class:`frites.WfStatsEphy.fit`</span>
+<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
+<span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
+<span class="sd">            problem. By default, the maximum-statistics is used.</span>
 <span class="sd">        output_type : string</span>
 <span class="sd">            Output format of the returned FIT and p-values. For details, see</span>
 <span class="sd">            :func:`frites.io.convert_dfc_outputs`. Use either &#39;2d_array&#39;,</span>
@@ -402,7 +405,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
         <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span>
-            <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+            <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># post-processing</span>
@@ -574,7 +577,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-11.</p>
+        <p>&copy; Copyright Last updated on 2019-12-12.</p>
     </footer>
 
   </body>

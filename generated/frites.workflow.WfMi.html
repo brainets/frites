@@ -295,7 +295,7 @@ installed computations should be much faster</p></li>
 
 <dl class="method">
 <dt id="frites.workflow.WfMi.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -325,6 +325,9 @@ jobs)</p>
 </dd>
 <dt><strong>stat_method</strong><span class="classifier">string | “rfx_cluster_ttest”</span></dt><dd><p>Statistical method to use. For further details, see
 <code class="xref py py-class docutils literal notranslate"><span class="pre">frites.WfStatsEphy.fit</span></code></p>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. By default, the maximum-statistics is used.</p>
 </dd>
 <dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Output format of the returned mutual information and p-values. For
 details, see <a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs" title="frites.io.convert_spatiotemporal_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.io.convert_spatiotemporal_outputs()</span></code></a></p>
@@ -402,7 +405,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-11.</p>
+        <p>&copy; Copyright Last updated on 2019-12-12.</p>
     </footer>
 
   </body>
