@@ -27,7 +27,7 @@ class WfStatsEphy(object):
         logger.info("Definition of a non-parametric statistical workflow")
 
     def fit(self, effect, perms, stat_method="rfx_cluster_ttest",
-            ttested=False, **kw_stats):
+            mcp='maxstat', ttested=False, **kw_stats):
         """Fit the workflow on true data.
 
         Parameters
@@ -72,6 +72,9 @@ class WfStatsEphy(object):
                   with the Threshold Free Cluster Enhancement for cluster level
                   inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`
                   :cite:`smith2009threshold`)
+        mcp : {'maxstat', 'fdr', 'bonferroni'}
+            Method to use for correcting p-values for the multiple comparison
+            problem. By default, the maximum-statistics is used.
         ttested : bool | False
             Specify if the inputs have already been t-tested
         kw_stats : dict | {}
@@ -134,6 +137,7 @@ class WfStatsEphy(object):
                     f"The number of subjects of roi {n_suj_argmin} has "
                     f"{n_suj_min} subjects. The minimum number of subjects for"
                     " random effect should not be under 2.")
+            kw_stats['mcp'] = mcp
             # compute p-values and t-values
             pvalues, tvalues = stat_fun(effect, perms, ttested=ttested,
                                         **kw_stats)
