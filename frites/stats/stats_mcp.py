@@ -21,7 +21,7 @@ def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', alpha=0.05,
         Method to use for correcting p-values for the multiple comparison
         problem. By default, maximum statistics is used
     alpha : float | 0.05
-        Significiency level
+        Significance level
     inplace : bool | False
         Specify if operations can be performed inplace (faster and decrease
         ram usage but change the data)
@@ -53,28 +53,21 @@ def permutation_mcp_correction(x, x_p, tail=1, mcp='maxstat', alpha=0.05,
             np.abs(x_p, out=x_p)
         else:
             x, x_p = np.abs(x), np.abs(x_p)
-        alpha = alpha / 2.
+        # alpha = alpha / 2. -> Je crois qu'il ne faut pas diviser vue que tu prend le abs
     x = x[..., np.newaxis]
 
-    # -------------------------------------------------------------------------
-    # maxstat need to take maximum over all dimensions except the perm one
     if mcp is 'maxstat':
-        axis = np.arange(x_p.ndim - 1)
-        perc = 100. * (1. - alpha)
-        x_p = np.percentile(x_p, perc, interpolation='higher', keepdims=True,
-                            axis=axis)
+        maxstat = np.amax(x_p, axis=(0, 1)) # -> Checkj les dims , il faudrait prendre le max à travers tous les dims sauf celle des perms
+        pv = (x <= np.tile(maxstat, np.shape(x))).sum(-1) / n_perm
+        pv[pv > alpha] = 1.
 
-    # -------------------------------------------------------------------------
-    # infer p-values by comparing true effect with permutations
-    pv = (x <= x_p).sum(-1) / n_perm
-    pv = np.clip(pv, 1. / n_perm, 1.)
-
-    # -------------------------------------------------------------------------
-    # MCP for FDR and Bonferroni
-    if mcp is 'fdr':
-        pv = fdr_correction(pv, alpha)[1]
-    if mcp is 'bonferroni':
-        pv = bonferroni_correction(pv, alpha)[1]
-    pv = np.clip(pv, 0., 1.)
+    else:
+        pv = (x <= x_p).sum(-1) / n_perm
+        # pv = np.clip(pv, 1. / n_perm, 1.) -> Je ne sais pas si le fait d'ajouter des 0 change le FDR
+        if mcp is 'fdr':
+            pv = fdr_correction(pv, alpha)[1]
+        if mcp is 'bonferroni':
+            pv = bonferroni_correction(pv, alpha)[1]
+        pv = np.clip(pv, 0., 1.)
 
     return pv
