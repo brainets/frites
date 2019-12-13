@@ -127,6 +127,7 @@ class WfStatsEphy(object):
             if isinstance(cluster_th, (int, float)):
                 th = cluster_th
             else:
+                assert cluster_th in [None, 'tfce']
                 tfce = cluster_th is 'tfce'
                 th = cluster_threshold(es, es_p, alpha=.05, tail=tail,
                                        tfce=tfce)
