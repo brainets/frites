@@ -77,7 +77,7 @@ class WfFit(WfBase):
         # compute mi and permuted mi
         # ---------------------------------------------------------------------
         self._wf_mi.fit(dataset, n_perm=n_perm, n_jobs=n_jobs,
-                        output_type='array', stat_method='discard_stats')
+                        output_type='array', level='nostat')
         mi = [k.astype(np.float32) for k in self.mi]
         mi_p = [k.astype(np.float32) for k in self.mi_p]
 
@@ -132,8 +132,8 @@ class WfFit(WfBase):
         self._fit_m = fit_m
 
 
-    def fit(self, dataset, max_delay=0.3, directed=True, n_perm=1000,
-            n_jobs=-1, stat_method='rfx_cluster_ttest', mcp='maxstat',
+    def fit(self, dataset, max_delay=0.3, directed=True, level='cluster',
+            mcp='maxstat', cluster_th=None, n_perm=1000, n_jobs=-1,
             output_type='3d_dataframe', **kw_stats):
         """Compute the Feature Specific Information transfer and statistics.
 
@@ -192,7 +192,7 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         # if stat_method is None, avoid computing permutations
         inference = self._inference
-        if not self._check_stat(inference, stat_method):
+        if level in ['noperm', None]:
             n_perm = 0
         times = dataset.times
         n_times = len(times)
@@ -217,9 +217,9 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         if inference == 'rfx': kw_stats['tail'] = self._tail  # noqa
         self._wf_stats = WfStatsEphy()
-        pvalues, tvalues = self._wf_stats.fit(
-            self._fit_roi, self._fitp_roi, stat_method=stat_method,
-            ttested=True, mcp=mcp, **kw_stats)
+        pvalues, tvalues = self._wf_stats.fit(self._fit_roi, self._fitp_roi,
+            ttested=True, level=level, mcp=mcp, cluster_th=cluster_th,
+            inference=self._inference, **kw_stats)
 
         # ---------------------------------------------------------------------
         # post-processing
@@ -321,6 +321,11 @@ def fcn_fit(x_s, x_t, xp_s, xp_t, suj_s, suj_t, times, max_delay, directed,
             x_t_suj = x_t[np.newaxis, is_target, :]
             xp_s_suj = xp_s[:, is_source, :]
             xp_t_suj = xp_t[:, is_target, :]
+            # make array writable (parallel + Numba)
+            x_s_suj.flags.writeable = True
+            x_t_suj.flags.writeable = True
+            xp_s_suj.flags.writeable = True
+            xp_t_suj.flags.writeable = True
             # FIT on true and permuted gcmi
             _fit_suj = it_fit(x_s_suj, x_t_suj, times, max_delay)[0, ...]
             _fitp_suj = it_fit(xp_s_suj, xp_t_suj, times, max_delay)
