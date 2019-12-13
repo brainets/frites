@@ -79,8 +79,3 @@ class TestWfStatsEphy(object):  # noqa
                           cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
                 self._testing(gt_bot, pv, kw)
-
-
-
-if __name__ == '__main__':
-    TestWfStatsEphy().test_fit()
