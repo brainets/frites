@@ -109,12 +109,13 @@ class WfStatsEphy(object):
             # es = (n_roi, n_times); es_p = (n_perm, n_roi, n_times)
             es, es_p = np.concatenate(es, axis=0), np.concatenate(es_p, axis=1)
         elif inference is 'rfx':
-            # check that the number of subjects is > 1
-            rfx_suj = np.min(nb_suj_roi) > 1
-            assert rfx_suj, "For RFX, `n_subjects` should be > 1"
             if ttested:
-                es, es_p = effect, perms
+                es = np.concatenate(effect, axis=0)
+                es_p = np.concatenate(perms, axis=1)
             else:
+                # check that the number of subjects is > 1
+                rfx_suj = np.min(nb_suj_roi) > 1
+                assert rfx_suj, "For RFX, `n_subjects` should be > 1"
                 # modelise how subjects are distributed
                 es, es_p = rfx_ttest(effect, perms)
             tvalues = es
