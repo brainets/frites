@@ -68,14 +68,14 @@ class TestWfStatsEphy(object):  # noqa
                 kw = dict(mcp=mcp, level=level, inference=inf, tail=1,
                           cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
-                self._testing(gt_pos, pv, kw)
+                self._testing(gt_pos.T, pv, kw)
                 # lower tail
                 kw = dict(mcp=mcp, level=level, inference=inf, tail=-1,
                           cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
-                self._testing(gt_neg, pv, kw)
+                self._testing(gt_neg.T, pv, kw)
                 # both tails
                 kw = dict(mcp=mcp, level=level, inference=inf, tail=0,
                           cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
-                self._testing(gt_bot, pv, kw)
+                self._testing(gt_bot.T, pv, kw)
