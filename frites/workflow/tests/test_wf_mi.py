@@ -36,7 +36,6 @@ class TestWfMi(object):  # noqa
         """Test method fit."""
         # built the regressor
         y, gt = sim_mi_cc(x, snr=1.)
-        y, gt = sim_mi_cc(x, snr=1.)
         # run workflow
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x, y, roi, times=time)
