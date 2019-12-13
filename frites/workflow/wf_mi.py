@@ -71,6 +71,7 @@ class WfMi(WfBase):
         self._gcrn = gcrn_per_suj
         set_log_level(verbose)
         self.clean()
+        self._wf_stats = WfStatsEphy(verbose=verbose)
 
         logger.info(f"Workflow for computing mutual information ({mi_type} - "
                     f"{mi_method})")
@@ -251,7 +252,6 @@ class WfMi(WfBase):
         # compute statistics
         # ---------------------------------------------------------------------
         # infer p-values and t-values
-        self._wf_stats = WfStatsEphy()
         pvalues, tvalues = self._wf_stats.fit(mi, mi_p, level=level, mcp=mcp,
             cluster_th=cluster_th, inference=self._inference, tail=1,
             **kw_stats)

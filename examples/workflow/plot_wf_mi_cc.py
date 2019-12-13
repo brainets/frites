@@ -78,7 +78,7 @@ mi_type = 'cc'
 # define the workflow
 wf = WfMi(mi_type)
 # compute the mutual information
-mi, _ = wf.fit(dt, stat_method=None)
+mi, _ = wf.fit(dt, level=None)
 
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)
@@ -107,7 +107,7 @@ print([k.shape for k in y_mv])
 
 # compute the mutual information
 dt = DatasetEphy(x, y_mv, roi)
-mi, _ = WfMi('cc').fit(dt, stat_method=None)
+mi, _ = WfMi('cc').fit(dt, level=None)
 # plot the result
 plt.plot(time, mi)
 plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
@@ -130,14 +130,14 @@ y, _ = sim_mi_cc(x, snr=.1)
 ffx_stat = 'ffx_cluster_tfce'
 dt_ffx = DatasetEphy(x, y, roi)
 wf_ffx = WfMi(mi_type, 'ffx')
-mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, stat_method=ffx_stat, n_perm=n_perm)
+mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, level='cluster', cluster_th='tfce',
+                            n_perm=n_perm)
 
 # between-subject statistics (rfx=random-effect)
-rfx_stat = 'rfx_cluster_ttest_tfce'
-
 dt_rfx = DatasetEphy(x, y, roi)
 wf_rfx = WfMi(mi_type, 'rfx')
-mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, stat_method=rfx_stat, n_perm=n_perm)
+mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, level='cluster', cluster_th='tfce',
+                            n_perm=n_perm)
 
 # plot the comparison
 fig = plt.figure(figsize=(10, 8))
@@ -146,14 +146,14 @@ fig.suptitle("Fixed-effect vs. Random-effect")
 plt.subplot(221)
 plt.plot(time, mi_ffx)
 plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-plt.title(f"Mutual information ({ffx_stat})")
+plt.title(f"Mutual information (FFX / cluster / TFCE)")
 plt.subplot(223)
 plt.plot(time, pv_ffx)
 plt.xlabel("Time (s)"), plt.ylabel("P-value")
 plt.subplot(222)
 plt.plot(time, mi_rfx)
 plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-plt.title(f"Mutual information ({rfx_stat})")
+plt.title(f"Mutual information (RFX / cluster / TFCE)")
 plt.subplot(224)
 plt.plot(time, pv_rfx)
 plt.xlabel("Time (s)"), plt.ylabel("P-value")
