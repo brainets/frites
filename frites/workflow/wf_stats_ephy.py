@@ -142,4 +142,12 @@ class WfStatsEphy(object):
             pvalues = temporal_clusters_permutation_test(
                 es, es_p, th, tail=tail, mcp=mcp)
 
+        # ---------------------------------------------------------------------
+        # postprocessing
+        # ---------------------------------------------------------------------
+        # by default p and t-values are (n_roi, n_times)
+        if isinstance(tvalues, np.ndarray):
+            tvalues = tvalues.T
+        pvalues = pvalues.T
+
         return pvalues, tvalues
