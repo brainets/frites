@@ -66,31 +66,37 @@ dt = DatasetEphy(data, y, roi=roi, times=time, verbose=False)
 
 mi_type = 'cc'
 inference = 'ffx'
-wf = WfMi(mi_type, inference)
+wf = WfMi(mi_type, inference, verbose=False)
 
 ###############################################################################
 # Compute the mutual information and statistics
 # ---------------------------------------------
 
-# list of fixed-effect methods to test
-ffx_methods = ('ffx_maxstat', 'ffx_fdr', 'ffx_bonferroni',
-               'ffx_cluster_maxstat', 'ffx_cluster_fdr',
-               'ffx_cluster_bonferroni', 'ffx_cluster_tfce')
+# list of corrections for multiple comparison
+mcps = ['maxstat', 'fdr', 'bonferroni']
+kw = dict(output_type='array', n_jobs=1, n_perm=200)
+"""
+The `cluster_th` input parameter specifies how the threshold is defined.
+Use either :
+* a float for a manual threshold
+* None and it will be infered using the distribution of permutations
+* 'tfce' for a TFCE threshold
+"""
+cluster_th = 'tfce'  # {float, None, 'tfce'}
 
-n_perm = 1000
-n_jobs = 1
-pvalues = []
-plt.figure(figsize=(10, 8))
-for ffx in ffx_methods:
-    mi, pvalues = wf.fit(dt, n_jobs=n_jobs, n_perm=n_perm, stat_method=ffx,
-                         output_type='array')
-    # set to 1. everywhere p-values are not significants
-    pvalues[pvalues >= .05] = 1.
+for level in ['testwise', 'cluster']:
+    for mcp in mcps:
+        print(f'-> FFX / {level} level / MCP={mcp}')
+        mi, pvalues = wf.fit(dt, level=level, mcp=mcp, cluster_th=cluster_th,
+                             **kw)
+        # remove p-values that exceed 0.05
+        pvalues[pvalues >= .05] = 1.
 
-    plt.subplot(212)
-    plt.plot(time, pvalues.squeeze(), label=ffx)
-    plt.xlabel('Time (s)'), plt.ylabel("P-values")
-    plt.title("P-values (ffx)")
+        plt.subplot(212)
+        plt.plot(time, pvalues.squeeze(), label=f'ffx-{level}-{mcp}')
+        plt.xlabel('Time (s)'), plt.ylabel("P-values")
+        plt.title("P-values (ffx)")
+        plt.autoscale(tight=True)
 plt.legend()
 
 plt.subplot(211)

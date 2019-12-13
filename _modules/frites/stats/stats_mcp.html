@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.copnorm &#8212; frites 0.3.0 documentation</title>
+    <title>frites.stats.stats_mcp &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -178,117 +178,83 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <h1>Source code for frites.core.copnorm</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Gaussian-copula rank normalization functions.&quot;&quot;&quot;</span>
+  <h1>Source code for frites.stats.stats_mcp</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions for correction for multiple comparisons.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">ndtri</span>
+<span class="kn">from</span> <span class="nn">mne.stats</span> <span class="kn">import</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">bonferroni_correction</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;frites&#39;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">ctransform</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Copula transformation (empirical CDF).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data. The trial axis should be the last one</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    xr : array_like</span>
-<span class="sd">        Empirical CDF value along the last axis of x. Data is ranked and scaled</span>
-<span class="sd">        within [0 1] (open interval)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">xr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-    <span class="n">xr</span> <span class="o">+=</span> <span class="mf">1.</span>
-    <span class="n">xr</span> <span class="o">/=</span> <span class="nb">float</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">xr</span>
-
-
-<div class="viewcode-block" id="copnorm_1d"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_1d.html#frites.core.copnorm_1d">[docs]</a><span class="k">def</span> <span class="nf">copnorm_1d</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Copula normalization for a single vector.</span>
+<div class="viewcode-block" id="permutation_mcp_correction"><a class="viewcode-back" href="../../../generated/frites.stats.permutation_mcp_correction.html#frites.stats.permutation_mcp_correction">[docs]</a><span class="k">def</span> <span class="nf">permutation_mcp_correction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Correction for MCP using non-parametric statistics.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x : array_like</span>
-<span class="sd">        Array of data of shape (n_epochs,)</span>
+<span class="sd">        Array of true effect</span>
+<span class="sd">    x_p : array_like</span>
+<span class="sd">        Array of permutations of shape (..., n_perm) where the other dimensions</span>
+<span class="sd">        should be the same as `x`</span>
+<span class="sd">    tail : {-1, 0, 1}</span>
+<span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">        1 for the higher part and 0 for both</span>
+<span class="sd">    mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
+<span class="sd">        Method to use for correcting p-values for the multiple comparison</span>
+<span class="sd">        problem. By default, maximum statistics is used</span>
+<span class="sd">    inplace : bool | False</span>
+<span class="sd">        Specify if operations can be performed inplace (faster and decrease</span>
+<span class="sd">        ram usage but change the data)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of pvalues corrected for MCP with the same shape as the input `x`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ndtri</span><span class="p">(</span><span class="n">ctransform</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
+    <span class="k">assert</span> <span class="n">tail</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="n">n_perm</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Perform correction for MCP (mcp=</span><span class="si">{mcp}</span><span class="s2">; tail=</span><span class="si">{tail}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="copnorm_cat_1d"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_cat_1d.html#frites.core.copnorm_cat_1d">[docs]</a><span class="k">def</span> <span class="nf">copnorm_cat_1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Categorical Copula normalization for a single vector.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># change the distribution according to the tail (support inplace operation)</span>
+    <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>     <span class="c1"># upper part of the distribution</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>  <span class="c1"># bottom part of the distribution</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">x_p</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">x_p</span>
+    <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>   <span class="c1"># both part of the distribution</span>
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x_p</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
 
-<span class="sd">    This function apply the copnorm per categories.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># mcp correction</span>
+    <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">:</span>
+        <span class="c1"># maximum over all dimensions except the perm one</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_p</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;fdr&#39;</span><span class="p">:</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">fdr_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">:</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">bonferroni_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data of shape (n_epochs,)</span>
-<span class="sd">    y : array_like</span>
-<span class="sd">        Array of shape (n_epochs,) of integers describing the categories.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">]</span>
-    <span class="n">x_cop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">y_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y_u</span><span class="p">:</span>
-        <span class="n">_idx</span> <span class="o">=</span> <span class="n">y</span> <span class="o">==</span> <span class="n">yi</span>
-        <span class="n">x_cop</span><span class="p">[</span><span class="n">_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">copnorm_1d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">_idx</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">x_cop</span></div>
-
-
-<div class="viewcode-block" id="copnorm_nd"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_nd.html#frites.core.copnorm_nd">[docs]</a><span class="k">def</span> <span class="nf">copnorm_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Copula normalization for a multidimentional array.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data</span>
-<span class="sd">    axis : int | -1</span>
-<span class="sd">        Epoch (or trial) axis. By default, the last axis is considered</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">copnorm_1d</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="copnorm_cat_nd"><a class="viewcode-back" href="../../../generated/frites.core.copnorm_cat_nd.html#frites.core.copnorm_cat_nd">[docs]</a><span class="k">def</span> <span class="nf">copnorm_cat_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Categorical Copula normalization for multidimentional array.</span>
-
-<span class="sd">    This function apply the copnorm per categories.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x : array_like</span>
-<span class="sd">        Array of data</span>
-<span class="sd">    y : array_like</span>
-<span class="sd">        Array of shape (n_epochs,) of integers describing the categories.</span>
-<span class="sd">    axis : int | -1</span>
-<span class="sd">        Epoch (or trial) axis. By default, the last axis is considered</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    cx : array_like</span>
-<span class="sd">        Standard normal samples with the same empirical CDF value as the input.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">copnorm_cat_1d</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">pv</span></div>
 </pre></div>
 
     </div>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.stats.stats_param &#8212; frites 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-data">Simulate random data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-random-mutual-information">Simulate random mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.stats.stats_param</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Parametric statistics.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">trim_mean</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
+
+
+<span class="n">RECENTER</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">median</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span>
+                <span class="n">trimmed</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span> <span class="n">trim_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="ttest_1samp"><a class="viewcode-back" href="../../../generated/frites.stats.ttest_1samp.html#frites.stats.ttest_1samp">[docs]</a><span class="k">def</span> <span class="nf">ttest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mne&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;One-sample t-test.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Sample observation</span>
+<span class="sd">    pop_mean : float</span>
+<span class="sd">        Expected value in the null hypothesis</span>
+<span class="sd">    axis : int | 0</span>
+<span class="sd">        Axis along which to perform the t-test</span>
+<span class="sd">    method : {&#39;mne&#39;, &#39;scipy&#39;}</span>
+<span class="sd">        Use either the scipy or the mne t-test</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tvalues : array_like</span>
+<span class="sd">        Array of t-values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;scipy&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span> <span class="k">as</span> <span class="n">sp_ttest</span>
+        <span class="k">def</span> <span class="nf">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>  <span class="c1"># noqa</span>
+            <span class="k">return</span> <span class="n">sp_ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mne&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">mne.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp_no_p</span> <span class="k">as</span> <span class="n">mne_ttest</span>
+        <span class="k">def</span> <span class="nf">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>  <span class="c1"># noqa</span>
+            <span class="k">return</span> <span class="n">mne_ttest</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rfx_ttest"><a class="viewcode-back" href="../../../generated/frites.stats.rfx_ttest.html#frites.stats.rfx_ttest">[docs]</a><span class="k">def</span> <span class="nf">rfx_ttest</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zscore</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform the t-test across subjects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mi : array_like</span>
+<span class="sd">        A list of length n_roi of array of mutual information of shape</span>
+<span class="sd">        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.</span>
+<span class="sd">    mi_p : array_like</span>
+<span class="sd">        A list of array of permuted mutual information of shape</span>
+<span class="sd">        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.</span>
+<span class="sd">    center : {&#39;mean&#39;, &quot;median&quot;, &quot;trimmed&quot;} | False</span>
+<span class="sd">        If True, substract the mean of the surrogates to the true and permuted</span>
+<span class="sd">        mi. The median or the 20% trimmed mean can also be removed</span>
+<span class="sd">        :cite:`wilcox2018guide`</span>
+<span class="sd">    zscore : bool | False</span>
+<span class="sd">        Apply z-score normalization to the true and permuted mutual information</span>
+<span class="sd">    ttested : bool | False</span>
+<span class="sd">        Specify if the inputs have already been t-tested</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    t_obs : array_like</span>
+<span class="sd">        Array of true t-values of shape (n_suj, n_times)</span>
+<span class="sd">    tobs_surr : array_like</span>
+<span class="sd">        Array of permuted t-values of shape (n_perm, n_suj, n_times)</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Giordano et al., 2017 :cite:`giordano2017contributions`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    T-test across subjects (center=</span><span class="si">{center}</span><span class="s2">; &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;zscore=</span><span class="si">{zscore}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="c1"># if data have already been t-tested, just return it</span>
+    <span class="k">if</span> <span class="n">ttested</span><span class="p">:</span>
+        <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi_p</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span>
+
+    <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi_p</span><span class="p">)</span>
+    <span class="c1"># remove the mean / median / trimmed</span>
+    <span class="k">if</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">RECENTER</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    RFX recenter distributions (center=</span><span class="si">{center}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;z-score=</span><span class="si">{zscore}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)):</span>
+            <span class="n">_med</span> <span class="o">=</span> <span class="n">RECENTER</span><span class="p">[</span><span class="n">center</span><span class="p">](</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">_std</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">zscore</span> <span class="k">else</span> <span class="mf">1.</span>
+            <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
+            <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
+    <span class="c1"># get the mean of surrogates</span>
+    <span class="n">_merge_perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])]</span>
+    <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_merge_perm</span><span class="p">)</span>
+    <span class="c1"># perform the one sample t-test against the mean both on the true and</span>
+    <span class="c1"># permuted mi</span>
+    <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+    <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span>
+                                       <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+    <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">t_obs_surr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
+                <!--
+                <li>·</li> 
+                <li style="font-weight:bold"><a href="../../../community.html">Community</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../cite.html">Citation</a></li>
+                -->
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
+    </footer>
+
+  </body>
+</html>

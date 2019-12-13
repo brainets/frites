@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Computation times &#8212; frites 0.2.0 documentation</title>
+    <title>Computation times &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -72,23 +72,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#clustering">Clustering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -189,13 +184,13 @@
       
   <div class="section" id="computation-times">
 <span id="sphx-glr-auto-examples-workflow-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:29.992</strong> total execution time for <strong>auto_examples_workflow</strong> files:</p>
+<p><strong>00:26.422</strong> total execution time for <strong>auto_examples_workflow</strong> files:</p>
 <ul class="simple">
-<li><p><strong>00:17.794</strong>: <a class="reference internal" href="plot_wf_mi_cc.html#sphx-glr-auto-examples-workflow-plot-wf-mi-cc-py"><span class="std std-ref">Workflow of mutual information between two continuous variables</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_cc.py</span></code>)</p></li>
-<li><p><strong>00:05.615</strong>: <a class="reference internal" href="plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-workflow-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code>)</p></li>
-<li><p><strong>00:03.053</strong>: <a class="reference internal" href="plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-workflow-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_stats_compare_rfx.py</span></code>)</p></li>
-<li><p><strong>00:01.897</strong>: <a class="reference internal" href="plot_wf_mi_ccd.html#sphx-glr-auto-examples-workflow-plot-wf-mi-ccd-py"><span class="std std-ref">Workflow of conditional mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_ccd.py</span></code>)</p></li>
-<li><p><strong>00:01.634</strong>: <a class="reference internal" href="plot_wf_mi_cd.html#sphx-glr-auto-examples-workflow-plot-wf-mi-cd-py"><span class="std std-ref">Workflow of mutual information a continuous and a discret variables</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_cd.py</span></code>)</p></li>
+<li><p><strong>00:16.855</strong>: <a class="reference internal" href="plot_wf_mi_cc.html#sphx-glr-auto-examples-workflow-plot-wf-mi-cc-py"><span class="std std-ref">Workflow of mutual information between two continuous variables</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_cc.py</span></code>)</p></li>
+<li><p><strong>00:04.203</strong>: <a class="reference internal" href="plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-workflow-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_stats_compare_rfx.py</span></code>)</p></li>
+<li><p><strong>00:02.411</strong>: <a class="reference internal" href="plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-workflow-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code>)</p></li>
+<li><p><strong>00:01.517</strong>: <a class="reference internal" href="plot_wf_mi_ccd.html#sphx-glr-auto-examples-workflow-plot-wf-mi-ccd-py"><span class="std std-ref">Workflow of conditional mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_ccd.py</span></code>)</p></li>
+<li><p><strong>00:01.438</strong>: <a class="reference internal" href="plot_wf_mi_cd.html#sphx-glr-auto-examples-workflow-plot-wf-mi-cd-py"><span class="std std-ref">Workflow of mutual information a continuous and a discret variables</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_wf_mi_cd.py</span></code>)</p></li>
 </ul>
 </div>
 
@@ -228,7 +223,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-12.</p>
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
     </footer>
 
   </body>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.stats.ffx_cluster_tfce &#8212; frites 0.2.0 documentation</title>
+    <title>frites.stats.ttest_1samp &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.stats.rfx_cluster_ttest" href="frites.stats.rfx_cluster_ttest.html" />
-    <link rel="prev" title="frites.stats.ffx_cluster_bonferroni" href="frites.stats.ffx_cluster_bonferroni.html" />
+    <link rel="next" title="frites.stats.rfx_ttest" href="frites.stats.rfx_ttest.html" />
+    <link rel="prev" title="frites.stats.permutation_mcp_correction" href="frites.stats.permutation_mcp_correction.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html"><span><img src="../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -74,23 +74,18 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.stats.ffx_cluster_tfce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#random-effect-rfx">Random effect (rfx)</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#clustering">Clustering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -165,7 +160,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.stats.ffx_cluster_tfce.rst.txt"
+  <a href="../_sources/generated/frites.stats.ttest_1samp.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -189,36 +184,32 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-stats-ffx-cluster-tfce">
-<h1>frites.stats.ffx_cluster_tfce<a class="headerlink" href="#frites-stats-ffx-cluster-tfce" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-stats-ttest-1samp">
+<h1>frites.stats.ttest_1samp<a class="headerlink" href="#frites-stats-ttest-1samp" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.stats.ffx_cluster_tfce">
-<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">ffx_cluster_tfce</code><span class="sig-paren">(</span><em class="sig-param">mi</em>, <em class="sig-param">mi_p</em>, <em class="sig-param">start=None</em>, <em class="sig-param">step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_ffx.html#ffx_cluster_tfce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.ffx_cluster_tfce" title="Permalink to this definition">¶</a></dt>
-<dd><p>TFCE correction for fixed effect and cluster level inferences.</p>
+<dt id="frites.stats.ttest_1samp">
+<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">ttest_1samp</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">pop_mean</em>, <em class="sig-param">axis=0</em>, <em class="sig-param">method='mne'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_param.html#ttest_1samp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.ttest_1samp" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-sample t-test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of mutual information of shape (n_roi, n_times)</p>
+<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Sample observation</p>
 </dd>
-<dt><strong>mi_p</strong><span class="classifier">array_like</span></dt><dd><p>Array of permuted mutual information of shape (n_perm, n_roi, n_times)</p>
+<dt><strong>pop_mean</strong><span class="classifier">float</span></dt><dd><p>Expected value in the null hypothesis</p>
 </dd>
-<dt><strong>start</strong><span class="classifier">int, float | None</span></dt><dd><p>Starting point for the TFCE integration. If None, <cite>start</cite> is going to
-be set to 0</p>
+<dt><strong>axis</strong><span class="classifier">int | 0</span></dt><dd><p>Axis along which to perform the t-test</p>
 </dd>
-<dt><strong>step</strong><span class="classifier">int, float | None</span></dt><dd><p>Step for the TFCE integration. If None, <cite>step</cite> is going to be defined
-in order to have 100 steps</p>
+<dt><strong>method</strong><span class="classifier">{‘mne’, ‘scipy’}</span></dt><dd><p>Use either the scipy or the mne t-test</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
+<dt><strong>tvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of t-values</p>
 </dd>
 </dl>
 </dd>
 </dl>
-<p class="rubric">References</p>
-<p>Smith and Nichols, 2009 <a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id1">[10]</a></p>
 </dd></dl>
 
 </div>
@@ -252,7 +243,7 @@ in order to have 100 steps</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-12.</p>
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
     </footer>
 
   </body>

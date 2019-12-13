@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.WfStatsEphy &#8212; frites 0.2.0 documentation</title>
+    <title>frites.workflow.WfStatsEphy &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html"><span><img src="../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -74,23 +74,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#clustering">Clustering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -219,14 +214,14 @@ temporal clusters).</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.__init__" title="frites.workflow.WfStatsEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, verbose])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, stat_method, mcp, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, inference, level, …])</p></td>
 <td><p>Fit the workflow on true data.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="frites.workflow.WfStatsEphy.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">stat_method='rfx_cluster_ttest'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">ttested=False</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">ttested=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the workflow on true data.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -239,49 +234,34 @@ different</p>
 shape (n_perm, n_subjects, n_times). Number of subjects per ROI
 could be different</p>
 </dd>
-<dt><strong>stat_method</strong><span class="classifier">string | “rfx_cluster_ttest”</span></dt><dd><p>Statistical method to use. Method names depends on the initial
-choice of inference type (ffx=fixed effect or rfx=random effect).</p>
-<p><strong>For the fixed effect (ffx) :</strong></p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘ffx_maxstat’ : maximum statistics correction (see
-<a class="reference internal" href="frites.stats.ffx_maxstat.html#frites.stats.ffx_maxstat" title="frites.stats.ffx_maxstat"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_maxstat()</span></code></a>)</p></li>
-<li><p>‘ffx_fdr’ : False Discovery Rate correction (see
-<a class="reference internal" href="frites.stats.ffx_fdr.html#frites.stats.ffx_fdr" title="frites.stats.ffx_fdr"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_fdr()</span></code></a>)</p></li>
-<li><p>‘ffx_bonferroni’ : Bonferroni correction (see
-<a class="reference internal" href="frites.stats.ffx_bonferroni.html#frites.stats.ffx_bonferroni" title="frites.stats.ffx_bonferroni"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_bonferroni()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_maxstat’ : maximum statistics correction at
-cluster level (see <a class="reference internal" href="frites.stats.ffx_cluster_maxstat.html#frites.stats.ffx_cluster_maxstat" title="frites.stats.ffx_cluster_maxstat"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_maxstat()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_fdr’ : False Discovery Rate correction at
-cluster level (see <a class="reference internal" href="frites.stats.ffx_cluster_fdr.html#frites.stats.ffx_cluster_fdr" title="frites.stats.ffx_cluster_fdr"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_fdr()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_bonferroni’ : Bonferroni correction at
-cluster level (see
-<a class="reference internal" href="frites.stats.ffx_cluster_bonferroni.html#frites.stats.ffx_cluster_bonferroni" title="frites.stats.ffx_cluster_bonferroni"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_bonferroni()</span></code></a>)</p></li>
-<li><p>‘ffx_cluster_tfce’ : Threshold Free Cluster Enhancement for
-cluster level inference (see
-<a class="reference internal" href="frites.stats.ffx_cluster_tfce.html#frites.stats.ffx_cluster_tfce" title="frites.stats.ffx_cluster_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.ffx_cluster_tfce()</span></code></a>
-<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id1">[10]</a>)</p></li>
-</ul>
-</div></blockquote>
-<p><strong>For the random effect (rfx) :</strong></p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘rfx_cluster_ttest’ : t-test across subjects for cluster
-level inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttest.html#frites.stats.rfx_cluster_ttest" title="frites.stats.rfx_cluster_ttest"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest()</span></code></a>)</p></li>
-<li><p>‘rfx_cluster_ttest_tfce’ : t-test across subjects combined
-with the Threshold Free Cluster Enhancement for cluster level
-inference (see <a class="reference internal" href="frites.stats.rfx_cluster_ttest_tfce.html#frites.stats.rfx_cluster_ttest_tfce" title="frites.stats.rfx_cluster_ttest_tfce"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.stats.rfx_cluster_ttest_tfce()</span></code></a>
-<a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id2">[10]</a>)</p></li>
-</ul>
-</div></blockquote>
+<dt><strong>inference</strong><span class="classifier">{‘ffx’, ‘rfx’}</span></dt><dd><p>Perform either Fixed-effect (‘ffx’) or Random-effect (‘rfx’)
+inferences. By default, random-effect is used</p>
+</dd>
+<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
+of interest and at each time point. If ‘cluster’, cluster-based
+methods are used. By default, cluster-based is selected</p>
 </dd>
 <dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
-problem. By default, the maximum-statistics is used.</p>
+problem. By default, maximum statistics is used. If <cite>level</cite> is
+‘testwise’, MCP is performed across space and time while if <cite>level</cite>
+is ‘cluster’, MCP is performed on cluster mass. By default,
+maximum statistics is usd</p>
+</dd>
+<dt><strong>tail</strong><span class="classifier">{-1, 0, 1}</span></dt><dd><p>Type of comparison. Use -1 for the lower part of the distribution,
+1 for the higher part and 0 for both. By default, upper tail of the
+distribution is used</p>
+</dd>
+<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a float that is going to act as a threshold</p></li>
+<li><p>None and the threshold is automatically going to be inferred
+using the distribution of permutations</p></li>
+<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
+</ul>
+</div></blockquote>
 </dd>
 <dt><strong>ttested</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the inputs have already been t-tested</p>
-</dd>
-<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
-selected using the <cite>stat_method</cite> input parameter</p>
 </dd>
 </dl>
 </dd>
@@ -295,6 +275,8 @@ computed for group-level analysis</p>
 </dl>
 </dd>
 </dl>
+<p class="rubric">References</p>
+<p>Smith and Nichols, 2009 <a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id1">[8]</a></p>
 </dd></dl>
 
 </dd></dl>
@@ -330,7 +312,7 @@ computed for group-level analysis</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-12.</p>
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
     </footer>
 
   </body>

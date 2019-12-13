@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.wf_stats_ephy &#8212; frites 0.2.0 documentation</title>
+    <title>frites.workflow.wf_stats_ephy &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -72,23 +72,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -189,7 +184,10 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">STAT_FUN</span>
+<span class="kn">from</span> <span class="nn">frites.stats.stats_mcp</span> <span class="kn">import</span> <span class="n">permutation_mcp_correction</span>
+<span class="kn">from</span> <span class="nn">frites.stats.stats_cluster</span> <span class="kn">import</span> <span class="p">(</span><span class="n">temporal_clusters_permutation_test</span><span class="p">,</span>
+                                        <span class="n">cluster_threshold</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.stats.stats_param</span> <span class="kn">import</span> <span class="n">rfx_ttest</span>
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
@@ -212,8 +210,8 @@
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Definition of a non-parametric statistical workflow&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="WfStatsEphy.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s2">&quot;rfx_cluster_ttest&quot;</span><span class="p">,</span>
-            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+<div class="viewcode-block" id="WfStatsEphy.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fit the workflow on true data.</span>
 
 <span class="sd">        Parameters</span>
@@ -226,46 +224,32 @@
 <span class="sd">            Permutation list of length (n_roi,) composed of arrays each one of</span>
 <span class="sd">            shape (n_perm, n_subjects, n_times). Number of subjects per ROI</span>
 <span class="sd">            could be different</span>
-<span class="sd">        stat_method : string | &quot;rfx_cluster_ttest&quot;</span>
-<span class="sd">            Statistical method to use. Method names depends on the initial</span>
-<span class="sd">            choice of inference type (ffx=fixed effect or rfx=random effect).</span>
-
-<span class="sd">            **For the fixed effect (ffx) :**</span>
-
-<span class="sd">                * &#39;ffx_maxstat&#39; : maximum statistics correction (see</span>
-<span class="sd">                  :func:`frites.stats.ffx_maxstat`)</span>
-<span class="sd">                * &#39;ffx_fdr&#39; : False Discovery Rate correction (see</span>
-<span class="sd">                  :func:`frites.stats.ffx_fdr`)</span>
-<span class="sd">                * &#39;ffx_bonferroni&#39; : Bonferroni correction (see</span>
-<span class="sd">                  :func:`frites.stats.ffx_bonferroni`)</span>
-<span class="sd">                * &#39;ffx_cluster_maxstat&#39; : maximum statistics correction at</span>
-<span class="sd">                  cluster level (see :func:`frites.stats.ffx_cluster_maxstat`)</span>
-<span class="sd">                * &#39;ffx_cluster_fdr&#39; : False Discovery Rate correction at</span>
-<span class="sd">                  cluster level (see :func:`frites.stats.ffx_cluster_fdr`)</span>
-<span class="sd">                * &#39;ffx_cluster_bonferroni&#39; : Bonferroni correction at</span>
-<span class="sd">                  cluster level (see</span>
-<span class="sd">                  :func:`frites.stats.ffx_cluster_bonferroni`)</span>
-<span class="sd">                * &#39;ffx_cluster_tfce&#39; : Threshold Free Cluster Enhancement for</span>
-<span class="sd">                  cluster level inference (see</span>
-<span class="sd">                  :func:`frites.stats.ffx_cluster_tfce`</span>
-<span class="sd">                  :cite:`smith2009threshold`)</span>
-
-<span class="sd">            **For the random effect (rfx) :**</span>
-
-<span class="sd">                * &#39;rfx_cluster_ttest&#39; : t-test across subjects for cluster</span>
-<span class="sd">                  level inference (see :func:`frites.stats.rfx_cluster_ttest`)</span>
-<span class="sd">                * &#39;rfx_cluster_ttest_tfce&#39; : t-test across subjects combined</span>
-<span class="sd">                  with the Threshold Free Cluster Enhancement for cluster level</span>
-<span class="sd">                  inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`</span>
-<span class="sd">                  :cite:`smith2009threshold`)</span>
+<span class="sd">        inference : {&#39;ffx&#39;, &#39;rfx&#39;}</span>
+<span class="sd">            Perform either Fixed-effect (&#39;ffx&#39;) or Random-effect (&#39;rfx&#39;)</span>
+<span class="sd">            inferences. By default, random-effect is used</span>
+<span class="sd">        level : {&#39;testwise&#39;, &#39;cluster&#39;}</span>
+<span class="sd">            Inference level. If &#39;testwise&#39;, inferences are made for each region</span>
+<span class="sd">            of interest and at each time point. If &#39;cluster&#39;, cluster-based</span>
+<span class="sd">            methods are used. By default, cluster-based is selected</span>
 <span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
 <span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
-<span class="sd">            problem. By default, the maximum-statistics is used.</span>
+<span class="sd">            problem. By default, maximum statistics is used. If `level` is</span>
+<span class="sd">            &#39;testwise&#39;, MCP is performed across space and time while if `level`</span>
+<span class="sd">            is &#39;cluster&#39;, MCP is performed on cluster mass. By default,</span>
+<span class="sd">            maximum statistics is usd</span>
+<span class="sd">        tail : {-1, 0, 1}</span>
+<span class="sd">            Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">            1 for the higher part and 0 for both. By default, upper tail of the</span>
+<span class="sd">            distribution is used</span>
+<span class="sd">        cluster_th : str, float | None</span>
+<span class="sd">            The threshold to use for forming clusters. Use either :</span>
+
+<span class="sd">                * a float that is going to act as a threshold</span>
+<span class="sd">                * None and the threshold is automatically going to be inferred</span>
+<span class="sd">                  using the distribution of permutations</span>
+<span class="sd">                * &#39;tfce&#39; : for Threshold Free Cluster Enhancement</span>
 <span class="sd">        ttested : bool | False</span>
 <span class="sd">            Specify if the inputs have already been t-tested</span>
-<span class="sd">        kw_stats : dict | {}</span>
-<span class="sd">            Additional arguments to pass to the selected statistical method</span>
-<span class="sd">            selected using the `stat_method` input parameter</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -274,59 +258,71 @@
 <span class="sd">        tvalues : array_like</span>
 <span class="sd">            Array of t-values of shape (n_times, n_n_roi). This ouput is only</span>
 <span class="sd">            computed for group-level analysis</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Smith and Nichols, 2009 :cite:`smith2009threshold`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># check inputs</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;testwise&#39;</span><span class="p">,</span> <span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">perms</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">])</span>
         <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">),</span> <span class="n">effect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span>
-        <span class="c1"># don&#39;t compute statistics if stat_method is None</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">stat_method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">):</span>
+        <span class="c1"># don&#39;t compute statistics if `level` is None</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_times</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">tvalues</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">])</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># check that the selected method does exist</span>
+        <span class="c1"># FFX / RFX</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="n">inference</span> <span class="o">=</span> <span class="n">stat_method</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">inference</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">m_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">inference</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected statistical method `</span><span class="si">{stat_method}</span><span class="s2">` &quot;</span>
-                           <span class="sa">f</span><span class="s2">&quot;doesn&#39;t exist. For </span><span class="si">{inference}</span><span class="s2"> inference, &quot;</span>
-                           <span class="sa">f</span><span class="s2">&quot;use either : {&#39;, &#39;.join(m_names)}&quot;</span><span class="p">)</span>
-        <span class="n">stat_fun</span> <span class="o">=</span> <span class="n">STAT_FUN</span><span class="p">[</span><span class="n">inference</span><span class="p">][</span><span class="n">stat_method</span><span class="p">]</span>
+        <span class="n">nb_suj_roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
+            <span class="c1"># check that the number of subjects is 1</span>
+            <span class="n">ffx_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">nb_suj_roi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">assert</span> <span class="n">ffx_suj</span><span class="p">,</span> <span class="s2">&quot;For FFX, `n_subjects` should be 1&quot;</span>
+            <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span> <span class="o">=</span> <span class="n">effect</span><span class="p">,</span> <span class="n">perms</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Fixed-effect inference (FFX)&quot;</span><span class="p">)</span>
+            <span class="c1"># es = (n_roi, n_times); es_p = (n_perm, n_roi, n_times)</span>
+            <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">es_p</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ttested</span><span class="p">:</span>
+                <span class="n">es</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">es_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">perms</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># check that the number of subjects is &gt; 1</span>
+                <span class="n">rfx_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">nb_suj_roi</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                <span class="k">assert</span> <span class="n">rfx_suj</span><span class="p">,</span> <span class="s2">&quot;For RFX, `n_subjects` should be &gt; 1&quot;</span>
+                <span class="c1"># modelise how subjects are distributed</span>
+                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span> <span class="o">=</span> <span class="n">rfx_ttest</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">)</span>
+            <span class="n">tvalues</span> <span class="o">=</span> <span class="n">es</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># compute stats according to inference type</span>
+        <span class="c1"># cluster forming threshold</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;cluster&#39;</span> <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">stat_fun</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">else</span> <span class="s2">&quot;time-point&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Run the statistical workflow (</span><span class="si">{stat_method}</span><span class="s2">) for &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;inferences at the </span><span class="si">{level}</span><span class="s2">-level&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
-            <span class="c1"># for the fixed effect, since it&#39;s computed across subjects it</span>
-            <span class="c1"># means that each roi has an mi.shape of (1, n_times) and can then</span>
-            <span class="c1"># been concatenated over the first axis. Same for the permutations,</span>
-            <span class="c1"># with a shape of (n_perm, 1, n_times)</span>
-            <span class="n">effect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">perms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">perms</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="c1"># compute the p-values</span>
-            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">stat_fun</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
-            <span class="c1"># for random effect, the number of subjects can&#39;t be bellow 2</span>
-            <span class="c1"># other wise the t-test is going to failed</span>
-            <span class="n">n_suj_roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">]</span>
-            <span class="n">n_suj_min</span><span class="p">,</span> <span class="n">n_suj_argmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">n_suj_roi</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">n_suj_roi</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">n_suj_min</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ttested</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;The number of subjects of roi </span><span class="si">{n_suj_argmin}</span><span class="s2"> has &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{n_suj_min}</span><span class="s2"> subjects. The minimum number of subjects for&quot;</span>
-                    <span class="s2">&quot; random effect should not be under 2.&quot;</span><span class="p">)</span>
-            <span class="n">kw_stats</span><span class="p">[</span><span class="s1">&#39;mcp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mcp</span>
-            <span class="c1"># compute p-values and t-values</span>
-            <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="n">stat_fun</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="n">ttested</span><span class="p">,</span>
-                                        <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster_th</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_th</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tfce</span> <span class="o">=</span> <span class="n">cluster_th</span> <span class="ow">is</span> <span class="s1">&#39;tfce&#39;</span>
+                <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_threshold</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
+                                       <span class="n">tfce</span><span class="o">=</span><span class="n">tfce</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># test-wise or cluster-based</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;testwise&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at spatio-temporal level (test-wise)&#39;</span><span class="p">)</span>
+            <span class="n">es_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">es_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">permutation_mcp_correction</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at cluster level&#39;</span><span class="p">)</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span>
+                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing</span>
@@ -367,7 +363,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-12.</p>
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
     </footer>
 
   </body>

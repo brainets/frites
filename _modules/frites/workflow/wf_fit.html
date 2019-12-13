@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.wf_fit &#8212; frites 0.2.0 documentation</title>
+    <title>frites.workflow.wf_fit &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -72,23 +72,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -263,7 +258,7 @@
         <span class="c1"># compute mi and permuted mi</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
-                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;discard_stats&#39;</span><span class="p">)</span>
+                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;nostat&#39;</span><span class="p">)</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi</span><span class="p">]</span>
         <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_p</span><span class="p">]</span>
 
@@ -318,8 +313,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span> <span class="o">=</span> <span class="n">fit_m</span>
 
 
-<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute the Feature Specific Information transfer and statistics.</span>
 
@@ -378,7 +373,7 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># if stat_method is None, avoid computing permutations</span>
         <span class="n">inference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stat</span><span class="p">(</span><span class="n">inference</span><span class="p">,</span> <span class="n">stat_method</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">times</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span>
         <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
@@ -403,9 +398,9 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span> <span class="n">kw_stats</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span>  <span class="c1"># noqa</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
-        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span>
-            <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span>
+            <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span>
+            <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># post-processing</span>
@@ -507,6 +502,11 @@
             <span class="n">x_t_suj</span> <span class="o">=</span> <span class="n">x_t</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">is_target</span><span class="p">,</span> <span class="p">:]</span>
             <span class="n">xp_s_suj</span> <span class="o">=</span> <span class="n">xp_s</span><span class="p">[:,</span> <span class="n">is_source</span><span class="p">,</span> <span class="p">:]</span>
             <span class="n">xp_t_suj</span> <span class="o">=</span> <span class="n">xp_t</span><span class="p">[:,</span> <span class="n">is_target</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="c1"># make array writable (parallel + Numba)</span>
+            <span class="n">x_s_suj</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">x_t_suj</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">xp_s_suj</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">xp_t_suj</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="c1"># FIT on true and permuted gcmi</span>
             <span class="n">_fit_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_s_suj</span><span class="p">,</span> <span class="n">x_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
             <span class="n">_fitp_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
@@ -577,7 +577,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-12.</p>
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
     </footer>
 
   </body>

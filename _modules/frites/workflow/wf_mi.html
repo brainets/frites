@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.wf_mi &#8212; frites 0.2.0 documentation</title>
+    <title>frites.workflow.wf_mi &#8212; frites 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -72,23 +72,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#fixed-effect-ffx">Fixed effect (ffx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_maxstat.html">frites.stats.ffx_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_fdr.html">frites.stats.ffx_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_bonferroni.html">frites.stats.ffx_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_maxstat.html">frites.stats.ffx_cluster_maxstat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_fdr.html">frites.stats.ffx_cluster_fdr</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_bonferroni.html">frites.stats.ffx_cluster_bonferroni</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ffx_cluster_tfce.html">frites.stats.ffx_cluster_tfce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest.html">frites.stats.rfx_cluster_ttest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_cluster_ttest_tfce.html">frites.stats.rfx_cluster_ttest_tfce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cluster">Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -193,7 +188,6 @@
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="kn">import</span> <span class="n">WfStatsEphy</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_base</span> <span class="kn">import</span> <span class="n">WfBase</span>
-<span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">STAT_FUN</span>
 
 
 <div class="viewcode-block" id="WfMi"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi">[docs]</a><span class="k">class</span> <span class="nc">WfMi</span><span class="p">(</span><span class="n">WfBase</span><span class="p">):</span>
@@ -258,10 +252,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span> <span class="o">=</span> <span class="n">gcrn_per_suj</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2"> - &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{mi_method}</span><span class="s2">) and statistics (</span><span class="si">{inference}</span><span class="s2">) has been &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;defined&quot;</span><span class="p">)</span></div>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{mi_method}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_node_prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Prepare the data before computing the mi.</span>
@@ -333,9 +327,9 @@
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span>
 
-<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">stat_method</span><span class="o">=</span><span class="s1">&#39;rfx_cluster_ttest&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span>
-            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -353,6 +347,23 @@
 <span class="sd">        ----------</span>
 <span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
 <span class="sd">            A dataset instance</span>
+<span class="sd">        level : {&#39;testwise&#39;, &#39;cluster&#39;}</span>
+<span class="sd">            Inference level. If &#39;testwise&#39;, inferences are made for each region</span>
+<span class="sd">            of interest and at each time point. If &#39;cluster&#39;, cluster-based</span>
+<span class="sd">            methods are used. By default, cluster-based is selected</span>
+<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
+<span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
+<span class="sd">            problem. By default, maximum statistics is used. If `level` is</span>
+<span class="sd">            &#39;testwise&#39;, MCP is performed across space and time while if `level`</span>
+<span class="sd">            is &#39;cluster&#39;, MCP is performed on cluster mass. By default,</span>
+<span class="sd">            maximum statistics is usd</span>
+<span class="sd">        cluster_th : str, float | None</span>
+<span class="sd">            The threshold to use for forming clusters. Use either :</span>
+
+<span class="sd">                * a float that is going to act as a threshold</span>
+<span class="sd">                * None and the threshold is automatically going to be inferred</span>
+<span class="sd">                  using the distribution of permutations</span>
+<span class="sd">                * &#39;tfce&#39; : for Threshold Free Cluster Enhancement</span>
 <span class="sd">        n_perm : int | 1000</span>
 <span class="sd">            Number of permutations to perform in order to estimate the random</span>
 <span class="sd">            distribution of mi that can be obtained by chance</span>
@@ -364,12 +375,6 @@
 <span class="sd">        n_jobs : int | -1</span>
 <span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">            jobs)</span>
-<span class="sd">        stat_method : string | &quot;rfx_cluster_ttest&quot;</span>
-<span class="sd">            Statistical method to use. For further details, see</span>
-<span class="sd">            :class:`frites.WfStatsEphy.fit`</span>
-<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
-<span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
-<span class="sd">            problem. By default, the maximum-statistics is used.</span>
 <span class="sd">        output_type : {&#39;array&#39;, &#39;dataframe&#39;, &#39;dataarray&#39;}</span>
 <span class="sd">            Output format of the returned mutual information and p-values. For</span>
 <span class="sd">            details, see :func:`frites.io.convert_spatiotemporal_outputs`</span>
@@ -388,15 +393,14 @@
 <span class="sd">        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># if stat_method is None, avoid computing permutations</span>
+        <span class="c1"># prepare variables</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;discard_stats&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="n">stat_method</span><span class="p">):</span>
-                <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># prepare variables that are going to be needed</span>
-        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="sd">&quot;&quot;&quot;Internally, if `level` is &#39;nostat&#39;, permutations are computed but</span>
+<span class="sd">        not statistics. If `level` is &#39;noperm&#39; (or None), no permutations and</span>
+<span class="sd">        no stats are computed neither.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># infer the number of bins if needed</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="ow">is</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">n_bins</span> <span class="o">=</span> <span class="mi">4</span>
@@ -414,15 +418,14 @@
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span>
-                                             <span class="n">n_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span>
-                                             <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For information transfer (e.g FIT) we only need to compute the true and</span>
 <span class="sd">        permuted mi but then, the statistics at the local representation level</span>
 <span class="sd">        are discarded in favor of statistics on the information transfer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">stat_method</span> <span class="ow">is</span> <span class="s1">&#39;discard_stats&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;nostat&#39;</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Permutations computed. Stop there&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -430,9 +433,9 @@
         <span class="c1"># compute statistics</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># infer p-values and t-values</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
-        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">stat_method</span><span class="o">=</span><span class="n">stat_method</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span>
+            <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing and conversions</span>
@@ -501,7 +504,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-12.</p>
+        <p>&copy; Copyright Last updated on 2019-12-13.</p>
     </footer>
 
   </body>

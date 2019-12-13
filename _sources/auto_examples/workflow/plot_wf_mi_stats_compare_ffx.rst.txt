@@ -113,7 +113,7 @@ variables. And we also specify the inference type 'ffx' for fixed-effect
 
     mi_type = 'cc'
     inference = 'ffx'
-    wf = WfMi(mi_type, inference)
+    wf = WfMi(mi_type, inference, verbose=False)
 
 
 
@@ -128,25 +128,31 @@ Compute the mutual information and statistics
 .. code-block:: default
 
 
-    # list of fixed-effect methods to test
-    ffx_methods = ('ffx_maxstat', 'ffx_fdr', 'ffx_bonferroni',
-                   'ffx_cluster_maxstat', 'ffx_cluster_fdr',
-                   'ffx_cluster_bonferroni', 'ffx_cluster_tfce')
+    # list of corrections for multiple comparison
+    mcps = ['maxstat', 'fdr', 'bonferroni']
+    kw = dict(output_type='array', n_jobs=1, n_perm=200)
+    """
+    The `cluster_th` input parameter specifies how the threshold is defined.
+    Use either :
+    * a float for a manual threshold
+    * None and it will be infered using the distribution of permutations
+    * 'tfce' for a TFCE threshold
+    """
+    cluster_th = 'tfce'  # {float, None, 'tfce'}
 
-    n_perm = 1000
-    n_jobs = 1
-    pvalues = []
-    plt.figure(figsize=(10, 8))
-    for ffx in ffx_methods:
-        mi, pvalues = wf.fit(dt, n_jobs=n_jobs, n_perm=n_perm, stat_method=ffx,
-                             output_type='array')
-        # set to 1. everywhere p-values are not significants
-        pvalues[pvalues >= .05] = 1.
+    for level in ['testwise', 'cluster']:
+        for mcp in mcps:
+            print(f'-> FFX / {level} level / MCP={mcp}')
+            mi, pvalues = wf.fit(dt, level=level, mcp=mcp, cluster_th=cluster_th,
+                                 **kw)
+            # remove p-values that exceed 0.05
+            pvalues[pvalues >= .05] = 1.
 
-        plt.subplot(212)
-        plt.plot(time, pvalues.squeeze(), label=ffx)
-        plt.xlabel('Time (s)'), plt.ylabel("P-values")
-        plt.title("P-values (ffx)")
+            plt.subplot(212)
+            plt.plot(time, pvalues.squeeze(), label=f'ffx-{level}-{mcp}')
+            plt.xlabel('Time (s)'), plt.ylabel("P-values")
+            plt.title("P-values (ffx)")
+            plt.autoscale(tight=True)
     plt.legend()
 
     plt.subplot(211)
@@ -156,6 +162,7 @@ Compute the mutual information and statistics
     plt.autoscale(tight=True)
 
     plt.show()
+
 
 
 .. image:: /auto_examples/workflow/images/sphx_glr_plot_wf_mi_stats_compare_ffx_001.png
@@ -168,15 +175,21 @@ Compute the mutual information and statistics
 
  .. code-block:: none
 
-    /home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_ffx.py:90: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+    -> FFX / testwise level / MCP=maxstat
+    -> FFX / testwise level / MCP=fdr
+    /home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_ffx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
       plt.subplot(212)
+    -> FFX / testwise level / MCP=bonferroni
+    -> FFX / cluster level / MCP=maxstat
+    -> FFX / cluster level / MCP=fdr
+    -> FFX / cluster level / MCP=bonferroni
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.615 seconds)
+   **Total running time of the script:** ( 0 minutes  2.411 seconds)
 
 
 .. _sphx_glr_download_auto_examples_workflow_plot_wf_mi_stats_compare_ffx.py:
