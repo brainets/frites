@@ -16,7 +16,36 @@ RECENTER = dict(mean=np.mean, median=np.median,
 
 
 def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
-    """Perform the t-test across subjects."""
+    """Perform the t-test across subjects.
+
+    Parameters
+    ----------
+    mi : array_like
+        A list of length n_roi of array of mutual information of shape
+        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
+    mi_p : array_like
+        A list of array of permuted mutual information of shape
+        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
+    center : {'mean', "median", "trimmed"} | False
+        If True, substract the mean of the surrogates to the true and permuted
+        mi. The median or the 20% trimmed mean can also be removed
+        :cite:`wilcox2018guide`
+    zscore : bool | False
+        Apply z-score normalization to the true and permuted mutual information
+    ttested : bool | False
+        Specify if the inputs have already been t-tested
+
+    Returns
+    -------
+    t_obs : array_like
+        Array of true t-values of shape (n_suj, n_times)
+    tobs_surr : array_like
+        Array of permuted t-values of shape (n_perm, n_suj, n_times)
+
+    References
+    ----------
+    Giordano et al., 2017 :cite:`giordano2017contributions`
+    """
     logger.info(f"    T-test across subjects (center={center}; "
                 f"zscore={zscore})")
     # if data have already been t-tested, just return it
@@ -46,161 +75,3 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     t_obs_surr = np.swapaxes(t_obs_surr, 0, 1)
 
     return t_obs, t_obs_surr
-
-
-def rfx_cluster_ttest(mi, mi_p, alpha=0.05, mcp='maxstat', center=False,
-                      zscore=False, ttested=False, tail=1):
-    """T-test across subjects for random effect inference.
-
-    This function performed the following steps :
-
-        * take the mean over permutations
-        * perform a one-sample t-test across the subject dimension against the
-          mean of permutations. This t-test is performed both on the true and
-          permuted mi
-        * as a threshold, use the 100 * (1-alpha)th percentile of the t-test
-          performed over the permutations
-        * use this threshold to detect clusters both on the true and permuted
-          mi
-        * take the maximum of the permuted clusters (MCP)
-        * compare cluster sizes and infer p-values
-
-    By using a t-test over the subject dimension, we actually make the
-    hypothesis that subjects are normally distributed at each time point and
-    region of interest.
-
-    Parameters
-    ----------
-    mi : array_like
-        A list of length n_roi of array of mutual information of shape
-        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
-    mi_p : array_like
-        A list of array of permuted mutual information of shape
-        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
-    alpha : float | 0.05
-        Significiency level
-    mcp : {'maxstat', 'fdr', 'bonferroni'}
-        Method to use for correcting p-values for the multiple comparison
-        problem. By default, the maximum cluster-size across time and space is
-        used.
-    center : {'mean', "median", "trimmed"} | False
-        If True, substract the mean of the surrogates to the true and permuted
-        mi. The median or the 20% trimmed mean can also be removed
-        :cite:`wilcox2018guide`
-    zscore : bool | False
-        Apply z-score normalization to the true and permuted mutual information
-    ttested : bool | False
-        Specify if the inputs have already been t-tested
-    tail : {-1, 0, 1}
-        Type of comparison. Use -1 for the lower part of the distribution,
-        1 for the higher part and 0 for both
-
-    Returns
-    -------
-    pvalues : array_like
-        Array of p-values of shape (n_suj, n_times)
-    tvalues : array_like
-        Array of t-values of shape (n_suj, n_times)
-
-    References
-    ----------
-    Giordano et al., 2017 :cite:`giordano2017contributions`
-    """
-    # get t-test over true and permuted mi
-    t_obs, t_obs_surr = rfx_ttest(mi, mi_p, center=center, zscore=zscore,
-                                  ttested=ttested)
-    # at this point, t_obs.shape is (n_roi, n_times) and t_obs_surr.shape is
-    # (n_perm, n_roi, n_times). Now, infer the threshold to use for detecting
-    # clusters
-    perc = 100. * (1. - alpha)
-    th = np.nanpercentile(t_obs_surr, perc, interpolation='nearest')
-    # infer p-values
-    logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
-                f"threshold={th}; tail={tail})")
-    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th,
-                                                 tail=tail, mcp=mcp)
-
-    return pvalues, t_obs
-
-
-def rfx_cluster_ttest_tfce(mi, mi_p, alpha=0.05, start=None, step=None,
-                           mcp='maxstat', center=False, zscore=False,
-                           ttested=False, tail=1, n_steps=100):
-    """TFCE and T-test across subjects for random effect inference.
-
-    This function performed the following steps :
-
-        * take the mean over permutations
-        * perform a one-sample t-test across the subject dimension against the
-          mean of permutations. This t-test is performed both on the true and
-          permuted mi
-        * threshold is defined using integration parameters (`start`, `step`)
-        * use this threshold to detect clusters both on the true and permuted
-          mi
-        * take the maximum of the permuted clusters (MCP)
-        * compare cluster sizes and infer p-values
-
-    By using a t-test over the subject dimension, we actually make the
-    hypothesis that subjects are normally distributed at each time point and
-    region of interest.
-
-    Parameters
-    ----------
-    mi : array_like
-        A list of length n_roi of array of mutual information of shape
-        (n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
-    mi_p : array_like
-        A list of array of permuted mutual information of shape
-        (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
-    alpha : float | 0.05
-        Significiency level
-    start : int, float | None
-        Starting point for the TFCE integration. If None, `start` is going to
-        be set to 0
-    step : int, float | None
-        Step for the TFCE integration. If None, `step` is going to be defined
-        in order to have 100 steps
-    mcp : {'maxstat', 'fdr', 'bonferroni'}
-        Method to use for correcting p-values for the multiple comparison
-        problem. By default, the maximum cluster-size across time and space is
-        used.
-    center : {'mean', "median", "trimmed"} | False
-        If True, substract the mean of the surrogates to the true and permuted
-        mi. The median or the 20% trimmed mean can also be removed
-        :cite:`wilcox2018guide`
-    zscore : bool | False
-        Apply z-score normalization to the true and permuted mutual information
-    ttested : bool | False
-        Specify if the inputs have already been t-tested
-    tail : {-1, 0, 1}
-        Type of comparison. Use -1 for the lower part of the distribution,
-        1 for the higher part and 0 for both
-
-    Returns
-    -------
-    pvalues : array_like
-        Array of p-values of shape (n_roi, n_times)
-    tvalues : array_like
-        Array of t-values of shape (n_roi, n_times)
-
-    References
-    ----------
-    Smith and Nichols, 2009 :cite:`smith2009threshold`
-    """
-    # get t-test over true and permuted mi
-    t_obs, t_obs_surr = rfx_ttest(mi, mi_p, center=center, zscore=zscore,
-                                  ttested=ttested)
-    # get (start, step) integration parameters
-    if not isinstance(start, float):
-        start = np.percentile(t_obs_surr, 100. * (1. - alpha))
-    if not isinstance(step, float):
-        stop = t_obs.max()
-        step = (stop - start) / n_steps
-    th = dict(start=start, step=step)
-    # infer p-values
-    logger.info(f"    RFX non-parametric group t-test (alpha={alpha}, "
-                f"threshold={th}; tail={tail})")
-    pvalues = temporal_clusters_permutation_test(t_obs, t_obs_surr, th,
-                                                 mcp=mcp, tail=tail)
-
-    return pvalues, t_obs
