@@ -306,10 +306,14 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster_th</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
-                <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_th</span>
+                <span class="n">th</span><span class="p">,</span> <span class="n">tfce</span> <span class="o">=</span> <span class="n">cluster_th</span><span class="p">,</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="n">cluster_th</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;tfce&#39;</span><span class="p">]</span>
-                <span class="n">tfce</span> <span class="o">=</span> <span class="n">cluster_th</span> <span class="ow">is</span> <span class="s1">&#39;tfce&#39;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">cluster_th</span> <span class="ow">is</span> <span class="s1">&#39;tfce&#39;</span><span class="p">):</span>          <span class="c1"># TFCE auto</span>
+                    <span class="n">tfce</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster_th</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># TFCE manual</span>
+                    <span class="n">tfce</span> <span class="o">=</span> <span class="n">cluster_th</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tfce</span> <span class="o">=</span> <span class="kc">None</span>                     <span class="c1"># cluster_th is None</span>
                 <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_threshold</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
                                        <span class="n">tfce</span><span class="o">=</span><span class="n">tfce</span><span class="p">)</span>
 
@@ -364,7 +368,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-13.</p>
+        <p>&copy; Copyright Last updated on 2019-12-17.</p>
     </footer>
 
   </body>
