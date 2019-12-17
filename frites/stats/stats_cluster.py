@@ -144,18 +144,22 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100):
     logger.info(f"    Cluster forming threshold (tail={tail}; alpha={alpha}; "
                 f"tfce={tfce})")
     kw = dict(interpolation='nearest')
-    if tfce:
-        if tail == 1:
-            start = max(np.percentile(x_p, 100. * (1. - alpha), **kw), 0.)
-            stop = x.max()
-        elif tail == -1:
-            start = min(np.percentile(x_p, 100. * alpha, **kw), 0.)
-            stop = x.min()
-        elif tail == 0:
-            start = np.percentile(np.abs(x_p), 100. * (1. - alpha), **kw)
-            stop = np.abs(x).max()
-        step = (stop - start) / n_steps
-        th = dict(start=start, step=step)
+    if tfce or isinstance(tfce, dict):
+        if not isinstance(tfce, dict):
+            if tail == 1:
+                start = max(np.percentile(x_p, 100. * (1. - alpha), **kw), 0.)
+                stop = x.max()
+            elif tail == -1:
+                start = min(np.percentile(x_p, 100. * alpha, **kw), 0.)
+                stop = x.min()
+            elif tail == 0:
+                start = np.percentile(np.abs(x_p), 100. * (1. - alpha), **kw)
+                stop = np.abs(x).max()
+            step = (stop - start) / n_steps
+            th = dict(start=start, step=step)
+        else:
+            th = tfce
+        assert all([k in th.keys() for k in ['start', 'step']])
     else:
         if tail == 1:
             th = np.nanpercentile(x_p, 100. * (1. - alpha), **kw)

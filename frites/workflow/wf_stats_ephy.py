@@ -125,10 +125,14 @@ class WfStatsEphy(object):
         # ---------------------------------------------------------------------
         if level is 'cluster':
             if isinstance(cluster_th, (int, float)):
-                th = cluster_th
+                th, tfce = cluster_th, None
             else:
-                assert cluster_th in [None, 'tfce']
-                tfce = cluster_th is 'tfce'
+                if (cluster_th is 'tfce'):          # TFCE auto
+                    tfce = True
+                elif isinstance(cluster_th, dict):  # TFCE manual
+                    tfce = cluster_th
+                else:
+                    tfce = None                     # cluster_th is None
                 th = cluster_threshold(es, es_p, alpha=.05, tail=tail,
                                        tfce=tfce)
 
