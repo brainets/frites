@@ -245,7 +245,8 @@ information to perform is ‘cc’ between it’s computed between two continuou
 variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mi_type</span> <span class="o">=</span> <span class="s1">&#39;cc&#39;</span>
 <span class="n">inference</span> <span class="o">=</span> <span class="s1">&#39;ffx&#39;</span>
-<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">kernel</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.hanning.html#numpy.hanning" title="View documentation for numpy.hanning"><span class="n">np</span><span class="o">.</span><span class="n">hanning</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -291,7 +292,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; FFX / testwise level / MCP=maxstat
 -&gt; FFX / testwise level / MCP=fdr
-/home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_ffx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+/home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
   plt.subplot(212)
 -&gt; FFX / testwise level / MCP=bonferroni
 -&gt; FFX / cluster level / MCP=maxstat
@@ -299,7 +300,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 -&gt; FFX / cluster level / MCP=bonferroni
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.567 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.560 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-wf-mi-stats-compare-ffx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7c1116804d54098209d1dc97da333b47/plot_wf_mi_stats_compare_ffx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code></a></p>
@@ -341,7 +342,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-17.</p>
+        <p>&copy; Copyright Last updated on 2019-12-18.</p>
     </footer>
 
   </body>

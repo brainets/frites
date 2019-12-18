@@ -66,7 +66,8 @@ dt = DatasetEphy(data, y, roi=roi, times=time, verbose=False)
 
 mi_type = 'cc'
 inference = 'ffx'
-wf = WfMi(mi_type, inference, verbose=False)
+kernel = np.hanning(10)
+wf = WfMi(mi_type, inference, verbose=False, kernel=kernel)
 
 ###############################################################################
 # Compute the mutual information and statistics

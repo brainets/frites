@@ -230,6 +230,10 @@
 <span class="sd">              relationships but is much slower and also required to define the</span>
 <span class="sd">              number of bins to use. Note that if the Numba package is</span>
 <span class="sd">              installed computations should be much faster</span>
+<span class="sd">    kernel : array_like | None</span>
+<span class="sd">        Kernel for smoothing true and permuted MI. For example, use</span>
+<span class="sd">        np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a</span>
+<span class="sd">        moving average</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -237,7 +241,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">],</span> <span class="p">(</span>
             <span class="s2">&quot;&#39;mi_type&#39; input parameter should either be &#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;&quot;</span><span class="p">)</span>
@@ -250,6 +254,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span> <span class="o">=</span> <span class="n">mi_method</span> <span class="o">==</span> <span class="s1">&#39;gc&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span> <span class="o">=</span> <span class="n">gcrn_per_suj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span> <span class="o">=</span> <span class="n">kernel</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
@@ -302,6 +307,16 @@
                 <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span>
                 <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
             <span class="n">mi_p</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_mi</span><span class="p">)]</span>
+        <span class="c1"># smoothing</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Apply smoothing to the true and permuted MI&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">s</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+                        <span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                        <span class="n">mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+                            <span class="n">mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span> <span class="o">=</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
 
@@ -504,7 +519,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-17.</p>
+        <p>&copy; Copyright Last updated on 2019-12-18.</p>
     </footer>
 
   </body>

@@ -231,6 +231,10 @@
 <span class="sd">              relationships but is much slower and also required to define the</span>
 <span class="sd">              number of bins to use. Note that if the Numba package is</span>
 <span class="sd">              installed computations should be much faster</span>
+<span class="sd">    kernel : array_like | None</span>
+<span class="sd">        Kernel for smoothing true and permuted MI. For example, use</span>
+<span class="sd">        np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a</span>
+<span class="sd">        moving average</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -238,11 +242,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WfFit.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa</span>
+                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa</span>
         <span class="c1"># define the workflow of mi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span> <span class="o">=</span> <span class="n">WfMi</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span>
                            <span class="n">mi_method</span><span class="o">=</span><span class="n">mi_method</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="n">gcrn_per_suj</span><span class="p">,</span>
-                           <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                           <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
@@ -577,7 +581,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-17.</p>
+        <p>&copy; Copyright Last updated on 2019-12-18.</p>
     </footer>
 
   </body>

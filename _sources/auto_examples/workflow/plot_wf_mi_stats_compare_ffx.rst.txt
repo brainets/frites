@@ -113,7 +113,8 @@ variables. And we also specify the inference type 'ffx' for fixed-effect
 
     mi_type = 'cc'
     inference = 'ffx'
-    wf = WfMi(mi_type, inference, verbose=False)
+    kernel = np.hanning(10)
+    wf = WfMi(mi_type, inference, verbose=False, kernel=kernel)
 
 
 
@@ -177,7 +178,7 @@ Compute the mutual information and statistics
 
     -> FFX / testwise level / MCP=maxstat
     -> FFX / testwise level / MCP=fdr
-    /home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_ffx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+    /home/circleci/project/examples/workflow/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
       plt.subplot(212)
     -> FFX / testwise level / MCP=bonferroni
     -> FFX / cluster level / MCP=maxstat
@@ -189,7 +190,7 @@ Compute the mutual information and statistics
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.567 seconds)
+   **Total running time of the script:** ( 0 minutes  2.560 seconds)
 
 
 .. _sphx_glr_download_auto_examples_workflow_plot_wf_mi_stats_compare_ffx.py:

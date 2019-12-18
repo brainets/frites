@@ -188,7 +188,7 @@
 <h1>frites.workflow.WfFit<a class="headerlink" href="#frites-workflow-wffit" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="frites.workflow.WfFit">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfFit</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfFit</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow for Feature Specific Information Transfer.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -232,6 +232,10 @@ installed computations should be much faster</p></li>
 </ul>
 </div></blockquote>
 </dd>
+<dt><strong>kernel</strong><span class="classifier">array_like | None</span></dt><dd><p>Kernel for smoothing true and permuted MI. For example, use
+np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
+moving average</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -239,7 +243,7 @@ installed computations should be much faster</p></li>
 <p>Bim et al. 2019 <a class="bibtex reference internal" href="../references.html#bim2019non" id="id1">[1]</a></p>
 <dl class="method">
 <dt id="frites.workflow.WfFit.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -454,7 +458,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-17.</p>
+        <p>&copy; Copyright Last updated on 2019-12-18.</p>
     </footer>
 
   </body>

@@ -188,7 +188,7 @@
 <h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="frites.workflow.WfMi">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of local mutual-information and statistics.</p>
 <p>This class allows to define a workflow for computing the mutual information
 and then to evaluate the significance using non-parametric statistics
@@ -235,6 +235,10 @@ installed computations should be much faster</p></li>
 </ul>
 </div></blockquote>
 </dd>
+<dt><strong>kernel</strong><span class="classifier">array_like | None</span></dt><dd><p>Kernel for smoothing true and permuted MI. For example, use
+np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
+moving average</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -242,7 +246,7 @@ installed computations should be much faster</p></li>
 <p>Friston et al., 1996, 1999 <a class="bibtex reference internal" href="../references.html#friston1996detecting" id="id1">[2]</a><a class="bibtex reference internal" href="../references.html#friston1999many" id="id2">[3]</a></p>
 <dl class="method">
 <dt id="frites.workflow.WfMi.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -414,7 +418,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-17.</p>
+        <p>&copy; Copyright Last updated on 2019-12-18.</p>
     </footer>
 
   </body>
