@@ -123,9 +123,9 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
     # -------------------------------------------------------------------------
     # Introduce a correlation between the data and the regressor
     for num, (idx, cov) in enumerate(zip(cl_index, cl_cov)):
+        if not np.isfinite(cov): continue  # noqa
         # define correlation strength
         l = idx[1] - idx[0]
-        if not isinstance(cov, (float, int)): cov = 1e-5
         epsilon = np.sqrt((1. - cov ** 2) / cov ** 2)
         # Generate noise
         rnd_noise = np.random.RandomState(random_state + num + 1)
