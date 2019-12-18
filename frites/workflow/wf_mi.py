@@ -49,6 +49,10 @@ class WfMi(WfBase):
               relationships but is much slower and also required to define the
               number of bins to use. Note that if the Numba package is
               installed computations should be much faster
+    kernel : array_like | None
+        Kernel for smoothing true and permuted MI. For example, use
+        np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
+        moving average
 
     References
     ----------

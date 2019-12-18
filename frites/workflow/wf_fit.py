@@ -50,6 +50,10 @@ class WfFit(WfBase):
               relationships but is much slower and also required to define the
               number of bins to use. Note that if the Numba package is
               installed computations should be much faster
+    kernel : array_like | None
+        Kernel for smoothing true and permuted MI. For example, use
+        np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
+        moving average
 
     References
     ----------
@@ -57,11 +61,11 @@ class WfFit(WfBase):
     """
 
     def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
-                 mi_method='gc', verbose=None):  # noqa
+                 mi_method='gc', kernel=None, verbose=None):  # noqa
         # define the workflow of mi
         self._wf_mi = WfMi(mi_type=mi_type, inference=inference,
                            mi_method=mi_method, gcrn_per_suj=gcrn_per_suj,
-                           verbose=False)
+                           kernel=kernel, verbose=False)
         self._mi_type = mi_type
         self._inference = inference
         self._mi_method = mi_method
