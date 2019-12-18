@@ -95,7 +95,8 @@ class TestWfMi(object):  # noqa
         y, gt = sim_mi_cc(x, snr=1.)
         dt = DatasetEphy(x, y, roi, times=time)
         # compute permutations but not statistics
-        wf = WfMi('cc', 'ffx', verbose=False)
+        kernel = np.hanning(3)
+        wf = WfMi('cc', 'ffx', kernel=kernel, verbose=False)
         wf.fit(dt, level='nostat', **kw_mi)
         assert len(wf.mi) == len(wf.mi_p) == n_roi
         assert len(wf.mi_p[0].shape) != 0

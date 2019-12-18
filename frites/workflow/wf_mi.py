@@ -56,7 +56,7 @@ class WfMi(WfBase):
     """
 
     def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
-                 mi_method='gc', verbose=None):
+                 mi_method='gc', kernel=None, verbose=None):
         """Init."""
         assert mi_type in ['cc', 'cd', 'ccd'], (
             "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
@@ -69,6 +69,7 @@ class WfMi(WfBase):
         self._mi_method = mi_method
         self._need_copnorm = mi_method == 'gc'
         self._gcrn = gcrn_per_suj
+        self._kernel = kernel
         set_log_level(verbose)
         self.clean()
         self._wf_stats = WfStatsEphy(verbose=verbose)
@@ -121,6 +122,16 @@ class WfMi(WfBase):
                 x[r], y_p[p], z[r], suj[r], inf,
                 n_bins=n_bins) for p in range(n_perm))
             mi_p += [np.asarray(_mi)]
+        # smoothing
+        if isinstance(self._kernel, np.ndarray):
+            logger.info("    Apply smoothing to the true and permuted MI")
+            for r in range(len(mi)):
+                for s in range(mi[r].shape[0]):
+                    mi[r][s, :] = np.convolve(
+                        mi[r][s, :], self._kernel, mode='same')
+                    for p in range(mi_p[r].shape[0]):
+                        mi_p[r][p, s, :] = np.convolve(
+                            mi_p[r][p, s, :], self._kernel, mode='same')
 
         self._mi, self._mi_p = mi, mi_p
 
