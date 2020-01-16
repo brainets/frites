@@ -169,15 +169,13 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100,
                 tfce = True
         if not isinstance(tfce, dict):
             if tail == 1:
-                start = max(np.nanpercentile(x_p, 100. * (1. - alpha), **kw),
-                            0.)
+                start = max(np.nanpercentile(x_p, 100 * (1 - alpha), **kw), 0.)
                 stop = x.max()
             elif tail == -1:
                 start = min(np.nanpercentile(x_p, 100. * alpha, **kw), 0.)
                 stop = x.min()
             elif tail == 0:
-                start = np.nanpercentile(np.abs(x_p), 100. * (1. - alpha),
-                                         **kw)
+                start = np.nanpercentile(np.abs(x_p), 100 * (1 - alpha), **kw)
                 stop = np.abs(x).max()
             step = (stop - start) / n_steps
             th = dict(start=start, step=step)
