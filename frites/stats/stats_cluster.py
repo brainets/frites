@@ -114,7 +114,8 @@ def _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass, cl_p_mass):
     return pvalues
 
 
-def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100):
+def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100,
+                      h_power=2, e_power=.5):
     """Threshold detection for cluster-based inferencse.
 
     Parameters
@@ -130,10 +131,21 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100):
         Type of comparison. Use -1 for the lower part of the distribution,
         1 for the higher part and 0 for both
     tfce : bool | False
-        Use Threshold Free Cluster Enhancement
+        Use Threshold Free Cluster Enhancement. Use either :
+
+            * True to specify that TFCE have to be used. In that case, the
+              start and integration step are automatically inferred
+            * A dict that contains a 'start' and a 'step' key to manually set
+              TFCE parameters. Could also use 'e_power' and 'h_power' entries
+            * A dict that is only there to set TFCE parameters n_steps, e_power
+              and h_power but using the automatic starting and integration step
     n_steps : int | 100
         Number of integration steps between the start and stoping values for
         the TFCE
+    h_power : float | 2
+        Default H exponent of the TFCE
+    e_power : float | .5
+        Default E exponent of the TFCE
 
     Returns
     -------
@@ -145,18 +157,29 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100):
                 f"tfce={tfce})")
     kw = dict(interpolation='nearest')
     if tfce or isinstance(tfce, dict):
+        # tfce is a dict that is only used to set MNE parameters
+        # (n_steps, e_power, h_power)
+        if isinstance(tfce, dict):
+            if ('start' not in tfce.keys()) and ('step' not in tfce.keys()):
+                n_steps = tfce.get('n_steps', n_steps)
+                e_power = tfce.get('e_power', e_power)
+                h_power = tfce.get('h_power', h_power)
+                # now that we have the parameters, reset the tfce to use auto
+                tfce = True
         if not isinstance(tfce, dict):
             if tail == 1:
-                start = max(np.percentile(x_p, 100. * (1. - alpha), **kw), 0.)
+                start = max(np.nanpercentile(x_p, 100. * (1. - alpha), **kw),
+                            0.)
                 stop = x.max()
             elif tail == -1:
-                start = min(np.percentile(x_p, 100. * alpha, **kw), 0.)
+                start = min(np.nanpercentile(x_p, 100. * alpha, **kw), 0.)
                 stop = x.min()
             elif tail == 0:
-                start = np.percentile(np.abs(x_p), 100. * (1. - alpha), **kw)
+                start = np.nanpercentile(np.abs(x_p), 100. * (1. - alpha),
+                                         **kw)
                 stop = np.abs(x).max()
             step = (stop - start) / n_steps
-            th = dict(start=start, step=step)
+            th = dict(start=start, step=step, e_power=e_power, h_power=h_power)
         else:
             th = tfce
         assert all([k in th.keys() for k in ['start', 'step']])
