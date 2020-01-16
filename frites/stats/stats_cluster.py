@@ -160,11 +160,12 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100,
         # tfce is a dict that is only used to set MNE parameters
         # (n_steps, e_power, h_power)
         if isinstance(tfce, dict):
+            n_steps = tfce.get('n_steps', n_steps)
+            e_power = tfce.get('e_power', e_power)
+            h_power = tfce.get('h_power', h_power)
+            # now that we have the parameters, reset the tfce to use auto
+            # in case 'start' and 'step' keys are absents
             if ('start' not in tfce.keys()) and ('step' not in tfce.keys()):
-                n_steps = tfce.get('n_steps', n_steps)
-                e_power = tfce.get('e_power', e_power)
-                h_power = tfce.get('h_power', h_power)
-                # now that we have the parameters, reset the tfce to use auto
                 tfce = True
         if not isinstance(tfce, dict):
             if tail == 1:
@@ -179,9 +180,10 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100,
                                          **kw)
                 stop = np.abs(x).max()
             step = (stop - start) / n_steps
-            th = dict(start=start, step=step, e_power=e_power, h_power=h_power)
+            th = dict(start=start, step=step)
         else:
             th = tfce
+        th.update(dict(e_power=e_power, h_power=h_power))
         assert all([k in th.keys() for k in ['start', 'step']])
     else:
         if tail == 1:

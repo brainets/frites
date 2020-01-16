@@ -49,6 +49,7 @@ class TestStatsClusters(object):  # noqa
         x = np.random.rand(10, 20)
         x_p = np.random.rand(100, 10, 20)
 
+        # automatic definition
         for tfce in [False, True]:
             for tail in [-1, 0, 1]:
                 th = cluster_threshold(x, x_p, tail=tail, tfce=tfce)
@@ -57,3 +58,13 @@ class TestStatsClusters(object):  # noqa
                     assert ('start' in th.keys()) and ('step' in th.keys())
                 else:
                     assert isinstance(th, (int, float))
+        # manual tfce definition
+        th = cluster_threshold(x, x_p, tfce={'start': .5, 'step': .1})
+        assert (th['start'] == .5) and (th['step'] == .1)
+        assert (th['h_power'] == 2) and (th['e_power'] == .5)
+        # setting tfce parameters
+        th = cluster_threshold(x, x_p, tfce={'n_steps': 10, 'h_power': 1.,
+                                             'e_power': .1})
+        assert (th['h_power'] == 1.) and (th['e_power'] == .1)
+        th = cluster_threshold(x, x_p, tfce={'e_power': .1})
+        assert (th['h_power'] == 2.) and (th['e_power'] == .1)
