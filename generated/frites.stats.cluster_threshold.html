@@ -188,11 +188,11 @@
 <h1>frites.stats.cluster_threshold<a class="headerlink" href="#frites-stats-cluster-threshold" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.stats.cluster_threshold">
-<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">cluster_threshold</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">x_p</em>, <em class="sig-param">alpha=0.05</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">tfce=False</em>, <em class="sig-param">n_steps=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_cluster.html#cluster_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.cluster_threshold" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.stats.</code><code class="sig-name descname">cluster_threshold</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">x_p</em>, <em class="sig-param">alpha=0.05</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">tfce=False</em>, <em class="sig-param">n_steps=100</em>, <em class="sig-param">h_power=2</em>, <em class="sig-param">e_power=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/stats/stats_cluster.html#cluster_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.stats.cluster_threshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Threshold detection for cluster-based inferencse.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
+<dd class="field-odd"><dl>
 <dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of true effect size</p>
 </dd>
 <dt><strong>x_p</strong><span class="classifier">array_like</span></dt><dd><p>Array of permutations</p>
@@ -203,10 +203,24 @@ that the threshold is going to be the 95th percentile</p>
 <dt><strong>tail</strong><span class="classifier">{-1, 0, 1}</span></dt><dd><p>Type of comparison. Use -1 for the lower part of the distribution,
 1 for the higher part and 0 for both</p>
 </dd>
-<dt><strong>tfce</strong><span class="classifier">bool | False</span></dt><dd><p>Use Threshold Free Cluster Enhancement</p>
+<dt><strong>tfce</strong><span class="classifier">bool | False</span></dt><dd><p>Use Threshold Free Cluster Enhancement. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>True to specify that TFCE have to be used. In that case, the
+start and integration step are automatically inferred</p></li>
+<li><p>A dict that contains a ‘start’ and a ‘step’ key to manually set
+TFCE parameters. Could also use ‘e_power’ and ‘h_power’ entries</p></li>
+<li><p>A dict that is only there to set TFCE parameters n_steps, e_power
+and h_power but using the automatic starting and integration step</p></li>
+</ul>
+</div></blockquote>
 </dd>
 <dt><strong>n_steps</strong><span class="classifier">int | 100</span></dt><dd><p>Number of integration steps between the start and stoping values for
 the TFCE</p>
+</dd>
+<dt><strong>h_power</strong><span class="classifier">float | 2</span></dt><dd><p>Default H exponent of the TFCE</p>
+</dd>
+<dt><strong>e_power</strong><span class="classifier">float | .5</span></dt><dd><p>Default E exponent of the TFCE</p>
 </dd>
 </dl>
 </dd>
@@ -251,7 +265,7 @@ a ‘start’ and a ‘step’ keys (MNE convention)</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-18.</p>
+        <p>&copy; Copyright Last updated on 2020-01-16.</p>
     </footer>
 
   </body>

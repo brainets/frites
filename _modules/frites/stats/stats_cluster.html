@@ -295,7 +295,8 @@
     <span class="k">return</span> <span class="n">pvalues</span>
 
 
-<div class="viewcode-block" id="cluster_threshold"><a class="viewcode-back" href="../../../generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold">[docs]</a><span class="k">def</span> <span class="nf">cluster_threshold</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<div class="viewcode-block" id="cluster_threshold"><a class="viewcode-back" href="../../../generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold">[docs]</a><span class="k">def</span> <span class="nf">cluster_threshold</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                      <span class="n">h_power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">e_power</span><span class="o">=.</span><span class="mi">5</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Threshold detection for cluster-based inferencse.</span>
 
 <span class="sd">    Parameters</span>
@@ -311,10 +312,21 @@
 <span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
 <span class="sd">        1 for the higher part and 0 for both</span>
 <span class="sd">    tfce : bool | False</span>
-<span class="sd">        Use Threshold Free Cluster Enhancement</span>
+<span class="sd">        Use Threshold Free Cluster Enhancement. Use either :</span>
+
+<span class="sd">            * True to specify that TFCE have to be used. In that case, the</span>
+<span class="sd">              start and integration step are automatically inferred</span>
+<span class="sd">            * A dict that contains a &#39;start&#39; and a &#39;step&#39; key to manually set</span>
+<span class="sd">              TFCE parameters. Could also use &#39;e_power&#39; and &#39;h_power&#39; entries</span>
+<span class="sd">            * A dict that is only there to set TFCE parameters n_steps, e_power</span>
+<span class="sd">              and h_power but using the automatic starting and integration step</span>
 <span class="sd">    n_steps : int | 100</span>
 <span class="sd">        Number of integration steps between the start and stoping values for</span>
 <span class="sd">        the TFCE</span>
+<span class="sd">    h_power : float | 2</span>
+<span class="sd">        Default H exponent of the TFCE</span>
+<span class="sd">    e_power : float | .5</span>
+<span class="sd">        Default E exponent of the TFCE</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -326,20 +338,33 @@
                 <span class="sa">f</span><span class="s2">&quot;tfce=</span><span class="si">{tfce}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tfce</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="c1"># tfce is a dict that is only used to set MNE parameters</span>
+        <span class="c1"># (n_steps, e_power, h_power)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">n_steps</span> <span class="o">=</span> <span class="n">tfce</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_steps&#39;</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">)</span>
+            <span class="n">e_power</span> <span class="o">=</span> <span class="n">tfce</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;e_power&#39;</span><span class="p">,</span> <span class="n">e_power</span><span class="p">)</span>
+            <span class="n">h_power</span> <span class="o">=</span> <span class="n">tfce</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;h_power&#39;</span><span class="p">,</span> <span class="n">h_power</span><span class="p">)</span>
+            <span class="c1"># now that we have the parameters, reset the tfce to use auto</span>
+            <span class="c1"># in case &#39;start&#39; and &#39;step&#39; keys are absents</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;start&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tfce</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;step&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tfce</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">tfce</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span>
+                            <span class="mf">0.</span><span class="p">)</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
+                                         <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
             <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_steps</span>
             <span class="n">th</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">th</span> <span class="o">=</span> <span class="n">tfce</span>
+        <span class="n">th</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">e_power</span><span class="o">=</span><span class="n">e_power</span><span class="p">,</span> <span class="n">h_power</span><span class="o">=</span><span class="n">h_power</span><span class="p">))</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span> <span class="ow">in</span> <span class="n">th</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">]])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -380,7 +405,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2019-12-18.</p>
+        <p>&copy; Copyright Last updated on 2020-01-16.</p>
     </footer>
 
   </body>
