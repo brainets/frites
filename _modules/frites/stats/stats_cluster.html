@@ -350,15 +350,13 @@
                 <span class="n">tfce</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span>
-                            <span class="mf">0.</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
-                                         <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">),</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
                 <span class="n">stop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
             <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_steps</span>
             <span class="n">th</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
@@ -405,7 +403,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-01-16.</p>
+        <p>&copy; Copyright Last updated on 2020-01-24.</p>
     </footer>
 
   </body>
