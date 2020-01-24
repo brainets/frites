@@ -41,17 +41,21 @@ def sim_local_cc_ms(n_subjects, **kwargs):
     # get the default cluster indices and covariance
     cl_index = kwargs.get('cl_index', [40, 60])
     cl_cov = kwargs.get('cl_cov', [.8])
+    cl_sgn = kwargs.get('cl_sgn', [1])
     # repeat if not equal to subject length
     if len(cl_index) != n_subjects:
         cl_index = [cl_index] * n_subjects
     if len(cl_cov) != n_subjects:
         cl_cov = [cl_cov] * n_subjects
+    if len(cl_sgn) != n_subjects:
+        cl_sgn = cl_sgn * n_subjects
     # now generate the data
     x, y, roi = [], [], []
     for n_s in range(n_subjects):
         # re-inject the indices and covariance
         kwargs['cl_index'] = cl_index[n_s]
         kwargs['cl_cov'] = cl_cov[n_s]
+        kwargs['cl_sgn'] = cl_sgn[n_s]
         # generate the data of a single subject
         _x, _y, _roi, times = sim_local_cc_ss(random_state=n_s, **kwargs)
         # merge data
@@ -63,7 +67,7 @@ def sim_local_cc_ms(n_subjects, **kwargs):
 
 
 def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
-                    cl_cov=[.8], random_state=None):
+                    cl_cov=[.8], cl_sgn=1, random_state=None):
     """Single-subject simulations for computing local MI (CC).
 
     This function can be used for simulating local representations of mutual
@@ -83,6 +87,9 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
     cl_cov : array_like | [.8]
         Covariance level between the data and the regressor variable. Should be
         an array of shape (n_clusters,)
+    cl_sgn : {-1, 1}
+        Sign of the correlation. Use -1 for anti-correlated variables and 1
+        for correlated variables
     random_state : int | None
         Random state (use it for reproducibility)
 
@@ -109,6 +116,7 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
     # check cluster types
     cl_index, cl_cov = np.atleast_2d(cl_index), np.asarray(cl_cov)
     assert (cl_index.shape[-1] == 2) and (cl_cov.ndim == 1)
+    assert cl_sgn in [-1, 1]
     if cl_index.shape[0] == 1:
         cl_index = np.tile(cl_index, (n_roi, 1))
     if cl_cov.shape[0] == 1:
@@ -130,7 +138,7 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
         # Generate noise
         rnd_noise = np.random.RandomState(random_state + num + 1)
         noise = epsilon * rnd_noise.randn(n_epochs, l)
-        x[:, num, idx[0]:idx[1]] = y + noise
+        x[:, num, idx[0]:idx[1]] = cl_sgn * y + noise
     times = np.arange(n_times)
 
     return x, y.ravel(), roi, times
