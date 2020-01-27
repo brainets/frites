@@ -37,13 +37,13 @@ class TestMCP(object):
         for mcp in ['maxstat', 'fdr', 'bonferroni']:
             # positive tail
             pv_1 = permutation_mcp_correction(x, x_p, tail=1, mcp=mcp,
-                                              alpha=.05, inplace=False)
+                                              inplace=False)
             self.assert_equals(1, mcp, pv_1, gt_pos, p=p)
             # negative tail
             pv_m1 = permutation_mcp_correction(x, x_p, tail=-1, mcp=mcp,
-                                               alpha=.05, inplace=False)
+                                               inplace=False)
             self.assert_equals(-1, mcp, pv_m1, gt_neg, p=p)
             # both tails
             pv_2 = permutation_mcp_correction(x, x_p, tail=0, mcp=mcp,
-                                              alpha=.05, inplace=False)
+                                              inplace=False)
             self.assert_equals(0, mcp, pv_2, gt_bot, p=p)

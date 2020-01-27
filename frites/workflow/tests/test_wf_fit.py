@@ -41,18 +41,16 @@ class TestWfFit(object):
     def test_stats(self):
         # FFX
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        wf = WfFit(mi_type='cc', inference='ffx').fit(
-            ds, stat_method='ffx_cluster_fdr', **kw_fit)
+        wf = WfFit(mi_type='cc', inference='ffx').fit(ds, **kw_fit)
         # RFX
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        wf = WfFit(mi_type='cc', inference='rfx').fit(
-            ds, stat_method='rfx_cluster_ttest', **kw_fit)
+        wf = WfFit(mi_type='cc', inference='rfx').fit(ds, **kw_fit)
 
     def test_mi_methods(self):
         for meth in ['gc', 'bin']:
             ds = DatasetEphy(x, y, roi=roi, times=times)
             wf = WfFit(mi_type='cc', inference='ffx', mi_method=meth).fit(
-                ds, stat_method='ffx_cluster_fdr', **kw_fit)
+                ds, **kw_fit)
 
     def test_directed(self):
         # directed
@@ -98,3 +96,7 @@ class TestWfFit(object):
         assert wf.tvalues.shape == (n_t, n_pairs)
         assert len(wf.fit_roi) == len(wf.fitp_roi) == n_pairs
         assert len(wf.mi) == len(wf.mi_p)  == n_roi
+
+
+if __name__ == '__main__':
+    TestWfFit().test_fit_cc()

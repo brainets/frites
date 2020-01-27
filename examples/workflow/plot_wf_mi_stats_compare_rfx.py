@@ -27,7 +27,7 @@ plt.style.use('seaborn-white')
 # n_epochs, n_sites, n_times
 
 modality = 'meeg'
-n_subjects = 5
+n_subjects = 10
 n_epochs = 400
 n_times = 100
 data, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
@@ -44,7 +44,7 @@ data, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
 # analysis by computing $I(data; y)$ where `data` and `y` are two continuous
 # variables
 
-y, _ = sim_mi_cc(data, snr=.2)
+y, _ = sim_mi_cc(data, snr=.1)
 
 ###############################################################################
 # Create an electrophysiological dataset
@@ -66,29 +66,37 @@ dt = DatasetEphy(data, y, roi=roi, times=time, verbose=False)
 
 mi_type = 'cc'
 inference = 'rfx'
-wf = WfMi(mi_type, inference)
+wf = WfMi(mi_type, inference, verbose=False)
 
 ###############################################################################
 # Compute the mutual information and statistics
 # ---------------------------------------------
 
-# list of fixed-effect methods to test
-rfx_methods = ('rfx_cluster_ttest', 'rfx_cluster_ttest_tfce')
+# list of corrections for multiple comparison
+mcps = ['maxstat', 'fdr', 'bonferroni']
+kw = dict(output_type='array', n_jobs=1, n_perm=100)
+"""
+The `cluster_th` input parameter specifies how the threshold is defined.
+Use either :
+* a float for a manual threshold
+* None and it will be infered using the distribution of permutations
+* 'tfce' for a TFCE threshold
+"""
+cluster_th = None  # {float, None, 'tfce'}
 
-n_perm = 100
-n_jobs = 1
-pvalues = []
-plt.figure(figsize=(10, 8))
-for rfx in rfx_methods:
-    mi, pvalues = wf.fit(dt, n_jobs=n_jobs, n_perm=n_perm, stat_method=rfx,
-                         output_type='array')
-    # set to 1. everywhere p-values are not significants
-    pvalues[pvalues >= .05] = 1.
+for level in ['testwise', 'cluster']:
+    for mcp in mcps:
+        print(f'-> RFX / {level} level / MCP={mcp}')
+        mi, pvalues = wf.fit(dt, level=level, mcp=mcp, cluster_th=cluster_th,
+                             **kw)
+        # remove p-values that exceed 0.05
+        pvalues[pvalues >= .05] = 1.
 
-    plt.subplot(212)
-    plt.plot(time, pvalues.squeeze(), label=rfx)
-    plt.xlabel('Time (s)'), plt.ylabel("P-values")
-    plt.title("P-values (rfx)")
+        plt.subplot(212)
+        plt.plot(time, pvalues.squeeze(), label=f'ffx-{level}-{mcp}')
+        plt.xlabel('Time (s)'), plt.ylabel("P-values")
+        plt.title("P-values (rfx)")
+        plt.autoscale(tight=True, axis='x')
 plt.legend()
 
 plt.subplot(211)

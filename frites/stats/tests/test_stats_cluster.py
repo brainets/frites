@@ -1,7 +1,7 @@
 """Test cluster detection."""
 import numpy as np
 
-from frites.stats import temporal_clusters_permutation_test
+from frites.stats import temporal_clusters_permutation_test, cluster_threshold
 
 
 rnd = np.random.RandomState(0)
@@ -43,3 +43,28 @@ class TestStatsClusters(object):  # noqa
             pv_both = temporal_clusters_permutation_test(
                 mi, mi_p, th=100, tail=0, mcp=mcp)
             self._is_signi(pv_both, sl_both)
+
+    def test_cluster_threshold(self):
+        """Test function cluster_threshold."""
+        x = np.random.rand(10, 20)
+        x_p = np.random.rand(100, 10, 20)
+
+        # automatic definition
+        for tfce in [False, True]:
+            for tail in [-1, 0, 1]:
+                th = cluster_threshold(x, x_p, tail=tail, tfce=tfce)
+                if tfce:
+                    assert isinstance(th, dict)
+                    assert ('start' in th.keys()) and ('step' in th.keys())
+                else:
+                    assert isinstance(th, (int, float))
+        # manual tfce definition
+        th = cluster_threshold(x, x_p, tfce={'start': .5, 'step': .1})
+        assert (th['start'] == .5) and (th['step'] == .1)
+        assert (th['h_power'] == 2) and (th['e_power'] == .5)
+        # setting tfce parameters
+        th = cluster_threshold(x, x_p, tfce={'n_steps': 10, 'h_power': 1.,
+                                             'e_power': .1})
+        assert (th['h_power'] == 1.) and (th['e_power'] == .1)
+        th = cluster_threshold(x, x_p, tfce={'e_power': .1})
+        assert (th['h_power'] == 2.) and (th['e_power'] == .1)

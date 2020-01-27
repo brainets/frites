@@ -7,7 +7,6 @@ from frites.io import (set_log_level, logger, convert_spatiotemporal_outputs)
 from frites.core import get_core_mi_fun, permute_mi_vector
 from frites.workflow.wf_stats_ephy import WfStatsEphy
 from frites.workflow.wf_base import WfBase
-from frites.stats import STAT_FUN
 
 
 class WfMi(WfBase):
@@ -50,6 +49,10 @@ class WfMi(WfBase):
               relationships but is much slower and also required to define the
               number of bins to use. Note that if the Numba package is
               installed computations should be much faster
+    kernel : array_like | None
+        Kernel for smoothing true and permuted MI. For example, use
+        np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
+        moving average
 
     References
     ----------
@@ -57,7 +60,7 @@ class WfMi(WfBase):
     """
 
     def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
-                 mi_method='gc', verbose=None):
+                 mi_method='gc', kernel=None, verbose=None):
         """Init."""
         assert mi_type in ['cc', 'cd', 'ccd'], (
             "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
@@ -70,12 +73,13 @@ class WfMi(WfBase):
         self._mi_method = mi_method
         self._need_copnorm = mi_method == 'gc'
         self._gcrn = gcrn_per_suj
+        self._kernel = kernel
         set_log_level(verbose)
         self.clean()
+        self._wf_stats = WfStatsEphy(verbose=verbose)
 
         logger.info(f"Workflow for computing mutual information ({mi_type} - "
-                    f"{mi_method}) and statistics ({inference}) has been "
-                    f"defined")
+                    f"{mi_method})")
 
     def _node_prepare_data(self, dataset):
         """Prepare the data before computing the mi.
@@ -122,6 +126,16 @@ class WfMi(WfBase):
                 x[r], y_p[p], z[r], suj[r], inf,
                 n_bins=n_bins) for p in range(n_perm))
             mi_p += [np.asarray(_mi)]
+        # smoothing
+        if isinstance(self._kernel, np.ndarray):
+            logger.info("    Apply smoothing to the true and permuted MI")
+            for r in range(len(mi)):
+                for s in range(mi[r].shape[0]):
+                    mi[r][s, :] = np.convolve(
+                        mi[r][s, :], self._kernel, mode='same')
+                    for p in range(mi_p[r].shape[0]):
+                        mi_p[r][p, s, :] = np.convolve(
+                            mi_p[r][p, s, :], self._kernel, mode='same')
 
         self._mi, self._mi_p = mi, mi_p
 
@@ -147,9 +161,9 @@ class WfMi(WfBase):
 
         return mi, pv
 
-    def fit(self, dataset, n_perm=1000, n_bins=None, n_jobs=-1,
-            stat_method='rfx_cluster_ttest', mcp='maxstat',
-            output_type='dataframe', **kw_stats):
+    def fit(self, dataset, level='cluster', mcp='maxstat', cluster_th=None,
+            n_perm=1000, n_bins=None, n_jobs=-1, output_type='dataframe',
+            **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -167,6 +181,23 @@ class WfMi(WfBase):
         ----------
         dataset : :class:`frites.dataset.DatasetEphy`
             A dataset instance
+        level : {'testwise', 'cluster'}
+            Inference level. If 'testwise', inferences are made for each region
+            of interest and at each time point. If 'cluster', cluster-based
+            methods are used. By default, cluster-based is selected
+        mcp : {'maxstat', 'fdr', 'bonferroni'}
+            Method to use for correcting p-values for the multiple comparison
+            problem. By default, maximum statistics is used. If `level` is
+            'testwise', MCP is performed across space and time while if `level`
+            is 'cluster', MCP is performed on cluster mass. By default,
+            maximum statistics is usd
+        cluster_th : str, float | None
+            The threshold to use for forming clusters. Use either :
+
+                * a float that is going to act as a threshold
+                * None and the threshold is automatically going to be inferred
+                  using the distribution of permutations
+                * 'tfce' : for Threshold Free Cluster Enhancement
         n_perm : int | 1000
             Number of permutations to perform in order to estimate the random
             distribution of mi that can be obtained by chance
@@ -178,12 +209,6 @@ class WfMi(WfBase):
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
-        stat_method : string | "rfx_cluster_ttest"
-            Statistical method to use. For further details, see
-            :class:`frites.WfStatsEphy.fit`
-        mcp : {'maxstat', 'fdr', 'bonferroni'}
-            Method to use for correcting p-values for the multiple comparison
-            problem. By default, the maximum-statistics is used.
         output_type : {'array', 'dataframe', 'dataarray'}
             Output format of the returned mutual information and p-values. For
             details, see :func:`frites.io.convert_spatiotemporal_outputs`
@@ -202,15 +227,14 @@ class WfMi(WfBase):
         Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`
         """
         # ---------------------------------------------------------------------
-        # if stat_method is None, avoid computing permutations
+        # prepare variables
         # ---------------------------------------------------------------------
-        if stat_method is not 'discard_stats':
-            if not self._check_stat(self._inference, stat_method):
-                n_perm = 0
-
-        # ---------------------------------------------------------------------
-        # prepare variables that are going to be needed
-        # ---------------------------------------------------------------------
+        """Internally, if `level` is 'nostat', permutations are computed but
+        not statistics. If `level` is 'noperm' (or None), no permutations and
+        no stats are computed neither.
+        """
+        if level in ['noperm', None]:
+            n_perm = 0
         # infer the number of bins if needed
         if (self._mi_method is 'bin') and not isinstance(n_bins, int):
             n_bins = 4
@@ -228,15 +252,14 @@ class WfMi(WfBase):
             mi, mi_p = self._mi, self._mi_p
         else:
             self._node_prepare_data(dataset)
-            mi, mi_p = self._node_compute_mi(dataset, n_perm=n_perm,
-                                             n_bins=self._n_bins,
-                                             n_jobs=n_jobs)
+            mi, mi_p = self._node_compute_mi(
+                dataset, n_perm=n_perm, n_bins=self._n_bins, n_jobs=n_jobs)
         """
         For information transfer (e.g FIT) we only need to compute the true and
         permuted mi but then, the statistics at the local representation level
         are discarded in favor of statistics on the information transfer
         """
-        if stat_method is 'discard_stats':
+        if level is 'nostat':
             logger.debug("Permutations computed. Stop there")
             return None
 
@@ -244,9 +267,9 @@ class WfMi(WfBase):
         # compute statistics
         # ---------------------------------------------------------------------
         # infer p-values and t-values
-        self._wf_stats = WfStatsEphy()
-        pvalues, tvalues = self._wf_stats.fit(
-            mi, mi_p, stat_method=stat_method, mcp=mcp, **kw_stats)
+        pvalues, tvalues = self._wf_stats.fit(mi, mi_p, level=level, mcp=mcp,
+            cluster_th=cluster_th, inference=self._inference, tail=1,
+            **kw_stats)
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions

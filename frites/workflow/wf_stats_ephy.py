@@ -3,7 +3,10 @@ import logging
 
 import numpy as np
 
-from frites.stats import STAT_FUN
+from frites.stats.stats_mcp import permutation_mcp_correction
+from frites.stats.stats_cluster import (temporal_clusters_permutation_test,
+                                        cluster_threshold)
+from frites.stats.stats_param import rfx_ttest
 from frites.io import set_log_level
 
 logger = logging.getLogger("frites")
@@ -26,8 +29,8 @@ class WfStatsEphy(object):
         set_log_level(verbose)
         logger.info("Definition of a non-parametric statistical workflow")
 
-    def fit(self, effect, perms, stat_method="rfx_cluster_ttest",
-            mcp='maxstat', ttested=False, **kw_stats):
+    def fit(self, effect, perms, inference='rfx', level='cluster',
+            mcp='maxstat', tail=1, cluster_th=None, ttested=False):
         """Fit the workflow on true data.
 
         Parameters
@@ -40,46 +43,32 @@ class WfStatsEphy(object):
             Permutation list of length (n_roi,) composed of arrays each one of
             shape (n_perm, n_subjects, n_times). Number of subjects per ROI
             could be different
-        stat_method : string | "rfx_cluster_ttest"
-            Statistical method to use. Method names depends on the initial
-            choice of inference type (ffx=fixed effect or rfx=random effect).
-
-            **For the fixed effect (ffx) :**
-
-                * 'ffx_maxstat' : maximum statistics correction (see
-                  :func:`frites.stats.ffx_maxstat`)
-                * 'ffx_fdr' : False Discovery Rate correction (see
-                  :func:`frites.stats.ffx_fdr`)
-                * 'ffx_bonferroni' : Bonferroni correction (see
-                  :func:`frites.stats.ffx_bonferroni`)
-                * 'ffx_cluster_maxstat' : maximum statistics correction at
-                  cluster level (see :func:`frites.stats.ffx_cluster_maxstat`)
-                * 'ffx_cluster_fdr' : False Discovery Rate correction at
-                  cluster level (see :func:`frites.stats.ffx_cluster_fdr`)
-                * 'ffx_cluster_bonferroni' : Bonferroni correction at
-                  cluster level (see
-                  :func:`frites.stats.ffx_cluster_bonferroni`)
-                * 'ffx_cluster_tfce' : Threshold Free Cluster Enhancement for
-                  cluster level inference (see
-                  :func:`frites.stats.ffx_cluster_tfce`
-                  :cite:`smith2009threshold`)
-
-            **For the random effect (rfx) :**
-
-                * 'rfx_cluster_ttest' : t-test across subjects for cluster
-                  level inference (see :func:`frites.stats.rfx_cluster_ttest`)
-                * 'rfx_cluster_ttest_tfce' : t-test across subjects combined
-                  with the Threshold Free Cluster Enhancement for cluster level
-                  inference (see :func:`frites.stats.rfx_cluster_ttest_tfce`
-                  :cite:`smith2009threshold`)
+        inference : {'ffx', 'rfx'}
+            Perform either Fixed-effect ('ffx') or Random-effect ('rfx')
+            inferences. By default, random-effect is used
+        level : {'testwise', 'cluster'}
+            Inference level. If 'testwise', inferences are made for each region
+            of interest and at each time point. If 'cluster', cluster-based
+            methods are used. By default, cluster-based is selected
         mcp : {'maxstat', 'fdr', 'bonferroni'}
             Method to use for correcting p-values for the multiple comparison
-            problem. By default, the maximum-statistics is used.
+            problem. By default, maximum statistics is used. If `level` is
+            'testwise', MCP is performed across space and time while if `level`
+            is 'cluster', MCP is performed on cluster mass. By default,
+            maximum statistics is usd
+        tail : {-1, 0, 1}
+            Type of comparison. Use -1 for the lower part of the distribution,
+            1 for the higher part and 0 for both. By default, upper tail of the
+            distribution is used
+        cluster_th : str, float | None
+            The threshold to use for forming clusters. Use either :
+
+                * a float that is going to act as a threshold
+                * None and the threshold is automatically going to be inferred
+                  using the distribution of permutations
+                * 'tfce' : for Threshold Free Cluster Enhancement
         ttested : bool | False
             Specify if the inputs have already been t-tested
-        kw_stats : dict | {}
-            Additional arguments to pass to the selected statistical method
-            selected using the `stat_method` input parameter
 
         Returns
         -------
@@ -88,59 +77,76 @@ class WfStatsEphy(object):
         tvalues : array_like
             Array of t-values of shape (n_times, n_n_roi). This ouput is only
             computed for group-level analysis
+
+        References
+        ----------
+        Smith and Nichols, 2009 :cite:`smith2009threshold`
         """
         # ---------------------------------------------------------------------
         # check inputs
         # ---------------------------------------------------------------------
+        assert inference in ['ffx', 'rfx']
+        assert level in ['testwise', 'cluster', None]
         assert isinstance(effect, list) and isinstance(perms, list)
         assert all([isinstance(k, np.ndarray) and k.ndim == 2 for k in effect])
         n_roi, n_times, tvalues = len(effect), effect[0].shape[1], None
-        # don't compute statistics if stat_method is None
-        if (stat_method is None) or not len(perms):
+        # don't compute statistics if `level` is None
+        if (level is None) or not len(perms):
             return np.ones((n_times, n_roi), dtype=float), tvalues
         assert all([isinstance(k, np.ndarray) and k.ndim == 3 for k in perms])
         assert len(effect) == len(perms)
 
         # ---------------------------------------------------------------------
-        # check that the selected method does exist
+        # FFX / RFX
         # ---------------------------------------------------------------------
-        inference = stat_method[0:3]
-        if stat_method not in STAT_FUN[inference].keys():
-            m_names = [k.__name__ for k in STAT_FUN[inference].values()]
-            raise KeyError(f"Selected statistical method `{stat_method}` "
-                           f"doesn't exist. For {inference} inference, "
-                           f"use either : {', '.join(m_names)}")
-        stat_fun = STAT_FUN[inference][stat_method]
+        nb_suj_roi = [k.shape[0] for k in effect]
+        if inference is 'ffx':
+            # check that the number of subjects is 1
+            ffx_suj = np.max(nb_suj_roi) == 1
+            assert ffx_suj, "For FFX, `n_subjects` should be 1"
+            es, es_p = effect, perms
+            logger.info("    Fixed-effect inference (FFX)")
+            # es = (n_roi, n_times); es_p = (n_perm, n_roi, n_times)
+            es, es_p = np.concatenate(es, axis=0), np.concatenate(es_p, axis=1)
+        elif inference is 'rfx':
+            if ttested:
+                es = np.concatenate(effect, axis=0)
+                es_p = np.concatenate(perms, axis=1)
+            else:
+                # check that the number of subjects is > 1
+                rfx_suj = np.min(nb_suj_roi) > 1
+                assert rfx_suj, "For RFX, `n_subjects` should be > 1"
+                # modelise how subjects are distributed
+                es, es_p = rfx_ttest(effect, perms)
+            tvalues = es
 
         # ---------------------------------------------------------------------
-        # compute stats according to inference type
+        # cluster forming threshold
         # ---------------------------------------------------------------------
-        level = 'cluster' if 'cluster' in stat_fun.__name__ else "time-point"
-        logger.info(f"    Run the statistical workflow ({stat_method}) for "
-                    f"inferences at the {level}-level")
-        if inference == 'ffx':
-            # for the fixed effect, since it's computed across subjects it
-            # means that each roi has an mi.shape of (1, n_times) and can then
-            # been concatenated over the first axis. Same for the permutations,
-            # with a shape of (n_perm, 1, n_times)
-            effect = np.concatenate(effect, axis=0)
-            perms = np.concatenate(perms, axis=1)
-            # compute the p-values
-            pvalues = stat_fun(effect, perms, **kw_stats)
-        elif inference == 'rfx':
-            # for random effect, the number of subjects can't be bellow 2
-            # other wise the t-test is going to failed
-            n_suj_roi = [k.shape[0] for k in effect]
-            n_suj_min, n_suj_argmin = np.min(n_suj_roi), np.argmin(n_suj_roi)
-            if (n_suj_min < 2) and not ttested:
-                raise ValueError(
-                    f"The number of subjects of roi {n_suj_argmin} has "
-                    f"{n_suj_min} subjects. The minimum number of subjects for"
-                    " random effect should not be under 2.")
-            kw_stats['mcp'] = mcp
-            # compute p-values and t-values
-            pvalues, tvalues = stat_fun(effect, perms, ttested=ttested,
-                                        **kw_stats)
+        if level is 'cluster':
+            if isinstance(cluster_th, (int, float)):
+                th, tfce = cluster_th, None
+            else:
+                if (cluster_th is 'tfce'):          # TFCE auto
+                    tfce = True
+                elif isinstance(cluster_th, dict):  # TFCE manual
+                    tfce = cluster_th
+                else:
+                    tfce = None                     # cluster_th is None
+                th = cluster_threshold(es, es_p, alpha=.05, tail=tail,
+                                       tfce=tfce)
+
+        # ---------------------------------------------------------------------
+        # test-wise or cluster-based
+        # ---------------------------------------------------------------------
+        if level is 'testwise':
+            logger.info('    Inference at spatio-temporal level (test-wise)')
+            es_p = np.moveaxis(es_p, 0, -1)
+            pvalues = permutation_mcp_correction(es, es_p, tail=tail, mcp=mcp)
+        elif level is 'cluster':
+            logger.info('    Inference at cluster level')
+            pvalues = temporal_clusters_permutation_test(
+                es, es_p, th, tail=tail, mcp=mcp)
 
         # ---------------------------------------------------------------------
         # postprocessing

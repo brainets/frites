@@ -6,6 +6,9 @@ from frites.simulations import (sim_multi_suj_ephy, sim_mi_cc, sim_mi_cd,
                                 sim_mi_ccd)
 from frites.dataset import DatasetEphy
 
+from time import time as tst
+
+
 modality = 'meeg'
 n_subjects = 5
 n_epochs = 30
@@ -27,7 +30,7 @@ class TestWfMi(object):  # noqa
 
     def test_definition(self):
         """Test workflow definition."""
-        WfMi('cc', 'rfx')
+        WfMi(mi_type='cc', inference='rfx')
 
     def test_mi_cc(self):
         """Test method fit."""
@@ -37,10 +40,9 @@ class TestWfMi(object):  # noqa
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x, y, roi, times=time)
             WfMi(mi_type='cc', inference='ffx', mi_method=mi_meth,
-                 verbose=False).fit(dt, stat_method='ffx_fdr', **kw_mi)
+                 verbose=False).fit(dt, **kw_mi)
             WfMi(mi_type='cc', inference='rfx', mi_method=mi_meth,
-                 verbose=False).fit(dt, stat_method='rfx_cluster_ttest',
-                                    **kw_mi)
+                 verbose=False).fit(dt, **kw_mi)
 
     def test_mi_cd(self):
         """Test method fit."""
@@ -50,16 +52,9 @@ class TestWfMi(object):  # noqa
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x_s, y, roi, times=time)
             WfMi(mi_type='cd', inference='ffx', mi_method=mi_meth,
-                 verbose=False).fit(dt, stat_method='ffx_fdr', **kw_mi)
+                 verbose=False).fit(dt, **kw_mi)
             WfMi(mi_type='cd', inference='rfx', mi_method=mi_meth,
-                 verbose=False).fit(dt, stat_method='rfx_cluster_ttest',
-                                    **kw_mi)
-        # key error testing
-        try:
-            wf = WfMi(mi_type='cd', verbose=False)
-            wf.fit(dt, stat_method="eat_potatoes", **kw_mi)
-        except KeyError:
-            pass
+                 verbose=False).fit(dt, **kw_mi)
 
     def test_mi_ccd(self):
         """Test method fit."""
@@ -69,10 +64,9 @@ class TestWfMi(object):  # noqa
         for mi_meth in ['gc', 'bin']:
             dt = DatasetEphy(x, y, roi, z=z, times=time)
             WfMi(mi_type='ccd', inference='ffx', mi_method=mi_meth,
-                 verbose=False).fit(dt, stat_method='ffx_fdr', **kw_mi)
+                 verbose=False).fit(dt, **kw_mi)
             WfMi(mi_type='ccd', inference='rfx', mi_method=mi_meth,
-                 verbose=False).fit(dt, stat_method='rfx_cluster_ttest',
-                                    **kw_mi)
+                 verbose=False).fit(dt, **kw_mi)
 
     def test_output_type(self):
         """Test function output_type."""
@@ -82,19 +76,41 @@ class TestWfMi(object):  # noqa
         dt = DatasetEphy(x, y, roi, times=time)
         wf = WfMi('cc', 'ffx', verbose=False)
         # array
-        mi, pv = wf.fit(dt, stat_method='ffx_maxstat', output_type='array',
-                        **kw_mi)
+        mi, pv = wf.fit(dt, output_type='array', **kw_mi)
         assert all([isinstance(k, np.ndarray) for k in [mi, pv]])
         # dataframe
-        mi, pv = wf.fit(dt, stat_method='ffx_maxstat', output_type='dataframe',
-                        **kw_mi)
+        mi, pv = wf.fit(dt, output_type='dataframe', **kw_mi)
         assert all([isinstance(k, pd.DataFrame) for k in [mi, pv]])
         # dataarray
-        mi, pv = wf.fit(dt, stat_method='ffx_maxstat', output_type='dataarray',
-                        **kw_mi)
+        mi, pv = wf.fit(dt, output_type='dataarray', **kw_mi)
         assert all([isinstance(k, DataArray) for k in [mi, pv]])
         # test clean
         mi, mi_p = wf.mi, wf.mi_p
         assert all([isinstance(k, list) for k in [mi, mi_p]])
         wf.clean()
         assert len(wf.mi) == len(wf.mi_p) == 0
+
+    def test_no_stat(self):
+        """Test on no stats / no permutations / don't repeat computations."""
+        y, gt = sim_mi_cc(x, snr=1.)
+        dt = DatasetEphy(x, y, roi, times=time)
+        # compute permutations but not statistics
+        kernel = np.hanning(3)
+        wf = WfMi('cc', 'ffx', kernel=kernel, verbose=False)
+        wf.fit(dt, level='nostat', **kw_mi)
+        assert len(wf.mi) == len(wf.mi_p) == n_roi
+        assert len(wf.mi_p[0].shape) != 0
+        # don't compute permutations nor stats
+        wf = WfMi('cc', 'ffx', verbose=False)
+        mi, pv = wf.fit(dt, level=None, output_type='array', **kw_mi)
+        assert wf.mi_p[0].shape == (0,)
+        assert pv.min() == pv.max() == 1.
+        # don't compute permutations twice
+        wf = WfMi('cc', 'ffx', verbose=False)
+        t_start_1 = tst()
+        wf.fit(dt, mcp='fdr', **kw_mi)
+        t_end_1 = tst()
+        t_start_2 = tst()
+        wf.fit(dt, mcp='maxstat', **kw_mi)
+        t_end_2 = tst()
+        assert t_end_1 - t_start_1 > t_end_2 - t_start_2

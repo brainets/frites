@@ -53,19 +53,13 @@ Statistics
    :no-members:
    :no-inherited-members:
 
-Fixed effect (ffx)
-++++++++++++++++++
+Correction for multiple comparisons
++++++++++++++++++++++++++++++++++++
 
 .. autosummary::
    :toctree: generated/
 
-   ffx_maxstat
-   ffx_fdr
-   ffx_bonferroni
-   ffx_cluster_maxstat
-   ffx_cluster_fdr
-   ffx_cluster_bonferroni
-   ffx_cluster_tfce
+   permutation_mcp_correction
 
 
 Random effect (rfx)
@@ -74,16 +68,17 @@ Random effect (rfx)
 .. autosummary::
    :toctree: generated/
 
-   rfx_cluster_ttest
-   rfx_cluster_ttest_tfce
+   ttest_1samp
+   rfx_ttest
 
-Cluster
-+++++++
+Clustering
+++++++++++
 
 .. autosummary::
    :toctree: generated/
 
    temporal_clusters_permutation_test
+   cluster_threshold
 
 .. raw:: html
 
