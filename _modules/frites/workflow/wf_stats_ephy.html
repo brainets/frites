@@ -316,6 +316,7 @@
                     <span class="n">tfce</span> <span class="o">=</span> <span class="kc">None</span>                     <span class="c1"># cluster_th is None</span>
                 <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_threshold</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
                                        <span class="n">tfce</span><span class="o">=</span><span class="n">tfce</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cluster_th</span> <span class="o">=</span> <span class="n">cluster_th</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># test-wise or cluster-based</span>
@@ -337,7 +338,12 @@
             <span class="n">tvalues</span> <span class="o">=</span> <span class="n">tvalues</span><span class="o">.</span><span class="n">T</span>
         <span class="n">pvalues</span> <span class="o">=</span> <span class="n">pvalues</span><span class="o">.</span><span class="n">T</span>
 
-        <span class="k">return</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span></div></div>
+        <span class="k">return</span> <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cluster_th</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cluster forming threshold.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cluster_th</span></div>
 </pre></div>
 
     </div>
@@ -368,7 +374,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-01-24.</p>
+        <p>&copy; Copyright Last updated on 2020-02-07.</p>
     </footer>
 
   </body>
