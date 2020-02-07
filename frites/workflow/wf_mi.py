@@ -308,3 +308,9 @@ class WfMi(WfBase):
         """T-values array of shape (n_times, n_roi) when group level analysis
         is selected."""
         return self._tvalues
+
+    @property
+    def wf_stats(self):
+        """Get the workflow of statistics."""
+        return self._wf_stats
+    

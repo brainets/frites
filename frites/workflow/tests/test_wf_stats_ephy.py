@@ -79,3 +79,5 @@ class TestWfStatsEphy(object):  # noqa
                           cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
                 self._testing(gt_bot.T, pv, kw)
+
+        assert wf.cluster_th is 'tfce'

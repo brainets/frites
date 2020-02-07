@@ -135,6 +135,7 @@ class WfStatsEphy(object):
                     tfce = None                     # cluster_th is None
                 th = cluster_threshold(es, es_p, alpha=.05, tail=tail,
                                        tfce=tfce)
+                self._cluster_th = cluster_th
 
         # ---------------------------------------------------------------------
         # test-wise or cluster-based
@@ -157,3 +158,8 @@ class WfStatsEphy(object):
         pvalues = pvalues.T
 
         return pvalues, tvalues
+
+    @property
+    def cluster_th(self):
+        """Cluster forming threshold."""
+        return self._cluster_th
