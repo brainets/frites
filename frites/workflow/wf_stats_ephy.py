@@ -30,7 +30,8 @@ class WfStatsEphy(object):
         logger.info("Definition of a non-parametric statistical workflow")
 
     def fit(self, effect, perms, inference='rfx', level='cluster',
-            mcp='maxstat', tail=1, cluster_th=None, ttested=False):
+            mcp='maxstat', tail=1, cluster_th=None, cluster_alpha=0.05,
+            ttested=False):
         """Fit the workflow on true data.
 
         Parameters
@@ -67,6 +68,9 @@ class WfStatsEphy(object):
                 * None and the threshold is automatically going to be inferred
                   using the distribution of permutations
                 * 'tfce' : for Threshold Free Cluster Enhancement
+        cluster_alpha : float | 0.05
+            Control the percentile to use for forming the clusters. By default
+            the 95th percentile of the permutations is used.
         ttested : bool | False
             Specify if the inputs have already been t-tested
 
@@ -133,8 +137,9 @@ class WfStatsEphy(object):
                     tfce = cluster_th
                 else:
                     tfce = None                     # cluster_th is None
-                th = cluster_threshold(es, es_p, alpha=.05, tail=tail,
-                                       tfce=tfce)
+                th = cluster_threshold(es, es_p, alpha=cluster_alpha,
+                                       tail=tail, tfce=tfce)
+                self._cluster_th = cluster_th
 
         # ---------------------------------------------------------------------
         # test-wise or cluster-based
@@ -157,3 +162,8 @@ class WfStatsEphy(object):
         pvalues = pvalues.T
 
         return pvalues, tvalues
+
+    @property
+    def cluster_th(self):
+        """Cluster forming threshold."""
+        return self._cluster_th

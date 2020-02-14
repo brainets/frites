@@ -161,9 +161,9 @@ class WfMi(WfBase):
 
         return mi, pv
 
-    def fit(self, dataset, level='cluster', mcp='maxstat', cluster_th=None,
-            n_perm=1000, n_bins=None, n_jobs=-1, output_type='dataframe',
-            **kw_stats):
+    def fit(self, dataset, level='cluster', mcp='maxstat', n_perm=1000,
+            cluster_th=None, cluster_alpha=0.05, n_bins=None, n_jobs=-1,
+            output_type='dataframe', **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -191,6 +191,9 @@ class WfMi(WfBase):
             'testwise', MCP is performed across space and time while if `level`
             is 'cluster', MCP is performed on cluster mass. By default,
             maximum statistics is usd
+        n_perm : int | 1000
+            Number of permutations to perform in order to estimate the random
+            distribution of mi that can be obtained by chance
         cluster_th : str, float | None
             The threshold to use for forming clusters. Use either :
 
@@ -198,9 +201,9 @@ class WfMi(WfBase):
                 * None and the threshold is automatically going to be inferred
                   using the distribution of permutations
                 * 'tfce' : for Threshold Free Cluster Enhancement
-        n_perm : int | 1000
-            Number of permutations to perform in order to estimate the random
-            distribution of mi that can be obtained by chance
+        cluster_alpha : float | 0.05
+            Control the percentile to use for forming the clusters. By default
+            the 95th percentile of the permutations is used.
         n_bins : int | None
             Number of bins to use if the method for computing the mutual
             information is based on binning (mi_method='bin'). If None, the
@@ -268,8 +271,8 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # infer p-values and t-values
         pvalues, tvalues = self._wf_stats.fit(mi, mi_p, level=level, mcp=mcp,
-            cluster_th=cluster_th, inference=self._inference, tail=1,
-            **kw_stats)
+            cluster_th=cluster_th, cluster_alpha=cluster_alpha, tail=1,
+            inference=self._inference, **kw_stats)
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions
@@ -308,3 +311,9 @@ class WfMi(WfBase):
         """T-values array of shape (n_times, n_roi) when group level analysis
         is selected."""
         return self._tvalues
+
+    @property
+    def wf_stats(self):
+        """Get the workflow of statistics."""
+        return self._wf_stats
+    
