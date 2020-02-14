@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -233,7 +233,7 @@ temporal clusters).</p>
 </table>
 <dl class="method">
 <dt id="frites.workflow.WfStatsEphy.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">ttested=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">ttested=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the workflow on true data.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -272,6 +272,9 @@ using the distribution of permutations</p></li>
 <li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
 </ul>
 </div></blockquote>
+</dd>
+<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
+the 95th percentile of the permutations is used.</p>
 </dd>
 <dt><strong>ttested</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the inputs have already been t-tested</p>
 </dd>
@@ -330,7 +333,7 @@ computed for group-level analysis</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-07.</p>
+        <p>&copy; Copyright Last updated on 2020-02-14.</p>
     </footer>
 
   </body>

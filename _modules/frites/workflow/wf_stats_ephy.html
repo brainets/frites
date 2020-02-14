@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -211,7 +211,8 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Definition of a non-parametric statistical workflow&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WfStatsEphy.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+            <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fit the workflow on true data.</span>
 
 <span class="sd">        Parameters</span>
@@ -248,6 +249,9 @@
 <span class="sd">                * None and the threshold is automatically going to be inferred</span>
 <span class="sd">                  using the distribution of permutations</span>
 <span class="sd">                * &#39;tfce&#39; : for Threshold Free Cluster Enhancement</span>
+<span class="sd">        cluster_alpha : float | 0.05</span>
+<span class="sd">            Control the percentile to use for forming the clusters. By default</span>
+<span class="sd">            the 95th percentile of the permutations is used.</span>
 <span class="sd">        ttested : bool | False</span>
 <span class="sd">            Specify if the inputs have already been t-tested</span>
 
@@ -314,8 +318,8 @@
                     <span class="n">tfce</span> <span class="o">=</span> <span class="n">cluster_th</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">tfce</span> <span class="o">=</span> <span class="kc">None</span>                     <span class="c1"># cluster_th is None</span>
-                <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_threshold</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
-                                       <span class="n">tfce</span><span class="o">=</span><span class="n">tfce</span><span class="p">)</span>
+                <span class="n">th</span> <span class="o">=</span> <span class="n">cluster_threshold</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span>
+                                       <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="n">tfce</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_cluster_th</span> <span class="o">=</span> <span class="n">cluster_th</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
@@ -374,7 +378,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-07.</p>
+        <p>&copy; Copyright Last updated on 2020-02-14.</p>
     </footer>
 
   </body>

@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -318,8 +318,8 @@
 
 
 <div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute the Feature Specific Information transfer and statistics.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -342,25 +342,36 @@
 <span class="sd">        directed : bool | True</span>
 <span class="sd">            Use either a directed FIT (True) or un-directed (False) which is</span>
 <span class="sd">            defined as FIT(s -&gt; t) - FIT(t -&gt; s)</span>
+<span class="sd">        level : {&#39;testwise&#39;, &#39;cluster&#39;}</span>
+<span class="sd">            Inference level. If &#39;testwise&#39;, inferences are made for each region</span>
+<span class="sd">            of interest and at each time point. If &#39;cluster&#39;, cluster-based</span>
+<span class="sd">            methods are used. By default, cluster-based is selected</span>
+<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
+<span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
+<span class="sd">            problem. By default, the maximum-statistics is used.</span>
+<span class="sd">        cluster_th : str, float | None</span>
+<span class="sd">            The threshold to use for forming clusters. Use either :</span>
+
+<span class="sd">                * a float that is going to act as a threshold</span>
+<span class="sd">                * None and the threshold is automatically going to be inferred</span>
+<span class="sd">                  using the distribution of permutations</span>
+<span class="sd">                * &#39;tfce&#39; : for Threshold Free Cluster Enhancement</span>
+<span class="sd">        cluster_alpha : float | 0.05</span>
+<span class="sd">            Control the percentile to use for forming the clusters. By default</span>
+<span class="sd">            the 95th percentile of the permutations is used.</span>
 <span class="sd">        n_perm : int | 1000</span>
 <span class="sd">            Number of permutations to perform in order to estimate the random</span>
 <span class="sd">            distribution of mi that can be obtained by chance</span>
 <span class="sd">        n_jobs : int | -1</span>
 <span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">            jobs)</span>
-<span class="sd">        stat_method : string | &quot;rfx_cluster_ttest&quot;</span>
-<span class="sd">            Statistical method to use. For further details, see</span>
-<span class="sd">            :class:`frites.WfStatsEphy.fit`</span>
-<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
-<span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
-<span class="sd">            problem. By default, the maximum-statistics is used.</span>
 <span class="sd">        output_type : string</span>
 <span class="sd">            Output format of the returned FIT and p-values. For details, see</span>
 <span class="sd">            :func:`frites.io.convert_dfc_outputs`. Use either &#39;2d_array&#39;,</span>
 <span class="sd">            &#39;3d_array&#39;, &#39;2d_dataframe&#39;, &#39;3d_dataframe&#39;, &#39;dataarray&#39;.</span>
 <span class="sd">        kw_stats : dict | {}</span>
-<span class="sd">            Additional arguments to pass to the selected statistical method</span>
-<span class="sd">            selected using the `stat_method` input parameter</span>
+<span class="sd">            Additional arguments to pass to the :class:`WfStatsEphy.fit`</span>
+<span class="sd">            method</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -404,7 +415,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
         <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span>
             <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span>
-            <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># post-processing</span>
@@ -581,7 +592,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-07.</p>
+        <p>&copy; Copyright Last updated on 2020-02-14.</p>
     </footer>
 
   </body>

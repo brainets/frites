@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -342,9 +342,9 @@
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span>
 
-<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+            <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -372,6 +372,9 @@
 <span class="sd">            &#39;testwise&#39;, MCP is performed across space and time while if `level`</span>
 <span class="sd">            is &#39;cluster&#39;, MCP is performed on cluster mass. By default,</span>
 <span class="sd">            maximum statistics is usd</span>
+<span class="sd">        n_perm : int | 1000</span>
+<span class="sd">            Number of permutations to perform in order to estimate the random</span>
+<span class="sd">            distribution of mi that can be obtained by chance</span>
 <span class="sd">        cluster_th : str, float | None</span>
 <span class="sd">            The threshold to use for forming clusters. Use either :</span>
 
@@ -379,9 +382,9 @@
 <span class="sd">                * None and the threshold is automatically going to be inferred</span>
 <span class="sd">                  using the distribution of permutations</span>
 <span class="sd">                * &#39;tfce&#39; : for Threshold Free Cluster Enhancement</span>
-<span class="sd">        n_perm : int | 1000</span>
-<span class="sd">            Number of permutations to perform in order to estimate the random</span>
-<span class="sd">            distribution of mi that can be obtained by chance</span>
+<span class="sd">        cluster_alpha : float | 0.05</span>
+<span class="sd">            Control the percentile to use for forming the clusters. By default</span>
+<span class="sd">            the 95th percentile of the permutations is used.</span>
 <span class="sd">        n_bins : int | None</span>
 <span class="sd">            Number of bins to use if the method for computing the mutual</span>
 <span class="sd">            information is based on binning (mi_method=&#39;bin&#39;). If None, the</span>
@@ -449,8 +452,8 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># infer p-values and t-values</span>
         <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span>
-            <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+            <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing and conversions</span>
@@ -525,7 +528,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-07.</p>
+        <p>&copy; Copyright Last updated on 2020-02-14.</p>
     </footer>
 
   </body>

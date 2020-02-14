@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -306,7 +306,7 @@ moving average</p>
 
 <dl class="method">
 <dt id="frites.workflow.WfFit.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">directed=True</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">directed=True</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Feature Specific Information transfer and statistics.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -328,24 +328,38 @@ precise about its spatio-temporal properties
 <dt><strong>directed</strong><span class="classifier">bool | True</span></dt><dd><p>Use either a directed FIT (True) or un-directed (False) which is
 defined as FIT(s -&gt; t) - FIT(t -&gt; s)</p>
 </dd>
+<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
+of interest and at each time point. If ‘cluster’, cluster-based
+methods are used. By default, cluster-based is selected</p>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. By default, the maximum-statistics is used.</p>
+</dd>
+<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a float that is going to act as a threshold</p></li>
+<li><p>None and the threshold is automatically going to be inferred
+using the distribution of permutations</p></li>
+<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
+the 95th percentile of the permutations is used.</p>
+</dd>
 <dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
 distribution of mi that can be obtained by chance</p>
 </dd>
 <dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs)</p>
 </dd>
-<dt><strong>stat_method</strong><span class="classifier">string | “rfx_cluster_ttest”</span></dt><dd><p>Statistical method to use. For further details, see
-<code class="xref py py-class docutils literal notranslate"><span class="pre">frites.WfStatsEphy.fit</span></code></p>
-</dd>
-<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
-problem. By default, the maximum-statistics is used.</p>
-</dd>
 <dt><strong>output_type</strong><span class="classifier">string</span></dt><dd><p>Output format of the returned FIT and p-values. For details, see
 <a class="reference internal" href="frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs" title="frites.io.convert_dfc_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.io.convert_dfc_outputs()</span></code></a>. Use either ‘2d_array’,
 ‘3d_array’, ‘2d_dataframe’, ‘3d_dataframe’, ‘dataarray’.</p>
 </dd>
-<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
-selected using the <cite>stat_method</cite> input parameter</p>
+<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the <a class="reference internal" href="frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-class docutils literal notranslate"><span class="pre">WfStatsEphy.fit</span></code></a>
+method</p>
 </dd>
 </dl>
 </dd>
@@ -458,7 +472,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-07.</p>
+        <p>&copy; Copyright Last updated on 2020-02-14.</p>
     </footer>
 
   </body>

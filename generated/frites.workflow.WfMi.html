@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -263,7 +263,7 @@ moving average</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, level, mcp, cluster_th, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, level, mcp, n_perm, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
@@ -297,7 +297,7 @@ moving average</p>
 
 <dl class="method">
 <dt id="frites.workflow.WfMi.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -324,6 +324,9 @@ problem. By default, maximum statistics is used. If <cite>level</cite> is
 is ‘cluster’, MCP is performed on cluster mass. By default,
 maximum statistics is usd</p>
 </dd>
+<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
+distribution of mi that can be obtained by chance</p>
+</dd>
 <dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
 <blockquote>
 <div><ul class="simple">
@@ -334,8 +337,8 @@ using the distribution of permutations</p></li>
 </ul>
 </div></blockquote>
 </dd>
-<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
-distribution of mi that can be obtained by chance</p>
+<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
+the 95th percentile of the permutations is used.</p>
 </dd>
 <dt><strong>n_bins</strong><span class="classifier">int | None</span></dt><dd><p>Number of bins to use if the method for computing the mutual
 information is based on binning (mi_method=’bin’). If None, the
@@ -427,7 +430,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-07.</p>
+        <p>&copy; Copyright Last updated on 2020-02-14.</p>
     </footer>
 
   </body>
