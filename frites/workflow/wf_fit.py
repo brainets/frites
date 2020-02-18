@@ -213,7 +213,7 @@ class WfFit(WfBase):
         n_times = len(times)
         # rebuild time vector
         max_delay = np.float32(max_delay)
-        max_delay_i = n_times - len(np.where(times > times[0] + max_delay)[0])
+        max_delay_i = n_times - len(np.where(times > times[0] + max_delay)[0]) - 1
         self._times = times[max_delay_i:]
 
         # ---------------------------------------------------------------------
