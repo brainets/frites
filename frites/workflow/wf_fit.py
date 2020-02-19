@@ -96,7 +96,7 @@ class WfFit(WfBase):
         else:
             all_s, all_t = np.triu_indices(n_roi, k=1)
             tail = 0  # two tail test
-        pairs = np.c_[all_s, all_t]
+        # pairs = np.c_[all_s, all_t]
         logger.info(f"    Compute FIT (directed={directed}; max_delay="
                     f"{max_delay}; n_pairs={len(all_s)})")
         # get the unique subjects across roi (depends on inference type)
@@ -125,7 +125,8 @@ class WfFit(WfBase):
             else:
                 sources += [all_s[k]]
                 targets += [all_t[k]]
-        sources.reverse(), targets.reverse()  # noqa
+        sources.reverse()
+        targets.reverse()
         if len(empty):
             logger.info(f"    The FIT inside {len(empty)} have been removed "
                         "because of empty arrays")
@@ -134,7 +135,6 @@ class WfFit(WfBase):
         self._tail = tail
         self._fit_roi, self._fitp_roi = fit_roi, fitp_roi
         self._fit_m = fit_m
-
 
     def fit(self, dataset, max_delay=0.3, directed=True, level='cluster',
             mcp='maxstat', cluster_th=None, cluster_alpha=0.05, n_perm=1000,
@@ -232,9 +232,10 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         if inference == 'rfx': kw_stats['tail'] = self._tail  # noqa
         self._wf_stats = WfStatsEphy()
-        pvalues, tvalues = self._wf_stats.fit(self._fit_roi, self._fitp_roi,
-            ttested=True, level=level, mcp=mcp, cluster_th=cluster_th,
-            cluster_alpha=cluster_alpha, inference=self._inference, **kw_stats)
+        pvalues, tvalues = self._wf_stats.fit(
+            self._fit_roi, self._fitp_roi, ttested=True, level=level, mcp=mcp,
+            cluster_th=cluster_th, cluster_alpha=cluster_alpha,
+            inference=self._inference, **kw_stats)
 
         # ---------------------------------------------------------------------
         # post-processing
@@ -274,7 +275,7 @@ class WfFit(WfBase):
     def times(self):
         """Get the time vector."""
         return self._times
-    
+
     @property
     def fit_roi(self):
         """Get the true FIT that have been computed per ROI. This attribute
@@ -302,7 +303,7 @@ class WfFit(WfBase):
         """T-values array of shape (n_times, n_roi) when group level analysis
         is selected."""
         return self._tvalues
-    
+
     @property
     def mi(self):
         """List of length (n_roi) of true mutual information. Each element of
@@ -316,8 +317,6 @@ class WfFit(WfBase):
         of this list has a shape of (n_perm, n_subjects, n_times) if
         `inference` is 'rfx' (n_perm, 1, n_times) if `inference` is 'ffx'."""
         return self._wf_mi._mi_p
-
-
 
 
 def fcn_fit(x_s, x_t, xp_s, xp_t, suj_s, suj_t, times, max_delay, directed,

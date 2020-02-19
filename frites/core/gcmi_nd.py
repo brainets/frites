@@ -4,7 +4,6 @@ from scipy.special import psi
 from itertools import product
 
 from frites.core.copnorm import copnorm_nd
-from frites.config import CONFIG
 
 ###############################################################################
 ###############################################################################
