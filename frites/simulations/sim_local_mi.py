@@ -133,11 +133,11 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
     for num, (idx, cov) in enumerate(zip(cl_index, cl_cov)):
         if not np.isfinite(cov): continue  # noqa
         # define correlation strength
-        l = idx[1] - idx[0]
+        t_len = idx[1] - idx[0]
         epsilon = np.sqrt((1. - cov ** 2) / cov ** 2)
         # Generate noise
         rnd_noise = np.random.RandomState(random_state + num + 1)
-        noise = epsilon * rnd_noise.randn(n_epochs, l)
+        noise = epsilon * rnd_noise.randn(n_epochs, t_len)
         x[:, num, idx[0]:idx[1]] = cl_sgn * y + noise
     times = np.arange(n_times)
 
@@ -151,6 +151,7 @@ def sim_local_cc_ss(n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60],
 - MI between a continuous and a discret variable
 - Single / Multi subjects simulations
 """
+
 
 def sim_local_cd_ms(n_subjects, **kwargs):
     """Multi-subjects simulations for computing local MI (CD).
@@ -277,11 +278,11 @@ def sim_local_cd_ss(n_conditions=2, n_epochs=10, n_times=100, n_roi=1,
     # Introduce a correlation between the data and the regressor
     for num, (idx, cov) in enumerate(zip(cl_index, cl_cov)):
         # define correlation strength
-        l = idx[1] - idx[0]
+        t_len = idx[1] - idx[0]
         epsilon = np.sqrt((1. - cov ** 2) / cov ** 2)
         # Generate noise
         rnd_noise = np.random.RandomState(random_state + num + 1)
-        noise = epsilon * rnd_noise.randn(n_epochs, l)
+        noise = epsilon * rnd_noise.randn(n_epochs, t_len)
         x[:, num, idx[0]:idx[1]] = y_regr + noise
     times = np.arange(n_times)
 
@@ -295,6 +296,7 @@ def sim_local_cd_ss(n_conditions=2, n_epochs=10, n_times=100, n_roi=1,
 - MI between two continuous variables conditioned by a discret variable
 - Single / Multi subjects simulations
 """
+
 
 def sim_local_ccd_ms(n_subjects, **kwargs):
     """Multi-subjects simulations for computing local MI (CCD).

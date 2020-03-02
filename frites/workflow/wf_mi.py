@@ -270,9 +270,10 @@ class WfMi(WfBase):
         # compute statistics
         # ---------------------------------------------------------------------
         # infer p-values and t-values
-        pvalues, tvalues = self._wf_stats.fit(mi, mi_p, level=level, mcp=mcp,
-            cluster_th=cluster_th, cluster_alpha=cluster_alpha, tail=1,
-            inference=self._inference, **kw_stats)
+        pvalues, tvalues = self._wf_stats.fit(
+            mi, mi_p, level=level, mcp=mcp, cluster_th=cluster_th,
+            cluster_alpha=cluster_alpha, tail=1, inference=self._inference,
+            **kw_stats)
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions
@@ -316,4 +317,3 @@ class WfMi(WfBase):
     def wf_stats(self):
         """Get the workflow of statistics."""
         return self._wf_stats
-    

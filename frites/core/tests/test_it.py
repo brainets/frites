@@ -3,6 +3,7 @@ import numpy as np
 
 from frites.core.it import it_transfer_entropy, it_fit
 
+
 class TestIt(object):
 
     def test_it_transfer_entropy(self):

@@ -28,39 +28,39 @@ class TestWfFit(object):
 
     def test_fit_cc(self):
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        wf = WfFit(mi_type='cc').fit(ds, **kw_fit)
+        WfFit(mi_type='cc').fit(ds, **kw_fit)
 
     def test_fit_cd(self):
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        wf = WfFit(mi_type='cd').fit(ds, **kw_fit)
+        WfFit(mi_type='cd').fit(ds, **kw_fit)
 
     def test_fit_ccd(self):
         ds = DatasetEphy(x, y, z=z, roi=roi, times=times)
-        wf = WfFit(mi_type='ccd').fit(ds, **kw_fit)
+        WfFit(mi_type='ccd').fit(ds, **kw_fit)
 
     def test_stats(self):
         # FFX
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        wf = WfFit(mi_type='cc', inference='ffx').fit(ds, **kw_fit)
+        WfFit(mi_type='cc', inference='ffx').fit(ds, **kw_fit)
         # RFX
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        wf = WfFit(mi_type='cc', inference='rfx').fit(ds, **kw_fit)
+        WfFit(mi_type='cc', inference='rfx').fit(ds, **kw_fit)
 
     def test_mi_methods(self):
         for meth in ['gc', 'bin']:
             ds = DatasetEphy(x, y, roi=roi, times=times)
-            wf = WfFit(mi_type='cc', inference='ffx', mi_method=meth).fit(
+            WfFit(mi_type='cc', inference='ffx', mi_method=meth).fit(
                 ds, **kw_fit)
 
     def test_directed(self):
         # directed
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        fd = WfFit(mi_type='cd').fit(ds, directed=True, output_type='2d_array',
-                                     **kw_fit)[0]
+        fd = WfFit(mi_type='cd').fit(
+            ds, directed=True, output_type='2d_array', **kw_fit)[0]
         # non-directed
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        nd = WfFit(mi_type='cd').fit(ds, directed=False, output_type='2d_array',
-                                     **kw_fit)[0]
+        nd = WfFit(mi_type='cd').fit(
+            ds, directed=False, output_type='2d_array', **kw_fit)[0]
         assert fd.shape[1] > nd.shape[1]
 
     def test_output_type(self):
@@ -95,7 +95,7 @@ class TestWfFit(object):
         assert pv.shape == (n_t, n_pairs)
         assert wf.tvalues.shape == (n_t, n_pairs)
         assert len(wf.fit_roi) == len(wf.fitp_roi) == n_pairs
-        assert len(wf.mi) == len(wf.mi_p)  == n_roi
+        assert len(wf.mi) == len(wf.mi_p) == n_roi
 
 
 if __name__ == '__main__':
