@@ -95,6 +95,7 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, mcp='maxstat',
     else:
         pv = _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass,
                                   cl_p_mass)
+        pv = np.clip(pv, 1. / n_perm, 1.)
         if mcp is 'fdr':
             pv = fdr_correction(pv, 0.05)[1]
         if mcp is 'bonferroni':
