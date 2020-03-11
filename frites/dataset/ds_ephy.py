@@ -207,7 +207,7 @@ class DatasetEphy(object):
                     n_sites = idx.sum()
                     if n_sites != 1:
                         __x = np.moveaxis(__x, 0, -1).reshape(self.n_times, -1)
-                        __yz = np.tile(__yz, (n_sites, 1)).squeeze()
+                        __yz = np.tile(__yz, (n_sites, 1))
                     # at this point the data are (n_times, n_epochs)
                     _x += [__x]
                     _yz += [__yz]
