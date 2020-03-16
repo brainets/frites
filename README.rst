@@ -2,6 +2,9 @@
 frites
 ======
 
+.. image:: https://github.com/brainets/frites/workflows/frites/badge.svg
+    :target: https://github.com/brainets/frites/workflows/frites
+
 .. image:: https://travis-ci.org/brainets/frites.svg?branch=master
     :target: https://travis-ci.org/brainets/frites
 
