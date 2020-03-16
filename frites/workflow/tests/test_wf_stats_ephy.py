@@ -5,11 +5,11 @@ from itertools import product
 from frites.workflow import WfStatsEphy
 
 
-n_roi = 5
-n_times = 20
-n_perm = 30
-n_suj = 10
-cl_pos, cl_neg = slice(5, 10), slice(12, 17)
+n_roi = 2
+n_times = 10
+n_perm = 500
+n_suj = 3
+cl_pos, cl_neg = slice(2, 5), slice(7, 9)
 
 # full RFX dataset definition
 effect_rfx, perms_rfx = [], []
@@ -81,3 +81,7 @@ class TestWfStatsEphy(object):  # noqa
                 self._testing(gt_bot.T, pv, kw)
 
         assert wf.cluster_th is 'tfce'
+
+
+if __name__ == '__main__':
+    TestWfStatsEphy().test_fit()
