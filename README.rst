@@ -29,7 +29,7 @@ Description
 
 ------------
 
-FRITES = Framework for Information Theoretical analysis of Electrophysiological data and Statistics
+**FRITES = Framework for Information Theoretical analysis of Electrophysiological data and Statistics**
 
 ------------
 
