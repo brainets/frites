@@ -2,7 +2,8 @@
 import numpy as np
 
 
-def permute_mi_vector(y, suj, mi_type='cc', inference='rfx', n_perm=1000):
+def permute_mi_vector(y, suj, mi_type='cc', inference='rfx', n_perm=1000,
+                      random_state=None):
     """Permute regressor variable for performing non-parameteric statistics.
 
     Parameters
@@ -17,23 +18,32 @@ def permute_mi_vector(y, suj, mi_type='cc', inference='rfx', n_perm=1000):
         Inference type (fixed or random effect)
     n_perm : int | 1000
         Number of permutations to return
+    random_state : int | None
+        Fix the random state of the machine (use it for reproducibility). If
+        None, a random state is randomly assigned.
 
     Returns
     -------
     y_p : list
         List of length (n_perm,) of random permutation of the regressor
     """
+    # fix the random starting point
+    rnd_start = np.random.randint(1000) if not isinstance(
+        random_state, int) else random_state
+
     y_p = []
     for p in range(n_perm):
+        rnd = np.random.RandomState(rnd_start + p)
         if inference == 'ffx':    # FFX (FIXED EFFECT)
-            y_p += [np.random.permutation(y)]
+            # subject-wise randomization
+            y_p += [rnd.permutation(y)]
         elif inference == 'rfx':  # RFX (RANDOM EFFECT)
             _y = y.copy()
             for s in np.unique(suj):
                 # find everywhere the subject is present
                 is_suj = suj == s
                 # randomize per subject
-                _y[is_suj] = np.random.permutation(y[is_suj])
+                _y[is_suj] = rnd.permutation(y[is_suj])
             y_p += [_y]
     assert len(y_p) == n_perm
 

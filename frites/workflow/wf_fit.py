@@ -76,12 +76,14 @@ class WfFit(WfBase):
             f"Workflow for computing the FIT ({mi_type} - {mi_method}) and "
             f"statistics ({inference}) has been defined")
 
-    def _node_compute_fit(self, dataset, n_perm, n_jobs, max_delay, directed):
+    def _node_compute_fit(self, dataset, n_perm, n_jobs, max_delay, directed,
+                          random_state):
         # ---------------------------------------------------------------------
         # compute mi and permuted mi
         # ---------------------------------------------------------------------
         self._wf_mi.fit(dataset, n_perm=n_perm, n_jobs=n_jobs,
-                        output_type='array', level='nostat')
+                        output_type='array', level='nostat',
+                        random_state=random_state)
         mi = [k.astype(np.float32) for k in self.mi]
         mi_p = [k.astype(np.float32) for k in self.mi_p]
 
@@ -138,7 +140,8 @@ class WfFit(WfBase):
 
     def fit(self, dataset, max_delay=0.3, directed=True, level='cluster',
             mcp='maxstat', cluster_th=None, cluster_alpha=0.05, n_perm=1000,
-            n_jobs=-1, output_type='3d_dataframe', **kw_stats):
+            n_jobs=-1, random_state=None, output_type='3d_dataframe',
+            **kw_stats):
         """Compute the Feature Specific Information transfer and statistics.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -184,6 +187,9 @@ class WfFit(WfBase):
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
+        random_state : int | None
+            Fix the random state of the machine (use it for reproducibility).
+            If None, a random state is randomly assigned.
         output_type : string
             Output format of the returned FIT and p-values. For details, see
             :func:`frites.io.convert_dfc_outputs`. Use either '2d_array',
@@ -222,7 +228,7 @@ class WfFit(WfBase):
         # compute fit (only if not already computed)
         if not len(self._fit_roi):
             self._node_compute_fit(dataset, n_perm, n_jobs, max_delay,
-                                   directed)
+                                   directed, random_state)
         else:
             logger.warning("    True and permuted FIT already computed. "
                            "Use WfFit.clean() to reset arguments")

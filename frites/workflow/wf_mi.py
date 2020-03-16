@@ -95,7 +95,7 @@ class WfMi(WfBase):
         # track time and roi
         self._times, self._roi = dataset.times, dataset.roi_names
 
-    def _node_compute_mi(self, dataset, n_bins=None, n_perm=1000, n_jobs=-1):
+    def _node_compute_mi(self, dataset, n_bins, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
 
         Permutations are performed by randomizing the regressor variable. For
@@ -163,7 +163,7 @@ class WfMi(WfBase):
 
     def fit(self, dataset, level='cluster', mcp='maxstat', n_perm=1000,
             cluster_th=None, cluster_alpha=0.05, n_bins=None, n_jobs=-1,
-            output_type='dataframe', **kw_stats):
+            random_state=None, output_type='dataframe', **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -212,6 +212,9 @@ class WfMi(WfBase):
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
+        random_state : int | None
+            Fix the random state of the machine (use it for reproducibility).
+            If None, a random state is randomly assigned.
         output_type : {'array', 'dataframe', 'dataarray'}
             Output format of the returned mutual information and p-values. For
             details, see :func:`frites.io.convert_spatiotemporal_outputs`
@@ -256,7 +259,7 @@ class WfMi(WfBase):
         else:
             self._node_prepare_data(dataset)
             mi, mi_p = self._node_compute_mi(
-                dataset, n_perm=n_perm, n_bins=self._n_bins, n_jobs=n_jobs)
+                dataset, self._n_bins, n_perm, n_jobs, random_state)
         """
         For information transfer (e.g FIT) we only need to compute the true and
         permuted mi but then, the statistics at the local representation level
