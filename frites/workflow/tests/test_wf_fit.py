@@ -52,15 +52,15 @@ class TestWfFit(object):
             WfFit(mi_type='cc', inference='ffx', mi_method=meth).fit(
                 ds, **kw_fit)
 
-    def test_directed(self):
-        # directed
+    def test_biunidirected(self):
+        # bidirected
         ds = DatasetEphy(x, y, roi=roi, times=times)
         fd = WfFit(mi_type='cd').fit(
-            ds, directed=True, output_type='2d_array', **kw_fit)[0]
-        # non-directed
+            ds, net=False, output_type='2d_array', **kw_fit)[0]
+        # unidirected
         ds = DatasetEphy(x, y, roi=roi, times=times)
         nd = WfFit(mi_type='cd').fit(
-            ds, directed=False, output_type='2d_array', **kw_fit)[0]
+            ds, net=True, output_type='2d_array', **kw_fit)[0]
         assert fd.shape[1] > nd.shape[1]
 
     def test_output_type(self):

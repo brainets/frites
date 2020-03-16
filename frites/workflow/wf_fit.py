@@ -76,7 +76,7 @@ class WfFit(WfBase):
             f"Workflow for computing the FIT ({mi_type} - {mi_method}) and "
             f"statistics ({inference}) has been defined")
 
-    def _node_compute_fit(self, dataset, n_perm, n_jobs, max_delay, directed,
+    def _node_compute_fit(self, dataset, n_perm, n_jobs, max_delay, net,
                           random_state):
         # ---------------------------------------------------------------------
         # compute mi and permuted mi
@@ -92,15 +92,15 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         # get the number of pairs (source, target)
         n_roi = len(mi)
-        if directed:
+        if not net:
             all_s, all_t = np.where(~np.eye(n_roi, dtype=bool))
             tail = 1
         else:
             all_s, all_t = np.triu_indices(n_roi, k=1)
             tail = 0  # two tail test
-        # pairs = np.c_[all_s, all_t]
-        logger.info(f"    Compute FIT (directed={directed}; max_delay="
-                    f"{max_delay}; n_pairs={len(all_s)})")
+        direction = 'bidirectional' if not net else 'unidirectional'
+        logger.info(f"    Compute {direction} FIT (max_delay={max_delay}; "
+                    f"n_pairs={len(all_s)})")
         # get the unique subjects across roi (depends on inference type)
         inference = self._inference
         if inference is 'ffx':
@@ -112,7 +112,7 @@ class WfFit(WfBase):
         cfg_jobs = config.CONFIG["JOBLIB_CFG"]
         arch = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(fcn_fit)(
             mi[s], mi[t], mi_p[s], mi_p[t], sujr[s], sujr[t], times,
-            max_delay, directed, inference) for s, t in zip(all_s, all_t))
+            max_delay, net, inference) for s, t in zip(all_s, all_t))
         fit_roi, fitp_roi, fit_m = [list(k) for k in zip(*arch)]
         """
         For sEEG data, the ROI repartition is not the same across subjects.
@@ -138,7 +138,7 @@ class WfFit(WfBase):
         self._fit_roi, self._fitp_roi = fit_roi, fitp_roi
         self._fit_m = fit_m
 
-    def fit(self, dataset, max_delay=0.3, directed=True, level='cluster',
+    def fit(self, dataset, max_delay=0.3, net=False, level='cluster',
             mcp='maxstat', cluster_th=None, cluster_alpha=0.05, n_perm=1000,
             n_jobs=-1, random_state=None, output_type='3d_dataframe',
             **kw_stats):
@@ -161,9 +161,11 @@ class WfFit(WfBase):
             A dataset instance
         max_delay : float | 0.3
             Maximum delay to use for defining the past of the source and target
-        directed : bool | True
-            Use either a directed FIT (True) or un-directed (False) which is
-            defined as FIT(s -> t) - FIT(t -> s)
+        net : bool | False
+            Compute either the bidirectional FIT (i.e A->B and B->A which
+            correspond to `net=False`) either the unidirectional FIT
+            (i.e A->B - B->A which correspond to `net=True`). By default, the
+            bidirectional FIT is computed.
         level : {'testwise', 'cluster'}
             Inference level. If 'testwise', inferences are made for each region
             of interest and at each time point. If 'cluster', cluster-based
@@ -228,7 +230,7 @@ class WfFit(WfBase):
         # compute fit (only if not already computed)
         if not len(self._fit_roi):
             self._node_compute_fit(dataset, n_perm, n_jobs, max_delay,
-                                   directed, random_state)
+                                   net, random_state)
         else:
             logger.warning("    True and permuted FIT already computed. "
                            "Use WfFit.clean() to reset arguments")
@@ -325,7 +327,7 @@ class WfFit(WfBase):
         return self._wf_mi._mi_p
 
 
-def fcn_fit(x_s, x_t, xp_s, xp_t, suj_s, suj_t, times, max_delay, directed,
+def fcn_fit(x_s, x_t, xp_s, xp_t, suj_s, suj_t, times, max_delay, net,
             inference):
     """Compute FIT in parallel."""
     # find the unique list of subjects for the source and target
@@ -349,15 +351,15 @@ def fcn_fit(x_s, x_t, xp_s, xp_t, suj_s, suj_t, times, max_delay, directed,
             # FIT on true and permuted gcmi
             _fit_suj = it_fit(x_s_suj, x_t_suj, times, max_delay)[0, ...]
             _fitp_suj = it_fit(xp_s_suj, xp_t_suj, times, max_delay)
-            # compute unidirected FIT
-            if not directed:
+            # compute unidirectional FIT
+            if net:
                 # compute target -> source
                 _fit_ts = it_fit(x_t_suj, x_s_suj, times, max_delay)[0, ...]
                 _fitp_ts = it_fit(xp_t_suj, xp_s_suj, times, max_delay)
                 # subtract to source -> target
                 _fit_suj -= _fit_ts
                 _fitp_suj -= _fitp_ts
-            # keep the computed (uni/bi)directed FIT
+            # keep the computed (uni/bi) directed FIT
             fit_suj += [_fit_suj]
             fitp_suj += [_fitp_suj]
     # if not subjects, return empty arrays
