@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.wf_mi &#8212; frites 0.3.0 documentation</title>
+    <title>frites.workflow.wf_mi &#8212; frites 0.3.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -259,8 +259,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{mi_type}</span><span class="s2"> - &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{mi_method}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2"> - &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mi_method</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_node_prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Prepare the data before computing the mi.</span>
@@ -285,13 +285,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get the function for computing mi</span>
         <span class="n">mi_fun</span> <span class="o">=</span> <span class="n">get_core_mi_fun</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;mi_</span><span class="si">{self._mi_method}</span><span class="s2">_ephy_</span><span class="si">{self._mi_type}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;mi_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span><span class="si">}</span><span class="s2">_ephy_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="c1"># get x, y, z and subject names per roi</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">suj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi</span>
         <span class="n">n_roi</span><span class="p">,</span> <span class="n">inf</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
         <span class="c1"># evaluate true mi</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{n_perm}</span><span class="s2">, &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{n_jobs}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{</span><span class="n">n_jobs</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span>
                      <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)]</span>
         <span class="c1"># get joblib configuration</span>
@@ -335,7 +335,7 @@
             <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
         <span class="c1"># output type</span>
         <span class="k">assert</span> <span class="n">output_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{output_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{</span><span class="n">output_type</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="c1"># apply conversion</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
         <span class="n">pv</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
@@ -422,7 +422,7 @@
         <span class="c1"># infer the number of bins if needed</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="ow">is</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">n_bins</span> <span class="o">=</span> <span class="mi">4</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Use an automatic number of bins of </span><span class="si">{n_bins}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Use an automatic number of bins of </span><span class="si">{</span><span class="n">n_bins</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span> <span class="o">=</span> <span class="n">n_bins</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
@@ -451,9 +451,10 @@
         <span class="c1"># compute statistics</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># infer p-values and t-values</span>
-        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span>
-            <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span>
+            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing and conversions</span>
@@ -497,7 +498,6 @@
     <span class="k">def</span> <span class="nf">wf_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the workflow of statistics.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span></div>
-    
 </pre></div>
 
     </div>
@@ -528,7 +528,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-14.</p>
+        <p>&copy; Copyright Last updated on 2020-03-16.</p>
     </footer>
 
   </body>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Workflow of mutual information between two continuous variables &#8212; frites 0.3.0 documentation</title>
+    <title>Workflow of mutual information between two continuous variables &#8212; frites 0.3.1 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -279,7 +279,7 @@ of multivariate regressor</p>
 <span class="n">sl</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">_y_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="o">...</span><span class="p">,</span> <span class="n">sl</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
 <span class="c1"># concatenate the two vectors</span>
-<span class="n">y_mv</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">_y_1</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">_y_2</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_y_1</span><span class="p">))]</span>
+<span class="n">y_mv</span> <span class="o">=</span> <span class="p">[</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.c_.html#numpy.c_" title="View documentation for numpy.c_"><span class="n">np</span><span class="o">.</span><span class="n">c_</span></a><span class="p">[</span><span class="n">_y_1</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">_y_2</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_y_1</span><span class="p">))]</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y_mv</span><span class="p">])</span>
 
 
@@ -343,7 +343,7 @@ within (ffx) or between subject (rfx) statistics.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_cc_003.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cc_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.089 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.911 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-workflow-plot-wf-mi-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b4c2c84be9f5804ddfae529ab229ccdc/plot_wf_mi_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_cc.py</span></code></a></p>
@@ -385,7 +385,7 @@ within (ffx) or between subject (rfx) statistics.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-14.</p>
+        <p>&copy; Copyright Last updated on 2020-03-16.</p>
     </footer>
 
   </body>

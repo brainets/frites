@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.wf_fit &#8212; frites 0.3.0 documentation</title>
+    <title>frites.workflow.wf_fit &#8212; frites 0.3.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -254,8 +254,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Workflow for computing the FIT (</span><span class="si">{mi_type}</span><span class="s2"> - </span><span class="si">{mi_method}</span><span class="s2">) and &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;statistics (</span><span class="si">{inference}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
+            <span class="sa">f</span><span class="s2">&quot;Workflow for computing the FIT (</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">mi_method</span><span class="si">}</span><span class="s2">) and &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;statistics (</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_node_compute_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">):</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
@@ -277,9 +277,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># two tail test</span>
-        <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span><span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Compute FIT (directed=</span><span class="si">{directed}</span><span class="s2">; max_delay=&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{max_delay}</span><span class="s2">; n_pairs={len(all_s)})&quot;</span><span class="p">)</span>
+        <span class="c1"># pairs = np.c_[all_s, all_t]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Compute FIT (directed=</span><span class="si">{</span><span class="n">directed</span><span class="si">}</span><span class="s2">; max_delay=&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">max_delay</span><span class="si">}</span><span class="s2">; n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_s</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="c1"># get the unique subjects across roi (depends on inference type)</span>
         <span class="n">inference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
         <span class="k">if</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
@@ -306,16 +306,16 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">sources</span> <span class="o">+=</span> <span class="p">[</span><span class="n">all_s</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
                 <span class="n">targets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">all_t</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
-        <span class="n">sources</span><span class="o">.</span><span class="n">reverse</span><span class="p">(),</span> <span class="n">targets</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># noqa</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="n">targets</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    The FIT inside {len(empty)} have been removed &quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    The FIT inside </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">empty</span><span class="p">)</span><span class="si">}</span><span class="s2"> have been removed &quot;</span>
                         <span class="s2">&quot;because of empty arrays&quot;</span><span class="p">)</span>
         <span class="c1"># cache variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="n">tail</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span> <span class="o">=</span> <span class="n">fit_roi</span><span class="p">,</span> <span class="n">fitp_roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span> <span class="o">=</span> <span class="n">fit_m</span>
-
 
 <div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
             <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -393,7 +393,7 @@
         <span class="n">times</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span>
         <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
         <span class="c1"># rebuild time vector</span>
-        <span class="n">max_delay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">max_delay</span><span class="p">)</span>
+        <span class="c1"># max_delay = np.float32(max_delay)</span>
         <span class="n">max_delay_i</span> <span class="o">=</span> <span class="n">n_times</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">times</span> <span class="o">&gt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">max_delay_i</span><span class="p">:]</span>
 
@@ -413,14 +413,15 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span> <span class="n">kw_stats</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span>  <span class="c1"># noqa</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
-        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span>
-            <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span>
-            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span>
+            <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span>
+            <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># post-processing</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{output_type}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting output type (</span><span class="si">{</span><span class="n">output_type</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_targets</span><span class="p">,</span>
                 <span class="n">output_type</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
@@ -455,7 +456,7 @@
     <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the time vector.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span>
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">fit_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the true FIT that have been computed per ROI. This attribute</span>
@@ -483,7 +484,7 @@
         <span class="sd">&quot;&quot;&quot;T-values array of shape (n_times, n_roi) when group level analysis</span>
 <span class="sd">        is selected.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span>
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;List of length (n_roi) of true mutual information. Each element of</span>
@@ -497,8 +498,6 @@
 <span class="sd">        of this list has a shape of (n_perm, n_subjects, n_times) if</span>
 <span class="sd">        `inference` is &#39;rfx&#39; (n_perm, 1, n_times) if `inference` is &#39;ffx&#39;.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">_mi_p</span></div>
-
-
 
 
 <span class="k">def</span> <span class="nf">fcn_fit</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">,</span> <span class="n">xp_s</span><span class="p">,</span> <span class="n">xp_t</span><span class="p">,</span> <span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span>
@@ -592,7 +591,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-14.</p>
+        <p>&copy; Copyright Last updated on 2020-03-16.</p>
     </footer>
 
   </body>

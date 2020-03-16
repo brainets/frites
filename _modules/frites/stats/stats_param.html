@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.stats.stats_param &#8212; frites 0.3.0 documentation</title>
+    <title>frites.stats.stats_param &#8212; frites 0.3.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -255,8 +255,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    Giordano et al., 2017 :cite:`giordano2017contributions`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    T-test across subjects (center=</span><span class="si">{center}</span><span class="s2">; &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;zscore=</span><span class="si">{zscore}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    T-test across subjects (center=</span><span class="si">{</span><span class="n">center</span><span class="si">}</span><span class="s2">; &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;zscore=</span><span class="si">{</span><span class="n">zscore</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="c1"># if data have already been t-tested, just return it</span>
     <span class="k">if</span> <span class="n">ttested</span><span class="p">:</span>
         <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -266,8 +266,8 @@
     <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi_p</span><span class="p">)</span>
     <span class="c1"># remove the mean / median / trimmed</span>
     <span class="k">if</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">RECENTER</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    RFX recenter distributions (center=</span><span class="si">{center}</span><span class="s2">, &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;z-score=</span><span class="si">{zscore}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    RFX recenter distributions (center=</span><span class="si">{</span><span class="n">center</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;z-score=</span><span class="si">{</span><span class="n">zscore</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)):</span>
             <span class="n">_med</span> <span class="o">=</span> <span class="n">RECENTER</span><span class="p">[</span><span class="n">center</span><span class="p">](</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">_std</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">zscore</span> <span class="k">else</span> <span class="mf">1.</span>
@@ -314,7 +314,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-02-14.</p>
+        <p>&copy; Copyright Last updated on 2020-03-16.</p>
     </footer>
 
   </body>
