@@ -4,7 +4,7 @@
 import os
 from setuptools import setup, find_packages
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 NAME = 'frites'
 AUTHOR = "BraiNets"
 MAINTAINER = "Etienne Combrisson"
@@ -24,6 +24,10 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
+
 setup(
     name=NAME,
     version=__version__,
@@ -35,12 +39,7 @@ setup(
     long_description=read('README.rst'),
     platforms='any',
     setup_requires=['numpy'],
-    install_requires=[
-        "numpy",
-        "scipy",
-        "mne",
-        "joblib",
-    ],
+    install_requires=requirements,
     dependency_links=[],
     author=AUTHOR,
     maintainer=MAINTAINER,
@@ -55,5 +54,6 @@ setup(
                  'Intended Audience :: Developers',
                  'Topic :: Scientific/Engineering :: Visualization',
                  "Programming Language :: Python :: 3.6",
-                 "Programming Language :: Python :: 3.7"
+                 "Programming Language :: Python :: 3.7",
+                 "Programming Language :: Python :: 3.8"
                  ])
