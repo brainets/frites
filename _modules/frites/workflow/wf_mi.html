@@ -276,7 +276,7 @@
         <span class="c1"># track time and roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
 
-    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
 
 <span class="sd">        Permutations are performed by randomizing the regressor variable. For</span>
@@ -344,7 +344,7 @@
 
 <div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
             <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -393,6 +393,9 @@
 <span class="sd">        n_jobs : int | -1</span>
 <span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">            jobs)</span>
+<span class="sd">        random_state : int | None</span>
+<span class="sd">            Fix the random state of the machine (use it for reproducibility).</span>
+<span class="sd">            If None, a random state is randomly assigned.</span>
 <span class="sd">        output_type : {&#39;array&#39;, &#39;dataframe&#39;, &#39;dataarray&#39;}</span>
 <span class="sd">            Output format of the returned mutual information and p-values. For</span>
 <span class="sd">            details, see :func:`frites.io.convert_spatiotemporal_outputs`</span>
@@ -437,7 +440,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span>
-                <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For information transfer (e.g FIT) we only need to compute the true and</span>
 <span class="sd">        permuted mi but then, the statistics at the local representation level</span>

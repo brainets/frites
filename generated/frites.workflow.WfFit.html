@@ -306,7 +306,7 @@ moving average</p>
 
 <dl class="method">
 <dt id="frites.workflow.WfFit.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">directed=True</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">directed=True</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Feature Specific Information transfer and statistics.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -353,6 +353,9 @@ distribution of mi that can be obtained by chance</p>
 </dd>
 <dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs)</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Fix the random state of the machine (use it for reproducibility).
+If None, a random state is randomly assigned.</p>
 </dd>
 <dt><strong>output_type</strong><span class="classifier">string</span></dt><dd><p>Output format of the returned FIT and p-values. For details, see
 <a class="reference internal" href="frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs" title="frites.io.convert_dfc_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.io.convert_dfc_outputs()</span></code></a>. Use either ‘2d_array’,

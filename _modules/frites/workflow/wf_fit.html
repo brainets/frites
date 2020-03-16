@@ -257,12 +257,14 @@
             <span class="sa">f</span><span class="s2">&quot;Workflow for computing the FIT (</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">mi_method</span><span class="si">}</span><span class="s2">) and &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;statistics (</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_node_compute_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_node_compute_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span>
+                          <span class="n">random_state</span><span class="p">):</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute mi and permuted mi</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
-                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;nostat&#39;</span><span class="p">)</span>
+                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;nostat&#39;</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi</span><span class="p">]</span>
         <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_p</span><span class="p">]</span>
 
@@ -319,7 +321,8 @@
 
 <div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
             <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute the Feature Specific Information transfer and statistics.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -365,6 +368,9 @@
 <span class="sd">        n_jobs : int | -1</span>
 <span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">            jobs)</span>
+<span class="sd">        random_state : int | None</span>
+<span class="sd">            Fix the random state of the machine (use it for reproducibility).</span>
+<span class="sd">            If None, a random state is randomly assigned.</span>
 <span class="sd">        output_type : string</span>
 <span class="sd">            Output format of the returned FIT and p-values. For details, see</span>
 <span class="sd">            :func:`frites.io.convert_dfc_outputs`. Use either &#39;2d_array&#39;,</span>
@@ -403,7 +409,7 @@
         <span class="c1"># compute fit (only if not already computed)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span>
-                                   <span class="n">directed</span><span class="p">)</span>
+                                   <span class="n">directed</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;    True and permuted FIT already computed. &quot;</span>
                            <span class="s2">&quot;Use WfFit.clean() to reset arguments&quot;</span><span class="p">)</span>
