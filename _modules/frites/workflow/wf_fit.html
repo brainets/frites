@@ -257,7 +257,7 @@
             <span class="sa">f</span><span class="s2">&quot;Workflow for computing the FIT (</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">mi_method</span><span class="si">}</span><span class="s2">) and &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;statistics (</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2">) has been defined&quot;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_node_compute_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">_node_compute_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span>
                           <span class="n">random_state</span><span class="p">):</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute mi and permuted mi</span>
@@ -273,15 +273,15 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># get the number of pairs (source, target)</span>
         <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">directed</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">net</span><span class="p">:</span>
             <span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
             <span class="n">tail</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># two tail test</span>
-        <span class="c1"># pairs = np.c_[all_s, all_t]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Compute FIT (directed=</span><span class="si">{</span><span class="n">directed</span><span class="si">}</span><span class="s2">; max_delay=&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">max_delay</span><span class="si">}</span><span class="s2">; n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_s</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="s1">&#39;bidirectional&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">net</span> <span class="k">else</span> <span class="s1">&#39;unidirectional&#39;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Compute </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2"> FIT (max_delay=</span><span class="si">{</span><span class="n">max_delay</span><span class="si">}</span><span class="s2">; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_s</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="c1"># get the unique subjects across roi (depends on inference type)</span>
         <span class="n">inference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
         <span class="k">if</span> <span class="n">inference</span> <span class="ow">is</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
@@ -293,7 +293,7 @@
         <span class="n">cfg_jobs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;JOBLIB_CFG&quot;</span><span class="p">]</span>
         <span class="n">arch</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">fcn_fit</span><span class="p">)(</span>
             <span class="n">mi</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">mi</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">sujr</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">sujr</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">times</span><span class="p">,</span>
-            <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span> <span class="n">inference</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span><span class="p">))</span>
+            <span class="n">max_delay</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">inference</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_s</span><span class="p">,</span> <span class="n">all_t</span><span class="p">))</span>
         <span class="n">fit_roi</span><span class="p">,</span> <span class="n">fitp_roi</span><span class="p">,</span> <span class="n">fit_m</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">arch</span><span class="p">)]</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For sEEG data, the ROI repartition is not the same across subjects.</span>
@@ -319,7 +319,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span> <span class="o">=</span> <span class="n">fit_roi</span><span class="p">,</span> <span class="n">fitp_roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span> <span class="o">=</span> <span class="n">fit_m</span>
 
-<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
             <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
             <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
@@ -342,9 +342,11 @@
 <span class="sd">            A dataset instance</span>
 <span class="sd">        max_delay : float | 0.3</span>
 <span class="sd">            Maximum delay to use for defining the past of the source and target</span>
-<span class="sd">        directed : bool | True</span>
-<span class="sd">            Use either a directed FIT (True) or un-directed (False) which is</span>
-<span class="sd">            defined as FIT(s -&gt; t) - FIT(t -&gt; s)</span>
+<span class="sd">        net : bool | False</span>
+<span class="sd">            Compute either the bidirectional FIT (i.e A-&gt;B and B-&gt;A which</span>
+<span class="sd">            correspond to `net=False`) either the unidirectional FIT</span>
+<span class="sd">            (i.e A-&gt;B - B-&gt;A which correspond to `net=True`). By default, the</span>
+<span class="sd">            bidirectional FIT is computed.</span>
 <span class="sd">        level : {&#39;testwise&#39;, &#39;cluster&#39;}</span>
 <span class="sd">            Inference level. If &#39;testwise&#39;, inferences are made for each region</span>
 <span class="sd">            of interest and at each time point. If &#39;cluster&#39;, cluster-based</span>
@@ -409,7 +411,7 @@
         <span class="c1"># compute fit (only if not already computed)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span>
-                                   <span class="n">directed</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
+                                   <span class="n">net</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;    True and permuted FIT already computed. &quot;</span>
                            <span class="s2">&quot;Use WfFit.clean() to reset arguments&quot;</span><span class="p">)</span>
@@ -506,7 +508,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">_mi_p</span></div>
 
 
-<span class="k">def</span> <span class="nf">fcn_fit</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">,</span> <span class="n">xp_s</span><span class="p">,</span> <span class="n">xp_t</span><span class="p">,</span> <span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">directed</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">fcn_fit</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">,</span> <span class="n">xp_s</span><span class="p">,</span> <span class="n">xp_t</span><span class="p">,</span> <span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span>
             <span class="n">inference</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute FIT in parallel.&quot;&quot;&quot;</span>
     <span class="c1"># find the unique list of subjects for the source and target</span>
@@ -530,15 +532,15 @@
             <span class="c1"># FIT on true and permuted gcmi</span>
             <span class="n">_fit_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_s_suj</span><span class="p">,</span> <span class="n">x_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
             <span class="n">_fitp_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
-            <span class="c1"># compute unidirected FIT</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">directed</span><span class="p">:</span>
+            <span class="c1"># compute unidirectional FIT</span>
+            <span class="k">if</span> <span class="n">net</span><span class="p">:</span>
                 <span class="c1"># compute target -&gt; source</span>
                 <span class="n">_fit_ts</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_t_suj</span><span class="p">,</span> <span class="n">x_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
                 <span class="n">_fitp_ts</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
                 <span class="c1"># subtract to source -&gt; target</span>
                 <span class="n">_fit_suj</span> <span class="o">-=</span> <span class="n">_fit_ts</span>
                 <span class="n">_fitp_suj</span> <span class="o">-=</span> <span class="n">_fitp_ts</span>
-            <span class="c1"># keep the computed (uni/bi)directed FIT</span>
+            <span class="c1"># keep the computed (uni/bi) directed FIT</span>
             <span class="n">fit_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_fit_suj</span><span class="p">]</span>
             <span class="n">fitp_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_fitp_suj</span><span class="p">]</span>
     <span class="c1"># if not subjects, return empty arrays</span>
