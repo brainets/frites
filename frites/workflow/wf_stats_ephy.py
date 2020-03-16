@@ -99,6 +99,9 @@ class WfStatsEphy(object):
             return np.ones((n_times, n_roi), dtype=float), tvalues
         assert all([isinstance(k, np.ndarray) and k.ndim == 3 for k in perms])
         assert len(effect) == len(perms)
+        # test that all values are finite
+        assert all([np.isfinite(k).all() for k in effect])
+        assert all([np.isfinite(k).all() for k in perms])
 
         # ---------------------------------------------------------------------
         # FFX / RFX
