@@ -81,7 +81,3 @@ class TestWfStatsEphy(object):  # noqa
                 self._testing(gt_bot.T, pv, kw)
 
         assert wf.cluster_th is 'tfce'
-
-
-if __name__ == '__main__':
-    TestWfStatsEphy().test_fit()
