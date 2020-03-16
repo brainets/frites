@@ -27,13 +27,19 @@ frites
 Description
 -----------
 
-FRITES = **Fr**amework for **I**nformation **T**heoretical analysis of **E**lectrophysiological data and **S**tatistics
+------------
+
+FRITES = Framework for Information Theoretical analysis of Electrophysiological data and Statistics
+
+------------
 
 Frites is a python package for analyzing neurophysiological brain data (i.e M/EEG, sEEG / iEEG / ECoG). The package is entirely based on information theoretic measures (such as mutual information (MI)) in order to perform analysis such as :
+
 * "Correlation like" (**I(c; c)** = MI between two continuous variables)
 * "Machine-learning like" (**I(c; d)** = MI between a continuous and a discrete variable)
 * "Partial correlation like" (**I(c; c | d)** = MI between two continuous variables and removing the influence of a discrete one)
 * Information-transfer about a specific feature
+
 For a comprehensive (and extensive) review, see the paper of Robin AA Ince `A statistical framework for neuroimaging data analysis based on mutual information estimated via a gaussian copula <https://www.ncbi.nlm.nih.gov/pubmed/27860095>`_.
 
 Frites also comes with embedded statistics which support fixed and random-effect analysis in combination with inferences either at the single time-point level or at the temporal cluster level.
@@ -55,6 +61,7 @@ The main dependencies of Frites are :
 * `Joblib <https://joblib.readthedocs.io/en/latest/>`_
 
 In addition to the main dependencies, here's the list of additional packages that you might need :
+
 * `Pandas <https://pandas.pydata.org/>`_ and `Xarray <http://xarray.pydata.org/en/stable/>`_ : additional output types
 * `Numba <http://numba.pydata.org/>`_ : speed computations of some functions
 
