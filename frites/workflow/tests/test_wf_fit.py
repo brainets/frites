@@ -13,10 +13,13 @@ times = np.linspace(-1, 1, n_times)
 half_e = int(n_epochs / 2.)
 kw_fit = dict(n_perm=n_perm, n_jobs=1, max_delay=.1)
 
+
 x, y, z = [], [], []
 for k in range(n_subjects):
-    x += [np.random.rand(n_epochs, n_roi, n_times)]
-    y += [np.random.rand(n_epochs)]
+    rnd_x = np.random.RandomState(k)
+    rnd_y = np.random.RandomState(k + n_subjects + 1)
+    x += [rnd_x.rand(n_epochs, n_roi, n_times)]
+    y += [rnd_y.rand(n_epochs)]
     z += [np.array([0] * half_e + [1] * half_e)]
 roi = [np.array([f"roi_{k}" for k in range(n_roi)])] * n_subjects
 
@@ -52,15 +55,15 @@ class TestWfFit(object):
             WfFit(mi_type='cc', inference='ffx', mi_method=meth).fit(
                 ds, **kw_fit)
 
-    def test_directed(self):
-        # directed
+    def test_biunidirected(self):
+        # bidirected
         ds = DatasetEphy(x, y, roi=roi, times=times)
         fd = WfFit(mi_type='cd').fit(
-            ds, directed=True, output_type='2d_array', **kw_fit)[0]
-        # non-directed
+            ds, net=False, output_type='2d_array', **kw_fit)[0]
+        # unidirected
         ds = DatasetEphy(x, y, roi=roi, times=times)
         nd = WfFit(mi_type='cd').fit(
-            ds, directed=False, output_type='2d_array', **kw_fit)[0]
+            ds, net=True, output_type='2d_array', **kw_fit)[0]
         assert fd.shape[1] > nd.shape[1]
 
     def test_output_type(self):

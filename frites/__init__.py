@@ -8,7 +8,7 @@ import logging
 
 from frites import io, core, stats, utils, workflow, simulations  # noqa
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 # -----------------------------------------------------------------------------
 # Set 'info' as the default logging level
