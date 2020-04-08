@@ -186,9 +186,9 @@
       
   <div class="section" id="frites-workflow-wfstatsephy">
 <h1>frites.workflow.WfStatsEphy<a class="headerlink" href="#frites-workflow-wfstatsephy" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="frites.workflow.WfStatsEphy">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfStatsEphy</code><span class="sig-paren">(</span><em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfStatsEphy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of non-parametric statistics for electropĥysiological data.</p>
 <p>The goal of this workflow is to provide an interface for assessing non-
 parametric statistics on electrophysiological data based on anatomical
@@ -198,9 +198,9 @@ a model of a random population (RFX = Random effect). In addition,
 significant effect can either be detected at the spatio-temporal level
 (i.e at each time point and for each ROI) either at the cluster-level (i.e
 temporal clusters).</p>
-<dl class="method">
+<dl class="py method">
 <dt id="frites.workflow.WfStatsEphy.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -214,7 +214,7 @@ temporal clusters).</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.__init__" title="frites.workflow.WfStatsEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, verbose])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, inference, level, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, effect, perms[, inference, level, …])</p></td>
 <td><p>Fit the workflow on true data.</p></td>
 </tr>
 </tbody>
@@ -226,80 +226,11 @@ temporal clusters).</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.cluster_th" title="frites.workflow.WfStatsEphy.cluster_th"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_th</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_th</span></code></p></td>
 <td><p>Cluster forming threshold.</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="frites.workflow.WfStatsEphy.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">ttested=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit the workflow on true data.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>effect</strong><span class="classifier">list</span></dt><dd><p>True effect list of length (n_roi,) composed of arrays each one of
-shape (n_subjects, n_times). Number of subjects per ROI could be
-different</p>
-</dd>
-<dt><strong>perms</strong><span class="classifier">list</span></dt><dd><p>Permutation list of length (n_roi,) composed of arrays each one of
-shape (n_perm, n_subjects, n_times). Number of subjects per ROI
-could be different</p>
-</dd>
-<dt><strong>inference</strong><span class="classifier">{‘ffx’, ‘rfx’}</span></dt><dd><p>Perform either Fixed-effect (‘ffx’) or Random-effect (‘rfx’)
-inferences. By default, random-effect is used</p>
-</dd>
-<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
-of interest and at each time point. If ‘cluster’, cluster-based
-methods are used. By default, cluster-based is selected</p>
-</dd>
-<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
-problem. By default, maximum statistics is used. If <cite>level</cite> is
-‘testwise’, MCP is performed across space and time while if <cite>level</cite>
-is ‘cluster’, MCP is performed on cluster mass. By default,
-maximum statistics is usd</p>
-</dd>
-<dt><strong>tail</strong><span class="classifier">{-1, 0, 1}</span></dt><dd><p>Type of comparison. Use -1 for the lower part of the distribution,
-1 for the higher part and 0 for both. By default, upper tail of the
-distribution is used</p>
-</dd>
-<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>a float that is going to act as a threshold</p></li>
-<li><p>None and the threshold is automatically going to be inferred
-using the distribution of permutations</p></li>
-<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
-</ul>
-</div></blockquote>
-</dd>
-<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
-the 95th percentile of the permutations is used.</p>
-</dd>
-<dt><strong>ttested</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the inputs have already been t-tested</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_times, n_roi)</p>
-</dd>
-<dt><strong>tvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of t-values of shape (n_times, n_n_roi). This ouput is only
-computed for group-level analysis</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<p>Smith and Nichols, 2009 <a class="bibtex reference internal" href="../references.html#smith2009threshold" id="id1">[8]</a></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.workflow.WfStatsEphy.cluster_th">
-<em class="property">property </em><code class="sig-name descname">cluster_th</code><a class="headerlink" href="#frites.workflow.WfStatsEphy.cluster_th" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cluster forming threshold.</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -333,7 +264,7 @@ computed for group-level analysis</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-03-16.</p>
+        <p>&copy; Copyright Last updated on 2020-04-08.</p>
     </footer>
 
   </body>
