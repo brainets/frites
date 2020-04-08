@@ -272,6 +272,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No time vector found. A default will be used &quot;</span>
                            <span class="s2">&quot;instead&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># check consistency between x and y</span>
         <span class="n">_const</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">,</span>
@@ -516,6 +517,42 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;FUTURE WORK&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">gcrn_per_suj</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="nf">savgol_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_freq</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Filter the data using Savitzky-Golay polynomial method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h_freq : float</span>
+<span class="sd">            Approximate high cut-off frequency in Hz. Note that this is not an</span>
+<span class="sd">            exact cutoff, since Savitzky-Golay filtering is done using</span>
+<span class="sd">            polynomial fits instead of FIR/IIR filtering. This parameter is</span>
+<span class="sd">            thus used to determine the length of the window over which a</span>
+<span class="sd">            5th-order polynomial smoothing is used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        inst : instance of Epochs or Evoked</span>
+<span class="sd">            The object with the filtering applied.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        For Savitzky-Golay low-pass approximation, see:</span>
+<span class="sd">            https://gist.github.com/larsoner/bbac101d50176611136b</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
+        <span class="n">h_freq</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">h_freq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">h_freq</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;h_freq must be less than half the sample rate&#39;</span><span class="p">)</span>
+
+        <span class="c1"># savitzky-golay filtering</span>
+        <span class="n">window_length</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span> <span class="o">/</span> <span class="n">h_freq</span><span class="p">))</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Using savgol length </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">window_length</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">polyorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                      <span class="n">window_length</span><span class="o">=</span><span class="n">window_length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save the dataset.&quot;&quot;&quot;</span>
