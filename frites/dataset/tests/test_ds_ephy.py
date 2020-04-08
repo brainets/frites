@@ -113,3 +113,8 @@ class TestDatasetEphy(object):  # noqa
         """Test function savgol_filter."""
         dt = self._get_data()
         dt.savgol_filter(31)
+
+    def test_resample(self):
+        """Test function resample."""
+        dt = self._get_data()
+        dt.resample(10)

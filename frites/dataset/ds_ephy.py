@@ -340,6 +340,8 @@ class DatasetEphy(object):
     def savgol_filter(self, h_freq, verbose=None):
         """Filter the data using Savitzky-Golay polynomial method.
 
+        This method is an adaptation of the mne-python one.
+
         Parameters
         ----------
         h_freq : float
@@ -351,7 +353,7 @@ class DatasetEphy(object):
 
         Returns
         -------
-        inst : instance of Epochs or Evoked
+        inst : instance of DatasetEphy
             The object with the filtering applied.
 
         Notes
@@ -360,6 +362,8 @@ class DatasetEphy(object):
             https://gist.github.com/larsoner/bbac101d50176611136b
         """
         set_log_level(verbose)
+        assert self._groupedby is "subject", ("Slicing only work when data is "
+                                              "grouped by 'subjects'")
         from scipy.signal import savgol_filter
         h_freq = float(h_freq)
         if h_freq >= self.sfreq / 2.:
@@ -367,10 +371,64 @@ class DatasetEphy(object):
 
         # savitzky-golay filtering
         window_length = (int(np.round(self.sfreq / h_freq)) // 2) * 2 + 1
-        logger.info('Using savgol length %d' % window_length)
+        logger.info(f'    Using savgol length {window_length}')
         for k in range(len(self._x)):
             self._x[k] = savgol_filter(self._x[k], axis=1, polyorder=5,
                                       window_length=window_length)
+        return self
+
+    def resample(self, sfreq, npad='auto', window='boxcar', n_jobs=1,
+                 pad='edge', verbose=None):
+        """Resample data.
+
+        This method is an adaptation of the mne-python one.
+
+        Parameters
+        ----------
+        sfreq : float
+            New sample rate to use.
+        npad : int | str
+            Amount to pad the start and end of the data. Can also be “auto” to
+            use a padding that will result in a power-of-two size (can be much
+            faster).
+        window : str | tuple
+            Frequency-domain window to use in resampling. See
+            scipy.signal.resample().
+        pad : str | 'edge'
+            The type of padding to use. Supports all numpy.pad() mode options.
+            Can also be “reflect_limited”, which pads with a reflected version
+            of each vector mirrored on the first and last values of the vector,
+            followed by zeros. Only used for method='fir'. The default is
+            'edge', which pads with the edge values of each vector.
+
+        Returns
+        -------
+        inst : instance of DatasetEphy
+            The object with the filtering applied.
+
+        Notes
+        -----
+        For some data, it may be more accurate to use npad=0 to reduce
+        artifacts. This is dataset dependent -- check your data!
+        """
+        set_log_level(verbose)
+        assert self._groupedby is "subject", ("Slicing only work when data is "
+                                              "grouped by 'subjects'")
+        from mne.filter import resample
+        sfreq = float(sfreq)
+        o_sfreq = self.sfreq
+        logger.info(f"    Resample to the frequency {sfreq}Hz")
+        for k in range(len(self._x)):
+            _x = np.transpose(self._x[k], axes=(0, 2, 1))
+            _x = resample(_x, sfreq, o_sfreq, npad, window=window,
+                          n_jobs=n_jobs, pad=pad)
+            self._x[k] = np.transpose(_x, axes=(0, 2, 1))
+        self.sfreq = float(sfreq)
+
+        self.times = (np.arange(self._x[0].shape[1], dtype=np.float) /
+                      sfreq + self.times[0])
+        self.n_times = len(self.times)
+
         return self
 
     def save(self):
