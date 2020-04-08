@@ -135,8 +135,7 @@ class DatasetEphy(object):
         # time slicing
         slt_start = self.__slice_float(sl_time.start, self.times)
         slt_stop = self.__slice_float(sl_time.stop, self.times)
-        slt_step = self.__slice_float(sl_time.step, self.times)
-        sl_time = slice(slt_start, slt_stop, slt_step)
+        sl_time = slice(slt_start, slt_stop, sl_time.step)
         self._x = [k[:, sl_time, :] for k in self._x]
         self.times = self.times[sl_time]
         self.n_times = self._x[0].shape[1]

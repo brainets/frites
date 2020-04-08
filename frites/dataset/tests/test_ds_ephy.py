@@ -41,7 +41,12 @@ class TestDatasetEphy(object):  # noqa
                                              n_epochs=7, n_subjects=5,
                                              as_mne=True, random_state=0)
         y, _ = sim_mi_cc(data, snr=.8)
-        DatasetEphy(data, y, roi, times=time)
+        ds = DatasetEphy(data, y, roi, times=time)
+
+        # test slicing
+        ds = ds[::2, :]
+        ds = ds[0.15:0.18, :]
+        ds = ds[:, roi[0][0:2]]
 
     def test_shapes(self):
         """Test function shapes."""
