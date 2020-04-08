@@ -43,11 +43,6 @@ class TestDatasetEphy(object):  # noqa
         y, _ = sim_mi_cc(data, snr=.8)
         ds = DatasetEphy(data, y, roi, times=time)
 
-        # test slicing
-        ds = ds[::2, :]
-        ds = ds[0.15:0.18, :]
-        ds = ds[:, roi[0][0:2]]
-
     def test_shapes(self):
         """Test function shapes."""
         dt = self._get_data()
@@ -106,3 +101,15 @@ class TestDatasetEphy(object):  # noqa
         # __repr__
         repr(dt)
         str(dt)
+
+    def test_slicing(self):
+        """Test spatio-temporal slicing."""
+        dt = self._get_data()
+        dt[::2, :]
+        dt[0.15:0.18, :]
+        dt[:, dt.roi[0][0:2]]
+
+    def test_savgol_filter(self):
+        """Test function savgol_filter."""
+        dt = self._get_data()
+        dt.savgol_filter(31)

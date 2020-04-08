@@ -91,6 +91,7 @@ class DatasetEphy(object):
             logger.warning("No time vector found. A default will be used "
                            "instead")
             self.times = np.arange(self.n_times)
+        self.sfreq = 1. / (self.times[1] - self.times[0])
 
         # check consistency between x and y
         _const = [self._x[k].shape == (len(roi[k]), self.n_times,
@@ -335,6 +336,42 @@ class DatasetEphy(object):
             raise NotImplementedError("FUTURE WORK")
 
         self._copnormed = f"{int(gcrn_per_suj)}-{mi_type}"
+
+    def savgol_filter(self, h_freq, verbose=None):
+        """Filter the data using Savitzky-Golay polynomial method.
+
+        Parameters
+        ----------
+        h_freq : float
+            Approximate high cut-off frequency in Hz. Note that this is not an
+            exact cutoff, since Savitzky-Golay filtering is done using
+            polynomial fits instead of FIR/IIR filtering. This parameter is
+            thus used to determine the length of the window over which a
+            5th-order polynomial smoothing is used.
+
+        Returns
+        -------
+        inst : instance of Epochs or Evoked
+            The object with the filtering applied.
+
+        Notes
+        -----
+        For Savitzky-Golay low-pass approximation, see:
+            https://gist.github.com/larsoner/bbac101d50176611136b
+        """
+        set_log_level(verbose)
+        from scipy.signal import savgol_filter
+        h_freq = float(h_freq)
+        if h_freq >= self.sfreq / 2.:
+            raise ValueError('h_freq must be less than half the sample rate')
+
+        # savitzky-golay filtering
+        window_length = (int(np.round(self.sfreq / h_freq)) // 2) * 2 + 1
+        logger.info('Using savgol length %d' % window_length)
+        for k in range(len(self._x)):
+            self._x[k] = savgol_filter(self._x[k], axis=1, polyorder=5,
+                                      window_length=window_length)
+        return self
 
     def save(self):
         """Save the dataset."""
