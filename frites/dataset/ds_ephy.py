@@ -120,8 +120,51 @@ class DatasetEphy(object):
         """Get the number of subjects."""
         return self.n_subjects
 
-    def __getitem__(self, idx):
-        return self._x[idx]
+    def __getitem__(self, arg):
+        """Slice the dataset."""
+        assert self._groupedby is "subject", ("Slicing only work when data is "
+                                              "grouped by 'subjects'")
+        if isinstance(arg, slice):
+            arg = (arg, slice(None, None, None))
+        if len(arg) == 1:
+            arg = (arg[0], slice(None, None, None))
+        assert len(arg) in [1, 2]
+        sl_time, sl_roi = arg
+        if isinstance(sl_roi, str):
+            sl_roi = [sl_roi]
+        # time slicing
+        slt_start = self.__slice_float(sl_time.start, self.times)
+        slt_stop = self.__slice_float(sl_time.stop, self.times)
+        slt_step = self.__slice_float(sl_time.step, self.times)
+        sl_time = slice(slt_start, slt_stop, slt_step)
+        self._x = [k[:, sl_time, :] for k in self._x]
+        self.times = self.times[sl_time]
+        self.n_times = self._x[0].shape[1]
+        # roi slicing
+        if isinstance(sl_roi, (tuple, list, np.ndarray)):
+            for n_s in range(self.n_subjects):
+                s_roi = np.asarray(self.roi[n_s])
+                is_roi = np.zeros((len(s_roi), len(sl_roi)))
+                for n_r, r in enumerate(sl_roi):
+                    is_roi[:, n_r] = s_roi == r
+                is_roi = is_roi.any(axis=1)
+                self._x[n_s] = self._x[n_s][is_roi, ...]
+                self.roi[n_s] = s_roi[is_roi]
+            # unique roi list
+            merged_roi = np.r_[tuple(self.roi)]
+            _, u_idx = np.unique(merged_roi, return_index=True)
+            self.roi_names = merged_roi[np.sort(u_idx)]
+            self.n_roi = len(self.roi_names)
+
+        return self
+
+    @staticmethod
+    def __slice_float(ref, vec):
+        if isinstance(ref, (int, float)):
+            ref = np.abs(vec - ref).argmin()
+        else:
+            ref = ref
+        return ref
 
     ###########################################################################
     # METHODS
