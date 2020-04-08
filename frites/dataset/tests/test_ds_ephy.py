@@ -106,5 +106,3 @@ class TestDatasetEphy(object):  # noqa
         # __repr__
         repr(dt)
         str(dt)
-        # __getitem__
-        assert np.array_equal(dt.x[0], dt[0])
