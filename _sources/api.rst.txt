@@ -200,4 +200,5 @@ Gaussian-Copula based measures to apply to multidimensional vectors
    gccmi_nd_ccnd
    gccmi_model_nd_cdnd
    gccmi_nd_ccc
-   transfer_entropy
+   it_transfer_entropy
+   it_fit

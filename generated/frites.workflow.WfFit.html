@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -141,6 +141,8 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
 </ul>
 </li>
 </ul>
@@ -186,9 +188,9 @@
       
   <div class="section" id="frites-workflow-wffit">
 <h1>frites.workflow.WfFit<a class="headerlink" href="#frites-workflow-wffit" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="frites.workflow.WfFit">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfFit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mi_type</span><span class="o">=</span><span class="default_value">'cc'</span></em>, <em class="sig-param"><span class="n">inference</span><span class="o">=</span><span class="default_value">'rfx'</span></em>, <em class="sig-param"><span class="n">gcrn_per_suj</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mi_method</span><span class="o">=</span><span class="default_value">'gc'</span></em>, <em class="sig-param"><span class="n">kernel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfFit</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow for Feature Specific Information Transfer.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -241,9 +243,9 @@ moving average</p>
 </dl>
 <p class="rubric">References</p>
 <p>Bim et al. 2019 <a class="bibtex reference internal" href="../references.html#bim2019non" id="id1">[1]</a></p>
-<dl class="py method">
+<dl class="method">
 <dt id="frites.workflow.WfFit.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">mi_type</span><span class="o">=</span><span class="default_value">'cc'</span></em>, <em class="sig-param"><span class="n">inference</span><span class="o">=</span><span class="default_value">'rfx'</span></em>, <em class="sig-param"><span class="n">gcrn_per_suj</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mi_method</span><span class="o">=</span><span class="default_value">'gc'</span></em>, <em class="sig-param"><span class="n">kernel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -257,10 +259,10 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.__init__" title="frites.workflow.WfFit.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference, …])</p></td>
 <td><p>Initialize self.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfFit.clean" title="frites.workflow.WfFit.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, dataset[, max_delay, net, level, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.fit" title="frites.workflow.WfFit.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, max_delay, net, level, …])</p></td>
 <td><p>Compute the Feature Specific Information transfer and statistics.</p></td>
 </tr>
 </tbody>
@@ -272,32 +274,178 @@ moving average</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_roi</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.fit_roi" title="frites.workflow.WfFit.fit_roi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_roi</span></code></a></p></td>
 <td><p>Get the true FIT that have been computed per ROI.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fitp_roi</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfFit.fitp_roi" title="frites.workflow.WfFit.fitp_roi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fitp_roi</span></code></a></p></td>
 <td><p>Get the permuted FIT that have been computed per ROI.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.mi" title="frites.workflow.WfFit.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
 <td><p>List of length (n_roi) of true mutual information.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfFit.mi_p" title="frites.workflow.WfFit.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
 <td><p>List of length (n_roi) of permuted mutual information.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sources</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.sources" title="frites.workflow.WfFit.sources"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sources</span></code></a></p></td>
 <td><p>Get the sources indices of shape (n_pairs,) that have been used.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfFit.targets" title="frites.workflow.WfFit.targets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code></a></p></td>
 <td><p>Get the targets indices of shape (n_pairs,) that have been used.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">times</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.times" title="frites.workflow.WfFit.times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">times</span></code></a></p></td>
 <td><p>Get the time vector.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfFit.tvalues" title="frites.workflow.WfFit.tvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></a></p></td>
 <td><p>T-values array of shape (n_times, n_roi) when group level analysis is selected.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="frites.workflow.WfFit.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean computations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">net=False</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the Feature Specific Information transfer and statistics.</p>
+<p>In order to run the worflow, you must first provide a dataset instance
+(see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When performing statistics at the cluster-level, we only test
+the cluster size. This means that in your results, you can only
+discuss about the presence of a significant cluster without being
+precise about its spatio-temporal properties
+(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id2">[7]</a>)</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance</p>
+</dd>
+<dt><strong>max_delay</strong><span class="classifier">float | 0.3</span></dt><dd><p>Maximum delay to use for defining the past of the source and target</p>
+</dd>
+<dt><strong>net</strong><span class="classifier">bool | False</span></dt><dd><p>Compute either the bidirectional FIT (i.e A-&gt;B and B-&gt;A which
+correspond to <cite>net=False</cite>) either the unidirectional FIT
+(i.e A-&gt;B - B-&gt;A which correspond to <cite>net=True</cite>). By default, the
+bidirectional FIT is computed.</p>
+</dd>
+<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
+of interest and at each time point. If ‘cluster’, cluster-based
+methods are used. By default, cluster-based is selected</p>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. By default, the maximum-statistics is used.</p>
+</dd>
+<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a float that is going to act as a threshold</p></li>
+<li><p>None and the threshold is automatically going to be inferred
+using the distribution of permutations</p></li>
+<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
+the 95th percentile of the permutations is used.</p>
+</dd>
+<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
+distribution of mi that can be obtained by chance</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs)</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Fix the random state of the machine (use it for reproducibility).
+If None, a random state is randomly assigned.</p>
+</dd>
+<dt><strong>output_type</strong><span class="classifier">string</span></dt><dd><p>Output format of the returned FIT and p-values. For details, see
+<a class="reference internal" href="frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs" title="frites.io.convert_dfc_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.io.convert_dfc_outputs()</span></code></a>. Use either ‘2d_array’,
+‘3d_array’, ‘2d_dataframe’, ‘3d_dataframe’, ‘dataarray’.</p>
+</dd>
+<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the <a class="reference internal" href="frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-class docutils literal notranslate"><span class="pre">WfStatsEphy.fit</span></code></a>
+method</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>fit, pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of FIT and p-values. Output types and shapes depends on the
+<cite>output_type</cite> input parameter.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../references.html#maris2007nonparametric" id="id3">[6]</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.fit_roi">
+<em class="property">property </em><code class="sig-name descname">fit_roi</code><a class="headerlink" href="#frites.workflow.WfFit.fit_roi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the true FIT that have been computed per ROI. This attribute
+is a list of length (n_roi) composed of arrays of shapes
+(1, n_times). For the fixed effect, the 1 is obtained by computing mi
+across subjects then each array of the list is in bits. On the other
+hand, for the random effect the 1 is obtained by computing a one sample
+t-test across subjects. Hence, each array represents t-values per roi.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.fitp_roi">
+<em class="property">property </em><code class="sig-name descname">fitp_roi</code><a class="headerlink" href="#frites.workflow.WfFit.fitp_roi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the permuted FIT that have been computed per ROI. This attribute
+is a list of length (n_roi) composed of arrays of shapes
+(n_perm, 1, n_times). For the fixed effect, the 1 is obtained by
+computing mi across subjects then each array of the list is in bits. On
+the other hand, for the random effect the 1 is obtained by computing a
+one sample t-test across subjects. Hence, each array represents
+t-values per roi.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.mi">
+<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WfFit.mi" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of length (n_roi) of true mutual information. Each element of
+this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘rfx’
+(1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.mi_p">
+<em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WfFit.mi_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of length (n_roi) of permuted mutual information. Each element
+of this list has a shape of (n_perm, n_subjects, n_times) if
+<cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.sources">
+<em class="property">property </em><code class="sig-name descname">sources</code><a class="headerlink" href="#frites.workflow.WfFit.sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the sources indices of shape (n_pairs,) that have been used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.targets">
+<em class="property">property </em><code class="sig-name descname">targets</code><a class="headerlink" href="#frites.workflow.WfFit.targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the targets indices of shape (n_pairs,) that have been used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.times">
+<em class="property">property </em><code class="sig-name descname">times</code><a class="headerlink" href="#frites.workflow.WfFit.times" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the time vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfFit.tvalues">
+<em class="property">property </em><code class="sig-name descname">tvalues</code><a class="headerlink" href="#frites.workflow.WfFit.tvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>T-values array of shape (n_times, n_roi) when group level analysis
+is selected.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

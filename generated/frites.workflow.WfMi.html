@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -141,6 +141,8 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
 </ul>
 </li>
 </ul>
@@ -186,9 +188,9 @@
       
   <div class="section" id="frites-workflow-wfmi">
 <h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="frites.workflow.WfMi">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mi_type</span><span class="o">=</span><span class="default_value">'cc'</span></em>, <em class="sig-param"><span class="n">inference</span><span class="o">=</span><span class="default_value">'rfx'</span></em>, <em class="sig-param"><span class="n">gcrn_per_suj</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mi_method</span><span class="o">=</span><span class="default_value">'gc'</span></em>, <em class="sig-param"><span class="n">kernel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMi</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of local mutual-information and statistics.</p>
 <p>This class allows to define a workflow for computing the mutual information
 and then to evaluate the significance using non-parametric statistics
@@ -244,9 +246,9 @@ moving average</p>
 </dl>
 <p class="rubric">References</p>
 <p>Friston et al., 1996, 1999 <a class="bibtex reference internal" href="../references.html#friston1996detecting" id="id1">[2]</a><a class="bibtex reference internal" href="../references.html#friston1999many" id="id2">[3]</a></p>
-<dl class="py method">
+<dl class="method">
 <dt id="frites.workflow.WfMi.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">mi_type</span><span class="o">=</span><span class="default_value">'cc'</span></em>, <em class="sig-param"><span class="n">inference</span><span class="o">=</span><span class="default_value">'rfx'</span></em>, <em class="sig-param"><span class="n">gcrn_per_suj</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mi_method</span><span class="o">=</span><span class="default_value">'gc'</span></em>, <em class="sig-param"><span class="n">kernel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">gcrn_per_suj=True</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -260,10 +262,10 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.__init__" title="frites.workflow.WfMi.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, mi_type, inference, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, dataset[, level, mcp, n_perm, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, level, mcp, n_perm, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
@@ -275,20 +277,131 @@ moving average</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.mi" title="frites.workflow.WfMi.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
 <td><p>List of length (n_roi) of true mutual information.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.mi_p" title="frites.workflow.WfMi.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
 <td><p>List of length (n_roi) of permuted mutual information.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.tvalues" title="frites.workflow.WfMi.tvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></a></p></td>
 <td><p>T-values array of shape (n_times, n_roi) when group level analysis is selected.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wf_stats</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.wf_stats" title="frites.workflow.WfMi.wf_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wf_stats</span></code></a></p></td>
 <td><p>Get the workflow of statistics.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="frites.workflow.WfMi.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean computations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfMi.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">output_type='dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the workflow on a dataset.</p>
+<p>In order to run the worflow, you must first provide a dataset instance
+(see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When performing statistics at the cluster-level, we only test
+the cluster size. This means that in your results, you can only
+discuss about the presence of a significant cluster without being
+precise about its spatio-temporal properties
+(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[7]</a>)</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance</p>
+</dd>
+<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
+of interest and at each time point. If ‘cluster’, cluster-based
+methods are used. By default, cluster-based is selected</p>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. By default, maximum statistics is used. If <cite>level</cite> is
+‘testwise’, MCP is performed across space and time while if <cite>level</cite>
+is ‘cluster’, MCP is performed on cluster mass. By default,
+maximum statistics is usd</p>
+</dd>
+<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
+distribution of mi that can be obtained by chance</p>
+</dd>
+<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a float that is going to act as a threshold</p></li>
+<li><p>None and the threshold is automatically going to be inferred
+using the distribution of permutations</p></li>
+<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
+the 95th percentile of the permutations is used.</p>
+</dd>
+<dt><strong>n_bins</strong><span class="classifier">int | None</span></dt><dd><p>Number of bins to use if the method for computing the mutual
+information is based on binning (mi_method=’bin’). If None, the
+number of bins is going to be automatically inferred based on the
+number of trials and variables</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs)</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Fix the random state of the machine (use it for reproducibility).
+If None, a random state is randomly assigned.</p>
+</dd>
+<dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Output format of the returned mutual information and p-values. For
+details, see <a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs" title="frites.io.convert_spatiotemporal_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.io.convert_spatiotemporal_outputs()</span></code></a></p>
+</dd>
+<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
+selected using the <cite>stat_method</cite> input parameter</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>mi, pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of mean mutual information and p-values. Output types and
+shapes depends on the <cite>output_type</cite> input parameter.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../references.html#maris2007nonparametric" id="id4">[6]</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfMi.mi">
+<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WfMi.mi" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of length (n_roi) of true mutual information. Each element of
+this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘rfx’
+(1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfMi.mi_p">
+<em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WfMi.mi_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of length (n_roi) of permuted mutual information. Each element
+of this list has a shape of (n_perm, n_subjects, n_times) if
+<cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfMi.tvalues">
+<em class="property">property </em><code class="sig-name descname">tvalues</code><a class="headerlink" href="#frites.workflow.WfMi.tvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>T-values array of shape (n_times, n_roi) when group level analysis
+is selected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfMi.wf_stats">
+<em class="property">property </em><code class="sig-name descname">wf_stats</code><a class="headerlink" href="#frites.workflow.WfMi.wf_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the workflow of statistics.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

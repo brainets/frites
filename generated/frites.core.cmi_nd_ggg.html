@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -141,6 +141,8 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
 </ul>
 </li>
 </ul>
@@ -186,9 +188,9 @@
       
   <div class="section" id="frites-core-cmi-nd-ggg">
 <h1>frites.core.cmi_nd_ggg<a class="headerlink" href="#frites-core-cmi-nd-ggg" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="frites.core.cmi_nd_ggg">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">cmi_nd_ggg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">mvaxis</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">traxis</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">biascorrect</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">demeaned</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">shape_checking</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_nd.html#cmi_nd_ggg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.cmi_nd_ggg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">cmi_nd_ggg</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z</em>, <em class="sig-param">mvaxis=None</em>, <em class="sig-param">traxis=-1</em>, <em class="sig-param">biascorrect=True</em>, <em class="sig-param">demeaned=False</em>, <em class="sig-param">shape_checking=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_nd.html#cmi_nd_ggg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.cmi_nd_ggg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multi-dimentional MI between three Gaussian variables in bits.</p>
 <p>This function is based on ANOVA style model comparison.</p>
 <dl class="field-list simple">

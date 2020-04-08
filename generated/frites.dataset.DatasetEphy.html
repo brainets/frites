@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -141,6 +141,8 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
 </ul>
 </li>
 </ul>
@@ -186,9 +188,9 @@
       
   <div class="section" id="frites-dataset-datasetephy">
 <h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="frites.dataset.DatasetEphy">
-<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">z</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">times</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nb_min_suj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">roi</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataset of electrophysiological data coming from several subjects.</p>
 <p>This class is used to represent the neurophysiological data coming from
 multiple subjects. Then, the created object can be used to compute the
@@ -216,9 +218,9 @@ are going to be skipped. Use None to skip this parameter</p>
 </dl>
 </dd>
 </dl>
-<dl class="py method">
+<dl class="method">
 <dt id="frites.dataset.DatasetEphy.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">z</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">times</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nb_min_suj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">roi</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -232,19 +234,19 @@ are going to be skipped. Use None to skip this parameter</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x, y, roi[, z, times, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code>(self[, mi_type, gcrn_per_suj])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, mi_type, gcrn_per_suj])</p></td>
 <td><p>Apply the Gaussian-Copula rank normalization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code>(self[, groupby])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self[, groupby])</p></td>
 <td><p>Reorganize the data inplace.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code>(self, sfreq[, npad, window, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.resample" title="frites.dataset.DatasetEphy.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self, sfreq[, npad, window, …])</p></td>
 <td><p>Resample data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.save" title="frites.dataset.DatasetEphy.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(self)</p></td>
 <td><p>Save the dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code>(self, h_freq[, verbose])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(self, h_freq[, verbose])</p></td>
 <td><p>Filter the data using Savitzky-Golay polynomial method.</p></td>
 </tr>
 </tbody>
@@ -256,23 +258,160 @@ are going to be skipped. Use None to skip this parameter</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_min_suj</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.nb_min_suj" title="frites.dataset.DatasetEphy.nb_min_suj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_min_suj</span></code></a></p></td>
 <td><p>Get the minimum number of subjects needed per roi.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.shape" title="frites.dataset.DatasetEphy.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code></a></p></td>
 <td><p>Get the shape of the x, y and z (if defined).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.x" title="frites.dataset.DatasetEphy.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a></p></td>
 <td><p>Get the data.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.y" title="frites.dataset.DatasetEphy.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a></p></td>
 <td><p>Get the y value.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">z</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.z" title="frites.dataset.DatasetEphy.z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z</span></code></a></p></td>
 <td><p>Get the z value.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.copnorm">
+<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">gcrn_per_suj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the Gaussian-Copula rank normalization.</p>
+<p>The copnorm is only applied to continuous variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’}</span></dt><dd><p>The copnorm depends on the mutual-information type that is going to
+be performed. Choose either ‘cc’ (continuous / continuous), ‘cd’
+(continuous / discret) or ‘ccd’ (continuous / continuous / discret)</p>
+</dd>
+<dt><strong>gcrn_per_suj</strong><span class="classifier">bool | True</span></dt><dd><p>Apply the Gaussian-rank normalization either per subject (True)
+or across subjects (False).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.groupby">
+<code class="sig-name descname">groupby</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='roi'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.groupby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reorganize the data inplace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>groupby</strong><span class="classifier">{“roi”, “subject”}</span></dt><dd><p>Group data either by subject or by roi</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.resample">
+<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sfreq</em>, <em class="sig-param">npad='auto'</em>, <em class="sig-param">window='boxcar'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">pad='edge'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.resample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resample data.</p>
+<p>This method is an adaptation of the mne-python one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sfreq</strong><span class="classifier">float</span></dt><dd><p>New sample rate to use.</p>
+</dd>
+<dt><strong>npad</strong><span class="classifier">int | str</span></dt><dd><p>Amount to pad the start and end of the data. Can also be “auto” to
+use a padding that will result in a power-of-two size (can be much
+faster).</p>
+</dd>
+<dt><strong>window</strong><span class="classifier">str | tuple</span></dt><dd><p>Frequency-domain window to use in resampling. See
+scipy.signal.resample().</p>
+</dd>
+<dt><strong>pad</strong><span class="classifier">str | ‘edge’</span></dt><dd><p>The type of padding to use. Supports all numpy.pad() mode options.
+Can also be “reflect_limited”, which pads with a reflected version
+of each vector mirrored on the first and last values of the vector,
+followed by zeros. Only used for method=’fir’. The default is
+‘edge’, which pads with the edge values of each vector.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>inst</strong><span class="classifier">instance of DatasetEphy</span></dt><dd><p>The object with the filtering applied.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For some data, it may be more accurate to use npad=0 to reduce
+artifacts. This is dataset dependent – check your data!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the dataset.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.savgol_filter">
+<code class="sig-name descname">savgol_filter</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">h_freq</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.savgol_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter the data using Savitzky-Golay polynomial method.</p>
+<p>This method is an adaptation of the mne-python one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>h_freq</strong><span class="classifier">float</span></dt><dd><p>Approximate high cut-off frequency in Hz. Note that this is not an
+exact cutoff, since Savitzky-Golay filtering is done using
+polynomial fits instead of FIR/IIR filtering. This parameter is
+thus used to determine the length of the window over which a
+5th-order polynomial smoothing is used.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>inst</strong><span class="classifier">instance of DatasetEphy</span></dt><dd><p>The object with the filtering applied.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>For Savitzky-Golay low-pass approximation, see:</dt><dd><p><a class="reference external" href="https://gist.github.com/larsoner/bbac101d50176611136b">https://gist.github.com/larsoner/bbac101d50176611136b</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.nb_min_suj">
+<em class="property">property </em><code class="sig-name descname">nb_min_suj</code><a class="headerlink" href="#frites.dataset.DatasetEphy.nb_min_suj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the minimum number of subjects needed per roi.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#frites.dataset.DatasetEphy.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the shape of the x, y and z (if defined).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.x">
+<em class="property">property </em><code class="sig-name descname">x</code><a class="headerlink" href="#frites.dataset.DatasetEphy.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.y">
+<em class="property">property </em><code class="sig-name descname">y</code><a class="headerlink" href="#frites.dataset.DatasetEphy.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the y value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.z">
+<em class="property">property </em><code class="sig-name descname">z</code><a class="headerlink" href="#frites.dataset.DatasetEphy.z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the z value.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.gcmi_model_nd_cd &#8212; frites 0.3.1 documentation</title>
+    <title>frites.core.it_transfer_entropy &#8212; frites 0.3.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.gccmi_nd_ccnd" href="frites.core.gccmi_nd_ccnd.html" />
-    <link rel="prev" title="frites.core.gcmi_nd_cc" href="frites.core.gcmi_nd_cc.html" />
+    <link rel="next" title="frites.core.it_fit" href="frites.core.it_fit.html" />
+    <link rel="prev" title="frites.core.gccmi_nd_ccc" href="frites.core.gccmi_nd_ccc.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -137,11 +137,11 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
 </ul>
 </li>
@@ -162,7 +162,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.core.gcmi_model_nd_cd.rst.txt"
+  <a href="../_sources/generated/frites.core.it_transfer_entropy.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -186,41 +186,42 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-gcmi-model-nd-cd">
-<h1>frites.core.gcmi_model_nd_cd<a class="headerlink" href="#frites-core-gcmi-model-nd-cd" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-core-it-transfer-entropy">
+<h1>frites.core.it_transfer_entropy<a class="headerlink" href="#frites-core-it-transfer-entropy" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.core.gcmi_model_nd_cd">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">gcmi_model_nd_cd</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">mvaxis=None</em>, <em class="sig-param">traxis=-1</em>, <em class="sig-param">shape_checking=True</em>, <em class="sig-param">gcrn=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_nd.html#gcmi_model_nd_cd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.gcmi_model_nd_cd" title="Permalink to this definition">¶</a></dt>
-<dd><p>GCMI between a continuous and discret variables.</p>
-<p>The only difference with <cite>mi_gg</cite> is that a normalization is performed for
-each continuous variable.</p>
+<dt id="frites.core.it_transfer_entropy">
+<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">it_transfer_entropy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">max_delay=30</em>, <em class="sig-param">pairs=None</em>, <em class="sig-param">gcrn=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/it.html#it_transfer_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.it_transfer_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the tranfert entropy.</p>
+<p>The transfert entropy represents the amount of information that is send
+from a source to a target. It is defined as :</p>
+<div class="math notranslate nohighlight">
+\[TE = I(source_{past}; target_{present} | target_{past})\]</div>
+<p>Where <span class="math notranslate nohighlight">\(past\)</span> is defined using the <cite>max_delay</cite> input parameter. Note
+that the transfert entropy only provides about the amount of information
+that is sent, not on the content.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Continuous variable</p>
+<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of data of shape (n_roi, n_times, n_epochs). Must be a gaussian
+variable</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array_like</span></dt><dd><p>Discret variable of shape (n_trials,)</p>
+<dt><strong>max_delay</strong><span class="classifier">int | 30</span></dt><dd><p>Number of time points defining where to stop looking at in the past.
+Increasing this maximum delay input can lead to slower computations</p>
 </dd>
-<dt><strong>mvaxis</strong><span class="classifier">int | None</span></dt><dd><p>Spatial location of the axis to consider if multi-variate analysis
-is needed</p>
+<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Array of pairs to consider for computing the transfert entropy. It
+should be an array of shape (n_pairs, 2) where the first column refers
+to sources and the second to targets. If None, all pairs will be
+computed</p>
 </dd>
-<dt><strong>traxis</strong><span class="classifier">int | -1</span></dt><dd><p>Spatial location of the trial axis. By default the last axis is
-considered</p>
-</dd>
-<dt><strong>shape_checking</strong><span class="classifier">bool | True</span></dt><dd><p>Perform a reshape and check that x is consistents. For high
-performances and to avoid extensive memory usage, it’s better to
-already have x with a shape of (…, mvaxis, traxis) and to set this
-parameter to False</p>
-</dd>
-<dt><strong>gcrn</strong><span class="classifier">bool | True</span></dt><dd><p>Apply a Gaussian Copula rank normalization. This operation is
-relatively slow for big arrays.</p>
+<dt><strong>gcrn</strong><span class="classifier">bool | True</span></dt><dd><p>Apply a Gaussian Copula rank normalization</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>The mutual information with the same shape as x, without the mvaxis and
-traxis</p>
+<dt><strong>te</strong><span class="classifier">array_like</span></dt><dd><p>The transfert entropy array of shape (n_pairs, n_times - max_delay)</p>
+</dd>
+<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Pairs vector use for computations of shape (n_pairs, 2)</p>
 </dd>
 </dl>
 </dd>
