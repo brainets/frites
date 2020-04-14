@@ -91,6 +91,7 @@ class DatasetEphy(object):
             logger.warning("No time vector found. A default will be used "
                            "instead")
             self.times = np.arange(self.n_times)
+        self.sfreq = 1. / (self.times[1] - self.times[0])
 
         # check consistency between x and y
         _const = [self._x[k].shape == (len(roi[k]), self.n_times,
@@ -120,8 +121,50 @@ class DatasetEphy(object):
         """Get the number of subjects."""
         return self.n_subjects
 
-    def __getitem__(self, idx):
-        return self._x[idx]
+    def __getitem__(self, arg):
+        """Slice the dataset."""
+        assert self._groupedby is "subject", ("Slicing only work when data is "
+                                              "grouped by 'subjects'")
+        if isinstance(arg, slice):
+            arg = (arg, slice(None, None, None))
+        if len(arg) == 1:
+            arg = (arg[0], slice(None, None, None))
+        assert len(arg) in [1, 2]
+        sl_time, sl_roi = arg
+        if isinstance(sl_roi, str):
+            sl_roi = [sl_roi]
+        # time slicing
+        slt_start = self.__slice_float(sl_time.start, self.times)
+        slt_stop = self.__slice_float(sl_time.stop, self.times)
+        sl_time = slice(slt_start, slt_stop, sl_time.step)
+        self._x = [k[:, sl_time, :] for k in self._x]
+        self.times = self.times[sl_time]
+        self.n_times = self._x[0].shape[1]
+        # roi slicing
+        if isinstance(sl_roi, (tuple, list, np.ndarray)):
+            for n_s in range(self.n_subjects):
+                s_roi = np.asarray(self.roi[n_s])
+                is_roi = np.zeros((len(s_roi), len(sl_roi)))
+                for n_r, r in enumerate(sl_roi):
+                    is_roi[:, n_r] = s_roi == r
+                is_roi = is_roi.any(axis=1)
+                self._x[n_s] = self._x[n_s][is_roi, ...]
+                self.roi[n_s] = s_roi[is_roi]
+            # unique roi list
+            merged_roi = np.r_[tuple(self.roi)]
+            _, u_idx = np.unique(merged_roi, return_index=True)
+            self.roi_names = merged_roi[np.sort(u_idx)]
+            self.n_roi = len(self.roi_names)
+
+        return self
+
+    @staticmethod
+    def __slice_float(ref, vec):
+        if isinstance(ref, (int, float)):
+            ref = np.abs(vec - ref).argmin()
+        else:
+            ref = ref
+        return ref
 
     ###########################################################################
     # METHODS
@@ -293,6 +336,100 @@ class DatasetEphy(object):
             raise NotImplementedError("FUTURE WORK")
 
         self._copnormed = f"{int(gcrn_per_suj)}-{mi_type}"
+
+    def savgol_filter(self, h_freq, verbose=None):
+        """Filter the data using Savitzky-Golay polynomial method.
+
+        This method is an adaptation of the mne-python one.
+
+        Parameters
+        ----------
+        h_freq : float
+            Approximate high cut-off frequency in Hz. Note that this is not an
+            exact cutoff, since Savitzky-Golay filtering is done using
+            polynomial fits instead of FIR/IIR filtering. This parameter is
+            thus used to determine the length of the window over which a
+            5th-order polynomial smoothing is used.
+
+        Returns
+        -------
+        inst : instance of DatasetEphy
+            The object with the filtering applied.
+
+        Notes
+        -----
+        For Savitzky-Golay low-pass approximation, see:
+            https://gist.github.com/larsoner/bbac101d50176611136b
+        """
+        set_log_level(verbose)
+        assert self._groupedby is "subject", ("Slicing only work when data is "
+                                              "grouped by 'subjects'")
+        from scipy.signal import savgol_filter
+        h_freq = float(h_freq)
+        if h_freq >= self.sfreq / 2.:
+            raise ValueError('h_freq must be less than half the sample rate')
+
+        # savitzky-golay filtering
+        window_length = (int(np.round(self.sfreq / h_freq)) // 2) * 2 + 1
+        logger.info(f'    Using savgol length {window_length}')
+        for k in range(len(self._x)):
+            self._x[k] = savgol_filter(self._x[k], axis=1, polyorder=5,
+                                      window_length=window_length)
+        return self
+
+    def resample(self, sfreq, npad='auto', window='boxcar', n_jobs=1,
+                 pad='edge', verbose=None):
+        """Resample data.
+
+        This method is an adaptation of the mne-python one.
+
+        Parameters
+        ----------
+        sfreq : float
+            New sample rate to use.
+        npad : int | str
+            Amount to pad the start and end of the data. Can also be “auto” to
+            use a padding that will result in a power-of-two size (can be much
+            faster).
+        window : str | tuple
+            Frequency-domain window to use in resampling. See
+            scipy.signal.resample().
+        pad : str | 'edge'
+            The type of padding to use. Supports all numpy.pad() mode options.
+            Can also be “reflect_limited”, which pads with a reflected version
+            of each vector mirrored on the first and last values of the vector,
+            followed by zeros. Only used for method='fir'. The default is
+            'edge', which pads with the edge values of each vector.
+
+        Returns
+        -------
+        inst : instance of DatasetEphy
+            The object with the filtering applied.
+
+        Notes
+        -----
+        For some data, it may be more accurate to use npad=0 to reduce
+        artifacts. This is dataset dependent -- check your data!
+        """
+        set_log_level(verbose)
+        assert self._groupedby is "subject", ("Slicing only work when data is "
+                                              "grouped by 'subjects'")
+        from mne.filter import resample
+        sfreq = float(sfreq)
+        o_sfreq = self.sfreq
+        logger.info(f"    Resample to the frequency {sfreq}Hz")
+        for k in range(len(self._x)):
+            _x = np.transpose(self._x[k], axes=(0, 2, 1))
+            _x = resample(_x, sfreq, o_sfreq, npad, window=window,
+                          n_jobs=n_jobs, pad=pad)
+            self._x[k] = np.transpose(_x, axes=(0, 2, 1))
+        self.sfreq = float(sfreq)
+
+        self.times = (np.arange(self._x[0].shape[1], dtype=np.float) /
+                      sfreq + self.times[0])
+        self.n_times = len(self.times)
+
+        return self
 
     def save(self):
         """Save the dataset."""

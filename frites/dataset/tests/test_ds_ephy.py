@@ -41,7 +41,7 @@ class TestDatasetEphy(object):  # noqa
                                              n_epochs=7, n_subjects=5,
                                              as_mne=True, random_state=0)
         y, _ = sim_mi_cc(data, snr=.8)
-        DatasetEphy(data, y, roi, times=time)
+        ds = DatasetEphy(data, y, roi, times=time)
 
     def test_shapes(self):
         """Test function shapes."""
@@ -101,5 +101,20 @@ class TestDatasetEphy(object):  # noqa
         # __repr__
         repr(dt)
         str(dt)
-        # __getitem__
-        assert np.array_equal(dt.x[0], dt[0])
+
+    def test_slicing(self):
+        """Test spatio-temporal slicing."""
+        dt = self._get_data()
+        dt[::2, :]
+        dt[0.15:0.18, :]
+        dt[:, dt.roi[0][0:2]]
+
+    def test_savgol_filter(self):
+        """Test function savgol_filter."""
+        dt = self._get_data()
+        dt.savgol_filter(31)
+
+    def test_resample(self):
+        """Test function resample."""
+        dt = self._get_data()
+        dt.resample(10)
