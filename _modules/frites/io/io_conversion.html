@@ -227,7 +227,8 @@
         <span class="k">return</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span> <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="convert_dfc_outputs"><a class="viewcode-back" href="../../../generated/frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs">[docs]</a><span class="k">def</span> <span class="nf">convert_dfc_outputs</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">astype</span><span class="o">=</span><span class="s1">&#39;2d_array&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="convert_dfc_outputs"><a class="viewcode-back" href="../../../generated/frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs">[docs]</a><span class="k">def</span> <span class="nf">convert_dfc_outputs</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">astype</span><span class="o">=</span><span class="s1">&#39;2d_array&#39;</span><span class="p">,</span>
+                        <span class="n">is_pvalue</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert dynamic functional connectivity outputs.</span>
 
 <span class="sd">    This functions can be used to convert an array of dynamical functional</span>
@@ -261,6 +262,8 @@
 <span class="sd">            * &#39;dataarray&#39; : a 3d xarray DataArray of shape</span>
 <span class="sd">              (n_sources, n_targets, n_times). Requires xarray to be installed</span>
 <span class="sd">              but this the recommended output as slicing is much easier.</span>
+<span class="sd">    is_pvalue : bool | False</span>
+<span class="sd">        Specify if the array is p-values</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -272,6 +275,8 @@
     <span class="k">assert</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">))</span>
     <span class="k">assert</span> <span class="n">astype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;2d_array&#39;</span><span class="p">,</span> <span class="s1">&#39;3d_array&#39;</span><span class="p">,</span> <span class="s1">&#39;2d_dataframe&#39;</span><span class="p">,</span> <span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span>
                       <span class="s1">&#39;dataarray&#39;</span><span class="p">]</span>
+    <span class="c1"># empty fcn to use</span>
+    <span class="n">empty_fcn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_pvalue</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span>
     <span class="c1"># get used roi and unique sources / targets</span>
     <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
     <span class="n">s_roi</span><span class="p">,</span> <span class="n">t_roi</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[</span><span class="n">sources</span><span class="p">],</span> <span class="n">roi</span><span class="p">[</span><span class="n">targets</span><span class="p">]</span>
@@ -288,7 +293,7 @@
     <span class="k">if</span> <span class="n">astype</span> <span class="ow">is</span> <span class="s1">&#39;2d_array&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">arr</span>
     <span class="k">elif</span> <span class="n">astype</span> <span class="ow">is</span> <span class="s1">&#39;3d_array&#39;</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_sources_u</span><span class="p">,</span> <span class="n">n_targets_u</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">empty_fcn</span><span class="p">((</span><span class="n">n_sources_u</span><span class="p">,</span> <span class="n">n_targets_u</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
         <span class="n">out</span><span class="p">[</span><span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">out</span>
     <span class="k">elif</span> <span class="n">astype</span> <span class="ow">is</span> <span class="s1">&#39;2d_dataframe&#39;</span><span class="p">:</span>
@@ -302,7 +307,7 @@
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">astype</span> <span class="ow">is</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">xarray</span> <span class="kn">import</span> <span class="n">DataArray</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_sources_u</span><span class="p">,</span> <span class="n">n_targets_u</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">empty_fcn</span><span class="p">((</span><span class="n">n_sources_u</span><span class="p">,</span> <span class="n">n_targets_u</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
         <span class="n">out</span><span class="p">[</span><span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">T</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
                        <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
@@ -337,7 +342,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-04-14.</p>
+        <p>&copy; Copyright Last updated on 2020-04-15.</p>
     </footer>
 
   </body>
