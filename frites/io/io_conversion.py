@@ -44,7 +44,8 @@ def convert_spatiotemporal_outputs(arr, times, roi, astype='array'):
         return DataArray(arr, dims=('times', 'roi'), coords=(times, roi))
 
 
-def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
+def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array',
+                        is_pvalue=False):
     """Convert dynamic functional connectivity outputs.
 
     This functions can be used to convert an array of dynamical functional
@@ -78,6 +79,8 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
             * 'dataarray' : a 3d xarray DataArray of shape
               (n_sources, n_targets, n_times). Requires xarray to be installed
               but this the recommended output as slicing is much easier.
+    is_pvalue : bool | False
+        Specify if the array is p-values
 
     Returns
     -------
@@ -89,6 +92,8 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
     assert arr.shape == (len(times), len(sources))
     assert astype in ['2d_array', '3d_array', '2d_dataframe', '3d_dataframe',
                       'dataarray']
+    # empty fcn to use
+    empty_fcn = np.zeros if not is_pvalue else np.ones
     # get used roi and unique sources / targets
     roi = np.asarray(roi)
     s_roi, t_roi = roi[sources], roi[targets]
@@ -105,7 +110,7 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
     if astype is '2d_array':
         return arr
     elif astype is '3d_array':
-        out = np.zeros((n_sources_u, n_targets_u, n_times))
+        out = empty_fcn((n_sources_u, n_targets_u, n_times))
         out[sources, targets, :] = arr.T
         return out
     elif astype is '2d_dataframe':
@@ -119,7 +124,7 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array'):
         return pd.DataFrame(arr, index=times, columns=idx)
     elif astype is 'dataarray':
         from xarray import DataArray
-        out = np.zeros((n_sources_u, n_targets_u, n_times))
+        out = empty_fcn((n_sources_u, n_targets_u, n_times))
         out[sources, targets, :] = arr.T
         da = DataArray(out, dims=('sources', 'targets', 'times'),
                        coords=(roi, roi, times))

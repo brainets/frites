@@ -253,7 +253,7 @@ class WfFit(WfBase):
                 output_type)
         if isinstance(tvalues, np.ndarray):
             self._tvalues = convert_dfc_outputs(tvalues, *args)
-        pvalues = convert_dfc_outputs(pvalues, *args)
+        pvalues = convert_dfc_outputs(pvalues, is_pvalue=True, *args)
         if inference is 'ffx':
             fit = np.concatenate(self._fit_roi, axis=0).T  # mi
         elif inference is 'rfx':
