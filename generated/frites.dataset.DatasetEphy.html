@@ -194,25 +194,37 @@
 <dd><p>Dataset of electrophysiological data coming from several subjects.</p>
 <p>This class is used to represent the neurophysiological data coming from
 multiple subjects. Then, the created object can be used to compute the
-mutual information and perform statistics on it.</p>
-<dl class="field-list simple">
+mutual information (MI) and perform statistics on it.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
+<dd class="field-odd"><dl>
 <dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,). Each element of the list should either be
 an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
 mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</p>
 </dd>
-<dt><strong>roi</strong><span class="classifier">list</span></dt><dd><p>List of arrays of shape (n_channels,) describing the ROI name of each
-channel.</p>
+<dt><strong>roi</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) where each element is an array of shape
+(n_channels,) describing the ROI name of each channel.</p>
 </dd>
-<dt><strong>y, z</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of continuous or discret variables. Each
-element of the list should be an array of shape (n_epochs,) describing
-the continuous variable</p>
+<dt><strong>y, z</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of continuous or discrete variables. Each
+element of the list should be an array of shape (n_epochs,) that is
+then going to be used to compute the MI. The type of MI depends on the
+type of this two variables :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>y`=continuous, `z`=None : I(x; y) and `mi_type</cite> should be ‘cc’</p></li>
+<li><p><cite>y`=discrete, `z`=None : I(x; y) and `mi_type</cite> should be ‘cd’</p></li>
+<li><p><cite>y`=continuous, `z`=discrete : I(x; y | z) and `mi_type</cite> should
+be ‘ccd’. If ‘cc’, <cite>z</cite> is going to be ignored</p></li>
+</ul>
+</div></blockquote>
+<p>Note that if <cite>y</cite> (or <cite>z</cite>) are multi-dimensional discrete variables, the
+categories inside are going to be automatically remapped to a single
+vector.</p>
 </dd>
 <dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>The time vector to use. If the data are defined using MNE-Python, the
-time vector is directly infered from thos files.</p>
+time vector is directly inferred from those files.</p>
 </dd>
-<dt><strong>nb_min_suj</strong><span class="classifier">int | 10</span></dt><dd><p>The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj
+<dt><strong>nb_min_suj</strong><span class="classifier">int | None</span></dt><dd><p>The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj
 are going to be skipped. Use None to skip this parameter</p>
 </dd>
 </dl>
@@ -445,7 +457,7 @@ thus used to determine the length of the window over which a
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-04-15.</p>
+        <p>&copy; Copyright Last updated on 2020-04-16.</p>
     </footer>
 
   </body>
