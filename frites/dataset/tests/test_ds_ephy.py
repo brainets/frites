@@ -43,6 +43,21 @@ class TestDatasetEphy(object):  # noqa
         y, _ = sim_mi_cc(data, snr=.8)
         ds = DatasetEphy(data, y, roi, times=time)
 
+    def test_multiconditions(self):
+        """Test multi-conditions remapping."""
+        n_suj, n_epochs, n_roi, n_times = 3, 3, 1, 10
+        x = [np.random.rand(n_epochs, n_roi, n_times) for k in range(n_suj)]
+        y_1 = [[0, 10], [0, 10], [1, 20]]
+        y_2 = [[1, 20], [0, 10], [1, 20]]
+        y_3 = [[2, 30], [0, 10], [1, 20]]
+        cats = [[0, 0, 1], [1, 0, 1], [2, 0, 1]]
+        y = z =  [y_1, y_2, y_3]
+        roi = [[f"roi-{k}" for k in range(n_roi)]] * n_suj
+        ds = DatasetEphy(x, y, roi, z=z)
+        for _y, _z, _c in zip(ds.y, ds.z, cats):
+            np.testing.assert_array_equal(_z, _c)
+            np.testing.assert_array_equal(_z, _c)
+
     def test_shapes(self):
         """Test function shapes."""
         dt = self._get_data()
