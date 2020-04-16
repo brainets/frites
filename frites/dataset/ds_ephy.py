@@ -16,7 +16,7 @@ class DatasetEphy(object):
 
     This class is used to represent the neurophysiological data coming from
     multiple subjects. Then, the created object can be used to compute the
-    mutual information and perform statistics on it.
+    mutual information (MI) and perform statistics on it.
 
     Parameters
     ----------
@@ -25,16 +25,26 @@ class DatasetEphy(object):
         an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
         mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).
     roi : list
-        List of arrays of shape (n_channels,) describing the ROI name of each
-        channel.
+        List of length (n_subjects,) where each element is an array of shape
+        (n_channels,) describing the ROI name of each channel.
     y, z : list
-        List of length (n_subjects,) of continuous or discret variables. Each
-        element of the list should be an array of shape (n_epochs,) describing
-        the continuous variable
+        List of length (n_subjects,) of continuous or discrete variables. Each
+        element of the list should be an array of shape (n_epochs,) that is
+        then going to be used to compute the MI. The type of MI depends on the
+        type of this two variables :
+
+            * `y`=continuous, `z`=None : I(x; y) and `mi_type` should be 'cc'
+            * `y`=discrete, `z`=None : I(x; y) and `mi_type` should be 'cd'
+            * `y`=continuous, `z`=discrete : I(x; y | z) and `mi_type` should
+              be 'ccd'. If 'cc', `z` is going to be ignored
+
+        Note that if `y` (or `z`) are multi-dimensional discrete variables, the
+        categories inside are going to be automatically remapped to a single
+        vector.
     times : array_like | None
         The time vector to use. If the data are defined using MNE-Python, the
-        time vector is directly infered from thos files.
-    nb_min_suj : int | 10
+        time vector is directly inferred from those files.
+    nb_min_suj : int | None
         The minimum number of subjects per roi. Roi with n_suj < nb_min_suj
         are going to be skipped. Use None to skip this parameter
     """
@@ -73,6 +83,11 @@ class DatasetEphy(object):
                     f" {self.nb_min_suj} subjects per roi are required")
 
         # ---------------------------------------------------------------------
+        # (optionnal) multi-conditions conversion
+        y = self._multicond_conversion(y, 'y', verbose)
+        z = self._multicond_conversion(z, 'z', verbose)
+
+        # ---------------------------------------------------------------------
         # load the data of each subject
 
         logger.info("    Load the data of each subject")
@@ -89,7 +104,7 @@ class DatasetEphy(object):
         self.n_times = self._x[0].shape[1]
         if not isinstance(self.times, np.ndarray):
             logger.warning("No time vector found. A default will be used "
-                           "instead")
+                           "instead. You should use the `times` input instead")
             self.times = np.arange(self.n_times)
         self.sfreq = 1. / (self.times[1] - self.times[0])
 
@@ -97,7 +112,7 @@ class DatasetEphy(object):
         _const = [self._x[k].shape == (len(roi[k]), self.n_times,
                                        len(self._y[k])) for k in range(
             self.n_subjects)]
-        assert all(_const), "Inconsistent shape between x, y and roi"
+        assert all(_const), "Inconsistent shape between `x`, `y` and `roi`"
 
     ###########################################################################
     # INTERNALS
@@ -160,11 +175,49 @@ class DatasetEphy(object):
 
     @staticmethod
     def __slice_float(ref, vec):
+        """Find closest index in a floating vector."""
         if isinstance(ref, (int, float)):
             ref = np.abs(vec - ref).argmin()
         else:
             ref = ref
         return ref
+
+    @staticmethod
+    def _multicond_conversion(x, var_name, verbose):
+        """Convert a discret vector that contains multiple conditions."""
+        if not isinstance(x, (list, tuple, np.ndarray)):
+            return x
+        x = [np.asarray(k) for k in x]
+        # get if all variables are integers and multicolumns else skip it
+        is_int = all([k.dtype in [int, np.int32, np.int64] for k in x])
+        is_ndim = all([k.ndim > 1 for k in x])
+        if not is_int or not is_ndim:
+            return x
+        # test that all dimensions are equals
+        same_dim = all([k.ndim == x[0].ndim for k in x])
+        if not same_dim:
+            assert ValueError(f"Every array in the `{var_name}` input should "
+                              "have the same number of dimensions")
+        # otherwise find all possible pairs
+        x_all = np.concatenate(x, axis=0)
+        idx = np.unique(x_all, axis=0, return_index=True)[1]
+        u_cat = x_all[sorted(idx), :]
+        # show to the user the new categories
+        user = []
+        for n_c, cat in enumerate(u_cat):
+            user += [f"{n_c}: [{', '.join([str(c) for c in cat])}]"]
+        logger.info(f"    The `{var_name}` input contains multiple conditions "
+                    f"that have been remapped to : {'; '.join(user)}")
+        # loop over subjects
+        x_new = []
+        for k in range(len(x)):
+            x_cat = np.full((x[k].shape[0],), -1, dtype=int)
+            for n_c, cat in enumerate(u_cat):
+                x_cat[np.equal(x[k], cat.reshape(1, -1)).all(1)] = n_c
+            assert x_cat.min() > -1, "Not all values have replaced"
+            x_new += [x_cat]
+
+        return x_new
 
     ###########################################################################
     # METHODS
