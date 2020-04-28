@@ -485,8 +485,13 @@
                     <span class="c1"># increasing the number of trials</span>
                     <span class="n">n_sites</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">n_sites</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-                        <span class="n">__x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">__x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-                        <span class="n">__yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">__yz</span><span class="p">,</span> <span class="p">(</span><span class="n">n_sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                        <span class="n">___x</span><span class="p">,</span> <span class="n">___yz</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+                        <span class="k">for</span> <span class="n">_ne</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sites</span><span class="p">):</span>
+                            <span class="n">___x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__x</span><span class="p">[</span><span class="n">_ne</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
+                            <span class="n">___yz</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__yz</span><span class="p">]</span>
+                        <span class="n">__x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">___x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="n">__yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">___yz</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="k">del</span> <span class="n">___x</span><span class="p">,</span> <span class="n">___yz</span>
                     <span class="c1"># at this point the data are (n_times, n_epochs)</span>
                     <span class="n">_x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__x</span><span class="p">]</span>
                     <span class="n">_yz</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__yz</span><span class="p">]</span>
@@ -756,7 +761,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-04-16.</p>
+        <p>&copy; Copyright Last updated on 2020-04-28.</p>
     </footer>
 
   </body>
