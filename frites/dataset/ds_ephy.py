@@ -302,8 +302,13 @@ class DatasetEphy(object):
                     # increasing the number of trials
                     n_sites = idx.sum()
                     if n_sites != 1:
-                        __x = np.moveaxis(__x, 0, -1).reshape(self.n_times, -1)
-                        __yz = np.tile(__yz, (n_sites, 1))
+                        ___x, ___yz = [], []
+                        for _ne in range(n_sites):
+                            ___x += [__x[_ne, ...]]
+                            ___yz += [__yz]
+                        __x = np.concatenate(___x, axis=1)
+                        __yz = np.concatenate(___yz, axis=0)
+                        del ___x, ___yz
                     # at this point the data are (n_times, n_epochs)
                     _x += [__x]
                     _yz += [__yz]
