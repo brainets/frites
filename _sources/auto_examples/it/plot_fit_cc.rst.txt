@@ -1,0 +1,216 @@
+.. note::
+    :class: sphx-glr-download-link-note
+
+    Click :ref:`here <sphx_glr_download_auto_examples_it_plot_fit_cc.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
+
+.. _sphx_glr_auto_examples_it_plot_fit_cc.py:
+
+
+Information transfer about a continuous variable
+================================================
+
+This example illustrates how to compute the amount of information that is sent
+from one region to another about a specific continuous feature. For further
+details, see Bim et al. 2019 :cite:`bim2019non`
+
+
+.. code-block:: default
+
+    import numpy as np
+
+    from frites.simulations import sim_distant_cc_ms
+    from frites.dataset import DatasetEphy
+    from frites.workflow import WfFit
+
+    import matplotlib.pyplot as plt
+    plt.style.use('seaborn-white')
+
+
+
+
+
+
+
+
+Simulate electrophysiological data
+----------------------------------
+
+Let's start by simulating data coming from multiple subjects using the
+function :func:`frites.simulations.sim_distant_cc_ms`. As a result, the `x`
+output is a list of length `n_subjects` of arrays, each one with a shape of
+n_epochs, n_sites, n_times
+
+
+.. code-block:: default
+
+
+    n_subjects = 5
+    n_epochs = 200
+    x, y, roi, times = sim_distant_cc_ms(n_subjects, n_epochs=n_epochs)
+
+
+
+
+
+
+
+Define the electrophysiological dataset
+---------------------------------------
+
+Now we define an instance of :class:`frites.dataset.DatasetEphy`
+
+
+.. code-block:: default
+
+
+    ds = DatasetEphy(x, y, roi=roi, times=times)
+
+
+
+
+
+
+
+Compute the bidirectionnal information transfer
+-----------------------------------------------
+
+Once we have the dataset instance, we can then define an instance of workflow
+:class:`frites.workflow.WfFit`. This instance is used to compute the
+information transfer
+
+
+.. code-block:: default
+
+
+    wf = WfFit()
+    mi, _ = wf.fit(ds, n_perm=10)
+    print(mi)
+
+    # when `net=False` it means that the information transfer is directed which
+    # means we can either look at the amount of informations sent from roi_0 to
+    # roi_1 or roi_1 to roi_0. By default, the argument returned are stored in a
+    # pandas DataFrame where the columns are MultiIndex with the first level the
+    # name of the source and the second level the name of the target.
+    it_0_to_1 = mi['roi_0']['roi_1']
+    it_1_to_0 = mi['roi_1']['roi_0']
+
+    plt.plot(it_0_to_1, label='roi_0 -> roi_1')
+    plt.plot(it_1_to_0, label='roi_1 -> roi_0')
+    plt.title('Bidirectionnal FIT')
+    plt.xlabel('Time'), plt.ylabel('MI (bits)')
+    plt.show()
+
+
+
+
+.. image:: /auto_examples/it/images/sphx_glr_plot_fit_cc_001.png
+    :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    source        roi_0     roi_1
+    target        roi_1     roi_0
+    -0.699248  0.029932  0.006427
+    -0.689223  0.011956  0.012791
+    -0.679198  0.025625  0.023671
+    -0.669173  0.028191  0.001341
+    -0.659148  0.015768  0.035651
+    ...             ...       ...
+     2.959900  0.045298  0.040275
+     2.969925  0.009792  0.001482
+     2.979950  0.027686  0.010401
+     2.989975  0.019592  0.013775
+     3.000000  0.004414  0.017950
+
+    [370 rows x 2 columns]
+
+
+
+Compute the unidirectionnal information transfer
+------------------------------------------------
+
+Note that you can also compute the unidirectionnal FIT which is define as the
+difference between `FIT(source - >target) - FIT(target -> source)`
+
+
+.. code-block:: default
+
+
+    wf = WfFit()
+    mi, _ = wf.fit(ds, net=True, n_perm=10)
+    it_net = mi['roi_0']['roi_1']
+    print(mi)
+
+    plt.plot(it_net, label='roi_0 <-> roi_1')
+    plt.title('Unidirectionnal FIT')
+    plt.xlabel('Time'), plt.ylabel('MI (bits)')
+    plt.legend()
+    plt.show()
+
+
+.. image:: /auto_examples/it/images/sphx_glr_plot_fit_cc_002.png
+    :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    source        roi_0
+    target        roi_1
+    -0.699248  0.023505
+    -0.689223 -0.000835
+    -0.679198  0.001954
+    -0.669173  0.026850
+    -0.659148 -0.019883
+    ...             ...
+     2.959900  0.005023
+     2.969925  0.008310
+     2.979950  0.017285
+     2.989975  0.005817
+     3.000000 -0.013535
+
+    [370 rows x 1 columns]
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  0.817 seconds)
+
+
+.. _sphx_glr_download_auto_examples_it_plot_fit_cc.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_fit_cc.py <plot_fit_cc.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_fit_cc.ipynb <plot_fit_cc.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

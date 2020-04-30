@@ -113,8 +113,8 @@ Simulations
    :no-members:
    :no-inherited-members:
 
-Simulate random data
-++++++++++++++++++++
+Simulate electrophysiological data
+++++++++++++++++++++++++++++++++++
 
 .. autosummary::
    :toctree: generated/
@@ -122,8 +122,24 @@ Simulate random data
    sim_single_suj_ephy
    sim_multi_suj_ephy
 
-Simulate random mutual information
-++++++++++++++++++++++++++++++++++
+Simulate data for testing mutual information
+++++++++++++++++++++++++++++++++++++++++++++
+
+From random data
+****************
+
+.. autosummary::
+   :toctree: generated/
+
+   sim_local_cc_ss
+   sim_local_cc_ms
+   sim_local_cd_ss
+   sim_local_cd_ms
+   sim_local_ccd_ms
+   sim_local_ccd_ss
+
+From real data
+****************
 
 .. autosummary::
    :toctree: generated/
@@ -131,6 +147,23 @@ Simulate random mutual information
    sim_mi_cc
    sim_mi_cd
    sim_mi_ccd
+
+.. raw:: html
+
+  <hr>
+
+Simulate data for testing connectivity
+++++++++++++++++++++++++++++++++++++++
+
+Random data for directed connectivity measures
+**********************************************
+
+.. autosummary::
+   :toctree: generated/
+
+   sim_distant_cc_ms
+   sim_distant_cc_ss
+   sim_gauss_fit
 
 .. raw:: html
 

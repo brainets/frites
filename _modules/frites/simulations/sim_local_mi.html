@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.simulations.sim_local_mi &#8212; frites 0.3.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#from-random-data">From random data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#from-real-data">From real data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.simulations.sim_local_mi</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Simulate local representation of mutual information.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">###############################################################################</span>
+<span class="sd">                                 I(C; C)</span>
+<span class="sd">###############################################################################</span>
+<span class="sd">- MI between two continuous variables</span>
+<span class="sd">- Single / Multi subjects simulations</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="sim_local_cc_ms"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cc_ms</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi-subjects simulations for computing local MI (CC).</span>
+
+<span class="sd">    This function can be used for simulating local representations of mutual</span>
+<span class="sd">    information between two continuous variables (CC) across multiple subjects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_subjects : int</span>
+<span class="sd">        Number of subjects</span>
+<span class="sd">    kwargs : dict | {}</span>
+<span class="sd">        Additional arguments are send to the function :func:`sim_local_cc_ss`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : list</span>
+<span class="sd">        List length n_subjects composed of data arrays each one with a shape of</span>
+<span class="sd">        (n_epochs, n_channels, n_times)</span>
+<span class="sd">    y : list</span>
+<span class="sd">        List of length n_subjects composed of regressor arrays each one with a</span>
+<span class="sd">        shape of (n_epochs)</span>
+<span class="sd">    roi : list</span>
+<span class="sd">        List of length n_subjects composed of roi arrays each one with a shape</span>
+<span class="sd">        of (n_roi)</span>
+<span class="sd">    times : array_like</span>
+<span class="sd">        Time vector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># get the default cluster indices and covariance</span>
+    <span class="n">cl_index</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_index&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+    <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">cl_sgn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_sgn&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># repeat if not equal to subject length</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
+        <span class="n">cl_index</span> <span class="o">=</span> <span class="p">[</span><span class="n">cl_index</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subjects</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_cov</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
+        <span class="n">cl_cov</span> <span class="o">=</span> <span class="p">[</span><span class="n">cl_cov</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subjects</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_sgn</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
+        <span class="n">cl_sgn</span> <span class="o">=</span> <span class="n">cl_sgn</span> <span class="o">*</span> <span class="n">n_subjects</span>
+    <span class="c1"># now generate the data</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+        <span class="c1"># re-inject the indices and covariance</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_index</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_cov</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_sgn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_sgn</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
+        <span class="c1"># generate the data of a single subject</span>
+        <span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">,</span> <span class="n">_roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sim_local_cc_ss</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">n_s</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># merge data</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_x</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_y</span><span class="p">]</span>
+        <span class="n">roi</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_roi</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span></div>
+
+
+<div class="viewcode-block" id="sim_local_cc_ss"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cc_ss.html#frites.simulations.sim_local_cc_ss">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cc_ss</span><span class="p">(</span><span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+                    <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">],</span> <span class="n">cl_sgn</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Single-subject simulations for computing local MI (CC).</span>
+
+<span class="sd">    This function can be used for simulating local representations of mutual</span>
+<span class="sd">    information between two continuous variables (CC) for a single subject.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_epochs : int | 30</span>
+<span class="sd">        Number of trials</span>
+<span class="sd">    n_times : int | 100</span>
+<span class="sd">        Number of time points</span>
+<span class="sd">    n_roi : int | 1</span>
+<span class="sd">        Number of ROI</span>
+<span class="sd">    cl_index : array_like | [40, 60]</span>
+<span class="sd">        Sample indices where the clusters are located. Should be an array of</span>
+<span class="sd">        shape (n_clusters, 2)</span>
+<span class="sd">    cl_cov : array_like | [.8]</span>
+<span class="sd">        Covariance level between the data and the regressor variable. Should be</span>
+<span class="sd">        an array of shape (n_clusters,)</span>
+<span class="sd">    cl_sgn : {-1, 1}</span>
+<span class="sd">        Sign of the correlation. Use -1 for anti-correlated variables and 1</span>
+<span class="sd">        for correlated variables</span>
+<span class="sd">    random_state : int | None</span>
+<span class="sd">        Random state (use it for reproducibility)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Data array of shape (n_epochs, n_channels, n_times)</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Regressor array of shape (n_epochs,)</span>
+<span class="sd">    roi : array_like</span>
+<span class="sd">        Array of ROI names of shape (n_roi,)</span>
+<span class="sd">    times : array_like</span>
+<span class="sd">        Time vector of shape (n_times,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">random_state</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">random_state</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Pick random n_roi</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;roi_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># check cluster types</span>
+    <span class="n">cl_index</span><span class="p">,</span> <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">cl_index</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cl_cov</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">cl_index</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cl_cov</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cl_sgn</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">cl_index</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cl_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">cl_index</span><span class="p">,</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">cl_cov</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cl_cov</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">cl_index</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cl_cov</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,))</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Built a random dataset</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Introduce a correlation between the data and the regressor</span>
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cl_index</span><span class="p">,</span> <span class="n">cl_cov</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">cov</span><span class="p">):</span> <span class="k">continue</span>  <span class="c1"># noqa</span>
+        <span class="c1"># define correlation strength</span>
+        <span class="n">t_len</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">cov</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">cov</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Generate noise</span>
+        <span class="n">rnd_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span> <span class="o">+</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="n">rnd_noise</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">t_len</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">[:,</span> <span class="n">num</span><span class="p">,</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cl_sgn</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">noise</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span></div>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">###############################################################################</span>
+<span class="sd">                                 I(C; D)</span>
+<span class="sd">###############################################################################</span>
+<span class="sd">- MI between a continuous and a discret variable</span>
+<span class="sd">- Single / Multi subjects simulations</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="sim_local_cd_ms"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cd_ms.html#frites.simulations.sim_local_cd_ms">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cd_ms</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi-subjects simulations for computing local MI (CD).</span>
+
+<span class="sd">    This function can be used for simulating local representations of mutual</span>
+<span class="sd">    information between a continuous and a discret variables (CD) for a single</span>
+<span class="sd">    subject.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_subjects : int</span>
+<span class="sd">        Number of subjects</span>
+<span class="sd">    kwargs : dict | {}</span>
+<span class="sd">        Additional arguments are send to the function :func:`sim_local_cd_ss`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : list</span>
+<span class="sd">        List length n_subjects composed of data arrays each one with a shape of</span>
+<span class="sd">        (n_epochs, n_channels, n_times)</span>
+<span class="sd">    y : list</span>
+<span class="sd">        List of length n_subjects composed of regressor arrays each one with a</span>
+<span class="sd">        shape of (n_epochs)</span>
+<span class="sd">    roi : list</span>
+<span class="sd">        List of length n_subjects composed of roi arrays each one with a shape</span>
+<span class="sd">        of (n_roi)</span>
+<span class="sd">    times : array_like</span>
+<span class="sd">        Time vector of shape (n_times,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># get the default cluster indices and covariance</span>
+    <span class="n">cl_index</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_index&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+    <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">])</span>
+    <span class="c1"># repeat if not equal to subject length</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
+        <span class="n">cl_index</span> <span class="o">=</span> <span class="p">[</span><span class="n">cl_index</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subjects</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_cov</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
+        <span class="n">cl_cov</span> <span class="o">=</span> <span class="p">[</span><span class="n">cl_cov</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subjects</span>
+    <span class="c1"># now generate the data</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+        <span class="c1"># re-inject the indices and covariance</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_index</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_cov</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
+        <span class="c1"># generate the data of a single subject</span>
+        <span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">,</span> <span class="n">_roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sim_local_cd_ss</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">n_s</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># merge data</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_x</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_y</span><span class="p">]</span>
+        <span class="n">roi</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_roi</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span></div>
+
+
+<div class="viewcode-block" id="sim_local_cd_ss"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cd_ss.html#frites.simulations.sim_local_cd_ss">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cd_ss</span><span class="p">(</span><span class="n">n_conditions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Single-subject simulations for computing local MI (CD).</span>
+
+<span class="sd">    This function can be used for simulating local representations of mutual</span>
+<span class="sd">    information between a continuous and a discret variable (CD) for a single</span>
+<span class="sd">    subject.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_conditions : int | 2</span>
+<span class="sd">        Number of conditions</span>
+<span class="sd">    n_epochs : int | 30</span>
+<span class="sd">        Number of trials</span>
+<span class="sd">    n_times : int | 100</span>
+<span class="sd">        Number of time points</span>
+<span class="sd">    n_roi : int | 1</span>
+<span class="sd">        Number of ROI</span>
+<span class="sd">    cl_index : array_like | [40, 60]</span>
+<span class="sd">        Sample indices where the clusters are located. Should be an array of</span>
+<span class="sd">        shape (n_clusters, 2)</span>
+<span class="sd">    cl_cov : array_like | [.8]</span>
+<span class="sd">        Covariance level between the data and the regressor variable. Should be</span>
+<span class="sd">        an array of shape (n_clusters,)</span>
+<span class="sd">    random_state : int | None</span>
+<span class="sd">        Random state (use it for reproducibility)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Data array of shape (n_epochs, n_channels, n_times)</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Condition array of shape (n_epochs,)</span>
+<span class="sd">    roi : array_like</span>
+<span class="sd">        Array of ROI names of shape (n_roi,)</span>
+<span class="sd">    times : array_like</span>
+<span class="sd">        Time vector of shape (n_times,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">random_state</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">random_state</span>
+    <span class="n">rnd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Pick random n_roi</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;roi_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># check cluster types</span>
+    <span class="n">cl_index</span><span class="p">,</span> <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">cl_index</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cl_cov</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">cl_index</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cl_cov</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cl_index</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cl_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">cl_index</span><span class="p">,</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">cl_cov</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cl_cov</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">cl_index</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cl_cov</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,))</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># linearly spaced values taken from a gaussian distribution</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">pick_up</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_conditions</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rnd</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">res</span><span class="p">))[</span><span class="n">pick_up</span><span class="p">]</span>
+    <span class="c1"># regressor variable</span>
+    <span class="n">y_regr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_conditions</span><span class="p">))</span>
+    <span class="n">y_regr</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">y_regr</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="n">n_epochs</span><span class="p">]</span>
+    <span class="c1"># condition variable</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_regr</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">y_regr</span> <span class="o">=</span> <span class="n">y_regr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Introduce a correlation between the data and the regressor</span>
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cl_index</span><span class="p">,</span> <span class="n">cl_cov</span><span class="p">)):</span>
+        <span class="c1"># define correlation strength</span>
+        <span class="n">t_len</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">cov</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">cov</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Generate noise</span>
+        <span class="n">rnd_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span> <span class="o">+</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="n">rnd_noise</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">t_len</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">[:,</span> <span class="n">num</span><span class="p">,</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y_regr</span> <span class="o">+</span> <span class="n">noise</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span></div>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">###############################################################################</span>
+<span class="sd">                                 I(C; C | D)</span>
+<span class="sd">###############################################################################</span>
+<span class="sd">- MI between two continuous variables conditioned by a discret variable</span>
+<span class="sd">- Single / Multi subjects simulations</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="sim_local_ccd_ms"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_ccd_ms.html#frites.simulations.sim_local_ccd_ms">[docs]</a><span class="k">def</span> <span class="nf">sim_local_ccd_ms</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi-subjects simulations for computing local MI (CCD).</span>
+
+<span class="sd">    This function can be used for simulating local representations of mutual</span>
+<span class="sd">    information between two continuous variables conditioned by a third discret</span>
+<span class="sd">    one (CCD) across multiple subjects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_subjects : int</span>
+<span class="sd">        Number of subjects</span>
+<span class="sd">    kwargs : dict | {}</span>
+<span class="sd">        Additional arguments are send to the function :func:`sim_local_ccd_ss`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : list</span>
+<span class="sd">        List length n_subjects composed of data arrays each one with a shape of</span>
+<span class="sd">        (n_epochs, n_channels, n_times)</span>
+<span class="sd">    y : list</span>
+<span class="sd">        List of length n_subjects composed of regressor arrays each one with a</span>
+<span class="sd">        shape of (n_epochs)</span>
+<span class="sd">    z : array_like</span>
+<span class="sd">        Condition array of shape (n_epochs,)</span>
+<span class="sd">    roi : list</span>
+<span class="sd">        List of length n_subjects composed of roi arrays each one with a shape</span>
+<span class="sd">        of (n_roi)</span>
+<span class="sd">    times : array_like</span>
+<span class="sd">        Time vector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_c</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_conditions&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;n_conditions&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;n_conditions&#39;</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sim_local_cc_ms</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">n_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_c</span><span class="p">,</span> <span class="p">(</span><span class="n">n_e</span><span class="p">,))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span></div>
+
+
+<div class="viewcode-block" id="sim_local_ccd_ss"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_ccd_ss.html#frites.simulations.sim_local_ccd_ss">[docs]</a><span class="k">def</span> <span class="nf">sim_local_ccd_ss</span><span class="p">(</span><span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_conditions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Single-subject simulations for computing local MI (CC).</span>
+
+<span class="sd">    This function can be used for simulating local representations of mutual</span>
+<span class="sd">    information between two continuous variables conditioned by a third discret</span>
+<span class="sd">    one (CCD) for a single subject.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_epochs : int | 30</span>
+<span class="sd">        Number of trials</span>
+<span class="sd">    n_times : int | 100</span>
+<span class="sd">        Number of time points</span>
+<span class="sd">    n_roi : int | 1</span>
+<span class="sd">        Number of ROI</span>
+<span class="sd">    n_conditions : int | 2</span>
+<span class="sd">        Number of conditions</span>
+<span class="sd">    cl_index : array_like | [40, 60]</span>
+<span class="sd">        Sample indices where the clusters are located. Should be an array of</span>
+<span class="sd">        shape (n_clusters, 2)</span>
+<span class="sd">    cl_cov : array_like | [.8]</span>
+<span class="sd">        Covariance level between the data and the regressor variable. Should be</span>
+<span class="sd">        an array of shape (n_clusters,)</span>
+<span class="sd">    random_state : int | None</span>
+<span class="sd">        Random state (use it for reproducibility)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Data array of shape (n_epochs, n_channels, n_times)</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Regressor array of shape (n_epochs,)</span>
+<span class="sd">    z : array_like</span>
+<span class="sd">        Condition array of shape (n_epochs,)</span>
+<span class="sd">    roi : array_like</span>
+<span class="sd">        Array of ROI names of shape (n_roi,)</span>
+<span class="sd">    times : array_like</span>
+<span class="sd">        Time vector of shape (n_times,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sim_local_cc_ss</span><span class="p">(</span>
+        <span class="n">n_epochs</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="n">n_times</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">cl_index</span><span class="o">=</span><span class="n">cl_index</span><span class="p">,</span>
+        <span class="n">cl_cov</span><span class="o">=</span><span class="n">cl_cov</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_conditions</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs</span><span class="p">,))</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../whatsnew.html">What's new</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2020-04-30.</p>
+    </footer>
+
+  </body>
+</html>

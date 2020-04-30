@@ -96,15 +96,36 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.simulations">Simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#simulate-random-data">Simulate random data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#simulate-random-mutual-information">Simulate random mutual information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#from-random-data">From random data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#from-real-data">From real data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -202,15 +223,16 @@
 <li><p><a class="reference internal" href="#module-frites.io" id="id8">I/O</a></p></li>
 <li><p><a class="reference internal" href="#module-frites.simulations" id="id9">Simulations</a></p>
 <ul>
-<li><p><a class="reference internal" href="#simulate-random-data" id="id10">Simulate random data</a></p></li>
-<li><p><a class="reference internal" href="#simulate-random-mutual-information" id="id11">Simulate random mutual information</a></p></li>
+<li><p><a class="reference internal" href="#simulate-electrophysiological-data" id="id10">Simulate electrophysiological data</a></p></li>
+<li><p><a class="reference internal" href="#simulate-data-for-testing-mutual-information" id="id11">Simulate data for testing mutual information</a></p></li>
+<li><p><a class="reference internal" href="#simulate-data-for-testing-connectivity" id="id12">Simulate data for testing connectivity</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#configuration" id="id12">Configuration</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.core" id="id13">Core</a></p>
+<li><p><a class="reference internal" href="#configuration" id="id13">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#module-frites.core" id="id14">Core</a></p>
 <ul>
-<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id14">Gaussian-Copula (1d)</a></p></li>
-<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id15">Gaussian-copula (Nd)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id15">Gaussian-Copula (1d)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id16">Gaussian-copula (Nd)</a></p></li>
 </ul>
 </li>
 </ul>
@@ -328,8 +350,8 @@ data coming from several subjects.</p>
 <div class="section" id="module-frites.simulations">
 <span id="simulations"></span><h2><a class="toc-backref" href="#id9">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
 <p>Simulations’ functions.</p>
-<div class="section" id="simulate-random-data">
-<h3><a class="toc-backref" href="#id10">Simulate random data</a><a class="headerlink" href="#simulate-random-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="simulate-electrophysiological-data">
+<h3><a class="toc-backref" href="#id10">Simulate electrophysiological data</a><a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -345,8 +367,39 @@ data coming from several subjects.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="simulate-random-mutual-information">
-<h3><a class="toc-backref" href="#id11">Simulate random mutual information</a><a class="headerlink" href="#simulate-random-mutual-information" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="simulate-data-for-testing-mutual-information">
+<h3><a class="toc-backref" href="#id11">Simulate data for testing mutual information</a><a class="headerlink" href="#simulate-data-for-testing-mutual-information" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="from-random-data">
+<h4>From random data<a class="headerlink" href="#from-random-data" title="Permalink to this headline">¶</a></h4>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ss.html#frites.simulations.sim_local_cc_ss" title="frites.simulations.sim_local_cc_ss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_local_cc_ss</span></code></a>([n_epochs, n_times, n_roi, …])</p></td>
+<td><p>Single-subject simulations for computing local MI (CC).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms" title="frites.simulations.sim_local_cc_ms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_local_cc_ms</span></code></a>(n_subjects, \*\*kwargs)</p></td>
+<td><p>Multi-subjects simulations for computing local MI (CC).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ss.html#frites.simulations.sim_local_cd_ss" title="frites.simulations.sim_local_cd_ss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_local_cd_ss</span></code></a>([n_conditions, n_epochs, …])</p></td>
+<td><p>Single-subject simulations for computing local MI (CD).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ms.html#frites.simulations.sim_local_cd_ms" title="frites.simulations.sim_local_cd_ms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_local_cd_ms</span></code></a>(n_subjects, \*\*kwargs)</p></td>
+<td><p>Multi-subjects simulations for computing local MI (CD).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ms.html#frites.simulations.sim_local_ccd_ms" title="frites.simulations.sim_local_ccd_ms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_local_ccd_ms</span></code></a>(n_subjects, \*\*kwargs)</p></td>
+<td><p>Multi-subjects simulations for computing local MI (CCD).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ss.html#frites.simulations.sim_local_ccd_ss" title="frites.simulations.sim_local_ccd_ss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_local_ccd_ss</span></code></a>([n_epochs, n_times, n_roi, …])</p></td>
+<td><p>Single-subject simulations for computing local MI (CC).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="from-real-data">
+<h4>From real data<a class="headerlink" href="#from-real-data" title="Permalink to this headline">¶</a></h4>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -366,8 +419,32 @@ data coming from several subjects.</p>
 </table>
 <hr></div>
 </div>
+<div class="section" id="simulate-data-for-testing-connectivity">
+<h3><a class="toc-backref" href="#id12">Simulate data for testing connectivity</a><a class="headerlink" href="#simulate-data-for-testing-connectivity" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="random-data-for-directed-connectivity-measures">
+<h4>Random data for directed connectivity measures<a class="headerlink" href="#random-data-for-directed-connectivity-measures" title="Permalink to this headline">¶</a></h4>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ms.html#frites.simulations.sim_distant_cc_ms" title="frites.simulations.sim_distant_cc_ms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_distant_cc_ms</span></code></a>(n_subjects, \*\*kwargs)</p></td>
+<td><p>Multi-subjects simulations for computing connectivity (CC).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ss.html#frites.simulations.sim_distant_cc_ss" title="frites.simulations.sim_distant_cc_ss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_distant_cc_ss</span></code></a>([n_epochs, n_roi, …])</p></td>
+<td><p>Single-subject simulation for computing connectivity (CC).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_gauss_fit.html#frites.simulations.sim_gauss_fit" title="frites.simulations.sim_gauss_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_gauss_fit</span></code></a>([stim_type, n_epochs, n_sti, …])</p></td>
+<td><p>Simulated signals for the FIT.</p></td>
+</tr>
+</tbody>
+</table>
+<hr></div>
+</div>
+</div>
 <div class="section" id="configuration">
-<h2><a class="toc-backref" href="#id12">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -384,14 +461,14 @@ data coming from several subjects.</p>
 </table>
 <hr></div>
 <div class="section" id="module-frites.core">
-<span id="core"></span><h2><a class="toc-backref" href="#id13">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
+<span id="core"></span><h2><a class="toc-backref" href="#id14">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
 <p>Core functions of information theoretical measures.</p>
 <p>This submodule contains all of the functions to compute mutual-information,
 entropy etc..</p>
 <p>For further details about the Gaussian-Copula Mutual information see
 <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[5]</a></p>
 <div class="section" id="gaussian-copula-1d">
-<h3><a class="toc-backref" href="#id14">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to unidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -439,7 +516,7 @@ entropy etc..</p>
 </table>
 </div>
 <div class="section" id="gaussian-copula-nd">
-<h3><a class="toc-backref" href="#id15">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
 <p>Gaussian-Copula based measures to apply to multidimensional vectors</p>
 <table class="longtable docutils align-default">
 <colgroup>
