@@ -30,3 +30,4 @@ Internal Changes
 
 Documentation
 +++++++++++++
+* Reformat examples gallery (:commit:`4d4c`)
