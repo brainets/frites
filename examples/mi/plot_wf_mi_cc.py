@@ -1,6 +1,6 @@
 """
-Workflow of mutual information between two continuous variables
-===============================================================
+MI between two continuous variables
+===================================
 
 This example illustrates how to compute the mutual information between two
 continuous variables and also perform statistics. Usually, the first variable

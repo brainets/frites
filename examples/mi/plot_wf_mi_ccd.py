@@ -1,6 +1,6 @@
 """
-Workflow of conditional mutual information
-==========================================
+MI between two continuous variables conditioned by a discret one
+================================================================
 
 This example illustrates how to compute the mutual information between two
 continuous variables, conditioned by a discret one. The first variable is an

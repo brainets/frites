@@ -140,9 +140,10 @@ sphinx_gallery_conf = {
     'backreferences_dir': 'generated',
     'filename_pattern': '/plot_|sim_',
     'default_thumb_file': 'source/_static/frites.png',
-    'subsection_order': ExplicitOrder(['../../examples/simulations',
-                                       '../../examples/workflow',
-                                       '../../examples/mi']),
+    'subsection_order': ExplicitOrder(['../../examples/mi',
+                                       '../../examples/it',
+                                       '../../examples/statistics',
+                                       '../../examples/simulations']),
     # 'thumbnail_size': (100, 100),
 }
 

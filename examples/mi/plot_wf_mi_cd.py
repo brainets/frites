@@ -1,6 +1,6 @@
 """
-Workflow of mutual information a continuous and a discret variables
-===================================================================
+MI between a continuous and a discret variables
+===============================================
 
 This example illustrates how to compute the mutual information between a
 continuous and a discret variables. The first variable is an
