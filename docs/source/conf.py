@@ -56,6 +56,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx_gallery.gen_gallery',
     'sphinxcontrib.bibtex',
+    "sphinx.ext.extlinks",
     'numpydoc'
 ]
 
@@ -65,6 +66,12 @@ templates_path = ['_templates']
 autosummary_generate = True
 autodoc_member_order = 'groupwise'
 autodoc_default_flags = ['members', 'inherited-members', 'no-undoc-members']
+
+extlinks = {
+    "issue": ("https://github.com/brainets/frites/issues/%s", "IS"),
+    "pull": ("https://github.com/brainets/frites/pull/%s", "PR"),
+    "commit": ("https://github.com/brainets/frites/commit/%s", "CM"),
+}
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
