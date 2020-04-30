@@ -63,6 +63,7 @@ class WfFit(WfBase):
     def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
                  mi_method='gc', kernel=None, verbose=None):  # noqa
         # define the workflow of mi
+        WfBase.__init__(self)
         self._wf_mi = WfMi(mi_type=mi_type, inference=inference,
                            mi_method=mi_method, gcrn_per_suj=gcrn_per_suj,
                            kernel=kernel, verbose=False)
@@ -244,6 +245,9 @@ class WfFit(WfBase):
             self._fit_roi, self._fitp_roi, ttested=True, level=level, mcp=mcp,
             cluster_th=cluster_th, cluster_alpha=cluster_alpha,
             inference=self._inference, **kw_stats)
+        # update internal config
+        self.update_cfg(max_delay=max_delay, net=net, **self._wf_mi.cfg)
+        self.update_cfg(**self._wf_stats.cfg)
 
         # ---------------------------------------------------------------------
         # post-processing
@@ -259,6 +263,8 @@ class WfFit(WfBase):
         elif inference is 'rfx':
             fit = np.stack(self._fit_m, axis=1)     # mean mi
         fit = convert_dfc_outputs(fit, *args)
+        if output_type is 'dataarray':
+            fit, pvalues = self._attrs_xarray(fit), self._attrs_xarray(pvalues)
 
         return fit, pvalues
 

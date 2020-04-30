@@ -62,6 +62,7 @@ class WfMi(WfBase):
     def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
                  mi_method='gc', kernel=None, verbose=None):
         """Init."""
+        WfBase.__init__(self)
         assert mi_type in ['cc', 'cd', 'ccd'], (
             "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
         assert inference in ['ffx', 'rfx'], (
@@ -77,6 +78,9 @@ class WfMi(WfBase):
         set_log_level(verbose)
         self.clean()
         self._wf_stats = WfStatsEphy(verbose=verbose)
+        # update internal config
+        self.update_cfg(mi_type=mi_type, inference=inference,
+            mi_method=mi_method, kernel=kernel)
 
         logger.info(f"Workflow for computing mutual information ({mi_type} - "
                     f"{mi_method})")
@@ -158,6 +162,8 @@ class WfMi(WfBase):
         # apply conversion
         mi = convert_spatiotemporal_outputs(mi, times, roi, output_type)
         pv = convert_spatiotemporal_outputs(pv, times, roi, output_type)
+        if output_type is 'dataarray':
+            mi, pv = self._attrs_xarray(mi), self._attrs_xarray(pv)
 
         return mi, pv
 
@@ -277,6 +283,9 @@ class WfMi(WfBase):
             mi, mi_p, level=level, mcp=mcp, cluster_th=cluster_th,
             cluster_alpha=cluster_alpha, tail=1, inference=self._inference,
             **kw_stats)
+        # update internal config
+        self.update_cfg(n_perm=n_perm, random_state=random_state,
+                        **self._wf_stats.cfg)
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions

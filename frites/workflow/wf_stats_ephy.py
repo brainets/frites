@@ -8,11 +8,12 @@ from frites.stats.stats_cluster import (temporal_clusters_permutation_test,
                                         cluster_threshold)
 from frites.stats.stats_param import rfx_ttest
 from frites.io import set_log_level
+from frites.workflow.wf_base import WfBase
 
 logger = logging.getLogger("frites")
 
 
-class WfStatsEphy(object):
+class WfStatsEphy(WfBase):
     """Workflow of non-parametric statistics for electropĥysiological data.
 
     The goal of this workflow is to provide an interface for assessing non-
@@ -26,6 +27,7 @@ class WfStatsEphy(object):
     """
 
     def __init__(self, verbose=None):  # noqa
+        WfBase.__init__(self)
         set_log_level(verbose)
         logger.info("Definition of a non-parametric statistical workflow")
 
@@ -143,6 +145,7 @@ class WfStatsEphy(object):
                 th = cluster_threshold(es, es_p, alpha=cluster_alpha,
                                        tail=tail, tfce=tfce)
                 self._cluster_th = cluster_th
+            self.update_cfg(th=th, tfce=tfce)
 
         # ---------------------------------------------------------------------
         # test-wise or cluster-based
@@ -163,6 +166,11 @@ class WfStatsEphy(object):
         if isinstance(tvalues, np.ndarray):
             tvalues = tvalues.T
         pvalues = pvalues.T
+
+        # update internal config
+        self.update_cfg(inference=inference, level=level, mcp=mcp, tail=tail,
+            cluster_th=cluster_th, cluster_alpha=cluster_alpha,
+            ttested=ttested)
 
         return pvalues, tvalues
 

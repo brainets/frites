@@ -100,8 +100,6 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array',
     n_times = arr.shape[0]
     _, s_idx = np.unique(sources, return_index=True)
     _, t_idx = np.unique(targets, return_index=True)
-    u_sources, u_targets = sources[np.sort(s_idx)], targets[np.sort(t_idx)]
-    n_sources_u, n_targets_u = len(u_sources), len(u_targets)
 
     # output conversion
     force_np = not is_pandas_installed() and not is_xarray_installed()
@@ -110,7 +108,7 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array',
     if astype is '2d_array':
         return arr
     elif astype is '3d_array':
-        out = empty_fcn((n_sources_u, n_targets_u, n_times))
+        out = empty_fcn((len(roi), len(roi), n_times))
         out[sources, targets, :] = arr.T
         return out
     elif astype is '2d_dataframe':
@@ -124,8 +122,8 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array',
         return pd.DataFrame(arr, index=times, columns=idx)
     elif astype is 'dataarray':
         from xarray import DataArray
-        out = empty_fcn((n_sources_u, n_targets_u, n_times))
+        out = empty_fcn((len(roi), len(roi), n_times))
         out[sources, targets, :] = arr.T
-        da = DataArray(out, dims=('sources', 'targets', 'times'),
+        da = DataArray(out, dims=('source', 'target', 'times'),
                        coords=(roi, roi, times))
         return da

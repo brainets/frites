@@ -99,8 +99,8 @@ class TestIOConversion(object):
         da = convert_dfc_outputs(*args, astype='dataarray')
         self._test_type(da, 'dataarray')
         np.testing.assert_equal(da.times, times)
-        np.testing.assert_equal(da.sources, roi)
-        np.testing.assert_equal(da.targets, roi)
+        np.testing.assert_equal(da.source, roi)
+        np.testing.assert_equal(da.target, roi)
 
         # ---------------------------------------------------------------------
         # test that all outputs are equals
