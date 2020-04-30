@@ -68,12 +68,14 @@ plt.show()
 # ------------------------------------------------
 #
 # Note that you can also compute the unidirectionnal FIT which is define as the
-# difference between `FIT(source - >target) - FIT(target -> source)`
+# difference between `FIT(source - >target) - FIT(target -> source)`.
+# This time, instead of having DataFrame outputs, we are using an
+# xarray.DataArray
 
 wf = WfFit()
-mi, _ = wf.fit(ds, net=True, n_perm=10)
-it_net = mi['roi_0']['roi_1']
+mi, _ = wf.fit(ds, net=True, n_perm=10, output_type='dataarray')
 print(mi)
+it_net = mi.sel(source='roi_0', target='roi_1')
 
 plt.plot(it_net, label='roi_0 <-> roi_1')
 plt.title('Unidirectionnal FIT')

@@ -116,17 +116,17 @@ information transfer
 
     source        roi_0     roi_1
     target        roi_1     roi_0
-    -0.699248  0.029932  0.006427
-    -0.689223  0.011956  0.012791
-    -0.679198  0.025625  0.023671
-    -0.669173  0.028191  0.001341
-    -0.659148  0.015768  0.035651
+    -0.699248  0.016952  0.024138
+    -0.689223  0.015346  0.022052
+    -0.679198  0.015043  0.018127
+    -0.669173  0.021390  0.021710
+    -0.659148  0.004280  0.006881
     ...             ...       ...
-     2.959900  0.045298  0.040275
-     2.969925  0.009792  0.001482
-     2.979950  0.027686  0.010401
-     2.989975  0.019592  0.013775
-     3.000000  0.004414  0.017950
+     2.959900  0.038156  0.014458
+     2.969925  0.016833  0.005973
+     2.979950  0.010299  0.019587
+     2.989975  0.026085  0.008797
+     3.000000  0.015697  0.014095
 
     [370 rows x 2 columns]
 
@@ -136,16 +136,18 @@ Compute the unidirectionnal information transfer
 ------------------------------------------------
 
 Note that you can also compute the unidirectionnal FIT which is define as the
-difference between `FIT(source - >target) - FIT(target -> source)`
+difference between `FIT(source - >target) - FIT(target -> source)`.
+This time, instead of having DataFrame outputs, we are using an
+xarray.DataArray
 
 
 .. code-block:: default
 
 
     wf = WfFit()
-    mi, _ = wf.fit(ds, net=True, n_perm=10)
-    it_net = mi['roi_0']['roi_1']
+    mi, _ = wf.fit(ds, net=True, n_perm=10, output_type='dataarray')
     print(mi)
+    it_net = mi.sel(source='roi_0', target='roi_1')
 
     plt.plot(it_net, label='roi_0 <-> roi_1')
     plt.title('Unidirectionnal FIT')
@@ -164,28 +166,42 @@ difference between `FIT(source - >target) - FIT(target -> source)`
 
  .. code-block:: none
 
-    source        roi_0
-    target        roi_1
-    -0.699248  0.023505
-    -0.689223 -0.000835
-    -0.679198  0.001954
-    -0.669173  0.026850
-    -0.659148 -0.019883
-    ...             ...
-     2.959900  0.005023
-     2.969925  0.008310
-     2.979950  0.017285
-     2.989975  0.005817
-     3.000000 -0.013535
+    <xarray.DataArray (source: 2, target: 2, times: 370)>
+    array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [-0.00718583, -0.00670594, -0.00308428, ..., -0.00928781,
+              0.01728772,  0.00160205]],
 
-    [370 rows x 1 columns]
+           [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ]]])
+    Coordinates:
+      * source   (source) <U5 'roi_0' 'roi_1'
+      * target   (target) <U5 'roi_0' 'roi_1'
+      * times    (times) float64 -0.6992 -0.6892 -0.6792 -0.6692 ... 2.98 2.99 3.0
+    Attributes:
+        max_delay:      0.3
+        net:            True
+        mi_type:        cc
+        inference:      rfx
+        mi_method:      gc
+        kernel:         none
+        th:             2.3699117
+        tfce:           none
+        level:          cluster
+        mcp:            maxstat
+        tail:           0
+        cluster_th:     none
+        cluster_alpha:  0.05
+        ttested:        True
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.817 seconds)
+   **Total running time of the script:** ( 0 minutes  0.869 seconds)
 
 
 .. _sphx_glr_download_auto_examples_it_plot_fit_cc.py:

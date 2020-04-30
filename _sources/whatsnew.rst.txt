@@ -18,15 +18,18 @@ New Features
 ++++++++++++
 * :py:class:`frites.dataset.DatasetEphy` support spatio-temporal slicing (:commit:`60d1`), resampling (:commit:`3785`) and savitzki-golay filter (:commit:`9707`)
 * Support setting `random_state` in :py:class:`frites.workflow.WfMi` and :py:class:`frites.workflow.WfFit` (:commit:`0688`)
+* DataArray outputs contains attributes that reflect the configuration of the workflow (:commit:`18181`)
 
 Bug fixes
 +++++++++
 * Fix multi-sites concatenation (:commit:`3bcc`) in :py:class:`frites.dataset.DatasetEphy`
 * Fix p-values to zeros in :py:class:`frites.workflow.WfFit` (:commit:`2062`)
+* Fix FIT outputs for 3D arrays and DataArray (:commit:`18181`)
 
 Internal Changes
 ++++++++++++++++
 * Remap multiple conditions when integers (:commit:`6092`) in :py:class:`frites.dataset.DatasetEphy`
+* Workflows now have an internal configuration (:commit:`18181`)
 
 Documentation
 +++++++++++++

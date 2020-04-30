@@ -266,6 +266,7 @@
 <div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
+        <span class="n">WfBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">],</span> <span class="p">(</span>
             <span class="s2">&quot;&#39;mi_type&#39; input parameter should either be &#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;&quot;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">],</span> <span class="p">(</span>
@@ -281,6 +282,9 @@
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="c1"># update internal config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span>
+            <span class="n">mi_method</span><span class="o">=</span><span class="n">mi_method</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2"> - &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mi_method</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
@@ -362,6 +366,8 @@
         <span class="c1"># apply conversion</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
         <span class="n">pv</span> <span class="o">=</span> <span class="n">convert_spatiotemporal_outputs</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">output_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">:</span>
+            <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">mi</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">pv</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span>
 
@@ -481,6 +487,9 @@
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span>
             <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="c1"># update internal config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+                        <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">cfg</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing and conversions</span>
