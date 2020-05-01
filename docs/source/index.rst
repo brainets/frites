@@ -42,6 +42,7 @@ Frites is a Python toolbox for assessing information-theorical measures on humai
    api.rst
    authors.rst
    references.rst
+   whatsnew.rst
 
 
 
