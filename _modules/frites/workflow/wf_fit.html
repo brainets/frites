@@ -252,9 +252,6 @@
 <span class="sd">              population.</span>
 
 <span class="sd">        By default, the workflow uses group level inference (&#39;rfx&#39;)</span>
-<span class="sd">    gcrn_per_suj : bool | True</span>
-<span class="sd">        Apply the Gaussian-rank normalization either per subject (True) or</span>
-<span class="sd">        across subjects (False).</span>
 <span class="sd">    mi_method : {&#39;gc&#39;, &#39;bin&#39;}</span>
 <span class="sd">        Method for computing the mutual information. Use either :</span>
 
@@ -275,13 +272,12 @@
 <span class="sd">    Bim et al. 2019 :cite:`bim2019non`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WfFit.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa</span>
+<div class="viewcode-block" id="WfFit.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
+                 <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># define the workflow of mi</span>
         <span class="n">WfBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span> <span class="o">=</span> <span class="n">WfMi</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span>
-                           <span class="n">mi_method</span><span class="o">=</span><span class="n">mi_method</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="n">gcrn_per_suj</span><span class="p">,</span>
-                           <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                           <span class="n">mi_method</span><span class="o">=</span><span class="n">mi_method</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
