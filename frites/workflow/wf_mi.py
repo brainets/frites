@@ -36,9 +36,6 @@ class WfMi(WfBase):
               population.
 
         By default, the workflow uses group level inference ('rfx')
-    gcrn_per_suj : bool | True
-        Apply the Gaussian-rank normalization either per subject (True) or
-        across subjects (False).
     mi_method : {'gc', 'bin'}
         Method for computing the mutual information. Use either :
 
@@ -59,8 +56,8 @@ class WfMi(WfBase):
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
-    def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
-                 mi_method='gc', kernel=None, verbose=None):
+    def __init__(self, mi_type='cc', inference='rfx', mi_method='gc',
+                 kernel=None, verbose=None):
         """Init."""
         WfBase.__init__(self)
         assert mi_type in ['cc', 'cd', 'ccd'], (
@@ -73,7 +70,7 @@ class WfMi(WfBase):
         self._inference = inference
         self._mi_method = mi_method
         self._need_copnorm = mi_method == 'gc'
-        self._gcrn = gcrn_per_suj
+        self._gcrn = inference is 'rfx'
         self._kernel = kernel
         set_log_level(verbose)
         self.clean()

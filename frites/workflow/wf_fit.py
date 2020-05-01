@@ -37,9 +37,6 @@ class WfFit(WfBase):
               population.
 
         By default, the workflow uses group level inference ('rfx')
-    gcrn_per_suj : bool | True
-        Apply the Gaussian-rank normalization either per subject (True) or
-        across subjects (False).
     mi_method : {'gc', 'bin'}
         Method for computing the mutual information. Use either :
 
@@ -60,13 +57,12 @@ class WfFit(WfBase):
     Bim et al. 2019 :cite:`bim2019non`
     """
 
-    def __init__(self, mi_type='cc', inference='rfx', gcrn_per_suj=True,
-                 mi_method='gc', kernel=None, verbose=None):  # noqa
+    def __init__(self, mi_type='cc', inference='rfx', mi_method='gc',
+                 kernel=None, verbose=None):
         # define the workflow of mi
         WfBase.__init__(self)
         self._wf_mi = WfMi(mi_type=mi_type, inference=inference,
-                           mi_method=mi_method, gcrn_per_suj=gcrn_per_suj,
-                           kernel=kernel, verbose=False)
+                           mi_method=mi_method, kernel=kernel, verbose=False)
         self._mi_type = mi_type
         self._inference = inference
         self._mi_method = mi_method
