@@ -14,6 +14,7 @@ Breaking changes
 ++++++++++++++++
 * change :py:class:`frites.workflow.WfFit` input `directed` for `net` (:commit:`3ec0`, :issue:`1`)
 * The GCRN is automatically defined (per subject when RFX / across subjects when FFX) (:commit:`b8a9`)
+* Remove the `level` input parameter + only `mcp` is used + only maxstat when performing cluster based (:commit:`d8fb`)
 
 New Features
 ++++++++++++
