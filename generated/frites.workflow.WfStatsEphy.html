@@ -251,7 +251,7 @@ temporal clusters).</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code>(self)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, inference, level, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfStatsEphy.fit" title="frites.workflow.WfStatsEphy.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, effect, perms[, inference, mcp, …])</p></td>
 <td><p>Fit the workflow on true data.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(self, \*\*kwargs)</p></td>
@@ -273,7 +273,7 @@ temporal clusters).</p>
 </table>
 <dl class="method">
 <dt id="frites.workflow.WfStatsEphy.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">ttested=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">effect</em>, <em class="sig-param">perms</em>, <em class="sig-param">inference='rfx'</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">tail=1</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">ttested=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_stats_ephy.html#WfStatsEphy.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfStatsEphy.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the workflow on true data.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -289,15 +289,19 @@ could be different</p>
 <dt><strong>inference</strong><span class="classifier">{‘ffx’, ‘rfx’}</span></dt><dd><p>Perform either Fixed-effect (‘ffx’) or Random-effect (‘rfx’)
 inferences. By default, random-effect is used</p>
 </dd>
-<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
-of interest and at each time point. If ‘cluster’, cluster-based
-methods are used. By default, cluster-based is selected</p>
-</dd>
-<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
-problem. By default, maximum statistics is used. If <cite>level</cite> is
-‘testwise’, MCP is performed across space and time while if <cite>level</cite>
-is ‘cluster’, MCP is performed on cluster mass. By default,
-maximum statistics is usd</p>
+<dt><strong>mcp</strong><span class="classifier">{‘cluster’, ‘maxstat’, ‘fdr’, ‘bonferroni’, ‘nostat’, None}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘cluster’ : cluster-based statistics [default]</p></li>
+<li><p>‘maxstat’ : test-wise maximum statistics correction</p></li>
+<li><p>‘fdr’ : test-wise FDR correction</p></li>
+<li><p>‘bonferroni’ : test-wise Bonferroni correction</p></li>
+<li><p>‘nostat’ : permutations are computed but no statistics are
+performed</p></li>
+<li><p>‘noperm’ / None : no permutations are computed</p></li>
+</ul>
+</div></blockquote>
 </dd>
 <dt><strong>tail</strong><span class="classifier">{-1, 0, 1}</span></dt><dd><p>Type of comparison. Use -1 for the lower part of the distribution,
 1 for the higher part and 0 for both. By default, upper tail of the
@@ -369,7 +373,7 @@ computed for group-level analysis</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>

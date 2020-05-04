@@ -219,13 +219,11 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">mne.stats.cluster_level</span> <span class="kn">import</span> <span class="n">_find_clusters</span>
-<span class="kn">from</span> <span class="nn">mne.stats</span> <span class="kn">import</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">bonferroni_correction</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;frites&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="temporal_clusters_permutation_test"><a class="viewcode-back" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html#frites.stats.temporal_clusters_permutation_test">[docs]</a><span class="k">def</span> <span class="nf">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span>
-                                       <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="temporal_clusters_permutation_test"><a class="viewcode-back" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html#frites.stats.temporal_clusters_permutation_test">[docs]</a><span class="k">def</span> <span class="nf">temporal_clusters_permutation_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Infer p-values using nonparametric test on temporal clusters.</span>
 
 <span class="sd">    Parameters</span>
@@ -239,10 +237,6 @@
 <span class="sd">    tail : {-1, 0, 1}</span>
 <span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
 <span class="sd">        1 for the higher part and 0 for both</span>
-<span class="sd">    mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
-<span class="sd">        Method to use for correcting p-values for the multiple comparison</span>
-<span class="sd">        problem. By default, the maximum cluster-size across time and space is</span>
-<span class="sd">        used.</span>
 <span class="sd">    kwargs : dict | {}</span>
 <span class="sd">        Additional arguments are send to the</span>
 <span class="sd">        :func:`mne.stats.cluster_level._find_clusters`</span>
@@ -255,11 +249,9 @@
     <span class="c1"># get variables</span>
     <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">assert</span> <span class="n">tail</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="k">assert</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tail</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Cluster detection (threshold=</span><span class="si">{</span><span class="n">th</span><span class="si">}</span><span class="s2">; mcp=</span><span class="si">{</span><span class="n">mcp</span><span class="si">}</span><span class="s2">; &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;tail=</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Cluster detection (threshold=</span><span class="si">{</span><span class="n">th</span><span class="si">}</span><span class="s2">; tail=</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># identify clusters for the true x</span>
@@ -302,20 +294,10 @@
     <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="p">)</span>
 
     <span class="c1"># for maximum statistics, repeat the max across ROI</span>
-    <span class="k">if</span> <span class="n">mcp</span> <span class="o">==</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">:</span>
-        <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="n">_clusters_to_pvalues</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">,</span>
-                                  <span class="n">cl_p_mass</span><span class="p">)</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="n">_clusters_to_pvalues</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">,</span>
-                                  <span class="n">cl_p_mass</span><span class="p">)</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;fdr&#39;</span><span class="p">:</span>
-            <span class="n">pv</span> <span class="o">=</span> <span class="n">fdr_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">:</span>
-            <span class="n">pv</span> <span class="o">=</span> <span class="n">bonferroni_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">_clusters_to_pvalues</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">,</span>
+                              <span class="n">cl_p_mass</span><span class="p">)</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pv</span></div>
 
@@ -434,7 +416,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>

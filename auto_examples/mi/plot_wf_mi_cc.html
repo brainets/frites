@@ -289,8 +289,8 @@ information</p>
 
 <span class="c1"># define the workflow</span>
 <span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">)</span>
-<span class="c1"># compute the mutual information</span>
-<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="c1"># compute the mutual information without permutations</span>
+<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 <span class="c1"># plot the information shared between the data and the regressor y</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi</span><span class="p">)</span>
@@ -319,7 +319,7 @@ of multivariate regressor</p>
 
 <span class="c1"># compute the mutual information</span>
 <span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_mv</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
-<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="c1"># plot the result</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mi</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;MI (bits)&quot;</span><span class="p">)</span>
@@ -346,13 +346,13 @@ within (ffx) or between subject (rfx) statistics.</p>
 <span class="n">ffx_stat</span> <span class="o">=</span> <span class="s1">&#39;ffx_cluster_tfce&#39;</span>
 <span class="n">dt_ffx</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
 <span class="n">wf_ffx</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
-<span class="n">mi_ffx</span><span class="p">,</span> <span class="n">pv_ffx</span> <span class="o">=</span> <span class="n">wf_ffx</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt_ffx</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="s1">&#39;tfce&#39;</span><span class="p">,</span>
+<span class="n">mi_ffx</span><span class="p">,</span> <span class="n">pv_ffx</span> <span class="o">=</span> <span class="n">wf_ffx</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt_ffx</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="s1">&#39;tfce&#39;</span><span class="p">,</span>
                             <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
 
 <span class="c1"># between-subject statistics (rfx=random-effect)</span>
 <span class="n">dt_rfx</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
 <span class="n">wf_rfx</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
-<span class="n">mi_rfx</span><span class="p">,</span> <span class="n">pv_rfx</span> <span class="o">=</span> <span class="n">wf_rfx</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt_rfx</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="s1">&#39;tfce&#39;</span><span class="p">,</span>
+<span class="n">mi_rfx</span><span class="p">,</span> <span class="n">pv_rfx</span> <span class="o">=</span> <span class="n">wf_rfx</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt_rfx</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="s1">&#39;tfce&#39;</span><span class="p">,</span>
                             <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
 
 <span class="c1"># plot the comparison</span>
@@ -377,7 +377,7 @@ within (ffx) or between subject (rfx) statistics.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_cc_003.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cc_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.378 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.846 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a2a23bc24df8be6ebfbdb27648a53638/plot_wf_mi_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_cc.py</span></code></a></p>
@@ -415,7 +415,7 @@ within (ffx) or between subject (rfx) statistics.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>

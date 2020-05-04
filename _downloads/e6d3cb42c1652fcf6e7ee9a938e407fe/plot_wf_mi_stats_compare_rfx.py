@@ -84,19 +84,17 @@ Use either :
 """
 cluster_th = None  # {float, None, 'tfce'}
 
-for level in ['testwise', 'cluster']:
-    for mcp in mcps:
-        print(f'-> RFX / {level} level / MCP={mcp}')
-        mi, pvalues = wf.fit(dt, level=level, mcp=mcp, cluster_th=cluster_th,
-                             **kw)
-        # remove p-values that exceed 0.05
-        pvalues[pvalues >= .05] = 1.
+for mcp in mcps:
+    print(f'-> RFX / MCP={mcp}')
+    mi, pvalues = wf.fit(dt, mcp=mcp, cluster_th=cluster_th, **kw)
+    # remove p-values that exceed 0.05
+    pvalues[pvalues >= .05] = 1.
 
-        plt.subplot(212)
-        plt.plot(time, pvalues.squeeze(), label=f'ffx-{level}-{mcp}')
-        plt.xlabel('Time (s)'), plt.ylabel("P-values")
-        plt.title("P-values (rfx)")
-        plt.autoscale(tight=True, axis='x')
+    plt.subplot(212)
+    plt.plot(time, pvalues.squeeze(), label=f'ffx-{mcp}')
+    plt.xlabel('Time (s)'), plt.ylabel("P-values")
+    plt.title("P-values (rfx)")
+    plt.autoscale(tight=True, axis='x')
 plt.legend()
 
 plt.subplot(211)

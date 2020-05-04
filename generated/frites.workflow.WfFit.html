@@ -291,7 +291,7 @@ moving average</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfFit.clean" title="frites.workflow.WfFit.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.fit" title="frites.workflow.WfFit.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, max_delay, net, level, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfFit.fit" title="frites.workflow.WfFit.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, max_delay, net, mcp, …])</p></td>
 <td><p>Compute the Feature Specific Information transfer and statistics.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(self, \*\*kwargs)</p></td>
@@ -340,7 +340,7 @@ moving average</p>
 
 <dl class="method">
 <dt id="frites.workflow.WfFit.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">net=False</em>, <em class="sig-param">level='cluster'</em>, <em class="sig-param">mcp='maxstat'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">max_delay=0.3</em>, <em class="sig-param">net=False</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">output_type='3d_dataframe'</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_fit.html#WfFit.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfFit.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Feature Specific Information transfer and statistics.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -364,12 +364,19 @@ correspond to <cite>net=False</cite>) either the unidirectional FIT
 (i.e A-&gt;B - B-&gt;A which correspond to <cite>net=True</cite>). By default, the
 bidirectional FIT is computed.</p>
 </dd>
-<dt><strong>level</strong><span class="classifier">{‘testwise’, ‘cluster’}</span></dt><dd><p>Inference level. If ‘testwise’, inferences are made for each region
-of interest and at each time point. If ‘cluster’, cluster-based
-methods are used. By default, cluster-based is selected</p>
-</dd>
-<dt><strong>mcp</strong><span class="classifier">{‘maxstat’, ‘fdr’, ‘bonferroni’}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
-problem. By default, the maximum-statistics is used.</p>
+<dt><strong>mcp</strong><span class="classifier">{‘cluster’, ‘maxstat’, ‘fdr’, ‘bonferroni’, ‘nostat’, None}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘cluster’ : cluster-based statistics [default]</p></li>
+<li><p>‘maxstat’ : test-wise maximum statistics correction</p></li>
+<li><p>‘fdr’ : test-wise FDR correction</p></li>
+<li><p>‘bonferroni’ : test-wise Bonferroni correction</p></li>
+<li><p>‘nostat’ : permutations are computed but no statistics are
+performed</p></li>
+<li><p>‘noperm’ / None : no permutations are computed</p></li>
+</ul>
+</div></blockquote>
 </dd>
 <dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
 <blockquote>
@@ -507,7 +514,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>

@@ -246,9 +246,8 @@
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Definition of a non-parametric statistical workflow&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="WfStatsEphy.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-            <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="WfStatsEphy.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fit the workflow on true data.</span>
 
 <span class="sd">        Parameters</span>
@@ -264,16 +263,17 @@
 <span class="sd">        inference : {&#39;ffx&#39;, &#39;rfx&#39;}</span>
 <span class="sd">            Perform either Fixed-effect (&#39;ffx&#39;) or Random-effect (&#39;rfx&#39;)</span>
 <span class="sd">            inferences. By default, random-effect is used</span>
-<span class="sd">        level : {&#39;testwise&#39;, &#39;cluster&#39;}</span>
-<span class="sd">            Inference level. If &#39;testwise&#39;, inferences are made for each region</span>
-<span class="sd">            of interest and at each time point. If &#39;cluster&#39;, cluster-based</span>
-<span class="sd">            methods are used. By default, cluster-based is selected</span>
-<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
+<span class="sd">        mcp : {&#39;cluster&#39;, &#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;, &#39;nostat&#39;, None}</span>
 <span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
-<span class="sd">            problem. By default, maximum statistics is used. If `level` is</span>
-<span class="sd">            &#39;testwise&#39;, MCP is performed across space and time while if `level`</span>
-<span class="sd">            is &#39;cluster&#39;, MCP is performed on cluster mass. By default,</span>
-<span class="sd">            maximum statistics is usd</span>
+<span class="sd">            problem. Use either :</span>
+<span class="sd">                </span>
+<span class="sd">                * &#39;cluster&#39; : cluster-based statistics [default]</span>
+<span class="sd">                * &#39;maxstat&#39; : test-wise maximum statistics correction</span>
+<span class="sd">                * &#39;fdr&#39; : test-wise FDR correction</span>
+<span class="sd">                * &#39;bonferroni&#39; : test-wise Bonferroni correction</span>
+<span class="sd">                * &#39;nostat&#39; : permutations are computed but no statistics are</span>
+<span class="sd">                  performed</span>
+<span class="sd">                * &#39;noperm&#39; / None : no permutations are computed</span>
 <span class="sd">        tail : {-1, 0, 1}</span>
 <span class="sd">            Type of comparison. Use -1 for the lower part of the distribution,</span>
 <span class="sd">            1 for the higher part and 0 for both. By default, upper tail of the</span>
@@ -307,12 +307,13 @@
         <span class="c1"># check inputs</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;testwise&#39;</span><span class="p">,</span> <span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">,</span> <span class="s1">&#39;nostat&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">perms</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">])</span>
         <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">),</span> <span class="n">effect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span>
-        <span class="c1"># don&#39;t compute statistics if `level` is None</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">):</span>
+        <span class="c1"># don&#39;t compute statistics if `mcp` is None</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;noperm&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_times</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">tvalues</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">])</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">)</span>
@@ -347,7 +348,7 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># cluster forming threshold</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cluster_th</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
                 <span class="n">th</span><span class="p">,</span> <span class="n">tfce</span> <span class="o">=</span> <span class="n">cluster_th</span><span class="p">,</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
@@ -365,14 +366,14 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># test-wise or cluster-based</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;testwise&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at cluster-level&#39;</span><span class="p">)</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span>
+                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at spatio-temporal level (test-wise)&#39;</span><span class="p">)</span>
             <span class="n">es_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">es_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">pvalues</span> <span class="o">=</span> <span class="n">permutation_mcp_correction</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">level</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at cluster level&#39;</span><span class="p">)</span>
-            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span>
-                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing</span>
@@ -383,7 +384,7 @@
         <span class="n">pvalues</span> <span class="o">=</span> <span class="n">pvalues</span><span class="o">.</span><span class="n">T</span>
 
         <span class="c1"># update internal config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
             <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span>
             <span class="n">ttested</span><span class="o">=</span><span class="n">ttested</span><span class="p">)</span>
 
@@ -419,7 +420,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>

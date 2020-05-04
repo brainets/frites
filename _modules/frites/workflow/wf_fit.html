@@ -293,9 +293,8 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute mi and permuted mi</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
-                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;nostat&#39;</span><span class="p">,</span>
-                        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wf_mi</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;nostat&#39;</span><span class="p">,</span>
+                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
         <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi</span><span class="p">]</span>
         <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mi_p</span><span class="p">]</span>
 
@@ -350,10 +349,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span> <span class="o">=</span> <span class="n">fit_roi</span><span class="p">,</span> <span class="n">fitp_roi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_m</span> <span class="o">=</span> <span class="n">fit_m</span>
 
-<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-            <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-            <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+<div class="viewcode-block" id="WfFit.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+            <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;3d_dataframe&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute the Feature Specific Information transfer and statistics.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -378,13 +376,17 @@
 <span class="sd">            correspond to `net=False`) either the unidirectional FIT</span>
 <span class="sd">            (i.e A-&gt;B - B-&gt;A which correspond to `net=True`). By default, the</span>
 <span class="sd">            bidirectional FIT is computed.</span>
-<span class="sd">        level : {&#39;testwise&#39;, &#39;cluster&#39;}</span>
-<span class="sd">            Inference level. If &#39;testwise&#39;, inferences are made for each region</span>
-<span class="sd">            of interest and at each time point. If &#39;cluster&#39;, cluster-based</span>
-<span class="sd">            methods are used. By default, cluster-based is selected</span>
-<span class="sd">        mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
+<span class="sd">        mcp : {&#39;cluster&#39;, &#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;, &#39;nostat&#39;, None}</span>
 <span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
-<span class="sd">            problem. By default, the maximum-statistics is used.</span>
+<span class="sd">            problem. Use either :</span>
+<span class="sd">                </span>
+<span class="sd">                * &#39;cluster&#39; : cluster-based statistics [default]</span>
+<span class="sd">                * &#39;maxstat&#39; : test-wise maximum statistics correction</span>
+<span class="sd">                * &#39;fdr&#39; : test-wise FDR correction</span>
+<span class="sd">                * &#39;bonferroni&#39; : test-wise Bonferroni correction</span>
+<span class="sd">                * &#39;nostat&#39; : permutations are computed but no statistics are</span>
+<span class="sd">                  performed</span>
+<span class="sd">                * &#39;noperm&#39; / None : no permutations are computed</span>
 <span class="sd">        cluster_th : str, float | None</span>
 <span class="sd">            The threshold to use for forming clusters. Use either :</span>
 
@@ -427,7 +429,7 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># if stat_method is None, avoid computing permutations</span>
         <span class="n">inference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
-        <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">times</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span>
         <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
@@ -453,7 +455,7 @@
         <span class="k">if</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span> <span class="n">kw_stats</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span>  <span class="c1"># noqa</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStatsEphy</span><span class="p">()</span>
         <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fit_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitp_roi</span><span class="p">,</span> <span class="n">ttested</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span>
             <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span>
             <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
         <span class="c1"># update internal config</span>
@@ -631,7 +633,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>

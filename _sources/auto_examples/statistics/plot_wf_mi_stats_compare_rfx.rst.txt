@@ -140,19 +140,17 @@ Compute the mutual information and statistics
     """
     cluster_th = None  # {float, None, 'tfce'}
 
-    for level in ['testwise', 'cluster']:
-        for mcp in mcps:
-            print(f'-> RFX / {level} level / MCP={mcp}')
-            mi, pvalues = wf.fit(dt, level=level, mcp=mcp, cluster_th=cluster_th,
-                                 **kw)
-            # remove p-values that exceed 0.05
-            pvalues[pvalues >= .05] = 1.
+    for mcp in mcps:
+        print(f'-> RFX / MCP={mcp}')
+        mi, pvalues = wf.fit(dt, mcp=mcp, cluster_th=cluster_th, **kw)
+        # remove p-values that exceed 0.05
+        pvalues[pvalues >= .05] = 1.
 
-            plt.subplot(212)
-            plt.plot(time, pvalues.squeeze(), label=f'ffx-{level}-{mcp}')
-            plt.xlabel('Time (s)'), plt.ylabel("P-values")
-            plt.title("P-values (rfx)")
-            plt.autoscale(tight=True, axis='x')
+        plt.subplot(212)
+        plt.plot(time, pvalues.squeeze(), label=f'ffx-{mcp}')
+        plt.xlabel('Time (s)'), plt.ylabel("P-values")
+        plt.title("P-values (rfx)")
+        plt.autoscale(tight=True, axis='x')
     plt.legend()
 
     plt.subplot(211)
@@ -175,21 +173,12 @@ Compute the mutual information and statistics
 
  .. code-block:: none
 
-    -> RFX / testwise level / MCP=maxstat
-    -> RFX / testwise level / MCP=fdr
-    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+    -> RFX / MCP=maxstat
+    -> RFX / MCP=fdr
+    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:93: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
       plt.subplot(212)
-    -> RFX / testwise level / MCP=bonferroni
-    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
-      plt.subplot(212)
-    -> RFX / cluster level / MCP=maxstat
-    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
-      plt.subplot(212)
-    -> RFX / cluster level / MCP=fdr
-    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
-      plt.subplot(212)
-    -> RFX / cluster level / MCP=bonferroni
-    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:95: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+    -> RFX / MCP=bonferroni
+    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:93: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
       plt.subplot(212)
 
 
@@ -197,7 +186,7 @@ Compute the mutual information and statistics
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.991 seconds)
+   **Total running time of the script:** ( 0 minutes  4.060 seconds)
 
 
 .. _sphx_glr_download_auto_examples_statistics_plot_wf_mi_stats_compare_rfx.py:

@@ -298,19 +298,17 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="n">cluster_th</span> <span class="o">=</span> <span class="s1">&#39;tfce&#39;</span>  <span class="c1"># {float, None, &#39;tfce&#39;}</span>
 
-<span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;testwise&#39;</span><span class="p">,</span> <span class="s1">&#39;cluster&#39;</span><span class="p">]:</span>
-    <span class="k">for</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="n">mcps</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-&gt; FFX / </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s1"> level / MCP=</span><span class="si">{</span><span class="n">mcp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span>
-                             <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-        <span class="c1"># remove p-values that exceed 0.05</span>
-        <span class="n">pvalues</span><span class="p">[</span><span class="n">pvalues</span> <span class="o">&gt;=</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="k">for</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="n">mcps</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-&gt; FFX / MCP=</span><span class="si">{</span><span class="n">mcp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">mi</span><span class="p">,</span> <span class="n">pvalues</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="c1"># remove p-values that exceed 0.05</span>
+    <span class="n">pvalues</span><span class="p">[</span><span class="n">pvalues</span> <span class="o">&gt;=</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">pvalues</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;ffx-</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">mcp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P-values&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;P-values (ffx)&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">pvalues</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;ffx-</span><span class="si">{</span><span class="n">mcp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P-values&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;P-values (ffx)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
@@ -324,25 +322,16 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; FFX / testwise level / MCP=maxstat
--&gt; FFX / testwise level / MCP=fdr
-/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; FFX / MCP=maxstat
+-&gt; FFX / MCP=fdr
+/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:94: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
   plt.subplot(212)
--&gt; FFX / testwise level / MCP=bonferroni
-/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
-  plt.subplot(212)
--&gt; FFX / cluster level / MCP=maxstat
-/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
-  plt.subplot(212)
--&gt; FFX / cluster level / MCP=fdr
-/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
-  plt.subplot(212)
--&gt; FFX / cluster level / MCP=bonferroni
-/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:96: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+-&gt; FFX / MCP=bonferroni
+/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:94: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
   plt.subplot(212)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.220 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.617 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/531c227d9c95523d02c4f2dfb933a96e/plot_wf_mi_stats_compare_ffx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code></a></p>
@@ -380,7 +369,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-01.</p>
+        <p>&copy; Copyright Last updated on 2020-05-04.</p>
     </footer>
 
   </body>
