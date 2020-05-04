@@ -12,9 +12,8 @@ v0.3.2
 
 Internal Changes
 ++++++++++++++++
+* Dtypes of `y` and `z` inputs are systematically check in :py:class:`frites.dataset.DatasetEphy` in order to define which MI can then be computed (:commit:`7cc1`)
 
-Documentation
-+++++++++++++
 
 .. raw:: html
 
