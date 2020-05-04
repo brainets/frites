@@ -77,8 +77,8 @@ mi_type = 'cc'
 
 # define the workflow
 wf = WfMi(mi_type)
-# compute the mutual information
-mi, _ = wf.fit(dt, level=None)
+# compute the mutual information without permutations
+mi, _ = wf.fit(dt, mcp=None)
 
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)
@@ -107,7 +107,7 @@ print([k.shape for k in y_mv])
 
 # compute the mutual information
 dt = DatasetEphy(x, y_mv, roi)
-mi, _ = WfMi('cc').fit(dt, level=None)
+mi, _ = WfMi('cc').fit(dt, mcp=None)
 # plot the result
 plt.plot(time, mi)
 plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
@@ -130,13 +130,13 @@ y, _ = sim_mi_cc(x, snr=.1)
 ffx_stat = 'ffx_cluster_tfce'
 dt_ffx = DatasetEphy(x, y, roi)
 wf_ffx = WfMi(mi_type, 'ffx')
-mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, level='cluster', cluster_th='tfce',
+mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm)
 
 # between-subject statistics (rfx=random-effect)
 dt_rfx = DatasetEphy(x, y, roi)
 wf_rfx = WfMi(mi_type, 'rfx')
-mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, level='cluster', cluster_th='tfce',
+mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm)
 
 # plot the comparison

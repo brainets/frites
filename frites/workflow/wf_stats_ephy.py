@@ -31,9 +31,8 @@ class WfStatsEphy(WfBase):
         set_log_level(verbose)
         logger.info("Definition of a non-parametric statistical workflow")
 
-    def fit(self, effect, perms, inference='rfx', level='cluster',
-            mcp='maxstat', tail=1, cluster_th=None, cluster_alpha=0.05,
-            ttested=False):
+    def fit(self, effect, perms, inference='rfx', mcp='cluster', tail=1,
+            cluster_th=None, cluster_alpha=0.05, ttested=False):
         """Fit the workflow on true data.
 
         Parameters
@@ -49,16 +48,17 @@ class WfStatsEphy(WfBase):
         inference : {'ffx', 'rfx'}
             Perform either Fixed-effect ('ffx') or Random-effect ('rfx')
             inferences. By default, random-effect is used
-        level : {'testwise', 'cluster'}
-            Inference level. If 'testwise', inferences are made for each region
-            of interest and at each time point. If 'cluster', cluster-based
-            methods are used. By default, cluster-based is selected
-        mcp : {'maxstat', 'fdr', 'bonferroni'}
+        mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
-            problem. By default, maximum statistics is used. If `level` is
-            'testwise', MCP is performed across space and time while if `level`
-            is 'cluster', MCP is performed on cluster mass. By default,
-            maximum statistics is usd
+            problem. Use either :
+                
+                * 'cluster' : cluster-based statistics [default]
+                * 'maxstat' : test-wise maximum statistics correction
+                * 'fdr' : test-wise FDR correction
+                * 'bonferroni' : test-wise Bonferroni correction
+                * 'nostat' : permutations are computed but no statistics are
+                  performed
+                * 'noperm' / None : no permutations are computed
         tail : {-1, 0, 1}
             Type of comparison. Use -1 for the lower part of the distribution,
             1 for the higher part and 0 for both. By default, upper tail of the
@@ -92,12 +92,13 @@ class WfStatsEphy(WfBase):
         # check inputs
         # ---------------------------------------------------------------------
         assert inference in ['ffx', 'rfx']
-        assert level in ['testwise', 'cluster', None]
+        assert mcp in ['cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat',
+                       'noperm', None]
         assert isinstance(effect, list) and isinstance(perms, list)
         assert all([isinstance(k, np.ndarray) and k.ndim == 2 for k in effect])
         n_roi, n_times, tvalues = len(effect), effect[0].shape[1], None
-        # don't compute statistics if `level` is None
-        if (level is None) or not len(perms):
+        # don't compute statistics if `mcp` is None
+        if (mcp in [None, 'noperm']) or not len(perms):
             return np.ones((n_times, n_roi), dtype=float), tvalues
         assert all([isinstance(k, np.ndarray) and k.ndim == 3 for k in perms])
         assert len(effect) == len(perms)
@@ -132,7 +133,7 @@ class WfStatsEphy(WfBase):
         # ---------------------------------------------------------------------
         # cluster forming threshold
         # ---------------------------------------------------------------------
-        if level is 'cluster':
+        if mcp is 'cluster':
             if isinstance(cluster_th, (int, float)):
                 th, tfce = cluster_th, None
             else:
@@ -150,14 +151,14 @@ class WfStatsEphy(WfBase):
         # ---------------------------------------------------------------------
         # test-wise or cluster-based
         # ---------------------------------------------------------------------
-        if level is 'testwise':
+        if mcp is 'cluster':
+            logger.info('    Inference at cluster-level')
+            pvalues = temporal_clusters_permutation_test(
+                es, es_p, th, tail=tail)
+        else:
             logger.info('    Inference at spatio-temporal level (test-wise)')
             es_p = np.moveaxis(es_p, 0, -1)
             pvalues = permutation_mcp_correction(es, es_p, tail=tail, mcp=mcp)
-        elif level is 'cluster':
-            logger.info('    Inference at cluster level')
-            pvalues = temporal_clusters_permutation_test(
-                es, es_p, th, tail=tail, mcp=mcp)
 
         # ---------------------------------------------------------------------
         # postprocessing
@@ -168,7 +169,7 @@ class WfStatsEphy(WfBase):
         pvalues = pvalues.T
 
         # update internal config
-        self.update_cfg(inference=inference, level=level, mcp=mcp, tail=tail,
+        self.update_cfg(inference=inference, mcp=mcp, tail=tail,
             cluster_th=cluster_th, cluster_alpha=cluster_alpha,
             ttested=ttested)
 

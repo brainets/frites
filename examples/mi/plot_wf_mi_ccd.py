@@ -68,7 +68,7 @@ mi_type = 'ccd'
 # define the workflow
 wf = WfMi(mi_type)
 # compute the mutual information
-mi, _ = wf.fit(dt, level=None)
+mi, _ = wf.fit(dt, mcp=None)
 
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)

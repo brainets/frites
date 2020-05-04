@@ -98,12 +98,12 @@ class TestWfMi(object):  # noqa
         kernel = np.hanning(3)
         wf = WfMi('cc', 'ffx', kernel=kernel, verbose=False)
         assert isinstance(wf.wf_stats, WfStatsEphy)
-        wf.fit(dt, level='nostat', **kw_mi)
+        wf.fit(dt, mcp='nostat', **kw_mi)
         assert len(wf.mi) == len(wf.mi_p) == n_roi
         assert len(wf.mi_p[0].shape) != 0
         # don't compute permutations nor stats
         wf = WfMi('cc', 'ffx', verbose=False)
-        mi, pv = wf.fit(dt, level=None, output_type='array', **kw_mi)
+        mi, pv = wf.fit(dt, mcp=None, output_type='array', **kw_mi)
         assert wf.mi_p[0].shape == (0,)
         assert pv.min() == pv.max() == 1.
         # don't compute permutations twice

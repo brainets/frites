@@ -78,9 +78,8 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         # compute mi and permuted mi
         # ---------------------------------------------------------------------
-        self._wf_mi.fit(dataset, n_perm=n_perm, n_jobs=n_jobs,
-                        output_type='array', level='nostat',
-                        random_state=random_state)
+        self._wf_mi.fit(dataset, n_perm=n_perm, n_jobs=n_jobs, mcp='nostat',
+                        output_type='array', random_state=random_state)
         mi = [k.astype(np.float32) for k in self.mi]
         mi_p = [k.astype(np.float32) for k in self.mi_p]
 
@@ -135,10 +134,9 @@ class WfFit(WfBase):
         self._fit_roi, self._fitp_roi = fit_roi, fitp_roi
         self._fit_m = fit_m
 
-    def fit(self, dataset, max_delay=0.3, net=False, level='cluster',
-            mcp='maxstat', cluster_th=None, cluster_alpha=0.05, n_perm=1000,
-            n_jobs=-1, random_state=None, output_type='3d_dataframe',
-            **kw_stats):
+    def fit(self, dataset, max_delay=0.3, net=False, mcp='cluster',
+            cluster_th=None, cluster_alpha=0.05, n_perm=1000, n_jobs=-1,
+            random_state=None, output_type='3d_dataframe', **kw_stats):
         """Compute the Feature Specific Information transfer and statistics.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -163,13 +161,17 @@ class WfFit(WfBase):
             correspond to `net=False`) either the unidirectional FIT
             (i.e A->B - B->A which correspond to `net=True`). By default, the
             bidirectional FIT is computed.
-        level : {'testwise', 'cluster'}
-            Inference level. If 'testwise', inferences are made for each region
-            of interest and at each time point. If 'cluster', cluster-based
-            methods are used. By default, cluster-based is selected
-        mcp : {'maxstat', 'fdr', 'bonferroni'}
+        mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
-            problem. By default, the maximum-statistics is used.
+            problem. Use either :
+                
+                * 'cluster' : cluster-based statistics [default]
+                * 'maxstat' : test-wise maximum statistics correction
+                * 'fdr' : test-wise FDR correction
+                * 'bonferroni' : test-wise Bonferroni correction
+                * 'nostat' : permutations are computed but no statistics are
+                  performed
+                * 'noperm' / None : no permutations are computed
         cluster_th : str, float | None
             The threshold to use for forming clusters. Use either :
 
@@ -212,7 +214,7 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         # if stat_method is None, avoid computing permutations
         inference = self._inference
-        if level in ['noperm', None]:
+        if mcp in ['noperm', None]:
             n_perm = 0
         times = dataset.times
         n_times = len(times)
@@ -238,7 +240,7 @@ class WfFit(WfBase):
         if inference == 'rfx': kw_stats['tail'] = self._tail  # noqa
         self._wf_stats = WfStatsEphy()
         pvalues, tvalues = self._wf_stats.fit(
-            self._fit_roi, self._fitp_roi, ttested=True, level=level, mcp=mcp,
+            self._fit_roi, self._fitp_roi, ttested=True, mcp=mcp,
             cluster_th=cluster_th, cluster_alpha=cluster_alpha,
             inference=self._inference, **kw_stats)
         # update internal config

@@ -4,13 +4,11 @@ import logging
 import numpy as np
 
 from mne.stats.cluster_level import _find_clusters
-from mne.stats import fdr_correction, bonferroni_correction
 
 logger = logging.getLogger('frites')
 
 
-def temporal_clusters_permutation_test(x, x_p, th, tail=1, mcp='maxstat',
-                                       **kwargs):
+def temporal_clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
     """Infer p-values using nonparametric test on temporal clusters.
 
     Parameters
@@ -24,10 +22,6 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, mcp='maxstat',
     tail : {-1, 0, 1}
         Type of comparison. Use -1 for the lower part of the distribution,
         1 for the higher part and 0 for both
-    mcp : {'maxstat', 'fdr', 'bonferroni'}
-        Method to use for correcting p-values for the multiple comparison
-        problem. By default, the maximum cluster-size across time and space is
-        used.
     kwargs : dict | {}
         Additional arguments are send to the
         :func:`mne.stats.cluster_level._find_clusters`
@@ -40,11 +34,9 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, mcp='maxstat',
     # get variables
     n_perm, n_roi, n_times = x_p.shape
     assert tail in [-1, 0, 1]
-    assert mcp in ['maxstat', 'fdr', 'bonferroni']
     kwargs['tail'] = tail
 
-    logger.info(f"    Cluster detection (threshold={th}; mcp={mcp}; "
-                f"tail={tail})")
+    logger.info(f"    Cluster detection (threshold={th}; tail={tail})")
 
     # -------------------------------------------------------------------------
     # identify clusters for the true x
@@ -87,20 +79,10 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, mcp='maxstat',
     cl_p_mass = np.asarray(cl_p_mass)
 
     # for maximum statistics, repeat the max across ROI
-    if mcp == 'maxstat':
-        cl_p_mass = np.tile(cl_p_mass.max(axis=0, keepdims=True), (n_roi, 1))
-        pv = _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass,
-                                  cl_p_mass)
-        pv = np.clip(pv, 1. / n_perm, 1.)
-    else:
-        pv = _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass,
-                                  cl_p_mass)
-        pv = np.clip(pv, 1. / n_perm, 1.)
-        if mcp is 'fdr':
-            pv = fdr_correction(pv, 0.05)[1]
-        if mcp is 'bonferroni':
-            pv = bonferroni_correction(pv, 0.05)[1]
-    pv = np.clip(pv, 0., 1.)
+    cl_p_mass = np.tile(cl_p_mass.max(axis=0, keepdims=True), (n_roi, 1))
+    pv = _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass,
+                              cl_p_mass)
+    pv = np.clip(pv, 1. / n_perm, 1.)
 
     return pv
 

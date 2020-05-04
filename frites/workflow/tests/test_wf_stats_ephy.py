@@ -46,37 +46,33 @@ class TestWfStatsEphy(object):  # noqa
         # ---------------------------------------------------------------------
         # loop parameters
         inferences = ['ffx', 'rfx']
-        mcps = ['maxstat', 'fdr', 'bonferroni']
-        levels = ['testwise', 'cluster']
-        prod = product(inferences, mcps, levels)
+        mcps = ['maxstat', 'fdr', 'bonferroni', 'cluster']
+        prod = product(inferences, mcps)
 
         # definition of the workflow
         wf = WfStatsEphy(verbose=False)
 
-        for inf, mcp, level in prod:
+        for inf, mcp in prod:
             # data selection
             if inf is 'ffx': x, x_p = effect_ffx, perms_ffx  # noqa
             elif inf is 'rfx': x, x_p = effect_rfx, perms_rfx  # noqa
             # threshold definition
-            if level is 'testwise':
-                cluster_th = [None]
-            if level is 'cluster':
+            if mcp is 'cluster':
                 cluster_th = [None, 'tfce']
+            else:
+                cluster_th = [None]
 
             for th in cluster_th:
                 # upper tail
-                kw = dict(mcp=mcp, level=level, inference=inf, tail=1,
-                          cluster_th=th)
+                kw = dict(mcp=mcp, inference=inf, tail=1, cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
                 self._testing(gt_pos.T, pv, kw)
                 # lower tail
-                kw = dict(mcp=mcp, level=level, inference=inf, tail=-1,
-                          cluster_th=th)
+                kw = dict(mcp=mcp, inference=inf, tail=-1, cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
                 self._testing(gt_neg.T, pv, kw)
                 # both tails
-                kw = dict(mcp=mcp, level=level, inference=inf, tail=0,
-                          cluster_th=th)
+                kw = dict(mcp=mcp, inference=inf, tail=0, cluster_th=th)
                 pv, tv = wf.fit(x, x_p, **kw)
                 self._testing(gt_bot.T, pv, kw)
 

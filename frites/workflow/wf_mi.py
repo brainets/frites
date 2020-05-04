@@ -164,9 +164,9 @@ class WfMi(WfBase):
 
         return mi, pv
 
-    def fit(self, dataset, level='cluster', mcp='maxstat', n_perm=1000,
-            cluster_th=None, cluster_alpha=0.05, n_bins=None, n_jobs=-1,
-            random_state=None, output_type='dataframe', **kw_stats):
+    def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
+            cluster_alpha=0.05, n_bins=None, n_jobs=-1, random_state=None,
+            output_type='dataframe', **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -184,16 +184,17 @@ class WfMi(WfBase):
         ----------
         dataset : :class:`frites.dataset.DatasetEphy`
             A dataset instance
-        level : {'testwise', 'cluster'}
-            Inference level. If 'testwise', inferences are made for each region
-            of interest and at each time point. If 'cluster', cluster-based
-            methods are used. By default, cluster-based is selected
-        mcp : {'maxstat', 'fdr', 'bonferroni'}
+        mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
-            problem. By default, maximum statistics is used. If `level` is
-            'testwise', MCP is performed across space and time while if `level`
-            is 'cluster', MCP is performed on cluster mass. By default,
-            maximum statistics is usd
+            problem. Use either :
+                
+                * 'cluster' : cluster-based statistics [default]
+                * 'maxstat' : test-wise maximum statistics correction
+                * 'fdr' : test-wise FDR correction
+                * 'bonferroni' : test-wise Bonferroni correction
+                * 'nostat' : permutations are computed but no statistics are
+                  performed
+                * 'noperm' / None : no permutations are computed
         n_perm : int | 1000
             Number of permutations to perform in order to estimate the random
             distribution of mi that can be obtained by chance
@@ -238,11 +239,8 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # prepare variables
         # ---------------------------------------------------------------------
-        """Internally, if `level` is 'nostat', permutations are computed but
-        not statistics. If `level` is 'noperm' (or None), no permutations and
-        no stats are computed neither.
-        """
-        if level in ['noperm', None]:
+        # don't compute permutations if mcp is either nostat / None
+        if mcp in ['noperm', None]:
             n_perm = 0
         # infer the number of bins if needed
         if (self._mi_method is 'bin') and not isinstance(n_bins, int):
@@ -265,10 +263,10 @@ class WfMi(WfBase):
                 dataset, self._n_bins, n_perm, n_jobs, random_state)
         """
         For information transfer (e.g FIT) we only need to compute the true and
-        permuted mi but then, the statistics at the local representation level
+        permuted mi but then, the statistics at the local representation mcp
         are discarded in favor of statistics on the information transfer
         """
-        if level is 'nostat':
+        if mcp is 'nostat':
             logger.debug("Permutations computed. Stop there")
             return None
 
@@ -277,8 +275,8 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # infer p-values and t-values
         pvalues, tvalues = self._wf_stats.fit(
-            mi, mi_p, level=level, mcp=mcp, cluster_th=cluster_th,
-            cluster_alpha=cluster_alpha, tail=1, inference=self._inference,
+            mi, mi_p, mcp=mcp, cluster_th=cluster_th, tail=1,
+            cluster_alpha=cluster_alpha, inference=self._inference,
             **kw_stats)
         # update internal config
         self.update_cfg(n_perm=n_perm, random_state=random_state,
