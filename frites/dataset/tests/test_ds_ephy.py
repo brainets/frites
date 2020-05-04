@@ -51,11 +51,12 @@ class TestDatasetEphy(object):  # noqa
         y_2 = [[1, 20], [0, 10], [1, 20]]
         y_3 = [[2, 30], [0, 10], [1, 20]]
         cats = [[0, 0, 1], [1, 0, 1], [2, 0, 1]]
-        y = z =  [y_1, y_2, y_3]
+        y = [np.array(y_1), np.array(y_2), np.array(y_3)]
+        z = [np.array(y_1), np.array(y_2), np.array(y_3)]
         roi = [[f"roi-{k}" for k in range(n_roi)]] * n_suj
+        y = [k.astype(float) for k in y]
         ds = DatasetEphy(x, y, roi, z=z)
         for _y, _z, _c in zip(ds.y, ds.z, cats):
-            np.testing.assert_array_equal(_z, _c)
             np.testing.assert_array_equal(_z, _c)
 
     def test_shapes(self):

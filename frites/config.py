@@ -1,4 +1,5 @@
 """Configuration file."""
+import numpy as np
 import mne
 
 # Empty config
@@ -8,6 +9,12 @@ CONFIG = dict()
 MNE_EPOCHS_TYPE = (mne.Epochs, mne.EpochsArray, mne.epochs.EpochsFIF,
                    mne.time_frequency.EpochsTFR, mne.epochs.BaseEpochs)
 CONFIG["MNE_EPOCHS_TYPE"] = MNE_EPOCHS_TYPE
+
+# Int and Float types
+INT_DTYPE = (int, np.int, np.int8, np.int16, np.int32, np.int64)
+FLOAT_DTYPE = (float, np.float, np.float16, np.float32, np.float64)
+CONFIG['INT_DTYPE'] = INT_DTYPE
+CONFIG['FLOAT_DTYPE'] = FLOAT_DTYPE
 
 # gcmi configuration
 CONFIG["KW_GCMI"] = dict(shape_checking=False, biascorrect=True, demeaned=True,

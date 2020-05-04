@@ -107,6 +107,10 @@ class WfMi(WfBase):
         mi_fun = get_core_mi_fun(self._mi_method)[self._mi_type]
         assert f"mi_{self._mi_method}_ephy_{self._mi_type}" == mi_fun.__name__
         # get x, y, z and subject names per roi
+        if dataset._mi_type != self._mi_type:
+            assert TypeError(f"Your dataset doesn't allow to compute the mi "
+                             f"{self._mi_type}. Allowed mi is "
+                             f"{dataset._mi_type}")
         x, y, z, suj = dataset.x, dataset.y, dataset.z, dataset.suj_roi
         n_roi, inf = dataset.n_roi, self._inference
         # evaluate true mi

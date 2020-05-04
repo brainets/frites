@@ -33,12 +33,12 @@ class DatasetEphy(object):
         then going to be used to compute the MI. The type of MI depends on the
         type of this two variables :
 
-            * `y`=continuous, `z`=None : I(x; y) and `mi_type` should be 'cc'
-            * `y`=discrete, `z`=None : I(x; y) and `mi_type` should be 'cd'
-            * `y`=continuous, `z`=discrete : I(x; y | z) and `mi_type` should
-              be 'ccd'. If 'cc', `z` is going to be ignored
+            * y=continuous, z=None : I(x; y) and mi_type should be 'cc'
+            * y=discrete, z=None : I(x; y) and mi_type should be 'cd'
+            * y=continuous, z=discrete : I(x; y | z) and mi_type should
+              be 'ccd'
 
-        Note that if `y` (or `z`) are multi-dimensional discrete variables, the
+        Note that if y (or z) are multi-dimensional discrete variables, the
         categories inside are going to be automatically remapped to a single
         vector.
     times : array_like | None
@@ -83,9 +83,26 @@ class DatasetEphy(object):
                     f" {self.nb_min_suj} subjects per roi are required")
 
         # ---------------------------------------------------------------------
+        # check the types of y (and z)
+        self._y_dtype = self._check_dtypes(y, 'y')
+        self._z_dtype = self._check_dtypes(z, 'z')
+        if (self._y_dtype == 'float') and (self._z_dtype == 'none'):
+            self._mi_type = 'cc'
+        elif (self._y_dtype == 'int') and (self._z_dtype == 'none'):
+            self._mi_type = 'cd'
+        elif (self._y_dtype == 'float') and (self._z_dtype == 'int'):
+            self._mi_type = 'ccd'
+        else:
+            raise TypeError(f"Types of y ({self._y_dtype}) and z ("
+                            f"{self._z_dtype}) doesn't allow to then compute "
+                            "mi on it")
+        logger.info(f"    Allowed mi_type={self._mi_type} (y.dtype="
+                    f"{self._y_dtype}; z.dtype={self._z_dtype})")
         # (optionnal) multi-conditions conversion
-        y = self._multicond_conversion(y, 'y', verbose)
-        z = self._multicond_conversion(z, 'z', verbose)
+        if self._y_dtype == 'int':
+            y = self._multicond_conversion(y, 'y', verbose)
+        if self._z_dtype == 'int':
+            z = self._multicond_conversion(z, 'z', verbose)
 
         # ---------------------------------------------------------------------
         # load the data of each subject
@@ -183,13 +200,33 @@ class DatasetEphy(object):
         return ref
 
     @staticmethod
+    def _check_dtypes(var, var_name):
+        """Check that the dtypes of list of variables is consistent."""
+        # evacuate none
+        if var is None:
+            return 'none'
+        assert isinstance(var, (list, tuple))
+        # get dtypes
+        dtypes = [k.dtype == var[0].dtype for k in var]
+        if not all(dtypes):
+            raise TypeError(f"Arrays in {var_name} input doesn't have the same"
+                            " types.")
+        dtype = var[0].dtype
+        if dtype in CONFIG['INT_DTYPE']:
+            return 'int'
+        elif dtype in CONFIG['FLOAT_DTYPE']:
+            return 'float'
+        else:
+            raise TypeError(f"{dtype} type for input {var_name} is unknown")
+
+    @staticmethod
     def _multicond_conversion(x, var_name, verbose):
         """Convert a discret vector that contains multiple conditions."""
         if not isinstance(x, (list, tuple, np.ndarray)):
             return x
         x = [np.asarray(k) for k in x]
         # get if all variables are integers and multicolumns else skip it
-        is_int = all([k.dtype in [int, np.int32, np.int64] for k in x])
+        is_int = all([k.dtype in CONFIG['INT_DTYPE'] for k in x])
         is_ndim = all([k.ndim > 1 for k in x])
         if not is_int or not is_ndim:
             return x
@@ -548,3 +585,15 @@ class DatasetEphy(object):
             f"{_zpr}\n"
             f"{'-' * 79}")
         return shape
+
+if __name__ == '__main__':
+    import numpy as np
+
+    x = [np.random.rand(10, 1, 20) for k in range(4)]
+    y = [np.random.rand(10) for k in range(4)]
+    # y = [np.random.randint(0, 1, (10,)) for k in range(4)]
+    z = [np.random.randint(0, 2, (10, 2)) for k in range(4)]
+    roi = [np.array(['VCcm'])] * 4
+    times = np.linspace(-1, 1, 20)
+
+    DatasetEphy(x, y, roi, times=times, z=z)
