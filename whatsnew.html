@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>What’s new &#8212; frites 0.3.1 documentation</title>
+    <title>What’s new &#8212; frites 0.3.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -40,7 +40,7 @@
         </button>
         <a class="navbar-brand" href="index.html"><span><img src="_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -62,14 +62,14 @@
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-frites.dataset">Dataset</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-frites.stats">Statistics</a><ul>
@@ -172,11 +172,15 @@
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#internal-changes">Internal Changes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-1">v0.3.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
@@ -219,7 +223,16 @@
       
   <div class="section" id="what-s-new">
 <h1>What’s new<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
-<hr><div class="section" id="v0-3-1">
+<hr><div class="section" id="v0-3-2">
+<h2>v0.3.2<a class="headerlink" href="#v0-3-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="internal-changes">
+<h3>Internal Changes<a class="headerlink" href="#internal-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Dtypes of <cite>y</cite> and <cite>z</cite> inputs are systematically check in <a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> in order to define which MI can then be computed (<a class="reference external" href="https://github.com/brainets/frites/commit/7cc1">CM7cc1</a>)</p></li>
+</ul>
+<hr></div>
+</div>
+<div class="section" id="v0-3-1">
 <h2>v0.3.1<a class="headerlink" href="#v0-3-1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="breaking-changes">
 <h3>Breaking changes<a class="headerlink" href="#breaking-changes" title="Permalink to this headline">¶</a></h3>
@@ -245,8 +258,8 @@
 <li><p>Fix FIT outputs for 3D arrays and DataArray (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="internal-changes">
-<h3>Internal Changes<a class="headerlink" href="#internal-changes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>Internal Changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Remap multiple conditions when integers (<a class="reference external" href="https://github.com/brainets/frites/commit/6092">CM6092</a>) in <a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p></li>
 <li><p>Workflows now have an internal configuration (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>

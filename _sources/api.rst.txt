@@ -6,6 +6,25 @@ API
    :depth: 2
 
 
+Dataset
+-------
+
+.. currentmodule:: frites.dataset
+
+.. automodule:: frites.dataset
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   DatasetEphy
+
+.. raw:: html
+
+  <hr>
+
+
 Workflow
 --------
 
@@ -21,24 +40,6 @@ Workflow
    WfMi
    WfStatsEphy
    WfFit
-
-.. raw:: html
-
-  <hr>
-
-Dataset
--------
-
-.. currentmodule:: frites.dataset
-
-.. automodule:: frites.dataset
-   :no-members:
-   :no-inherited-members:
-
-.. autosummary::
-   :toctree: generated/
-
-   DatasetEphy
 
 .. raw:: html
 
