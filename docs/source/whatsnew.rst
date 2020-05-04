@@ -7,6 +7,19 @@ What's new
 
     <hr>
 
+v0.3.2
+------
+
+Internal Changes
+++++++++++++++++
+
+Documentation
++++++++++++++
+
+.. raw:: html
+
+    <hr>
+
 v0.3.1
 ------
 
