@@ -27,11 +27,9 @@ frites
 Description
 -----------
 
-------------
 
 **FRITES = Framework for Information Theoretical analysis of Electrophysiological data and Statistics**
 
-------------
 
 Frites is a python package for analyzing neurophysiological brain data (i.e M/EEG, sEEG / iEEG / ECoG). The package is entirely based on information theoretic measures (such as mutual information (MI)) in order to perform analysis such as :
 
