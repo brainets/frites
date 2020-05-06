@@ -13,7 +13,7 @@ from .gcmi_1d import (ent_1d_g, mi_1d_gg, gcmi_1d_cc, mi_model_1d_gd,  # noqa
 from .gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg, gcmi_nd_cc,  # noqa
                       gcmi_model_nd_cd, gccmi_nd_ccnd, gccmi_model_nd_cdnd,
                       gccmi_nd_ccc)
-from .mi_stats import (permute_mi_vector) # noqa
+from .mi_stats import (permute_mi_vector, permute_mi_trials) # noqa
 from .it import (it_transfer_entropy, it_fit)  # noqa
 
 # -----------------------------------------------------------------------------
@@ -38,8 +38,10 @@ def get_core_mi_fun(mi_method):
     """
     assert mi_method in ['gc', 'bin']
     if mi_method is 'gc':
-        from .mi_gc_ephy import (mi_gc_ephy_cc, mi_gc_ephy_cd, mi_gc_ephy_ccd)
-        mi_fun = dict(cc=mi_gc_ephy_cc, cd=mi_gc_ephy_cd, ccd=mi_gc_ephy_ccd)
+        from .mi_gc_ephy import (mi_gc_ephy_cc, mi_gc_ephy_cd, mi_gc_ephy_ccd,
+                                 mi_gc_ephy_conn_cc)
+        mi_fun = dict(cc=mi_gc_ephy_cc, cd=mi_gc_ephy_cd, ccd=mi_gc_ephy_ccd,
+                      cc_conn=mi_gc_ephy_conn_cc)
     elif mi_method is 'bin':
         from .mi_bin_ephy import (mi_bin_ephy_cc, mi_bin_ephy_cd,
                                   mi_bin_ephy_ccd)

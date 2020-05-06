@@ -42,6 +42,31 @@ def mi_gc_ephy_cc(x, y, z, suj, inference, **kwargs):
     return mi
 
 
+def mi_gc_ephy_conn_cc(x_1, x_2, suj_1, suj_2, inference, **kwargs):
+    """I(C; C) for rfx.
+
+    The returned mi array has a shape of (n_subjects, n_times) if inference is
+    "rfx", (1, n_times) if "ffx".
+    """
+    # proper shape of the regressor
+    n_times, _, n_trials = x_1.shape
+    # compute mi across (ffx) or per subject (rfx)
+    if inference == 'ffx':
+        raise NotImplementedError("Need to be implemented / checked")
+    elif inference == 'rfx':
+        # get subject informations
+        suj_u = np.intersect1d(suj_1, suj_2)
+        n_subjects = len(suj_u)
+        # compute mi per subject
+        mi = np.zeros((n_subjects, n_times), dtype=float)
+        for n_s, s in enumerate(suj_u):
+            is_suj_1 = suj_1 == s
+            is_suj_2 = suj_2 == s
+            mi[n_s, :] = mi_nd_gg(x_1[..., is_suj_1], x_2[..., is_suj_2],
+                                  **CONFIG["KW_GCMI"])
+
+    return mi
+
 ###############################################################################
 ###############################################################################
 #                        I(CONTINUOUS; DISCRET)
