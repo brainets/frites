@@ -68,6 +68,9 @@ class DatasetEphy(object):
         # ---------------------------------------------------------------------
         # conversion of the electrophysiocal data
         # ---------------------------------------------------------------------
+        if y is None:
+            logger.debug("Fill the y input because otherwise everything fails")
+            y = [np.zeros((x[k].shape[0])) for k in range(len(x))]
         x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
                                          verbose=verbose)
 
@@ -555,4 +558,4 @@ if __name__ == '__main__':
     roi = [np.array(['VCcm'])] * 4
     times = np.linspace(-1, 1, 20)
 
-    DatasetEphy(x, y, roi, times=times, z=z)
+    DatasetEphy(x, roi=roi, times=times)
