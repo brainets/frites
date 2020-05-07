@@ -1,0 +1,268 @@
+.. note::
+    :class: sphx-glr-download-link-note
+
+    Click :ref:`here <sphx_glr_download_auto_examples_conn_plot_conn.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
+
+.. _sphx_glr_auto_examples_conn_plot_conn.py:
+
+
+Estimate connectivity using MI
+==============================
+
+This example illustrates how to compute the connectivity using mutual
+information between pairwise ROI and also perform statistics.
+
+
+.. code-block:: default
+
+    import numpy as np
+    from itertools import product
+
+    from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
+    from frites.dataset import DatasetEphy
+    from frites.workflow import WfConn
+
+    import matplotlib.pyplot as plt
+    plt.style.use('seaborn-white')
+
+
+
+
+
+
+
+
+Simulate electrophysiological data
+----------------------------------
+
+Let's start by simulating MEG / EEG electrophysiological data coming from
+multiple subjects using the function
+:func:`frites.simulations.sim_multi_suj_ephy`. As a result, the `x` output
+is a list of length `n_subjects` of arrays, each one with a shape of
+n_epochs, n_sites, n_times
+
+
+.. code-block:: default
+
+
+    modality = 'meeg'
+    n_subjects = 5
+    n_epochs = 50
+    n_times = 100
+    x, roi, _ = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
+                                   n_times=n_times, modality=modality,
+                                   random_state=0, n_roi=4)
+    times = np.linspace(-1, 1, n_times)
+
+
+
+
+
+
+
+Simulate spatial correlations
+-----------------------------
+
+Bellow, we start by simulating some distant correlations by injecting the
+activity of an ROI to another
+
+
+.. code-block:: default
+
+    for k in range(n_subjects):
+        x[k][:, [1], slice(20, 40)] += x[k][:, [0], slice(20, 40)]
+        x[k][:, [2], slice(60, 80)] += x[k][:, [3], slice(60, 80)]
+    print(f'Corr 1 : {roi[0][0]}-{roi[0][1]} between [{times[20]}-{times[40]}]')
+    print(f'Corr 2 : {roi[0][2]}-{roi[0][3]} between [{times[60]}-{times[80]}]')
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Corr 1 : L_VCcm-L_VCl between [-0.5959595959595959--0.19191919191919182]
+    Corr 2 : L_VCs-L_Cu between [0.21212121212121215-0.6161616161616164]
+
+
+
+Define the electrophysiological dataset
+---------------------------------------
+
+Now we define an instance of :class:`frites.dataset.DatasetEphy`
+
+
+.. code-block:: default
+
+
+    dt = DatasetEphy(x, roi=roi, times=times)
+
+
+
+
+
+
+
+Compute the pairwise connectivity
+---------------------------------
+
+Once we have the dataset instance, we can then define an instance of workflow
+:class:`frites.workflow.WfConn`. This instance is then used to compute the
+pairwise connectivity
+
+
+.. code-block:: default
+
+
+    n_perm = 100  # number of permutations to compute
+    kernel = np.hanning(10)  # used for smoothing the MI
+
+    wf = WfConn(kernel=kernel)
+    mi, pv = wf.fit(dt, output_type='dataarray', n_perm=n_perm, n_jobs=1)
+    print(mi)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    <xarray.DataArray (source: 4, target: 4, times: 100)>
+    array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [-0.01574297, -0.0248291 , -0.03277567, ..., -0.00442215,
+             -0.00372394, -0.00448716],
+            [-0.00646392, -0.00989832, -0.01177273, ...,  0.02625395,
+              0.03881983,  0.03988982],
+            [ 0.03811037,  0.04786752,  0.04978363, ..., -0.0003896 ,
+             -0.01456912, -0.02199898]],
+
+           [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [-0.01420695, -0.01908665, -0.0218006 , ..., -0.02623635,
+             -0.02334164, -0.01823253],
+            [ 0.00993172,  0.01911976,  0.02783053, ...,  0.04232837,
+              0.03340232,  0.02182357]],
+
+           [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.03080686,  0.04394782,  0.04918775, ...,  0.01014192,
+              0.00099925, -0.00730763]],
+
+           [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ],
+            [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+              0.        ,  0.        ]]])
+    Coordinates:
+      * source   (source) <U6 'L_VCcm' 'L_VCl' 'L_VCs' 'L_Cu'
+      * target   (target) <U6 'L_VCcm' 'L_VCl' 'L_VCs' 'L_Cu'
+      * times    (times) float32 -1.0 -0.97979796 -0.959596 ... 0.97979796 1.0
+    Attributes:
+        mi_type:        cc
+        inference:      rfx
+        mi_method:      gc
+        kernel:         [0.         0.11697778 0.41317591 0.75       0.96984631 0...
+        n_perm:         100
+        random_state:   none
+        n_bins:         none
+        th:             1.2857119401159511
+        tfce:           none
+        mcp:            cluster
+        tail:           1
+        cluster_th:     none
+        cluster_alpha:  0.05
+        ttested:        False
+
+
+
+Plot the result of the DataArray
+--------------------------------
+
+
+.. code-block:: default
+
+
+    # set to NaN everywhere it's not significant
+    is_signi = pv.data < .05
+    pv.data[~is_signi] = np.nan
+    pv.data[is_signi] = 1.02 * mi.data.max()
+
+    # plot each pair separately
+    plt.figure(figsize=(9, 7))
+    for s, t in product(mi.source.data, mi.target.data):
+        if s == t: continue
+        # select the mi and p-values for the (source, target)
+        mi_st = mi.sel(source=s, target=t)
+        pv_st = pv.sel(source=s, target=t)
+        color = np.random.rand(3,)
+        plt.plot(times, mi_st, label=f"{s}-{t}", color=color)
+        plt.plot(times, pv_st, color=color, lw=4)
+        if not np.isnan(pv_st.data).all():
+            x_txt = times[~np.isnan(pv_st)].mean()
+            y_txt = 1.03 * mi.data.max()
+            plt.text(x_txt, y_txt, f"{s}-{t}", color=color, ha='center')
+    plt.legend()
+    plt.xlabel('Times')
+    plt.ylabel('Mi (bits)')
+    plt.title('Pairwise connectivity')
+    plt.show()
+
+
+
+.. image:: /auto_examples/conn/images/sphx_glr_plot_conn_001.png
+    :class: sphx-glr-single-img
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  2.081 seconds)
+
+
+.. _sphx_glr_download_auto_examples_conn_plot_conn.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_conn.py <plot_conn.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_conn.ipynb <plot_conn.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

@@ -39,6 +39,7 @@ Workflow
 
    WfMi
    WfStatsEphy
+   WfConn
    WfFit
 
 .. raw:: html
