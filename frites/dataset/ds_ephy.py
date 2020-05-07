@@ -7,6 +7,7 @@ import frites
 from frites.config import CONFIG
 from frites.core import copnorm_cat_nd, copnorm_nd
 from frites.io import set_log_level
+from frites.dataset.ds_ephy_io import ds_ephy_io
 
 logger = logging.getLogger("frites")
 
@@ -24,10 +25,13 @@ class DatasetEphy(object):
         List of length (n_subjects,). Each element of the list should either be
         an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
         mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).
-    roi : list
+    roi : list | None
         List of length (n_subjects,) where each element is an array of shape
-        (n_channels,) describing the ROI name of each channel.
-    y, z : list
+        (n_channels,) describing the ROI name of each channel. If None and if
+        the data are one of the MNE-Python supported type, the channel names
+        are used (ch_names). Otherwise, the list is going to be filled with
+        generic roi names.
+    y, z : list | None
         List of length (n_subjects,) of continuous or discrete variables. Each
         element of the list should be an array of shape (n_epochs,) that is
         then going to be used to compute the MI. The type of MI depends on the
@@ -43,24 +47,22 @@ class DatasetEphy(object):
         vector.
     times : array_like | None
         The time vector to use. If the data are defined using MNE-Python, the
-        time vector is directly inferred from those files.
+        time vector is directly inferred from those files. If None, a time
+        vector is going to be created.
     nb_min_suj : int | None
         The minimum number of subjects per roi. Roi with n_suj < nb_min_suj
         are going to be skipped. Use None to skip this parameter
     """
 
-    def __init__(self, x, y, roi, z=None, times=None, nb_min_suj=None,
-                 verbose=None):
+    def __init__(self, x, y=None, roi=None, z=None, times=None,
+                 nb_min_suj=None, verbose=None):
         """Init."""
         set_log_level(verbose)
         # ---------------------------------------------------------------------
-        # check input
-
-        assert all([isinstance(k, (list, tuple)) for k in (x, y)])
-        assert len(x) == len(y) == len(roi), (
-            "the data (x), condition variable (y) and roi must all be lists "
-            "with a length of `n_subjects`")
-        roi = [np.asarray(k) for k in roi]
+        # conversion of the electrophysiocal data
+        # ---------------------------------------------------------------------
+        x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
+                                         verbose=verbose)
 
         # data related
         self.nb_min_suj = nb_min_suj
@@ -72,7 +74,6 @@ class DatasetEphy(object):
         _, u_idx = np.unique(merged_roi, return_index=True)
         self.roi_names = merged_roi[np.sort(u_idx)]
         self.n_roi = len(self.roi_names)
-
         # internals
         self.modality = "electrophysiological"
         self._copnormed = False
@@ -84,8 +85,8 @@ class DatasetEphy(object):
 
         # ---------------------------------------------------------------------
         # check the types of y (and z)
-        self._y_dtype = self._check_dtypes(y, 'y')
-        self._z_dtype = self._check_dtypes(z, 'z')
+        self._y_dtype = self._infer_dtypes(y, 'y')
+        self._z_dtype = self._infer_dtypes(z, 'z')
         if (self._y_dtype == 'float') and (self._z_dtype == 'none'):
             self._mi_type = 'cc'
         elif (self._y_dtype == 'int') and (self._z_dtype == 'none'):
@@ -103,33 +104,13 @@ class DatasetEphy(object):
             y = self._multicond_conversion(y, 'y', verbose)
         if self._z_dtype == 'int':
             z = self._multicond_conversion(z, 'z', verbose)
-
-        # ---------------------------------------------------------------------
-        # load the data of each subject
-
-        logger.info("    Load the data of each subject")
-        self._x = [self._load_single_suj_ephy(x[k]) for k in range(
-            self.n_subjects)]
-        self._y = [np.asarray(k) for k in y]
+        # keep it in self
+        self._x = [np.moveaxis(k, 0, -1).astype(np.float32) for k in x]
+        self._y = y
         self._z = z
-
-        # check the time vector
-        _x_times = np.unique([self._x[k].shape[1] for k in range(
-            self.n_subjects)])
-        assert _x_times.size == 1, ("Inconsistent number of time points across"
-                                    " subjects")
         self.n_times = self._x[0].shape[1]
-        if not isinstance(self.times, np.ndarray):
-            logger.warning("No time vector found. A default will be used "
-                           "instead. You should use the `times` input instead")
-            self.times = np.arange(self.n_times)
         self.sfreq = 1. / (self.times[1] - self.times[0])
 
-        # check consistency between x and y
-        _const = [self._x[k].shape == (len(roi[k]), self.n_times,
-                                       len(self._y[k])) for k in range(
-            self.n_subjects)]
-        assert all(_const), "Inconsistent shape between `x`, `y` and `roi`"
 
     ###########################################################################
     # INTERNALS
@@ -200,7 +181,7 @@ class DatasetEphy(object):
         return ref
 
     @staticmethod
-    def _check_dtypes(var, var_name):
+    def _infer_dtypes(var, var_name):
         """Check that the dtypes of list of variables is consistent."""
         # evacuate none
         if var is None:
@@ -224,7 +205,6 @@ class DatasetEphy(object):
         """Convert a discret vector that contains multiple conditions."""
         if not isinstance(x, (list, tuple, np.ndarray)):
             return x
-        x = [np.asarray(k) for k in x]
         # get if all variables are integers and multicolumns else skip it
         is_int = all([k.dtype in CONFIG['INT_DTYPE'] for k in x])
         is_ndim = all([k.ndim > 1 for k in x])
@@ -259,36 +239,6 @@ class DatasetEphy(object):
     ###########################################################################
     # METHODS
     ###########################################################################
-
-    def _load_single_suj_ephy(self, x_suj):
-        """Load the data of a single subject.
-
-        This method returns an array of shape (n_roi, n_times, n_trials).
-        """
-        # Check inputs
-        if isinstance(x_suj, CONFIG["MNE_EPOCHS_TYPE"]):
-            self.times = x_suj.times
-            data = x_suj.get_data()
-        elif isinstance(x_suj, np.ndarray) and (x_suj.ndim == 3):
-            data = x_suj
-        else:
-            raise TypeError(f"data type {type(x_suj)} not supported")
-        assert isinstance(data, np.ndarray)
-
-        # Handle multi-dimentional arrays
-        if data.ndim == 4:  # TF : (n_trials, n_channels, n_freqs, n_pts)
-            if data.shape[2] == 1:
-                data = data[..., 0, :]
-            else:
-                data = data.mean(2)
-                logger.warning("Multiple frequencies detected. Take the mean "
-                               "across frequencies")
-        assert (data.ndim == 3), ("data should be a 3D array of shape "
-                                  "(n_trials, n_channels, n_pts)")
-
-        # mne data are (n_epochs, n_channels, n_times). Here, we move the trial
-        # axis to the end
-        return np.moveaxis(data, 0, -1)
 
     def groupby(self, groupby="roi"):
         """Reorganize the data inplace.
