@@ -22,6 +22,7 @@ Internal Changes
 New Features
 ++++++++++++
 * :py:class:`frites.dataset.DatasetEphy` supports Xarray inputs + selection though coordinates (:commit:`7418`)
+* New workflow for computing pairwise connectivity :py:class:`frites.workflow.WfConn` (:commit:`65ae`)
 
 Documentation
 +++++++++++++

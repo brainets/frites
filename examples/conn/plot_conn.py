@@ -47,16 +47,13 @@ for k in range(n_subjects):
 print(f'Corr 1 : {roi[0][0]}-{roi[0][1]} between [{times[20]}-{times[40]}]')
 print(f'Corr 2 : {roi[0][2]}-{roi[0][3]} between [{times[60]}-{times[80]}]')
 
-sl = slice(40, 60)
-y = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
-
 ###############################################################################
 # Define the electrophysiological dataset
 # ---------------------------------------
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi, times=times)  #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+dt = DatasetEphy(x, roi=roi, times=times)
 
 ###############################################################################
 # Compute the pairwise connectivity
@@ -83,10 +80,22 @@ pv.data[~is_signi] = np.nan
 pv.data[is_signi] = 1.02 * mi.data.max()
 
 # plot each pair separately
+plt.figure(figsize=(9, 7))
 for s, t in product(mi.source.data, mi.target.data):
     if s == t: continue
+    # select the mi and p-values for the (source, target)
+    mi_st = mi.sel(source=s, target=t)
+    pv_st = pv.sel(source=s, target=t)
     color = np.random.rand(3,)
-    plt.plot(times, mi.sel(source=s, target=t), label=f"{s}-{t}", color=color)
-    plt.plot(times, pv.sel(source=s, target=t), color=color, lw=4)
+    plt.plot(times, mi_st, label=f"{s}-{t}", color=color)
+    plt.plot(times, pv_st, color=color, lw=4)
+    if not np.isnan(pv_st.data).all():
+        x_txt = times[~np.isnan(pv_st)].mean()
+        y_txt = 1.03 * mi.data.max()
+        print(x_txt, y_txt)
+        plt.text(x_txt, y_txt, f"{s}-{t}", color=color, ha='center')
 plt.legend()
+plt.xlabel('Times')
+plt.ylabel('Mi (bits)')
+plt.title('Pairwise connectivity')
 plt.show()

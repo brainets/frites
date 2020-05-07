@@ -10,7 +10,7 @@ from frites.workflow.wf_base import WfBase
 
 
 class WfConn(WfBase):
-    """Workflow of connectivity and statistics.
+    """Workflow of pairwise connectivity and statistics.
 
     This class allows to define a workflow for computing pairwise connectivity
     using mutual information and then to evaluate the significance with
