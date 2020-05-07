@@ -28,6 +28,17 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, verbose=None):
         (n_epochs)
     times : array_like | None
         Time vector
+
+    Returns
+    -------
+    x : list
+        List of data array of shape (n_epochs, n_channels, n_times)
+    y, z : list
+        List of arrays of shape (n_epochs,)
+    roi : list
+        List of arrays of shape (n_channels,)
+    times : array_like
+        Time vector of shape (n_times,)
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
@@ -118,13 +129,13 @@ def xr_to_arr(x, roi=None, y=None, z=None, times=None):
         times = eval(f"x[0].{times}.data")
     if isinstance(roi, str):
         coords['roi'] = roi
-        roi = [eval(f"x[{k}].{roi}.data") for k in range(len(x))]
+        roi = [x[k].coords[roi].data for k in range(len(x))]
     if isinstance(y, str):
         coords['y'] = y
-        y = [eval(f"x[{k}].{y}.data") for k in range(len(x))]
+        y = [x[k].coords[y].data for k in range(len(x))]
     if isinstance(z, str):
         coords['z'] = z
-        z = [eval(f"x[{k}].{z}.data") for k in range(len(x))]
+        z = [x[k].coords[z].data for k in range(len(x))]
     if coords:
         log_str = f"\n{' ' * 8}".join([f"{k}: {v}" for k, v in coords.items()])
         logger.info(f"    The following coordinates have been used : \n"
@@ -132,42 +143,3 @@ def xr_to_arr(x, roi=None, y=None, z=None, times=None):
     x = [x[k].data for k in range(len(x))]
 
     return x, roi, y, z, times
-
-
-if __name__ == '__main__':
-    n_epochs = 10
-    n_roi = 5
-    n_times = 20
-    n_suj = 3
-    data_type = 'xarray'
-
-    x = [np.random.rand(n_epochs, n_roi, n_times) for k in range(n_suj)]
-    sf = 128
-    times = np.arange(n_times) / sf - 1
-    # times = np.linspace(-1, 1, n_times, endpoint=True)
-    # sf = 1. / (times[1] - times[0])
-    # print(1 / np.diff(times), sf)
-    # exit()
-    roi = [np.array([f"roi_{i}" for i in range(n_roi)]) for _ in range(n_suj)]
-    y = [np.random.rand(n_epochs) for k in range(n_suj)]
-    z = [np.random.randint(0, 2, (n_epochs,)) for k in range(n_suj)]
-
-    if data_type is 'mne':
-        from mne import EpochsArray, create_info
-        for k in range(n_suj):
-            info = create_info(roi[k].tolist(), sf)
-            x[k] = EpochsArray(x[k], info, tmin=times[0], verbose=False)
-    elif data_type is 'xarray':
-        from xarray import DataArray
-        import pandas as pd
-        trials = np.arange(n_epochs)
-
-        for k in range(n_suj):
-            ind = pd.MultiIndex.from_arrays([trials, y[k], z[k]],
-                                            names=('trials', 'y', 'z'))
-            x[k] = DataArray(x[k], dims=('epochs', 'roi', 'times'),
-                             coords=(ind, roi[k], times))
-
-
-    ds_ephy_io(x, roi=roi)
-    # ds_ephy_io(x, roi=roi, y=y, z=z)

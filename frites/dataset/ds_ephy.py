@@ -19,6 +19,13 @@ class DatasetEphy(object):
     multiple subjects. Then, the created object can be used to compute the
     mutual information (MI) and perform statistics on it.
 
+    .. warning::
+
+        When using MNE or Xarray inputs, operations are performed inplace which
+        means that the original list of inputs are going to be replaced by
+        NumPy arrays. This behavior is decreasing memory usage by avoiding data
+        duplication
+
     Parameters
     ----------
     x : list
@@ -64,27 +71,9 @@ class DatasetEphy(object):
         x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
                                          verbose=verbose)
 
-        # data related
-        self.nb_min_suj = nb_min_suj
-        self.n_subjects = len(x)
-        self.times = times
-        self.roi = roi
-        # unique roi list
-        merged_roi = np.r_[tuple(self.roi)]
-        _, u_idx = np.unique(merged_roi, return_index=True)
-        self.roi_names = merged_roi[np.sort(u_idx)]
-        self.n_roi = len(self.roi_names)
-        # internals
-        self.modality = "electrophysiological"
-        self._copnormed = False
-        self._groupedby = "subject"
-        self.__version__ = frites.__version__
-
-        logger.info(f"Dataset composed of {self.n_subjects} subjects. At least"
-                    f" {self.nb_min_suj} subjects per roi are required")
-
         # ---------------------------------------------------------------------
         # check the types of y (and z)
+        # ---------------------------------------------------------------------
         self._y_dtype = self._infer_dtypes(y, 'y')
         self._z_dtype = self._infer_dtypes(z, 'z')
         if (self._y_dtype == 'float') and (self._z_dtype == 'none'):
@@ -104,12 +93,34 @@ class DatasetEphy(object):
             y = self._multicond_conversion(y, 'y', verbose)
         if self._z_dtype == 'int':
             z = self._multicond_conversion(z, 'z', verbose)
-        # keep it in self
-        self._x = x
-        self._y = y
-        self._z = z
+
+        # ---------------------------------------------------------------------
+        # retain in self
+        # ---------------------------------------------------------------------
+        # data related
+        self.nb_min_suj = nb_min_suj
+        self.n_subjects = len(x)
+        self.times = times
+        self.roi = roi
+        # unique roi list
+        merged_roi = np.r_[tuple(self.roi)]
+        _, u_idx = np.unique(merged_roi, return_index=True)
+        self.roi_names = merged_roi[np.sort(u_idx)]
+        self.n_roi = len(self.roi_names)
+        # internals
+        self.modality = "electrophysiological"
+        self._copnormed = False
+        self._groupedby = "subject"
+        self.__version__ = frites.__version__
+        # main data
+        self._x = x  # [(n_epochs, n_channels, n_times)]
+        self._y = y  # [(n_epochs,)]
+        self._z = z  # [(n_epochs,)]
         self.n_times = self._x[0].shape[-1]
         self.sfreq = 1. / (self.times[1] - self.times[0])
+
+        logger.info(f"Dataset composed of {self.n_subjects} subjects. At least"
+                    f" {self.nb_min_suj} subjects per roi are required")
 
 
     ###########################################################################
