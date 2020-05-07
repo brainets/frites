@@ -172,15 +172,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -226,6 +229,7 @@
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">copnorm_cat_nd</span><span class="p">,</span> <span class="n">copnorm_nd</span>
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span>
+<span class="kn">from</span> <span class="nn">frites.dataset.ds_ephy_io</span> <span class="kn">import</span> <span class="n">ds_ephy_io</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -237,16 +241,26 @@
 <span class="sd">    multiple subjects. Then, the created object can be used to compute the</span>
 <span class="sd">    mutual information (MI) and perform statistics on it.</span>
 
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        When using MNE or Xarray inputs, operations are performed inplace which</span>
+<span class="sd">        means that the original list of inputs are going to be replaced by</span>
+<span class="sd">        NumPy arrays. This behavior is decreasing memory usage by avoiding data</span>
+<span class="sd">        duplication</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x : list</span>
 <span class="sd">        List of length (n_subjects,). Each element of the list should either be</span>
 <span class="sd">        an array of shape (n_epochs, n_channels, n_times), mne.Epochs,</span>
 <span class="sd">        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</span>
-<span class="sd">    roi : list</span>
+<span class="sd">    roi : list | None</span>
 <span class="sd">        List of length (n_subjects,) where each element is an array of shape</span>
-<span class="sd">        (n_channels,) describing the ROI name of each channel.</span>
-<span class="sd">    y, z : list</span>
+<span class="sd">        (n_channels,) describing the ROI name of each channel. If None and if</span>
+<span class="sd">        the data are one of the MNE-Python supported type, the channel names</span>
+<span class="sd">        are used (ch_names). Otherwise, the list is going to be filled with</span>
+<span class="sd">        generic roi names.</span>
+<span class="sd">    y, z : list | None</span>
 <span class="sd">        List of length (n_subjects,) of continuous or discrete variables. Each</span>
 <span class="sd">        element of the list should be an array of shape (n_epochs,) that is</span>
 <span class="sd">        then going to be used to compute the MI. The type of MI depends on the</span>
@@ -262,49 +276,31 @@
 <span class="sd">        vector.</span>
 <span class="sd">    times : array_like | None</span>
 <span class="sd">        The time vector to use. If the data are defined using MNE-Python, the</span>
-<span class="sd">        time vector is directly inferred from those files.</span>
+<span class="sd">        time vector is directly inferred from those files. If None, a time</span>
+<span class="sd">        vector is going to be created.</span>
 <span class="sd">    nb_min_suj : int | None</span>
 <span class="sd">        The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj</span>
 <span class="sd">        are going to be skipped. Use None to skip this parameter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DatasetEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DatasetEphy.__init__"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># check input</span>
-
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)])</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">),</span> <span class="p">(</span>
-            <span class="s2">&quot;the data (x), condition variable (y) and roi must all be lists &quot;</span>
-            <span class="s2">&quot;with a length of `n_subjects`&quot;</span><span class="p">)</span>
-        <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">roi</span><span class="p">]</span>
-
-        <span class="c1"># data related</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nb_min_suj</span> <span class="o">=</span> <span class="n">nb_min_suj</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">times</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">roi</span> <span class="o">=</span> <span class="n">roi</span>
-        <span class="c1"># unique roi list</span>
-        <span class="n">merged_roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">)]</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">u_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">merged_roi</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span> <span class="o">=</span> <span class="n">merged_roi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">u_idx</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span><span class="p">)</span>
-
-        <span class="c1"># internals</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">modality</span> <span class="o">=</span> <span class="s2">&quot;electrophysiological&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">=</span> <span class="s2">&quot;subject&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__version__</span> <span class="o">=</span> <span class="n">frites</span><span class="o">.</span><span class="n">__version__</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset composed of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="si">}</span><span class="s2"> subjects. At least&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_min_suj</span><span class="si">}</span><span class="s2"> subjects per roi are required&quot;</span><span class="p">)</span>
+        <span class="c1"># conversion of the electrophysiocal data</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">ds_ephy_io</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
+                                         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Fill the y input because otherwise everything fails&quot;</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># check the types of y (and z)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_y_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_dtypes</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_z_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_dtypes</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infer_dtypes</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_z_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infer_dtypes</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y_dtype</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z_dtype</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="s1">&#39;cc&#39;</span>
         <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y_dtype</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_z_dtype</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">):</span>
@@ -324,31 +320,33 @@
             <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multicond_conversion</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># load the data of each subject</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Load the data of each subject&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_single_suj_ephy</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="n">z</span>
-
-        <span class="c1"># check the time vector</span>
-        <span class="n">_x_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)])</span>
-        <span class="k">assert</span> <span class="n">_x_times</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;Inconsistent number of time points across&quot;</span>
-                                    <span class="s2">&quot; subjects&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No time vector found. A default will be used &quot;</span>
-                           <span class="s2">&quot;instead. You should use the `times` input instead&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">)</span>
+        <span class="c1"># retain in self</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># data related</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nb_min_suj</span> <span class="o">=</span> <span class="n">nb_min_suj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">times</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roi</span> <span class="o">=</span> <span class="n">roi</span>
+        <span class="c1"># unique roi list</span>
+        <span class="n">merged_roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">)]</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">u_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">merged_roi</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span> <span class="o">=</span> <span class="n">merged_roi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">u_idx</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span><span class="p">)</span>
+        <span class="c1"># internals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modality</span> <span class="o">=</span> <span class="s2">&quot;electrophysiological&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">=</span> <span class="s2">&quot;subject&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__version__</span> <span class="o">=</span> <span class="n">frites</span><span class="o">.</span><span class="n">__version__</span>
+        <span class="c1"># main data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span>  <span class="c1"># [(n_epochs, n_channels, n_times)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">y</span>  <span class="c1"># [(n_epochs,)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="n">z</span>  <span class="c1"># [(n_epochs,)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="c1"># check consistency between x and y</span>
-        <span class="n">_const</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">k</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">,</span>
-                                       <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">_const</span><span class="p">),</span> <span class="s2">&quot;Inconsistent shape between `x`, `y` and `roi`&quot;</span></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset composed of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="si">}</span><span class="s2"> subjects. At least&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_min_suj</span><span class="si">}</span><span class="s2"> subjects per roi are required&quot;</span><span class="p">)</span></div>
+
 
     <span class="c1">###########################################################################</span>
     <span class="c1"># INTERNALS</span>
@@ -388,9 +386,9 @@
         <span class="n">slt_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__slice_float</span><span class="p">(</span><span class="n">sl_time</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
         <span class="n">slt_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__slice_float</span><span class="p">(</span><span class="n">sl_time</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
         <span class="n">sl_time</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">slt_start</span><span class="p">,</span> <span class="n">slt_stop</span><span class="p">,</span> <span class="n">sl_time</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[:,</span> <span class="n">sl_time</span><span class="p">,</span> <span class="p">:]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">sl_time</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="n">sl_time</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="c1"># roi slicing</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sl_roi</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">):</span>
@@ -399,7 +397,7 @@
                 <span class="k">for</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sl_roi</span><span class="p">):</span>
                     <span class="n">is_roi</span><span class="p">[:,</span> <span class="n">n_r</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_roi</span> <span class="o">==</span> <span class="n">r</span>
                 <span class="n">is_roi</span> <span class="o">=</span> <span class="n">is_roi</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_s</span><span class="p">][</span><span class="n">is_roi</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_s</span><span class="p">][:,</span> <span class="n">is_roi</span><span class="p">,</span> <span class="p">:]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_roi</span><span class="p">[</span><span class="n">is_roi</span><span class="p">]</span>
             <span class="c1"># unique roi list</span>
             <span class="n">merged_roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">)]</span>
@@ -419,7 +417,7 @@
         <span class="k">return</span> <span class="n">ref</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_check_dtypes</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">var_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_infer_dtypes</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">var_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Check that the dtypes of list of variables is consistent.&quot;&quot;&quot;</span>
         <span class="c1"># evacuate none</span>
         <span class="k">if</span> <span class="n">var</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -443,7 +441,6 @@
         <span class="sd">&quot;&quot;&quot;Convert a discret vector that contains multiple conditions.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">x</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
         <span class="c1"># get if all variables are integers and multicolumns else skip it</span>
         <span class="n">is_int</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;INT_DTYPE&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
         <span class="n">is_ndim</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
@@ -478,36 +475,6 @@
     <span class="c1">###########################################################################</span>
     <span class="c1"># METHODS</span>
     <span class="c1">###########################################################################</span>
-
-    <span class="k">def</span> <span class="nf">_load_single_suj_ephy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_suj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load the data of a single subject.</span>
-
-<span class="sd">        This method returns an array of shape (n_roi, n_times, n_trials).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Check inputs</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_suj</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;MNE_EPOCHS_TYPE&quot;</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="n">x_suj</span><span class="o">.</span><span class="n">times</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">x_suj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_suj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x_suj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">x_suj</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">x_suj</span><span class="p">)</span><span class="si">}</span><span class="s2"> not supported&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
-
-        <span class="c1"># Handle multi-dimentional arrays</span>
-        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># TF : (n_trials, n_channels, n_freqs, n_pts)</span>
-            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Multiple frequencies detected. Take the mean &quot;</span>
-                               <span class="s2">&quot;across frequencies&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;data should be a 3D array of shape &quot;</span>
-                                  <span class="s2">&quot;(n_trials, n_channels, n_pts)&quot;</span><span class="p">)</span>
-
-        <span class="c1"># mne data are (n_epochs, n_channels, n_times). Here, we move the trial</span>
-        <span class="c1"># axis to the end</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DatasetEphy.groupby"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.groupby">[docs]</a>    <span class="k">def</span> <span class="nf">groupby</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;roi&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reorganize the data inplace.</span>
@@ -551,7 +518,7 @@
                     <span class="c1"># sEEG data can have multiple sites inside a specific roi</span>
                     <span class="c1"># so we need to identify thos sites</span>
                     <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span>
-                    <span class="n">__x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+                    <span class="n">__x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">idx</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
                     <span class="n">__yz</span> <span class="o">=</span> <span class="n">yz</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
                     <span class="c1"># in case there&#39;s multiple sites in this roi, we reshape</span>
                     <span class="c1"># as if the data were coming from a single site, hence</span>
@@ -566,7 +533,7 @@
                         <span class="n">__yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">___yz</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                         <span class="k">del</span> <span class="n">___x</span><span class="p">,</span> <span class="n">___yz</span>
                     <span class="c1"># at this point the data are (n_times, n_epochs)</span>
-                    <span class="n">_x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__x</span><span class="p">]</span>
+                    <span class="n">_x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)]</span>
                     <span class="n">_yz</span> <span class="o">+=</span> <span class="p">[</span><span class="n">__yz</span><span class="p">]</span>
                     <span class="n">_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">n_s</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">__yz</span><span class="p">)</span>
                     <span class="n">_suj_u</span> <span class="o">+=</span> <span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
@@ -687,7 +654,7 @@
         <span class="n">window_length</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span> <span class="o">/</span> <span class="n">h_freq</span><span class="p">))</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    Using savgol length </span><span class="si">{</span><span class="n">window_length</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">polyorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">polyorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                                       <span class="n">window_length</span><span class="o">=</span><span class="n">window_length</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -733,13 +700,11 @@
         <span class="n">o_sfreq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Resample to the frequency </span><span class="si">{</span><span class="n">sfreq</span><span class="si">}</span><span class="s2">Hz&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">)):</span>
-            <span class="n">_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="n">_x</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">o_sfreq</span><span class="p">,</span> <span class="n">npad</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span>
-                          <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">o_sfreq</span><span class="p">,</span> <span class="n">npad</span><span class="p">,</span>
+                                  <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sfreq</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sfreq</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="o">/</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="o">/</span>
                       <span class="n">sfreq</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
 
@@ -815,7 +780,7 @@
     <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;VCcm&#39;</span><span class="p">])]</span> <span class="o">*</span> <span class="mi">4</span>
     <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 
-    <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -842,7 +807,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-04.</p>
+        <p>&copy; Copyright Last updated on 2020-05-07.</p>
     </footer>
 
   </body>

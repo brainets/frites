@@ -1,0 +1,392 @@
+.. note::
+    :class: sphx-glr-download-link-note
+
+    Click :ref:`here <sphx_glr_download_auto_examples_dataset_plot_dataset_xarray.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
+
+.. _sphx_glr_auto_examples_dataset_plot_dataset_xarray.py:
+
+
+Define an electrophysiological dataset using Xarray
+===================================================
+
+This example illustrates how to define a dataset using Xarray. If you don't
+know this library, we can simplify by saying that it provides containers that
+accept arrays but you can also labelize your dimensions. Another way of seeing
+it, pandas is mostly made for tables (i.e 2D arrays) while Xarray provide
+almost the same functionalities but for multi-dimensional arrays.
+
+
+
+.. code-block:: default
+
+    import numpy as np
+    import pandas as pd
+
+    from xarray import DataArray
+    from frites.dataset import DatasetEphy
+
+    import matplotlib.pyplot as plt
+
+
+
+
+
+
+
+Create artificial data
+----------------------
+
+We start by creating some random data for several subjects. To do that, each
+subject is going have a 3 dimensional array of shape
+(n_epochs, n_channels, n_times). Then, all of the arrays are grouped together
+in a list of length (n_subjects,)
+
+
+.. code-block:: default
+
+
+    n_subjects = 5
+    n_epochs = 10
+    n_channels = 5
+    n_times = 100
+    sf = 512
+
+    x, ch = [], []
+    for k in range(n_subjects):
+        # generate single subject data
+        x_suj = np.random.rand(n_epochs, n_channels, n_times)
+        # generate some random channel names
+        ch_suj = np.array([f"ch_{r}" for r in range(n_channels)])
+        # concatenate in a list
+        x.append(x_suj)
+        ch.append(ch_suj)
+    # finally lets create a time vector
+    times = np.arange(n_times) / sf
+    epochs = np.arange(n_epochs)
+
+
+
+
+
+
+
+Xarray conversion to DataArray
+------------------------------
+
+Here, we convert the NumPy arrays to xarray.DataArray
+
+
+.. code-block:: default
+
+
+    x_xr = []
+    for k in range(n_subjects):
+        # DataArray conversion
+        arr_xr = DataArray(x[k], dims=('epochs', 'channels', 'times'),
+                           coords=(epochs, ch[k], times))
+        # finally, replace it in the original list
+        x_xr.append(arr_xr)
+    print(x_xr[0])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    <xarray.DataArray (epochs: 10, channels: 5, times: 100)>
+    array([[[5.90277405e-01, 4.10914376e-01, 8.29268111e-01, ...,
+             9.37486900e-01, 9.12015117e-01, 6.55876664e-01],
+            [9.94004760e-01, 9.75383245e-01, 9.39910881e-01, ...,
+             6.30826857e-01, 9.93318526e-02, 3.19903854e-01],
+            [4.47553374e-01, 1.62138262e-01, 3.92924503e-01, ...,
+             5.62219513e-01, 8.29286266e-01, 9.96812306e-01],
+            [4.50972405e-01, 4.16459728e-01, 9.76261522e-01, ...,
+             9.00199578e-01, 4.19277060e-03, 8.90020222e-01],
+            [5.94861851e-01, 7.14007737e-01, 5.30700079e-01, ...,
+             8.14102890e-01, 1.30969614e-01, 1.86338470e-01]],
+
+           [[1.40056831e-01, 8.75097703e-01, 4.33779005e-01, ...,
+             8.41818781e-01, 3.88277098e-01, 4.78138428e-01],
+            [3.79173396e-01, 2.85735930e-01, 3.76461721e-01, ...,
+             3.22524886e-01, 4.45804833e-01, 3.07391934e-01],
+            [8.40059029e-01, 9.15567495e-01, 2.78486477e-01, ...,
+             9.95894125e-01, 9.02654455e-01, 6.51747453e-01],
+            [9.20889062e-01, 5.44425797e-01, 4.10679428e-01, ...,
+             2.86387712e-01, 9.44107377e-01, 5.20593996e-01],
+            [6.21236005e-01, 9.31265913e-01, 1.81373302e-02, ...,
+             8.23603727e-01, 2.14749656e-01, 1.62828329e-01]],
+
+           [[5.40082885e-01, 6.68679087e-02, 7.51473907e-01, ...,
+             5.20059459e-02, 7.68336984e-01, 7.67833083e-01],
+            [6.49903908e-01, 5.92107380e-01, 5.68794601e-01, ...,
+             3.84010005e-01, 2.48715707e-01, 4.97380649e-01],
+            [9.57315280e-01, 7.27859544e-01, 9.35328490e-01, ...,
+             9.55112635e-01, 8.77570832e-01, 1.24776521e-01],
+            [4.38649969e-01, 4.83267117e-02, 7.79328565e-01, ...,
+             6.54446930e-01, 3.07261941e-01, 7.71070723e-01],
+            [4.58046954e-01, 2.81757891e-01, 3.08158101e-01, ...,
+             8.14633952e-01, 3.08799579e-01, 9.35700563e-01]],
+
+           ...,
+
+           [[8.29398618e-01, 2.66073363e-01, 9.41900183e-02, ...,
+             4.70343698e-01, 9.52554234e-01, 2.83221397e-01],
+            [9.56413417e-01, 3.56470821e-01, 5.50398053e-01, ...,
+             7.62981860e-01, 2.78009488e-01, 2.74746868e-01],
+            [3.91918737e-01, 8.22663529e-01, 8.45775446e-01, ...,
+             7.43043708e-01, 2.22222841e-01, 6.92713076e-04],
+            [1.83886625e-01, 1.99289640e-01, 3.00396517e-01, ...,
+             2.41093637e-01, 4.05781801e-01, 7.97251400e-01],
+            [5.83000635e-01, 9.21991570e-01, 7.57596996e-01, ...,
+             8.27783827e-01, 8.71829628e-01, 8.13130444e-01]],
+
+           [[7.95477916e-01, 9.26049334e-01, 7.84001139e-01, ...,
+             6.14022002e-01, 7.80876792e-01, 5.96091302e-02],
+            [5.18095625e-01, 8.69693820e-02, 8.69989284e-01, ...,
+             7.55061024e-01, 3.42262338e-01, 7.48208857e-01],
+            [5.13300413e-01, 1.41356353e-01, 6.23138599e-02, ...,
+             8.29708008e-01, 7.55356545e-01, 8.19004095e-01],
+            [2.28532447e-01, 5.67618282e-01, 3.09255728e-01, ...,
+             6.44547227e-01, 8.55239103e-01, 8.41369312e-01],
+            [2.46221977e-01, 5.03244006e-01, 2.15738147e-01, ...,
+             6.07147705e-01, 5.87452718e-01, 3.24680411e-01]],
+
+           [[6.36283815e-01, 6.11544270e-01, 7.23129430e-01, ...,
+             6.20785939e-01, 6.35731239e-01, 4.43351551e-01],
+            [3.03377974e-01, 4.02690116e-01, 5.74036951e-01, ...,
+             6.37752546e-01, 5.44456922e-01, 4.93806979e-01],
+            [4.31997255e-01, 1.39934672e-01, 1.04330525e-01, ...,
+             4.28623217e-01, 9.43232552e-01, 5.85380437e-01],
+            [7.21403197e-01, 2.90093702e-01, 3.88361775e-01, ...,
+             8.93641676e-01, 4.63983212e-01, 7.72932735e-01],
+            [2.41952229e-01, 8.77972457e-01, 6.11423965e-01, ...,
+             2.84957290e-01, 6.57790192e-01, 5.88037665e-01]]])
+    Coordinates:
+      * epochs    (epochs) int64 0 1 2 3 4 5 6 7 8 9
+      * channels  (channels) <U4 'ch_0' 'ch_1' 'ch_2' 'ch_3' 'ch_4'
+      * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+
+
+
+Build the dataset
+-----------------
+
+Finally, we pass the data to the :class:`frites.dataset.DatasetEphy` class
+in order to create the dataset
+
+
+.. code-block:: default
+
+
+    # here, we specify to the DatasetEphy class that the roi dimension is actually
+    # called 'channels' in the DataArray and the times dimension is called 'times'
+    dt = DatasetEphy(x_xr, roi='channels', times='times')
+    print(dt)
+
+    print('Time vector : ', dt.times)
+    print('ROI (first subject) : ', dt.roi[0])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    -------------------------------------------------------------------------------
+    number of (subjects, roi, time points) : (5, 5, 100)
+    minimum number of subject per roi: -inf
+    modality : electrophysiological
+    data grouped by : subject
+    copnormed : False
+    version : 0.3.2
+    -------------------------------------------------------------------------------
+    Time vector :  [0.         0.00195312 0.00390625 0.00585938 0.0078125  0.00976562
+     0.01171875 0.01367188 0.015625   0.01757812 0.01953125 0.02148438
+     0.0234375  0.02539062 0.02734375 0.02929688 0.03125    0.03320312
+     0.03515625 0.03710938 0.0390625  0.04101562 0.04296875 0.04492188
+     0.046875   0.04882812 0.05078125 0.05273438 0.0546875  0.05664062
+     0.05859375 0.06054688 0.0625     0.06445312 0.06640625 0.06835938
+     0.0703125  0.07226562 0.07421875 0.07617188 0.078125   0.08007812
+     0.08203125 0.08398438 0.0859375  0.08789062 0.08984375 0.09179688
+     0.09375    0.09570312 0.09765625 0.09960938 0.1015625  0.10351562
+     0.10546875 0.10742188 0.109375   0.11132812 0.11328125 0.11523438
+     0.1171875  0.11914062 0.12109375 0.12304688 0.125      0.12695312
+     0.12890625 0.13085938 0.1328125  0.13476562 0.13671875 0.13867188
+     0.140625   0.14257812 0.14453125 0.14648438 0.1484375  0.15039062
+     0.15234375 0.15429688 0.15625    0.15820312 0.16015625 0.16210938
+     0.1640625  0.16601562 0.16796875 0.16992188 0.171875   0.17382812
+     0.17578125 0.17773438 0.1796875  0.18164062 0.18359375 0.18554688
+     0.1875     0.18945312 0.19140625 0.19335938]
+    ROI (first subject) :  ['ch_0' 'ch_1' 'ch_2' 'ch_3' 'ch_4']
+
+
+
+MultiIndex support
+------------------
+
+DataArray also supports multi-indexing of a single dimension.
+
+
+.. code-block:: default
+
+
+    # create a continuous regressor (prediction error, delta P etc.)
+    dp = np.random.uniform(-1, 1, (n_epochs,))
+    # create a discret variable (e.g experimental conditions)
+    cond = np.array([0] * 5 + [1] * 5)
+
+    # now, create a multi-index using pandas
+    midx = pd.MultiIndex.from_arrays((dp, cond), names=('dp', 'blocks'))
+
+    # convert again the original arrays but this time, the epoch dimension is going
+    # to be a multi-index
+    x_xr = []
+    for k in range(n_subjects):
+        # DataArray conversion
+        arr_xr = DataArray(x[k], dims=('epochs', 'channels', 'times'),
+                           coords=(midx, ch[k], times))
+        # finally, replace it in the original list
+        x_xr.append(arr_xr)
+    print(x_xr[0])
+
+    # finally, when you create your dataset you can also specify the y and z inputs
+    # by providing their names in the DataArray
+    dt = DatasetEphy(x_xr, roi='channels', times='times', y='dp', z='blocks')
+    print(dt)
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    <xarray.DataArray (epochs: 10, channels: 5, times: 100)>
+    array([[[5.90277405e-01, 4.10914376e-01, 8.29268111e-01, ...,
+             9.37486900e-01, 9.12015117e-01, 6.55876664e-01],
+            [9.94004760e-01, 9.75383245e-01, 9.39910881e-01, ...,
+             6.30826857e-01, 9.93318526e-02, 3.19903854e-01],
+            [4.47553374e-01, 1.62138262e-01, 3.92924503e-01, ...,
+             5.62219513e-01, 8.29286266e-01, 9.96812306e-01],
+            [4.50972405e-01, 4.16459728e-01, 9.76261522e-01, ...,
+             9.00199578e-01, 4.19277060e-03, 8.90020222e-01],
+            [5.94861851e-01, 7.14007737e-01, 5.30700079e-01, ...,
+             8.14102890e-01, 1.30969614e-01, 1.86338470e-01]],
+
+           [[1.40056831e-01, 8.75097703e-01, 4.33779005e-01, ...,
+             8.41818781e-01, 3.88277098e-01, 4.78138428e-01],
+            [3.79173396e-01, 2.85735930e-01, 3.76461721e-01, ...,
+             3.22524886e-01, 4.45804833e-01, 3.07391934e-01],
+            [8.40059029e-01, 9.15567495e-01, 2.78486477e-01, ...,
+             9.95894125e-01, 9.02654455e-01, 6.51747453e-01],
+            [9.20889062e-01, 5.44425797e-01, 4.10679428e-01, ...,
+             2.86387712e-01, 9.44107377e-01, 5.20593996e-01],
+            [6.21236005e-01, 9.31265913e-01, 1.81373302e-02, ...,
+             8.23603727e-01, 2.14749656e-01, 1.62828329e-01]],
+
+           [[5.40082885e-01, 6.68679087e-02, 7.51473907e-01, ...,
+             5.20059459e-02, 7.68336984e-01, 7.67833083e-01],
+            [6.49903908e-01, 5.92107380e-01, 5.68794601e-01, ...,
+             3.84010005e-01, 2.48715707e-01, 4.97380649e-01],
+            [9.57315280e-01, 7.27859544e-01, 9.35328490e-01, ...,
+             9.55112635e-01, 8.77570832e-01, 1.24776521e-01],
+            [4.38649969e-01, 4.83267117e-02, 7.79328565e-01, ...,
+             6.54446930e-01, 3.07261941e-01, 7.71070723e-01],
+            [4.58046954e-01, 2.81757891e-01, 3.08158101e-01, ...,
+             8.14633952e-01, 3.08799579e-01, 9.35700563e-01]],
+
+           ...,
+
+           [[8.29398618e-01, 2.66073363e-01, 9.41900183e-02, ...,
+             4.70343698e-01, 9.52554234e-01, 2.83221397e-01],
+            [9.56413417e-01, 3.56470821e-01, 5.50398053e-01, ...,
+             7.62981860e-01, 2.78009488e-01, 2.74746868e-01],
+            [3.91918737e-01, 8.22663529e-01, 8.45775446e-01, ...,
+             7.43043708e-01, 2.22222841e-01, 6.92713076e-04],
+            [1.83886625e-01, 1.99289640e-01, 3.00396517e-01, ...,
+             2.41093637e-01, 4.05781801e-01, 7.97251400e-01],
+            [5.83000635e-01, 9.21991570e-01, 7.57596996e-01, ...,
+             8.27783827e-01, 8.71829628e-01, 8.13130444e-01]],
+
+           [[7.95477916e-01, 9.26049334e-01, 7.84001139e-01, ...,
+             6.14022002e-01, 7.80876792e-01, 5.96091302e-02],
+            [5.18095625e-01, 8.69693820e-02, 8.69989284e-01, ...,
+             7.55061024e-01, 3.42262338e-01, 7.48208857e-01],
+            [5.13300413e-01, 1.41356353e-01, 6.23138599e-02, ...,
+             8.29708008e-01, 7.55356545e-01, 8.19004095e-01],
+            [2.28532447e-01, 5.67618282e-01, 3.09255728e-01, ...,
+             6.44547227e-01, 8.55239103e-01, 8.41369312e-01],
+            [2.46221977e-01, 5.03244006e-01, 2.15738147e-01, ...,
+             6.07147705e-01, 5.87452718e-01, 3.24680411e-01]],
+
+           [[6.36283815e-01, 6.11544270e-01, 7.23129430e-01, ...,
+             6.20785939e-01, 6.35731239e-01, 4.43351551e-01],
+            [3.03377974e-01, 4.02690116e-01, 5.74036951e-01, ...,
+             6.37752546e-01, 5.44456922e-01, 4.93806979e-01],
+            [4.31997255e-01, 1.39934672e-01, 1.04330525e-01, ...,
+             4.28623217e-01, 9.43232552e-01, 5.85380437e-01],
+            [7.21403197e-01, 2.90093702e-01, 3.88361775e-01, ...,
+             8.93641676e-01, 4.63983212e-01, 7.72932735e-01],
+            [2.41952229e-01, 8.77972457e-01, 6.11423965e-01, ...,
+             2.84957290e-01, 6.57790192e-01, 5.88037665e-01]]])
+    Coordinates:
+      * epochs    (epochs) MultiIndex
+      - dp        (epochs) float64 0.05122 -0.04024 -0.1497 ... 0.5932 0.1227
+      - blocks    (epochs) int64 0 0 0 0 0 1 1 1 1 1
+      * channels  (channels) <U4 'ch_0' 'ch_1' 'ch_2' 'ch_3' 'ch_4'
+      * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+    -------------------------------------------------------------------------------
+    number of (subjects, roi, time points) : (5, 5, 100)
+    minimum number of subject per roi: -inf
+    modality : electrophysiological
+    data grouped by : subject
+    copnormed : False
+    version : 0.3.2
+    -------------------------------------------------------------------------------
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  0.303 seconds)
+
+
+.. _sphx_glr_download_auto_examples_dataset_plot_dataset_xarray.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_dataset_xarray.py <plot_dataset_xarray.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_dataset_xarray.ipynb <plot_dataset_xarray.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

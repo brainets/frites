@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Define an electrophysiological dataset using Xarray &#8212; frites 0.3.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.2</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../authors.html">Authors</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="../index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#clustering">Clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api.html#from-random-data">From random data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api.html#from-real-data">From real data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/auto_examples/dataset/plot_dataset_xarray.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="define-an-electrophysiological-dataset-using-xarray">
+<span id="sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"></span><h1>Define an electrophysiological dataset using Xarray<a class="headerlink" href="#define-an-electrophysiological-dataset-using-xarray" title="Permalink to this headline">¶</a></h1>
+<p>This example illustrates how to define a dataset using Xarray. If you don’t
+know this library, we can simplify by saying that it provides containers that
+accept arrays but you can also labelize your dimensions. Another way of seeing
+it, pandas is mostly made for tables (i.e 2D arrays) while Xarray provide
+almost the same functionalities but for multi-dimensional arrays.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">xarray</span> <span class="kn">import</span> <span class="n">DataArray</span>
+<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="section" id="create-artificial-data">
+<h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">¶</a></h2>
+<p>We start by creating some random data for several subjects. To do that, each
+subject is going have a 3 dimensional array of shape
+(n_epochs, n_channels, n_times). Then, all of the arrays are grouped together
+in a list of length (n_subjects,)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_channels</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">n_times</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">sf</span> <span class="o">=</span> <span class="mi">512</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">ch</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+    <span class="c1"># generate single subject data</span>
+    <span class="n">x_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+    <span class="c1"># generate some random channel names</span>
+    <span class="n">ch_suj</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="View documentation for numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;ch_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_channels</span><span class="p">)])</span>
+    <span class="c1"># concatenate in a list</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_suj</span><span class="p">)</span>
+    <span class="n">ch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch_suj</span><span class="p">)</span>
+<span class="c1"># finally lets create a time vector</span>
+<span class="n">times</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span>
+<span class="n">epochs</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xarray-conversion-to-dataarray">
+<h2>Xarray conversion to DataArray<a class="headerlink" href="#xarray-conversion-to-dataarray" title="Permalink to this headline">¶</a></h2>
+<p>Here, we convert the NumPy arrays to xarray.DataArray</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_xr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+    <span class="c1"># DataArray conversion</span>
+    <span class="n">arr_xr</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;epochs&#39;</span><span class="p">,</span> <span class="s1">&#39;channels&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
+                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">ch</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">times</span><span class="p">))</span>
+    <span class="c1"># finally, replace it in the original list</span>
+    <span class="n">x_xr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr_xr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_xr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
+array([[[5.90277405e-01, 4.10914376e-01, 8.29268111e-01, ...,
+         9.37486900e-01, 9.12015117e-01, 6.55876664e-01],
+        [9.94004760e-01, 9.75383245e-01, 9.39910881e-01, ...,
+         6.30826857e-01, 9.93318526e-02, 3.19903854e-01],
+        [4.47553374e-01, 1.62138262e-01, 3.92924503e-01, ...,
+         5.62219513e-01, 8.29286266e-01, 9.96812306e-01],
+        [4.50972405e-01, 4.16459728e-01, 9.76261522e-01, ...,
+         9.00199578e-01, 4.19277060e-03, 8.90020222e-01],
+        [5.94861851e-01, 7.14007737e-01, 5.30700079e-01, ...,
+         8.14102890e-01, 1.30969614e-01, 1.86338470e-01]],
+
+       [[1.40056831e-01, 8.75097703e-01, 4.33779005e-01, ...,
+         8.41818781e-01, 3.88277098e-01, 4.78138428e-01],
+        [3.79173396e-01, 2.85735930e-01, 3.76461721e-01, ...,
+         3.22524886e-01, 4.45804833e-01, 3.07391934e-01],
+        [8.40059029e-01, 9.15567495e-01, 2.78486477e-01, ...,
+         9.95894125e-01, 9.02654455e-01, 6.51747453e-01],
+        [9.20889062e-01, 5.44425797e-01, 4.10679428e-01, ...,
+         2.86387712e-01, 9.44107377e-01, 5.20593996e-01],
+        [6.21236005e-01, 9.31265913e-01, 1.81373302e-02, ...,
+         8.23603727e-01, 2.14749656e-01, 1.62828329e-01]],
+
+       [[5.40082885e-01, 6.68679087e-02, 7.51473907e-01, ...,
+         5.20059459e-02, 7.68336984e-01, 7.67833083e-01],
+        [6.49903908e-01, 5.92107380e-01, 5.68794601e-01, ...,
+         3.84010005e-01, 2.48715707e-01, 4.97380649e-01],
+        [9.57315280e-01, 7.27859544e-01, 9.35328490e-01, ...,
+         9.55112635e-01, 8.77570832e-01, 1.24776521e-01],
+        [4.38649969e-01, 4.83267117e-02, 7.79328565e-01, ...,
+         6.54446930e-01, 3.07261941e-01, 7.71070723e-01],
+        [4.58046954e-01, 2.81757891e-01, 3.08158101e-01, ...,
+         8.14633952e-01, 3.08799579e-01, 9.35700563e-01]],
+
+       ...,
+
+       [[8.29398618e-01, 2.66073363e-01, 9.41900183e-02, ...,
+         4.70343698e-01, 9.52554234e-01, 2.83221397e-01],
+        [9.56413417e-01, 3.56470821e-01, 5.50398053e-01, ...,
+         7.62981860e-01, 2.78009488e-01, 2.74746868e-01],
+        [3.91918737e-01, 8.22663529e-01, 8.45775446e-01, ...,
+         7.43043708e-01, 2.22222841e-01, 6.92713076e-04],
+        [1.83886625e-01, 1.99289640e-01, 3.00396517e-01, ...,
+         2.41093637e-01, 4.05781801e-01, 7.97251400e-01],
+        [5.83000635e-01, 9.21991570e-01, 7.57596996e-01, ...,
+         8.27783827e-01, 8.71829628e-01, 8.13130444e-01]],
+
+       [[7.95477916e-01, 9.26049334e-01, 7.84001139e-01, ...,
+         6.14022002e-01, 7.80876792e-01, 5.96091302e-02],
+        [5.18095625e-01, 8.69693820e-02, 8.69989284e-01, ...,
+         7.55061024e-01, 3.42262338e-01, 7.48208857e-01],
+        [5.13300413e-01, 1.41356353e-01, 6.23138599e-02, ...,
+         8.29708008e-01, 7.55356545e-01, 8.19004095e-01],
+        [2.28532447e-01, 5.67618282e-01, 3.09255728e-01, ...,
+         6.44547227e-01, 8.55239103e-01, 8.41369312e-01],
+        [2.46221977e-01, 5.03244006e-01, 2.15738147e-01, ...,
+         6.07147705e-01, 5.87452718e-01, 3.24680411e-01]],
+
+       [[6.36283815e-01, 6.11544270e-01, 7.23129430e-01, ...,
+         6.20785939e-01, 6.35731239e-01, 4.43351551e-01],
+        [3.03377974e-01, 4.02690116e-01, 5.74036951e-01, ...,
+         6.37752546e-01, 5.44456922e-01, 4.93806979e-01],
+        [4.31997255e-01, 1.39934672e-01, 1.04330525e-01, ...,
+         4.28623217e-01, 9.43232552e-01, 5.85380437e-01],
+        [7.21403197e-01, 2.90093702e-01, 3.88361775e-01, ...,
+         8.93641676e-01, 4.63983212e-01, 7.72932735e-01],
+        [2.41952229e-01, 8.77972457e-01, 6.11423965e-01, ...,
+         2.84957290e-01, 6.57790192e-01, 5.88037665e-01]]])
+Coordinates:
+  * epochs    (epochs) int64 0 1 2 3 4 5 6 7 8 9
+  * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+  * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-the-dataset">
+<h2>Build the dataset<a class="headerlink" href="#build-the-dataset" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we pass the data to the <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> class
+in order to create the dataset</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># here, we specify to the DatasetEphy class that the roi dimension is actually</span>
+<span class="c1"># called &#39;channels&#39; in the DataArray and the times dimension is called &#39;times&#39;</span>
+<span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x_xr</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;channels&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time vector : &#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ROI (first subject) : &#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-------------------------------------------------------------------------------
+number of (subjects, roi, time points) : (5, 5, 100)
+minimum number of subject per roi: -inf
+modality : electrophysiological
+data grouped by : subject
+copnormed : False
+version : 0.3.2
+-------------------------------------------------------------------------------
+Time vector :  [0.         0.00195312 0.00390625 0.00585938 0.0078125  0.00976562
+ 0.01171875 0.01367188 0.015625   0.01757812 0.01953125 0.02148438
+ 0.0234375  0.02539062 0.02734375 0.02929688 0.03125    0.03320312
+ 0.03515625 0.03710938 0.0390625  0.04101562 0.04296875 0.04492188
+ 0.046875   0.04882812 0.05078125 0.05273438 0.0546875  0.05664062
+ 0.05859375 0.06054688 0.0625     0.06445312 0.06640625 0.06835938
+ 0.0703125  0.07226562 0.07421875 0.07617188 0.078125   0.08007812
+ 0.08203125 0.08398438 0.0859375  0.08789062 0.08984375 0.09179688
+ 0.09375    0.09570312 0.09765625 0.09960938 0.1015625  0.10351562
+ 0.10546875 0.10742188 0.109375   0.11132812 0.11328125 0.11523438
+ 0.1171875  0.11914062 0.12109375 0.12304688 0.125      0.12695312
+ 0.12890625 0.13085938 0.1328125  0.13476562 0.13671875 0.13867188
+ 0.140625   0.14257812 0.14453125 0.14648438 0.1484375  0.15039062
+ 0.15234375 0.15429688 0.15625    0.15820312 0.16015625 0.16210938
+ 0.1640625  0.16601562 0.16796875 0.16992188 0.171875   0.17382812
+ 0.17578125 0.17773438 0.1796875  0.18164062 0.18359375 0.18554688
+ 0.1875     0.18945312 0.19140625 0.19335938]
+ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiindex-support">
+<h2>MultiIndex support<a class="headerlink" href="#multiindex-support" title="Permalink to this headline">¶</a></h2>
+<p>DataArray also supports multi-indexing of a single dimension.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a continuous regressor (prediction error, delta P etc.)</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs</span><span class="p">,))</span>
+<span class="c1"># create a discret variable (e.g experimental conditions)</span>
+<span class="n">cond</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="View documentation for numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># now, create a multi-index using pandas</span>
+<span class="n">midx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">((</span><span class="n">dp</span><span class="p">,</span> <span class="n">cond</span><span class="p">),</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;dp&#39;</span><span class="p">,</span> <span class="s1">&#39;blocks&#39;</span><span class="p">))</span>
+
+<span class="c1"># convert again the original arrays but this time, the epoch dimension is going</span>
+<span class="c1"># to be a multi-index</span>
+<span class="n">x_xr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+    <span class="c1"># DataArray conversion</span>
+    <span class="n">arr_xr</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;epochs&#39;</span><span class="p">,</span> <span class="s1">&#39;channels&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
+                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">midx</span><span class="p">,</span> <span class="n">ch</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">times</span><span class="p">))</span>
+    <span class="c1"># finally, replace it in the original list</span>
+    <span class="n">x_xr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr_xr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_xr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># finally, when you create your dataset you can also specify the y and z inputs</span>
+<span class="c1"># by providing their names in the DataArray</span>
+<span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x_xr</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;channels&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;dp&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s1">&#39;blocks&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
+array([[[5.90277405e-01, 4.10914376e-01, 8.29268111e-01, ...,
+         9.37486900e-01, 9.12015117e-01, 6.55876664e-01],
+        [9.94004760e-01, 9.75383245e-01, 9.39910881e-01, ...,
+         6.30826857e-01, 9.93318526e-02, 3.19903854e-01],
+        [4.47553374e-01, 1.62138262e-01, 3.92924503e-01, ...,
+         5.62219513e-01, 8.29286266e-01, 9.96812306e-01],
+        [4.50972405e-01, 4.16459728e-01, 9.76261522e-01, ...,
+         9.00199578e-01, 4.19277060e-03, 8.90020222e-01],
+        [5.94861851e-01, 7.14007737e-01, 5.30700079e-01, ...,
+         8.14102890e-01, 1.30969614e-01, 1.86338470e-01]],
+
+       [[1.40056831e-01, 8.75097703e-01, 4.33779005e-01, ...,
+         8.41818781e-01, 3.88277098e-01, 4.78138428e-01],
+        [3.79173396e-01, 2.85735930e-01, 3.76461721e-01, ...,
+         3.22524886e-01, 4.45804833e-01, 3.07391934e-01],
+        [8.40059029e-01, 9.15567495e-01, 2.78486477e-01, ...,
+         9.95894125e-01, 9.02654455e-01, 6.51747453e-01],
+        [9.20889062e-01, 5.44425797e-01, 4.10679428e-01, ...,
+         2.86387712e-01, 9.44107377e-01, 5.20593996e-01],
+        [6.21236005e-01, 9.31265913e-01, 1.81373302e-02, ...,
+         8.23603727e-01, 2.14749656e-01, 1.62828329e-01]],
+
+       [[5.40082885e-01, 6.68679087e-02, 7.51473907e-01, ...,
+         5.20059459e-02, 7.68336984e-01, 7.67833083e-01],
+        [6.49903908e-01, 5.92107380e-01, 5.68794601e-01, ...,
+         3.84010005e-01, 2.48715707e-01, 4.97380649e-01],
+        [9.57315280e-01, 7.27859544e-01, 9.35328490e-01, ...,
+         9.55112635e-01, 8.77570832e-01, 1.24776521e-01],
+        [4.38649969e-01, 4.83267117e-02, 7.79328565e-01, ...,
+         6.54446930e-01, 3.07261941e-01, 7.71070723e-01],
+        [4.58046954e-01, 2.81757891e-01, 3.08158101e-01, ...,
+         8.14633952e-01, 3.08799579e-01, 9.35700563e-01]],
+
+       ...,
+
+       [[8.29398618e-01, 2.66073363e-01, 9.41900183e-02, ...,
+         4.70343698e-01, 9.52554234e-01, 2.83221397e-01],
+        [9.56413417e-01, 3.56470821e-01, 5.50398053e-01, ...,
+         7.62981860e-01, 2.78009488e-01, 2.74746868e-01],
+        [3.91918737e-01, 8.22663529e-01, 8.45775446e-01, ...,
+         7.43043708e-01, 2.22222841e-01, 6.92713076e-04],
+        [1.83886625e-01, 1.99289640e-01, 3.00396517e-01, ...,
+         2.41093637e-01, 4.05781801e-01, 7.97251400e-01],
+        [5.83000635e-01, 9.21991570e-01, 7.57596996e-01, ...,
+         8.27783827e-01, 8.71829628e-01, 8.13130444e-01]],
+
+       [[7.95477916e-01, 9.26049334e-01, 7.84001139e-01, ...,
+         6.14022002e-01, 7.80876792e-01, 5.96091302e-02],
+        [5.18095625e-01, 8.69693820e-02, 8.69989284e-01, ...,
+         7.55061024e-01, 3.42262338e-01, 7.48208857e-01],
+        [5.13300413e-01, 1.41356353e-01, 6.23138599e-02, ...,
+         8.29708008e-01, 7.55356545e-01, 8.19004095e-01],
+        [2.28532447e-01, 5.67618282e-01, 3.09255728e-01, ...,
+         6.44547227e-01, 8.55239103e-01, 8.41369312e-01],
+        [2.46221977e-01, 5.03244006e-01, 2.15738147e-01, ...,
+         6.07147705e-01, 5.87452718e-01, 3.24680411e-01]],
+
+       [[6.36283815e-01, 6.11544270e-01, 7.23129430e-01, ...,
+         6.20785939e-01, 6.35731239e-01, 4.43351551e-01],
+        [3.03377974e-01, 4.02690116e-01, 5.74036951e-01, ...,
+         6.37752546e-01, 5.44456922e-01, 4.93806979e-01],
+        [4.31997255e-01, 1.39934672e-01, 1.04330525e-01, ...,
+         4.28623217e-01, 9.43232552e-01, 5.85380437e-01],
+        [7.21403197e-01, 2.90093702e-01, 3.88361775e-01, ...,
+         8.93641676e-01, 4.63983212e-01, 7.72932735e-01],
+        [2.41952229e-01, 8.77972457e-01, 6.11423965e-01, ...,
+         2.84957290e-01, 6.57790192e-01, 5.88037665e-01]]])
+Coordinates:
+  * epochs    (epochs) MultiIndex
+  - dp        (epochs) float64 0.05122 -0.04024 -0.1497 ... 0.5932 0.1227
+  - blocks    (epochs) int64 0 0 0 0 0 1 1 1 1 1
+  * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+  * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+-------------------------------------------------------------------------------
+number of (subjects, roi, time points) : (5, 5, 100)
+minimum number of subject per roi: -inf
+modality : electrophysiological
+data grouped by : subject
+copnormed : False
+version : 0.3.2
+-------------------------------------------------------------------------------
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.303 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py">
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/9a005eb1fa12814043ca3f5d7ba8ead9/plot_dataset_xarray.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_xarray.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/c9ee9d1b34e24156df644db7f70c9e6b/plot_dataset_xarray.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dataset_xarray.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../whatsnew.html">What's new</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../references.html">References</a></li>
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2020-05-07.</p>
+    </footer>
+
+  </body>
+</html>

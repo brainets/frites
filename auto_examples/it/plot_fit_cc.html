@@ -172,15 +172,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -286,17 +289,17 @@ information transfer</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>source        roi_0     roi_1
 target        roi_1     roi_0
--0.699248  0.015951  0.028192
--0.689223  0.017661  0.026671
--0.679198  0.013699  0.013906
--0.669173  0.020322  0.021149
--0.659148  0.007518  0.002664
+-0.699248  0.025497  0.014951
+-0.689223  0.018770  0.007604
+-0.679198  0.044046  0.021266
+-0.669173  0.025979  0.018152
+-0.659148  0.009775  0.010489
 ...             ...       ...
- 2.959900  0.009951  0.024596
- 2.969925  0.021297  0.009540
- 2.979950  0.008367  0.035945
- 2.989975  0.020391  0.023995
- 3.000000  0.026970  0.009452
+ 2.959900  0.032163  0.010356
+ 2.969925  0.032697  0.006586
+ 2.979950  0.030860  0.022872
+ 2.989975  0.023838  0.003040
+ 3.000000  0.009676  0.002095
 
 [370 rows x 2 columns]
 </pre></div>
@@ -323,19 +326,19 @@ xarray.DataArray</p>
 <img alt="../../_images/sphx_glr_plot_fit_cc_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_fit_cc_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
-array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
-          0.        ,  0.        ],
-        [-0.01224054, -0.00901057, -0.00020688, ..., -0.0275782 ,
-         -0.00360362,  0.01751795]],
+array([[[0.        , 0.        , 0.        , ..., 0.        ,
+         0.        , 0.        ],
+        [0.01054617, 0.01116556, 0.02277967, ..., 0.00798821,
+         0.02079731, 0.00758161]],
 
-       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
-          0.        ,  0.        ],
-        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
-          0.        ,  0.        ]]])
+       [[0.        , 0.        , 0.        , ..., 0.        ,
+         0.        , 0.        ],
+        [0.        , 0.        , 0.        , ..., 0.        ,
+         0.        , 0.        ]]])
 Coordinates:
   * source   (source) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
   * target   (target) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
-  * times    (times) float64 -0.6992 -0.6892 -0.6792 -0.6692 ... 2.98 2.99 3.0
+  * times    (times) float32 -0.69924814 -0.68922305 ... 2.989975 3.0
 Attributes:
     max_delay:      0.3
     net:            True
@@ -343,7 +346,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.2943878
+    th:             2.341215
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -352,7 +355,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.016 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.811 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-it-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/53aecaa6091e0e2d8171223eda7757f7/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -390,7 +393,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-04.</p>
+        <p>&copy; Copyright Last updated on 2020-05-07.</p>
     </footer>
 
   </body>

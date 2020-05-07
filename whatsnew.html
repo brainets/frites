@@ -173,15 +173,18 @@
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -225,25 +228,44 @@
 <h1>What’s new<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
 <hr><div class="section" id="v0-3-2">
 <h2>v0.3.2<a class="headerlink" href="#v0-3-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="breaking-changes">
+<h3>Breaking changes<a class="headerlink" href="#breaking-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Avoid duplicates dataset construction when using MNE / xarray (<a class="reference external" href="https://github.com/brainets/frites/commit/fef9">CMfef9</a>, <a class="reference external" href="https://github.com/brainets/frites/commit/9dde">CM9dde</a>)</p></li>
+<li><p><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> supports None for the y input (<a class="reference external" href="https://github.com/brainets/frites/commit/a53a">CMa53a</a>)</p></li>
+</ul>
+</div>
 <div class="section" id="internal-changes">
 <h3>Internal Changes<a class="headerlink" href="#internal-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Dtypes of <cite>y</cite> and <cite>z</cite> inputs are systematically check in <a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> in order to define which MI can then be computed (<a class="reference external" href="https://github.com/brainets/frites/commit/7cc1">CM7cc1</a>)</p></li>
 </ul>
+</div>
+<div class="section" id="new-features">
+<h3>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> supports Xarray inputs + selection though coordinates (<a class="reference external" href="https://github.com/brainets/frites/commit/7418">CM7418</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Adding new examples for creating datasets (<a class="reference external" href="https://github.com/brainets/frites/commit/4df9">CM4df9</a>)</p></li>
+</ul>
 <hr></div>
 </div>
 <div class="section" id="v0-3-1">
 <h2>v0.3.1<a class="headerlink" href="#v0-3-1" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="breaking-changes">
-<h3>Breaking changes<a class="headerlink" href="#breaking-changes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>Breaking changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>change <a class="reference internal" href="generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="frites.workflow.WfFit"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfFit</span></code></a> input <cite>directed</cite> for <cite>net</cite> (<a class="reference external" href="https://github.com/brainets/frites/commit/3ec0">CM3ec0</a>, <a class="reference external" href="https://github.com/brainets/frites/issues/1">IS1</a>)</p></li>
 <li><p>The GCRN is automatically defined (per subject when RFX / across subjects when FFX) (<a class="reference external" href="https://github.com/brainets/frites/commit/b8a9">CMb8a9</a>)</p></li>
 <li><p>Remove the <cite>level</cite> input parameter + only <cite>mcp</cite> is used + only maxstat when performing cluster based (<a class="reference external" href="https://github.com/brainets/frites/commit/d8fb">CMd8fb</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="new-features">
-<h3>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>New Features<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> support spatio-temporal slicing (<a class="reference external" href="https://github.com/brainets/frites/commit/60d1">CM60d1</a>), resampling (<a class="reference external" href="https://github.com/brainets/frites/commit/3785">CM3785</a>) and savitzki-golay filter (<a class="reference external" href="https://github.com/brainets/frites/commit/9707">CM9707</a>)</p></li>
 <li><p>Support setting <cite>random_state</cite> in <a class="reference internal" href="generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a> and <a class="reference internal" href="generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="frites.workflow.WfFit"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfFit</span></code></a> (<a class="reference external" href="https://github.com/brainets/frites/commit/0688">CM0688</a>)</p></li>
@@ -258,15 +280,15 @@
 <li><p>Fix FIT outputs for 3D arrays and DataArray (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h3>Internal Changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Internal Changes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Remap multiple conditions when integers (<a class="reference external" href="https://github.com/brainets/frites/commit/6092">CM6092</a>) in <a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p></li>
 <li><p>Workflows now have an internal configuration (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="documentation">
-<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Documentation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Reformat examples gallery (<a class="reference external" href="https://github.com/brainets/frites/commit/4d4c">CM4d4c</a>)</p></li>
 </ul>
@@ -299,7 +321,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-04.</p>
+        <p>&copy; Copyright Last updated on 2020-05-07.</p>
     </footer>
 
   </body>

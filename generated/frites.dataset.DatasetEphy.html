@@ -174,15 +174,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -226,11 +229,18 @@
 <h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="frites.dataset.DatasetEphy">
-<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">roi</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataset of electrophysiological data coming from several subjects.</p>
 <p>This class is used to represent the neurophysiological data coming from
 multiple subjects. Then, the created object can be used to compute the
 mutual information (MI) and perform statistics on it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using MNE or Xarray inputs, operations are performed inplace which
+means that the original list of inputs are going to be replaced by
+NumPy arrays. This behavior is decreasing memory usage by avoiding data
+duplication</p>
+</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
@@ -238,10 +248,13 @@ mutual information (MI) and perform statistics on it.</p>
 an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
 mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</p>
 </dd>
-<dt><strong>roi</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) where each element is an array of shape
-(n_channels,) describing the ROI name of each channel.</p>
+<dt><strong>roi</strong><span class="classifier">list | None</span></dt><dd><p>List of length (n_subjects,) where each element is an array of shape
+(n_channels,) describing the ROI name of each channel. If None and if
+the data are one of the MNE-Python supported type, the channel names
+are used (ch_names). Otherwise, the list is going to be filled with
+generic roi names.</p>
 </dd>
-<dt><strong>y, z</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) of continuous or discrete variables. Each
+<dt><strong>y, z</strong><span class="classifier">list | None</span></dt><dd><p>List of length (n_subjects,) of continuous or discrete variables. Each
 element of the list should be an array of shape (n_epochs,) that is
 then going to be used to compute the MI. The type of MI depends on the
 type of this two variables :</p>
@@ -258,7 +271,8 @@ categories inside are going to be automatically remapped to a single
 vector.</p>
 </dd>
 <dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>The time vector to use. If the data are defined using MNE-Python, the
-time vector is directly inferred from those files.</p>
+time vector is directly inferred from those files. If None, a time
+vector is going to be created.</p>
 </dd>
 <dt><strong>nb_min_suj</strong><span class="classifier">int | None</span></dt><dd><p>The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj
 are going to be skipped. Use None to skip this parameter</p>
@@ -268,7 +282,7 @@ are going to be skipped. Use None to skip this parameter</p>
 </dl>
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">roi</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -279,7 +293,7 @@ are going to be skipped. Use None to skip this parameter</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x, y, roi[, z, times, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x[, y, roi, z, times, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, mi_type, gcrn_per_suj])</p></td>
@@ -489,7 +503,7 @@ thus used to determine the length of the window over which a
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-04.</p>
+        <p>&copy; Copyright Last updated on 2020-05-07.</p>
     </footer>
 
   </body>
