@@ -282,7 +282,7 @@ class DatasetEphy(object):
                     # sEEG data can have multiple sites inside a specific roi
                     # so we need to identify thos sites
                     idx = self.roi[n_s] == r
-                    __x = np.array(data[:, idx, :]).squeeze().T
+                    __x = np.moveaxis(data, 0, -1)[idx, ...].squeeze()
                     __yz = yz[n_s]
                     # in case there's multiple sites in this roi, we reshape
                     # as if the data were coming from a single site, hence

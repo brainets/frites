@@ -66,7 +66,7 @@ class TestDatasetEphy(object):  # noqa
         # shape checking before groupby
         assert len(dt.x) == len(dt.y) == len(dt.z) == 5
         n_suj = len(dt.x)
-        assert all([dt.x[k].shape == (6, 50, 10) for k in range(n_suj)])
+        assert all([dt.x[k].shape == (10, 6, 50) for k in range(n_suj)])
         assert all([dt.y[k].shape == (10,) for k in range(n_suj)])
         assert all([dt.z[k].shape == (10,) for k in range(n_suj)])
         # group by roi
