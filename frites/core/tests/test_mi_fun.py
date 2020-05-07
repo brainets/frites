@@ -32,8 +32,8 @@ class TestMiFun(object):  # noqa
         # test mi conn
         x_2 = rnd.rand(n_times, 1, n_epochs)
         suj_2 = np.round(np.linspace(0, n_suj, n_epochs)).astype(int)
-        for mi_meth in ['gc']:   # mi_methods:
-            for inf in ['rfx']:  # inferences:
+        for mi_meth in mi_methods:
+            for inf in inferences:
                 fun = get_core_mi_fun(mi_meth)['cc_conn']
                 fun(x, x_2, suj, suj_2, inf)
 
@@ -60,7 +60,3 @@ class TestMiFun(object):  # noqa
                 for k in y_p:
                     assert (k[0:3].min() == 0) and (k[0:3].max() == 2)
                     assert (k[3::].min() == 3) and (k[3::].max() == 5)
-
-
-if __name__ == '__main__':
-    TestMiFun().test_mi_fun()

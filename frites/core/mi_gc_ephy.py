@@ -52,7 +52,7 @@ def mi_gc_ephy_conn_cc(x_1, x_2, suj_1, suj_2, inference, **kwargs):
     n_times, _, n_trials = x_1.shape
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        raise NotImplementedError("Need to be implemented / checked")
+        mi = mi_nd_gg(x_1, x_2, **CONFIG["KW_GCMI"])[np.newaxis, :]
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.intersect1d(suj_1, suj_2)

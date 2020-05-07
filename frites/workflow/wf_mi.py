@@ -284,7 +284,7 @@ class WfMi(WfBase):
             **kw_stats)
         # update internal config
         self.update_cfg(n_perm=n_perm, random_state=random_state,
-                        **self._wf_stats.cfg)
+                        n_bins=n_bins, **self._wf_stats.cfg)
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions

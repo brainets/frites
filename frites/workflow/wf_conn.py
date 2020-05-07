@@ -68,15 +68,6 @@ class WfConn(WfBase):
         self.update_cfg(mi_type=self._mi_type, inference=inference,
             mi_method=mi_method, kernel=kernel)
 
-        logger.warning("For the moment, WfConn is not compatible with ffx and "
-                       "with binning. In addition, for sEEG, only one channel "
-                       "per ROI is supported. GCMI should supports Nd "
-                       "concatenation of different shapes")
-
-        if (inference is 'ffx') or (mi_method is 'bin'):
-            raise NotImplementedError("Need to be implemented / checked")  #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            exit()
-
         logger.info(f"Workflow for computing connectivity ({self._mi_type} - "
                     f"{mi_method})")
 
@@ -141,6 +132,8 @@ class WfConn(WfBase):
                     for p in range(mi_p[r].shape[0]):
                         mi_p[r][p, s, :] = np.convolve(
                             mi_p[r][p, s, :], self._kernel, mode='same')
+
+        self._mi, self._mi_p = mi, mi_p
 
         return mi, mi_p
 
@@ -233,7 +226,7 @@ class WfConn(WfBase):
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
-                        "computed. Use WfMi.clean to reset "
+                        "computed. Use WfConn.clean to reset "
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:
@@ -251,7 +244,7 @@ class WfConn(WfBase):
             **kw_stats)
         # update internal config
         self.update_cfg(n_perm=n_perm, random_state=random_state,
-                        **self._wf_stats.cfg)
+                        n_bins=n_bins, **self._wf_stats.cfg)
 
         # ---------------------------------------------------------------------
         # post-processing
@@ -264,6 +257,8 @@ class WfConn(WfBase):
         pvalues = convert_dfc_outputs(pvalues, is_pvalue=True, *args)
         if self._inference is 'rfx':
             mi = np.stack([k.mean(axis=0) for k in mi]).T     # mean mi
+        elif self._inference is 'ffx':
+            mi = np.concatenate(mi, axis=0).T  # mi
         mi = convert_dfc_outputs(mi, *args)
         if output_type is 'dataarray':
             mi, pvalues = self._attrs_xarray(mi), self._attrs_xarray(pvalues)

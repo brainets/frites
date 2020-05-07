@@ -92,7 +92,6 @@ for s, t in product(mi.source.data, mi.target.data):
     if not np.isnan(pv_st.data).all():
         x_txt = times[~np.isnan(pv_st)].mean()
         y_txt = 1.03 * mi.data.max()
-        print(x_txt, y_txt)
         plt.text(x_txt, y_txt, f"{s}-{t}", color=color, ha='center')
 plt.legend()
 plt.xlabel('Times')

@@ -44,7 +44,7 @@ def get_core_mi_fun(mi_method):
                       cc_conn=mi_gc_ephy_conn_cc)
     elif mi_method is 'bin':
         from .mi_bin_ephy import (mi_bin_ephy_cc, mi_bin_ephy_cd,
-                                  mi_bin_ephy_ccd)
+                                  mi_bin_ephy_ccd, mi_bin_ephy_conn_cc)
         mi_fun = dict(cc=mi_bin_ephy_cc, cd=mi_bin_ephy_cd,
-                      ccd=mi_bin_ephy_ccd)
+                      ccd=mi_bin_ephy_ccd, cc_conn=mi_bin_ephy_conn_cc)
     return mi_fun

@@ -208,6 +208,31 @@ def mi_bin_time(x, y, bins_x, bins_y):
     return mi
 
 
+@jit("f4[:](f4[:,:], f4[:,:], i8, i8)")
+def mi_bin_conn_time(x, y, bins_x, bins_y):
+    """Compute the MI between two variables of equal shapes across time.
+
+    Parameters
+    ----------
+    x : array_like
+        Array of data of shape (n_times, n_trials)
+    y : array_like
+        Regressor array of shape (n_times, n_trials)
+    bins_x, bins_y : int64
+        Number of bins respectively for the x and y variables
+
+    Returns
+    -------
+    mi : array_like
+        Array of mutual information of shape (n_times)
+    """
+    n_times, n_trials = x.shape
+    mi = np.zeros((n_times), dtype=np.float32)
+    for t in range(n_times):
+        mi[t] = mi_bin(x[t, :], y[t, :], bins_x, bins_y)
+    return mi
+
+
 @jit("f4[:](f4[:,:], f4[:], f4[:], i8)")
 def mi_bin_ccd_time(x, y, z, bins):
     """Compute the MI between two variables across time.
@@ -269,6 +294,36 @@ def mi_bin_ephy_cc(x, y, z, suj, inference, n_bins=8, **kwargs):
             is_suj = suj == s
             mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj, 0], n_bins,
                                      n_bins).reshape(1, -1)
+
+    return mi
+
+
+def mi_bin_ephy_conn_cc(x_1, x_2, suj_1, suj_2, inference, n_bins=8, **kwargs):
+    """Compute mi using binning on neurophysiological data.
+
+    This function compute the mi between two continuous variables using
+    binning method either for ffx or rfx.
+    """
+    # float32 conversion
+    x_1, x_2 = x_1.astype(np.float32), x_2.astype(np.float32)
+    # proper shape of the regressor
+    n_times, _, n_trials = x_1.shape
+    # compute mi across (ffx) or per subject (rfx)
+    if inference == 'ffx':
+        mi = mi_bin_conn_time(x_1[:, 0, :], x_2[:, 0], n_bins,
+                              n_bins).reshape(1, -1)
+    elif inference == 'rfx':
+        # get subject informations
+        suj_u = np.intersect1d(suj_1, suj_2)
+        n_subjects = len(suj_u)
+        # compute mi per subject
+        mi = np.zeros((n_subjects, n_times), dtype=float)
+        for n_s, s in enumerate(suj_u):
+            is_suj_1 = suj_1 == s
+            is_suj_2 = suj_2 == s
+            mi[n_s, :] = mi_bin_conn_time(
+                x_1[:, 0, is_suj_1], x_2[:, 0, is_suj_2], n_bins,
+                n_bins).reshape(1, -1)
 
     return mi
 
