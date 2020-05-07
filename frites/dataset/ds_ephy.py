@@ -105,10 +105,10 @@ class DatasetEphy(object):
         if self._z_dtype == 'int':
             z = self._multicond_conversion(z, 'z', verbose)
         # keep it in self
-        self._x = [np.moveaxis(k, 0, -1).astype(np.float32) for k in x]
+        self._x = x
         self._y = y
         self._z = z
-        self.n_times = self._x[0].shape[1]
+        self.n_times = self._x[0].shape[-1]
         self.sfreq = 1. / (self.times[1] - self.times[0])
 
 
@@ -150,9 +150,9 @@ class DatasetEphy(object):
         slt_start = self.__slice_float(sl_time.start, self.times)
         slt_stop = self.__slice_float(sl_time.stop, self.times)
         sl_time = slice(slt_start, slt_stop, sl_time.step)
-        self._x = [k[:, sl_time, :] for k in self._x]
+        self._x = [k[..., sl_time] for k in self._x]
         self.times = self.times[sl_time]
-        self.n_times = self._x[0].shape[1]
+        self.n_times = self._x[0].shape[-1]
         # roi slicing
         if isinstance(sl_roi, (tuple, list, np.ndarray)):
             for n_s in range(self.n_subjects):
@@ -161,7 +161,7 @@ class DatasetEphy(object):
                 for n_r, r in enumerate(sl_roi):
                     is_roi[:, n_r] = s_roi == r
                 is_roi = is_roi.any(axis=1)
-                self._x[n_s] = self._x[n_s][is_roi, ...]
+                self._x[n_s] = self._x[n_s][:, is_roi, :]
                 self.roi[n_s] = s_roi[is_roi]
             # unique roi list
             merged_roi = np.r_[tuple(self.roi)]
@@ -282,7 +282,7 @@ class DatasetEphy(object):
                     # sEEG data can have multiple sites inside a specific roi
                     # so we need to identify thos sites
                     idx = self.roi[n_s] == r
-                    __x = np.array(data[idx, ...]).squeeze()
+                    __x = np.array(data[:, idx, :]).squeeze().T
                     __yz = yz[n_s]
                     # in case there's multiple sites in this roi, we reshape
                     # as if the data were coming from a single site, hence
@@ -297,7 +297,7 @@ class DatasetEphy(object):
                         __yz = np.concatenate(___yz, axis=0)
                         del ___x, ___yz
                     # at this point the data are (n_times, n_epochs)
-                    _x += [__x]
+                    _x += [__x.astype(np.float32)]
                     _yz += [__yz]
                     _suj += [n_s] * len(__yz)
                     _suj_u += [n_s]
@@ -418,7 +418,7 @@ class DatasetEphy(object):
         window_length = (int(np.round(self.sfreq / h_freq)) // 2) * 2 + 1
         logger.info(f'    Using savgol length {window_length}')
         for k in range(len(self._x)):
-            self._x[k] = savgol_filter(self._x[k], axis=1, polyorder=5,
+            self._x[k] = savgol_filter(self._x[k], axis=2, polyorder=5,
                                       window_length=window_length)
         return self
 
@@ -464,10 +464,8 @@ class DatasetEphy(object):
         o_sfreq = self.sfreq
         logger.info(f"    Resample to the frequency {sfreq}Hz")
         for k in range(len(self._x)):
-            _x = np.transpose(self._x[k], axes=(0, 2, 1))
-            _x = resample(_x, sfreq, o_sfreq, npad, window=window,
-                          n_jobs=n_jobs, pad=pad)
-            self._x[k] = np.transpose(_x, axes=(0, 2, 1))
+            self._x[k] = resample(self._x[k], sfreq, o_sfreq, npad,
+                                  window=window, n_jobs=n_jobs, pad=pad)
         self.sfreq = float(sfreq)
 
         self.times = (np.arange(self._x[0].shape[1], dtype=np.float) /
