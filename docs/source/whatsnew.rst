@@ -10,9 +10,18 @@ What's new
 v0.3.2
 ------
 
+Breaking changes
+++++++++++++++++
+* Avoid duplicates dataset construction when using MNE / xarray (:commit:`fef9`, :commit:`9dde`)
+* :py:class:`frites.dataset.DatasetEphy` supports None for the y input (:commit:`a53a`)
+
 Internal Changes
 ++++++++++++++++
 * Dtypes of `y` and `z` inputs are systematically check in :py:class:`frites.dataset.DatasetEphy` in order to define which MI can then be computed (:commit:`7cc1`)
+
+New Features
+++++++++++++
+* :py:class:`frites.dataset.DatasetEphy` supports Xarray inputs + selection though coordinates (:commit:`7418`)
 
 
 .. raw:: html

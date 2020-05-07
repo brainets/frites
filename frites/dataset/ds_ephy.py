@@ -68,11 +68,11 @@ class DatasetEphy(object):
         # ---------------------------------------------------------------------
         # conversion of the electrophysiocal data
         # ---------------------------------------------------------------------
+        x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
+                                         verbose=verbose)
         if y is None:
             logger.debug("Fill the y input because otherwise everything fails")
             y = [np.zeros((x[k].shape[0])) for k in range(len(x))]
-        x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
-                                         verbose=verbose)
 
         # ---------------------------------------------------------------------
         # check the types of y (and z)
@@ -482,7 +482,7 @@ class DatasetEphy(object):
                                   window=window, n_jobs=n_jobs, pad=pad)
         self.sfreq = float(sfreq)
 
-        self.times = (np.arange(self._x[0].shape[1], dtype=np.float) /
+        self.times = (np.arange(self._x[0].shape[-1], dtype=np.float) /
                       sfreq + self.times[0])
         self.n_times = len(self.times)
 
