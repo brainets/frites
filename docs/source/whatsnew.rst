@@ -23,6 +23,10 @@ New Features
 ++++++++++++
 * :py:class:`frites.dataset.DatasetEphy` supports Xarray inputs + selection though coordinates (:commit:`7418`)
 
+Documentation
++++++++++++++
+* Adding new examples for creating datasets (:commit:`4df9`)
+
 
 .. raw:: html
 
