@@ -1,5 +1,5 @@
-Build an electrophysiological dataset
--------------------------------------
+Multi-subjects dataset
+----------------------
 
 Build an electrophysiological dataset, with different input types and apply some basing operations to it?
 
