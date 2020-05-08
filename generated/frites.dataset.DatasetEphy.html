@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.dataset.DatasetEphy &#8212; frites 0.3.2 documentation</title>
+    <title>frites.dataset.DatasetEphy &#8212; frites 0.3.3 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html"><span><img src="../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -69,9 +69,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
@@ -174,19 +174,24 @@
 <li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id2">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -300,16 +305,19 @@ are going to be skipped. Use None to skip this parameter</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, mi_type, gcrn_per_suj])</p></td>
 <td><p>Apply the Gaussian-Copula rank normalization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self[, groupby])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_pairs</span></code></a>(self[, nb_min_suj, …])</p></td>
+<td><p>Get the connectivity pairs for this dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self[, groupby])</p></td>
 <td><p>Reorganize the data inplace.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.resample" title="frites.dataset.DatasetEphy.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self, sfreq[, npad, window, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.resample" title="frites.dataset.DatasetEphy.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self, sfreq[, npad, window, …])</p></td>
 <td><p>Resample data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.save" title="frites.dataset.DatasetEphy.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.save" title="frites.dataset.DatasetEphy.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(self)</p></td>
 <td><p>Save the dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(self, h_freq[, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(self, h_freq[, verbose])</p></td>
 <td><p>Filter the data using Savitzky-Golay polynomial method.</p></td>
 </tr>
 </tbody>
@@ -352,6 +360,34 @@ be performed. Choose either ‘cc’ (continuous / continuous), ‘cd’
 </dd>
 <dt><strong>gcrn_per_suj</strong><span class="classifier">bool | True</span></dt><dd><p>Apply the Gaussian-rank normalization either per subject (True)
 or across subjects (False).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.get_connectivity_pairs">
+<code class="sig-name descname">get_connectivity_pairs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.get_connectivity_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the connectivity pairs for this dataset.</p>
+<p>This method can be used to get the possible connectivity pairs i.e
+(sources, targets) for directed connectivity (or not). In addition,
+some pairs are going to be ignored because of a number of subjects to
+low.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>nb_min_suj</strong><span class="classifier">int | None</span></dt><dd><p>Minimum number of shared subjects between two pairs</p>
+</dd>
+<dt><strong>directed</strong><span class="classifier">bool | False</span></dt><dd><p>Get either directed (True) or non-directed (False) pairs</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>sources</strong><span class="classifier">array_like</span></dt><dd><p>Indices of the source</p>
+</dd>
+<dt><strong>targets</strong><span class="classifier">array_like</span></dt><dd><p>Indices of the target</p>
 </dd>
 </dl>
 </dd>
@@ -504,7 +540,7 @@ thus used to determine the length of the window over which a
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-07.</p>
+        <p>&copy; Copyright Last updated on 2020-05-08.</p>
     </footer>
 
   </body>

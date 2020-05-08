@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.dataset.ds_ephy &#8212; frites 0.3.2 documentation</title>
+    <title>frites.dataset.ds_ephy &#8212; frites 0.3.3 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -67,9 +67,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
@@ -172,19 +172,24 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id2">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -619,6 +624,60 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_copnormed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">gcrn_per_suj</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
+<div class="viewcode-block" id="DatasetEphy.get_connectivity_pairs"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.get_connectivity_pairs">[docs]</a>    <span class="k">def</span> <span class="nf">get_connectivity_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                               <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the connectivity pairs for this dataset.</span>
+
+<span class="sd">        This method can be used to get the possible connectivity pairs i.e</span>
+<span class="sd">        (sources, targets) for directed connectivity (or not). In addition,</span>
+<span class="sd">        some pairs are going to be ignored because of a number of subjects to</span>
+<span class="sd">        low.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nb_min_suj : int | None</span>
+<span class="sd">            Minimum number of shared subjects between two pairs</span>
+<span class="sd">        directed : bool | False</span>
+<span class="sd">            Get either directed (True) or non-directed (False) pairs</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sources : array_like</span>
+<span class="sd">            Indices of the source</span>
+<span class="sd">        targets : array_like</span>
+<span class="sd">            Indices of the target</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groupedby</span> <span class="o">==</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;To get connectivity pairs, the dataset should already be grouped &quot;</span>
+            <span class="s2">&quot;by roi&quot;</span><span class="p">)</span>
+        <span class="n">bad</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># get all possible pairs</span>
+        <span class="k">if</span> <span class="n">directed</span><span class="p">:</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># remove pairs where there&#39;s not enough subjects</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nb_min_suj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">s_new</span><span class="p">,</span> <span class="n">t_new</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi_u</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">suj_roi_u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">suj_s</span><span class="p">,</span> <span class="n">suj_t</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="n">nb_min_suj</span><span class="p">:</span>
+                    <span class="n">s_new</span> <span class="o">+=</span> <span class="p">[</span><span class="n">s</span><span class="p">]</span>
+                    <span class="n">t_new</span> <span class="o">+=</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">bad</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">roi_names</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bad</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The following connectivity pairs are going to &quot;</span>
+                               <span class="s2">&quot;be ignored because the number of subjects is &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;bellow </span><span class="si">{</span><span class="n">nb_min_suj</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">bad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">s_new</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t_new</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2"> remaining connectivity pairs / &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span><span class="si">}</span><span class="s2"> pairs have been ignored &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;(nb_min_suj=</span><span class="si">{</span><span class="n">nb_min_suj</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
 <div class="viewcode-block" id="DatasetEphy.savgol_filter"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.savgol_filter">[docs]</a>    <span class="k">def</span> <span class="nf">savgol_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_freq</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Filter the data using Savitzky-Golay polynomial method.</span>
 
@@ -774,14 +833,18 @@
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-    <span class="c1"># y = [np.random.randint(0, 1, (10,)) for k in range(4)]</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-    <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;VCcm&#39;</span><span class="p">])]</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">n_suj</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_suj</span><span class="p">)]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_suj</span><span class="p">)]</span>
+    <span class="c1"># y = [np.random.randint(0, 1, (10,)) for k in range(n_suj)]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_suj</span><span class="p">)]</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">]]</span>
     <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 
-    <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">DatasetEphy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
+    <span class="n">dt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">get_connectivity_pairs</span><span class="p">(</span><span class="n">nb_min_suj</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -808,7 +871,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-07.</p>
+        <p>&copy; Copyright Last updated on 2020-05-08.</p>
     </footer>
 
   </body>

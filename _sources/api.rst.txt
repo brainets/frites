@@ -38,9 +38,9 @@ Workflow
    :toctree: generated/
 
    WfMi
-   WfStatsEphy
    WfConn
    WfFit
+   WfStatsEphy
 
 .. raw:: html
 
