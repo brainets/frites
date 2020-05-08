@@ -89,10 +89,12 @@ class WfFit(WfBase):
         # get the number of pairs (source, target)
         n_roi = len(mi)
         if not net:
-            all_s, all_t = np.where(~np.eye(n_roi, dtype=bool))
+            all_s, all_t = dataset.get_connectivity_pairs(
+                nb_min_suj=dataset.nb_min_suj, directed=True)
             tail = 1
         else:
-            all_s, all_t = np.triu_indices(n_roi, k=1)
+            all_s, all_t = dataset.get_connectivity_pairs(
+                nb_min_suj=dataset.nb_min_suj, directed=False)
             tail = 0  # two tail test
         direction = 'bidirectional' if not net else 'unidirectional'
         logger.info(f"    Compute {direction} FIT (max_delay={max_delay}; "

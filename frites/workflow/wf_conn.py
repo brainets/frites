@@ -101,7 +101,8 @@ class WfConn(WfBase):
         roi = dataset.roi_names
         n_roi, inf = dataset.n_roi, self._inference
         # get the pairs for computing mi
-        self.pairs = np.triu_indices(n_roi, k=1)
+        self.pairs = dataset.get_connectivity_pairs(
+            nb_min_suj=dataset.nb_min_suj, directed=False)
         x_s, x_t = self.pairs
         n_pairs = len(self.pairs)
         # evaluate true mi
