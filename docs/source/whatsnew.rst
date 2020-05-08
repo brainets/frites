@@ -3,6 +3,18 @@
 What's new
 ==========
 
+
+v0.3.3
+------
+
+Internal Changes
+++++++++++++++++
+* :py:class:`frites.workflow.WfFit` and :py:class:`frites.workflow.WfConn` are now using :py:class:`frites.dataset.DatasetEphy.get_connectivity_pairs` (:commit:`18e1`)
+
+New Features
+++++++++++++
+* New method :py:class:`frites.dataset.DatasetEphy.get_connectivity_pairs` in order to get possible connectivity pairs (:commit:`4e77`)
+
 .. raw:: html
 
     <hr>
