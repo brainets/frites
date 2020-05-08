@@ -396,6 +396,60 @@ class DatasetEphy(object):
 
         self._copnormed = f"{int(gcrn_per_suj)}-{mi_type}"
 
+    def get_connectivity_pairs(self, nb_min_suj=None, directed=False,
+                               verbose=None):
+        """Get the connectivity pairs for this dataset.
+
+        This method can be used to get the possible connectivity pairs i.e
+        (sources, targets) for directed connectivity (or not). In addition,
+        some pairs are going to be ignored because of a number of subjects to
+        low.
+
+        Parameters
+        ----------
+        nb_min_suj : int | None
+            Minimum number of shared subjects between two pairs
+        directed : bool | False
+            Get either directed (True) or non-directed (False) pairs
+
+        Returns
+        -------
+        sources : array_like
+            Indices of the source
+        targets : array_like
+            Indices of the target
+        """
+        set_log_level(verbose)
+        assert self._groupedby == 'roi', (
+            "To get connectivity pairs, the dataset should already be grouped "
+            "by roi")
+        bad = []
+        # get all possible pairs
+        if directed:
+            pairs = np.where(~np.eye(self.n_roi, dtype=bool))
+        else:
+            pairs = np.triu_indices(self.n_roi, k=1)
+        # remove pairs where there's not enough subjects
+        if isinstance(nb_min_suj, int):
+            s_new, t_new = [], []
+            for s, t in zip(pairs[0], pairs[1]):
+                suj_s, suj_t = self.suj_roi_u[s], self.suj_roi_u[t]
+                if len(np.intersect1d(suj_s, suj_t)) >= nb_min_suj:
+                    s_new += [s]
+                    t_new += [t]
+                else:
+                    bad += [f"{self.roi_names[s]}-{self.roi_names[t]}"]
+            if len(bad):
+                logger.warning("The following connectivity pairs are going to "
+                               "be ignored because the number of subjects is "
+                               f"bellow {nb_min_suj} : {bad}")
+            pairs = (np.asarray(s_new), np.asarray(t_new))
+        logger.info(f"    {len(pairs[0])} remaining connectivity pairs / "
+                    f"{len(bad)} pairs have been ignored "
+                    f"(nb_min_suj={nb_min_suj})")
+
+        return pairs[0], pairs[1]
+
     def savgol_filter(self, h_freq, verbose=None):
         """Filter the data using Savitzky-Golay polynomial method.
 
@@ -551,11 +605,15 @@ class DatasetEphy(object):
 if __name__ == '__main__':
     import numpy as np
 
-    x = [np.random.rand(10, 1, 20) for k in range(4)]
-    y = [np.random.rand(10) for k in range(4)]
-    # y = [np.random.randint(0, 1, (10,)) for k in range(4)]
-    z = [np.random.randint(0, 2, (10, 2)) for k in range(4)]
-    roi = [np.array(['VCcm'])] * 4
+    n_suj = 3
+    x = [np.random.rand(10, 3, 20) for k in range(n_suj)]
+    y = [np.random.rand(10) for k in range(n_suj)]
+    # y = [np.random.randint(0, 1, (10,)) for k in range(n_suj)]
+    z = [np.random.randint(0, 2, (10, 2)) for k in range(n_suj)]
+    roi = [['0', '1', '2'], ['1', '2', '3'], ['1', '2', '3']]
     times = np.linspace(-1, 1, 20)
 
-    DatasetEphy(x, roi=roi, times=times)
+    dt = DatasetEphy(x, roi=roi, times=times)
+    dt.groupby('roi')
+    pairs = dt.get_connectivity_pairs(nb_min_suj=2, directed=True)
+    print(pairs)

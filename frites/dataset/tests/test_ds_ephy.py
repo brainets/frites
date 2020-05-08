@@ -134,3 +134,11 @@ class TestDatasetEphy(object):  # noqa
         """Test function resample."""
         dt = self._get_data()
         dt.resample(10)
+
+    def test_get_connectivity_pairs(self):
+        dt = self._get_data()
+        dt.groupby('roi')
+        pairs_nd = dt.get_connectivity_pairs(directed=False)
+        pairs_d = dt.get_connectivity_pairs(directed=True)
+        assert len(pairs_d[0]) > len(pairs_nd[0])
+        assert len(pairs_d[1]) > len(pairs_nd[1])
