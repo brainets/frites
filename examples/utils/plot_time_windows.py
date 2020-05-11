@@ -20,7 +20,10 @@ from matplotlib.patches import Rectangle
 # Simulate data
 # -------------
 #
-# Let's start by creating a simple sinusoide with a time vector
+# Let's start by creating a simple sinusoide with a time vector. Then, to
+# define windows we are going to use the function
+# :func:`frites.utils.define_windows` and also
+# :func:`frites.utils.plot_windows` for plotting.
 
 n_pts = 1000
 period = .2  # 200ms period
@@ -33,7 +36,7 @@ x = np.sin(2 * np.pi * (1. / period) * times)
 # -----------------------
 #
 # The first feature we illustrate here, is to define windows manually which
-# means, based on the time vector, where each window should start and finish
+# means, based on the time vector, where each window should start and finish.
 
 plt.figure(figsize=(10, 8))
 

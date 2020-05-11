@@ -38,6 +38,12 @@ def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
     win_sample : array_like
         Array of shape (n_windows, 2) of temporal indexes defining where each
         window (start, finish)
+    mean_time : array_like
+        Mean time vector inside each defined window of shape (n_windows,)
+
+    See also
+    --------
+    plot_windows
     """
     set_log_level(verbose)
     assert isinstance(times, np.ndarray)
@@ -88,8 +94,7 @@ def plot_windows(times, win_sample, x=None, title='', r_min=-.75, r_max=.75):
     times : array_like
         Times vector of shape (n_times,)
     win_sample : array_like
-        Windows in samples. Typically, this is the output of the function
-        :func:`frites.utility.define_windows`
+        Windows in samples.
     x : array_like | None
         A signal to use as a background. If None, a pure sine is generated
         with 100ms period is generated
@@ -103,6 +108,10 @@ def plot_windows(times, win_sample, x=None, title='', r_min=-.75, r_max=.75):
     -------
     ax : gca
         The matplotlib current axes
+
+    See also
+    --------
+    define_windows
     """
     import matplotlib.pyplot as plt
     from matplotlib.collections import PatchCollection
