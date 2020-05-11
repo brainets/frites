@@ -74,6 +74,7 @@ plt.show()
 # compute DFC
 dfc, pairs, roi_p = dfc_gc(x, times, roi, win_sample)
 
+# sphinx_gallery_thumbnail_number = 2
 plt.figure(figsize=(10, 8))
 plt.plot(times_p, dfc.mean(0).T)
 plt.xlabel('Time')

@@ -15,6 +15,7 @@ New Features
 ++++++++++++
 * New method :py:class:`frites.dataset.DatasetEphy.get_connectivity_pairs` in order to get possible connectivity pairs (:commit:`4e77`)
 * New function :py:func:`frites.utils.define_windows` and :py:func:`frites.utils.plot_windows` in order to generate and plot slicing windows + tests + example (:commit:`6fcf`)
+* New function for computing the DFC :py:class:`frites.core.dfc_gc` (:commit:`8f6f`)
 
 .. raw:: html
 
