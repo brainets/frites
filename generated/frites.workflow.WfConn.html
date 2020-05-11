@@ -131,6 +131,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.define_windows.html">frites.utils.define_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
@@ -236,10 +241,12 @@
 <dl class="class">
 <dt id="frites.workflow.WfConn">
 <em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfConn</code><span class="sig-paren">(</span><em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_conn.html#WfConn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfConn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Workflow of pairwise connectivity and statistics.</p>
-<p>This class allows to define a workflow for computing pairwise connectivity
-using mutual information and then to evaluate the significance with
-non-parametric statistics (either within-subjects or between subjects).</p>
+<dd><p>Workflow of instantaneous pairwise connectivity and statistics.</p>
+<p>This class allows to define a workflow for computing the instantaneous
+pairwise connectivity using mutual information and then to evaluate the
+significance with non-parametric statistics (either within-subjects or
+between subjects). Note that the MI is computed at each time point and
+across trials.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
@@ -467,7 +474,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-08.</p>
+        <p>&copy; Copyright Last updated on 2020-05-11.</p>
     </footer>
 
   </body>

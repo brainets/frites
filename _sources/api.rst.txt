@@ -171,6 +171,25 @@ Random data for directed connectivity measures
 
   <hr>
 
+Utils
+-----
+
+.. currentmodule:: frites.utils
+
+.. automodule:: frites.utils
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   define_windows
+   plot_windows
+
+.. raw:: html
+
+  <hr>
+
 Configuration
 -------------
 
