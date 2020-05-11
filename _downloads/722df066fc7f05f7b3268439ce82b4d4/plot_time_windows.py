@@ -71,7 +71,7 @@ plt.show()
 # * `slwin_stop` = stopping time point
 # * `slwin_step` = step time between consecutive windows
 
-# sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_thumbnail_number = 2
 plt.figure(figsize=(10, 10))
 
 # if you only gives the length, consecutive windows are defined from first to
