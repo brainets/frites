@@ -14,7 +14,7 @@ from .gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg, gcmi_nd_cc,  # noqa
                       gcmi_model_nd_cd, gccmi_nd_ccnd, gccmi_model_nd_cdnd,
                       gccmi_nd_ccc)
 from .mi_stats import (permute_mi_vector, permute_mi_trials) # noqa
-from .it import (it_transfer_entropy, it_fit)  # noqa
+from .it import (it_transfer_entropy, it_fit, dfc_gc)  # noqa
 
 # -----------------------------------------------------------------------------
 # get the core functions to use for the mi estimation

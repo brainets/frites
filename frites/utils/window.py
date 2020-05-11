@@ -116,11 +116,10 @@ def plot_windows(times, win_sample, x=None, title='', r_min=-.75, r_max=.75):
     import matplotlib.pyplot as plt
     from matplotlib.collections import PatchCollection
     from matplotlib.patches import Rectangle
-    if x is None:
+    if x is not None:
         x = np.sin(2 * np.pi * (1. / 100) * times)
-    # plot the sine
-    plt.plot(times, x)
-    plt.title(title)
+        # plot the sine
+        plt.plot(times, x)
     # plot the windows
     win_time = times[win_sample]
     r_red, r_blue = [], []
@@ -133,5 +132,7 @@ def plot_windows(times, win_sample, x=None, title='', r_min=-.75, r_max=.75):
     pc_red = PatchCollection(r_red, alpha=.5, color='red')
     plt.gca().add_collection(pc_blue)
     plt.gca().add_collection(pc_red)
+    plt.title(title)
+    plt.xlim(times[0], times[-1])
 
     return plt.gca()
