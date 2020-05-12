@@ -117,7 +117,6 @@ def plot_windows(times, win_sample, x=None, title='', r_min=-.75, r_max=.75):
     from matplotlib.collections import PatchCollection
     from matplotlib.patches import Rectangle
     if x is not None:
-        x = np.sin(2 * np.pi * (1. / 100) * times)
         # plot the sine
         plt.plot(times, x)
     # plot the windows

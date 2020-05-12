@@ -66,6 +66,7 @@ plt.show()
 #
 # You can also define sliding windows which can be controlled through four
 # parameters :
+# 
 # * `slwin_len` = window length
 # * `slwin_start` = starting time point
 # * `slwin_stop` = stopping time point
