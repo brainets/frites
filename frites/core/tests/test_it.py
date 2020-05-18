@@ -2,6 +2,7 @@
 import numpy as np
 
 from frites.core.it import it_transfer_entropy, it_fit, dfc_gc
+from frites.core.covgc import covgc
 
 
 class TestIt(object):
@@ -46,3 +47,19 @@ class TestIt(object):
         assert dfc.shape == (n_epochs, 3, 2)
         dfc = dfc_gc(x, times, roi, win_sample, output_type='dataarray')[0]
         assert isinstance(dfc, DataArray)
+
+    def test_covgc(self):
+        """Test function covgc."""
+        from xarray import DataArray
+        n_epochs = 5
+        n_times = 100
+        n_roi = 3
+        x = np.random.rand(n_epochs, n_roi, n_times)
+        dt = 10
+        lag = 2
+        t0 = [50, 80]
+
+        gc = covgc(x, dt, lag, t0, n_jobs=1)[0]
+        assert gc.shape == (n_epochs, 3, len(t0), 3)
+        gc = covgc(x, dt, lag, t0, n_jobs=1, output_type='dataarray')[0]
+        assert isinstance(gc, DataArray)

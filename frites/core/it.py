@@ -51,7 +51,7 @@ def dfc_gc(data, times, roi, win_sample, output_type='array', verbose=None):
 
     See also
     --------
-    define_windows
+    define_windows, covgc
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
