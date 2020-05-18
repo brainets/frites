@@ -172,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -246,7 +247,7 @@
 <span id="sphx-glr-auto-examples-conn-plot-fit-cc-py"></span><h1>Information transfer about a continuous variable<a class="headerlink" href="#information-transfer-about-a-continuous-variable" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the amount of information that is sent
 from one region to another about a specific continuous feature. For further
-details, see Bim et al. 2019 <a class="bibtex reference internal" href="../../references.html#bim2019non" id="id1">[1]</a></p>
+details, see Bim et al. 2019 <a class="bibtex reference internal" href="../../references.html#bim2019non" id="id1">[2]</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_distant_cc_ms.html#frites.simulations.sim_distant_cc_ms" title="View documentation for frites.simulations.sim_distant_cc_ms"><span class="n">sim_distant_cc_ms</span></a>
@@ -304,17 +305,17 @@ information transfer</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>source        roi_0     roi_1
 target        roi_1     roi_0
--0.699248  0.007317  0.010024
--0.689223  0.017202  0.008516
--0.679198  0.033056  0.010897
--0.669173  0.039229  0.014489
--0.659148  0.002350  0.013837
+-0.699248  0.010842  0.031845
+-0.689223  0.029328  0.020482
+-0.679198  0.029088  0.014491
+-0.669173  0.030114  0.007954
+-0.659148  0.002635  0.019020
 ...             ...       ...
- 2.959900  0.022072  0.018931
- 2.969925  0.035317  0.015524
- 2.979950  0.026417  0.017909
- 2.989975  0.013746  0.026167
- 3.000000  0.015484  0.003946
+ 2.959900  0.009165  0.008263
+ 2.969925  0.003308  0.008568
+ 2.979950  0.037134  0.017916
+ 2.989975  0.020247  0.007029
+ 3.000000  0.013077  0.008011
 
 [370 rows x 2 columns]
 </pre></div>
@@ -343,8 +344,8 @@ xarray.DataArray</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [-0.00270672,  0.00868611,  0.02215968, ...,  0.00850805,
-         -0.01242024,  0.01153888]],
+        [-0.02100349,  0.00884531,  0.01459737, ...,  0.01921814,
+          0.01321879,  0.0050664 ]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -361,7 +362,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.201191
+    th:             2.4663723
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -370,7 +371,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.829 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.798 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -408,7 +409,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-12.</p>
+        <p>&copy; Copyright Last updated on 2020-05-18.</p>
     </footer>
 
   </body>

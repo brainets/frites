@@ -264,3 +264,4 @@ Core connectivity
    dfc_gc
    it_transfer_entropy
    it_fit
+   covgc
