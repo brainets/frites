@@ -10,11 +10,13 @@ from frites.workflow.wf_base import WfBase
 
 
 class WfConn(WfBase):
-    """Workflow of pairwise connectivity and statistics.
+    """Workflow of instantaneous pairwise connectivity and statistics.
 
-    This class allows to define a workflow for computing pairwise connectivity
-    using mutual information and then to evaluate the significance with
-    non-parametric statistics (either within-subjects or between subjects).
+    This class allows to define a workflow for computing the instantaneous
+    pairwise connectivity using mutual information and then to evaluate the
+    significance with non-parametric statistics (either within-subjects or
+    between subjects). Note that the MI is computed at each time point and
+    across trials.
 
     Parameters
     ----------

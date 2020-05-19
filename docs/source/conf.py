@@ -144,6 +144,7 @@ sphinx_gallery_conf = {
         '../../examples/dataset',
         '../../examples/mi',
         '../../examples/conn',
+        '../../examples/utils',
         '../../examples/statistics',
         '../../examples/simulations',
         ]),
