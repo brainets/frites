@@ -30,7 +30,7 @@ CONFIG["JOBLIB_CFG"] = dict()
 shuffling method for computing the gcmi_stats_ccd. Use :
    * 'c' : shuffle only the continuous variable
    * 'd' : shuffle only the discret variable
-   * 'cd' : shuffle both the continuous and discret variables (default)
+   * 'cd' : shuffle both the continuous and discrete variables (default)
 """
 CONFIG["MI_PERM_CCD"] = 'cd'
 
