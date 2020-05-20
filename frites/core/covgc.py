@@ -23,7 +23,7 @@ def entr(xy):
     return h
 
 
-def _coggc(d_s, d_t, ind_tx, t0):
+def _covgc(d_s, d_t, ind_tx, t0):
     """Compute the covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
@@ -187,7 +187,7 @@ def covgc(data, dt, lag, t0, roi=None, times=None, output_type='array',
     # -------------------------------------------------------------------------
     # compute covgc and parallel over pairs
     logger.info(f"Compute the covgc (n_pairs={len(x_s)}; n_windows={len(t0)})")
-    gc = Parallel(n_jobs=n_jobs)(delayed(_coggc)(
+    gc = Parallel(n_jobs=n_jobs)(delayed(_covgc)(
         data[:, s, :], data[:, t, :], ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
