@@ -129,11 +129,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
@@ -166,13 +161,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -237,98 +227,11 @@
       
   <h1>Source code for frites.core.it</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Information transfer functions.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">cmi_nd_ggg</span><span class="p">,</span> <span class="n">copnorm_nd</span>
-<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">jit</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
-
-
-
-<span class="c1">###############################################################################</span>
-<span class="c1">###############################################################################</span>
-<span class="c1">#                     DYNAMIC FUNCTIONAL CONNECTIVITY</span>
-<span class="c1">###############################################################################</span>
-<span class="c1">###############################################################################</span>
-
-
-<div class="viewcode-block" id="dfc_gc"><a class="viewcode-back" href="../../../generated/frites.core.dfc_gc.html#frites.core.dfc_gc">[docs]</a><span class="k">def</span> <span class="nf">dfc_gc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute the Dynamic Functional Connectivity using the GCMI.</span>
-
-<span class="sd">    This function computes the Dynamic Functional Connectivity (DFC) using the</span>
-<span class="sd">    Gaussian Copula Mutual Information (GCMI). The DFC is computed across time</span>
-<span class="sd">    points for each trial. Note that the DFC can either be computed on windows</span>
-<span class="sd">    manually defined or on sliding windows.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    data : array_like</span>
-<span class="sd">        Electrophysiological data array of a single subject organized as</span>
-<span class="sd">        (n_epochs, n_roi, n_times)</span>
-<span class="sd">    times : array_like</span>
-<span class="sd">        Time vector array of shape (n_times,)</span>
-<span class="sd">    roi : array_like</span>
-<span class="sd">        ROI names of a single subject</span>
-<span class="sd">    win_sample : array_like</span>
-<span class="sd">        Array of shape (n_windows, 2) describing where each window start and</span>
-<span class="sd">        finish. You can use the function :func:`frites.utils.define_windows`</span>
-<span class="sd">        to define either manually either sliding windows.</span>
-<span class="sd">    output_type : {&#39;array&#39;, &#39;dataarray&#39;}</span>
-<span class="sd">        Output type, either standard NumPy array or xarray.DataArray</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    dfc : array_like</span>
-<span class="sd">        The DFC array of shape (n_epochs, n_pairs, n_windows)</span>
-<span class="sd">    pairs : array_like</span>
-<span class="sd">        Array of pairs of shape (n_pairs, 2)</span>
-<span class="sd">    roi_p : array_like</span>
-<span class="sd">        Array of shape (n_pairs,) describing the name of each pair</span>
-
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    define_windows, covgc</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># data checking</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_pts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_roi</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_pts</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">win_sample</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">win_sample</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">win_sample</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;INT_DTYPE&#39;</span><span class="p">]</span>
-    <span class="n">n_win</span> <span class="o">=</span> <span class="n">win_sample</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1"># get the non-directed pairs</span>
-    <span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">n_pairs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">)</span>
-    <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">]</span>
-    <span class="c1"># build roi pairs names</span>
-    <span class="n">roi_p</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">)]</span>
-
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># compute dfc</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing DFC between </span><span class="si">{</span><span class="n">n_pairs</span><span class="si">}</span><span class="s1"> pairs&#39;</span><span class="p">)</span>
-    <span class="n">dfc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_pairs</span><span class="p">,</span> <span class="n">n_win</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">n_w</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">win_sample</span><span class="p">):</span>
-        <span class="c1"># select the data in the window and copnorm across time points</span>
-        <span class="n">data_w</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="c1"># compute mi between pairs</span>
-        <span class="k">for</span> <span class="n">n_p</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">)):</span>
-            <span class="n">dfc</span><span class="p">[:,</span> <span class="n">n_p</span><span class="p">,</span> <span class="n">n_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_nd_gg</span><span class="p">(</span><span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="p">:],</span> <span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="p">:],</span>
-                                        <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">])</span>
-
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># change output type</span>
-    <span class="k">if</span> <span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">xarray</span> <span class="kn">import</span> <span class="n">DataArray</span>
-        <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
-        <span class="n">times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">dfc</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">dfc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
-                        <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">dfc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span></div>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">cmi_nd_ggg</span><span class="p">,</span> <span class="n">copnorm_nd</span>
+<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">jit</span>
 
 
 <span class="c1">###############################################################################</span>
@@ -338,10 +241,10 @@
 <span class="c1">###############################################################################</span>
 
 
-<div class="viewcode-block" id="it_transfer_entropy"><a class="viewcode-back" href="../../../generated/frites.core.it_transfer_entropy.html#frites.core.it_transfer_entropy">[docs]</a><span class="k">def</span> <span class="nf">it_transfer_entropy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute the transfer entropy.</span>
+<div class="viewcode-block" id="it_transfer_entropy"><a class="viewcode-back" href="../../../generated/frites.core.it_transfer_entropy.html#frites.it_transfer_entropy">[docs]</a><span class="k">def</span> <span class="nf">it_transfer_entropy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the tranfert entropy.</span>
 
-<span class="sd">    The transfer entropy represents the amount of information that is send</span>
+<span class="sd">    The transfert entropy represents the amount of information that is send</span>
 <span class="sd">    from a source to a target. It is defined as :</span>
 
 <span class="sd">    .. math::</span>
@@ -349,7 +252,7 @@
 <span class="sd">        TE = I(source_{past}; target_{present} | target_{past})</span>
 
 <span class="sd">    Where :math:`past` is defined using the `max_delay` input parameter. Note</span>
-<span class="sd">    that the transfer entropy only provides about the amount of information</span>
+<span class="sd">    that the transfert entropy only provides about the amount of information</span>
 <span class="sd">    that is sent, not on the content.</span>
 
 <span class="sd">    Parameters</span>
@@ -361,7 +264,7 @@
 <span class="sd">        Number of time points defining where to stop looking at in the past.</span>
 <span class="sd">        Increasing this maximum delay input can lead to slower computations</span>
 <span class="sd">    pairs : array_like</span>
-<span class="sd">        Array of pairs to consider for computing the transfer entropy. It</span>
+<span class="sd">        Array of pairs to consider for computing the transfert entropy. It</span>
 <span class="sd">        should be an array of shape (n_pairs, 2) where the first column refers</span>
 <span class="sd">        to sources and the second to targets. If None, all pairs will be</span>
 <span class="sd">        computed</span>
@@ -371,7 +274,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    te : array_like</span>
-<span class="sd">        The transfer entropy array of shape (n_pairs, n_times - max_delay)</span>
+<span class="sd">        The transfert entropy array of shape (n_pairs, n_times - max_delay)</span>
 <span class="sd">    pairs : array_like</span>
 <span class="sd">        Pairs vector use for computations of shape (n_pairs, 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -400,7 +303,7 @@
         <span class="n">x</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># compute the transfer entropy</span>
+    <span class="c1"># compute the transfert entropy</span>
     <span class="n">te</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_pairs</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">-</span> <span class="n">max_delay</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">n_s</span><span class="p">,</span> <span class="n">x_s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x_all_s</span><span class="p">):</span>
         <span class="c1"># select targets</span>
@@ -415,7 +318,7 @@
             <span class="n">past</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">d</span> <span class="o">-</span> <span class="n">max_delay</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">s_past</span> <span class="o">=</span> <span class="n">source</span><span class="p">[:,</span> <span class="n">past</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
             <span class="n">t_past</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[:,</span> <span class="n">past</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-            <span class="c1"># compute the transfer entropy</span>
+            <span class="c1"># compute the transfert entropy</span>
             <span class="n">_te</span> <span class="o">=</span> <span class="n">cmi_nd_ggg</span><span class="p">(</span><span class="n">s_past</span><span class="p">,</span> <span class="n">t_pres</span><span class="p">,</span> <span class="n">t_past</span><span class="p">,</span> <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">])</span>
             <span class="c1"># take the sum over delays</span>
             <span class="n">te</span><span class="p">[</span><span class="n">is_source</span><span class="p">,</span> <span class="n">n_d</span><span class="p">]</span> <span class="o">=</span> <span class="n">_te</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -511,7 +414,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-19.</p>
+        <p>&copy; Copyright Last updated on 2020-05-20.</p>
     </footer>
 
   </body>

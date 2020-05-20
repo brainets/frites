@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Estimate instantaneous connectivity using MI &#8212; frites 0.3.3 documentation</title>
+    <title>Estimate connectivity using MI &#8212; frites 0.3.3 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -129,11 +129,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
@@ -166,13 +161,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -243,14 +233,14 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-conn-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimate-instantaneous-connectivity-using-mi">
-<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate instantaneous connectivity using MI<a class="headerlink" href="#estimate-instantaneous-connectivity-using-mi" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="estimate-connectivity-using-mi">
+<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate connectivity using MI<a class="headerlink" href="#estimate-connectivity-using-mi" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the connectivity using mutual
 information between pairwise ROI and also perform statistics.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 
-<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a>
+<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">,</span> <span class="n">sim_mi_cc</span>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../generated/frites.workflow.WfConn.html#frites.workflow.WfConn" title="View documentation for frites.workflow.WfConn"><span class="n">WfConn</span></a>
 
@@ -272,7 +262,7 @@ n_epochs, n_sites, n_times</p>
 <span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">(</span><span class="n">n_subjects</span><span class="o">=</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span>
                                <span class="n">n_times</span><span class="o">=</span><span class="n">n_times</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="n">modality</span><span class="p">,</span>
                                <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">times</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html#numpy.linspace" title="View documentation for numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -306,7 +296,7 @@ Corr 2 : L_VCs-L_Cu between [0.21212121212121215-0.6161616161616164]
 <a class="reference internal" href="../../generated/frites.workflow.WfConn.html#frites.workflow.WfConn" title="frites.workflow.WfConn"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfConn</span></code></a>. This instance is then used to compute the
 pairwise connectivity</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># number of permutations to compute</span>
-<span class="n">kernel</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.hanning.html#numpy.hanning" title="View documentation for numpy.hanning"><span class="n">np</span><span class="o">.</span><span class="n">hanning</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># used for smoothing the MI</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># used for smoothing the MI</span>
 
 <span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfConn.html#frites.workflow.WfConn" title="View documentation for frites.workflow.WfConn"><span class="n">WfConn</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataarray&#39;</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -362,7 +352,7 @@ Attributes:
     n_perm:         100
     random_state:   none
     n_bins:         none
-    th:             1.2401126877961417
+    th:             1.2784221634630675
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -376,7 +366,7 @@ Attributes:
 <h2>Plot the result of the DataArray<a class="headerlink" href="#plot-the-result-of-the-dataarray" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># set to NaN everywhere it&#39;s not significant</span>
 <span class="n">is_signi</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">05</span>
-<span class="n">pv</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">is_signi</span><span class="p">]</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/constants.html#numpy.nan" title="View documentation for numpy.nan"><span class="n">np</span><span class="o">.</span><span class="n">nan</span></a>
+<span class="n">pv</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">is_signi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">pv</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">is_signi</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.02</span> <span class="o">*</span> <span class="n">mi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
 <span class="c1"># plot each pair separately</span>
@@ -389,8 +379,8 @@ Attributes:
     <span class="n">color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_st</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">pv_st</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.isnan.html#numpy.isnan" title="View documentation for numpy.isnan"><span class="n">np</span><span class="o">.</span><span class="n">isnan</span></a><span class="p">(</span><span class="n">pv_st</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="n">x_txt</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="o">~</span><a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.isnan.html#numpy.isnan" title="View documentation for numpy.isnan"><span class="n">np</span><span class="o">.</span><span class="n">isnan</span></a><span class="p">(</span><span class="n">pv_st</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pv_st</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">x_txt</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pv_st</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="n">y_txt</span> <span class="o">=</span> <span class="mf">1.03</span> <span class="o">*</span> <span class="n">mi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_txt</span><span class="p">,</span> <span class="n">y_txt</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -401,7 +391,7 @@ Attributes:
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_conn_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_conn_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.394 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.161 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/31a26a1996e5a607840326d75d11b163/plot_conn.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_conn.py</span></code></a></p>
@@ -439,7 +429,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-19.</p>
+        <p>&copy; Copyright Last updated on 2020-05-20.</p>
     </footer>
 
   </body>

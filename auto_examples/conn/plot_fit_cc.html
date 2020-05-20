@@ -129,11 +129,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
@@ -166,13 +161,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +237,7 @@
 <span id="sphx-glr-auto-examples-conn-plot-fit-cc-py"></span><h1>Information transfer about a continuous variable<a class="headerlink" href="#information-transfer-about-a-continuous-variable" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the amount of information that is sent
 from one region to another about a specific continuous feature. For further
-details, see Bim et al. 2019 <a class="bibtex reference internal" href="../../references.html#bim2019non" id="id1">[2]</a></p>
+details, see Bim et al. 2019 <a class="bibtex reference internal" href="../../references.html#bim2019non" id="id1">[1]</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_distant_cc_ms.html#frites.simulations.sim_distant_cc_ms" title="View documentation for frites.simulations.sim_distant_cc_ms"><span class="n">sim_distant_cc_ms</span></a>
@@ -305,17 +295,17 @@ information transfer</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>source        roi_0     roi_1
 target        roi_1     roi_0
--0.699248  0.052789  0.012384
--0.689223  0.012567  0.002168
--0.679198  0.033487  0.017022
--0.669173  0.045756  0.016792
--0.659148  0.009253  0.023720
+-0.699248  0.027971  0.029436
+-0.689223  0.029450  0.018456
+-0.679198  0.019124  0.014510
+-0.669173  0.016012  0.021995
+-0.659148  0.014477  0.001647
 ...             ...       ...
- 2.959900  0.038187  0.024832
- 2.969925  0.022083  0.014266
- 2.979950  0.025548  0.020165
- 2.989975  0.021514  0.027652
- 3.000000  0.021934  0.000259
+ 2.959900  0.027298  0.024952
+ 2.969925  0.030142  0.009997
+ 2.979950  0.048947  0.030312
+ 2.989975  0.014442  0.009907
+ 3.000000  0.041763  0.014443
 
 [370 rows x 2 columns]
 </pre></div>
@@ -344,8 +334,8 @@ xarray.DataArray</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [ 0.04040433,  0.01039942,  0.01646579, ...,  0.00538304,
-         -0.00613803,  0.02167525]],
+        [-0.0014644 ,  0.01099397,  0.00461394, ...,  0.0186354 ,
+          0.00453461,  0.02731993]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -362,7 +352,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.2850034
+    th:             2.4007342
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -371,7 +361,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.802 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.145 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -409,7 +399,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-19.</p>
+        <p>&copy; Copyright Last updated on 2020-05-20.</p>
     </footer>
 
   </body>

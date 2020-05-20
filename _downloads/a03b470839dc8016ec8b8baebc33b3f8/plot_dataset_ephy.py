@@ -97,7 +97,6 @@ plt.show()
 # temporal selection between [0.25, 1.75]
 dt[0.25:1.75, :]  # the ':' symbol means that we are selecting every channel
 
-# sphinx_gallery_thumbnail_number = 3
 plt.plot(dt.times, dt.x[0][:, 0, :].T)
 plt.xlabel('Times')
 plt.title('Temporal slicing')

@@ -1,6 +1,6 @@
 """
-Estimate instantaneous connectivity using MI
-============================================
+Estimate connectivity using MI
+==============================
 
 This example illustrates how to compute the connectivity using mutual
 information between pairwise ROI and also perform statistics.
@@ -8,7 +8,7 @@ information between pairwise ROI and also perform statistics.
 import numpy as np
 from itertools import product
 
-from frites.simulations import sim_multi_suj_ephy
+from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
 from frites.dataset import DatasetEphy
 from frites.workflow import WfConn
 

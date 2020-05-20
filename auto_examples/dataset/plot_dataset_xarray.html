@@ -129,11 +129,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
@@ -166,13 +161,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -276,13 +266,13 @@ in a list of length (n_subjects,)</p>
     <span class="c1"># generate single subject data</span>
     <span class="n">x_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
     <span class="c1"># generate some random channel names</span>
-    <span class="n">ch_suj</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="View documentation for numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;ch_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_channels</span><span class="p">)])</span>
+    <span class="n">ch_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;ch_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_channels</span><span class="p">)])</span>
     <span class="c1"># concatenate in a list</span>
     <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_suj</span><span class="p">)</span>
     <span class="n">ch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch_suj</span><span class="p">)</span>
 <span class="c1"># finally lets create a time vector</span>
-<span class="n">times</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span>
-<span class="n">epochs</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -301,73 +291,73 @@ in a list of length (n_subjects,)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[0.73812475, 0.34234382, 0.22480637, ..., 0.77352927,
-         0.05180596, 0.31710224],
-        [0.43493256, 0.228068  , 0.10212312, ..., 0.64787986,
-         0.71298965, 0.449278  ],
-        [0.11514024, 0.49324319, 0.91978555, ..., 0.95912373,
-         0.89240124, 0.11301607],
-        [0.1089206 , 0.93327395, 0.29827509, ..., 0.39638516,
-         0.52162144, 0.72653625],
-        [0.04103323, 0.59385994, 0.24567241, ..., 0.2352803 ,
-         0.51116638, 0.64900453]],
+array([[[0.90944186, 0.60825188, 0.9675696 , ..., 0.16454862,
+         0.46355365, 0.65011902],
+        [0.50262237, 0.86929388, 0.6816753 , ..., 0.66855352,
+         0.14444556, 0.70588793],
+        [0.75839117, 0.39652696, 0.99203834, ..., 0.03935022,
+         0.73095144, 0.01820126],
+        [0.93738354, 0.55488865, 0.55015417, ..., 0.62724687,
+         0.64975599, 0.02830624],
+        [0.89652921, 0.00978676, 0.69209058, ..., 0.74827534,
+         0.55468592, 0.31278248]],
 
-       [[0.09367837, 0.46495566, 0.38519967, ..., 0.80266325,
-         0.82287467, 0.40620296],
-        [0.99079173, 0.02100283, 0.03794863, ..., 0.23537985,
-         0.45193039, 0.01031315],
-        [0.25183362, 0.99697421, 0.99425312, ..., 0.56068769,
-         0.36000906, 0.417237  ],
-        [0.25357843, 0.20692834, 0.09232373, ..., 0.13704771,
-         0.51383191, 0.61970841],
-        [0.11304528, 0.40916058, 0.98561443, ..., 0.34904691,
-         0.5789233 , 0.39285127]],
+       [[0.98115677, 0.73277841, 0.71689137, ..., 0.27428877,
+         0.24303995, 0.08174596],
+        [0.83528966, 0.69294818, 0.5275988 , ..., 0.23770738,
+         0.71649919, 0.8382953 ],
+        [0.24148723, 0.03303364, 0.08974358, ..., 0.86888411,
+         0.82164681, 0.09395062],
+        [0.34544527, 0.44792619, 0.70958465, ..., 0.75516082,
+         0.78535027, 0.04291085],
+        [0.4129746 , 0.79405819, 0.09813483, ..., 0.35002526,
+         0.00695634, 0.31927554]],
 
-       [[0.21279157, 0.84737085, 0.503503  , ..., 0.78413113,
-         0.11717244, 0.31529771],
-        [0.07590902, 0.09762405, 0.60011984, ..., 0.73098761,
-         0.7334441 , 0.33056399],
-        [0.33661129, 0.54927794, 0.34462919, ..., 0.82363405,
-         0.09006152, 0.43721452],
-        [0.42844834, 0.59803777, 0.33720069, ..., 0.04421116,
-         0.2098101 , 0.30189331],
-        [0.05285601, 0.90303952, 0.13432855, ..., 0.70574792,
-         0.29559872, 0.46709477]],
+       [[0.9252493 , 0.90737777, 0.73928428, ..., 0.27062319,
+         0.37328879, 0.44509399],
+        [0.27609109, 0.72758053, 0.98330379, ..., 0.97092519,
+         0.41381046, 0.39444214],
+        [0.56968933, 0.07002164, 0.33158634, ..., 0.69326212,
+         0.95951873, 0.86834197],
+        [0.26254984, 0.90856999, 0.41886268, ..., 0.73789142,
+         0.6097065 , 0.88950984],
+        [0.48939818, 0.11486437, 0.67087217, ..., 0.7791638 ,
+         0.25724315, 0.284053  ]],
 
        ...,
 
-       [[0.20010009, 0.61341935, 0.19689425, ..., 0.19370979,
-         0.2821595 , 0.93476956],
-        [0.36947055, 0.36060809, 0.01072663, ..., 0.70802466,
-         0.62218268, 0.45725839],
-        [0.542146  , 0.15871291, 0.40941647, ..., 0.62857371,
-         0.19246573, 0.51917677],
-        [0.31558643, 0.66318494, 0.43947411, ..., 0.5181276 ,
-         0.54076775, 0.0214868 ],
-        [0.79448005, 0.274518  , 0.01919676, ..., 0.86113069,
-         0.43063747, 0.84826056]],
+       [[0.76763296, 0.47030371, 0.5913413 , ..., 0.38404335,
+         0.96612446, 0.09532447],
+        [0.18401321, 0.68383278, 0.73900436, ..., 0.6136805 ,
+         0.0751213 , 0.60546547],
+        [0.5020194 , 0.38039989, 0.38323062, ..., 0.27388482,
+         0.11639182, 0.64517344],
+        [0.35784008, 0.83558156, 0.02072341, ..., 0.88773212,
+         0.20052636, 0.64964272],
+        [0.23100227, 0.72098783, 0.14183895, ..., 0.14952214,
+         0.47989234, 0.76999321]],
 
-       [[0.07994714, 0.90532951, 0.80910632, ..., 0.69085136,
-         0.66432085, 0.70174858],
-        [0.25810027, 0.57259247, 0.62939246, ..., 0.42618436,
-         0.02104923, 0.51039419],
-        [0.52045082, 0.66048014, 0.22532814, ..., 0.71153475,
-         0.65457367, 0.56430774],
-        [0.65321814, 0.58464782, 0.82655278, ..., 0.3705648 ,
-         0.04851035, 0.14295904],
-        [0.14703141, 0.7540439 , 0.92725346, ..., 0.93714501,
-         0.6577687 , 0.59496566]],
+       [[0.59930446, 0.83233368, 0.21914121, ..., 0.07199146,
+         0.26613632, 0.31200723],
+        [0.45668955, 0.27508822, 0.21187925, ..., 0.17216705,
+         0.58424702, 0.29013259],
+        [0.11725297, 0.54309885, 0.50751888, ..., 0.40834121,
+         0.90529957, 0.7579502 ],
+        [0.74101509, 0.79530686, 0.71801287, ..., 0.41720432,
+         0.54986014, 0.87993601],
+        [0.28904881, 0.2796769 , 0.41844446, ..., 0.52943411,
+         0.80514653, 0.70341323]],
 
-       [[0.12324213, 0.8482307 , 0.90886326, ..., 0.87648195,
-         0.12709692, 0.80956266],
-        [0.48703574, 0.87355648, 0.5287284 , ..., 0.7717907 ,
-         0.79038322, 0.368729  ],
-        [0.22585678, 0.55968508, 0.13088212, ..., 0.71670704,
-         0.69292849, 0.21568732],
-        [0.35799836, 0.10086188, 0.92026265, ..., 0.10965948,
-         0.38784152, 0.61830075],
-        [0.59858747, 0.52645613, 0.31185378, ..., 0.14669658,
-         0.86462413, 0.12895407]]])
+       [[0.55755898, 0.21450493, 0.89177067, ..., 0.54397276,
+         0.13243905, 0.8615953 ],
+        [0.54995623, 0.84171902, 0.00640719, ..., 0.27381504,
+         0.52508736, 0.97372677],
+        [0.01704437, 0.79597035, 0.47897512, ..., 0.93920792,
+         0.6617115 , 0.94013415],
+        [0.69123314, 0.05295231, 0.53123001, ..., 0.73618093,
+         0.48217238, 0.07147583],
+        [0.71369515, 0.72029014, 0.42086935, ..., 0.41311843,
+         0.92682046, 0.53181218]]])
 Coordinates:
   * epochs    (epochs) int64 0 1 2 3 4 5 6 7 8 9
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
@@ -424,7 +414,7 @@ ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a continuous regressor (prediction error, delta P etc.)</span>
 <span class="n">dp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs</span><span class="p">,))</span>
 <span class="c1"># create a discret variable (e.g experimental conditions)</span>
-<span class="n">cond</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="View documentation for numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># now, create a multi-index using pandas</span>
 <span class="n">midx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">((</span><span class="n">dp</span><span class="p">,</span> <span class="n">cond</span><span class="p">),</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;dp&#39;</span><span class="p">,</span> <span class="s1">&#39;blocks&#39;</span><span class="p">))</span>
@@ -448,76 +438,76 @@ ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[0.73812475, 0.34234382, 0.22480637, ..., 0.77352927,
-         0.05180596, 0.31710224],
-        [0.43493256, 0.228068  , 0.10212312, ..., 0.64787986,
-         0.71298965, 0.449278  ],
-        [0.11514024, 0.49324319, 0.91978555, ..., 0.95912373,
-         0.89240124, 0.11301607],
-        [0.1089206 , 0.93327395, 0.29827509, ..., 0.39638516,
-         0.52162144, 0.72653625],
-        [0.04103323, 0.59385994, 0.24567241, ..., 0.2352803 ,
-         0.51116638, 0.64900453]],
+array([[[0.90944186, 0.60825188, 0.9675696 , ..., 0.16454862,
+         0.46355365, 0.65011902],
+        [0.50262237, 0.86929388, 0.6816753 , ..., 0.66855352,
+         0.14444556, 0.70588793],
+        [0.75839117, 0.39652696, 0.99203834, ..., 0.03935022,
+         0.73095144, 0.01820126],
+        [0.93738354, 0.55488865, 0.55015417, ..., 0.62724687,
+         0.64975599, 0.02830624],
+        [0.89652921, 0.00978676, 0.69209058, ..., 0.74827534,
+         0.55468592, 0.31278248]],
 
-       [[0.09367837, 0.46495566, 0.38519967, ..., 0.80266325,
-         0.82287467, 0.40620296],
-        [0.99079173, 0.02100283, 0.03794863, ..., 0.23537985,
-         0.45193039, 0.01031315],
-        [0.25183362, 0.99697421, 0.99425312, ..., 0.56068769,
-         0.36000906, 0.417237  ],
-        [0.25357843, 0.20692834, 0.09232373, ..., 0.13704771,
-         0.51383191, 0.61970841],
-        [0.11304528, 0.40916058, 0.98561443, ..., 0.34904691,
-         0.5789233 , 0.39285127]],
+       [[0.98115677, 0.73277841, 0.71689137, ..., 0.27428877,
+         0.24303995, 0.08174596],
+        [0.83528966, 0.69294818, 0.5275988 , ..., 0.23770738,
+         0.71649919, 0.8382953 ],
+        [0.24148723, 0.03303364, 0.08974358, ..., 0.86888411,
+         0.82164681, 0.09395062],
+        [0.34544527, 0.44792619, 0.70958465, ..., 0.75516082,
+         0.78535027, 0.04291085],
+        [0.4129746 , 0.79405819, 0.09813483, ..., 0.35002526,
+         0.00695634, 0.31927554]],
 
-       [[0.21279157, 0.84737085, 0.503503  , ..., 0.78413113,
-         0.11717244, 0.31529771],
-        [0.07590902, 0.09762405, 0.60011984, ..., 0.73098761,
-         0.7334441 , 0.33056399],
-        [0.33661129, 0.54927794, 0.34462919, ..., 0.82363405,
-         0.09006152, 0.43721452],
-        [0.42844834, 0.59803777, 0.33720069, ..., 0.04421116,
-         0.2098101 , 0.30189331],
-        [0.05285601, 0.90303952, 0.13432855, ..., 0.70574792,
-         0.29559872, 0.46709477]],
+       [[0.9252493 , 0.90737777, 0.73928428, ..., 0.27062319,
+         0.37328879, 0.44509399],
+        [0.27609109, 0.72758053, 0.98330379, ..., 0.97092519,
+         0.41381046, 0.39444214],
+        [0.56968933, 0.07002164, 0.33158634, ..., 0.69326212,
+         0.95951873, 0.86834197],
+        [0.26254984, 0.90856999, 0.41886268, ..., 0.73789142,
+         0.6097065 , 0.88950984],
+        [0.48939818, 0.11486437, 0.67087217, ..., 0.7791638 ,
+         0.25724315, 0.284053  ]],
 
        ...,
 
-       [[0.20010009, 0.61341935, 0.19689425, ..., 0.19370979,
-         0.2821595 , 0.93476956],
-        [0.36947055, 0.36060809, 0.01072663, ..., 0.70802466,
-         0.62218268, 0.45725839],
-        [0.542146  , 0.15871291, 0.40941647, ..., 0.62857371,
-         0.19246573, 0.51917677],
-        [0.31558643, 0.66318494, 0.43947411, ..., 0.5181276 ,
-         0.54076775, 0.0214868 ],
-        [0.79448005, 0.274518  , 0.01919676, ..., 0.86113069,
-         0.43063747, 0.84826056]],
+       [[0.76763296, 0.47030371, 0.5913413 , ..., 0.38404335,
+         0.96612446, 0.09532447],
+        [0.18401321, 0.68383278, 0.73900436, ..., 0.6136805 ,
+         0.0751213 , 0.60546547],
+        [0.5020194 , 0.38039989, 0.38323062, ..., 0.27388482,
+         0.11639182, 0.64517344],
+        [0.35784008, 0.83558156, 0.02072341, ..., 0.88773212,
+         0.20052636, 0.64964272],
+        [0.23100227, 0.72098783, 0.14183895, ..., 0.14952214,
+         0.47989234, 0.76999321]],
 
-       [[0.07994714, 0.90532951, 0.80910632, ..., 0.69085136,
-         0.66432085, 0.70174858],
-        [0.25810027, 0.57259247, 0.62939246, ..., 0.42618436,
-         0.02104923, 0.51039419],
-        [0.52045082, 0.66048014, 0.22532814, ..., 0.71153475,
-         0.65457367, 0.56430774],
-        [0.65321814, 0.58464782, 0.82655278, ..., 0.3705648 ,
-         0.04851035, 0.14295904],
-        [0.14703141, 0.7540439 , 0.92725346, ..., 0.93714501,
-         0.6577687 , 0.59496566]],
+       [[0.59930446, 0.83233368, 0.21914121, ..., 0.07199146,
+         0.26613632, 0.31200723],
+        [0.45668955, 0.27508822, 0.21187925, ..., 0.17216705,
+         0.58424702, 0.29013259],
+        [0.11725297, 0.54309885, 0.50751888, ..., 0.40834121,
+         0.90529957, 0.7579502 ],
+        [0.74101509, 0.79530686, 0.71801287, ..., 0.41720432,
+         0.54986014, 0.87993601],
+        [0.28904881, 0.2796769 , 0.41844446, ..., 0.52943411,
+         0.80514653, 0.70341323]],
 
-       [[0.12324213, 0.8482307 , 0.90886326, ..., 0.87648195,
-         0.12709692, 0.80956266],
-        [0.48703574, 0.87355648, 0.5287284 , ..., 0.7717907 ,
-         0.79038322, 0.368729  ],
-        [0.22585678, 0.55968508, 0.13088212, ..., 0.71670704,
-         0.69292849, 0.21568732],
-        [0.35799836, 0.10086188, 0.92026265, ..., 0.10965948,
-         0.38784152, 0.61830075],
-        [0.59858747, 0.52645613, 0.31185378, ..., 0.14669658,
-         0.86462413, 0.12895407]]])
+       [[0.55755898, 0.21450493, 0.89177067, ..., 0.54397276,
+         0.13243905, 0.8615953 ],
+        [0.54995623, 0.84171902, 0.00640719, ..., 0.27381504,
+         0.52508736, 0.97372677],
+        [0.01704437, 0.79597035, 0.47897512, ..., 0.93920792,
+         0.6617115 , 0.94013415],
+        [0.69123314, 0.05295231, 0.53123001, ..., 0.73618093,
+         0.48217238, 0.07147583],
+        [0.71369515, 0.72029014, 0.42086935, ..., 0.41311843,
+         0.92682046, 0.53181218]]])
 Coordinates:
   * epochs    (epochs) MultiIndex
-  - dp        (epochs) float64 -0.2996 -0.3439 -0.8657 ... 0.312 -0.6707 0.9694
+  - dp        (epochs) float64 0.01315 -0.2361 -0.5469 ... 0.4375 -0.8577 0.4118
   - blocks    (epochs) int64 0 0 0 0 0 1 1 1 1 1
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
   * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
@@ -531,7 +521,7 @@ version : 0.3.3
 -------------------------------------------------------------------------------
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.319 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.335 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9a005eb1fa12814043ca3f5d7ba8ead9/plot_dataset_xarray.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_xarray.py</span></code></a></p>
@@ -569,7 +559,7 @@ version : 0.3.3
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-19.</p>
+        <p>&copy; Copyright Last updated on 2020-05-20.</p>
     </footer>
 
   </body>

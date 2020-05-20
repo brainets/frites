@@ -7,8 +7,8 @@
 .. _sphx_glr_auto_examples_conn_plot_conn.py:
 
 
-Estimate instantaneous connectivity using MI
-============================================
+Estimate connectivity using MI
+==============================
 
 This example illustrates how to compute the connectivity using mutual
 information between pairwise ROI and also perform statistics.
@@ -19,7 +19,7 @@ information between pairwise ROI and also perform statistics.
     import numpy as np
     from itertools import product
 
-    from frites.simulations import sim_multi_suj_ephy
+    from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
     from frites.dataset import DatasetEphy
     from frites.workflow import WfConn
 
@@ -184,7 +184,7 @@ pairwise connectivity
         n_perm:         100
         random_state:   none
         n_bins:         none
-        th:             1.2401126877961417
+        th:             1.2784221634630675
         tfce:           none
         mcp:            cluster
         tail:           1
@@ -237,7 +237,7 @@ Plot the result of the DataArray
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.394 seconds)
+   **Total running time of the script:** ( 0 minutes  2.161 seconds)
 
 
 .. _sphx_glr_download_auto_examples_conn_plot_conn.py:
