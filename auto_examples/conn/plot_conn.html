@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Estimate connectivity using MI &#8212; frites 0.3.3 documentation</title>
+    <title>Estimate instantaneous connectivity using MI &#8212; frites 0.3.3 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -129,6 +129,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
@@ -161,8 +166,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#core-connectivity">Core connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -233,14 +243,14 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-conn-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimate-connectivity-using-mi">
-<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate connectivity using MI<a class="headerlink" href="#estimate-connectivity-using-mi" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="estimate-instantaneous-connectivity-using-mi">
+<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate instantaneous connectivity using MI<a class="headerlink" href="#estimate-instantaneous-connectivity-using-mi" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the connectivity using mutual
 information between pairwise ROI and also perform statistics.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 
-<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a><span class="p">,</span> <span class="n">sim_mi_cc</span>
+<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="View documentation for frites.simulations.sim_multi_suj_ephy"><span class="n">sim_multi_suj_ephy</span></a>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../generated/frites.workflow.WfConn.html#frites.workflow.WfConn" title="View documentation for frites.workflow.WfConn"><span class="n">WfConn</span></a>
 
@@ -352,7 +362,7 @@ Attributes:
     n_perm:         100
     random_state:   none
     n_bins:         none
-    th:             1.2784221634630675
+    th:             1.264666561916587
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -391,7 +401,7 @@ Attributes:
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_conn_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_conn_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.161 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.353 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/31a26a1996e5a607840326d75d11b163/plot_conn.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_conn.py</span></code></a></p>

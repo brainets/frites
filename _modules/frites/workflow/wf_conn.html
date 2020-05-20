@@ -129,6 +129,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
@@ -161,8 +166,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#core-connectivity">Core connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -238,11 +248,13 @@
 
 
 <div class="viewcode-block" id="WfConn"><a class="viewcode-back" href="../../../generated/frites.workflow.WfConn.html#frites.workflow.WfConn">[docs]</a><span class="k">class</span> <span class="nc">WfConn</span><span class="p">(</span><span class="n">WfBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Workflow of pairwise connectivity and statistics.</span>
+    <span class="sd">&quot;&quot;&quot;Workflow of instantaneous pairwise connectivity and statistics.</span>
 
-<span class="sd">    This class allows to define a workflow for computing pairwise connectivity</span>
-<span class="sd">    using mutual information and then to evaluate the significance with</span>
-<span class="sd">    non-parametric statistics (either within-subjects or between subjects).</span>
+<span class="sd">    This class allows to define a workflow for computing the instantaneous</span>
+<span class="sd">    pairwise connectivity using mutual information and then to evaluate the</span>
+<span class="sd">    significance with non-parametric statistics (either within-subjects or</span>
+<span class="sd">    between subjects). Note that the MI is computed at each time point and</span>
+<span class="sd">    across trials.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
