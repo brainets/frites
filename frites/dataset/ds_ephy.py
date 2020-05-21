@@ -120,7 +120,12 @@ class DatasetEphy(object):
         self._y = y  # [(n_epochs,)]
         self._z = z  # [(n_epochs,)]
         self.n_times = self._x[0].shape[-1]
-        self.sfreq = 1. / (self.times[1] - self.times[0])
+        if len(self.times) > 1:
+            self.sfreq = 1. / (self.times[1] - self.times[0])
+        else:
+            logger.warning("Impossible to know the sampling frequency when the"
+                           " time vector only contains a single time point")
+            self.sfreq = 1.
 
         logger.info(f"Dataset composed of {self.n_subjects} subjects. At least"
                     f" {self.nb_min_suj} subjects per roi are required")
@@ -298,6 +303,8 @@ class DatasetEphy(object):
                     idx = self.roi[n_s] == r
                     __x = np.moveaxis(data, 0, -1)[idx, ...].squeeze()
                     __yz = yz[n_s]
+                    # fix if the data contains a single time point
+                    __x = np.atleast_2d(__x)
                     # in case there's multiple sites in this roi, we reshape
                     # as if the data were coming from a single site, hence
                     # increasing the number of trials
