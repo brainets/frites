@@ -186,6 +186,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-2">v0.3.2</a><ul>
@@ -198,9 +199,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-1">v0.3.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -258,6 +259,12 @@
 <li><p>New function for computing the DFC <a class="reference internal" href="generated/frites.core.dfc_gc.html#frites.core.dfc_gc" title="frites.core.dfc_gc"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.core.dfc_gc</span></code></a> (<a class="reference external" href="https://github.com/brainets/frites/commit/8f6f">CM8f6f</a>)</p></li>
 <li><p>New function for computing the covgc <a class="reference internal" href="generated/frites.core.covgc.html#frites.core.covgc" title="frites.core.covgc"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.core.covgc</span></code></a> (<a class="reference external" href="https://github.com/brainets/frites/commit/ea26">CMea26</a>)</p></li>
 </ul>
+</div>
+<div class="section" id="bug-fixes">
+<h3>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Fix when data contains a single time point (<a class="reference external" href="https://github.com/brainets/frites/commit/c815e40">CMc815e40</a>)</p></li>
+</ul>
 <hr></div>
 </div>
 <div class="section" id="v0-3-2">
@@ -307,23 +314,23 @@
 <li><p>DataArray outputs contains attributes that reflect the configuration of the workflow (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="bug-fixes">
-<h3>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Bug fixes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fix multi-sites concatenation (<a class="reference external" href="https://github.com/brainets/frites/commit/3bcc">CM3bcc</a>) in <a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p></li>
 <li><p>Fix p-values to zeros in <a class="reference internal" href="generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="frites.workflow.WfFit"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfFit</span></code></a> (<a class="reference external" href="https://github.com/brainets/frites/commit/2062">CM2062</a>)</p></li>
 <li><p>Fix FIT outputs for 3D arrays and DataArray (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>Internal Changes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Internal Changes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Remap multiple conditions when integers (<a class="reference external" href="https://github.com/brainets/frites/commit/6092">CM6092</a>) in <a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p></li>
 <li><p>Workflows now have an internal configuration (<a class="reference external" href="https://github.com/brainets/frites/commit/18181">CM18181</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>Documentation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Documentation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Reformat examples gallery (<a class="reference external" href="https://github.com/brainets/frites/commit/4d4c">CM4d4c</a>)</p></li>
 </ul>
@@ -356,7 +363,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-20.</p>
+        <p>&copy; Copyright Last updated on 2020-05-21.</p>
     </footer>
 
   </body>

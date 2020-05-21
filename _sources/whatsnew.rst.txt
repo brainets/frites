@@ -18,6 +18,10 @@ New Features
 * New function for computing the DFC :py:class:`frites.core.dfc_gc` (:commit:`8f6f`)
 * New function for computing the covgc :py:class:`frites.core.covgc` (:commit:`ea26`)
 
+Bug fixes
++++++++++
+* Fix when data contains a single time point (:commit:`c815e40`)
+
 .. raw:: html
 
     <hr>
