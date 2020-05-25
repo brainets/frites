@@ -325,9 +325,12 @@
     <span class="k">if</span> <span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">xarray</span> <span class="kn">import</span> <span class="n">DataArray</span>
         <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
-        <span class="n">times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">win_times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span>
         <span class="n">dfc</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">dfc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
-                        <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+                        <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">win_times</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+        <span class="c1"># add the windows used in the attributes</span>
+        <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;win_sample&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_sample</span><span class="p">)]</span>
+        <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;win_times&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_times</span><span class="p">)]</span>
 
     <span class="k">return</span> <span class="n">dfc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span></div>
 
@@ -512,7 +515,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-21.</p>
+        <p>&copy; Copyright Last updated on 2020-05-25.</p>
     </footer>
 
   </body>
