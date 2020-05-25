@@ -17,6 +17,7 @@ New Features
 * New function :py:func:`frites.utils.define_windows` and :py:func:`frites.utils.plot_windows` in order to generate and plot slicing windows + tests + example (:commit:`6fcf`)
 * New function for computing the DFC :py:class:`frites.core.dfc_gc` (:commit:`8f6f`)
 * New function for computing the covgc :py:class:`frites.core.covgc` (:commit:`ea26`)
+* When using DataArray with :py:class:`frites.core.dfc_gc`, temporal attributes are added (:commit:`5df6`)
 
 Bug fixes
 +++++++++
