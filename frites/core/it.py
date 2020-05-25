@@ -86,9 +86,12 @@ def dfc_gc(data, times, roi, win_sample, output_type='array', verbose=None):
     if output_type is 'dataarray':
         from xarray import DataArray
         trials = np.arange(n_epochs)
-        times = times[win_sample].mean(1)
+        win_times = times[win_sample]
         dfc = DataArray(dfc, dims=('trials', 'roi', 'times'),
-                        coords=(trials, roi_p, times))
+                        coords=(trials, roi_p, win_times.mean(1)))
+        # add the windows used in the attributes
+        dfc.attrs['win_sample'] = np.r_[tuple(win_sample)]
+        dfc.attrs['win_times'] = np.r_[tuple(win_times)]
 
     return dfc, pairs, roi_p
 
