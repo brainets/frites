@@ -199,5 +199,9 @@ def covgc(data, dt, lag, t0, roi=None, times=None, output_type='array',
         dire = np.array(['x->y', 'y->x', 'x.y'])
         gc = DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
                        coords=(trials, roi_p, times_p, dire))
+        # set attributes
+        gc.attrs['lag'] = lag
+        gc.attrs['dt'] = dt
+        gc.attrs['t0'] = t0
 
     return gc, pairs, roi_p, times_p
