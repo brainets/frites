@@ -438,6 +438,10 @@
         <span class="n">dire</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">,</span> <span class="s1">&#39;y-&gt;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x.y&#39;</span><span class="p">])</span>
         <span class="n">gc</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
                        <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span><span class="p">,</span> <span class="n">dire</span><span class="p">))</span>
+        <span class="c1"># set attributes</span>
+        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lag</span>
+        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
+        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;t0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t0</span>
 
     <span class="k">return</span> <span class="n">gc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span></div>
 </pre></div>
@@ -466,7 +470,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-25.</p>
+        <p>&copy; Copyright Last updated on 2020-05-26.</p>
     </footer>
 
   </body>
