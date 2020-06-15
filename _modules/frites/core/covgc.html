@@ -317,7 +317,7 @@
     <span class="k">return</span> <span class="n">gc</span>
 
 
-<div class="viewcode-block" id="covgc"><a class="viewcode-back" href="../../../generated/frites.core.covgc.html#frites.core.covgc">[docs]</a><span class="k">def</span> <span class="nf">covgc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="covgc"><a class="viewcode-back" href="../../../generated/frites.core.covgc.html#frites.core.covgc">[docs]</a><span class="k">def</span> <span class="nf">covgc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span>
           <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single-trial covariance-based Granger Causality for gaussian variables.</span>
 
@@ -357,6 +357,8 @@
 <span class="sd">        Number of samples for the lag within each trial</span>
 <span class="sd">    t0 : array_like</span>
 <span class="sd">        Array of zero time in samples of length (n_window,)</span>
+<span class="sd">    step : int | 1</span>
+<span class="sd">        Number of samples stepping in the past for the lag within each trial</span>
 <span class="sd">    roi : array_like | None</span>
 <span class="sd">        Array of ROI names of shape (n_roi,). If None, default ROI names will</span>
 <span class="sd">        be used instead</span>
@@ -395,7 +397,7 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;INT_DTYPE&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
         <span class="n">t0</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;FLOAT_DTYPE&#39;</span><span class="p">]):</span>
         <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t0</span><span class="p">])</span>
-    <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lag</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">t0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lag</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="c1"># force C contiguous array because operations on row-major</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -413,6 +415,10 @@
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># build generic time indices (just need to add t0 to it)</span>
     <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">lag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">dt</span><span class="p">]</span>
+    <span class="c1"># Step in the past lags</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[::</span><span class="n">step</span><span class="p">]</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[::</span><span class="n">step</span><span class="p">]</span>
+    <span class="c1"># Create index for all lags and timespoints</span>
     <span class="n">ind_tx</span> <span class="o">=</span> <span class="n">cols</span> <span class="o">-</span> <span class="n">rows</span>
     <span class="c1"># build output time vector</span>
     <span class="n">times_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">times</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -470,7 +476,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-26.</p>
+        <p>&copy; Copyright Last updated on 2020-06-15.</p>
     </footer>
 
   </body>

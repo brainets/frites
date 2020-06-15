@@ -246,7 +246,7 @@
 <h1>frites.core.covgc<a class="headerlink" href="#frites-core-covgc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.core.covgc">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">output_type='array'</em>, <em class="sig-param">verbose=None</em>, <em class="sig-param">n_jobs=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/covgc.html#covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.covgc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">step=1</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">output_type='array'</em>, <em class="sig-param">verbose=None</em>, <em class="sig-param">n_jobs=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/covgc.html#covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.covgc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single-trial covariance-based Granger Causality for gaussian variables.</p>
 <p>This function computes the covariance-based Granger Causality (covgc) for
 each trial.</p>
@@ -283,6 +283,8 @@ ITI    &amp;= Ixxyy - Ixy\end{split}\]</div>
 <dt><strong>lag</strong><span class="classifier">int</span></dt><dd><p>Number of samples for the lag within each trial</p>
 </dd>
 <dt><strong>t0</strong><span class="classifier">array_like</span></dt><dd><p>Array of zero time in samples of length (n_window,)</p>
+</dd>
+<dt><strong>step</strong><span class="classifier">int | 1</span></dt><dd><p>Number of samples stepping in the past for the lag within each trial</p>
 </dd>
 <dt><strong>roi</strong><span class="classifier">array_like | None</span></dt><dd><p>Array of ROI names of shape (n_roi,). If None, default ROI names will
 be used instead</p>
@@ -351,7 +353,7 @@ the last dimension means :</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-05-26.</p>
+        <p>&copy; Copyright Last updated on 2020-06-15.</p>
     </footer>
 
   </body>
