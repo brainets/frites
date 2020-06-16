@@ -213,14 +213,14 @@ def mi_model_1d_gd(x, y, biascorrect=True, demeaned=False):
     # class-conditional entropies
     ntrl_y = np.zeros(len(ym))
     hcond = np.zeros(len(ym))
-    for yi in ym:
+    for n_yi, yi in enumerate(ym):
         idx = y == yi
         xm = x[:, idx]
-        ntrl_y[yi] = xm.shape[1]
+        ntrl_y[n_yi] = xm.shape[1]
         xm = xm - xm.mean(axis=1)[:, np.newaxis]
-        cm = np.dot(xm, xm.T) / float(ntrl_y[yi] - 1)
+        cm = np.dot(xm, xm.T) / float(ntrl_y[n_yi] - 1)
         chcm = np.linalg.cholesky(cm)
-        hcond[yi] = np.sum(np.log(np.diagonal(chcm)))
+        hcond[n_yi] = np.sum(np.log(np.diagonal(chcm)))
 
     # class weights
     w = ntrl_y / float(ntrl)
@@ -334,18 +334,18 @@ def mi_mixture_1d_gd(x, y):
     cc = .5 * (np.log(2. * np.pi) + 1)
     c = np.zeros((len(ym), nvarx, nvarx))
     chc = np.zeros((len(ym), nvarx, nvarx))
-    for yi in ym:
+    for n_yi, yi in enumerate(ym):
         # class conditional data
         idx = y == yi
         xm = x[:, idx]
         # class mean
-        m[yi, :] = xm.mean(axis=1)
-        ntrl_y[yi] = xm.shape[1]
+        m[n_yi, :] = xm.mean(axis=1)
+        ntrl_y[n_yi] = xm.shape[1]
 
-        xm = xm - m[yi, :][:, np.newaxis]
-        c[yi, :, :] = np.dot(xm, xm.T) / float(ntrl_y[yi] - 1)
-        chc[yi, :, :] = np.linalg.cholesky(c[yi, :, :])
-        hcond[yi] = np.sum(np.log(np.diagonal(chc[yi, :, :]))) + cc * nvarx
+        xm = xm - m[n_yi, :][:, np.newaxis]
+        c[n_yi, :, :] = np.dot(xm, xm.T) / float(ntrl_y[n_yi] - 1)
+        chc[n_yi, :, :] = np.linalg.cholesky(c[n_yi, :, :])
+        hcond[n_yi] = np.sum(np.log(np.diagonal(chc[n_yi, :, :]))) + cc * nvarx
 
     # class weights
     w = ntrl_y / float(ntrl)
@@ -363,7 +363,7 @@ def mi_mixture_1d_gd(x, y):
     d = nvarx
     ds = np.sqrt(nvarx)
     hmix = 0.0
-    for yi in ym:
+    for yi in range(len(ym)):
         ps = ds * chc[yi, :, :].T
         thsm = m[yi, :, np.newaxis]
         # unscented points for this class
@@ -371,7 +371,7 @@ def mi_mixture_1d_gd(x, y):
 
         # class log-likelihoods at unscented points
         log_lik = np.zeros((len(ym), 2 * nvarx))
-        for mi in ym:
+        for mi in range(len(ym)):
             # demean points
             dx = usc - m[mi, :, np.newaxis]
             # gaussian likelihood
