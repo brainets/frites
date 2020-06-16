@@ -22,6 +22,7 @@ New Features
 Bug fixes
 +++++++++
 * Fix when data contains a single time point (:commit:`c815e40`)
+* Fix mi model and mixture (1d only) (:commit:`2b119d4`)
 
 .. raw:: html
 
