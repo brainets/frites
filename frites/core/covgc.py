@@ -78,7 +78,7 @@ def _covgc(d_s, d_t, ind_tx, t0):
     return gc
 
 
-def covgc(data, dt, lag, t0, roi=None, times=None, output_type='array',
+def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
           verbose=None, n_jobs=-1):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
@@ -118,6 +118,8 @@ def covgc(data, dt, lag, t0, roi=None, times=None, output_type='array',
         Number of samples for the lag within each trial
     t0 : array_like
         Array of zero time in samples of length (n_window,)
+    step : int | 1
+        Number of samples stepping in the past for the lag within each trial
     roi : array_like | None
         Array of ROI names of shape (n_roi,). If None, default ROI names will
         be used instead
@@ -156,7 +158,7 @@ def covgc(data, dt, lag, t0, roi=None, times=None, output_type='array',
     if isinstance(t0, CONFIG['INT_DTYPE']) or isinstance(
         t0, CONFIG['FLOAT_DTYPE']):
         t0 = np.array([t0])
-    dt, lag, t0 = int(dt), int(lag), np.asarray(t0).astype(int)
+    dt, lag, step, t0 = int(dt), int(lag), int(step), np.asarray(t0).astype(int)
     # force C contiguous array because operations on row-major
     if not data.flags.c_contiguous:
         data = np.ascontiguousarray(data)
@@ -174,6 +176,10 @@ def covgc(data, dt, lag, t0, roi=None, times=None, output_type='array',
     # -------------------------------------------------------------------------
     # build generic time indices (just need to add t0 to it)
     rows, cols = np.mgrid[0:lag + 1, 0:dt]
+    # Step in the past lags
+    rows = rows[::step]
+    cols = cols[::step]
+    # Create index for all lags and timespoints
     ind_tx = cols - rows
     # build output time vector
     times_p = np.empty((len(t0)), dtype=times.dtype, order='C')
