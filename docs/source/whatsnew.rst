@@ -10,6 +10,7 @@ v0.3.3
 Internal Changes
 ++++++++++++++++
 * :py:class:`frites.workflow.WfFit` and :py:class:`frites.workflow.WfConn` are now using :py:class:`frites.dataset.DatasetEphy.get_connectivity_pairs` (:commit:`18e1`)
+* Improve warning messages + assert error for negative determinant for :py:class:`frites.core.covgc`
 
 New Features
 ++++++++++++

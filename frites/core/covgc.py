@@ -19,7 +19,12 @@ def entr(xy):
     np.dot(xy, xy.T, out=out)
     out /= (n_c - 1)
     # compute determinant
-    h = np.log(np.linalg.det(out))
+    det = np.linalg.det(out)
+    if not det > 0:
+        raise ValueError(f"Can't estimate the entropy properly of the input "
+                         f"matrix of shape {xy.shape}. Try to increase the "
+                         "step")
+    h = np.log(det)
     return h
 
 
@@ -35,7 +40,8 @@ def _covgc(d_s, d_t, ind_tx, t0):
         # force starting indices at t0 + force row-major slicing
         ind_t0 = np.ascontiguousarray(ind_tx + ti)
         for n_tr in range(n_trials):
-            # trial + temporal selection (should still be contiguous)
+            # trial + temporal selection (should still be contiguous) with
+            # shapes of (lag + 1, dt)
             x = d_s[n_tr, ind_t0]
             y = d_t[n_tr, ind_t0]
 
@@ -158,7 +164,8 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
     if isinstance(t0, CONFIG['INT_DTYPE']) or isinstance(
         t0, CONFIG['FLOAT_DTYPE']):
         t0 = np.array([t0])
-    dt, lag, step, t0 = int(dt), int(lag), int(step), np.asarray(t0).astype(int)
+    t0 = np.asarray(t0).astype(int)
+    dt, lag, step = int(dt), int(lag), int(step)
     # force C contiguous array because operations on row-major
     if not data.flags.c_contiguous:
         data = np.ascontiguousarray(data)
@@ -176,10 +183,10 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
     # -------------------------------------------------------------------------
     # build generic time indices (just need to add t0 to it)
     rows, cols = np.mgrid[0:lag + 1, 0:dt]
-    # Step in the past lags
-    rows = rows[::step]
-    cols = cols[::step]
-    # Create index for all lags and timespoints
+    # step in the past lags
+    rows = rows[::step, :]
+    cols = cols[::step, :]
+    # create index for all lags and timespoints
     ind_tx = cols - rows
     # build output time vector
     times_p = np.empty((len(t0)), dtype=times.dtype, order='C')
@@ -189,10 +196,19 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
     x_s, x_t = np.triu_indices(n_roi, k=1)
     pairs = np.c_[x_s, x_t]
     roi_p = np.array([f"{roi[s]}-{roi[t]}" for s, t in zip(x_s, x_t)])
+    # check the ratio between lag and dt
+    ratio = 100 * (ind_tx.shape[0] / ind_tx.shape[1])
+    if not 10. <= ratio <= 15.:
+        _step = int(np.floor((lag + 1) / (.15 * dt)))
+        logger.warning(f"The ratio between the lag and dt is {ratio}%. It's "
+                       f"recommended to conserve this ratio between 10-15%."
+                       f" Try with a step={_step}")
+    logger.debug(f"Index shape : {ind_tx.shape}")
 
     # -------------------------------------------------------------------------
     # compute covgc and parallel over pairs
-    logger.info(f"Compute the covgc (n_pairs={len(x_s)}; n_windows={len(t0)})")
+    logger.info(f"Compute the covgc (n_pairs={len(x_s)}; n_windows={len(t0)},"
+                f" lag={lag}, dt={dt}, step={step})")
     gc = Parallel(n_jobs=n_jobs)(delayed(_covgc)(
         data[:, s, :], data[:, t, :], ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
