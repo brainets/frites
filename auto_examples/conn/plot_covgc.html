@@ -298,29 +298,30 @@ each of the temporal window</p>
 <span class="n">gc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span> <span class="o">=</span> <a href="../../generated/frites.core.covgc.html#frites.core.covgc" title="View documentation for frites.core.covgc"><span class="n">covgc</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span>
                                   <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataarray&#39;</span><span class="p">)</span>
 <span class="c1"># take the mean across trials</span>
-<span class="c1"># gc = gc.mean(&#39;trials&#39;)</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">)</span>
 
-<span class="c1"># plt.figure(figsize=(10, 8))</span>
-<span class="c1"># plt.subplot(311)</span>
-<span class="c1"># for r in roi_p:</span>
-<span class="c1">#     plt.plot(gc.times.data, gc.sel(roi=r, direction=&#39;x-&gt;y&#39;).T,</span>
-<span class="c1">#              label=r.replace(&#39;-&#39;, &#39; -&gt; &#39;))</span>
-<span class="c1"># plt.legend()</span>
-<span class="c1"># plt.subplot(312)</span>
-<span class="c1"># for r in roi_p:</span>
-<span class="c1">#     plt.plot(gc.times.data, gc.sel(roi=r, direction=&#39;y-&gt;x&#39;).T,</span>
-<span class="c1">#              label=r.replace(&#39;-&#39;, &#39; &lt;- &#39;))</span>
-<span class="c1"># plt.legend()</span>
-<span class="c1"># plt.subplot(313)</span>
-<span class="c1"># for r in roi_p:</span>
-<span class="c1">#     plt.plot(gc.times.data, gc.sel(roi=r, direction=&#39;x.y&#39;).T,</span>
-<span class="c1">#              label=r.replace(&#39;-&#39;, &#39; . &#39;))</span>
-<span class="c1"># plt.legend()</span>
-<span class="c1"># plt.xlabel(&#39;Time&#39;)</span>
-<span class="c1"># plt.show()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">roi_p</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gc</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39; -&gt; &#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">roi_p</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gc</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;y-&gt;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39; &lt;- &#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">roi_p</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gc</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x.y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39; . &#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  12.717 seconds)</p>
+<img alt="../../_images/sphx_glr_plot_covgc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_covgc_001.png" />
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.339 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-covgc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ee1f0832532d03495816a5e28ca6bb6d/plot_covgc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_covgc.py</span></code></a></p>
