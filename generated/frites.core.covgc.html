@@ -246,7 +246,7 @@
 <h1>frites.core.covgc<a class="headerlink" href="#frites-core-covgc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.core.covgc">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">step=1</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">output_type='array'</em>, <em class="sig-param">verbose=None</em>, <em class="sig-param">n_jobs=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/covgc.html#covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.covgc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">step=1</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">method='gauss'</em>, <em class="sig-param">output_type='array'</em>, <em class="sig-param">verbose=None</em>, <em class="sig-param">n_jobs=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/covgc.html#covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.covgc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single-trial covariance-based Granger Causality for gaussian variables.</p>
 <p>This function computes the covariance-based Granger Causality (covgc) for
 each trial.</p>
@@ -291,6 +291,10 @@ be used instead</p>
 </dd>
 <dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>Time vector of shape (n_times,). If None, a default vector will be used
 instead</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">{‘gauss’, ‘gc’}</span></dt><dd><p>Method for the estimation of the covgc. Use either ‘gauss’ which
+assumes that the time-points are normally distributed or ‘gc’ in order
+to use the gaussian-copula.</p>
 </dd>
 <dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataarray’}</span></dt><dd><p>Output type, either standard NumPy array or xarray.DataArray</p>
 </dd>

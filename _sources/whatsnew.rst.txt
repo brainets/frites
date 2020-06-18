@@ -17,9 +17,10 @@ New Features
 * New method :py:class:`frites.dataset.DatasetEphy.get_connectivity_pairs` in order to get possible connectivity pairs (:commit:`4e77`)
 * New function :py:func:`frites.utils.define_windows` and :py:func:`frites.utils.plot_windows` in order to generate and plot slicing windows + tests + example (:commit:`6fcf`)
 * New function for computing the DFC :py:class:`frites.core.dfc_gc` (:commit:`8f6f`)
+* When using DataArray with :py:class:`frites.core.dfc_gc` and :py:class:`frites.core.covgc`, temporal attributes are added (:commit:`5df6`, :commit:`6266`)
 * New function for computing the covgc :py:class:`frites.core.covgc` (:commit:`ea26`)
 * Step parameter for :py:class:`frites.core.covgc` (:commit:`874af`)
-* When using DataArray with :py:class:`frites.core.dfc_gc` and :py:class:`frites.core.covgc`, temporal attributes are added (:commit:`5df6`, :commit:`6266`)
+* :py:class:`frites.core.covgc` can no be computed using Gaussian-Copula (:commit:`aea6a8b`)
 
 Bug fixes
 +++++++++
