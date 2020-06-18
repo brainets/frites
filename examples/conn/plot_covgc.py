@@ -61,23 +61,23 @@ dt = 100
 gc, pairs, roi_p, times_p = covgc(x, dt, lag, t0, times=times, roi=roi,
                                   n_jobs=1, output_type='dataarray')
 # take the mean across trials
-# gc = gc.mean('trials')
+gc = gc.mean('trials')
 
-# plt.figure(figsize=(10, 8))
-# plt.subplot(311)
-# for r in roi_p:
-#     plt.plot(gc.times.data, gc.sel(roi=r, direction='x->y').T,
-#              label=r.replace('-', ' -> '))
-# plt.legend()
-# plt.subplot(312)
-# for r in roi_p:
-#     plt.plot(gc.times.data, gc.sel(roi=r, direction='y->x').T,
-#              label=r.replace('-', ' <- '))
-# plt.legend()
-# plt.subplot(313)
-# for r in roi_p:
-#     plt.plot(gc.times.data, gc.sel(roi=r, direction='x.y').T,
-#              label=r.replace('-', ' . '))
-# plt.legend()
-# plt.xlabel('Time')
-# plt.show()
+plt.figure(figsize=(10, 8))
+plt.subplot(311)
+for r in roi_p:
+    plt.plot(gc.times.data, gc.sel(roi=r, direction='x->y').T,
+             label=r.replace('-', ' -> '))
+plt.legend()
+plt.subplot(312)
+for r in roi_p:
+    plt.plot(gc.times.data, gc.sel(roi=r, direction='y->x').T,
+             label=r.replace('-', ' <- '))
+plt.legend()
+plt.subplot(313)
+for r in roi_p:
+    plt.plot(gc.times.data, gc.sel(roi=r, direction='x.y').T,
+             label=r.replace('-', ' . '))
+plt.legend()
+plt.xlabel('Time')
+plt.show()
