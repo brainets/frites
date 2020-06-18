@@ -59,6 +59,7 @@ class TestIt(object):
         lag = 2
         t0 = [50, 80]
 
+        _ = covgc(x, dt, lag, t0, n_jobs=1, method='gc')[0]
         gc = covgc(x, dt, lag, t0, n_jobs=1)[0]
         assert gc.shape == (n_epochs, 3, len(t0), 3)
         gc = covgc(x, dt, lag, t0, n_jobs=1, output_type='dataarray')[0]

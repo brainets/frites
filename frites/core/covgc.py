@@ -4,6 +4,8 @@ from joblib import Parallel, delayed
 
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
+from frites.core.gcmi_nd import cmi_nd_ggg
+from frites.core.copnorm import copnorm_nd
 
 
 
@@ -74,18 +76,57 @@ def _covgc(d_s, d_t, ind_tx, t0):
             # -----------------------------------------------------------------
             # Granger Causality measures
             # -----------------------------------------------------------------
-            # gc(pairs(:,1)->pairs(:,2))
+            # gc(pairs(:,1) -> pairs(:,2))
             gc[n_tr, n_ti, 0] = hycy - hycx
-            # gc(pairs(:,2)->pairs(:,1))
+            # gc(pairs(:,2) -> pairs(:,1))
             gc[n_tr, n_ti, 1] = hxcx - hxcy
-            # gc(x.y)
+            # gc(pairs(:,2) . pairs(:,1))
             gc[n_tr, n_ti, 2] = hycx + hxcy - hxxcyy
 
     return gc
 
 
-def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
-          verbose=None, n_jobs=-1):
+def _gccovgc(d_s, d_t, ind_tx, t0):
+    """Compute the Gaussian-Copula based covGC for a single pair.
+
+    This function computes the covGC for a single pair, across multiple trials,
+    at different time indices.
+    """
+    kw = CONFIG["KW_GCMI"]
+    n_trials, n_times = d_s.shape[0], len(t0)
+    gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
+    for n_ti, ti in enumerate(t0):
+        # force starting indices at t0 + force row-major slicing
+        ind_t0 = np.ascontiguousarray(ind_tx + ti)
+        x = d_s[:, ind_t0]
+        y = d_t[:, ind_t0]
+        # temporal selection
+        x_pres, x_past = x[:, [0], :], x[:, 1:, :]
+        y_pres, y_past = y[:, [0], :], y[:, 1:, :]
+        xy_past = np.concatenate((x[:, 1:, :], y[:, 1:, :]), axis=1)
+        # copnorm over the last axis (avoid copnorming several times)
+        x_pres = copnorm_nd(x_pres, axis=-1)
+        x_past = copnorm_nd(x_past, axis=-1)
+        y_pres = copnorm_nd(y_pres, axis=-1)
+        y_past = copnorm_nd(y_past, axis=-1)
+        xy_past = copnorm_nd(xy_past, axis=-1)
+
+        # -----------------------------------------------------------------
+        # Granger Causality measures
+        # -----------------------------------------------------------------
+        # gc(pairs(:,1) -> pairs(:,2))
+        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, y_past, **kw)
+        # gc(pairs(:,2) -> pairs(:,1))
+        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, x_past, **kw)
+        # gc(pairs(:,2) . pairs(:,1))
+        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw)
+    
+    return gc
+
+
+
+def covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
+          output_type='array', verbose=None, n_jobs=-1):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
     This function computes the covariance-based Granger Causality (covgc) for
@@ -132,6 +173,10 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
     times : array_like | None
         Time vector of shape (n_times,). If None, a default vector will be used
         instead
+    method : {'gauss', 'gc'}
+        Method for the estimation of the covgc. Use either 'gauss' which
+        assumes that the time-points are normally distributed or 'gc' in order
+        to use the gaussian-copula.
     output_type : {'array', 'dataarray'}
         Output type, either standard NumPy array or xarray.DataArray
     n_jobs : int | -1
@@ -179,6 +224,9 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
         times = np.arange(n_times)
     times = np.asarray(times)
     assert (len(roi) == n_roi) and (len(times) == n_times)
+    # method checking
+    assert method in ['gauss', 'gc']
+    fcn = dict(gauss=_covgc, gc=_gccovgc)[method]
 
     # -------------------------------------------------------------------------
     # build generic time indices (just need to add t0 to it)
@@ -207,9 +255,9 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
 
     # -------------------------------------------------------------------------
     # compute covgc and parallel over pairs
-    logger.info(f"Compute the covgc (n_pairs={len(x_s)}; n_windows={len(t0)},"
-                f" lag={lag}, dt={dt}, step={step})")
-    gc = Parallel(n_jobs=n_jobs)(delayed(_covgc)(
+    logger.info(f"Compute the covgc (method={method}, n_pairs={len(x_s)}; "
+                f"n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
+    gc = Parallel(n_jobs=n_jobs)(delayed(fcn)(
         data[:, s, :], data[:, t, :], ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
@@ -223,6 +271,7 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, output_type='array',
                        coords=(trials, roi_p, times_p, dire))
         # set attributes
         gc.attrs['lag'] = lag
+        gc.attrs['step'] = lag
         gc.attrs['dt'] = dt
         gc.attrs['t0'] = t0
 
