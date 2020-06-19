@@ -56,7 +56,7 @@ x[:, [0], slice(599, 799)] += x[:, [0], slice(600, 800)]
 # each of the temporal window
 
 t0 = np.arange(100, 900, 10)
-lag = 30
+lag = 10
 dt = 100
 gc, pairs, roi_p, times_p = covgc(x, dt, lag, t0, times=times, roi=roi,
                                   n_jobs=1, output_type='dataarray')
