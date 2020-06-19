@@ -271,7 +271,7 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
                        coords=(trials, roi_p, times_p, dire))
         # set attributes
         gc.attrs['lag'] = lag
-        gc.attrs['step'] = lag
+        gc.attrs['step'] = step
         gc.attrs['dt'] = dt
         gc.attrs['t0'] = t0
 
