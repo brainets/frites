@@ -8,6 +8,8 @@ from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
 
 
+LOG2 = np.log(2)
+
 
 def entr(xy):
     """Entropy of a gaussian variable.
@@ -83,7 +85,7 @@ def _covgc(d_s, d_t, ind_tx, t0):
             # gc(pairs(:,2) . pairs(:,1))
             gc[n_tr, n_ti, 2] = hycx + hxcy - hxxcyy
 
-    return gc
+    return gc / (2. * LOG2)
 
 
 def _gccovgc(d_s, d_t, ind_tx, t0):
