@@ -247,9 +247,9 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
     pairs = np.c_[x_s, x_t]
     roi_p = np.array([f"{roi[s]}-{roi[t]}" for s, t in zip(x_s, x_t)])
     # check the ratio between lag and dt
-    ratio = 100 * (ind_tx.shape[0] / ind_tx.shape[1])
+    ratio = 100 * (ind_tx.shape[0] / (step * ind_tx.shape[1]))
     if not 10. <= ratio <= 15.:
-        _step = int(np.floor((lag + 1) / (.15 * dt)))
+        _step = int(np.ceil((lag + 1) / (.15 * dt)))
         logger.warning(f"The ratio between the lag and dt is {ratio}%. It's "
                        f"recommended to conserve this ratio between 10-15%."
                        f" Try with a step={_step}")
