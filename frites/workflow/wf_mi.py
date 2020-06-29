@@ -227,8 +227,8 @@ class WfMi(WfBase):
             Output format of the returned mutual information and p-values. For
             details, see :func:`frites.io.convert_spatiotemporal_outputs`
         kw_stats : dict | {}
-            Additional arguments to pass to the selected statistical method
-            selected using the `stat_method` input parameter
+            Additional arguments are sent to
+            :py:class:`frites.dataset.WfStatsEphy.fit`
 
         Returns
         -------
@@ -299,6 +299,84 @@ class WfMi(WfBase):
             output_type=output_type)
 
         return outs
+
+    def conjunction_analysis(self, dataset, p=.05, mcp='cluster',
+                             cluster_th=None, cluster_alpha=0.05):
+        """Perform a conjunction analysis.
+
+        This method can be used in order to determine the number of subjects
+        that present a significant effect at a given significiency threshold.
+        Note that in order to work, the workflow of mutual information must
+        have already been launched using the
+        :py:class:`frites.workflow.WfMi.fit`.
+
+
+        .. warning::
+
+            In order to work this method require that the workflow has been
+            defined with `inference='rfx'` so that MI are computed per subject
+
+        Parameters
+        ----------
+        dataset : :class:`frites.dataset.DatasetEphy`
+            A dataset instance. Note that it should be the same dataset used
+            with the fit() method.
+        p : float | 0.05
+            Significiency threshold to find significant effect per subject.
+        kwargs : dict | {}
+            Optional arguments are the same as
+            :py:class:`frites.workflow.WfMi.fit` method.
+
+        Returns
+        -------
+        conj_ss : array_like
+            DataArray of shape (n_subjects, n_times, n_roi) describing where
+            each subject have significant MI
+        conj : array_like
+            DataArray of shape (n_times, n_roi) describing the number of
+            subjects that have a significant MI
+        """
+        import xarray as xr
+        # input checking
+        assert self._inference == 'rfx', (
+            "Conjunction analysis are only possible when the MI has been "
+            "computed per subject (inference='rfx')")
+        assert len(self._mi) and len(self._mi_p), (
+            "You've to lauched the workflow (`fit()`) before being able to "
+            "perform the conjunction analysis.")
+
+        # retrieve the original number of subjects
+        n_roi = len(self._mi)
+        pv_s = {}
+        for s in range(dataset.n_subjects):
+            # reconstruct the mi and mi_p of each subject
+            mi_s, mi_ps = [], []
+            for r in range(n_roi):
+                suj_roi_u = dataset.suj_roi_u[r]
+                if s not in suj_roi_u: continue  # noqa
+                is_suj = suj_roi_u == s
+                mi_s += [self._mi[r][is_suj, :]]
+                mi_ps += [self._mi_p[r][:, is_suj, :]]
+
+            # perform the statistics
+            _pv_s = self._wf_stats.fit(
+            mi_s, mi_ps, mcp=mcp, cluster_th=cluster_th, tail=1,
+            cluster_alpha=cluster_alpha, inference='ffx')[0]
+            # dataarray conversion
+            pv_s[s] = xr.DataArray(
+                _pv_s < p, dims=('times', 'roi'),
+                coords=(dataset.times, dataset.roi[s]))
+        # cross-subjects conjunction
+        conj_ss = xr.Dataset(pv_s).to_array('subject')
+        conj = conj_ss.sum('subject')
+        # add attributes to the dataarray
+        attrs = dict(p=p, cluster_th=cluster_th, cluster_alpha=cluster_alpha,
+                     mcp=mcp)
+        for k, v in attrs.items():
+            v = 'none' if v is None else v
+            conj[k], conj_ss[k] = v, v
+
+        return conj_ss, conj
 
     def clean(self):
         """Clean computations."""
