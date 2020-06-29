@@ -318,10 +318,13 @@ moving average</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>(self)</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, mcp, n_perm, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjunction_analysis</span></code></a>(self, dataset[, p, …])</p></td>
+<td><p>Perform a conjunction analysis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self, dataset[, mcp, n_perm, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(self, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(self, **kwargs)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -351,6 +354,46 @@ moving average</p>
 <dt id="frites.workflow.WfMi.clean">
 <code class="sig-name descname">clean</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean computations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfMi.conjunction_analysis">
+<code class="sig-name descname">conjunction_analysis</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">p=0.05</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.conjunction_analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.conjunction_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a conjunction analysis.</p>
+<p>This method can be used in order to determine the number of subjects
+that present a significant effect at a given significiency threshold.
+Note that in order to work, the workflow of mutual information must
+have already been launched using the
+<a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi.fit</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In order to work this method require that the workflow has been
+defined with <cite>inference=’rfx’</cite> so that MI are computed per subject</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance. Note that it should be the same dataset used
+with the fit() method.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">float | 0.05</span></dt><dd><p>Significiency threshold to find significant effect per subject.</p>
+</dd>
+<dt><strong>kwargs</strong><span class="classifier">dict | {}</span></dt><dd><p>Optional arguments are the same as
+<a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi.fit</span></code></a> method.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>conj_ss</strong><span class="classifier">array_like</span></dt><dd><p>DataArray of shape (n_subjects, n_times, n_roi) describing where
+each subject have significant MI</p>
+</dd>
+<dt><strong>conj</strong><span class="classifier">array_like</span></dt><dd><p>DataArray of shape (n_times, n_roi) describing the number of
+subjects that have a significant MI</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -416,8 +459,8 @@ If None, a random state is randomly assigned.</p>
 <dt><strong>output_type</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Output format of the returned mutual information and p-values. For
 details, see <a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs" title="frites.io.convert_spatiotemporal_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.io.convert_spatiotemporal_outputs()</span></code></a></p>
 </dd>
-<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
-selected using the <cite>stat_method</cite> input parameter</p>
+<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments are sent to
+<code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.WfStatsEphy.fit</span></code></p>
 </dd>
 </dl>
 </dd>
@@ -491,7 +534,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-23.</p>
+        <p>&copy; Copyright Last updated on 2020-06-29.</p>
     </footer>
 
   </body>

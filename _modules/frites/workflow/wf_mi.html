@@ -466,8 +466,8 @@
 <span class="sd">            Output format of the returned mutual information and p-values. For</span>
 <span class="sd">            details, see :func:`frites.io.convert_spatiotemporal_outputs`</span>
 <span class="sd">        kw_stats : dict | {}</span>
-<span class="sd">            Additional arguments to pass to the selected statistical method</span>
-<span class="sd">            selected using the `stat_method` input parameter</span>
+<span class="sd">            Additional arguments are sent to</span>
+<span class="sd">            :py:class:`frites.dataset.WfStatsEphy.fit`</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -539,6 +539,84 @@
 
         <span class="k">return</span> <span class="n">outs</span></div>
 
+<div class="viewcode-block" id="WfMi.conjunction_analysis"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.conjunction_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">conjunction_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">p</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+                             <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform a conjunction analysis.</span>
+
+<span class="sd">        This method can be used in order to determine the number of subjects</span>
+<span class="sd">        that present a significant effect at a given significiency threshold.</span>
+<span class="sd">        Note that in order to work, the workflow of mutual information must</span>
+<span class="sd">        have already been launched using the</span>
+<span class="sd">        :py:class:`frites.workflow.WfMi.fit`.</span>
+
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            In order to work this method require that the workflow has been</span>
+<span class="sd">            defined with `inference=&#39;rfx&#39;` so that MI are computed per subject</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
+<span class="sd">            A dataset instance. Note that it should be the same dataset used</span>
+<span class="sd">            with the fit() method.</span>
+<span class="sd">        p : float | 0.05</span>
+<span class="sd">            Significiency threshold to find significant effect per subject.</span>
+<span class="sd">        kwargs : dict | {}</span>
+<span class="sd">            Optional arguments are the same as</span>
+<span class="sd">            :py:class:`frites.workflow.WfMi.fit` method.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        conj_ss : array_like</span>
+<span class="sd">            DataArray of shape (n_subjects, n_times, n_roi) describing where</span>
+<span class="sd">            each subject have significant MI</span>
+<span class="sd">        conj : array_like</span>
+<span class="sd">            DataArray of shape (n_times, n_roi) describing the number of</span>
+<span class="sd">            subjects that have a significant MI</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+        <span class="c1"># input checking</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;Conjunction analysis are only possible when the MI has been &quot;</span>
+            <span class="s2">&quot;computed per subject (inference=&#39;rfx&#39;)&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">),</span> <span class="p">(</span>
+            <span class="s2">&quot;You&#39;ve to lauched the workflow (`fit()`) before being able to &quot;</span>
+            <span class="s2">&quot;perform the conjunction analysis.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># retrieve the original number of subjects</span>
+        <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">)</span>
+        <span class="n">pv_s</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">):</span>
+            <span class="c1"># reconstruct the mi and mi_p of each subject</span>
+            <span class="n">mi_s</span><span class="p">,</span> <span class="n">mi_ps</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+                <span class="n">suj_roi_u</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi_u</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suj_roi_u</span><span class="p">:</span> <span class="k">continue</span>  <span class="c1"># noqa</span>
+                <span class="n">is_suj</span> <span class="o">=</span> <span class="n">suj_roi_u</span> <span class="o">==</span> <span class="n">s</span>
+                <span class="n">mi_s</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">is_suj</span><span class="p">,</span> <span class="p">:]]</span>
+                <span class="n">mi_ps</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">][:,</span> <span class="n">is_suj</span><span class="p">,</span> <span class="p">:]]</span>
+
+            <span class="c1"># perform the statistics</span>
+            <span class="n">_pv_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="n">mi_s</span><span class="p">,</span> <span class="n">mi_ps</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;ffx&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># dataarray conversion</span>
+            <span class="n">pv_s</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+                <span class="n">_pv_s</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span>
+                <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="n">s</span><span class="p">]))</span>
+        <span class="c1"># cross-subjects conjunction</span>
+        <span class="n">conj_ss</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">pv_s</span><span class="p">)</span><span class="o">.</span><span class="n">to_array</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+        <span class="n">conj</span> <span class="o">=</span> <span class="n">conj_ss</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+        <span class="c1"># add attributes to the dataarray</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span>
+                     <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">v</span>
+            <span class="n">conj</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">conj_ss</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">v</span>
+
+        <span class="k">return</span> <span class="n">conj_ss</span><span class="p">,</span> <span class="n">conj</span></div>
+
 <div class="viewcode-block" id="WfMi.clean"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clean computations.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="kc">None</span></div>
@@ -593,7 +671,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-23.</p>
+        <p>&copy; Copyright Last updated on 2020-06-29.</p>
     </footer>
 
   </body>
