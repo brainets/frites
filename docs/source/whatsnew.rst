@@ -21,6 +21,7 @@ New Features
 * New function for computing the covgc :py:class:`frites.core.covgc` (:commit:`ea26`)
 * Step parameter for :py:class:`frites.core.covgc` (:commit:`874af`)
 * :py:class:`frites.core.covgc` can no be computed using Gaussian-Copula (:commit:`aea6a8b`)
+* Add :py:class:`frites.workflow.WfMi.conjunction_analysis` for performing conjunction analysis + example (:commit:`7dd0bea`)
 
 Bug fixes
 +++++++++
