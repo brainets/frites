@@ -147,6 +147,7 @@ sphinx_gallery_conf = {
         '../../examples/utils',
         '../../examples/statistics',
         '../../examples/simulations',
+        '../../examples/xarray'
         ]),
     # 'thumbnail_size': (100, 100),
 }
