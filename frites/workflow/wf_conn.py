@@ -142,7 +142,7 @@ class WfConn(WfBase):
 
     def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
             cluster_alpha=0.05, n_bins=None, n_jobs=-1, random_state=None,
-            output_type='3d_dataframe', **kw_stats):
+            **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -193,10 +193,6 @@ class WfConn(WfBase):
         random_state : int | None
             Fix the random state of the machine (use it for reproducibility).
             If None, a random state is randomly assigned.
-        output_type : string
-            Output format of the returned mi and p-values. For details, see
-            :func:`frites.io.convert_dfc_outputs`. Use either '2d_array',
-            '3d_array', '2d_dataframe', '3d_dataframe', 'dataarray'.
         kw_stats : dict | {}
             Additional arguments to pass to the selected statistical method
             selected using the `stat_method` input parameter
@@ -204,8 +200,7 @@ class WfConn(WfBase):
         Returns
         -------
         mi, pvalues : array_like
-            Array of mean mutual information and p-values. Output types and
-            shapes depends on the `output_type` input parameter.
+            DataArray of mean mutual information and p-values.
 
         References
         ----------
@@ -252,9 +247,9 @@ class WfConn(WfBase):
         # ---------------------------------------------------------------------
         # post-processing
         # ---------------------------------------------------------------------
-        logger.info(f"    Formatting output type ({output_type})")
+        logger.info(f"    Formatting outputs")
         args = (self._times, dataset.roi_names, self.pairs[0], self.pairs[1],
-                output_type)
+                'dataarray')
         if isinstance(tvalues, np.ndarray):
             self._tvalues = convert_dfc_outputs(tvalues, *args)
         pvalues = convert_dfc_outputs(pvalues, is_pvalue=True, *args)
@@ -263,8 +258,8 @@ class WfConn(WfBase):
         elif self._inference is 'ffx':
             mi = np.concatenate(mi, axis=0).T  # mi
         mi = convert_dfc_outputs(mi, *args)
-        if output_type is 'dataarray':
-            mi, pvalues = self._attrs_xarray(mi), self._attrs_xarray(pvalues)
+        # converting outputs
+        mi, pvalues = self._attrs_xarray(mi), self._attrs_xarray(pvalues)
 
         return mi, pvalues
 

@@ -1,7 +1,8 @@
 """Information transfer functions."""
-from frites.io import set_log_level, logger
-
 import numpy as np
+import xarray as xr
+
+from frites.io import set_log_level, logger
 
 from frites.core import mi_nd_gg, cmi_nd_ggg, copnorm_nd
 from frites.utils import jit
@@ -16,7 +17,7 @@ from frites.config import CONFIG
 ###############################################################################
 
 
-def dfc_gc(data, times, roi, win_sample, output_type='array', verbose=None):
+def dfc_gc(data, times, roi, win_sample, verbose=None):
     """Compute the Dynamic Functional Connectivity using the GCMI.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
@@ -37,8 +38,6 @@ def dfc_gc(data, times, roi, win_sample, output_type='array', verbose=None):
         Array of shape (n_windows, 2) describing where each window start and
         finish. You can use the function :func:`frites.utils.define_windows`
         to define either manually either sliding windows.
-    output_type : {'array', 'dataarray'}
-        Output type, either standard NumPy array or xarray.DataArray
 
     Returns
     -------
@@ -82,16 +81,14 @@ def dfc_gc(data, times, roi, win_sample, output_type='array', verbose=None):
                                         **CONFIG["KW_GCMI"])
 
     # -------------------------------------------------------------------------
-    # change output type
-    if output_type is 'dataarray':
-        from xarray import DataArray
-        trials = np.arange(n_epochs)
-        win_times = times[win_sample]
-        dfc = DataArray(dfc, dims=('trials', 'roi', 'times'),
-                        coords=(trials, roi_p, win_times.mean(1)))
-        # add the windows used in the attributes
-        dfc.attrs['win_sample'] = np.r_[tuple(win_sample)]
-        dfc.attrs['win_times'] = np.r_[tuple(win_times)]
+    # dataarray conversion
+    trials = np.arange(n_epochs)
+    win_times = times[win_sample]
+    dfc = xr.DataArray(dfc, dims=('trials', 'roi', 'times'),
+                       coords=(trials, roi_p, win_times.mean(1)))
+    # add the windows used in the attributes
+    dfc.attrs['win_sample'] = np.r_[tuple(win_sample)]
+    dfc.attrs['win_times'] = np.r_[tuple(win_times)]
 
     return dfc, pairs, roi_p
 

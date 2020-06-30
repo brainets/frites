@@ -68,28 +68,6 @@ class TestWfMi(object):  # noqa
             WfMi(mi_type='ccd', inference='rfx', mi_method=mi_meth,
                  verbose=False).fit(dt, **kw_mi)
 
-    def test_output_type(self):
-        """Test function output_type."""
-        import pandas as pd
-        from xarray import DataArray
-        y, gt = sim_mi_cc(x, snr=1.)
-        dt = DatasetEphy(x, y, roi, times=time)
-        wf = WfMi('cc', 'ffx', verbose=False)
-        # array
-        mi, pv = wf.fit(dt, output_type='array', **kw_mi)
-        assert all([isinstance(k, np.ndarray) for k in [mi, pv]])
-        # dataframe
-        mi, pv = wf.fit(dt, output_type='dataframe', **kw_mi)
-        assert all([isinstance(k, pd.DataFrame) for k in [mi, pv]])
-        # dataarray
-        mi, pv = wf.fit(dt, output_type='dataarray', **kw_mi)
-        assert all([isinstance(k, DataArray) for k in [mi, pv]])
-        # test clean
-        mi, mi_p = wf.mi, wf.mi_p
-        assert all([isinstance(k, list) for k in [mi, mi_p]])
-        wf.clean()
-        assert len(wf.mi) == len(wf.mi_p) == 0
-
     def test_no_stat(self):
         """Test on no stats / no permutations / don't repeat computations."""
         y, gt = sim_mi_cc(x, snr=1.)
@@ -103,7 +81,7 @@ class TestWfMi(object):  # noqa
         assert len(wf.mi_p[0].shape) != 0
         # don't compute permutations nor stats
         wf = WfMi('cc', 'ffx', verbose=False)
-        mi, pv = wf.fit(dt, mcp=None, output_type='array', **kw_mi)
+        mi, pv = wf.fit(dt, mcp=None, **kw_mi)
         assert wf.mi_p[0].shape == (0,)
         assert pv.min() == pv.max() == 1.
         # don't compute permutations twice

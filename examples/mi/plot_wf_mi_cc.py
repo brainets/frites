@@ -76,7 +76,7 @@ dt = DatasetEphy(x, y, roi)
 mi_type = 'cc'
 
 # define the workflow
-wf = WfMi(mi_type)
+wf = WfMi(mi_type, inference='ffx')
 # compute the mutual information without permutations
 mi, _ = wf.fit(dt, mcp=None)
 

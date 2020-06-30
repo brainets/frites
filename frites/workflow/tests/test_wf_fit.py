@@ -58,29 +58,10 @@ class TestWfFit(object):
     def test_biunidirected(self):
         # bidirected
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        fd = WfFit(mi_type='cd').fit(
-            ds, net=False, output_type='2d_array', **kw_fit)[0]
+        fd = WfFit(mi_type='cd').fit(ds, net=False, **kw_fit)[0]
         # unidirected
         ds = DatasetEphy(x, y, roi=roi, times=times)
-        nd = WfFit(mi_type='cd').fit(
-            ds, net=True, output_type='2d_array', **kw_fit)[0]
-        assert fd.shape[1] > nd.shape[1]
-
-    def test_output_type(self):
-        import pandas as pd
-        from xarray import DataArray
-        outs = {'2d_array': np.ndarray, '3d_array': np.ndarray,
-                '2d_dataframe': pd.DataFrame, '3d_dataframe': pd.DataFrame,
-                'dataarray': DataArray}
-
-        ds = DatasetEphy(x, y, roi=roi, times=times)
-        for o_type, t_type in outs.items():
-            wf = WfFit(mi_type='cd')
-            fit, pv = wf.fit(ds, output_type=o_type, **kw_fit)
-            tv = wf.tvalues
-            assert isinstance(fit, t_type)
-            assert isinstance(pv, t_type)
-            assert isinstance(tv, t_type)
+        nd = WfFit(mi_type='cd').fit(ds, net=True, **kw_fit)[0]
 
     def test_properties(self):
         ds = DatasetEphy(x, y, roi=roi, times=times)
@@ -94,9 +75,9 @@ class TestWfFit(object):
         n_pairs = n_roi * (n_roi - 1)
         n_t = len(wf.times)
         assert len(wf.sources) == len(wf.targets) == n_pairs
-        assert fit.shape == (n_t, n_pairs)
-        assert pv.shape == (n_t, n_pairs)
-        assert wf.tvalues.shape == (n_t, n_pairs)
+        assert fit.shape == (n_roi, n_roi, n_t)
+        assert pv.shape == (n_roi, n_roi, n_t)
+        assert wf.tvalues.shape == (n_roi, n_roi, n_t)
         assert len(wf.fit_roi) == len(wf.fitp_roi) == n_pairs
         assert len(wf.mi) == len(wf.mi_p) == n_roi
 

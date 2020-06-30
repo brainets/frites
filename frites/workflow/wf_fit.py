@@ -138,7 +138,7 @@ class WfFit(WfBase):
 
     def fit(self, dataset, max_delay=0.3, net=False, mcp='cluster',
             cluster_th=None, cluster_alpha=0.05, n_perm=1000, n_jobs=-1,
-            random_state=None, output_type='3d_dataframe', **kw_stats):
+            random_state=None, **kw_stats):
         """Compute the Feature Specific Information transfer and statistics.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -193,10 +193,6 @@ class WfFit(WfBase):
         random_state : int | None
             Fix the random state of the machine (use it for reproducibility).
             If None, a random state is randomly assigned.
-        output_type : string
-            Output format of the returned FIT and p-values. For details, see
-            :func:`frites.io.convert_dfc_outputs`. Use either '2d_array',
-            '3d_array', '2d_dataframe', '3d_dataframe', 'dataarray'.
         kw_stats : dict | {}
             Additional arguments to pass to the :class:`WfStatsEphy.fit`
             method
@@ -252,9 +248,9 @@ class WfFit(WfBase):
         # ---------------------------------------------------------------------
         # post-processing
         # ---------------------------------------------------------------------
-        logger.info(f"    Formatting output type ({output_type})")
+        logger.info(f"    Formatting output type")
         args = (self._times, dataset.roi_names, self._sources, self._targets,
-                output_type)
+                'dataarray')
         if isinstance(tvalues, np.ndarray):
             self._tvalues = convert_dfc_outputs(tvalues, *args)
         pvalues = convert_dfc_outputs(pvalues, is_pvalue=True, *args)
@@ -263,8 +259,8 @@ class WfFit(WfBase):
         elif inference is 'rfx':
             fit = np.stack(self._fit_m, axis=1)     # mean mi
         fit = convert_dfc_outputs(fit, *args)
-        if output_type is 'dataarray':
-            fit, pvalues = self._attrs_xarray(fit), self._attrs_xarray(pvalues)
+        # adding attributes
+        fit, pvalues = self._attrs_xarray(fit), self._attrs_xarray(pvalues)
 
         return fit, pvalues
 

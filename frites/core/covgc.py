@@ -1,5 +1,6 @@
 """Single-trial covariance-based Granger Causality for gaussian variables."""
 import numpy as np
+import xarray as xr
 from joblib import Parallel, delayed
 
 from frites.io import set_log_level, logger
@@ -128,7 +129,7 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
 
 
 def covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
-          output_type='array', verbose=None, n_jobs=-1):
+          verbose=None, n_jobs=-1):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
     This function computes the covariance-based Granger Causality (covgc) for
@@ -179,8 +180,6 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
         Method for the estimation of the covgc. Use either 'gauss' which
         assumes that the time-points are normally distributed or 'gc' in order
         to use the gaussian-copula.
-    output_type : {'array', 'dataarray'}
-        Output type, either standard NumPy array or xarray.DataArray
     n_jobs : int | -1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
@@ -265,16 +264,14 @@ def covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
 
     # -------------------------------------------------------------------------
     # change output type
-    if output_type is 'dataarray':
-        from xarray import DataArray
-        trials = np.arange(n_epochs)
-        dire = np.array(['x->y', 'y->x', 'x.y'])
-        gc = DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
-                       coords=(trials, roi_p, times_p, dire))
-        # set attributes
-        gc.attrs['lag'] = lag
-        gc.attrs['step'] = step
-        gc.attrs['dt'] = dt
-        gc.attrs['t0'] = t0
+    trials = np.arange(n_epochs)
+    dire = np.array(['x->y', 'y->x', 'x.y'])
+    gc = xr.DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
+                      coords=(trials, roi_p, times_p, dire))
+    # set attributes
+    gc.attrs['lag'] = lag
+    gc.attrs['step'] = step
+    gc.attrs['dt'] = dt
+    gc.attrs['t0'] = t0
 
     return gc, pairs, roi_p, times_p

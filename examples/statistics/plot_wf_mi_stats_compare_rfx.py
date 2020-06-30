@@ -74,7 +74,7 @@ wf = WfMi(mi_type, inference, verbose=False)
 
 # list of corrections for multiple comparison
 mcps = ['maxstat', 'fdr', 'bonferroni']
-kw = dict(output_type='array', n_jobs=1, n_perm=100)
+kw = dict(n_jobs=1, n_perm=100)
 """
 The `cluster_th` input parameter specifies how the threshold is defined.
 Use either :
@@ -88,7 +88,7 @@ for mcp in mcps:
     print(f'-> RFX / MCP={mcp}')
     mi, pvalues = wf.fit(dt, mcp=mcp, cluster_th=cluster_th, **kw)
     # remove p-values that exceed 0.05
-    pvalues[pvalues >= .05] = 1.
+    pvalues.data[pvalues >= .05] = 1.
 
     plt.subplot(212)
     plt.plot(time, pvalues.squeeze(), label=f'ffx-{mcp}')

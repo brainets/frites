@@ -51,11 +51,9 @@ print(mi)
 
 # when `net=False` it means that the information transfer is directed which
 # means we can either look at the amount of informations sent from roi_0 to
-# roi_1 or roi_1 to roi_0. By default, the argument returned are stored in a
-# pandas DataFrame where the columns are MultiIndex with the first level the
-# name of the source and the second level the name of the target.
-it_0_to_1 = mi['roi_0']['roi_1']
-it_1_to_0 = mi['roi_1']['roi_0']
+# roi_1 or roi_1 to roi_0.
+it_0_to_1 = mi.sel(source='roi_0', target='roi_1')
+it_1_to_0 = mi.sel(source='roi_1', target='roi_0')
 
 plt.plot(it_0_to_1, label='roi_0 -> roi_1')
 plt.plot(it_1_to_0, label='roi_1 -> roi_0')
@@ -69,11 +67,9 @@ plt.show()
 #
 # Note that you can also compute the unidirectionnal FIT which is define as the
 # difference between `FIT(source - >target) - FIT(target -> source)`.
-# This time, instead of having DataFrame outputs, we are using an
-# xarray.DataArray
 
 wf = WfFit()
-mi, _ = wf.fit(ds, net=True, n_perm=10, output_type='dataarray')
+mi, _ = wf.fit(ds, net=True, n_perm=10)
 print(mi)
 it_net = mi.sel(source='roi_0', target='roi_1')
 

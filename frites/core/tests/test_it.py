@@ -45,7 +45,7 @@ class TestIt(object):
 
         dfc = dfc_gc(x, times, roi, win_sample)[0]
         assert dfc.shape == (n_epochs, 3, 2)
-        dfc = dfc_gc(x, times, roi, win_sample, output_type='dataarray')[0]
+        dfc = dfc_gc(x, times, roi, win_sample)[0]
         assert isinstance(dfc, DataArray)
 
     def test_covgc(self):
@@ -62,5 +62,5 @@ class TestIt(object):
         _ = covgc(x, dt, lag, t0, n_jobs=1, method='gc')[0]
         gc = covgc(x, dt, lag, t0, n_jobs=1)[0]
         assert gc.shape == (n_epochs, 3, len(t0), 3)
-        gc = covgc(x, dt, lag, t0, n_jobs=1, output_type='dataarray')[0]
+        gc = covgc(x, dt, lag, t0, n_jobs=1)[0]
         assert isinstance(gc, DataArray)

@@ -42,30 +42,11 @@ class TestWfConn(object):
             ds = DatasetEphy(x, roi=roi, times=times)
             WfConn(inference='ffx', mi_method=meth).fit(ds, **kw_conn)
 
-    def test_output_type(self):
-        import pandas as pd
-        from xarray import DataArray
-        outs = {'2d_array': np.ndarray, '3d_array': np.ndarray,
-                '2d_dataframe': pd.DataFrame, '3d_dataframe': pd.DataFrame,
-                'dataarray': DataArray}
-
-        ds = DatasetEphy(x, roi=roi, times=times)
-        for o_type, t_type in outs.items():
-            wf = WfConn()
-            fit, pv = wf.fit(ds, output_type=o_type, **kw_conn)
-            tv = wf.tvalues
-            assert isinstance(fit, t_type)
-            assert isinstance(pv, t_type)
-            assert isinstance(tv, t_type)
-
     def test_properties(self):
-        import pandas as pd
         ds = DatasetEphy(x, roi=roi, times=times)
         wf = WfConn()
         wf.fit(ds, **kw_conn)
         assert isinstance(wf.mi, list)
         assert isinstance(wf.mi_p, list)
-        assert isinstance(wf.tvalues, pd.DataFrame)
-        print([k.shape for k in wf.mi])
         assert all([k.shape == (n_subjects, n_times) for k in wf.mi])
         assert all([k.shape == (n_perm, n_subjects, n_times) for k in wf.mi_p])

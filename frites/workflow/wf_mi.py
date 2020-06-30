@@ -1,9 +1,10 @@
 """Workflow for computing MI and evaluate statistics."""
 import numpy as np
+import xarray as xr
 from joblib import Parallel, delayed
 
 from frites import config
-from frites.io import (set_log_level, logger, convert_spatiotemporal_outputs)
+from frites.io import set_log_level, logger
 from frites.core import get_core_mi_fun, permute_mi_vector
 from frites.workflow.wf_stats_ephy import WfStatsEphy
 from frites.workflow.wf_base import WfBase
@@ -146,31 +147,10 @@ class WfMi(WfBase):
 
         return mi, mi_p
 
-    def _node_postprocessing(self, mi, pv, times, roi, mean_mi=True,
-                             output_type='dataframe'):
-        """Post preprocess outputs.
-
-        This node take the mean mi across subjects and also enable to format
-        outputs to NumPy, Pandas or Xarray.
-        """
-        # mean mi across subjects
-        if mean_mi:
-            logger.info("    Mean mi across subjects")
-            mi = np.stack([k.mean(axis=0) for k in mi]).T
-        # output type
-        assert output_type in ['array', 'dataframe', 'dataarray']
-        logger.info(f"    Formatting output type ({output_type})")
-        # apply conversion
-        mi = convert_spatiotemporal_outputs(mi, times, roi, output_type)
-        pv = convert_spatiotemporal_outputs(pv, times, roi, output_type)
-        if output_type is 'dataarray':
-            mi, pv = self._attrs_xarray(mi), self._attrs_xarray(pv)
-
-        return mi, pv
 
     def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
             cluster_alpha=0.05, n_bins=None, n_jobs=-1, random_state=None,
-            output_type='dataframe', **kw_stats):
+            **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -191,7 +171,7 @@ class WfMi(WfBase):
         mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
             problem. Use either :
-                
+
                 * 'cluster' : cluster-based statistics [default]
                 * 'maxstat' : test-wise maximum statistics correction
                 * 'fdr' : test-wise FDR correction
@@ -223,9 +203,6 @@ class WfMi(WfBase):
         random_state : int | None
             Fix the random state of the machine (use it for reproducibility).
             If None, a random state is randomly assigned.
-        output_type : {'array', 'dataframe', 'dataarray'}
-            Output format of the returned mutual information and p-values. For
-            details, see :func:`frites.io.convert_spatiotemporal_outputs`
         kw_stats : dict | {}
             Additional arguments are sent to
             :py:class:`frites.dataset.WfStatsEphy.fit`
@@ -233,8 +210,9 @@ class WfMi(WfBase):
         Returns
         -------
         mi, pvalues : array_like
-            Array of mean mutual information and p-values. Output types and
-            shapes depends on the `output_type` input parameter.
+            DataArray of mutual information and p-values. If `inference` is
+            'ffx' the mi represents the MI computed across subjects while if it
+            is 'rfx' it's the mean across subjects.
 
         References
         ----------
@@ -289,16 +267,24 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # postprocessing and conversions
         # ---------------------------------------------------------------------
+        # fast access to variable names
+        kw_da = dict(dims=('times', 'roi'),
+                     coords=(dataset.times, dataset.roi_names))
         # tvalues conversion
         if isinstance(tvalues, np.ndarray):
-            self._tvalues = convert_spatiotemporal_outputs(
-                tvalues, dataset.times, dataset.roi_names, output_type)
-        # mean mi and format outputs
-        outs = self._node_postprocessing(
-            mi, pvalues, dataset.times, dataset.roi_names, mean_mi=True,
-            output_type=output_type)
+            self._tvalues = self._attrs_xarray(xr.DataArray(tvalues, **kw_da))
+        # mean mi across subjects
+        if self._inference is 'rfx':
+            logger.info("    Mean mi across subjects")
+            mi = [k.mean(axis=0, keepdims=True) for k in mi]
+        # dataarray conversion
+        mi = xr.DataArray(np.concatenate(mi, axis=0).T, **kw_da)
+        pv = xr.DataArray(pvalues, **kw_da)
+        # add attributes to the dataarray
+        mi, pv = self._attrs_xarray(mi), self._attrs_xarray(pv)
 
-        return outs
+        return mi, pv
+
 
     def conjunction_analysis(self, dataset, p=.05, mcp='cluster',
                              cluster_th=None, cluster_alpha=0.05):
@@ -336,7 +322,6 @@ class WfMi(WfBase):
             DataArray of shape (n_times, n_roi) describing the number of
             subjects that have a significant MI
         """
-        import xarray as xr
         # input checking
         assert self._inference == 'rfx', (
             "Conjunction analysis are only possible when the MI has been "
