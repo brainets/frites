@@ -51,7 +51,7 @@ y, z, _ = sim_mi_ccd(x, snr=1.)
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi, z=z)
+dt = DatasetEphy(x, y, roi, z=z, times=time)
 
 
 ###############################################################################

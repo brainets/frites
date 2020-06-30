@@ -67,7 +67,7 @@ n_perm = 100  # number of permutations to compute
 kernel = np.hanning(10)  # used for smoothing the MI
 
 wf = WfConn(kernel=kernel)
-mi, pv = wf.fit(dt, output_type='dataarray', n_perm=n_perm, n_jobs=1)
+mi, pv = wf.fit(dt, n_perm=n_perm, n_jobs=1)
 print(mi)
 
 ###############################################################################

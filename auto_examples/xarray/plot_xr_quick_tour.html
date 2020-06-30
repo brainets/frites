@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Xarray : Quick tour &#8212; frites 0.3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.4</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../authors.html">Authors</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="../index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#clustering">Clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api.html#from-random-data">From random data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../api.html#from-real-data">From real data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#core-connectivity">Core connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../../_sources/auto_examples/xarray/plot_xr_quick_tour.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-xarray-plot-xr-quick-tour-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="xarray-quick-tour">
+<span id="sphx-glr-auto-examples-xarray-plot-xr-quick-tour-py"></span><h1>Xarray : Quick tour<a class="headerlink" href="#xarray-quick-tour" title="Permalink to this headline">¶</a></h1>
+<p>Basically, this example gives a very small introduction to Xarray (very small).
+We illustrate how to define a DataArray container, access its components,
+perform some of the basic operations and slicing / indexing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+<div class="section" id="simulate-data">
+<h2>Simulate data<a class="headerlink" href="#simulate-data" title="Permalink to this headline">¶</a></h2>
+<p>lets start by creating a random spatio-temporal array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_times</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">n_roi</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">times_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+<span class="n">roi_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;roi_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+<span class="n">np_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_times</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(30, 7)
+*******************************************************************************
+</pre></div>
+</div>
+</div>
+<div class="section" id="xarray-conversion-and-access-to-the-internal-components">
+<h2>Xarray conversion and access to the internal components<a class="headerlink" href="#xarray-conversion-and-access-to-the-internal-components" title="Permalink to this headline">¶</a></h2>
+<p>A DataArray is a container (like a well known numpy array) except that you
+can add a label to each coordinate. To this end, the input <cite>dims</cite> is a tuple
+that describes the dimension names and <cite>coords</cite> describes the value along
+this coordinate</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s convert it to a DataArray</span>
+<span class="n">da_data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">np_data</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span>
+                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">times_vec</span><span class="p">,</span> <span class="n">roi_vec</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">da_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">da_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+
+<span class="c1"># if you want to get the dimension names and values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dimension names : </span><span class="si">{</span><span class="n">da_data</span><span class="o">.</span><span class="n">dims</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dimension values : </span><span class="si">{</span><span class="n">da_data</span><span class="o">.</span><span class="n">coords</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data of a specific dimension : </span><span class="si">{</span><span class="n">da_data</span><span class="o">.</span><span class="n">roi</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+
+<span class="c1"># if you want to get the original NumPy array enter the following :</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># if you want to change the values of a coordinate</span>
+<span class="n">da_data</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;roi_</span><span class="si">{</span><span class="n">k</span> <span class="o">%</span> <span class="mi">3</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New ROI names : </span><span class="si">{</span><span class="n">da_data</span><span class="o">.</span><span class="n">roi</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+
+<span class="c1"># if you need to compute or get the min / max / mean across a specific</span>
+<span class="c1"># dimension</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">)</span>  <span class="c1"># minimum across time points</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">)</span>  <span class="c1"># maximum across time points</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span>   <span class="c1"># mean across all ROI</span>
+
+<span class="c1"># similarly to Pandas, it&#39;s also possible to group along a dimension and then</span>
+<span class="c1"># take the mean. For example, here&#39;s how to group and mean by roi names</span>
+<span class="n">da_m</span> <span class="o">=</span> <span class="n">da_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">da_m</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(30, 7)
+&lt;xarray.DataArray (times: 30, roi: 7)&gt;
+array([[3.94156734e-01, 1.25779047e-01, 3.81955628e-01, 6.05108837e-01,
+        4.77543245e-01, 1.56892676e-01, 9.78071449e-01],
+       [8.90319108e-01, 9.86125807e-01, 1.64304155e-01, 5.89867929e-02,
+        3.48041927e-01, 8.53217554e-01, 2.54721308e-01],
+       [3.55022712e-01, 7.58078588e-01, 1.90961742e-01, 3.54177140e-01,
+        9.93770062e-01, 8.19042250e-01, 5.90785536e-01],
+       [4.95203721e-01, 2.47018351e-01, 8.48004780e-01, 8.90402009e-01,
+        7.50566214e-01, 4.20801120e-01, 6.31901778e-01],
+       [1.08722552e-01, 1.21230474e-01, 6.50616727e-01, 9.15090949e-01,
+        7.09317588e-01, 6.15611091e-01, 7.16093779e-01],
+       [6.70491349e-01, 2.04082309e-01, 2.52723622e-01, 6.85939032e-01,
+        2.21713556e-01, 1.48860393e-01, 6.12878190e-01],
+       [2.44780804e-01, 6.39384718e-01, 8.36553567e-01, 8.53469649e-01,
+        6.33377255e-01, 4.76502133e-01, 8.35225721e-01],
+       [1.77875512e-01, 2.63433050e-01, 5.56025715e-01, 6.79679977e-01,
+        7.24910219e-01, 4.37653589e-01, 4.09005430e-01],
+       [6.63097801e-01, 6.24869004e-01, 4.88879740e-01, 4.94517369e-02,
+        6.91627211e-01, 8.78159656e-01, 2.96763133e-01],
+       [7.45147514e-01, 5.05407602e-01, 8.91374441e-01, 6.15167429e-01,
+        9.13543202e-01, 1.59376228e-01, 6.74765618e-01],
+       [1.91734113e-01, 8.60890211e-01, 4.74856317e-01, 2.61192911e-01,
+        9.31048993e-01, 5.68090658e-01, 6.41254408e-01],
+       [9.39616931e-01, 6.90348138e-01, 8.77957135e-01, 1.33611517e-01,
+        6.36914074e-01, 3.77388794e-01, 9.69829094e-01],
+       [7.68338061e-02, 3.80112065e-03, 2.26037086e-01, 1.06570616e-01,
+        7.96339247e-01, 2.51672813e-01, 4.52096063e-01],
+       [3.47221609e-01, 8.40530099e-01, 6.26589545e-02, 4.42335145e-01,
+        3.39942512e-01, 3.98467268e-01, 3.63032516e-01],
+       [6.80771133e-01, 9.59601478e-02, 4.27463683e-01, 3.07824923e-01,
+        1.17935593e-01, 9.96234820e-01, 7.30305520e-01],
+       [4.91463451e-01, 2.31505719e-02, 9.09616591e-01, 7.02394114e-01,
+        4.15223432e-01, 2.08484230e-01, 3.60742431e-02],
+       [8.16110200e-01, 2.14673212e-01, 4.56903672e-01, 8.73083184e-02,
+        9.07825549e-01, 8.75032333e-02, 6.73649828e-01],
+       [2.86660038e-01, 3.49949785e-01, 9.31562837e-01, 6.60671438e-01,
+        1.71759243e-01, 8.39169896e-01, 4.79216867e-02],
+       [5.32917912e-01, 7.01251356e-01, 1.85082372e-01, 6.35239839e-01,
+        9.42299496e-01, 6.80923306e-01, 8.96619708e-02],
+       [4.82818843e-01, 4.99206454e-01, 6.25199982e-01, 5.19056583e-01,
+        4.33045983e-01, 2.75759565e-01, 5.47137914e-01],
+       [9.29658906e-01, 1.42199575e-01, 2.34169504e-01, 9.04887664e-01,
+        2.16228100e-01, 9.16824337e-01, 8.01418981e-01],
+       [5.40796186e-01, 7.69447394e-01, 2.56054990e-01, 4.72200468e-01,
+        2.92988268e-02, 3.11313870e-01, 2.72055445e-01],
+       [1.16986594e-01, 1.96747134e-01, 7.57364637e-01, 5.60871168e-01,
+        5.44088966e-01, 6.80164260e-01, 3.62983346e-01],
+       [2.27137429e-01, 5.84715069e-01, 3.57727497e-01, 3.47827069e-01,
+        2.30926847e-01, 5.50326047e-01, 7.78894860e-01],
+       [5.71821170e-01, 1.20159639e-02, 3.19799792e-02, 8.01101024e-01,
+        4.76568548e-01, 8.41495846e-01, 1.83122739e-01],
+       [7.44945010e-01, 2.18980656e-01, 7.50728324e-01, 4.43985407e-01,
+        8.05642357e-01, 1.42957792e-01, 5.40375262e-01],
+       [1.40195369e-01, 8.57226446e-01, 8.60700913e-01, 7.56796469e-01,
+        6.79742316e-01, 2.49512629e-01, 7.94037633e-01],
+       [7.81596148e-01, 1.44648065e-01, 8.80178139e-04, 2.76158606e-01,
+        1.41632213e-01, 1.44375131e-01, 4.41871304e-01],
+       [4.86623693e-01, 4.23893943e-01, 3.61895963e-01, 8.40943247e-01,
+        9.46274993e-01, 8.71638226e-01, 6.64639404e-01],
+       [7.78645536e-02, 2.94812204e-01, 7.71949488e-01, 3.70545065e-01,
+        3.76817648e-01, 9.32824032e-01, 3.32363304e-01]])
+Coordinates:
+  * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
+  * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_3&#39; &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
+*******************************************************************************
+Dimension names : (&#39;times&#39;, &#39;roi&#39;)
+Dimension values : Coordinates:
+  * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
+  * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_3&#39; &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
+Data of a specific dimension : [&#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_3&#39; &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;]
+*******************************************************************************
+New ROI names : [&#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39;]
+*******************************************************************************
+&lt;xarray.DataArray (times: 30, roi: 3)&gt;
+array([[0.65911234, 0.30166115, 0.26942415],
+       [0.4013424 , 0.66708387, 0.50876085],
+       [0.43332846, 0.87592433, 0.505002  ],
+       [0.6725025 , 0.49879228, 0.63440295],
+       [0.57996909, 0.41527403, 0.63311391],
+       [0.65643619, 0.21289793, 0.20079201],
+       [0.64449206, 0.63638099, 0.65652785],
+       [0.42218697, 0.49417163, 0.49683965],
+       [0.33643756, 0.65824811, 0.6835197 ],
+       [0.67836019, 0.7094754 , 0.52537533],
+       [0.36472714, 0.8959696 , 0.52147349],
+       [0.68101918, 0.66363111, 0.62767296],
+       [0.2118335 , 0.40007018, 0.23885495],
+       [0.38419642, 0.59023631, 0.23056311],
+       [0.57296719, 0.10694787, 0.71184925],
+       [0.40997727, 0.219187  , 0.55905041],
+       [0.52568945, 0.56124938, 0.27220345],
+       [0.33175105, 0.26085451, 0.88536637],
+       [0.41927324, 0.82177543, 0.43300284],
+       [0.51633778, 0.46612622, 0.45047977],
+       [0.87865518, 0.17921384, 0.57549692],
+       [0.4283507 , 0.39937311, 0.28368443],
+       [0.34694704, 0.37041805, 0.71876445],
+       [0.45128645, 0.40782096, 0.45402677],
+       [0.51868164, 0.24429226, 0.43673791],
+       [0.57643523, 0.51231151, 0.44684306],
+       [0.56367649, 0.76848438, 0.55510677],
+       [0.49987535, 0.14314014, 0.07262765],
+       [0.66406878, 0.68508447, 0.61676709],
+       [0.26025764, 0.33581493, 0.85238676]])
+Coordinates:
+  * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
+  * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39;
+*******************************************************************************
+</pre></div>
+</div>
+</div>
+<div class="section" id="xarray-slicing-and-indexing">
+<h2>Xarray slicing and indexing<a class="headerlink" href="#xarray-slicing-and-indexing" title="Permalink to this headline">¶</a></h2>
+<p>Now we show how to slice the container</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># select a single specific ROI based on it&#39;s name</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi_0&#39;</span><span class="p">)</span>
+
+<span class="c1"># select a time range</span>
+<span class="n">da_time_slice</span> <span class="o">=</span> <span class="n">da_data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temporal selection : </span><span class="si">{</span><span class="n">da_time_slice</span><span class="o">.</span><span class="n">coords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+
+<span class="c1"># off course, spatio-temporal selection is also supported</span>
+<span class="n">da_st</span> <span class="o">=</span> <span class="n">da_data</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">),</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi_1&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spatio-temporal selection : </span><span class="si">{</span><span class="n">da_st</span><span class="o">.</span><span class="n">coords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+
+<span class="c1"># you can also slice according to indices</span>
+<span class="n">da_isel</span> <span class="o">=</span> <span class="n">da_data</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Integer selection : </span><span class="si">{</span><span class="n">da_isel</span><span class="o">.</span><span class="n">coords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">)</span>
+
+<span class="c1"># however, if you want for example select multiple items based on their names,</span>
+<span class="c1"># you have to use booleans. Here&#39;s a small example that&#39;s using Pandas</span>
+<span class="n">roi</span> <span class="o">=</span> <span class="n">da_data</span><span class="o">.</span><span class="n">roi</span><span class="o">.</span><span class="n">data</span>
+<span class="n">use_roi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;roi_0&#39;</span><span class="p">,</span> <span class="s1">&#39;roi_2&#39;</span><span class="p">]</span>
+<span class="n">is_roi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">use_roi</span><span class="p">))</span>
+<span class="n">da_mi</span> <span class="o">=</span> <span class="n">da_data</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">is_roi</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Multi-items selection : </span><span class="si">{</span><span class="n">da_mi</span><span class="o">.</span><span class="n">coords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Temporal selection : Coordinates:
+  * times    (times) float64 -0.4483 -0.3793 -0.3103 ... 0.3103 0.3793 0.4483
+  * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39;
+*******************************************************************************
+Spatio-temporal selection : Coordinates:
+  * times    (times) float64 -0.4483 -0.3793 -0.3103 ... 0.3103 0.3793 0.4483
+  * roi      (roi) &lt;U5 &#39;roi_1&#39; &#39;roi_1&#39;
+*******************************************************************************
+Integer selection : Coordinates:
+  * times    (times) float64 -0.3103 -0.2414 -0.1724 ... 0.1724 0.2414 0.3103
+  * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39;
+*******************************************************************************
+Multi-items selection : Coordinates:
+  * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
+  * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_2&#39; &#39;roi_0&#39; &#39;roi_2&#39; &#39;roi_0&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="xarray-attributes">
+<h2>Xarray attributes<a class="headerlink" href="#xarray-attributes" title="Permalink to this headline">¶</a></h2>
+<p>One of the nice features of DataArray is that it supporting setting
+attributes. Therefore you can add, for example, the parameters that describe
+your analysis</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># adding a few string attributes</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;inference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ffx&#39;</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;stats&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;cluster-based&#39;</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Here&#39;s a small description of the analysis</span>
+<span class="s2">I&#39;m currently running. Trying to find a difference between condition 1. vs 2.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># you can also add vectors (but not arrays) to the attributes</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;vector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># however, &quot;None&quot; seems to pose a problem when saving the results. Therefore,</span>
+<span class="c1"># one quick way to solve this is simply to convert it into a string</span>
+<span class="n">da_data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;none_problem&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">da_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
+array([[3.94156734e-01, 1.25779047e-01, 3.81955628e-01, 6.05108837e-01,
+        4.77543245e-01, 1.56892676e-01, 9.78071449e-01],
+       [8.90319108e-01, 9.86125807e-01, 1.64304155e-01, 5.89867929e-02,
+        3.48041927e-01, 8.53217554e-01, 2.54721308e-01],
+       [3.55022712e-01, 7.58078588e-01, 1.90961742e-01, 3.54177140e-01,
+        9.93770062e-01, 8.19042250e-01, 5.90785536e-01],
+       [4.95203721e-01, 2.47018351e-01, 8.48004780e-01, 8.90402009e-01,
+        7.50566214e-01, 4.20801120e-01, 6.31901778e-01],
+       [1.08722552e-01, 1.21230474e-01, 6.50616727e-01, 9.15090949e-01,
+        7.09317588e-01, 6.15611091e-01, 7.16093779e-01],
+       [6.70491349e-01, 2.04082309e-01, 2.52723622e-01, 6.85939032e-01,
+        2.21713556e-01, 1.48860393e-01, 6.12878190e-01],
+       [2.44780804e-01, 6.39384718e-01, 8.36553567e-01, 8.53469649e-01,
+        6.33377255e-01, 4.76502133e-01, 8.35225721e-01],
+       [1.77875512e-01, 2.63433050e-01, 5.56025715e-01, 6.79679977e-01,
+        7.24910219e-01, 4.37653589e-01, 4.09005430e-01],
+       [6.63097801e-01, 6.24869004e-01, 4.88879740e-01, 4.94517369e-02,
+        6.91627211e-01, 8.78159656e-01, 2.96763133e-01],
+       [7.45147514e-01, 5.05407602e-01, 8.91374441e-01, 6.15167429e-01,
+        9.13543202e-01, 1.59376228e-01, 6.74765618e-01],
+       [1.91734113e-01, 8.60890211e-01, 4.74856317e-01, 2.61192911e-01,
+        9.31048993e-01, 5.68090658e-01, 6.41254408e-01],
+       [9.39616931e-01, 6.90348138e-01, 8.77957135e-01, 1.33611517e-01,
+        6.36914074e-01, 3.77388794e-01, 9.69829094e-01],
+       [7.68338061e-02, 3.80112065e-03, 2.26037086e-01, 1.06570616e-01,
+        7.96339247e-01, 2.51672813e-01, 4.52096063e-01],
+       [3.47221609e-01, 8.40530099e-01, 6.26589545e-02, 4.42335145e-01,
+        3.39942512e-01, 3.98467268e-01, 3.63032516e-01],
+       [6.80771133e-01, 9.59601478e-02, 4.27463683e-01, 3.07824923e-01,
+        1.17935593e-01, 9.96234820e-01, 7.30305520e-01],
+       [4.91463451e-01, 2.31505719e-02, 9.09616591e-01, 7.02394114e-01,
+        4.15223432e-01, 2.08484230e-01, 3.60742431e-02],
+       [8.16110200e-01, 2.14673212e-01, 4.56903672e-01, 8.73083184e-02,
+        9.07825549e-01, 8.75032333e-02, 6.73649828e-01],
+       [2.86660038e-01, 3.49949785e-01, 9.31562837e-01, 6.60671438e-01,
+        1.71759243e-01, 8.39169896e-01, 4.79216867e-02],
+       [5.32917912e-01, 7.01251356e-01, 1.85082372e-01, 6.35239839e-01,
+        9.42299496e-01, 6.80923306e-01, 8.96619708e-02],
+       [4.82818843e-01, 4.99206454e-01, 6.25199982e-01, 5.19056583e-01,
+        4.33045983e-01, 2.75759565e-01, 5.47137914e-01],
+       [9.29658906e-01, 1.42199575e-01, 2.34169504e-01, 9.04887664e-01,
+        2.16228100e-01, 9.16824337e-01, 8.01418981e-01],
+       [5.40796186e-01, 7.69447394e-01, 2.56054990e-01, 4.72200468e-01,
+        2.92988268e-02, 3.11313870e-01, 2.72055445e-01],
+       [1.16986594e-01, 1.96747134e-01, 7.57364637e-01, 5.60871168e-01,
+        5.44088966e-01, 6.80164260e-01, 3.62983346e-01],
+       [2.27137429e-01, 5.84715069e-01, 3.57727497e-01, 3.47827069e-01,
+        2.30926847e-01, 5.50326047e-01, 7.78894860e-01],
+       [5.71821170e-01, 1.20159639e-02, 3.19799792e-02, 8.01101024e-01,
+        4.76568548e-01, 8.41495846e-01, 1.83122739e-01],
+       [7.44945010e-01, 2.18980656e-01, 7.50728324e-01, 4.43985407e-01,
+        8.05642357e-01, 1.42957792e-01, 5.40375262e-01],
+       [1.40195369e-01, 8.57226446e-01, 8.60700913e-01, 7.56796469e-01,
+        6.79742316e-01, 2.49512629e-01, 7.94037633e-01],
+       [7.81596148e-01, 1.44648065e-01, 8.80178139e-04, 2.76158606e-01,
+        1.41632213e-01, 1.44375131e-01, 4.41871304e-01],
+       [4.86623693e-01, 4.23893943e-01, 3.61895963e-01, 8.40943247e-01,
+        9.46274993e-01, 8.71638226e-01, 6.64639404e-01],
+       [7.78645536e-02, 2.94812204e-01, 7.71949488e-01, 3.70545065e-01,
+        3.76817648e-01, 9.32824032e-01, 3.32363304e-01]])
+Coordinates:
+  * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
+  * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; &#39;roi_0&#39;
+Attributes:
+    inference:     ffx
+    stats:         cluster-based
+    description:   Here&#39;s a small description of the analysis\nI&#39;m currently ...
+    vector:        [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 ...
+    none_problem:  None
+</pre></div>
+</div>
+</div>
+<div class="section" id="xarray-to-an-other-format">
+<h2>Xarray to an other format<a class="headerlink" href="#xarray-to-an-other-format" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we quickly illustrate how to convert a DataArray into, for example,
+a pandas.DataFrame</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">da_data</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>roi           roi_0  ...     roi_0
+times                ...
+-1.000000  0.394157  ...  0.978071
+-0.931034  0.890319  ...  0.254721
+-0.862069  0.355023  ...  0.590786
+-0.793103  0.495204  ...  0.631902
+-0.724138  0.108723  ...  0.716094
+-0.655172  0.670491  ...  0.612878
+-0.586207  0.244781  ...  0.835226
+-0.517241  0.177876  ...  0.409005
+-0.448276  0.663098  ...  0.296763
+-0.379310  0.745148  ...  0.674766
+-0.310345  0.191734  ...  0.641254
+-0.241379  0.939617  ...  0.969829
+-0.172414  0.076834  ...  0.452096
+-0.103448  0.347222  ...  0.363033
+-0.034483  0.680771  ...  0.730306
+ 0.034483  0.491463  ...  0.036074
+ 0.103448  0.816110  ...  0.673650
+ 0.172414  0.286660  ...  0.047922
+ 0.241379  0.532918  ...  0.089662
+ 0.310345  0.482819  ...  0.547138
+ 0.379310  0.929659  ...  0.801419
+ 0.448276  0.540796  ...  0.272055
+ 0.517241  0.116987  ...  0.362983
+ 0.586207  0.227137  ...  0.778895
+ 0.655172  0.571821  ...  0.183123
+ 0.724138  0.744945  ...  0.540375
+ 0.793103  0.140195  ...  0.794038
+ 0.862069  0.781596  ...  0.441871
+ 0.931034  0.486624  ...  0.664639
+ 1.000000  0.077865  ...  0.332363
+
+[30 rows x 7 columns]
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.189 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-quick-tour-py">
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/2429c724f306f4b7e43ba3bc570cef2f/plot_xr_quick_tour.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_xr_quick_tour.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/7fc6e441ed2ae25abc7801fb230aef71/plot_xr_quick_tour.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_xr_quick_tour.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../whatsnew.html">What's new</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../references.html">References</a></li>
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+    </footer>
+
+  </body>
+</html>

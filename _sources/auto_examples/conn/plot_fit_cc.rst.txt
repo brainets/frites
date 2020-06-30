@@ -89,11 +89,9 @@ information transfer
 
     # when `net=False` it means that the information transfer is directed which
     # means we can either look at the amount of informations sent from roi_0 to
-    # roi_1 or roi_1 to roi_0. By default, the argument returned are stored in a
-    # pandas DataFrame where the columns are MultiIndex with the first level the
-    # name of the source and the second level the name of the target.
-    it_0_to_1 = mi['roi_0']['roi_1']
-    it_1_to_0 = mi['roi_1']['roi_0']
+    # roi_1 or roi_1 to roi_0.
+    it_0_to_1 = mi.sel(source='roi_0', target='roi_1')
+    it_1_to_0 = mi.sel(source='roi_1', target='roi_0')
 
     plt.plot(it_0_to_1, label='roi_0 -> roi_1')
     plt.plot(it_1_to_0, label='roi_1 -> roi_0')
@@ -114,21 +112,34 @@ information transfer
 
  .. code-block:: none
 
-    source        roi_0     roi_1
-    target        roi_1     roi_0
-    -0.699248  0.042040  0.014114
-    -0.689223  0.004873  0.007073
-    -0.679198  0.029634  0.019591
-    -0.669173  0.025988  0.018477
-    -0.659148  0.017136  0.014348
-    ...             ...       ...
-     2.959900  0.028373  0.020395
-     2.969925  0.027490  0.012031
-     2.979950  0.018697  0.037311
-     2.989975  0.010995  0.013787
-     3.000000  0.033493  0.005464
+    <xarray.DataArray (source: 2, target: 2, times: 370)>
+    array([[[0.        , 0.        , 0.        , ..., 0.        ,
+             0.        , 0.        ],
+            [0.01449849, 0.00316691, 0.03259807, ..., 0.04502564,
+             0.0221718 , 0.00147136]],
 
-    [370 rows x 2 columns]
+           [[0.02346426, 0.00759751, 0.01963683, ..., 0.04424649,
+             0.02809556, 0.00519154],
+            [0.        , 0.        , 0.        , ..., 0.        ,
+             0.        , 0.        ]]])
+    Coordinates:
+      * source   (source) <U5 'roi_0' 'roi_1'
+      * target   (target) <U5 'roi_0' 'roi_1'
+      * times    (times) float32 -0.69924814 -0.68922305 ... 2.989975 3.0
+    Attributes:
+        max_delay:      0.3
+        net:            False
+        mi_type:        cc
+        inference:      rfx
+        mi_method:      gc
+        kernel:         none
+        th:             1.3726802
+        tfce:           none
+        mcp:            cluster
+        tail:           1
+        cluster_th:     none
+        cluster_alpha:  0.05
+        ttested:        True
 
 
 
@@ -137,15 +148,13 @@ Compute the unidirectionnal information transfer
 
 Note that you can also compute the unidirectionnal FIT which is define as the
 difference between `FIT(source - >target) - FIT(target -> source)`.
-This time, instead of having DataFrame outputs, we are using an
-xarray.DataArray
 
 
 .. code-block:: default
 
 
     wf = WfFit()
-    mi, _ = wf.fit(ds, net=True, n_perm=10, output_type='dataarray')
+    mi, _ = wf.fit(ds, net=True, n_perm=10)
     print(mi)
     it_net = mi.sel(source='roi_0', target='roi_1')
 
@@ -169,8 +178,8 @@ xarray.DataArray
     <xarray.DataArray (source: 2, target: 2, times: 370)>
     array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
               0.        ,  0.        ],
-            [ 0.02792565, -0.00220055,  0.01004217, ..., -0.01861428,
-             -0.00279131,  0.02802924]],
+            [-0.00896577, -0.0044306 ,  0.01296123, ...,  0.00077915,
+             -0.00592376, -0.00372018]],
 
            [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
               0.        ,  0.        ],
@@ -187,7 +196,7 @@ xarray.DataArray
         inference:      rfx
         mi_method:      gc
         kernel:         none
-        th:             2.4390848
+        th:             2.3294237
         tfce:           none
         mcp:            cluster
         tail:           0
@@ -200,7 +209,7 @@ xarray.DataArray
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.156 seconds)
+   **Total running time of the script:** ( 0 minutes  1.431 seconds)
 
 
 .. _sphx_glr_download_auto_examples_conn_plot_fit_cc.py:

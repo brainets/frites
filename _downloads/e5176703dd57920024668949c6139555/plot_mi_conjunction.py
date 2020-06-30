@@ -92,8 +92,7 @@ inference = 'rfx'  # don't use 'ffx' for assessing conjunction analysis !
 # define the workflow
 wf = WfMi(mi_type)
 # compute the mutual information
-mi, pv = wf.fit(dt, mcp='cluster', n_perm=200, n_jobs=1, random_state=0,
-                output_type='dataarray')
+mi, pv = wf.fit(dt, mcp='cluster', n_perm=200, n_jobs=1, random_state=0)
 n_roi = len(mi.roi.data)
 
 # plot where there's significant values of mi

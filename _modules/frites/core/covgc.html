@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.covgc &#8212; frites 0.3.3 documentation</title>
+    <title>frites.core.covgc &#8212; frites 0.3.4 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -182,6 +182,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
@@ -189,18 +193,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id2">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id2">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -239,6 +243,7 @@
   <h1>Source code for frites.core.covgc</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Single-trial covariance-based Granger Causality for gaussian variables.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
@@ -367,7 +372,7 @@
 
 
 <div class="viewcode-block" id="covgc"><a class="viewcode-back" href="../../../generated/frites.core.covgc.html#frites.core.covgc">[docs]</a><span class="k">def</span> <span class="nf">covgc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gauss&#39;</span><span class="p">,</span>
-          <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+          <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single-trial covariance-based Granger Causality for gaussian variables.</span>
 
 <span class="sd">    This function computes the covariance-based Granger Causality (covgc) for</span>
@@ -418,8 +423,6 @@
 <span class="sd">        Method for the estimation of the covgc. Use either &#39;gauss&#39; which</span>
 <span class="sd">        assumes that the time-points are normally distributed or &#39;gc&#39; in order</span>
 <span class="sd">        to use the gaussian-copula.</span>
-<span class="sd">    output_type : {&#39;array&#39;, &#39;dataarray&#39;}</span>
-<span class="sd">        Output type, either standard NumPy array or xarray.DataArray</span>
 <span class="sd">    n_jobs : int | -1</span>
 <span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">        jobs). The parallel loop is set at the pair level.</span>
@@ -504,17 +507,15 @@
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># change output type</span>
-    <span class="k">if</span> <span class="n">output_type</span> <span class="ow">is</span> <span class="s1">&#39;dataarray&#39;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">xarray</span> <span class="kn">import</span> <span class="n">DataArray</span>
-        <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
-        <span class="n">dire</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">,</span> <span class="s1">&#39;y-&gt;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x.y&#39;</span><span class="p">])</span>
-        <span class="n">gc</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
-                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span><span class="p">,</span> <span class="n">dire</span><span class="p">))</span>
-        <span class="c1"># set attributes</span>
-        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lag</span>
-        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span>
-        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
-        <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;t0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t0</span>
+    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
+    <span class="n">dire</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">,</span> <span class="s1">&#39;y-&gt;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x.y&#39;</span><span class="p">])</span>
+    <span class="n">gc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
+                      <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span><span class="p">,</span> <span class="n">dire</span><span class="p">))</span>
+    <span class="c1"># set attributes</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;lag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lag</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;t0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t0</span>
 
     <span class="k">return</span> <span class="n">gc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span></div>
 </pre></div>
@@ -543,7 +544,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-29.</p>
+        <p>&copy; Copyright Last updated on 2020-06-30.</p>
     </footer>
 
   </body>

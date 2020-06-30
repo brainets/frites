@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Information transfer about a continuous variable &#8212; frites 0.3.3 documentation</title>
+    <title>Information transfer about a continuous variable &#8212; frites 0.3.4 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -182,6 +182,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
@@ -189,18 +193,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -289,11 +293,9 @@ information transfer</p>
 
 <span class="c1"># when `net=False` it means that the information transfer is directed which</span>
 <span class="c1"># means we can either look at the amount of informations sent from roi_0 to</span>
-<span class="c1"># roi_1 or roi_1 to roi_0. By default, the argument returned are stored in a</span>
-<span class="c1"># pandas DataFrame where the columns are MultiIndex with the first level the</span>
-<span class="c1"># name of the source and the second level the name of the target.</span>
-<span class="n">it_0_to_1</span> <span class="o">=</span> <span class="n">mi</span><span class="p">[</span><span class="s1">&#39;roi_0&#39;</span><span class="p">][</span><span class="s1">&#39;roi_1&#39;</span><span class="p">]</span>
-<span class="n">it_1_to_0</span> <span class="o">=</span> <span class="n">mi</span><span class="p">[</span><span class="s1">&#39;roi_1&#39;</span><span class="p">][</span><span class="s1">&#39;roi_0&#39;</span><span class="p">]</span>
+<span class="c1"># roi_1 or roi_1 to roi_0.</span>
+<span class="n">it_0_to_1</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;roi_0&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;roi_1&#39;</span><span class="p">)</span>
+<span class="n">it_1_to_0</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;roi_1&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;roi_0&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">it_0_to_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;roi_0 -&gt; roi_1&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">it_1_to_0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;roi_1 -&gt; roi_0&#39;</span><span class="p">)</span>
@@ -304,32 +306,43 @@ information transfer</p>
 </div>
 <img alt="../../_images/sphx_glr_plot_fit_cc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_fit_cc_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>source        roi_0     roi_1
-target        roi_1     roi_0
--0.699248  0.042040  0.014114
--0.689223  0.004873  0.007073
--0.679198  0.029634  0.019591
--0.669173  0.025988  0.018477
--0.659148  0.017136  0.014348
-...             ...       ...
- 2.959900  0.028373  0.020395
- 2.969925  0.027490  0.012031
- 2.979950  0.018697  0.037311
- 2.989975  0.010995  0.013787
- 3.000000  0.033493  0.005464
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
+array([[[0.        , 0.        , 0.        , ..., 0.        ,
+         0.        , 0.        ],
+        [0.01449849, 0.00316691, 0.03259807, ..., 0.04502564,
+         0.0221718 , 0.00147136]],
 
-[370 rows x 2 columns]
+       [[0.02346426, 0.00759751, 0.01963683, ..., 0.04424649,
+         0.02809556, 0.00519154],
+        [0.        , 0.        , 0.        , ..., 0.        ,
+         0.        , 0.        ]]])
+Coordinates:
+  * source   (source) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
+  * target   (target) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
+  * times    (times) float32 -0.69924814 -0.68922305 ... 2.989975 3.0
+Attributes:
+    max_delay:      0.3
+    net:            False
+    mi_type:        cc
+    inference:      rfx
+    mi_method:      gc
+    kernel:         none
+    th:             1.3726802
+    tfce:           none
+    mcp:            cluster
+    tail:           1
+    cluster_th:     none
+    cluster_alpha:  0.05
+    ttested:        True
 </pre></div>
 </div>
 </div>
 <div class="section" id="compute-the-unidirectionnal-information-transfer">
 <h2>Compute the unidirectionnal information transfer<a class="headerlink" href="#compute-the-unidirectionnal-information-transfer" title="Permalink to this headline">¶</a></h2>
 <p>Note that you can also compute the unidirectionnal FIT which is define as the
-difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</cite>.
-This time, instead of having DataFrame outputs, we are using an
-xarray.DataArray</p>
+difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="View documentation for frites.workflow.WfFit"><span class="n">WfFit</span></a><span class="p">()</span>
-<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dataarray&#39;</span><span class="p">)</span>
+<span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
 <span class="n">it_net</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;roi_0&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;roi_1&#39;</span><span class="p">)</span>
 
@@ -345,8 +358,8 @@ xarray.DataArray</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [ 0.02792565, -0.00220055,  0.01004217, ..., -0.01861428,
-         -0.00279131,  0.02802924]],
+        [-0.00896577, -0.0044306 ,  0.01296123, ...,  0.00077915,
+         -0.00592376, -0.00372018]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -363,7 +376,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.4390848
+    th:             2.3294237
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -372,7 +385,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.156 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.431 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -410,7 +423,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-29.</p>
+        <p>&copy; Copyright Last updated on 2020-06-30.</p>
     </footer>
 
   </body>

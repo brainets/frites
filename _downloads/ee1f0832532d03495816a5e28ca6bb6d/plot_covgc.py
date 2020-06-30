@@ -59,7 +59,7 @@ t0 = np.arange(100, 900, 10)
 lag = 10
 dt = 100
 gc, pairs, roi_p, times_p = covgc(x, dt, lag, t0, times=times, roi=roi,
-                                  n_jobs=1, output_type='dataarray')
+                                  n_jobs=1)
 # take the mean across trials
 gc = gc.mean('trials')
 

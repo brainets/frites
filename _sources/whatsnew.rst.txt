@@ -3,6 +3,12 @@
 What's new
 ==========
 
+v0.3.4
+------
+
+Breaking changes
+++++++++++++++++
+* Xarray is now the default output type as it supports the definition of multi-dimentional containers with label to each coordinates (:commit:`8174e4`) + illustrating examples of how to use xarray (:commit:`f5d28e`)
 
 v0.3.3
 ------
