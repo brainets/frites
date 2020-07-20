@@ -1,39 +1,39 @@
-"""Test information transfer functions."""
+"""Test connectivity measures."""
 import numpy as np
+import xarray as xr
 
-from frites.core.it import it_transfer_entropy, it_fit, dfc_gc
-from frites.core.covgc import covgc
+from frites.conn import conn_covgc, conn_transfer_entropy, conn_dfc, conn_fit
 
 
-class TestIt(object):
+class TestConn(object):
 
-    def test_it_transfer_entropy(self):
-        """Test function it_transfer_entropy."""
+    def test_conn_transfer_entropy(self):
+        """Test function conn_transfer_entropy."""
         n_roi, n_times, n_epochs = 4, 100, 20
         max_delay = 30
         x = np.random.uniform(0, 1, (n_roi, n_times, n_epochs))
         # test across all pairs
-        te, pairs = it_transfer_entropy(x, max_delay=max_delay)
+        te, pairs = conn_transfer_entropy(x, max_delay=max_delay)
         assert te.shape == (pairs.shape[0], n_times - max_delay)
         assert pairs.shape == (n_roi * (n_roi - 1), 2)
         # test specific pairs
         pairs = np.c_[np.array([0, 1]), np.array([2, 3])]
         n_pairs = pairs.shape[0]
-        te, pairs = it_transfer_entropy(x, max_delay=max_delay, pairs=pairs)
+        te, pairs = conn_transfer_entropy(x, max_delay=max_delay, pairs=pairs)
         assert te.shape == (n_pairs, n_times - max_delay)
         assert pairs.shape == (n_pairs, 2)
 
-    def test_it_fit(self):
-        """Test function it_fit."""
+    def test_conn_fit(self):
+        """Test function conn_fit."""
         n_times = 100
         max_delay = np.float32(.1)
         times = np.linspace(-1, 1, n_times).astype(np.float32)
         x_s = np.random.rand(5, 10, n_times).astype(np.float32)
         x_t = np.random.rand(5, 10, n_times).astype(np.float32)
-        it_fit(x_s, x_t, times, max_delay)
+        conn_fit(x_s, x_t, times, max_delay)
 
-    def test_dfc_gc(self):
-        """Test function dfc_gc."""
+    def test_conn_dfc(self):
+        """Test function conn_dfc."""
         from xarray import DataArray
         n_epochs = 5
         n_times = 100
@@ -43,14 +43,13 @@ class TestIt(object):
         roi = [f"roi_{k}" for k in range(n_roi)]
         x = np.random.rand(n_epochs, n_roi, n_times)
 
-        dfc = dfc_gc(x, times, roi, win_sample)[0]
+        dfc = conn_dfc(x, times, roi, win_sample)[0]
         assert dfc.shape == (n_epochs, 3, 2)
-        dfc = dfc_gc(x, times, roi, win_sample)[0]
+        dfc = conn_dfc(x, times, roi, win_sample)[0]
         assert isinstance(dfc, DataArray)
 
-    def test_covgc(self):
-        """Test function covgc."""
-        from xarray import DataArray
+    def test_conn_covgc(self):
+        """Test function conn_covgc."""
         n_epochs = 5
         n_times = 100
         n_roi = 3
@@ -59,8 +58,9 @@ class TestIt(object):
         lag = 2
         t0 = [50, 80]
 
-        _ = covgc(x, dt, lag, t0, n_jobs=1, method='gc')[0]
-        gc = covgc(x, dt, lag, t0, n_jobs=1)[0]
+        _ = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc')[0]
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1)[0]
         assert gc.shape == (n_epochs, 3, len(t0), 3)
-        gc = covgc(x, dt, lag, t0, n_jobs=1)[0]
-        assert isinstance(gc, DataArray)
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1)[0]
+        assert isinstance(gc, xr.DataArray)
+        

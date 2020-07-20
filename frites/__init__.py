@@ -6,7 +6,7 @@ Framework of Information Theory for Electrophysiological data and Statistics
 """
 import logging
 
-from frites import io, core, stats, utils, workflow, simulations  # noqa
+from frites import io, core, conn, stats, utils, workflow, simulations  # noqa
 
 __version__ = "0.3.4"
 

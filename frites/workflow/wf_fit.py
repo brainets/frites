@@ -9,7 +9,7 @@ from frites.workflow.wf_base import WfBase
 from frites.workflow.wf_mi import WfMi
 from frites.workflow.wf_stats_ephy import WfStatsEphy
 
-from frites.core import it_fit
+from frites.conn import conn_fit
 from frites.io import (logger, set_log_level, convert_dfc_outputs)
 from frites.stats import ttest_1samp
 
@@ -351,13 +351,13 @@ def fcn_fit(x_s, x_t, xp_s, xp_t, suj_s, suj_t, times, max_delay, net,
             xp_s_suj.flags.writeable = True
             xp_t_suj.flags.writeable = True
             # FIT on true and permuted gcmi
-            _fit_suj = it_fit(x_s_suj, x_t_suj, times, max_delay)[0, ...]
-            _fitp_suj = it_fit(xp_s_suj, xp_t_suj, times, max_delay)
+            _fit_suj = conn_fit(x_s_suj, x_t_suj, times, max_delay)[0, ...]
+            _fitp_suj = conn_fit(xp_s_suj, xp_t_suj, times, max_delay)
             # compute unidirectional FIT
             if net:
                 # compute target -> source
-                _fit_ts = it_fit(x_t_suj, x_s_suj, times, max_delay)[0, ...]
-                _fitp_ts = it_fit(xp_t_suj, xp_s_suj, times, max_delay)
+                _fit_ts = conn_fit(x_t_suj, x_s_suj, times, max_delay)[0, ...]
+                _fitp_ts = conn_fit(xp_t_suj, xp_s_suj, times, max_delay)
                 # subtract to source -> target
                 _fit_suj -= _fit_ts
                 _fitp_suj -= _fitp_ts
