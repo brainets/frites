@@ -10,7 +10,7 @@ import numpy as np
 from itertools import product
 
 from frites.simulations import sim_single_suj_ephy
-from frites.core import dfc_gc
+from frites.conn import conn_dfc
 from frites.utils import define_windows, plot_windows
 
 import matplotlib.pyplot as plt
@@ -72,7 +72,7 @@ plt.show()
 # each of the temporal window
 
 # compute DFC
-dfc, pairs, roi_p = dfc_gc(x, times, roi, win_sample)
+dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample)
 
 # sphinx_gallery_thumbnail_number = 2
 plt.figure(figsize=(10, 8))

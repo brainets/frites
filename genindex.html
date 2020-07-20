@@ -73,6 +73,13 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
@@ -169,13 +176,6 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.core.covgc.html">frites.core.covgc</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -251,7 +251,6 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
- | <a href="#I"><strong>I</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
@@ -303,8 +302,16 @@
 </li>
       <li><a href="generated/frites.workflow.WfMi.html#frites.workflow.WfMi.conjunction_analysis">conjunction_analysis() (frites.workflow.WfMi method)</a>
 </li>
+      <li><a href="generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc">conn_covgc() (in module frites.conn)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">conn_dfc() (in module frites.conn)</a>
+</li>
+      <li><a href="generated/frites.conn.conn_fit.html#frites.conn.conn_fit">conn_fit (frites.conn attribute)</a>
+</li>
+      <li><a href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy">conn_transfer_entropy() (in module frites.conn)</a>
+</li>
       <li><a href="generated/frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs">convert_dfc_outputs() (in module frites.io)</a>
 </li>
       <li><a href="generated/frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs">convert_spatiotemporal_outputs() (in module frites.io)</a>
@@ -319,8 +326,6 @@
 </li>
       <li><a href="generated/frites.core.copnorm_nd.html#frites.core.copnorm_nd">copnorm_nd() (in module frites.core)</a>
 </li>
-      <li><a href="generated/frites.core.covgc.html#frites.core.covgc">covgc() (in module frites.core)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -332,8 +337,6 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/frites.utils.define_windows.html#frites.utils.define_windows">define_windows() (in module frites.utils)</a>
-</li>
-      <li><a href="generated/frites.core.dfc_gc.html#frites.core.dfc_gc">dfc_gc() (in module frites.core)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -362,6 +365,8 @@
       <li><a href="generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fit_roi">fit_roi() (frites.workflow.WfFit property)</a>
 </li>
       <li><a href="generated/frites.workflow.WfFit.html#frites.workflow.WfFit.fitp_roi">fitp_roi() (frites.workflow.WfFit property)</a>
+</li>
+      <li><a href="api.html#module-frites.conn">frites.conn (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -412,18 +417,6 @@
       <li><a href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.get_connectivity_pairs">get_connectivity_pairs() (frites.dataset.DatasetEphy method)</a>
 </li>
       <li><a href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.groupby">groupby() (frites.dataset.DatasetEphy method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/frites.core.it_fit.html#frites.core.it_fit">it_fit (frites.core attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/frites.core.it_transfer_entropy.html#frites.core.it_transfer_entropy">it_transfer_entropy() (in module frites.core)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -636,7 +629,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+        <p>&copy; Copyright Last updated on 2020-07-20.</p>
     </footer>
 
   </body>

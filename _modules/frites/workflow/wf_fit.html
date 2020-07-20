@@ -72,6 +72,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
@@ -168,13 +175,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -252,7 +252,7 @@
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_mi</span> <span class="kn">import</span> <span class="n">WfMi</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_stats_ephy</span> <span class="kn">import</span> <span class="n">WfStatsEphy</span>
 
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">it_fit</span>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <span class="n">conn_fit</span>
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">convert_dfc_outputs</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">frites.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span>
 
@@ -594,13 +594,13 @@
             <span class="n">xp_s_suj</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">xp_t_suj</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="c1"># FIT on true and permuted gcmi</span>
-            <span class="n">_fit_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_s_suj</span><span class="p">,</span> <span class="n">x_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-            <span class="n">_fitp_suj</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
+            <span class="n">_fit_suj</span> <span class="o">=</span> <span class="n">conn_fit</span><span class="p">(</span><span class="n">x_s_suj</span><span class="p">,</span> <span class="n">x_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+            <span class="n">_fitp_suj</span> <span class="o">=</span> <span class="n">conn_fit</span><span class="p">(</span><span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
             <span class="c1"># compute unidirectional FIT</span>
             <span class="k">if</span> <span class="n">net</span><span class="p">:</span>
                 <span class="c1"># compute target -&gt; source</span>
-                <span class="n">_fit_ts</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">x_t_suj</span><span class="p">,</span> <span class="n">x_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-                <span class="n">_fitp_ts</span> <span class="o">=</span> <span class="n">it_fit</span><span class="p">(</span><span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
+                <span class="n">_fit_ts</span> <span class="o">=</span> <span class="n">conn_fit</span><span class="p">(</span><span class="n">x_t_suj</span><span class="p">,</span> <span class="n">x_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+                <span class="n">_fitp_ts</span> <span class="o">=</span> <span class="n">conn_fit</span><span class="p">(</span><span class="n">xp_t_suj</span><span class="p">,</span> <span class="n">xp_s_suj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">max_delay</span><span class="p">)</span>
                 <span class="c1"># subtract to source -&gt; target</span>
                 <span class="n">_fit_suj</span> <span class="o">-=</span> <span class="n">_fit_ts</span>
                 <span class="n">_fitp_suj</span> <span class="o">-=</span> <span class="n">_fitp_ts</span>
@@ -659,7 +659,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+        <p>&copy; Copyright Last updated on 2020-07-20.</p>
     </footer>
 
   </body>

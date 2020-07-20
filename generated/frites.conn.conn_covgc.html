@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.it_transfer_entropy &#8212; frites 0.3.4 documentation</title>
+    <title>frites.conn.conn_covgc &#8212; frites 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.it_fit" href="frites.core.it_fit.html" />
-    <link rel="prev" title="frites.core.dfc_gc" href="frites.core.dfc_gc.html" />
+    <link rel="next" title="frites.conn.conn_fit" href="frites.conn.conn_fit.html" />
+    <link rel="prev" title="frites.conn.conn_dfc" href="frites.conn.conn_dfc.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -72,6 +72,13 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
@@ -141,7 +148,7 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
@@ -168,13 +175,6 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#core-connectivity">Core connectivity</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.it_transfer_entropy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -222,7 +222,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.core.it_transfer_entropy.rst.txt"
+  <a href="../_sources/generated/frites.conn.conn_covgc.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -246,46 +246,90 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-it-transfer-entropy">
-<h1>frites.core.it_transfer_entropy<a class="headerlink" href="#frites-core-it-transfer-entropy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-conn-conn-covgc">
+<h1>frites.conn.conn_covgc<a class="headerlink" href="#frites-conn-conn-covgc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.core.it_transfer_entropy">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">it_transfer_entropy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">max_delay=30</em>, <em class="sig-param">pairs=None</em>, <em class="sig-param">gcrn=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/it.html#it_transfer_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.it_transfer_entropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the transfer entropy.</p>
-<p>The transfer entropy represents the amount of information that is send
-from a source to a target. It is defined as :</p>
+<dt id="frites.conn.conn_covgc">
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">step=1</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">method='gauss'</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_covgc.html#conn_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_covgc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single-trial covariance-based Granger Causality for gaussian variables.</p>
+<p>This function computes the covariance-based Granger Causality (covgc) for
+each trial.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Total Granger interdependence</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>TGI = gc.sum(axis=-1) = gc(x-&gt;y) + gc(y-&gt;x) + gc(x.y)</p></li>
+<li><p>TGI = Hycy + Hxcx - Hxxcyy</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Relations between Mutual Informarion and conditional entropies</strong></p>
+<p>This quantity can be defined as the Increment of Total Interdependence
+and it can be calculated from the different of two mutual informations
+as follows</p>
 <div class="math notranslate nohighlight">
-\[TE = I(source_{past}; target_{present} | target_{past})\]</div>
-<p>Where <span class="math notranslate nohighlight">\(past\)</span> is defined using the <cite>max_delay</cite> input parameter. Note
-that the transfer entropy only provides about the amount of information
-that is sent, not on the content.</p>
-<dl class="field-list simple">
+\[\begin{split}Ixxyy  &amp;=  I(X_{i+1}, X_{i}|Y_{i+1}, Y_{i}) \\
+       &amp;=  H(X_{i+1}) + H(Y_{i+1}) - H(X_{i+1},Y_{i+1}) \\
+       &amp;=  log(det_{xi1}) + log(det_{yi1}) - log(det_{xyi1}) \\
+Ixy    &amp;=  I(X_{i}|Y_{i}) \\
+       &amp;=  H(X_{i}) + H(Y_{i}) - H(X_{i}, Y_{i}) \\
+       &amp;=  log(det_{xi}) + log(det_{yi}) - log(det_{yxi}) \\
+ITI    &amp;= Ixxyy - Ixy\end{split}\]</div>
+</div>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of data of shape (n_roi, n_times, n_epochs). Must be a gaussian
-variable</p>
+<dt><strong>data</strong><span class="classifier">array_like</span></dt><dd><p>Electrophysiological data array of a single subject organized as
+(n_epochs, n_roi, n_times)</p>
 </dd>
-<dt><strong>max_delay</strong><span class="classifier">int | 30</span></dt><dd><p>Number of time points defining where to stop looking at in the past.
-Increasing this maximum delay input can lead to slower computations</p>
+<dt><strong>dt</strong><span class="classifier">int</span></dt><dd><p>Duration of the time window for covariance correlation in samples</p>
 </dd>
-<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Array of pairs to consider for computing the transfer entropy. It
-should be an array of shape (n_pairs, 2) where the first column refers
-to sources and the second to targets. If None, all pairs will be
-computed</p>
+<dt><strong>lag</strong><span class="classifier">int</span></dt><dd><p>Number of samples for the lag within each trial</p>
 </dd>
-<dt><strong>gcrn</strong><span class="classifier">bool | True</span></dt><dd><p>Apply a Gaussian Copula rank normalization</p>
+<dt><strong>t0</strong><span class="classifier">array_like</span></dt><dd><p>Array of zero time in samples of length (n_window,)</p>
+</dd>
+<dt><strong>step</strong><span class="classifier">int | 1</span></dt><dd><p>Number of samples stepping in the past for the lag within each trial</p>
+</dd>
+<dt><strong>roi</strong><span class="classifier">array_like | None</span></dt><dd><p>Array of ROI names of shape (n_roi,). If None, default ROI names will
+be used instead</p>
+</dd>
+<dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>Time vector of shape (n_times,). If None, a default vector will be used
+instead</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">{‘gauss’, ‘gc’}</span></dt><dd><p>Method for the estimation of the covgc. Use either ‘gauss’ which
+assumes that the time-points are normally distributed or ‘gc’ in order
+to use the gaussian-copula.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs). The parallel loop is set at the pair level.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>te</strong><span class="classifier">array_like</span></dt><dd><p>The transfer entropy array of shape (n_pairs, n_times - max_delay)</p>
+<dd class="field-even"><dl>
+<dt><strong>gc</strong><span class="classifier">array_like</span></dt><dd><p>Granger Causality arranged as (n_epochs, n_pairs, n_windows, 3) where
+the last dimension means :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>0 : pairs[:, 0] -&gt; pairs[:, 1] (x-&gt;y)</p></li>
+<li><p>1 : pairs[:, 1] -&gt; pairs[:, 0] (y-&gt;x)</p></li>
+<li><p>2 : instantaneous  (x.y)</p></li>
+</ul>
+</div></blockquote>
 </dd>
-<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Pairs vector use for computations of shape (n_pairs, 2)</p>
+<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Array of pairs of shape (n_pairs, 2)</p>
 </dd>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_dfc</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>Brovelli et al., 2015 <a class="bibtex reference internal" href="../references.html#brovelli2015characterization" id="id1">[1]</a></p>
 </dd></dl>
 
 </div>
@@ -315,7 +359,7 @@ computed</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+        <p>&copy; Copyright Last updated on 2020-07-20.</p>
     </footer>
 
   </body>

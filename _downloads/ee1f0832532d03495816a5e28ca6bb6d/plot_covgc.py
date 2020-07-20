@@ -9,7 +9,7 @@ import numpy as np
 from itertools import product
 
 from frites.simulations import sim_single_suj_ephy
-from frites.core import covgc
+from frites.conn import conn_covgc
 
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-white')
@@ -58,8 +58,8 @@ x[:, [0], slice(599, 799)] += x[:, [0], slice(600, 800)]
 t0 = np.arange(100, 900, 10)
 lag = 10
 dt = 100
-gc, pairs, roi_p, times_p = covgc(x, dt, lag, t0, times=times, roi=roi,
-                                  n_jobs=1)
+gc, pairs, roi_p, times_p = conn_covgc(x, dt, lag, t0, times=times, roi=roi,
+                                       n_jobs=1)
 # take the mean across trials
 gc = gc.mean('trials')
 

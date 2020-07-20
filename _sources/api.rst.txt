@@ -46,6 +46,28 @@ Workflow
 
   <hr>
 
+Connectivity
+------------
+
+.. currentmodule:: frites.conn
+
+.. automodule:: frites.conn
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   conn_dfc
+   conn_covgc
+   conn_fit
+   conn_transfer_entropy
+
+
+.. raw:: html
+
+  <hr>
+
 Statistics
 ----------
 
@@ -254,14 +276,3 @@ Gaussian-Copula based measures to apply to multidimensional vectors
    gccmi_nd_ccnd
    gccmi_model_nd_cdnd
    gccmi_nd_ccc
-
-Core connectivity
-+++++++++++++++++
-
-.. autosummary::
-   :toctree: generated/
-
-   dfc_gc
-   it_transfer_entropy
-   it_fit
-   covgc

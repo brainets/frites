@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.dfc_gc &#8212; frites 0.3.4 documentation</title>
+    <title>frites.conn.conn_dfc &#8212; frites 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.it_transfer_entropy" href="frites.core.it_transfer_entropy.html" />
-    <link rel="prev" title="frites.core.gccmi_nd_ccc" href="frites.core.gccmi_nd_ccc.html" />
+    <link rel="next" title="frites.conn.conn_covgc" href="frites.conn.conn_covgc.html" />
+    <link rel="prev" title="frites.workflow.WfStatsEphy" href="frites.workflow.WfStatsEphy.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -72,6 +72,13 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
@@ -141,7 +148,7 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
@@ -168,13 +175,6 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#core-connectivity">Core connectivity</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.dfc_gc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -222,7 +222,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.core.dfc_gc.rst.txt"
+  <a href="../_sources/generated/frites.conn.conn_dfc.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -246,11 +246,11 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-dfc-gc">
-<h1>frites.core.dfc_gc<a class="headerlink" href="#frites-core-dfc-gc" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-conn-conn-dfc">
+<h1>frites.conn.conn_dfc<a class="headerlink" href="#frites-conn-conn-dfc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.core.dfc_gc">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">dfc_gc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">win_sample</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/it.html#dfc_gc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.dfc_gc" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.conn.conn_dfc">
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_dfc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">win_sample</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_dfc.html#conn_dfc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Dynamic Functional Connectivity using the GCMI.</p>
 <p>This function computes the Dynamic Functional Connectivity (DFC) using the
 Gaussian Copula Mutual Information (GCMI). The DFC is computed across time
@@ -286,7 +286,7 @@ to define either manually either sliding windows.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code>, <a class="reference internal" href="frites.core.covgc.html#frites.core.covgc" title="frites.core.covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">covgc</span></code></a></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">covgc</span></code></dt><dd></dd>
 </dl>
 </div>
 </dd></dl>
@@ -318,7 +318,7 @@ to define either manually either sliding windows.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+        <p>&copy; Copyright Last updated on 2020-07-20.</p>
     </footer>
 
   </body>

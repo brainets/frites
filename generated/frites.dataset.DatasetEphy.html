@@ -74,6 +74,13 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
@@ -168,13 +175,6 @@
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.core.covgc.html">frites.core.covgc</a></li>
 </ul>
 </li>
 </ul>
@@ -303,7 +303,7 @@ are going to be skipped. Use None to skip this parameter</p>
 </dl>
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -314,25 +314,25 @@ are going to be skipped. Use None to skip this parameter</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, x[, y, roi, z, times, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(x[, y, roi, z, times, nb_min_suj, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>(self[, mi_type, gcrn_per_suj])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>([mi_type, gcrn_per_suj])</p></td>
 <td><p>Apply the Gaussian-Copula rank normalization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_pairs</span></code></a>(self[, nb_min_suj, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_pairs</span></code></a>([nb_min_suj, …])</p></td>
 <td><p>Get the connectivity pairs for this dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self[, groupby])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>([groupby])</p></td>
 <td><p>Reorganize the data inplace.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.resample" title="frites.dataset.DatasetEphy.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(self, sfreq[, npad, window, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.resample" title="frites.dataset.DatasetEphy.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(sfreq[, npad, window, n_jobs, pad, …])</p></td>
 <td><p>Resample data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.save" title="frites.dataset.DatasetEphy.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.save" title="frites.dataset.DatasetEphy.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>()</p></td>
 <td><p>Save the dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(self, h_freq[, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(h_freq[, verbose])</p></td>
 <td><p>Filter the data using Savitzky-Golay polynomial method.</p></td>
 </tr>
 </tbody>
@@ -363,7 +363,7 @@ are going to be skipped. Use None to skip this parameter</p>
 </table>
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.copnorm">
-<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">gcrn_per_suj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">gcrn_per_suj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the Gaussian-Copula rank normalization.</p>
 <p>The copnorm is only applied to continuous variables.</p>
 <dl class="field-list simple">
@@ -383,7 +383,7 @@ or across subjects (False).</p>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.get_connectivity_pairs">
-<code class="sig-name descname">get_connectivity_pairs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.get_connectivity_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_connectivity_pairs</code><span class="sig-paren">(</span><em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.get_connectivity_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the connectivity pairs for this dataset.</p>
 <p>This method can be used to get the possible connectivity pairs i.e
 (sources, targets) for directed connectivity (or not). In addition,
@@ -411,7 +411,7 @@ low.</p>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.groupby">
-<code class="sig-name descname">groupby</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">groupby='roi'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.groupby" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">groupby</code><span class="sig-paren">(</span><em class="sig-param">groupby='roi'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.groupby" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reorganize the data inplace.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,7 +425,7 @@ low.</p>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.resample">
-<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sfreq</em>, <em class="sig-param">npad='auto'</em>, <em class="sig-param">window='boxcar'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">pad='edge'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.resample" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">sfreq</em>, <em class="sig-param">npad='auto'</em>, <em class="sig-param">window='boxcar'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">pad='edge'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.resample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample data.</p>
 <p>This method is an adaptation of the mne-python one.</p>
 <dl class="field-list simple">
@@ -462,13 +462,13 @@ artifacts. This is dataset dependent – check your data!</p>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the dataset.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.savgol_filter">
-<code class="sig-name descname">savgol_filter</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">h_freq</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.savgol_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">savgol_filter</code><span class="sig-paren">(</span><em class="sig-param">h_freq</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.savgol_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter the data using Savitzky-Golay polynomial method.</p>
 <p>This method is an adaptation of the mne-python one.</p>
 <dl class="field-list simple">
@@ -555,7 +555,7 @@ thus used to determine the length of the window over which a
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+        <p>&copy; Copyright Last updated on 2020-07-20.</p>
     </footer>
 
   </body>

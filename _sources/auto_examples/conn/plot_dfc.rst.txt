@@ -21,7 +21,7 @@ for each trial either inside a single window or across multiple windows.
     from itertools import product
 
     from frites.simulations import sim_single_suj_ephy
-    from frites.core import dfc_gc
+    from frites.conn import conn_dfc
     from frites.utils import define_windows, plot_windows
 
     import matplotlib.pyplot as plt
@@ -131,7 +131,7 @@ each of the temporal window
 
 
     # compute DFC
-    dfc, pairs, roi_p = dfc_gc(x, times, roi, win_sample)
+    dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample)
 
     # sphinx_gallery_thumbnail_number = 2
     plt.figure(figsize=(10, 8))
@@ -152,7 +152,7 @@ each of the temporal window
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.789 seconds)
+   **Total running time of the script:** ( 0 minutes  0.782 seconds)
 
 
 .. _sphx_glr_download_auto_examples_conn_plot_dfc.py:

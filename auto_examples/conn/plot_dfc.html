@@ -72,6 +72,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
@@ -168,13 +175,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#core-connectivity">Core connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.dfc_gc.html">frites.core.dfc_gc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_transfer_entropy.html">frites.core.it_transfer_entropy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.it_fit.html">frites.core.it_fit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.covgc.html">frites.core.covgc</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -257,7 +257,7 @@ for each trial either inside a single window or across multiple windows.</p>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_single_suj_ephy.html#frites.simulations.sim_single_suj_ephy" title="View documentation for frites.simulations.sim_single_suj_ephy"><span class="n">sim_single_suj_ephy</span></a>
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <a href="../../generated/frites.core.dfc_gc.html#frites.core.dfc_gc" title="View documentation for frites.core.dfc_gc"><span class="n">dfc_gc</span></a>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="View documentation for frites.conn.conn_dfc"><span class="n">conn_dfc</span></a>
 <span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <a href="../../generated/frites.utils.define_windows.html#frites.utils.define_windows" title="View documentation for frites.utils.define_windows"><span class="n">define_windows</span></a><span class="p">,</span> <a href="../../generated/frites.utils.plot_windows.html#frites.utils.plot_windows" title="View documentation for frites.utils.plot_windows"><span class="n">plot_windows</span></a>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -319,7 +319,7 @@ and 5ms between each consecutive windows</p>
 <p>The DFC is going to be computed per trials, bewteen pairs of ROI and inside
 each of the temporal window</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute DFC</span>
-<span class="n">dfc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span> <span class="o">=</span> <a href="../../generated/frites.core.dfc_gc.html#frites.core.dfc_gc" title="View documentation for frites.core.dfc_gc"><span class="n">dfc_gc</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">)</span>
+<span class="n">dfc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span> <span class="o">=</span> <a href="../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="View documentation for frites.conn.conn_dfc"><span class="n">conn_dfc</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">)</span>
 
 <span class="c1"># sphinx_gallery_thumbnail_number = 2</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -330,7 +330,7 @@ each of the temporal window</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_dfc_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_002.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.789 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.782 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db13bd35cb06905f90dd5dbec6da8240/plot_dfc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc.py</span></code></a></p>
@@ -368,7 +368,7 @@ each of the temporal window</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-06-30.</p>
+        <p>&copy; Copyright Last updated on 2020-07-20.</p>
     </footer>
 
   </body>
