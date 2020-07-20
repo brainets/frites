@@ -8,15 +8,20 @@ from mne.stats.cluster_level import _find_clusters
 logger = logging.getLogger('frites')
 
 
-def temporal_clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
-    """Infer p-values using nonparametric test on temporal clusters.
+def clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
+    """Infer p-values using nonparametric test and correct using clusters.
+
+    This function can be used to compute the p-values, corrected for multiple
+    comparisons using cluster-based. Note that this function detect clusters
+    for each ROI but can be performed across multiple other dimensions (e.g
+    frequencies, times etc.).
 
     Parameters
     ----------
     x : array_like
-        Array of true effect size of shape (n_roi, n_times)
+        Array of true effect size of shape (n_roi, ...)
     x_p : array_like
-        Array of permutations of shape (n_perm, n_roi, n_times)
+        Array of permutations of shape (n_perm, n_roi, ...)
     th : float
         The threshold to use
     tail : {-1, 0, 1}
@@ -32,7 +37,7 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
         Array of p-values of shape (n_roi, n_times)
     """
     # get variables
-    n_perm, n_roi, n_times = x_p.shape
+    n_perm, n_roi = x_p.shape[0], x.shape[0]
     assert tail in [-1, 0, 1]
     kwargs['tail'] = tail
 
@@ -42,7 +47,7 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
     # identify clusters for the true x
     cl_loc, cl_mass = [], []
     for r in range(n_roi):
-        _cl_loc, _cl_mass = _find_clusters(x[r, :], th, **kwargs)
+        _cl_loc, _cl_mass = _find_clusters(x[r, ...], th, **kwargs)
         # for non-tfce, clusters are returned as a list of tuples
         _cl_loc = [k[0] if isinstance(k, tuple) else k for k in _cl_loc]
         # update cluster mass according to the tail
@@ -61,7 +66,7 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
     for r in range(n_roi):
         _cl_p_null = []
         for p in range(n_perm):
-            _, __cl_p_null = _find_clusters(x_p[p, r, :], th, **kwargs)
+            _, __cl_p_null = _find_clusters(x_p[p, r, ...], th, **kwargs)
             # if no cluster have been found, set a cluster mass of 0
             if not len(__cl_p_null): __cl_p_null = [0]  # noqa
             # Max / Min cluster size across time
@@ -80,19 +85,22 @@ def temporal_clusters_permutation_test(x, x_p, th, tail=1, **kwargs):
 
     # for maximum statistics, repeat the max across ROI
     cl_p_mass = np.tile(cl_p_mass.max(axis=0, keepdims=True), (n_roi, 1))
-    pv = _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass,
-                              cl_p_mass)
+    pv = _clusters_to_pvalues(x.shape, n_perm, cl_loc, cl_mass, cl_p_mass)
     pv = np.clip(pv, 1. / n_perm, 1.)
 
     return pv
 
 
-def _clusters_to_pvalues(n_roi, n_times, n_perm, cl_loc, cl_mass, cl_p_mass):
+
+def _clusters_to_pvalues(x_shape, n_perm, cl_loc, cl_mass, cl_p_mass):
     """Transform clusters into p-values."""
-    pvalues = np.full((n_roi, n_times), 1.)
+    pvalues = np.full(x_shape, 1.)
+    roi_free_shape = list(x_shape)[1::]
     for r, (cl_g, clm_g) in enumerate(zip(cl_loc, cl_mass)):
         for cl, clm in zip(cl_g, clm_g):
             pv = (clm <= cl_p_mass[[r], :]).sum(1) / n_perm
+            if len(roi_free_shape) > 1:
+                cl = cl.reshape(roi_free_shape)
             pvalues[r, cl] = pv
     return pvalues
 

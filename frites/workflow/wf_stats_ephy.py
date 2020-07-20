@@ -4,7 +4,7 @@ import logging
 import numpy as np
 
 from frites.stats.stats_mcp import permutation_mcp_correction
-from frites.stats.stats_cluster import (temporal_clusters_permutation_test,
+from frites.stats.stats_cluster import (clusters_permutation_test,
                                         cluster_threshold)
 from frites.stats.stats_param import rfx_ttest
 from frites.io import set_log_level
@@ -153,8 +153,7 @@ class WfStatsEphy(WfBase):
         # ---------------------------------------------------------------------
         if mcp is 'cluster':
             logger.info('    Inference at cluster-level')
-            pvalues = temporal_clusters_permutation_test(
-                es, es_p, th, tail=tail)
+            pvalues = clusters_permutation_test(es, es_p, th, tail=tail)
         else:
             logger.info('    Inference at spatio-temporal level (test-wise)')
             es_p = np.moveaxis(es_p, 0, -1)

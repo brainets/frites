@@ -1,7 +1,7 @@
 """Test cluster detection."""
 import numpy as np
 
-from frites.stats import temporal_clusters_permutation_test, cluster_threshold
+from frites.stats import clusters_permutation_test, cluster_threshold
 
 
 rnd = np.random.RandomState(0)
@@ -19,8 +19,8 @@ class TestStatsClusters(object):  # noqa
         is_signi = pval < .05
         np.testing.assert_array_equal(gt, is_signi)
 
-    def test_temporal_clusters_permutation_test(self):
-        """Test function temporal_clusters_permutation_test."""
+    def clusters_permutation_test(self):
+        """Test function clusters_permutation_test."""
         n_pts, n_roi = 10, 2
         sl_neg = slice(2, 4)
         sl_pos = slice(6, 8)
@@ -31,16 +31,13 @@ class TestStatsClusters(object):  # noqa
         mi[:, sl_neg] -= 1000
         mi[:, sl_pos] += 1000
         # tail = -1
-        pv_neg = temporal_clusters_permutation_test(
-            mi, mi_p, th=-100, tail=-1)
+        pv_neg = clusters_permutation_test(mi, mi_p, th=-100, tail=-1)
         self._is_signi(pv_neg, sl_neg)
         # tail = 1
-        pv_pos = temporal_clusters_permutation_test(
-            mi, mi_p, th=100, tail=1)
+        pv_pos = clusters_permutation_test(mi, mi_p, th=100, tail=1)
         self._is_signi(pv_pos, sl_pos)
         # tail = 0
-        pv_both = temporal_clusters_permutation_test(
-            mi, mi_p, th=100, tail=0)
+        pv_both = clusters_permutation_test(mi, mi_p, th=100, tail=0)
         self._is_signi(pv_both, sl_both)
 
     def test_cluster_threshold(self):
