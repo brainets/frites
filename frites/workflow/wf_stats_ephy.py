@@ -3,12 +3,12 @@ import logging
 
 import numpy as np
 
-from frites.stats.stats_mcp import permutation_mcp_correction
-from frites.stats.stats_cluster import (clusters_permutation_test,
-                                        cluster_threshold)
+from frites.stats.stats_mcp import (testwise_correction_mcp,
+                                    cluster_correction_mcp, cluster_threshold)
 from frites.stats.stats_param import rfx_ttest
-from frites.io import set_log_level
+
 from frites.workflow.wf_base import WfBase
+from frites.io import set_log_level
 
 logger = logging.getLogger("frites")
 
@@ -149,15 +149,14 @@ class WfStatsEphy(WfBase):
             self.update_cfg(th=th, tfce=tfce)
 
         # ---------------------------------------------------------------------
-        # test-wise or cluster-based
+        # test-wise or cluster-based correction for multiple comparisons
         # ---------------------------------------------------------------------
         if mcp is 'cluster':
             logger.info('    Inference at cluster-level')
-            pvalues = clusters_permutation_test(es, es_p, th, tail=tail)
+            pvalues = cluster_correction_mcp(es, es_p, th, tail=tail)
         else:
             logger.info('    Inference at spatio-temporal level (test-wise)')
-            es_p = np.moveaxis(es_p, 0, -1)
-            pvalues = permutation_mcp_correction(es, es_p, tail=tail, mcp=mcp)
+            pvalues = testwise_correction_mcp(es, es_p, tail=tail, mcp=mcp)
 
         # ---------------------------------------------------------------------
         # postprocessing

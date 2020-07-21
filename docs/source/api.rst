@@ -83,7 +83,7 @@ Correction for multiple comparisons
 .. autosummary::
    :toctree: generated/
 
-   permutation_mcp_correction
+   testwise_correction_mcp
 
 
 Random effect (rfx)
