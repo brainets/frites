@@ -81,17 +81,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#clustering">Clustering</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -298,66 +295,47 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
-array([[0.84522523, 0.27401115, 0.95813006, 0.75544158, 0.05979   ,
-        0.93405621, 0.86996063],
-       [0.71470402, 0.30654423, 0.24175273, 0.0100232 , 0.65556924,
-        0.15289652, 0.72136992],
-       [0.73345276, 0.49738602, 0.89035591, 0.45760251, 0.29880508,
-        0.07472752, 0.23072175],
-       [0.26930979, 0.95008458, 0.66108661, 0.82291768, 0.19113979,
-        0.53485363, 0.58223385],
-       [0.38564396, 0.7101684 , 0.51811183, 0.81624775, 0.23695557,
-        0.72995149, 0.31933076],
-       [0.43450731, 0.07595726, 0.19317851, 0.82988856, 0.32045792,
-        0.72614759, 0.11797133],
-       [0.28729249, 0.34410517, 0.70109597, 0.78325232, 0.77752437,
-        0.70965343, 0.05266376],
-       [0.54364821, 0.42456398, 0.57468011, 0.84783692, 0.57866088,
-        0.35835803, 0.62541447],
-       [0.5442651 , 0.44167375, 0.98301157, 0.02615429, 0.53583877,
-        0.18843444, 0.61291654],
-       [0.15527483, 0.77096901, 0.27186098, 0.35821471, 0.85718637,
-        0.80218344, 0.98131649],
-       [0.04145575, 0.86679227, 0.71769368, 0.7623239 , 0.18603661,
-        0.37419243, 0.80489214],
-       [0.90884538, 0.91599971, 0.18005821, 0.27988497, 0.07750612,
-        0.28987083, 0.42544379],
-       [0.51392125, 0.46864413, 0.77362016, 0.66846654, 0.85460364,
-        0.15912628, 0.84892915],
-       [0.76816662, 0.41755842, 0.44159295, 0.79130194, 0.23141748,
-        0.72244145, 0.20766957],
-       [0.57183645, 0.65743993, 0.03599696, 0.75588107, 0.3926403 ,
-        0.59980237, 0.30033507],
-       [0.05868578, 0.24823557, 0.47248232, 0.82868573, 0.92996166,
-        0.16562649, 0.38775753],
-       [0.08552473, 0.55322285, 0.71356086, 0.59368092, 0.53494643,
-        0.24598499, 0.10998573],
-       [0.51801034, 0.3283309 , 0.53974357, 0.44451926, 0.76548297,
-        0.47168428, 0.93363533],
-       [0.25397595, 0.91767246, 0.330568  , 0.58280879, 0.170636  ,
-        0.27696824, 0.0154621 ],
-       [0.02853578, 0.78405824, 0.76927862, 0.38621826, 0.27147419,
-        0.03057833, 0.77297609],
-       [0.45529524, 0.46725589, 0.16658665, 0.01075899, 0.99925093,
-        0.3561397 , 0.32329273],
-       [0.25166767, 0.63088444, 0.21787674, 0.57951168, 0.27168242,
-        0.28623963, 0.42137274],
-       [0.37647126, 0.55572309, 0.04328657, 0.36992525, 0.13517098,
-        0.10783009, 0.20269679],
-       [0.185054  , 0.72001099, 0.46212293, 0.07615877, 0.79092167,
-        0.72683386, 0.73556665],
-       [0.74716288, 0.86020402, 0.93245548, 0.29956501, 0.8468018 ,
-        0.11998669, 0.12616995],
-       [0.83929082, 0.26835025, 0.91552735, 0.19311192, 0.82190078,
-        0.78524548, 0.88540643],
-       [0.37574498, 0.43470438, 0.63526699, 0.06932819, 0.54418694,
-        0.59256437, 0.27911812],
-       [0.01814104, 0.0668702 , 0.38663031, 0.96077415, 0.42331255,
-        0.47904206, 0.87519574],
-       [0.01524895, 0.00578741, 0.47779358, 0.26068369, 0.16365913,
-        0.62449382, 0.02251776],
-       [0.38099942, 0.09615024, 0.62003853, 0.76994826, 0.05602902,
-        0.79944612, 0.25073518]])
+array([[4.86595870e-01, 8.50898520e-01, 9.71520591e-01, 5.98642418e-01,
+        2.60682857e-05, 2.22103237e-02, 3.31391218e-02],
+       [7.48761367e-01, 2.69224788e-01, 4.05367971e-01, 7.89854177e-01,
+        6.27778046e-01, 3.71260437e-01, 3.78541730e-01],
+       [2.46223055e-01, 6.10887065e-01, 2.62939296e-01, 1.31271238e-02,
+        6.24738764e-01, 7.39444062e-01, 7.89778632e-01],
+       [6.76867045e-01, 4.27790982e-01, 1.32585778e-01, 2.24799829e-01,
+        1.80497998e-01, 1.23628411e-01, 8.57491992e-01],
+       [6.90707103e-02, 3.58322594e-01, 1.90162818e-01, 6.48262120e-01,
+        7.68025283e-01, 7.60780144e-01, 2.75093885e-01],
+       [4.73224973e-01, 5.76281374e-01, 2.07327929e-01, 9.11636922e-01,
+        8.06062883e-01, 6.95647665e-01, 1.95586409e-01],
+       [2.10691058e-01, 5.69781353e-01, 5.71681249e-01, 4.01899046e-01,
+        9.33277222e-01, 6.34816576e-01, 6.86624857e-01],
+       [4.20793521e-01, 8.65473082e-01, 6.21466577e-01, 6.70635750e-01,
+        1.46718588e-01, 6.08107115e-01, 7.61250676e-01],
+       [4.37710917e-01, 3.81176493e-01, 2.66579357e-01, 7.59135023e-02,
+        3.18267227e-01, 1.82108875e-01, 3.64929635e-01],
+       [3.02593261e-01, 4.43498742e-01, 1.96624182e-01, 4.35550888e-01,
+        2.91403687e-02, 1.79593126e-01, 4.99602804e-01],
+...
+       [7.92235094e-01, 9.69477899e-01, 6.84385213e-01, 2.19215250e-01,
+        6.98878065e-01, 6.80280104e-01, 1.26067955e-01],
+       [2.74582284e-01, 5.35550492e-01, 4.53407529e-01, 9.40472652e-01,
+        8.02827222e-01, 2.89602521e-02, 8.83346498e-01],
+       [5.06958466e-01, 8.01544813e-01, 8.46078271e-01, 7.20186039e-01,
+        5.90781003e-01, 2.75679980e-01, 9.89545762e-01],
+       [3.49325313e-01, 5.62259649e-01, 8.31794679e-01, 6.13529537e-01,
+        1.25031388e-01, 7.30624331e-01, 2.39518541e-01],
+       [3.77227939e-01, 7.36353889e-01, 4.30136553e-01, 7.86094231e-01,
+        6.37133092e-01, 5.52060164e-01, 3.04599193e-01],
+       [3.03245387e-01, 1.20294158e-01, 9.07716291e-02, 7.86393713e-01,
+        7.37347355e-02, 1.40296986e-01, 2.82181617e-01],
+       [9.94878005e-01, 9.95514261e-01, 3.13163983e-01, 5.71347082e-01,
+        7.43387763e-01, 6.13608625e-01, 9.68403890e-01],
+       [8.67237287e-01, 7.09956858e-01, 9.01517912e-02, 7.65172802e-01,
+        6.90493703e-01, 7.34489182e-01, 6.31629706e-01],
+       [6.73768980e-01, 1.27802896e-01, 7.14887943e-01, 5.10800679e-03,
+        5.94834440e-01, 7.17147687e-01, 6.84136450e-01],
+       [2.63392142e-01, 7.97232904e-01, 8.87237441e-01, 5.79785018e-01,
+        5.75976653e-01, 6.78535171e-01, 9.59200871e-01]])
 Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
@@ -400,14 +378,14 @@ Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
 Data variables:
-    first    (times, roi) float64 0.8452 0.274 0.9581 ... 0.05603 0.7994 0.2507
-    second   (times, roi) float64 0.9921 0.6725 0.7683 ... 0.2186 0.1246 0.5282
+    first    (times, roi) float64 0.4866 0.8509 0.9715 ... 0.576 0.6785 0.9592
+    second   (times, roi) float64 0.06863 0.0678 0.7669 ... 0.03001 0.1565
 Attributes:
     desc:     This is my dataset
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.129 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.122 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/627bcf09a570d93abafc523838ae8987/plot_xr_export.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_xr_export.py</span></code></a></p>
@@ -445,7 +423,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-20.</p>
+        <p>&copy; Copyright Last updated on 2020-07-21.</p>
     </footer>
 
   </body>

@@ -81,17 +81,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#clustering">Clustering</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -309,11 +306,11 @@ information transfer</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ],
-        [0.00572376, 0.01084089, 0.03629543, ..., 0.01235601,
-         0.03051869, 0.01646804]],
+        [0.02949771, 0.01210832, 0.0211174 , ..., 0.01144354,
+         0.02122351, 0.01431425]],
 
-       [[0.0272464 , 0.02890066, 0.02135532, ..., 0.0099242 ,
-         0.01799341, 0.02304528],
+       [[0.0203982 , 0.01652132, 0.0207795 , ..., 0.02882532,
+         0.02594392, 0.02160514],
         [0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ]]])
 Coordinates:
@@ -327,7 +324,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             1.413277
+    th:             1.3548872
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -358,8 +355,8 @@ difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</ci
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [-0.02152265, -0.01805978,  0.01494011, ...,  0.00243181,
-          0.01252528, -0.00657724]],
+        [ 0.00909951, -0.004413  ,  0.0003379 , ..., -0.01738179,
+         -0.00472041, -0.00729089]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -376,7 +373,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.272621
+    th:             2.3479779
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -385,7 +382,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.194 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.162 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -423,7 +420,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-20.</p>
+        <p>&copy; Copyright Last updated on 2020-07-21.</p>
     </footer>
 
   </body>

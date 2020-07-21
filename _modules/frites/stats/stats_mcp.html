@@ -81,17 +81,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -245,20 +242,35 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">mne.stats.cluster_level</span> <span class="kn">import</span> <span class="n">_find_clusters</span>
 <span class="kn">from</span> <span class="nn">mne.stats</span> <span class="kn">import</span> <span class="n">fdr_correction</span><span class="p">,</span> <span class="n">bonferroni_correction</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;frites&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="permutation_mcp_correction"><a class="viewcode-back" href="../../../generated/frites.stats.permutation_mcp_correction.html#frites.stats.permutation_mcp_correction">[docs]</a><span class="k">def</span> <span class="nf">permutation_mcp_correction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Correction for MCP using non-parametric statistics.</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                         TESTWISE CORRECTION MCP</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
+<div class="viewcode-block" id="testwise_correction_mcp"><a class="viewcode-back" href="../../../generated/frites.stats.testwise_correction_mcp.html#frites.stats.testwise_correction_mcp">[docs]</a><span class="k">def</span> <span class="nf">testwise_correction_mcp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;maxstat&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test-wise correction for MCP using non-parametric statistics.</span>
+
+<span class="sd">    This function can be used to correct the p-values for multiple comparisons</span>
+<span class="sd">    at the test level (i.e at each time point, each roi, each frequencies</span>
+<span class="sd">    etc.). This kind of correction usually suffers from a low statistical power</span>
+<span class="sd">    (i.e if an effect is present, you might miss it because the correction is</span>
+<span class="sd">    to conservative).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x : array_like</span>
 <span class="sd">        Array of true effect</span>
 <span class="sd">    x_p : array_like</span>
-<span class="sd">        Array of permutations of shape (..., n_perm) where the other dimensions</span>
+<span class="sd">        Array of permutations of shape (n_perm, ...) where the other dimensions</span>
 <span class="sd">        should be the same as `x`</span>
 <span class="sd">    tail : {-1, 0, 1}</span>
 <span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
@@ -266,9 +278,6 @@
 <span class="sd">    mcp : {&#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;}</span>
 <span class="sd">        Method to use for correcting p-values for the multiple comparison</span>
 <span class="sd">        problem. By default, maximum statistics is used</span>
-<span class="sd">    inplace : bool | False</span>
-<span class="sd">        Specify if operations can be performed inplace (faster and decrease</span>
-<span class="sd">        ram usage but change the data)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -278,7 +287,7 @@
     <span class="k">assert</span> <span class="n">tail</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
     <span class="k">assert</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
-    <span class="n">n_perm</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n_perm</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Perform correction for MCP (mcp=</span><span class="si">{</span><span class="n">mcp</span><span class="si">}</span><span class="s2">; tail=</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
@@ -287,29 +296,21 @@
     <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>     <span class="c1"># upper part of the distribution</span>
         <span class="k">pass</span>
     <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>  <span class="c1"># bottom part of the distribution</span>
-        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
-            <span class="n">x</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
-            <span class="n">x_p</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">x_p</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">x_p</span>
     <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>   <span class="c1"># both part of the distribution</span>
-        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x_p</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># mcp correction</span>
     <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">:</span>
+        <span class="n">x_p_sh</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">n_perm</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
         <span class="c1"># maximum over all dimensions except the perm one</span>
-        <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_p</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-        <span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+        <span class="n">x_p</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_perm</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="n">x_p_sh</span><span class="p">)</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
         <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
         <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;fdr&#39;</span><span class="p">:</span>
             <span class="n">pv</span> <span class="o">=</span> <span class="n">fdr_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">:</span>
@@ -317,6 +318,190 @@
     <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pv</span></div>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                      CLUSTER-BASED CORRECTION MCP</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
+<div class="viewcode-block" id="cluster_correction_mcp"><a class="viewcode-back" href="../../../generated/frites.stats.cluster_correction_mcp.html#frites.stats.cluster_correction_mcp">[docs]</a><span class="k">def</span> <span class="nf">cluster_correction_mcp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cluster-based correction for MCP using non-parametric statistics.</span>
+
+<span class="sd">    This function can be used to compute the p-values, corrected for multiple</span>
+<span class="sd">    comparisons using cluster-based. Note that this function detect clusters</span>
+<span class="sd">    for each ROI but can be performed across multiple other dimensions (e.g</span>
+<span class="sd">    frequencies, times etc.).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Array of true effect size of shape (n_roi, ...)</span>
+<span class="sd">    x_p : array_like</span>
+<span class="sd">        Array of permutations of shape (n_perm, n_roi, ...)</span>
+<span class="sd">    th : float</span>
+<span class="sd">        The threshold to use</span>
+<span class="sd">    tail : {-1, 0, 1}</span>
+<span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">        1 for the higher part and 0 for both</span>
+<span class="sd">    kwargs : dict | {}</span>
+<span class="sd">        Additional arguments are send to the</span>
+<span class="sd">        :func:`mne.stats.cluster_level._find_clusters`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pvalues : array_like</span>
+<span class="sd">        Array of p-values of shape (n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># get variables</span>
+    <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_roi</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">tail</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tail</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Cluster detection (threshold=</span><span class="si">{</span><span class="n">th</span><span class="si">}</span><span class="s2">; tail=</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># identify clusters for the true x</span>
+    <span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+        <span class="n">_cl_loc</span><span class="p">,</span> <span class="n">_cl_mass</span> <span class="o">=</span> <span class="n">_find_clusters</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">th</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># for non-tfce, clusters are returned as a list of tuples</span>
+        <span class="n">_cl_loc</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_cl_loc</span><span class="p">]</span>
+        <span class="c1"># update cluster mass according to the tail</span>
+        <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">_cl_mass</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">_cl_mass</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_cl_mass</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="c1"># save where clusters have been found and cluster size</span>
+        <span class="n">cl_loc</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_cl_loc</span><span class="p">]</span>
+        <span class="n">cl_mass</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_cl_mass</span><span class="p">]</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># identify clusters for the permuted x</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+        <span class="n">_cl_p_null</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">__cl_p_null</span> <span class="o">=</span> <span class="n">_find_clusters</span><span class="p">(</span><span class="n">x_p</span><span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">th</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="c1"># if no cluster have been found, set a cluster mass of 0</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">__cl_p_null</span><span class="p">):</span> <span class="n">__cl_p_null</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># noqa</span>
+            <span class="c1"># Max / Min cluster size across time</span>
+            <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># max cluster size across time</span>
+                <span class="n">_cl_p_null</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">__cl_p_null</span><span class="p">)]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+            <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>  <span class="c1"># min cluster size across time</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">_cl_p_null</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">__cl_p_null</span><span class="p">)]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_cl_p_null</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">__cl_p_null</span><span class="p">)]</span><span class="o">.</span><span class="n">min</span><span class="p">()]</span>
+            <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># max of absolute cluster size across time</span>
+                <span class="n">_cl_p_null</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">__cl_p_null</span><span class="p">)])</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+        <span class="n">cl_p_mass</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_cl_p_null</span><span class="p">]</span>
+    <span class="c1"># array conversion of shape (n_roi, n_perm)</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="p">)</span>
+
+    <span class="c1"># for maximum statistics, repeat the max across ROI</span>
+    <span class="n">cl_p_mass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">cl_p_mass</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">_clusters_to_pvalues</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">,</span> <span class="n">cl_p_mass</span><span class="p">)</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pv</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_clusters_to_pvalues</span><span class="p">(</span><span class="n">x_shape</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">,</span> <span class="n">cl_p_mass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Transform clusters into p-values.&quot;&quot;&quot;</span>
+    <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">x_shape</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="n">roi_free_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x_shape</span><span class="p">)[</span><span class="mi">1</span><span class="p">::]</span>
+    <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="n">cl_g</span><span class="p">,</span> <span class="n">clm_g</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cl_loc</span><span class="p">,</span> <span class="n">cl_mass</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">cl</span><span class="p">,</span> <span class="n">clm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cl_g</span><span class="p">,</span> <span class="n">clm_g</span><span class="p">):</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">clm</span> <span class="o">&lt;=</span> <span class="n">cl_p_mass</span><span class="p">[[</span><span class="n">r</span><span class="p">],</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi_free_shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">cl</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">roi_free_shape</span><span class="p">)</span>
+            <span class="n">pvalues</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">cl</span><span class="p">]</span> <span class="o">=</span> <span class="n">pv</span>
+    <span class="k">return</span> <span class="n">pvalues</span>
+
+
+<div class="viewcode-block" id="cluster_threshold"><a class="viewcode-back" href="../../../generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold">[docs]</a><span class="k">def</span> <span class="nf">cluster_threshold</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                      <span class="n">h_power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">e_power</span><span class="o">=.</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Threshold detection for cluster-based inferencse.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Array of true effect size</span>
+<span class="sd">    x_p : array_like</span>
+<span class="sd">        Array of permutations</span>
+<span class="sd">    alpha : float | .05</span>
+<span class="sd">        Thresholding permutation distribution. If `alpha` is 0.05 it means</span>
+<span class="sd">        that the threshold is going to be the 95th percentile</span>
+<span class="sd">    tail : {-1, 0, 1}</span>
+<span class="sd">        Type of comparison. Use -1 for the lower part of the distribution,</span>
+<span class="sd">        1 for the higher part and 0 for both</span>
+<span class="sd">    tfce : bool | False</span>
+<span class="sd">        Use Threshold Free Cluster Enhancement. Use either :</span>
+
+<span class="sd">            * True to specify that TFCE have to be used. In that case, the</span>
+<span class="sd">              start and integration step are automatically inferred</span>
+<span class="sd">            * A dict that contains a &#39;start&#39; and a &#39;step&#39; key to manually set</span>
+<span class="sd">              TFCE parameters. Could also use &#39;e_power&#39; and &#39;h_power&#39; entries</span>
+<span class="sd">            * A dict that is only there to set TFCE parameters n_steps, e_power</span>
+<span class="sd">              and h_power but using the automatic starting and integration step</span>
+<span class="sd">    n_steps : int | 100</span>
+<span class="sd">        Number of integration steps between the start and stoping values for</span>
+<span class="sd">        the TFCE</span>
+<span class="sd">    h_power : float | 2</span>
+<span class="sd">        Default H exponent of the TFCE</span>
+<span class="sd">    e_power : float | .5</span>
+<span class="sd">        Default E exponent of the TFCE</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    threshold : float, dict</span>
+<span class="sd">        The cluster threshold. For the TFCE, this output a is dictionary with</span>
+<span class="sd">        a &#39;start&#39; and a &#39;step&#39; keys (MNE convention)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Cluster forming threshold (tail=</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">; alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">; &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;tfce=</span><span class="si">{</span><span class="n">tfce</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tfce</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="c1"># tfce is a dict that is only used to set MNE parameters</span>
+        <span class="c1"># (n_steps, e_power, h_power)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">n_steps</span> <span class="o">=</span> <span class="n">tfce</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;n_steps&#39;</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">)</span>
+            <span class="n">e_power</span> <span class="o">=</span> <span class="n">tfce</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;e_power&#39;</span><span class="p">,</span> <span class="n">e_power</span><span class="p">)</span>
+            <span class="n">h_power</span> <span class="o">=</span> <span class="n">tfce</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;h_power&#39;</span><span class="p">,</span> <span class="n">h_power</span><span class="p">)</span>
+            <span class="c1"># now that we have the parameters, reset the tfce to use auto</span>
+            <span class="c1"># in case &#39;start&#39; and &#39;step&#39; keys are absents</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;start&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tfce</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;step&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tfce</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">tfce</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tfce</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">),</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_steps</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="n">tfce</span>
+        <span class="n">th</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">e_power</span><span class="o">=</span><span class="n">e_power</span><span class="p">,</span> <span class="n">h_power</span><span class="o">=</span><span class="n">h_power</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span> <span class="ow">in</span> <span class="n">th</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">x_p</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_p</span><span class="p">),</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">th</span></div>
 </pre></div>
 
     </div>
@@ -343,7 +528,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-20.</p>
+        <p>&copy; Copyright Last updated on 2020-07-21.</p>
     </footer>
 
   </body>

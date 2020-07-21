@@ -81,17 +81,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.permutation_mcp_correction.html">frites.stats.permutation_mcp_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api.html#clustering">Clustering</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.temporal_clusters_permutation_test.html">frites.stats.temporal_clusters_permutation_test</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
 </ul>
@@ -246,12 +243,12 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">frites.stats.stats_mcp</span> <span class="kn">import</span> <span class="n">permutation_mcp_correction</span>
-<span class="kn">from</span> <span class="nn">frites.stats.stats_cluster</span> <span class="kn">import</span> <span class="p">(</span><span class="n">temporal_clusters_permutation_test</span><span class="p">,</span>
-                                        <span class="n">cluster_threshold</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.stats.stats_mcp</span> <span class="kn">import</span> <span class="p">(</span><span class="n">testwise_correction_mcp</span><span class="p">,</span>
+                                    <span class="n">cluster_correction_mcp</span><span class="p">,</span> <span class="n">cluster_threshold</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">frites.stats.stats_param</span> <span class="kn">import</span> <span class="n">rfx_ttest</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span>
+
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_base</span> <span class="kn">import</span> <span class="n">WfBase</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;frites&quot;</span><span class="p">)</span>
 
@@ -392,16 +389,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">th</span><span class="o">=</span><span class="n">th</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="n">tfce</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># test-wise or cluster-based</span>
+        <span class="c1"># test-wise or cluster-based correction for multiple comparisons</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at cluster-level&#39;</span><span class="p">)</span>
-            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">temporal_clusters_permutation_test</span><span class="p">(</span>
-                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">)</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">cluster_correction_mcp</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;    Inference at spatio-temporal level (test-wise)&#39;</span><span class="p">)</span>
-            <span class="n">es_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">es_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">permutation_mcp_correction</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
+            <span class="n">pvalues</span> <span class="o">=</span> <span class="n">testwise_correction_mcp</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing</span>
@@ -448,7 +443,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-20.</p>
+        <p>&copy; Copyright Last updated on 2020-07-21.</p>
     </footer>
 
   </body>
