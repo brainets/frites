@@ -10,6 +10,7 @@ Breaking changes
 ++++++++++++++++
 * Xarray is now the default output type as it supports the definition of multi-dimensional containers with label to each coordinates (:commit:`8174e4`) + illustrating examples of how to use xarray (:commit:`f5d28e`)
 * Every connectivity measures have been moved to `frites.conn` (:commit:`a33d536`)
+* Deep support for correcting for multiple-comparisons using multi-dimensional data (:commit:`840327`, :commit:`e0e1a5b`)
 
 v0.3.3
 ------

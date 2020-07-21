@@ -83,7 +83,9 @@ Correction for multiple comparisons
 .. autosummary::
    :toctree: generated/
 
+   cluster_correction_mcp
    testwise_correction_mcp
+   cluster_threshold
 
 
 Random effect (rfx)
@@ -94,15 +96,6 @@ Random effect (rfx)
 
    ttest_1samp
    rfx_ttest
-
-Clustering
-++++++++++
-
-.. autosummary::
-   :toctree: generated/
-
-   temporal_clusters_permutation_test
-   cluster_threshold
 
 .. raw:: html
 
