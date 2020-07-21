@@ -74,7 +74,7 @@ wf = WfMi(mi_type, inference, verbose=False, kernel=kernel)
 # ---------------------------------------------
 
 # list of corrections for multiple comparison
-mcps = ['maxstat', 'fdr', 'bonferroni']
+mcps = ['cluster', 'maxstat', 'fdr', 'bonferroni']
 kw = dict(n_jobs=1, n_perm=200)
 """
 The `cluster_th` input parameter specifies how the threshold is defined.
