@@ -39,12 +39,12 @@ class WfStatsEphy(WfBase):
         ----------
         effect : list
             True effect list of length (n_roi,) composed of arrays each one of
-            shape (n_subjects, n_times). Number of subjects per ROI could be
-            different
+            shape (n_subjects, ..., n_times). Number of subjects per ROI could
+            be different
         perms : list
             Permutation list of length (n_roi,) composed of arrays each one of
-            shape (n_perm, n_subjects, n_times). Number of subjects per ROI
-            could be different
+            shape (n_perm, n_subjects, ..., n_times). Number of subjects per
+            ROI could be different
         inference : {'ffx', 'rfx'}
             Perform either Fixed-effect ('ffx') or Random-effect ('rfx')
             inferences. By default, random-effect is used
@@ -79,10 +79,10 @@ class WfStatsEphy(WfBase):
         Returns
         -------
         pvalues : array_like
-            Array of p-values of shape (n_times, n_roi)
+            Array of p-values of shape (..., n_times, n_roi)
         tvalues : array_like
-            Array of t-values of shape (n_times, n_n_roi). This ouput is only
-            computed for group-level analysis
+            Array of t-values of shape (..., n_times, n_roi). This ouput is
+            only computed for group-level analysis
 
         References
         ----------
@@ -95,12 +95,12 @@ class WfStatsEphy(WfBase):
         assert mcp in ['cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat',
                        'noperm', None]
         assert isinstance(effect, list) and isinstance(perms, list)
-        assert all([isinstance(k, np.ndarray) and k.ndim == 2 for k in effect])
-        n_roi, n_times, tvalues = len(effect), effect[0].shape[1], None
+        assert all([isinstance(k, np.ndarray) and k.ndim >= 2 for k in effect])
+        n_roi, n_times, tvalues = len(effect), effect[0].shape[-1], None
         # don't compute statistics if `mcp` is None
         if (mcp in [None, 'noperm']) or not len(perms):
             return np.ones((n_times, n_roi), dtype=float), tvalues
-        assert all([isinstance(k, np.ndarray) and k.ndim == 3 for k in perms])
+        assert all([isinstance(k, np.ndarray) and k.ndim >= 3 for k in perms])
         assert len(effect) == len(perms)
         # test that all values are finite
         assert all([np.isfinite(k).all() for k in effect])
@@ -163,8 +163,8 @@ class WfStatsEphy(WfBase):
         # ---------------------------------------------------------------------
         # by default p and t-values are (n_roi, n_times)
         if isinstance(tvalues, np.ndarray):
-            tvalues = tvalues.T
-        pvalues = pvalues.T
+            tvalues = np.moveaxis(tvalues, 0, -1)
+        pvalues = np.moveaxis(pvalues, 0, -1)
 
         # update internal config
         self.update_cfg(inference=inference, mcp=mcp, tail=tail,
