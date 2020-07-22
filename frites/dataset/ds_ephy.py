@@ -36,8 +36,9 @@ class DatasetEphy(object):
             * 4d NumPy array of shape (n_epochs, n_channels, n_freqs, n_times)
             * mne.Epochs or mne.EpochsArray
             * mne.EpochsTFR (i.e. non-averaged power)
-            * xarray.DataArray. In that case, `y` and `z` can be strings in
-              order to describe the coordinate to use
+            * xarray.DataArray. In that case `y`, `z`, `roi` and `times` inputs
+              can be strings that refer to the coordinate name to use in the
+              DataArray
 
     roi : list | None
         List of length (n_subjects,) where each element is an array of shape
@@ -73,8 +74,9 @@ class DatasetEphy(object):
         """Init."""
         set_log_level(verbose)
         # ---------------------------------------------------------------------
-        # conversion of the electrophysiocal data
+        # conversion of the electrophysiological data
         # ---------------------------------------------------------------------
+        logger.info('Definition of an electrophysiological dataset')
         x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
                                          verbose=verbose)
         if y is None:
