@@ -253,6 +253,18 @@ class WfMi(WfBase):
             return None
 
         # ---------------------------------------------------------------------
+        # 4d reshaping before the stats
+        # ---------------------------------------------------------------------
+        self._reshape = dataset._reshape
+        if self._reshape is not None:
+            logger.debug(f"    reshaping before computing statistics")
+            n_f, n_t = self._reshape
+            for k in range(len(mi)):
+                n_p, n_s, _ = mi_p[k].shape
+                mi[k] = mi[k].reshape(n_s, n_f, n_t)
+                mi_p[k] = mi_p[k].reshape(n_p, n_s, n_f, n_t)
+
+        # ---------------------------------------------------------------------
         # compute statistics
         # ---------------------------------------------------------------------
         # infer p-values and t-values
@@ -267,23 +279,32 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # postprocessing and conversions
         # ---------------------------------------------------------------------
-        # fast access to variable names
-        kw_da = dict(dims=('times', 'roi'),
-                     coords=(dataset.times, dataset.roi_names))
         # tvalues conversion
         if isinstance(tvalues, np.ndarray):
-            self._tvalues = self._attrs_xarray(xr.DataArray(tvalues, **kw_da))
+            self._tvalues = self._xr_conversion(tvalues)
         # mean mi across subjects
         if self._inference is 'rfx':
             logger.info("    Mean mi across subjects")
             mi = [k.mean(axis=0, keepdims=True) for k in mi]
+        mi = np.moveaxis(np.concatenate(mi, axis=0), 0, -1)
         # dataarray conversion
-        mi = xr.DataArray(np.concatenate(mi, axis=0).T, **kw_da)
-        pv = xr.DataArray(pvalues, **kw_da)
-        # add attributes to the dataarray
-        mi, pv = self._attrs_xarray(mi), self._attrs_xarray(pv)
+        mi = self._xr_conversion(mi)
+        pv = self._xr_conversion(pvalues)
 
         return mi, pv
+
+    def _xr_conversion(self, x):
+        """Xarray conversion."""
+        times, roi = self._times, self._roi
+        if x.ndim == 2:
+            x_da = xr.DataArray(x, dims=('times', 'roi'), coords=(times, roi))
+        elif x.ndim == 3:
+            freqs = np.arange(x.shape[0])
+            x_da = xr.DataArray(x, dims=('freqs', 'times', 'roi'),
+                                coords=(freqs, times, roi))
+        self._attrs_xarray(x_da)
+
+        return x_da
 
 
     def conjunction_analysis(self, dataset, p=.05, mcp='cluster',
