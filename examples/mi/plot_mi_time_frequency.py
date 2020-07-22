@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 # regressor variable is going to be continuous and is also going to be a normal
 
 # dataset parameters
-n_subjects = 3
+n_subjects = 5
 n_freqs = 20
 n_times = 50
 n_trials = 100
