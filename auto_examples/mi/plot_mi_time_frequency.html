@@ -326,8 +326,6 @@ and the continuous regressor</p>
 <span class="c1"># set the true frequencies</span>
 <span class="n">mi</span><span class="p">[</span><span class="s1">&#39;freqs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqs</span>
 <span class="n">pv</span><span class="p">[</span><span class="s1">&#39;freqs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqs</span>
-<span class="c1"># set to nan non-significant p-values</span>
-<span class="n">pv</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pv</span><span class="o">.</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 </pre></div>
 </div>
 <p>plot the mutual information and p-values</p>
@@ -336,14 +334,14 @@ and the continuous regressor</p>
 <span class="n">mi</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Mutual information&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">pv</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">pv</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues_r&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Significant p-values (p&lt;0.05, cluster-corrected)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_mi_time_frequency_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_time_frequency_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.391 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.191 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-time-frequency-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/48fdfcc1d08b84ef598d6345deae9ab0/plot_mi_time_frequency.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mi_time_frequency.py</span></code></a></p>

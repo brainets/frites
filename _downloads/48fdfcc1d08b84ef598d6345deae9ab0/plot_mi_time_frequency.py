@@ -83,8 +83,6 @@ mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0)
 # set the true frequencies
 mi['freqs'] = freqs
 pv['freqs'] = freqs
-# set to nan non-significant p-values
-pv.data[pv.data >= .05] = np.nan
 
 ###############################################################################
 # plot the mutual information and p-values
@@ -94,7 +92,7 @@ plt.subplot(1, 2, 1)
 mi.squeeze().plot.pcolormesh(vmin=0, cmap='inferno')
 plt.title('Mutual information')
 plt.subplot(1, 2, 2)
-pv.squeeze().plot.pcolormesh(cmap='Blues')
+pv.squeeze().plot.pcolormesh(cmap='Blues_r')
 plt.title('Significant p-values (p<0.05, cluster-corrected)')
 plt.tight_layout()
 plt.show()

@@ -130,8 +130,6 @@ Compute the mutual information
     # set the true frequencies
     mi['freqs'] = freqs
     pv['freqs'] = freqs
-    # set to nan non-significant p-values
-    pv.data[pv.data >= .05] = np.nan
 
 
 
@@ -150,7 +148,7 @@ plot the mutual information and p-values
     mi.squeeze().plot.pcolormesh(vmin=0, cmap='inferno')
     plt.title('Mutual information')
     plt.subplot(1, 2, 2)
-    pv.squeeze().plot.pcolormesh(cmap='Blues')
+    pv.squeeze().plot.pcolormesh(cmap='Blues_r')
     plt.title('Significant p-values (p<0.05, cluster-corrected)')
     plt.tight_layout()
     plt.show()
@@ -166,7 +164,7 @@ plot the mutual information and p-values
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.391 seconds)
+   **Total running time of the script:** ( 0 minutes  3.191 seconds)
 
 
 .. _sphx_glr_download_auto_examples_mi_plot_mi_time_frequency.py:
