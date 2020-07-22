@@ -84,11 +84,15 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, verbose=None):
     roi = [np.asarray(roi[k]) for k in range(len(roi))]
     times = times.astype(np.float32)
     # data checking
-    assert all([k.ndim == 3 for k in x]), (
-        "data should be a 3D array of shape (n_trials, n_channels, n_pts)")
+    assert all([k.ndim in [3, 4] for k in x]), (
+        "data should either contains 3d arrays (n_trials, n_channels, n_pts) "
+        "or 4d arrays (n_trials, n_channels, n_freqs, n_pts)")
     x_sh = [x[k].shape for k in range(len(x))]
-    x_st = [x_sh[k][1::] == (len(roi[k]), len(times)) for k in range(len(x))]
-    assert all(x_st), "Number of time points and / or roi is not consitent"
+    is_sh_roi = [x_sh[k][1] == len(roi[k]) for k in range(len(x))]
+    is_sh_times = [x_sh[k][-1] == len(times) for k in range(len(x))]
+    assert all(is_sh_roi), "Inconsistent number of ROI"
+    assert all(is_sh_times), "Inconsistent number of time points"
+    assert all([list(x_sh[0])[1:] == list(x_sh[k])[1:]] for k in range(len(x)))
     if isinstance(y, list):
         y = [np.asarray(y[k]) for k in range(len(y))]
         assert len(y) == len(x), "length of y shoud be (n_subjects,)"

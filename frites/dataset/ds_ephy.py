@@ -29,9 +29,16 @@ class DatasetEphy(object):
     Parameters
     ----------
     x : list
-        List of length (n_subjects,). Each element of the list should either be
-        an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
-        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).
+        List of length (n_subjects,) where each element of the list should be
+        the data of single subject with one of the following form :
+
+            * 3d NumPy array of shape (n_epochs, n_channels, n_times)
+            * 4d NumPy array of shape (n_epochs, n_channels, n_freqs, n_times)
+            * mne.Epochs or mne.EpochsArray
+            * mne.EpochsTFR (i.e. non-averaged power)
+            * xarray.DataArray. In that case, `y` and `z` can be strings in
+              order to describe the coordinate to use
+
     roi : list | None
         List of length (n_subjects,) where each element is an array of shape
         (n_channels,) describing the ROI name of each channel. If None and if
@@ -96,6 +103,17 @@ class DatasetEphy(object):
             y = self._multicond_conversion(y, 'y', verbose)
         if self._z_dtype == 'int':
             z = self._multicond_conversion(z, 'z', verbose)
+
+        # ---------------------------------------------------------------------
+        # 4d conversion
+        # ---------------------------------------------------------------------
+        self._reshape = None
+        if all([k.ndim == 4 for k in x]):
+            logger.debug(f"    4d reshaping")
+            n_e, n_r, n_f, n_t = x[0].shape
+            for k in range(len(x)):
+                x[k] = x[k].reshape(n_e, n_r, n_f * n_t)
+            self._reshape = (n_f, n_t)
 
         # ---------------------------------------------------------------------
         # retain in self
