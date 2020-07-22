@@ -493,6 +493,18 @@
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># 4d reshaping before the stats</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_reshape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    reshaping before computing statistics&quot;</span><span class="p">)</span>
+            <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)):</span>
+                <span class="n">n_p</span><span class="p">,</span> <span class="n">n_s</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+                <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_s</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
+                <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_p</span><span class="p">,</span> <span class="n">n_s</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute statistics</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># infer p-values and t-values</span>
@@ -507,23 +519,32 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing and conversions</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># fast access to variable names</span>
-        <span class="n">kw_da</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span>
-                     <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span><span class="p">))</span>
         <span class="c1"># tvalues conversion</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_da</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xr_conversion</span><span class="p">(</span><span class="n">tvalues</span><span class="p">)</span>
         <span class="c1"># mean mi across subjects</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="ow">is</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Mean mi across subjects&quot;</span><span class="p">)</span>
             <span class="n">mi</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi</span><span class="p">]</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="c1"># dataarray conversion</span>
-        <span class="n">mi</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_da</span><span class="p">)</span>
-        <span class="n">pv</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">pvalues</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_da</span><span class="p">)</span>
-        <span class="c1"># add attributes to the dataarray</span>
-        <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">mi</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">pv</span><span class="p">)</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xr_conversion</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
+        <span class="n">pv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xr_conversion</span><span class="p">(</span><span class="n">pvalues</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span></div>
+
+    <span class="k">def</span> <span class="nf">_xr_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Xarray conversion.&quot;&quot;&quot;</span>
+        <span class="n">times</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">x_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span> <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">x_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;freqs&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span>
+                                <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">x_da</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x_da</span>
 
 
 <div class="viewcode-block" id="WfMi.conjunction_analysis"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.conjunction_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">conjunction_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">p</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
@@ -657,7 +678,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>

@@ -262,9 +262,19 @@ duplication</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,). Each element of the list should either be
-an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
-mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</p>
+<dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) where each element of the list should be
+the data of single subject with one of the following form :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>3d NumPy array of shape (n_epochs, n_channels, n_times)</p></li>
+<li><p>4d NumPy array of shape (n_epochs, n_channels, n_freqs, n_times)</p></li>
+<li><p>mne.Epochs or mne.EpochsArray</p></li>
+<li><p>mne.EpochsTFR (i.e. non-averaged power)</p></li>
+<li><p>xarray.DataArray. In that case <cite>y</cite>, <cite>z</cite>, <cite>roi</cite> and <cite>times</cite> inputs
+can be strings that refer to the coordinate name to use in the
+DataArray</p></li>
+</ul>
+</div></blockquote>
 </dd>
 <dt><strong>roi</strong><span class="classifier">list | None</span></dt><dd><p>List of length (n_subjects,) where each element is an array of shape
 (n_channels,) describing the ROI name of each channel. If None and if
@@ -552,7 +562,7 @@ thus used to determine the length of the window over which a
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>

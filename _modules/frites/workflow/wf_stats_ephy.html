@@ -279,12 +279,12 @@
 <span class="sd">        ----------</span>
 <span class="sd">        effect : list</span>
 <span class="sd">            True effect list of length (n_roi,) composed of arrays each one of</span>
-<span class="sd">            shape (n_subjects, n_times). Number of subjects per ROI could be</span>
-<span class="sd">            different</span>
+<span class="sd">            shape (n_subjects, ..., n_times). Number of subjects per ROI could</span>
+<span class="sd">            be different</span>
 <span class="sd">        perms : list</span>
 <span class="sd">            Permutation list of length (n_roi,) composed of arrays each one of</span>
-<span class="sd">            shape (n_perm, n_subjects, n_times). Number of subjects per ROI</span>
-<span class="sd">            could be different</span>
+<span class="sd">            shape (n_perm, n_subjects, ..., n_times). Number of subjects per</span>
+<span class="sd">            ROI could be different</span>
 <span class="sd">        inference : {&#39;ffx&#39;, &#39;rfx&#39;}</span>
 <span class="sd">            Perform either Fixed-effect (&#39;ffx&#39;) or Random-effect (&#39;rfx&#39;)</span>
 <span class="sd">            inferences. By default, random-effect is used</span>
@@ -319,10 +319,10 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        pvalues : array_like</span>
-<span class="sd">            Array of p-values of shape (n_times, n_roi)</span>
+<span class="sd">            Array of p-values of shape (..., n_times, n_roi)</span>
 <span class="sd">        tvalues : array_like</span>
-<span class="sd">            Array of t-values of shape (n_times, n_n_roi). This ouput is only</span>
-<span class="sd">            computed for group-level analysis</span>
+<span class="sd">            Array of t-values of shape (..., n_times, n_roi). This ouput is</span>
+<span class="sd">            only computed for group-level analysis</span>
 
 <span class="sd">        References</span>
 <span class="sd">        ----------</span>
@@ -335,12 +335,12 @@
         <span class="k">assert</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">,</span> <span class="s1">&#39;nostat&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">perms</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">])</span>
-        <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">),</span> <span class="n">effect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">])</span>
+        <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">),</span> <span class="n">effect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span>
         <span class="c1"># don&#39;t compute statistics if `mcp` is None</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;noperm&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_times</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">tvalues</span>
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">])</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">)</span>
         <span class="c1"># test that all values are finite</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">effect</span><span class="p">])</span>
@@ -403,8 +403,8 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># by default p and t-values are (n_roi, n_times)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">tvalues</span> <span class="o">=</span> <span class="n">tvalues</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">pvalues</span> <span class="o">=</span> <span class="n">pvalues</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">tvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">pvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">pvalues</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># update internal config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
@@ -443,7 +443,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>

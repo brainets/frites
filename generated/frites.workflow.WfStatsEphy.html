@@ -304,12 +304,12 @@ temporal clusters).</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
 <dt><strong>effect</strong><span class="classifier">list</span></dt><dd><p>True effect list of length (n_roi,) composed of arrays each one of
-shape (n_subjects, n_times). Number of subjects per ROI could be
-different</p>
+shape (n_subjects, …, n_times). Number of subjects per ROI could
+be different</p>
 </dd>
 <dt><strong>perms</strong><span class="classifier">list</span></dt><dd><p>Permutation list of length (n_roi,) composed of arrays each one of
-shape (n_perm, n_subjects, n_times). Number of subjects per ROI
-could be different</p>
+shape (n_perm, n_subjects, …, n_times). Number of subjects per
+ROI could be different</p>
 </dd>
 <dt><strong>inference</strong><span class="classifier">{‘ffx’, ‘rfx’}</span></dt><dd><p>Perform either Fixed-effect (‘ffx’) or Random-effect (‘rfx’)
 inferences. By default, random-effect is used</p>
@@ -351,10 +351,10 @@ the 95th percentile of the permutations is used.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (n_times, n_roi)</p>
+<dt><strong>pvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of p-values of shape (…, n_times, n_roi)</p>
 </dd>
-<dt><strong>tvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of t-values of shape (n_times, n_n_roi). This ouput is only
-computed for group-level analysis</p>
+<dt><strong>tvalues</strong><span class="classifier">array_like</span></dt><dd><p>Array of t-values of shape (…, n_times, n_roi). This ouput is
+only computed for group-level analysis</p>
 </dd>
 </dl>
 </dd>
@@ -398,7 +398,7 @@ computed for group-level analysis</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>

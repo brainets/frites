@@ -129,8 +129,8 @@ Compute the mutual information and statistics
 
 
     # list of corrections for multiple comparison
-    mcps = ['maxstat', 'fdr', 'bonferroni']
-    kw = dict(n_jobs=1, n_perm=100)
+    mcps = ['cluster', 'maxstat', 'fdr', 'bonferroni']
+    kw = dict(n_jobs=1, n_perm=200)
     """
     The `cluster_th` input parameter specifies how the threshold is defined.
     Use either :
@@ -173,7 +173,10 @@ Compute the mutual information and statistics
 
  .. code-block:: none
 
+    -> RFX / MCP=cluster
     -> RFX / MCP=maxstat
+    /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:93: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+      plt.subplot(212)
     -> RFX / MCP=fdr
     /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:93: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
       plt.subplot(212)
@@ -186,7 +189,7 @@ Compute the mutual information and statistics
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.773 seconds)
+   **Total running time of the script:** ( 0 minutes  5.358 seconds)
 
 
 .. _sphx_glr_download_auto_examples_statistics_plot_wf_mi_stats_compare_rfx.py:

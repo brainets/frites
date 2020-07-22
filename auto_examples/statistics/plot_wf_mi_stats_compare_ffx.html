@@ -312,7 +312,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <div class="section" id="compute-the-mutual-information-and-statistics">
 <h2>Compute the mutual information and statistics<a class="headerlink" href="#compute-the-mutual-information-and-statistics" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># list of corrections for multiple comparison</span>
-<span class="n">mcps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
+<span class="n">mcps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
 <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">The `cluster_th` input parameter specifies how the threshold is defined.</span>
@@ -347,7 +347,10 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; FFX / MCP=maxstat
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; FFX / MCP=cluster
+-&gt; FFX / MCP=maxstat
+/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:94: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  plt.subplot(212)
 -&gt; FFX / MCP=fdr
 /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_ffx.py:94: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
   plt.subplot(212)
@@ -356,7 +359,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
   plt.subplot(212)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.613 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.149 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/531c227d9c95523d02c4f2dfb933a96e/plot_wf_mi_stats_compare_ffx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code></a></p>
@@ -394,7 +397,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>

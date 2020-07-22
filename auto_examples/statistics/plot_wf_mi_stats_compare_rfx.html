@@ -311,8 +311,8 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <div class="section" id="compute-the-mutual-information-and-statistics">
 <h2>Compute the mutual information and statistics<a class="headerlink" href="#compute-the-mutual-information-and-statistics" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># list of corrections for multiple comparison</span>
-<span class="n">mcps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
-<span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">mcps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
+<span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">The `cluster_th` input parameter specifies how the threshold is defined.</span>
 <span class="sd">Use either :</span>
@@ -346,7 +346,10 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; RFX / MCP=maxstat
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-&gt; RFX / MCP=cluster
+-&gt; RFX / MCP=maxstat
+/home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:93: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  plt.subplot(212)
 -&gt; RFX / MCP=fdr
 /home/circleci/project/examples/statistics/plot_wf_mi_stats_compare_rfx.py:93: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
   plt.subplot(212)
@@ -355,7 +358,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
   plt.subplot(212)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.773 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.358 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e6d3cb42c1652fcf6e7ee9a938e407fe/plot_wf_mi_stats_compare_rfx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_stats_compare_rfx.py</span></code></a></p>
@@ -393,7 +396,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>

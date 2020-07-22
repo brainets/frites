@@ -269,9 +269,17 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x : list</span>
-<span class="sd">        List of length (n_subjects,). Each element of the list should either be</span>
-<span class="sd">        an array of shape (n_epochs, n_channels, n_times), mne.Epochs,</span>
-<span class="sd">        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power).</span>
+<span class="sd">        List of length (n_subjects,) where each element of the list should be</span>
+<span class="sd">        the data of single subject with one of the following form :</span>
+
+<span class="sd">            * 3d NumPy array of shape (n_epochs, n_channels, n_times)</span>
+<span class="sd">            * 4d NumPy array of shape (n_epochs, n_channels, n_freqs, n_times)</span>
+<span class="sd">            * mne.Epochs or mne.EpochsArray</span>
+<span class="sd">            * mne.EpochsTFR (i.e. non-averaged power)</span>
+<span class="sd">            * xarray.DataArray. In that case `y`, `z`, `roi` and `times` inputs</span>
+<span class="sd">              can be strings that refer to the coordinate name to use in the</span>
+<span class="sd">              DataArray</span>
+
 <span class="sd">    roi : list | None</span>
 <span class="sd">        List of length (n_subjects,) where each element is an array of shape</span>
 <span class="sd">        (n_channels,) describing the ROI name of each channel. If None and if</span>
@@ -306,8 +314,9 @@
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># conversion of the electrophysiocal data</span>
+        <span class="c1"># conversion of the electrophysiological data</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Definition of an electrophysiological dataset&#39;</span><span class="p">)</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">ds_ephy_io</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
                                          <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -336,6 +345,17 @@
             <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multicond_conversion</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_dtype</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">:</span>
             <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_multicond_conversion</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># 4d conversion</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    4d reshaping&quot;</span><span class="p">)</span>
+            <span class="n">n_e</span><span class="p">,</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+                <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">n_f</span> <span class="o">*</span> <span class="n">n_t</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># retain in self</span>
@@ -890,7 +910,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-21.</p>
+        <p>&copy; Copyright Last updated on 2020-07-22.</p>
     </footer>
 
   </body>
