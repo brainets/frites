@@ -12,6 +12,14 @@ Breaking changes
 * Every connectivity measures have been moved to `frites.conn` (:commit:`a33d536`)
 * Deep support for correcting for multiple-comparisons using multi-dimensional data (:commit:`840327`, :commit:`e0e1a5b`) + support for :class:`frites.workflow.WfStatsEphy` (:commit:`563910d`) + support for :py:class:`frites.dataset.DatasetEphy` (:commit:`10a3697`) + support for :py:class:`frites.workflow.WfMi` (:commit:`9c6165`)
 
+New Features
+++++++++++++
+* New class :class:`frites.simulations.StimSpecAR` for generating Auto-Regressive Models (:commit:`4688539`)
+
+Internal Changes
+++++++++++++++++
+* Improve testings (:commit:`6644cd`)
+
 v0.3.3
 ------
 
