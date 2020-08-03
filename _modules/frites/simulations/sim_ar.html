@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.simulations.sim_ar &#8212; frites 0.3.4 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.4</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#from-random-data">From random data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#from-real-data">From real data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id2">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.simulations.sim_ar</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Auto-regressive models simulations.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">periodogram</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <span class="n">conn_covgc</span>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">mi_model_nd_gd</span>
+
+
+<div class="viewcode-block" id="StimSpecAR"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR">[docs]</a><span class="k">class</span> <span class="nc">StimSpecAR</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stimulus-specific autoregressive (AR) Model.</span>
+
+<span class="sd">    This class can be used to simulate several networks where the information</span>
+<span class="sd">    sent between node is stimulus specific inside a temporal region.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StimSpecAR.__init__"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
+        <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StimSpecAR.fit"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ar_type</span><span class="o">=</span><span class="s1">&#39;hga&#39;</span><span class="p">,</span> <span class="n">sf</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+            <span class="n">n_stim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stim_onset</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the data generated by the selected model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ar_type : {&#39;hga&#39;, &#39;osc_20&#39;, &#39;osc_40&#39;, &#39;ding_2&#39;, &#39;ding_3&#39;, &#39;ding_5&#39;}</span>
+<span class="sd">            Autoregressive model type. Choose either :</span>
+
+<span class="sd">                * &#39;hga&#39; : for evoked high-gamma activity</span>
+<span class="sd">                * &#39;osc_20&#39; / &#39;osc_40&#39; : for oscillations respectively around</span>
+<span class="sd">                  20Hz and 40Hz</span>
+<span class="sd">                * &#39;ding_2&#39; / &#39;ding_3&#39; / &#39;ding_5&#39; : respectively the models with</span>
+<span class="sd">                  2, 3 or 5 nodes described by Ding et al.</span>
+<span class="sd">                  :cite:`ding2006granger`</span>
+
+<span class="sd">        sf : float | 200</span>
+<span class="sd">            The sampling frequency</span>
+<span class="sd">        n_times : int | 300</span>
+<span class="sd">            Number of time points</span>
+<span class="sd">        n_epochs : int | 100</span>
+<span class="sd">            Number of epochs</span>
+<span class="sd">        dt : int | 50</span>
+<span class="sd">            Width of the time-varying Gaussian stimulus</span>
+<span class="sd">        n_stim : int | 3</span>
+<span class="sd">            Number of stimulus to use</span>
+<span class="sd">        stim_onset : int | 100</span>
+<span class="sd">            Index where the time-varying Gaussian stimulus should start</span>
+<span class="sd">        random_state : int | None</span>
+<span class="sd">            Fix the random state of the machine for reproducibility</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : xarray.DataArray</span>
+<span class="sd">            DataArray of shape (n_epochs * n_stim, n_roi, n_times)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span> <span class="o">-</span> <span class="mf">0.5</span>
+        <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
+        <span class="n">cval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_stim</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">gval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_stim</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">n_epochs_tot</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_epochs</span> <span class="o">*</span> <span class="n">n_stim</span><span class="p">)</span>
+        <span class="n">stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_stim</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">random_state</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">random_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ar_type</span> <span class="ow">is</span> <span class="s1">&#39;hga&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lab</span> <span class="o">=</span> <span class="s1">&#39;Evoked HGA&#39;</span>
+        <span class="k">elif</span> <span class="n">ar_type</span> <span class="ow">is</span> <span class="s1">&#39;osc_20&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lab</span> <span class="o">=</span> <span class="s1">&#39;20Hz oscillations&#39;</span>
+        <span class="k">elif</span> <span class="n">ar_type</span> <span class="ow">is</span> <span class="s1">&#39;osc_40&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lab</span> <span class="o">=</span> <span class="s1">&#39;40Hz oscillations&#39;</span>
+        <span class="k">elif</span> <span class="n">ar_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ding_2&#39;</span><span class="p">,</span> <span class="s1">&#39;ding_3&#39;</span><span class="p">,</span> <span class="s1">&#39;ding_5&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lab</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Ding&#39;s </span><span class="si">{</span><span class="n">ar_type</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> nodes&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_lab</span><span class="si">}</span><span class="s2"> AR model (n_times=</span><span class="si">{</span><span class="n">n_times</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;n_epochs=</span><span class="si">{</span><span class="n">n_epochs</span><span class="si">}</span><span class="s2">, n_stim=</span><span class="si">{</span><span class="n">n_stim</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1">#                             GAUSSIAN STIM</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1"># generate time-varying Gaussian input to X</span>
+        <span class="n">gauss</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># normalise Gaussian profile between [0, 1]</span>
+        <span class="n">gauss</span> <span class="o">-=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">gauss</span> <span class="o">/=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="c1"># full time gaussian stim</span>
+        <span class="n">gauss_stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_times</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">gauss_stim</span><span class="p">[</span><span class="n">stim_onset</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">stim_onset</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">gauss</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">gauss</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1">#                            COUPLING STRENGTH</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cval</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gauss_stim</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">causal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cval</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gauss_stim</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1">#                        AUTOREGRESSIVE MODEL</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+
+        <span class="k">if</span> <span class="n">ar_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;hga&#39;</span><span class="p">,</span> <span class="s1">&#39;osc_20&#39;</span><span class="p">,</span> <span class="s1">&#39;osc_40&#39;</span><span class="p">]:</span>
+            <span class="c1"># _____________________________ GAIN ______________________________</span>
+            <span class="k">if</span> <span class="n">ar_type</span> <span class="o">==</span> <span class="s1">&#39;hga&#39;</span><span class="p">:</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">gval</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">)</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gauss_stim</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+            <span class="c1"># _______________________ POLY COEFFICIENTS________________________</span>
+            <span class="k">if</span> <span class="n">ar_type</span> <span class="o">==</span> <span class="s1">&#39;osc_40&#39;</span><span class="p">:</span>  <span class="c1"># bivariate data oscillating at 40Hz</span>
+                <span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">55</span><span class="p">,</span> <span class="o">-.</span><span class="mi">8</span><span class="p">]</span>
+                <span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">35</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">]</span>
+                <span class="n">a12</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">ar_type</span> <span class="o">==</span> <span class="s1">&#39;osc_20&#39;</span><span class="p">:</span>  <span class="c1"># bivariate data oscillating at ~20Hz</span>
+                <span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-.</span><span class="mi">3</span><span class="p">,</span> <span class="o">-.</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-.</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">]</span>
+                <span class="n">a12</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">ar_type</span> <span class="o">==</span> <span class="s1">&#39;hga&#39;</span><span class="p">:</span>  <span class="c1"># Evoked High-Gamma Activity</span>
+                <span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">a12</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># Model order is 5</span>
+
+            <span class="c1"># _____________________________ NOISE _____________________________</span>
+            <span class="c1"># fix random state for reproducibility</span>
+            <span class="n">rnd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+            <span class="c1"># white noise with zero mean and unit variance</span>
+            <span class="n">n1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">05</span><span class="p">)</span> <span class="o">*</span> <span class="n">rnd</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">05</span><span class="p">)</span> <span class="o">*</span> <span class="n">rnd</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+
+            <span class="c1"># ______________________________ AR _______________________________</span>
+            <span class="c1"># generate AR model with feature-specific causal connectivity (fCC)</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">a2</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">a12</span><span class="p">)])</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">n_times</span><span class="p">):</span>
+                <span class="c1"># past indexing</span>
+                <span class="n">_sl_a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">_sl_a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">a2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">_sl_a12</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">a12</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># AR core</span>
+                <span class="c1"># - x1 = noise + gain + a1 * past_x1</span>
+                <span class="c1"># - x2 = noise + a2 * past_x2 + coupling * past_x1</span>
+                <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">n1</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">_sl_a1</span><span class="p">]</span> <span class="o">@</span> <span class="n">a1</span><span class="p">)</span>
+                <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">n2</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="p">[:,</span> <span class="n">_sl_a2</span><span class="p">]</span> <span class="o">@</span> <span class="n">a2</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="n">x</span><span class="p">[:,</span> <span class="n">_sl_a12</span><span class="p">]</span> <span class="o">@</span> <span class="n">a12</span><span class="p">)</span>
+            <span class="c1"># concatenate everything</span>
+            <span class="n">dat</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_2&#39;</span><span class="p">:</span>
+            <span class="n">kw_n</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+            <span class="n">n1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_times</span><span class="p">):</span>
+                <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">.</span><span class="mi">9</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">n1</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">.</span><span class="mi">8</span> <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="o">.</span><span class="mi">16</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="n">n2</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+            <span class="n">dat</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_3&#39;</span><span class="p">:</span>
+            <span class="n">kw_n</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+            <span class="n">n1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n3</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_times</span><span class="p">):</span>
+                <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">.</span><span class="mi">8</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="o">.</span><span class="mi">4</span> <span class="o">*</span> <span class="n">z</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">n1</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">.</span><span class="mi">9</span> <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">8</span> <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">n2</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">z</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">z</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">n3</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+            <span class="n">dat</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_5&#39;</span><span class="p">:</span>
+            <span class="n">sq2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span><span class="p">)</span>
+            <span class="n">kw_n</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+            <span class="n">n1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">6</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+            <span class="n">n5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">.</span><span class="mi">6</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_n</span><span class="p">)</span>
+
+            <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="n">x5</span> <span class="o">=</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="n">n4</span><span class="p">,</span> <span class="n">n5</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_times</span><span class="p">):</span>
+                <span class="n">x1</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">.</span><span class="mi">95</span> <span class="o">*</span> <span class="n">sq2</span> <span class="o">*</span> <span class="n">x1</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="o">.</span><span class="mi">9025</span> <span class="o">*</span> <span class="n">x1</span><span class="p">[</span>
+                    <span class="p">:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">n1</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">x2</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">x1</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="n">n2</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">x3</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">-.</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x1</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="n">n3</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">x4</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">-.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">x1</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="o">.</span><span class="mi">25</span> <span class="o">*</span> <span class="n">sq2</span> <span class="o">*</span> <span class="n">x5</span><span class="p">[</span>
+                    <span class="p">:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="o">.</span><span class="mi">25</span> <span class="o">*</span> <span class="n">sq2</span> <span class="o">*</span> <span class="n">x4</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">n4</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">x5</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">-.</span><span class="mi">25</span> <span class="o">*</span> <span class="n">sq2</span> <span class="o">*</span> <span class="n">x4</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span>
+                    <span class="o">.</span><span class="mi">25</span> <span class="o">*</span> <span class="n">sq2</span> <span class="o">*</span> <span class="n">x5</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">n5</span><span class="p">[:,</span> <span class="n">t</span><span class="p">])</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="n">x5</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="s1">&#39;x3&#39;</span><span class="p">,</span> <span class="s1">&#39;x4&#39;</span><span class="p">,</span> <span class="s1">&#39;x5&#39;</span><span class="p">]</span>
+
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="c1">#                         XARRAY CONVERSION</span>
+        <span class="c1"># ---------------------------------------------------------------------</span>
+        <span class="n">ar</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
+                          <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">stim</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">roi</span><span class="p">),</span> <span class="n">times</span><span class="p">))</span>
+        <span class="c1"># keep in object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="o">=</span> <span class="n">ar_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_causal</span> <span class="o">=</span> <span class="n">causal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ar</span> <span class="o">=</span> <span class="n">ar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sf</span> <span class="o">=</span> <span class="n">sf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_stim</span> <span class="o">=</span> <span class="n">n_stim</span>
+
+        <span class="k">return</span> <span class="n">ar</span></div>
+
+    <span class="k">def</span> <span class="nf">_compute_psd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the stimulus specific PSD of a single roi.</span>
+
+<span class="sd">        `x` should be a dataarray of shape (n_epochs, n_roi, n_times)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># compute psd</span>
+        <span class="n">n_times</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">])</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">periodogram</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sf</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nfft</span><span class="o">=</span><span class="n">n_times</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span>
+            <span class="n">return_onesided</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># dataarray conversion</span>
+        <span class="n">psd</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">psd</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;freqs&#39;</span><span class="p">),</span>
+                           <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">],</span> <span class="n">freqs</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">psd</span>
+
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">#                              COVGC</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###########################################################################</span>
+
+<div class="viewcode-block" id="StimSpecAR.compute_covgc"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR.compute_covgc">[docs]</a>    <span class="k">def</span> <span class="nf">compute_covgc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ar</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the Covariance-based Granger Causality.</span>
+
+<span class="sd">        In addition of computing the Granger Causality, the mutual-information</span>
+<span class="sd">        between the Granger causalitity and the stimulus is also computed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dt : int</span>
+<span class="sd">            Duration of the time window for covariance correlation in samples</span>
+<span class="sd">        lag : int</span>
+<span class="sd">            Number of samples for the lag within each trial</span>
+<span class="sd">        step : int | 1</span>
+<span class="sd">            Number of samples stepping between each sliding window onset</span>
+<span class="sd">        method : {&#39;gauss&#39;, &#39;gc&#39;}</span>
+<span class="sd">            Method for the estimation of the covgc. Use either &#39;gauss&#39; which</span>
+<span class="sd">            assumes that the time-points are normally distributed or &#39;gc&#39; in</span>
+<span class="sd">            order to use the gaussian-copula.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        gc : array_like</span>
+<span class="sd">            Granger Causality arranged as (n_epochs, n_pairs, n_windows, 3)</span>
+<span class="sd">            where the last dimension means :</span>
+
+<span class="sd">                * 0 : pairs[:, 0] -&gt; pairs[:, 1] (x-&gt;y)</span>
+<span class="sd">                * 1 : pairs[:, 1] -&gt; pairs[:, 0] (y-&gt;x)</span>
+<span class="sd">                * 2 : instantaneous  (x.y)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># compute the granger causality</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lag</span><span class="p">,</span> <span class="n">ar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">gc</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">conn_covgc</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+                                 <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ar</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span> <span class="o">=</span> <span class="n">gc</span>
+        <span class="c1"># compute the MI between stimulus / raw</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="n">mi_model_nd_gd</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">traxis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
+                                <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">],</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">],</span>
+                                        <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;Mutual information between the stimulus and the output of the &quot;</span>
+            <span class="s2">&quot;covgc&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">gc</span></div>
+
+
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">#                              PLOTTING</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###########################################################################</span>
+
+<div class="viewcode-block" id="StimSpecAR.plot"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">psd</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot the generated data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        psd : bool | False</span>
+<span class="sd">            If False (default), the raw data are plotted. If True, the power</span>
+<span class="sd">            spectrum density (PSD) is plotted instead</span>
+<span class="sd">        cmap : &#39;string&#39; | &#39;plasma&#39;</span>
+<span class="sd">            Colormap to use</span>
+<span class="sd">        colorbar : bool | False</span>
+<span class="sd">            Display or not the colorbar</span>
+<span class="sd">        kwargs : dict | {}</span>
+<span class="sd">            Additional inputs are sent to the `plt.imshow` function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="o">.</span><span class="n">trials</span><span class="p">))</span>
+        <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="o">.</span><span class="n">roi</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># switch between raw / psd plot</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">psd</span><span class="p">:</span>
+            <span class="n">to_plt</span><span class="p">,</span> <span class="n">xaxis</span><span class="p">,</span> <span class="n">xlab</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">to_plt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_psd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ar</span><span class="p">)</span>
+            <span class="n">xaxis</span><span class="p">,</span> <span class="n">xlab</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">to_plt</span><span class="p">[</span><span class="s1">&#39;freqs&#39;</span><span class="p">],</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="s1">&#39;PSD of &#39;</span>
+
+        <span class="n">kw_imshow</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">xaxis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xaxis</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">trials</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trials</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                         <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="c1"># plot stimulus</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n_roi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_causal</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Causal coupling&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Causal coupling from X $\rightarrow$ Y for different &quot;</span>
+                  <span class="s2">&quot;stims&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># plot raw / psd ( new style rules :) )</span>
+        <span class="k">for</span> <span class="n">n_r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n_roi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">n_r</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">to_plt</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">n_r</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_imshow</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Trials&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ext</span><span class="si">}{</span><span class="nb">str</span><span class="p">(</span><span class="n">to_plt</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">n_r</span><span class="p">])</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                      <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">colorbar</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="StimSpecAR.plot_model"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR.plot_model">[docs]</a>    <span class="k">def</span> <span class="nf">plot_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot the model of the network.</span>
+
+<span class="sd">        Note that this method requires the networkx Python package.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;hga&#39;</span><span class="p">,</span> <span class="s1">&#39;osc_40&#39;</span><span class="p">,</span> <span class="s1">&#39;osc_20&#39;</span><span class="p">]:</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">lab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lab</span>
+            <span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">):</span> <span class="n">lab</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">(n_stim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_stim</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">}</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ding_2&#39;</span><span class="p">,</span> <span class="s1">&#39;ding_3&#39;</span><span class="p">,</span> <span class="s1">&#39;ding_5&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_2&#39;</span><span class="p">:</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_3&#39;</span><span class="p">:</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_5&#39;</span><span class="p">:</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;X1&#39;</span><span class="p">,</span> <span class="s1">&#39;X2&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;X1&#39;</span><span class="p">,</span> <span class="s1">&#39;X3&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;X1&#39;</span><span class="p">,</span> <span class="s1">&#39;X4&#39;</span><span class="p">)],</span>
+                                 <span class="n">weight</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;X4&#39;</span><span class="p">,</span> <span class="s1">&#39;X5&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="s1">&#39;X5&#39;</span><span class="p">,</span> <span class="s1">&#39;X4&#39;</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># build edges labels</span>
+            <span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="sa">rf</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">$\rightarrow$</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span>
+                <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+            <span class="c1"># fix ding_5 for bidirectional connectivity between 4 &lt;-&gt; 5</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar_type</span> <span class="ow">is</span> <span class="s1">&#39;ding_5&#39;</span><span class="p">:</span>
+                <span class="n">edge_labels</span><span class="p">[(</span><span class="s1">&#39;X5&#39;</span><span class="p">,</span> <span class="s1">&#39;X4&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;X4$\rightarrow$X5=2&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                                             <span class="sa">r</span><span class="s1">&#39;X5$\rightarrow$X4=1&#39;</span><span class="p">)</span>
+
+        <span class="c1"># color edges according to causal strength</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)])</span>
+        <span class="c1"># get edge labels in the form {(&#39;X&#39;, &#39;Y&#39;): 1 etc.}</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">planar_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">)</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-|&gt;&#39;</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+                         <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                         <span class="n">edge_cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                         <span class="n">edge_vmin</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="StimSpecAR.plot_covgc"><a class="viewcode-back" href="../../../generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR.plot_covgc">[docs]</a>    <span class="k">def</span> <span class="nf">plot_covgc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_mi</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot the Granger Causality.</span>
+
+<span class="sd">        Note that before plotting the Granger causality, the method</span>
+<span class="sd">        :class:`StimSpecAR.compute_covgc` have to be launched before.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        plot_mi : bool | False</span>
+<span class="sd">            If False (default) the Granger causality is plotted. If True, it is</span>
+<span class="sd">            the information shared between the Granger causality and the</span>
+<span class="sd">            stimulus that is plotted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="c1"># select either the covgc either the mi(covgc; stim)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">plot_mi</span><span class="p">:</span>
+            <span class="n">gcm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">)</span>
+            <span class="n">gcm</span> <span class="o">=</span> <span class="n">gcm</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;trials&#39;</span><span class="p">:</span> <span class="s1">&#39;Stimulus&#39;</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gcm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span>
+
+        <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">gcm</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">gcm</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">direction</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="n">gcm</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gcm</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">n_d</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">direction</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">roi</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">direction</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">),</span> <span class="n">q</span><span class="p">)</span>
+                <span class="n">gcm</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span>
+                                                      <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Stimulus&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">gcm</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">gcm</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+                <span class="n">r_sp</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="s1">&#39;x-&gt;y&#39;</span><span class="p">:</span>
+                    <span class="n">tit</span> <span class="o">=</span> <span class="sa">fr</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r_sp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">$\rightarrow$</span><span class="si">{</span><span class="n">r_sp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="k">elif</span> <span class="n">d</span> <span class="o">==</span> <span class="s1">&#39;y-&gt;x&#39;</span><span class="p">:</span>
+                    <span class="n">tit</span> <span class="o">=</span> <span class="sa">fr</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r_sp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">$\rightarrow$</span><span class="si">{</span><span class="n">r_sp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="k">elif</span> <span class="n">d</span> <span class="o">==</span> <span class="s1">&#39;x.y&#39;</span><span class="p">:</span>
+                    <span class="n">tit</span> <span class="o">=</span> <span class="sa">fr</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r_sp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> . </span><span class="si">{</span><span class="n">r_sp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">tit</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">n_r</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">n_d</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">q</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span></div>
+
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">#                              PROPERTIES</span>
+    <span class="c1">###########################################################################</span>
+    <span class="c1">###########################################################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Output data generated by the selected model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ar</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Granger causality.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Mutual-information between the granger causality and stimulus.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span></div>
+
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+    <span class="n">ss</span> <span class="o">=</span> <span class="n">StimSpecAR</span><span class="p">()</span>
+    <span class="n">ar</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ar_type</span><span class="o">=</span><span class="s1">&#39;osc_40&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># ss.plot_model()</span>
+    <span class="c1"># gc = ss.compute_covgc(ar, step=5)</span>
+    <span class="c1"># plt.figure(figsize=(14, 12))</span>
+    <span class="c1"># ss.plot_covgc()</span>
+    <span class="c1"># plt.figure(figsize=(14, 12))</span>
+    <span class="c1"># ss.plot_covgc(plot_mi=True)</span>
+    <span class="n">ss</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;bwr&#39;</span><span class="p">,</span> <span class="n">psd</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../whatsnew.html">What's new</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2020-08-03.</p>
+    </footer>
+
+  </body>
+</html>

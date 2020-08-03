@@ -1,6 +1,6 @@
 """
 Compute MI across time and frequencies
-===================================
+======================================
 
 This example illustrates how to compute the mutual information with
 time-frequency inputs (e.g time-frequency maps). Then, it uses cluster-based

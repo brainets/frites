@@ -127,6 +127,7 @@
 <li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
 </ul>
 </li>
 </ul>
@@ -181,27 +182,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -306,11 +309,11 @@ information transfer</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ],
-        [0.01977405, 0.0275171 , 0.01890238, ..., 0.01597584,
-         0.00945953, 0.01730419]],
+        [0.01672007, 0.01742016, 0.00606549, ..., 0.01711575,
+         0.01199304, 0.02097714]],
 
-       [[0.03270937, 0.0212943 , 0.01564673, ..., 0.00792281,
-         0.01917901, 0.02256863],
+       [[0.00670363, 0.00666824, 0.01337631, ..., 0.003152  ,
+         0.00422037, 0.01413476],
         [0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ]]])
 Coordinates:
@@ -324,7 +327,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             1.4074053
+    th:             1.3849447
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -355,8 +358,8 @@ difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</ci
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [-0.01293532,  0.0062228 ,  0.00325566, ...,  0.00805303,
-         -0.00971948, -0.00526444]],
+        [ 0.01001643,  0.01075192, -0.00731083, ...,  0.01396375,
+          0.00777266,  0.00684238]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -373,7 +376,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.2751174
+    th:             2.3450294
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -382,7 +385,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.201 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.198 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -420,7 +423,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-07-22.</p>
+        <p>&copy; Copyright Last updated on 2020-08-03.</p>
     </footer>
 
   </body>

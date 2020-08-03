@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.conn.conn_transfer_entropy &#8212; frites 0.3.4 documentation</title>
+    <title>frites.simulations.StimSpecAR &#8212; frites 0.3.4 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.stats.cluster_correction_mcp" href="frites.stats.cluster_correction_mcp.html" />
-    <link rel="prev" title="frites.conn.conn_fit" href="frites.conn.conn_fit.html" />
+    <link rel="next" title="frites.utils.define_windows" href="frites.utils.define_windows.html" />
+    <link rel="prev" title="frites.simulations.sim_gauss_fit" href="frites.simulations.sim_gauss_fit.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -74,11 +74,11 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_transfer_entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
@@ -100,7 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
@@ -124,12 +124,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
-<li class="toctree-l5"><a class="reference internal" href="frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">frites.simulations.StimSpecAR</a></li>
 </ul>
 </li>
 </ul>
@@ -222,7 +222,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.conn.conn_transfer_entropy.rst.txt"
+  <a href="../_sources/generated/frites.simulations.StimSpecAR.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -246,46 +246,211 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-conn-conn-transfer-entropy">
-<h1>frites.conn.conn_transfer_entropy<a class="headerlink" href="#frites-conn-conn-transfer-entropy" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="frites.conn.conn_transfer_entropy">
-<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_transfer_entropy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">max_delay=30</em>, <em class="sig-param">pairs=None</em>, <em class="sig-param">gcrn=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_transfer_entropy.html#conn_transfer_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_transfer_entropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the transfer entropy.</p>
-<p>The transfer entropy represents the amount of information that is send
-from a source to a target. It is defined as :</p>
-<div class="math notranslate nohighlight">
-\[TE = I(source_{past}; target_{present} | target_{past})\]</div>
-<p>Where <span class="math notranslate nohighlight">\(past\)</span> is defined using the <cite>max_delay</cite> input parameter. Note
-that the transfer entropy only provides about the amount of information
-that is sent, not on the content.</p>
-<dl class="field-list simple">
+  <div class="section" id="frites-simulations-stimspecar">
+<h1>frites.simulations.StimSpecAR<a class="headerlink" href="#frites-simulations-stimspecar" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frites.simulations.StimSpecAR">
+<em class="property">class </em><code class="sig-prename descclassname">frites.simulations.</code><code class="sig-name descname">StimSpecAR</code><span class="sig-paren">(</span><em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stimulus-specific autoregressive (AR) Model.</p>
+<p>This class can be used to simulate several networks where the information
+sent between node is stimulus specific inside a temporal region.</p>
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.__init__" title="frites.simulations.StimSpecAR.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([verbose])</p></td>
+<td><p>Init.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.compute_covgc" title="frites.simulations.StimSpecAR.compute_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_covgc</span></code></a>(ar[, dt, lag, step, method])</p></td>
+<td><p>Compute the Covariance-based Granger Causality.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.fit" title="frites.simulations.StimSpecAR.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([ar_type, sf, n_times, n_epochs, dt, …])</p></td>
+<td><p>Get the data generated by the selected model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.plot" title="frites.simulations.StimSpecAR.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>([psd, cmap, colorbar])</p></td>
+<td><p>Plot the generated data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.plot_covgc" title="frites.simulations.StimSpecAR.plot_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_covgc</span></code></a>([plot_mi])</p></td>
+<td><p>Plot the Granger Causality.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.plot_model" title="frites.simulations.StimSpecAR.plot_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_model</span></code></a>()</p></td>
+<td><p>Plot the model of the network.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.ar" title="frites.simulations.StimSpecAR.ar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ar</span></code></a></p></td>
+<td><p>Output data generated by the selected model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.gc" title="frites.simulations.StimSpecAR.gc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gc</span></code></a></p></td>
+<td><p>Granger causality.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.mi" title="frites.simulations.StimSpecAR.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
+<td><p>Mutual-information between the granger causality and stimulus.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.compute_covgc">
+<code class="sig-name descname">compute_covgc</code><span class="sig-paren">(</span><em class="sig-param">ar</em>, <em class="sig-param">dt=50</em>, <em class="sig-param">lag=5</em>, <em class="sig-param">step=1</em>, <em class="sig-param">method='gc'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.compute_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.compute_covgc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the Covariance-based Granger Causality.</p>
+<p>In addition of computing the Granger Causality, the mutual-information
+between the Granger causalitity and the stimulus is also computed.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of data of shape (n_roi, n_times, n_epochs). Must be a gaussian
-variable</p>
+<dt><strong>dt</strong><span class="classifier">int</span></dt><dd><p>Duration of the time window for covariance correlation in samples</p>
 </dd>
-<dt><strong>max_delay</strong><span class="classifier">int | 30</span></dt><dd><p>Number of time points defining where to stop looking at in the past.
-Increasing this maximum delay input can lead to slower computations</p>
+<dt><strong>lag</strong><span class="classifier">int</span></dt><dd><p>Number of samples for the lag within each trial</p>
 </dd>
-<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Array of pairs to consider for computing the transfer entropy. It
-should be an array of shape (n_pairs, 2) where the first column refers
-to sources and the second to targets. If None, all pairs will be
-computed</p>
+<dt><strong>step</strong><span class="classifier">int | 1</span></dt><dd><p>Number of samples stepping between each sliding window onset</p>
 </dd>
-<dt><strong>gcrn</strong><span class="classifier">bool | True</span></dt><dd><p>Apply a Gaussian Copula rank normalization</p>
+<dt><strong>method</strong><span class="classifier">{‘gauss’, ‘gc’}</span></dt><dd><p>Method for the estimation of the covgc. Use either ‘gauss’ which
+assumes that the time-points are normally distributed or ‘gc’ in
+order to use the gaussian-copula.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>gc</strong><span class="classifier">array_like</span></dt><dd><p>Granger Causality arranged as (n_epochs, n_pairs, n_windows, 3)
+where the last dimension means :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>0 : pairs[:, 0] -&gt; pairs[:, 1] (x-&gt;y)</p></li>
+<li><p>1 : pairs[:, 1] -&gt; pairs[:, 0] (y-&gt;x)</p></li>
+<li><p>2 : instantaneous  (x.y)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">ar_type='hga'</em>, <em class="sig-param">sf=200</em>, <em class="sig-param">n_times=300</em>, <em class="sig-param">n_epochs=100</em>, <em class="sig-param">dt=50</em>, <em class="sig-param">n_stim=3</em>, <em class="sig-param">stim_onset=100</em>, <em class="sig-param">random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the data generated by the selected model.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>ar_type</strong><span class="classifier">{‘hga’, ‘osc_20’, ‘osc_40’, ‘ding_2’, ‘ding_3’, ‘ding_5’}</span></dt><dd><p>Autoregressive model type. Choose either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘hga’ : for evoked high-gamma activity</p></li>
+<li><p>‘osc_20’ / ‘osc_40’ : for oscillations respectively around
+20Hz and 40Hz</p></li>
+<li><p>‘ding_2’ / ‘ding_3’ / ‘ding_5’ : respectively the models with
+2, 3 or 5 nodes described by Ding et al.
+<a class="bibtex reference internal" href="../references.html#ding2006granger" id="id1">[3]</a></p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>sf</strong><span class="classifier">float | 200</span></dt><dd><p>The sampling frequency</p>
+</dd>
+<dt><strong>n_times</strong><span class="classifier">int | 300</span></dt><dd><p>Number of time points</p>
+</dd>
+<dt><strong>n_epochs</strong><span class="classifier">int | 100</span></dt><dd><p>Number of epochs</p>
+</dd>
+<dt><strong>dt</strong><span class="classifier">int | 50</span></dt><dd><p>Width of the time-varying Gaussian stimulus</p>
+</dd>
+<dt><strong>n_stim</strong><span class="classifier">int | 3</span></dt><dd><p>Number of stimulus to use</p>
+</dd>
+<dt><strong>stim_onset</strong><span class="classifier">int | 100</span></dt><dd><p>Index where the time-varying Gaussian stimulus should start</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Fix the random state of the machine for reproducibility</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>te</strong><span class="classifier">array_like</span></dt><dd><p>The transfer entropy array of shape (n_pairs, n_times - max_delay)</p>
-</dd>
-<dt><strong>pairs</strong><span class="classifier">array_like</span></dt><dd><p>Pairs vector use for computations of shape (n_pairs, 2)</p>
+<dt><strong>data</strong><span class="classifier">xarray.DataArray</span></dt><dd><p>DataArray of shape (n_epochs * n_stim, n_roi, n_times)</p>
 </dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">psd=False</em>, <em class="sig-param">cmap='plasma'</em>, <em class="sig-param">colorbar=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the generated data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>psd</strong><span class="classifier">bool | False</span></dt><dd><p>If False (default), the raw data are plotted. If True, the power
+spectrum density (PSD) is plotted instead</p>
+</dd>
+<dt><strong>cmap</strong><span class="classifier">‘string’ | ‘plasma’</span></dt><dd><p>Colormap to use</p>
+</dd>
+<dt><strong>colorbar</strong><span class="classifier">bool | False</span></dt><dd><p>Display or not the colorbar</p>
+</dd>
+<dt><strong>kwargs</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional inputs are sent to the <cite>plt.imshow</cite> function</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.plot_covgc">
+<code class="sig-name descname">plot_covgc</code><span class="sig-paren">(</span><em class="sig-param">plot_mi=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.plot_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.plot_covgc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the Granger Causality.</p>
+<p>Note that before plotting the Granger causality, the method
+<a class="reference internal" href="#frites.simulations.StimSpecAR.compute_covgc" title="frites.simulations.StimSpecAR.compute_covgc"><code class="xref py py-class docutils literal notranslate"><span class="pre">StimSpecAR.compute_covgc</span></code></a> have to be launched before.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>plot_mi</strong><span class="classifier">bool | False</span></dt><dd><p>If False (default) the Granger causality is plotted. If True, it is
+the information shared between the Granger causality and the
+stimulus that is plotted.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.plot_model">
+<code class="sig-name descname">plot_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.plot_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.plot_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the model of the network.</p>
+<p>Note that this method requires the networkx Python package.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.ar">
+<em class="property">property </em><code class="sig-name descname">ar</code><a class="headerlink" href="#frites.simulations.StimSpecAR.ar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output data generated by the selected model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.gc">
+<em class="property">property </em><code class="sig-name descname">gc</code><a class="headerlink" href="#frites.simulations.StimSpecAR.gc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Granger causality.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.simulations.StimSpecAR.mi">
+<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.simulations.StimSpecAR.mi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mutual-information between the granger causality and stimulus.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
