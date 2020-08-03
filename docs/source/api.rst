@@ -181,6 +181,7 @@ Random data for directed connectivity measures
    sim_distant_cc_ms
    sim_distant_cc_ss
    sim_gauss_fit
+   StimSpecAR
 
 .. raw:: html
 
