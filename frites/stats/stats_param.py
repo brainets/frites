@@ -54,7 +54,7 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     mi_p : array_like
         A list of array of permuted mutual information of shape
         (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
-    center : {'mean', "median", "trimmed"} | False
+    center : {'mean', 'median', 'trimmed'} | False
         If True, substract the mean of the surrogates to the true and permuted
         mi. The median or the 20% trimmed mean can also be removed
         :cite:`wilcox2018guide`

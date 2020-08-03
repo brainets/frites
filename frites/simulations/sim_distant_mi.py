@@ -141,4 +141,4 @@ def sim_gauss_fit(stim_type='cont_linear', n_epochs=400, n_sti=4, n_pts=400,
     # add random noise to remove equal values for gcmi
     x = x + rnd_x.rand(*x.shape) / 100.
     y = y + rnd_y.rand(*x.shape) / 100.
-    return x.T, y.T, stim
+    return x.T, y.T, stim.squeeze()

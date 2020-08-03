@@ -30,7 +30,11 @@ class TestWfMi(object):  # noqa
 
     def test_definition(self):
         """Test workflow definition."""
-        WfMi(mi_type='cc', inference='rfx')
+        y, gt = sim_mi_cc(x, snr=1.)
+        dt = DatasetEphy(x, y, roi, times=time)
+        wf = WfMi(mi_type='cc', inference='rfx')
+        wf.fit(dt, **kw_mi)
+        wf.tvalues
 
     def test_mi_cc(self):
         """Test method fit."""
@@ -93,3 +97,13 @@ class TestWfMi(object):  # noqa
         wf.fit(dt, mcp='maxstat', **kw_mi)
         t_end_2 = tst()
         assert t_end_1 - t_start_1 > t_end_2 - t_start_2
+
+    def test_conjunction_analysis(self):
+        """Test the conjunction analysis."""
+        y, gt = sim_mi_cc(x, snr=1.)
+        dt = DatasetEphy(x, y, roi, times=time)
+        wf = WfMi(mi_type='cc', inference='rfx')
+        mi, pv = wf.fit(dt, **kw_mi)
+        cj_ss, cj = wf.conjunction_analysis(dt)
+        assert cj_ss.shape == (n_subjects, n_times, n_roi)
+        assert cj.shape == (n_times, n_roi)
