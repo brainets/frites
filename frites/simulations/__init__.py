@@ -6,3 +6,4 @@ from .sim_distant_mi import (sim_distant_cc_ms, sim_distant_cc_ss,  # noqa
                              sim_gauss_fit)
 from .sim_generate_data import (sim_single_suj_ephy, sim_multi_suj_ephy)  # noqa
 from .sim_mi import (sim_mi_cc, sim_mi_cd, sim_mi_ccd)  # noqa
+from .sim_ar import StimSpecAR  # noqa
