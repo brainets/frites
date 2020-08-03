@@ -212,6 +212,13 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
         t0 = np.array([t0])
     t0 = np.asarray(t0).astype(int)
     dt, lag, step = int(dt), int(lag), int(step)
+    # handle dataarray input
+    if isinstance(data, xr.DataArray):
+        if isinstance(roi, str):
+            roi = data[roi].data
+        if isinstance(times, str):
+            times = data[times].data
+        data = data.data
     # force C contiguous array because operations on row-major
     if not data.flags.c_contiguous:
         data = np.ascontiguousarray(data)
