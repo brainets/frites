@@ -64,6 +64,8 @@ class StimSpecAR(object):
         stim = np.repeat(np.arange(n_stim) + 1, n_epochs)
         if not isinstance(random_state, int):
             random_state = np.random.randint(10000)
+        kw_noise = dict(size=(n_epochs_tot, n_times), loc=0,
+                        random_state=random_state)
 
         if ar_type is 'hga':
             self._lab = 'Evoked HGA'
@@ -75,7 +77,8 @@ class StimSpecAR(object):
             self._lab = f"Ding's {ar_type[-1]} nodes"
 
         logger.info(f"{self._lab} AR model (n_times={n_times}, "
-                    f"n_epochs={n_epochs}, n_stim={n_stim})")
+                    f"n_epochs={n_epochs}, n_stim={n_stim}, "
+                    f"random_state={random_state})")
 
         # ---------------------------------------------------------------------
         #                             GAUSSIAN STIM
@@ -109,7 +112,7 @@ class StimSpecAR(object):
                 g = np.zeros((n_epochs_tot, n_times), dtype=float)
 
             # _______________________ POLY COEFFICIENTS________________________
-            if ar_type == 'osc_40':  # bivariate data oscillating at 40Hz
+            if ar_type == 'osc_40':    # bivariate data oscillating at 40Hz
                 a1 = [.55, -.8]
                 a2 = [.35, -.5]
                 a12 = [0.5, 0.]
@@ -117,17 +120,15 @@ class StimSpecAR(object):
                 a1 = [0, .05, .05, 0, -.3, -.3]
                 a2 = [0, 0, 0, 0, -.3, -0.3]
                 a12 = [0, 0, .5, .5, 0, 0]
-            elif ar_type == 'hga':  # Evoked High-Gamma Activity
+            elif ar_type == 'hga':     # Evoked High-Gamma Activity (order 5)
                 a1 = [.3]
                 a2 = [.3]
-                a12 = [0, 0, 0, .5, .5]  # Model order is 5
+                a12 = [0, 0, 0, .5, .5]
 
             # _____________________________ NOISE _____________________________
-            # fix random state for reproducibility
-            rnd = np.random.RandomState(random_state)
             # white noise with zero mean and unit variance
-            n1 = np.sqrt(.05) * rnd.normal(0, 1, (n_epochs_tot, n_times))
-            n2 = np.sqrt(.05) * rnd.normal(0, 1, (n_epochs_tot, n_times))
+            n1 = self._generate_noise(var=.05, **kw_noise)
+            n2 = self._generate_noise(var=.05, **kw_noise)
 
             # ______________________________ AR _______________________________
             # generate AR model with feature-specific causal connectivity (fCC)
@@ -147,9 +148,9 @@ class StimSpecAR(object):
             # concatenate everything
             dat, roi = np.stack((x, y), axis=1), ['x', 'y']
         elif ar_type is 'ding_2':
-            kw_n = dict(loc=0, size=(n_epochs_tot, n_times))
-            n1 = np.random.normal(scale=np.sqrt(1.), **kw_n)
-            n2 = np.random.normal(scale=np.sqrt(.7), **kw_n)
+            n1 = self._generate_noise(var=1., **kw_noise)
+            n2 = self._generate_noise(var=.7, **kw_noise)
+
             x, y = n1, n2
             for t in range(2, n_times):
                 x[:, t] = .9 * x[:, t - 1] - .5 * x[:, t - 2] + n1[:, t]
@@ -157,10 +158,9 @@ class StimSpecAR(object):
                     .16 * x[:, t - 1] - .2 * x[:, t - 2]) + n2[:, t]
             dat, roi = np.stack((x, y), axis=1), ['x', 'y']
         elif ar_type is 'ding_3':
-            kw_n = dict(loc=0, size=(n_epochs_tot, n_times))
-            n1 = np.random.normal(scale=np.sqrt(.3), **kw_n)
-            n2 = np.random.normal(scale=np.sqrt(1.), **kw_n)
-            n3 = np.random.normal(scale=np.sqrt(.2), **kw_n)
+            n1 = self._generate_noise(var=.3, **kw_noise)
+            n2 = self._generate_noise(var=1., **kw_noise)
+            n3 = self._generate_noise(var=.2, **kw_noise)
 
             x, y, z = n1, n2, n3
             for t in range(2, n_times):
@@ -172,12 +172,11 @@ class StimSpecAR(object):
             dat, roi = np.stack((x, y, z), axis=1), ['x', 'y', 'z']
         elif ar_type is 'ding_5':
             sq2 = np.sqrt(2.)
-            kw_n = dict(loc=0, size=(n_epochs_tot, n_times))
-            n1 = np.random.normal(scale=np.sqrt(.6), **kw_n)
-            n2 = np.random.normal(scale=np.sqrt(.5), **kw_n)
-            n3 = np.random.normal(scale=np.sqrt(.3), **kw_n)
-            n4 = np.random.normal(scale=np.sqrt(.3), **kw_n)
-            n5 = np.random.normal(scale=np.sqrt(.6), **kw_n)
+            n1 = self._generate_noise(var=.6, **kw_noise)
+            n2 = self._generate_noise(var=.5, **kw_noise)
+            n3 = self._generate_noise(var=.3, **kw_noise)
+            n4 = self._generate_noise(var=.3, **kw_noise)
+            n5 = self._generate_noise(var=.6, **kw_noise)
 
             x1, x2, x3, x4, x5 = n1, n2, n3, n4, n5
             for t in range(3, n_times):
@@ -205,6 +204,11 @@ class StimSpecAR(object):
         self._n_stim = n_stim
 
         return ar
+
+    def _generate_noise(self, size=(1,), loc=0, var=1, random_state=0):
+        """Generate random gaussian noise."""
+        rnd = np.random.RandomState(random_state)
+        return rnd.normal(scale=np.sqrt(var), loc=loc, size=size)
 
     def _compute_psd(self, x):
         """Compute the stimulus specific PSD of a single roi.
@@ -314,7 +318,7 @@ class StimSpecAR(object):
         # plot stimulus
         plt.subplot(n_roi + 1, 1, 1)
         plt.plot(times, self._causal.T)
-        plt.ylabel('Causal coupling')
+        plt.ylabel('Causal coupling'), plt.xlabel('Time (seconds)')
         plt.title(r"Causal coupling from X $\rightarrow$ Y for different "
                   "stims", fontweight='bold')
         plt.grid(True)
@@ -325,12 +329,22 @@ class StimSpecAR(object):
             plt.subplot(n_roi + 1, 1, 2 + n_r)
             plt.imshow(to_plt.isel(roi=n_r), **kw_imshow)
             plt.ylabel('Trials')
-            plt.title(f"{ext}{str(to_plt['roi'].data[n_r]).upper()}",
-                      fontweight='bold')
-            plt.axvline(0, lw=2, color='w')
+            plt.title(
+                f"Single trial {ext}{str(to_plt['roi'].data[n_r]).upper()}",
+                fontweight='bold')
+            if not psd:
+                plt.axvline(0, lw=2, color='w')
+            if n_r != n_roi - 1:
+                plt.xlabel('')
+                plt.tick_params(labelbottom=False, bottom=False)
+            else:
+                lab = 'Frequencies (Hz)' if psd else 'Time (seconds)'
+                plt.xlabel(lab)
             if colorbar:
                 plt.colorbar()
-        plt.tight_layout()
+        # plt.tight_layout()
+
+        return plt.gca()
 
     def plot_model(self):
         """Plot the model of the network.
@@ -408,8 +422,8 @@ class StimSpecAR(object):
         for n_d, d in enumerate(direction):
             for n_r, r in enumerate(roi):
                 plt.subplot(len(direction), len(roi), q)
-                gcm.sel(roi=r, direction=d).plot.line(x='times',
-                                                      hue='Stimulus')
+                gcm.sel(roi=r, direction=d).plot.line(
+                    x='times', hue='Stimulus', add_legend=False)
                 plt.ylim(y_min, y_max)
                 plt.xlim(gcm['times'][0], gcm['times'][-1])
                 plt.axvline(0., lw=2., color='k')
@@ -467,5 +481,6 @@ if __name__ == '__main__':
     # ss.plot_covgc()
     # plt.figure(figsize=(14, 12))
     # ss.plot_covgc(plot_mi=True)
-    ss.plot(cmap='bwr', psd=False, colorbar=False)
+    ss.plot(cmap='viridis', psd=True, colorbar=False)
+    plt.tight_layout()
     plt.show()
