@@ -27,3 +27,7 @@ class TestStimSpecAR(object):
             ar = model.ar
             gc = model.gc
             mi = model.mi
+
+
+if __name__ == '__main__':
+    TestStimSpecAR().test_overall()

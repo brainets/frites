@@ -127,8 +127,7 @@ class StimSpecAR(object):
 
             # _____________________________ NOISE _____________________________
             # white noise with zero mean and unit variance
-            n1 = self._generate_noise(var=.05, **kw_noise)
-            n2 = self._generate_noise(var=.05, **kw_noise)
+            n1, n2 = self._generate_noise(var=[.05, .05], **kw_noise)
 
             # ______________________________ AR _______________________________
             # generate AR model with feature-specific causal connectivity (fCC)
@@ -148,8 +147,7 @@ class StimSpecAR(object):
             # concatenate everything
             dat, roi = np.stack((x, y), axis=1), ['x', 'y']
         elif ar_type is 'ding_2':
-            n1 = self._generate_noise(var=1., **kw_noise)
-            n2 = self._generate_noise(var=.7, **kw_noise)
+            n1, n2 = self._generate_noise(var=[1., .7], **kw_noise)
 
             x, y = n1, n2
             for t in range(2, n_times):
@@ -158,9 +156,7 @@ class StimSpecAR(object):
                     .16 * x[:, t - 1] - .2 * x[:, t - 2]) + n2[:, t]
             dat, roi = np.stack((x, y), axis=1), ['x', 'y']
         elif ar_type is 'ding_3':
-            n1 = self._generate_noise(var=.3, **kw_noise)
-            n2 = self._generate_noise(var=1., **kw_noise)
-            n3 = self._generate_noise(var=.2, **kw_noise)
+            n1, n2, n3 = self._generate_noise(var=[.3, 1., .2], **kw_noise)
 
             x, y, z = n1, n2, n3
             for t in range(2, n_times):
@@ -171,12 +167,9 @@ class StimSpecAR(object):
                     .5 * y[:, t - 1]) + n3[:, t]
             dat, roi = np.stack((x, y, z), axis=1), ['x', 'y', 'z']
         elif ar_type is 'ding_5':
+            n1, n2, n3, n4, n5 = self._generate_noise(var=[.6, .5, .3, .3, .6],
+                                                      **kw_noise)
             sq2 = np.sqrt(2.)
-            n1 = self._generate_noise(var=.6, **kw_noise)
-            n2 = self._generate_noise(var=.5, **kw_noise)
-            n3 = self._generate_noise(var=.3, **kw_noise)
-            n4 = self._generate_noise(var=.3, **kw_noise)
-            n5 = self._generate_noise(var=.6, **kw_noise)
 
             x1, x2, x3, x4, x5 = n1, n2, n3, n4, n5
             for t in range(3, n_times):
@@ -207,8 +200,13 @@ class StimSpecAR(object):
 
     def _generate_noise(self, size=(1,), loc=0, var=1, random_state=0):
         """Generate random gaussian noise."""
-        rnd = np.random.RandomState(random_state)
-        return rnd.normal(scale=np.sqrt(var), loc=loc, size=size)
+        if not isinstance(var, (list, tuple, np.ndarray)):
+            var = []
+        n = []
+        for n_k, k in enumerate(var):
+            rnd = np.random.RandomState(random_state + n_k)
+            n += [rnd.normal(scale=np.sqrt(k), loc=loc, size=size)]
+        return tuple(n)
 
     def _compute_psd(self, x):
         """Compute the stimulus specific PSD of a single roi.
@@ -476,7 +474,7 @@ if __name__ == '__main__':
     ss = StimSpecAR()
     ar = ss.fit(ar_type='osc_40', random_state=0)
     # ss.plot_model()
-    # gc = ss.compute_covgc(ar, step=5)
+    gc = ss.compute_covgc(ar, step=5)
     # plt.figure(figsize=(14, 12))
     # ss.plot_covgc()
     # plt.figure(figsize=(14, 12))
