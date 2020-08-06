@@ -15,6 +15,7 @@ Breaking changes
 New Features
 ++++++++++++
 * New class :class:`frites.simulations.StimSpecAR` for generating Auto-Regressive Models (:commit:`4688539`, :commit:`5fd1199`)
+* Conditional Covariance based Granger Causality + example (:commit:`a148310`)
 
 Internal Changes
 ++++++++++++++++

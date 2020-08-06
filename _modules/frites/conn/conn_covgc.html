@@ -127,9 +127,12 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#autoregressive-model">Autoregressive model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
 </ul>
 </li>
 </ul>
@@ -252,6 +255,14 @@
 <span class="kn">from</span> <span class="nn">frites.core.copnorm</span> <span class="kn">import</span> <span class="n">copnorm_nd</span>
 
 
+
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                                COVGC ENTROPY</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
 <span class="n">LOG2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 
@@ -332,6 +343,13 @@
     <span class="k">return</span> <span class="n">gc</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">LOG2</span><span class="p">)</span>
 
 
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                             GAUSSIAN COPULA COVGC</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
 <span class="k">def</span> <span class="nf">_gccovgc</span><span class="p">(</span><span class="n">d_s</span><span class="p">,</span> <span class="n">d_t</span><span class="p">,</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the Gaussian-Copula based covGC for a single pair.</span>
 
@@ -371,12 +389,84 @@
 
 
 
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                         CONDITIONAL GAUSSIAN COPULA COVGC</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">_cond_gccovgc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the Gaussian-Copula based covGC for a single pair.</span>
+
+<span class="sd">    This function computes the covGC for a single pair, across multiple trials,</span>
+<span class="sd">    at different time indices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conditional</span> <span class="o">=</span> <span class="n">conditional</span> <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">False</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">]</span>
+    <span class="n">d_s</span><span class="p">,</span> <span class="n">d_t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">t</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">n_lags</span><span class="p">,</span> <span class="n">n_dt</span> <span class="o">=</span> <span class="n">ind_tx</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">d_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span>
+    <span class="n">gc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">d_s</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+    <span class="c1"># define z past</span>
+    <span class="n">roi_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]])</span>
+    <span class="n">z_roi</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">roi_range</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># other roi selection</span>
+    <span class="n">rsh</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi_range</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_lags</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">n_ti</span><span class="p">,</span> <span class="n">ti</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t0</span><span class="p">):</span>
+        <span class="c1"># force starting indices at t0 + force row-major slicing</span>
+        <span class="n">ind_t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">ind_tx</span> <span class="o">+</span> <span class="n">ti</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">d_s</span><span class="p">[:,</span> <span class="n">ind_t0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">d_t</span><span class="p">[:,</span> <span class="n">ind_t0</span><span class="p">]</span>
+        <span class="c1"># temporal selection</span>
+        <span class="n">x_pres</span><span class="p">,</span> <span class="n">x_past</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:],</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+        <span class="n">y_pres</span><span class="p">,</span> <span class="n">y_past</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:],</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+        <span class="n">xy_past</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># conditional granger causality case</span>
+        <span class="k">if</span> <span class="n">conditional</span><span class="p">:</span>
+            <span class="c1"># condition by the past of every other possible sources </span>
+            <span class="n">z_past</span> <span class="o">=</span> <span class="n">z_roi</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">ind_t0</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]]</span>  <span class="c1"># (lag_past, dt) selection</span>
+            <span class="n">z_past</span> <span class="o">=</span> <span class="n">z_past</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">rsh</span><span class="p">,</span> <span class="n">n_dt</span><span class="p">)</span>
+            <span class="c1"># cat with past</span>
+            <span class="n">yz_past</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y_past</span><span class="p">,</span> <span class="n">z_past</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">xz_past</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x_past</span><span class="p">,</span> <span class="n">z_past</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">xyz_past</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">xy_past</span><span class="p">,</span> <span class="n">z_past</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">yz_past</span><span class="p">,</span> <span class="n">xz_past</span><span class="p">,</span> <span class="n">xyz_past</span> <span class="o">=</span> <span class="n">y_past</span><span class="p">,</span> <span class="n">x_past</span><span class="p">,</span> <span class="n">xy_past</span>
+        <span class="c1"># copnorm over the last axis (avoid copnorming several times)</span>
+        <span class="n">x_pres</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">x_pres</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x_past</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">x_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_pres</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">y_pres</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_past</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">y_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">yz_past</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">yz_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">xz_past</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">xz_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">xyz_past</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">xyz_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># -----------------------------------------------------------------</span>
+        <span class="c1"># Granger Causality measures</span>
+        <span class="c1"># -----------------------------------------------------------------</span>
+        <span class="c1"># gc(pairs(:,1) -&gt; pairs(:,2))</span>
+        <span class="n">gc</span><span class="p">[:,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_nd_ggg</span><span class="p">(</span><span class="n">y_pres</span><span class="p">,</span> <span class="n">x_past</span><span class="p">,</span> <span class="n">yz_past</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="c1"># gc(pairs(:,2) -&gt; pairs(:,1))</span>
+        <span class="n">gc</span><span class="p">[:,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_nd_ggg</span><span class="p">(</span><span class="n">x_pres</span><span class="p">,</span> <span class="n">y_past</span><span class="p">,</span> <span class="n">xz_past</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="c1"># gc(pairs(:,2) . pairs(:,1))</span>
+        <span class="n">gc</span><span class="p">[:,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_nd_ggg</span><span class="p">(</span><span class="n">x_pres</span><span class="p">,</span> <span class="n">y_pres</span><span class="p">,</span> <span class="n">xyz_past</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">gc</span>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                            HIGH-LEVEL CONN_COVGC</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
 <div class="viewcode-block" id="conn_covgc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc">[docs]</a><span class="k">def</span> <span class="nf">conn_covgc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
-               <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single-trial covariance-based Granger Causality for gaussian variables.</span>
 
-<span class="sd">    This function computes the covariance-based Granger Causality (covgc) for</span>
-<span class="sd">    each trial.</span>
+<span class="sd">    This function computes the (conditional) covariance-based Granger Causality</span>
+<span class="sd">    (covgc) for each trial.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        **Total Granger interdependence**</span>
@@ -423,6 +513,9 @@
 <span class="sd">        Method for the estimation of the covgc. Use either &#39;gauss&#39; which</span>
 <span class="sd">        assumes that the time-points are normally distributed or &#39;gc&#39; in order</span>
 <span class="sd">        to use the gaussian-copula.</span>
+<span class="sd">    conditional : bool | False</span>
+<span class="sd">        If True, the conditional Granger Causality is computed i.e the past is</span>
+<span class="sd">        also conditioned by the past of other sources.</span>
 <span class="sd">    n_jobs : int | -1</span>
 <span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">        jobs). The parallel loop is set at the pair level.</span>
@@ -454,18 +547,21 @@
         <span class="n">t0</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;FLOAT_DTYPE&#39;</span><span class="p">]):</span>
         <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t0</span><span class="p">])</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lag</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+    <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">trials</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lag</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">),</span> <span class="kc">None</span>
     <span class="c1"># handle dataarray input</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">roi</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">roi</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">times</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">times</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">trials</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
     <span class="c1"># force C contiguous array because operations on row-major</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">trials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
     <span class="c1"># default roi vector</span>
     <span class="k">if</span> <span class="n">roi</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">roi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;roi_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
@@ -505,16 +601,21 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Index shape : </span><span class="si">{</span><span class="n">ind_tx</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;conditional&#39;</span> <span class="k">if</span> <span class="n">conditional</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
     <span class="c1"># compute covgc and parallel over pairs</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Compute the covgc (method=</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">, n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">)</span><span class="si">}</span><span class="s2">; &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;n_windows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="si">}</span><span class="s2">, lag=</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s2">, dt=</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s2">, step=</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">gc</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">fcn</span><span class="p">)(</span>
-        <span class="n">data</span><span class="p">[:,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">t</span><span class="p">,</span> <span class="p">:],</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Compute the </span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2"> covgc (method=</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">, n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;; n_windows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="si">}</span><span class="s2">, lag=</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s2">, dt=</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s2">, step=</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">conditional</span><span class="p">:</span>
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">fcn</span><span class="p">)(</span>
+            <span class="n">data</span><span class="p">[:,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">t</span><span class="p">,</span> <span class="p">:],</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">_cond_gccovgc</span><span class="p">)(</span>
+                <span class="n">data</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># change output type</span>
-    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
     <span class="n">dire</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">,</span> <span class="s1">&#39;y-&gt;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x.y&#39;</span><span class="p">])</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span><span class="p">,</span> <span class="n">dire</span><span class="p">))</span>
@@ -523,8 +624,27 @@
     <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span>
     <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span>
     <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;t0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t0</span>
+    <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;conditional&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conditional</span>
 
     <span class="k">return</span> <span class="n">gc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">StimSpecAR</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="n">ss</span> <span class="o">=</span> <span class="n">StimSpecAR</span><span class="p">()</span>
+    <span class="n">ar</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ar_type</span><span class="o">=</span><span class="s1">&#39;ding_3&#39;</span><span class="p">,</span> <span class="n">n_stim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="c1"># plot the model</span>
+    <span class="c1"># plt.figure(figsize=(7, 8))</span>
+    <span class="c1"># ss.plot()</span>
+    <span class="c1"># compute covgc</span>
+    <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lag</span><span class="p">,</span> <span class="n">ar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="n">gc</span> <span class="o">=</span> <span class="n">conn_covgc</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span>
+                    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ss</span><span class="o">.</span><span class="n">plot_covgc</span><span class="p">(</span><span class="n">gc</span><span class="o">=</span><span class="n">gc</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
