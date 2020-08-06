@@ -128,7 +128,7 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
 
 
 
-def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gauss',
+def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                n_jobs=-1, verbose=None):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 

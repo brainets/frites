@@ -6,13 +6,16 @@ from frites.simulations import StimSpecAR
 import matplotlib.pyplot as plt
 
 
+AR = ['hga', 'osc_20', 'osc_40', 'osc_40_3', 'ding_2', 'ding_3', 'ding_5']
+
+
 class TestStimSpecAR(object):
     """docstring for TestStimSpecAR"""
 
     def test_overall(self):
         kw = dict(n_epochs=5, n_times=100, stim_onset=50)
         model = StimSpecAR()
-        for stype in ['hga', 'osc_20', 'osc_40', 'ding_2', 'ding_3', 'ding_5']:
+        for stype in AR:
             # test main definition and plotting
             ar = model.fit(ar_type=stype, **kw)
             model.plot(colorbar=True)
