@@ -14,7 +14,7 @@ Breaking changes
 
 New Features
 ++++++++++++
-* New class :class:`frites.simulations.StimSpecAR` for generating Auto-Regressive Models (:commit:`4688539`)
+* New class :class:`frites.simulations.StimSpecAR` for generating Auto-Regressive Models (:commit:`4688539`, :commit:`5fd1199`)
 
 Internal Changes
 ++++++++++++++++
