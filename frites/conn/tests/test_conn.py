@@ -59,8 +59,9 @@ class TestConn(object):
         t0 = [50, 80]
 
         _ = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc')[0]
-        gc = conn_covgc(x, dt, lag, t0, n_jobs=1)[0]
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gauss')[0]
         assert gc.shape == (n_epochs, 3, len(t0), 3)
-        gc = conn_covgc(x, dt, lag, t0, n_jobs=1)[0]
         assert isinstance(gc, xr.DataArray)
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc',
+                        conditional=True)[0]
         

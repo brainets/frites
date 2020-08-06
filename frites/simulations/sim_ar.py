@@ -420,7 +420,9 @@ class StimSpecAR(object):
             edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}" for
                 u, v, d in G.edges(data=True)}
             # fix ding_5 for bidirectional connectivity between 4 <-> 5
-            if self._ar_type is 'ding_5':
+            if self._ar_type is 'ding_3':
+                edge_labels[('Y', 'X')] = "indirect\n(mediated by Z)"
+            elif self._ar_type is 'ding_5':
                 edge_labels[('X5', 'X4')] = (r"X4$\rightarrow$X5=2" + "\n" +
                                              r'X5$\rightarrow$X4=1')
 
@@ -466,6 +468,8 @@ class StimSpecAR(object):
             gcm = gcm.rename({'trials': 'Stimulus'})
         else:
             gcm = self._mi
+        # conditional covgc
+        ext = '|others' if self._gc.attrs['conditional'] else ''
 
         y_min, y_max = gcm.data.min(), gcm.data.max()
         direction, roi = gcm['direction'].data, gcm['roi'].data
@@ -480,11 +484,11 @@ class StimSpecAR(object):
                 plt.axvline(0., lw=2., color='k')
                 r_sp = r.split('-')
                 if d == 'x->y':
-                    tit = fr'{r_sp[0]}$\rightarrow${r_sp[1]}'
+                    tit = fr'{r_sp[0]}$\rightarrow${r_sp[1]}{ext}'
                 elif d == 'y->x':
-                    tit = fr'{r_sp[1]}$\rightarrow${r_sp[0]}'
+                    tit = fr'{r_sp[1]}$\rightarrow${r_sp[0]}{ext}'
                 elif d == 'x.y':
-                    tit = fr'{r_sp[0]} . {r_sp[1]}'
+                    tit = fr'{r_sp[0]} . {r_sp[1]}{ext}'
                 plt.title(tit, fontweight='bold', fontsize=15)
                 if n_r >= 1:
                     plt.ylabel('')

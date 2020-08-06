@@ -9,6 +9,14 @@ from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
 
 
+
+###############################################################################
+###############################################################################
+#                                COVGC ENTROPY
+###############################################################################
+###############################################################################
+
+
 LOG2 = np.log(2)
 
 
@@ -89,6 +97,13 @@ def _covgc(d_s, d_t, ind_tx, t0):
     return gc / (2. * LOG2)
 
 
+###############################################################################
+###############################################################################
+#                             GAUSSIAN COPULA COVGC
+###############################################################################
+###############################################################################
+
+
 def _gccovgc(d_s, d_t, ind_tx, t0):
     """Compute the Gaussian-Copula based covGC for a single pair.
 
@@ -128,12 +143,84 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
 
 
 
+###############################################################################
+###############################################################################
+#                         CONDITIONAL GAUSSIAN COPULA COVGC
+###############################################################################
+###############################################################################
+
+
+def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
+    """Compute the Gaussian-Copula based covGC for a single pair.
+
+    This function computes the covGC for a single pair, across multiple trials,
+    at different time indices.
+    """
+    conditional = conditional if data.shape[1] > 2 else False
+    kw = CONFIG["KW_GCMI"]
+    d_s, d_t = data[:, s, :], data[:, t, :]
+    n_lags, n_dt = ind_tx.shape
+    n_trials, n_times = d_s.shape[0], len(t0)
+    gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
+    # define z past
+    roi_range = np.array([k for k in range(data.shape[1]) if k not in [s, t]])
+    z_roi = data[:, roi_range, :]  # other roi selection
+    rsh = int(len(roi_range) * (n_lags - 1))
+    for n_ti, ti in enumerate(t0):
+        # force starting indices at t0 + force row-major slicing
+        ind_t0 = np.ascontiguousarray(ind_tx + ti)
+        x = d_s[:, ind_t0]
+        y = d_t[:, ind_t0]
+        # temporal selection
+        x_pres, x_past = x[:, [0], :], x[:, 1:, :]
+        y_pres, y_past = y[:, [0], :], y[:, 1:, :]
+        xy_past = np.concatenate((x[:, 1:, :], y[:, 1:, :]), axis=1)
+        # conditional granger causality case
+        if conditional:
+            # condition by the past of every other possible sources 
+            z_past = z_roi[..., ind_t0[1:, :]]  # (lag_past, dt) selection
+            z_past = z_past.reshape(n_trials, rsh, n_dt)
+            # cat with past
+            yz_past = np.concatenate((y_past, z_past), axis=1)
+            xz_past = np.concatenate((x_past, z_past), axis=1)
+            xyz_past = np.concatenate((xy_past, z_past), axis=1)
+        else:
+            yz_past, xz_past, xyz_past = y_past, x_past, xy_past
+        # copnorm over the last axis (avoid copnorming several times)
+        x_pres = copnorm_nd(x_pres, axis=-1)
+        x_past = copnorm_nd(x_past, axis=-1)
+        y_pres = copnorm_nd(y_pres, axis=-1)
+        y_past = copnorm_nd(y_past, axis=-1)
+        yz_past = copnorm_nd(yz_past, axis=-1)
+        xz_past = copnorm_nd(xz_past, axis=-1)
+        xyz_past = copnorm_nd(xyz_past, axis=-1)
+
+        # -----------------------------------------------------------------
+        # Granger Causality measures
+        # -----------------------------------------------------------------
+        # gc(pairs(:,1) -> pairs(:,2))
+        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, yz_past, **kw)
+        # gc(pairs(:,2) -> pairs(:,1))
+        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, xz_past, **kw)
+        # gc(pairs(:,2) . pairs(:,1))
+        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xyz_past, **kw)
+    
+    return gc
+
+
+###############################################################################
+###############################################################################
+#                            HIGH-LEVEL CONN_COVGC
+###############################################################################
+###############################################################################
+
+
 def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
-               n_jobs=-1, verbose=None):
+               conditional=False, n_jobs=-1, verbose=None):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
-    This function computes the covariance-based Granger Causality (covgc) for
-    each trial.
+    This function computes the (conditional) covariance-based Granger Causality
+    (covgc) for each trial.
 
     .. note::
         **Total Granger interdependence**
@@ -180,6 +267,9 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         Method for the estimation of the covgc. Use either 'gauss' which
         assumes that the time-points are normally distributed or 'gc' in order
         to use the gaussian-copula.
+    conditional : bool | False
+        If True, the conditional Granger Causality is computed i.e the past is
+        also conditioned by the past of other sources.
     n_jobs : int | -1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
@@ -211,18 +301,21 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         t0, CONFIG['FLOAT_DTYPE']):
         t0 = np.array([t0])
     t0 = np.asarray(t0).astype(int)
-    dt, lag, step = int(dt), int(lag), int(step)
+    dt, lag, step, trials = int(dt), int(lag), int(step), None
     # handle dataarray input
     if isinstance(data, xr.DataArray):
         if isinstance(roi, str):
             roi = data[roi].data
         if isinstance(times, str):
             times = data[times].data
+        trials = data['trials'].data
         data = data.data
     # force C contiguous array because operations on row-major
     if not data.flags.c_contiguous:
         data = np.ascontiguousarray(data)
     n_epochs, n_roi, n_times = data.shape
+    if trials is None:
+        trials = np.arange(n_epochs)
     # default roi vector
     if roi is None:
         roi = np.array([f"roi_{k}" for k in range(n_roi)])
@@ -262,16 +355,21 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     logger.debug(f"Index shape : {ind_tx.shape}")
 
     # -------------------------------------------------------------------------
+    ext = 'conditional' if conditional else ''
     # compute covgc and parallel over pairs
-    logger.info(f"Compute the covgc (method={method}, n_pairs={len(x_s)}; "
-                f"n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
-    gc = Parallel(n_jobs=n_jobs)(delayed(fcn)(
-        data[:, s, :], data[:, t, :], ind_tx, t0) for s, t in zip(x_s, x_t))
+    logger.info(f"Compute the {ext} covgc (method={method}, n_pairs={len(x_s)}"
+                f"; n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
+    if not conditional:
+        gc = Parallel(n_jobs=n_jobs)(delayed(fcn)(
+            data[:, s, :], data[:, t, :], ind_tx, t0) for s, t in zip(
+            x_s, x_t))
+    else:
+        gc = Parallel(n_jobs=n_jobs)(delayed(_cond_gccovgc)(
+                data, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
     # -------------------------------------------------------------------------
     # change output type
-    trials = np.arange(n_epochs)
     dire = np.array(['x->y', 'y->x', 'x.y'])
     gc = xr.DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
                       coords=(trials, roi_p, times_p, dire))
@@ -280,5 +378,24 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     gc.attrs['step'] = step
     gc.attrs['dt'] = dt
     gc.attrs['t0'] = t0
+    gc.attrs['conditional'] = conditional
 
     return gc, pairs, roi_p, times_p
+
+
+if __name__ == '__main__':
+    from frites.simulations import StimSpecAR
+    import matplotlib.pyplot as plt
+
+    ss = StimSpecAR()
+    ar = ss.fit(ar_type='ding_3', n_stim=2, n_epochs=20)
+    # plot the model
+    # plt.figure(figsize=(7, 8))
+    # ss.plot()
+    # compute covgc
+    dt, lag, step = 50, 5, 2
+    t0 = np.arange(lag, ar.shape[-1] - dt, step)
+    gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
+                    n_jobs=-1, conditional=False)[0]
+    ss.plot_covgc(gc=gc)
+    plt.show()
