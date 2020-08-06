@@ -1,0 +1,251 @@
+.. note::
+    :class: sphx-glr-download-link-note
+
+    Click :ref:`here <sphx_glr_download_auto_examples_armodel_plot_ar_instantaneous.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
+
+.. _sphx_glr_auto_examples_armodel_plot_ar_instantaneous.py:
+
+
+AR : simulate common driving input
+==================================
+
+This example illustrates an autoregressive model that simulates a common
+driving input (i.e X->Y and X->Z) and how it is measured using the covariance
+based Granger Causality
+
+
+.. code-block:: default
+
+    import numpy as np
+
+    from frites.simulations import StimSpecAR
+    from frites.conn import conn_covgc
+
+    import matplotlib.pyplot as plt
+
+
+
+
+
+
+
+
+Simulate 3 nodes 40hz oscillations
+----------------------------------
+
+Here, we use the class :class:`frites.simulations.StimSpecAR` to simulate an
+stimulus-specific autoregressive model made of three nodes (X, Y and Z). This
+network simulates a transfer X->Y and X->Z. X is then called a common driving
+input for Y and Z
+
+
+.. code-block:: default
+
+
+
+    ar_type = 'osc_40_3'  # 40hz oscillations
+    n_stim = 3          # number of stimulus
+    n_epochs = 50       # number of epochs per stimulus
+
+    ss = StimSpecAR()
+    ar = ss.fit(ar_type=ar_type, n_epochs=n_epochs, n_stim=n_stim)
+    print(ar)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    <xarray.DataArray (trials: 150, roi: 3, times: 300)>
+    array([[[-0.31520518,  0.066689  ,  0.33858153, ..., -0.13621492,
+             -0.42318095, -0.14491867],
+            [ 0.29578658, -0.03724342, -0.41548864, ..., -0.16690098,
+              0.22348517, -0.23960399],
+            [-0.07662593, -0.19672281, -0.4408726 , ..., -0.01558399,
+             -0.45805076,  0.16318924]],
+
+           [[-0.37312196, -0.00725713, -0.08938057, ..., -0.4282177 ,
+             -1.19604891, -0.5436012 ],
+            [-0.16795543, -0.05895894,  0.11903107, ...,  0.001744  ,
+              0.22529942, -0.13485252],
+            [-0.04126017, -0.04137278,  0.16950898, ...,  0.28153003,
+              0.00639018, -0.34713689]],
+
+           [[ 0.01509937,  0.22108913, -0.08757023, ...,  0.20931421,
+              0.2941223 ,  0.16220247],
+            [ 0.00191987,  0.21163459,  0.05274831, ...,  0.01346758,
+             -0.16185747, -0.01495639],
+            [-0.25429672,  0.23527615,  0.32143892, ...,  0.0302986 ,
+             -0.03684617, -0.09494342]],
+    ...
+           [[-0.15124022, -0.20498321,  0.1668664 , ...,  0.01239201,
+              0.17229543, -0.3890209 ],
+            [ 0.27522751,  0.05375923, -0.58805795, ...,  0.62662815,
+              0.47427723, -0.35162391],
+            [ 0.0245388 , -0.1976962 ,  0.07961947, ..., -0.14490045,
+             -0.38355377,  0.00724807]],
+
+           [[ 0.00569298,  0.15987694,  0.0528256 , ..., -0.02026893,
+             -0.0454087 , -0.44459682],
+            [-0.42541656,  0.13650091,  0.34858221, ...,  0.0160067 ,
+             -0.43366021, -0.08519132],
+            [-0.12848683, -0.30443319, -0.4417315 , ...,  0.18332357,
+             -0.09560822,  0.15032329]],
+
+           [[-0.1092132 , -0.22781425, -0.42926669, ...,  0.24030674,
+              0.01880105, -0.23083897],
+            [ 0.33030355,  0.17754908, -0.21631701, ..., -0.49931905,
+              0.16483235,  0.27384899],
+            [ 0.09460629,  0.23400833,  0.62170365, ...,  0.3306968 ,
+              0.19052412,  0.14646387]]])
+    Coordinates:
+      * trials   (trials) int64 1 1 1 1 1 1 1 1 1 1 1 1 ... 3 3 3 3 3 3 3 3 3 3 3 3
+      * roi      (roi) <U1 'x' 'y' 'z'
+      * times    (times) float64 -0.5 -0.495 -0.49 -0.485 ... 0.98 0.985 0.99 0.995
+    Attributes:
+        n_stim:    3
+        n_std:     3
+        ar_type:   osc_40_3
+        stimulus:  [1 2 3]
+
+
+
+plot the network
+
+
+.. code-block:: default
+
+
+    plt.figure(figsize=(5, 4))
+    ss.plot_model()
+    plt.show()
+
+
+
+
+.. image:: /auto_examples/armodel/images/sphx_glr_plot_ar_instantaneous_001.png
+    :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /home/circleci/miniconda3/envs/testenv/lib/python3.6/site-packages/networkx/drawing/layout.py:950: FutureWarning: arrays to stack must be passed as a "sequence" type such as list or tuple. Support for non-sequence iterables such as generators is deprecated as of NumPy 1.16 and will raise an error in the future.
+      pos = np.row_stack((pos[x] for x in node_list))
+
+
+
+plot the data
+
+
+.. code-block:: default
+
+
+    plt.figure(figsize=(7, 8))
+    ss.plot(cmap='bwr')
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+.. image:: /auto_examples/armodel/images/sphx_glr_plot_ar_instantaneous_002.png
+    :class: sphx-glr-single-img
+
+
+
+
+plot the power spectrum density (PSD)
+
+
+.. code-block:: default
+
+
+    plt.figure(figsize=(7, 8))
+    ss.plot(cmap='Reds', psd=True)
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+
+.. image:: /auto_examples/armodel/images/sphx_glr_plot_ar_instantaneous_003.png
+    :class: sphx-glr-single-img
+
+
+
+
+Compute the Granger-Causality
+-----------------------------
+
+We then compute and plot the Granger Causality. From the plot you can see
+that there's indeed an information transfer from X->Y and X->Z and, in
+addition, an instantaneous connectivity between Y.Z
+
+
+.. code-block:: default
+
+
+    dt = 50
+    lag = 5
+    step = 2
+    t0 = np.arange(lag, ar.shape[-1] - dt, step)
+    gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
+                    n_jobs=-1)[0]
+
+    # sphinx_gallery_thumbnail_number = 4
+    plt.figure(figsize=(12, 10))
+    ss.plot_covgc(gc)
+    plt.tight_layout()
+    plt.show()
+
+
+
+.. image:: /auto_examples/armodel/images/sphx_glr_plot_ar_instantaneous_004.png
+    :class: sphx-glr-single-img
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  9.003 seconds)
+
+
+.. _sphx_glr_download_auto_examples_armodel_plot_ar_instantaneous.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_ar_instantaneous.py <plot_ar_instantaneous.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_ar_instantaneous.ipynb <plot_ar_instantaneous.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
