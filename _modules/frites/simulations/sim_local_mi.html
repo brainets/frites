@@ -257,7 +257,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="sim_local_cc_ms"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cc_ms</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="sim_local_cc_ms"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cc_ms</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Multi-subjects simulations for computing local MI (CC).</span>
 
 <span class="sd">    This function can be used for simulating local representations of mutual</span>
@@ -295,6 +295,8 @@
         <span class="n">cl_cov</span> <span class="o">=</span> <span class="p">[</span><span class="n">cl_cov</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subjects</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_sgn</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
         <span class="n">cl_sgn</span> <span class="o">=</span> <span class="n">cl_sgn</span> <span class="o">*</span> <span class="n">n_subjects</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">random_state</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">random_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
     <span class="c1"># now generate the data</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
@@ -303,7 +305,8 @@
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_cov</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cl_sgn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl_sgn</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span>
         <span class="c1"># generate the data of a single subject</span>
-        <span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">,</span> <span class="n">_roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sim_local_cc_ss</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">n_s</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">,</span> <span class="n">_roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sim_local_cc_ss</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span> <span class="o">+</span> <span class="n">n_s</span><span class="p">,</span>
+                                              <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># merge data</span>
         <span class="n">x</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_x</span><span class="p">]</span>
         <span class="n">y</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_y</span><span class="p">]</span>
@@ -655,7 +658,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-08-06.</p>
+        <p>&copy; Copyright Last updated on 2020-08-12.</p>
     </footer>
 
   </body>
