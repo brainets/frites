@@ -11,7 +11,7 @@ import numpy as np
 """
 
 
-def sim_local_cc_ms(n_subjects, **kwargs):
+def sim_local_cc_ms(n_subjects, random_state=None, **kwargs):
     """Multi-subjects simulations for computing local MI (CC).
 
     This function can be used for simulating local representations of mutual
@@ -49,6 +49,8 @@ def sim_local_cc_ms(n_subjects, **kwargs):
         cl_cov = [cl_cov] * n_subjects
     if len(cl_sgn) != n_subjects:
         cl_sgn = cl_sgn * n_subjects
+    if not isinstance(random_state, int):
+        random_state = np.random.randint(1000)
     # now generate the data
     x, y, roi = [], [], []
     for n_s in range(n_subjects):
@@ -57,7 +59,8 @@ def sim_local_cc_ms(n_subjects, **kwargs):
         kwargs['cl_cov'] = cl_cov[n_s]
         kwargs['cl_sgn'] = cl_sgn[n_s]
         # generate the data of a single subject
-        _x, _y, _roi, times = sim_local_cc_ss(random_state=n_s, **kwargs)
+        _x, _y, _roi, times = sim_local_cc_ss(random_state=random_state + n_s,
+                                              **kwargs)
         # merge data
         x += [_x]
         y += [_y]
