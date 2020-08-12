@@ -34,9 +34,9 @@ class StimSpecAR(object):
                   20Hz and 40Hz
                 * 'osc_40_3' : oscillations at 40hz for 3 nodes. This model
                   simulates X->Y, X->Z and instantaneous Y.Z
-                * 'ding_2' / 'ding_3' / 'ding_5' : respectively the models with
-                  2, 3 or 5 nodes described by Ding et al.
-                  :cite:`ding2006granger`
+                * 'ding_2' / 'ding_3_direct' / 'ding_3_indirect' / 'ding_5' :
+                  respectively the models with 2, 3 or 5 nodes described by
+                  Ding et al. :cite:`ding2006granger`
 
         sf : float | 200
             The sampling frequency
@@ -82,7 +82,7 @@ class StimSpecAR(object):
             self._lab = '20Hz oscillations'
         elif ar_type in ['osc_40', 'osc_40_3']:
             self._lab = '40Hz oscillations'
-        elif ar_type in ['ding_2', 'ding_3', 'ding_5']:
+        elif 'ding' in ar_type:
             self._lab = f"Ding's {ar_type[-1]} nodes"
 
         logger.info(f"{self._lab} AR model (n_times={n_times}, "
@@ -181,19 +181,26 @@ class StimSpecAR(object):
                 y[:, t] = .8 * y[:, t - 1] - .5 * y[:, t - 2] + c2[:, t] * (
                     .16 * x[:, t - 1] - .2 * x[:, t - 2]) + n2[:, t]
             dat, roi = np.stack((x, y), axis=1), ['x', 'y']
-        elif ar_type is 'ding_3':
+        elif ar_type in ['ding_3_direct', 'ding_3_indirect']:
             n1, n2, n3 = self._generate_noise(var=[.3, 1., .2], **kw_noise)
             c1 = self._n_std_gain(c, n1, n_std)
+            c2 = self._n_std_gain(c, n2, n_std)
             c3 = self._n_std_gain(c, n3, n_std)
 
             x, y, z = n1, n2, n3
             for t in range(2, n_times):
-                x[:, t] = .8 * x[:, t - 1] - .5 * x[:, t - 2] + c1[:, t] * (
-                    .4 * z[:, t - 1]) + n1[:, t]
+                if ar_type is 'ding_3_indirect':
+                    x[:, t] = .8 * x[:, t - 1] - .5 * x[:, t - 2] + c1[
+                        :, t] * (.4 * z[:, t - 1]) + n1[:, t]
+                elif ar_type is 'ding_3_direct':
+                    x[:, t] = .8 * x[:, t - 1] - .5 * x[:, t - 2] + c1[
+                        :, t] * (.4 * z[:, t - 1] + .2 * y[:, t - 2]) + n1[
+                        :, t]
                 y[:, t] = .9 * y[:, t - 1] - .8 * y[:, t - 2] + n2[:, t]
                 z[:, t] = .5 * z[:, t - 1] - .2 * z[:, t - 2] + c3[:, t] * (
                     .5 * y[:, t - 1]) + n3[:, t]
             dat, roi = np.stack((x, y, z), axis=1), ['x', 'y', 'z']
+            ar_type = 'ding_3'
         elif ar_type is 'ding_5':
             n1, n2, n3, n4, n5 = self._generate_noise(var=[.6, .5, .3, .3, .6],
                                                       **kw_noise)
@@ -271,7 +278,8 @@ class StimSpecAR(object):
     ###########################################################################
     ###########################################################################
 
-    def compute_covgc(self, ar, dt=50, lag=5, step=1, method='gc'):
+    def compute_covgc(self, ar, dt=50, lag=5, step=1, method='gc',
+                      conditional=False):
         """Compute the Covariance-based Granger Causality.
 
         In addition of computing the Granger Causality, the mutual-information
@@ -303,7 +311,7 @@ class StimSpecAR(object):
         # compute the granger causality
         t0 = np.arange(lag, ar.shape[-1] - dt, step)
         gc, _, _, _ = conn_covgc(ar, dt, lag, t0, times='times', method=method,
-                                 roi='roi', step=1)
+                                 roi='roi', step=1, conditional=conditional)
         gc['trials'] = ar['trials']
         self._gc = gc
         # compute the MI between stimulus / raw
@@ -528,12 +536,13 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import networkx as nx
     ss = StimSpecAR()
-    ar = ss.fit(ar_type='osc_40_3', random_state=0, n_std=3)
+    ar = ss.fit(ar_type='ding_5', random_state=0, n_std=5, n_stim=2,
+                n_epochs=20)
     # ss.plot(cmap='viridis', psd=True, colorbar=True)
-    ss.plot_model()
-    # gc = ss.compute_covgc(ar, step=5)
-    # plt.figure(figsize=(14, 12))
-    # ss.plot_covgc()
+    # ss.plot_model()
+    gc = ss.compute_covgc(ar, step=5, conditional=True)
+    plt.figure(figsize=(14, 12))
+    ss.plot_covgc(plot_mi=False)
     # plt.figure(figsize=(14, 12))
     # ss.plot_covgc(plot_mi=True)
     plt.tight_layout()

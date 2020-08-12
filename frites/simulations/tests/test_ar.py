@@ -6,7 +6,8 @@ from frites.simulations import StimSpecAR
 import matplotlib.pyplot as plt
 
 
-AR = ['hga', 'osc_20', 'osc_40', 'osc_40_3', 'ding_2', 'ding_3', 'ding_5']
+AR = ['hga', 'osc_20', 'osc_40', 'osc_40_3', 'ding_2', 'ding_3_indirect',
+      'ding_3_direct', 'ding_5']
 
 
 class TestStimSpecAR(object):
