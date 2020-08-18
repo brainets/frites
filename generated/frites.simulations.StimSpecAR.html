@@ -273,7 +273,7 @@ sent between node is stimulus specific inside a temporal region.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.__init__" title="frites.simulations.StimSpecAR.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([verbose])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.compute_covgc" title="frites.simulations.StimSpecAR.compute_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_covgc</span></code></a>(ar[, dt, lag, step, method])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.compute_covgc" title="frites.simulations.StimSpecAR.compute_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_covgc</span></code></a>(ar[, dt, lag, step, method, …])</p></td>
 <td><p>Compute the Covariance-based Granger Causality.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.simulations.StimSpecAR.fit" title="frites.simulations.StimSpecAR.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([ar_type, sf, n_times, n_epochs, dt, …])</p></td>
@@ -310,7 +310,7 @@ sent between node is stimulus specific inside a temporal region.</p>
 </table>
 <dl class="method">
 <dt id="frites.simulations.StimSpecAR.compute_covgc">
-<code class="sig-name descname">compute_covgc</code><span class="sig-paren">(</span><em class="sig-param">ar</em>, <em class="sig-param">dt=50</em>, <em class="sig-param">lag=5</em>, <em class="sig-param">step=1</em>, <em class="sig-param">method='gc'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.compute_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.compute_covgc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">compute_covgc</code><span class="sig-paren">(</span><em class="sig-param">ar</em>, <em class="sig-param">dt=50</em>, <em class="sig-param">lag=5</em>, <em class="sig-param">step=1</em>, <em class="sig-param">method='gc'</em>, <em class="sig-param">conditional=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_ar.html#StimSpecAR.compute_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.StimSpecAR.compute_covgc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Covariance-based Granger Causality.</p>
 <p>In addition of computing the Granger Causality, the mutual-information
 between the Granger causalitity and the stimulus is also computed.</p>
@@ -361,9 +361,9 @@ where the last dimension means :</p>
 20Hz and 40Hz</p></li>
 <li><p>‘osc_40_3’ : oscillations at 40hz for 3 nodes. This model
 simulates X-&gt;Y, X-&gt;Z and instantaneous Y.Z</p></li>
-<li><p>‘ding_2’ / ‘ding_3’ / ‘ding_5’ : respectively the models with
-2, 3 or 5 nodes described by Ding et al.
-<a class="bibtex reference internal" href="../references.html#ding2006granger" id="id1">[3]</a></p></li>
+<li><p>‘ding_2’ / ‘ding_3_direct’ / ‘ding_3_indirect’ / ‘ding_5’ :
+respectively the models with 2, 3 or 5 nodes described by
+Ding et al. <a class="bibtex reference internal" href="../references.html#ding2006granger" id="id1">[3]</a></p></li>
 </ul>
 </div></blockquote>
 </dd>
@@ -494,7 +494,7 @@ stimulus that is plotted.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-08-12.</p>
+        <p>&copy; Copyright Last updated on 2020-08-18.</p>
     </footer>
 
   </body>

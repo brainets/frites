@@ -26,9 +26,9 @@ import matplotlib.pyplot as plt
 # network simulates a transfer Y->Z and Z->X such as an indirect transfer from
 # Y->X mediated by Z
 
-ar_type = 'ding_3'  # 40hz oscillations
-n_stim = 2          # number of stimulus
-n_epochs = 50       # number of epochs per stimulus
+ar_type = 'ding_3_indirect'  # 40hz oscillations
+n_stim = 2                   # number of stimulus
+n_epochs = 50                # number of epochs per stimulus
 
 ss = StimSpecAR()
 ar = ss.fit(ar_type=ar_type, n_epochs=n_epochs, n_stim=n_stim)
