@@ -48,7 +48,7 @@ class StimSpecAR(object):
             Width of the time-varying Gaussian stimulus
         n_stim : int | 3
             Number of stimulus to use
-        n_std : int | 3
+        n_std : float, int | 3
             Number of standard deviations the stimulus exceed the random noise.
             Should be an integer striclty over 1. Note that this concerns the
             first stimulus. For example, if n_std=3, the first stimulus is
@@ -64,7 +64,7 @@ class StimSpecAR(object):
         data : xarray.DataArray
             DataArray of shape (n_epochs * n_stim, n_roi, n_times)
         """
-        assert isinstance(n_std, int) and (n_std >= 1)
+        assert isinstance(n_std, (int, float))
         times = np.arange(n_times) / sf - 0.5
         trials = np.arange(n_epochs)
         cval = np.arange(n_stim) + 1
@@ -113,12 +113,24 @@ class StimSpecAR(object):
         # ---------------------------------------------------------------------
 
         if ar_type in ['hga', 'osc_20', 'osc_40']:
+            # _____________________________ NOISE _____________________________
+            # white noise with zero mean and unit variance
+            n1, n2 = self._generate_noise(var=[.05, .05], **kw_noise)
+
             # _____________________________ GAIN ______________________________
             if ar_type == 'hga':
+                # generate the array of gain
                 g = np.repeat(gval, n_epochs)
                 g = g.reshape(-1, 1) * gauss_stim.reshape(1, -1)
+                # modulates gain according to n_std
+                g = self._n_std_gain(g, n1, n_std)
+                # for hga, there's no need to have an additional modulation
+                c = np.ones_like(c)
             else:
                 g = np.zeros((n_epochs_tot, n_times), dtype=float)
+
+            # ________________________ N_STD COUPLING _________________________
+            c2 = self._n_std_gain(c, n2, n_std)
 
             # _______________________ POLY COEFFICIENTS________________________
             if ar_type == 'osc_40':    # bivariate data oscillating at 40Hz
@@ -133,13 +145,6 @@ class StimSpecAR(object):
                 a1 = [.3]
                 a2 = [.3]
                 a12 = [0, 0, 0, .5, .5]
-
-            # _____________________________ NOISE _____________________________
-            # white noise with zero mean and unit variance
-            n1, n2 = self._generate_noise(var=[.05, .05], **kw_noise)
-
-            # ________________________ N_STD COUPLING _________________________
-            c2 = self._n_std_gain(c, n2, n_std)
 
             # ______________________________ AR _______________________________
             # generate AR model with feature-specific causal connectivity (fCC)
@@ -536,13 +541,14 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import networkx as nx
     ss = StimSpecAR()
-    ar = ss.fit(ar_type='ding_5', random_state=0, n_std=5, n_stim=2,
+    ar = ss.fit(ar_type='hga', random_state=0, n_std=3, n_stim=2,
                 n_epochs=20)
-    # ss.plot(cmap='viridis', psd=True, colorbar=True)
+    # ss.plot(cmap='viridis', psd=False, colorbar=True)
+    # plt.show()
     # ss.plot_model()
-    gc = ss.compute_covgc(ar, step=5, conditional=True)
+    gc = ss.compute_covgc(ar, step=1, conditional=False)
     plt.figure(figsize=(14, 12))
-    ss.plot_covgc(plot_mi=False)
+    ss.plot_covgc(plot_mi=True)
     # plt.figure(figsize=(14, 12))
     # ss.plot_covgc(plot_mi=True)
     plt.tight_layout()
