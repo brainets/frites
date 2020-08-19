@@ -294,7 +294,7 @@
 <span class="sd">            Width of the time-varying Gaussian stimulus</span>
 <span class="sd">        n_stim : int | 3</span>
 <span class="sd">            Number of stimulus to use</span>
-<span class="sd">        n_std : int | 3</span>
+<span class="sd">        n_std : float, int | 3</span>
 <span class="sd">            Number of standard deviations the stimulus exceed the random noise.</span>
 <span class="sd">            Should be an integer striclty over 1. Note that this concerns the</span>
 <span class="sd">            first stimulus. For example, if n_std=3, the first stimulus is</span>
@@ -310,7 +310,7 @@
 <span class="sd">        data : xarray.DataArray</span>
 <span class="sd">            DataArray of shape (n_epochs * n_stim, n_roi, n_times)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_std</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n_std</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_std</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
         <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span> <span class="o">-</span> <span class="mf">0.5</span>
         <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
         <span class="n">cval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_stim</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -359,12 +359,24 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
 
         <span class="k">if</span> <span class="n">ar_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;hga&#39;</span><span class="p">,</span> <span class="s1">&#39;osc_20&#39;</span><span class="p">,</span> <span class="s1">&#39;osc_40&#39;</span><span class="p">]:</span>
+            <span class="c1"># _____________________________ NOISE _____________________________</span>
+            <span class="c1"># white noise with zero mean and unit variance</span>
+            <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_noise</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">05</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">],</span> <span class="o">**</span><span class="n">kw_noise</span><span class="p">)</span>
+
             <span class="c1"># _____________________________ GAIN ______________________________</span>
             <span class="k">if</span> <span class="n">ar_type</span> <span class="o">==</span> <span class="s1">&#39;hga&#39;</span><span class="p">:</span>
+                <span class="c1"># generate the array of gain</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">gval</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">)</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gauss_stim</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># modulates gain according to n_std</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_std_gain</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n_std</span><span class="p">)</span>
+                <span class="c1"># for hga, there&#39;s no need to have an additional modulation</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+            <span class="c1"># ________________________ N_STD COUPLING _________________________</span>
+            <span class="n">c2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_std_gain</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n_std</span><span class="p">)</span>
 
             <span class="c1"># _______________________ POLY COEFFICIENTS________________________</span>
             <span class="k">if</span> <span class="n">ar_type</span> <span class="o">==</span> <span class="s1">&#39;osc_40&#39;</span><span class="p">:</span>    <span class="c1"># bivariate data oscillating at 40Hz</span>
@@ -379,13 +391,6 @@
                 <span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
                 <span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
                 <span class="n">a12</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">]</span>
-
-            <span class="c1"># _____________________________ NOISE _____________________________</span>
-            <span class="c1"># white noise with zero mean and unit variance</span>
-            <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_noise</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">05</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">],</span> <span class="o">**</span><span class="n">kw_noise</span><span class="p">)</span>
-
-            <span class="c1"># ________________________ N_STD COUPLING _________________________</span>
-            <span class="n">c2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_std_gain</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n_std</span><span class="p">)</span>
 
             <span class="c1"># ______________________________ AR _______________________________</span>
             <span class="c1"># generate AR model with feature-specific causal connectivity (fCC)</span>
@@ -782,13 +787,14 @@
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
     <span class="n">ss</span> <span class="o">=</span> <span class="n">StimSpecAR</span><span class="p">()</span>
-    <span class="n">ar</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ar_type</span><span class="o">=</span><span class="s1">&#39;ding_5&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_std</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_stim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">ar</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ar_type</span><span class="o">=</span><span class="s1">&#39;hga&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_std</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_stim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                 <span class="n">n_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-    <span class="c1"># ss.plot(cmap=&#39;viridis&#39;, psd=True, colorbar=True)</span>
+    <span class="c1"># ss.plot(cmap=&#39;viridis&#39;, psd=False, colorbar=True)</span>
+    <span class="c1"># plt.show()</span>
     <span class="c1"># ss.plot_model()</span>
-    <span class="n">gc</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">compute_covgc</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gc</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">compute_covgc</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-    <span class="n">ss</span><span class="o">.</span><span class="n">plot_covgc</span><span class="p">(</span><span class="n">plot_mi</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ss</span><span class="o">.</span><span class="n">plot_covgc</span><span class="p">(</span><span class="n">plot_mi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># plt.figure(figsize=(14, 12))</span>
     <span class="c1"># ss.plot_covgc(plot_mi=True)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -819,7 +825,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-08-18.</p>
+        <p>&copy; Copyright Last updated on 2020-08-19.</p>
     </footer>
 
   </body>
