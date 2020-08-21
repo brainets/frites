@@ -371,7 +371,8 @@
                 <span class="c1"># modulates gain according to n_std</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_std_gain</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n_std</span><span class="p">)</span>
                 <span class="c1"># for hga, there&#39;s no need to have an additional modulation</span>
-                <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                <span class="c1"># c = np.ones_like(c)</span>
+                <span class="n">c</span> <span class="o">*=</span> <span class="o">.</span><span class="mi">4</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs_tot</span><span class="p">,</span> <span class="n">n_times</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
@@ -789,12 +790,16 @@
     <span class="n">ss</span> <span class="o">=</span> <span class="n">StimSpecAR</span><span class="p">()</span>
     <span class="n">ar</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ar_type</span><span class="o">=</span><span class="s1">&#39;hga&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_std</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_stim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                 <span class="n">n_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">mi</span> <span class="o">=</span> <span class="n">mi_model_nd_gd</span><span class="p">(</span><span class="n">ar</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">ar</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">traxis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">exit</span><span class="p">()</span>
     <span class="c1"># ss.plot(cmap=&#39;viridis&#39;, psd=False, colorbar=True)</span>
     <span class="c1"># plt.show()</span>
     <span class="c1"># ss.plot_model()</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">compute_covgc</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-    <span class="n">ss</span><span class="o">.</span><span class="n">plot_covgc</span><span class="p">(</span><span class="n">plot_mi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># plt.figure(figsize=(14, 12))</span>
+    <span class="c1"># ss.plot_covgc(plot_mi=True)</span>
     <span class="c1"># plt.figure(figsize=(14, 12))</span>
     <span class="c1"># ss.plot_covgc(plot_mi=True)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -825,7 +830,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-08-19.</p>
+        <p>&copy; Copyright Last updated on 2020-08-21.</p>
     </footer>
 
   </body>
