@@ -125,7 +125,8 @@ class StimSpecAR(object):
                 # modulates gain according to n_std
                 g = self._n_std_gain(g, n1, n_std)
                 # for hga, there's no need to have an additional modulation
-                c = np.ones_like(c)
+                # c = np.ones_like(c)
+                c *= .4
             else:
                 g = np.zeros((n_epochs_tot, n_times), dtype=float)
 
@@ -543,12 +544,16 @@ if __name__ == '__main__':
     ss = StimSpecAR()
     ar = ss.fit(ar_type='hga', random_state=0, n_std=3, n_stim=2,
                 n_epochs=20)
+    mi = mi_model_nd_gd(ar.data, ar['trials'].data, traxis=0)
+    plt.plot(mi.T)
+    plt.show()
+    exit()
     # ss.plot(cmap='viridis', psd=False, colorbar=True)
     # plt.show()
     # ss.plot_model()
     gc = ss.compute_covgc(ar, step=1, conditional=False)
-    plt.figure(figsize=(14, 12))
-    ss.plot_covgc(plot_mi=True)
+    # plt.figure(figsize=(14, 12))
+    # ss.plot_covgc(plot_mi=True)
     # plt.figure(figsize=(14, 12))
     # ss.plot_covgc(plot_mi=True)
     plt.tight_layout()
