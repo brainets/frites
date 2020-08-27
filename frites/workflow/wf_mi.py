@@ -356,22 +356,22 @@ class WfMi(WfBase):
         pv_s = {}
         for s in range(dataset.n_subjects):
             # reconstruct the mi and mi_p of each subject
-            mi_s, mi_ps = [], []
+            mi_s, mi_ps, roi_s = [], [], []
             for r in range(n_roi):
                 suj_roi_u = dataset.suj_roi_u[r]
                 if s not in suj_roi_u: continue  # noqa
                 is_suj = suj_roi_u == s
                 mi_s += [self._mi[r][is_suj, :]]
                 mi_ps += [self._mi_p[r][:, is_suj, :]]
+                roi_s += [self._roi[r]]
 
             # perform the statistics
             _pv_s = self._wf_stats.fit(
             mi_s, mi_ps, mcp=mcp, cluster_th=cluster_th, tail=1,
             cluster_alpha=cluster_alpha, inference='ffx')[0]
             # dataarray conversion
-            pv_s[s] = xr.DataArray(
-                _pv_s < p, dims=('times', 'roi'),
-                coords=(dataset.times, dataset.roi[s]))
+            pv_s[s] = xr.DataArray(_pv_s < p, dims=('times', 'roi'),
+                                   coords=(self._times, roi_s))
         # cross-subjects conjunction
         conj_ss = xr.Dataset(pv_s).to_array('subject')
         conj = conj_ss.sum('subject')
