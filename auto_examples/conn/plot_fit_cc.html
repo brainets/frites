@@ -184,6 +184,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
@@ -192,22 +193,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -312,11 +313,11 @@ information transfer</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ],
-        [0.00806717, 0.03274737, 0.0160518 , ..., 0.01995876,
-         0.02247933, 0.02982994]],
+        [0.02173153, 0.03455447, 0.01366304, ..., 0.00544792,
+         0.02622488, 0.01590198]],
 
-       [[0.01499118, 0.01990601, 0.03550769, ..., 0.01065619,
-         0.03113354, 0.03023859],
+       [[0.01469235, 0.00165903, 0.02048568, ..., 0.00749221,
+         0.01321689, 0.00822932],
         [0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ]]])
 Coordinates:
@@ -330,7 +331,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             1.3440541
+    th:             1.3895742
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -361,8 +362,8 @@ difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</ci
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [-0.00692401,  0.01284137, -0.01945589, ...,  0.00930256,
-         -0.00865421, -0.00040864]],
+        [ 0.00703918,  0.03289544, -0.00682264, ..., -0.00204429,
+          0.01300798,  0.00767267]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -379,7 +380,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.416761
+    th:             2.4535224
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -388,7 +389,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.190 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.198 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -426,7 +427,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-08-26.</p>
+        <p>&copy; Copyright Last updated on 2020-08-27.</p>
     </footer>
 
   </body>

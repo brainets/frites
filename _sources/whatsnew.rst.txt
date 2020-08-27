@@ -6,6 +6,10 @@ What's new
 v0.3.4
 ------
 
+Bug fixes
++++++++++
+* Fix :py:class:`frites.workflow.WfMi.conjunction_analysis` for seeg data (:commit:`6ca64c5`)
+
 Breaking changes
 ++++++++++++++++
 * Xarray is now the default output type as it supports the definition of multi-dimensional containers with label to each coordinates (:commit:`8174e4`) + illustrating examples of how to use xarray (:commit:`f5d28e`)

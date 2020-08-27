@@ -184,6 +184,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
@@ -192,22 +193,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -301,47 +302,47 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
-array([[0.82855072, 0.29771269, 0.85831045, 0.35764111, 0.05528838,
-        0.82047362, 0.32841386],
-       [0.99836345, 0.6964277 , 0.46208257, 0.70019775, 0.59127478,
-        0.19596053, 0.65684624],
-       [0.25859591, 0.20939839, 0.04642482, 0.24543522, 0.29924981,
-        0.5391591 , 0.00369929],
-       [0.59875864, 0.91082746, 0.89928647, 0.10154443, 0.52113933,
-        0.28462673, 0.78947979],
-       [0.57791205, 0.54357716, 0.79661997, 0.7627472 , 0.76269647,
-        0.56868687, 0.32134225],
-       [0.89430132, 0.84338299, 0.78455807, 0.57753333, 0.61218852,
-        0.76890214, 0.9450769 ],
-       [0.22967191, 0.92760705, 0.43593731, 0.39963972, 0.68261224,
-        0.63885943, 0.51265804],
-       [0.00395132, 0.70649791, 0.96552886, 0.96540317, 0.59775232,
-        0.62400976, 0.88955499],
-       [0.01137479, 0.58080877, 0.22782618, 0.38374121, 0.18589005,
-        0.82283945, 0.41274027],
-       [0.45983655, 0.59467307, 0.07518883, 0.25913889, 0.35898255,
-        0.20349145, 0.50358432],
+array([[0.05430716, 0.41944575, 0.44686202, 0.49227118, 0.91388458,
+        0.47792106, 0.54403039],
+       [0.15924444, 0.7379818 , 0.71607571, 0.01805424, 0.62311323,
+        0.53787503, 0.75928951],
+       [0.7989776 , 0.57837401, 0.05279809, 0.15203289, 0.49419331,
+        0.34281014, 0.57963577],
+       [0.73485784, 0.25029302, 0.93556708, 0.41552684, 0.03948781,
+        0.00853868, 0.01344176],
+       [0.69393432, 0.27777586, 0.25623416, 0.65888882, 0.3511527 ,
+        0.59453143, 0.24528815],
+       [0.28632352, 0.62746362, 0.14742578, 0.24203201, 0.50263478,
+        0.56536263, 0.08126048],
+       [0.63676409, 0.60190803, 0.64140281, 0.65068298, 0.38277307,
+        0.83126318, 0.83994203],
+       [0.30624159, 0.16390233, 0.63511763, 0.57466111, 0.90849444,
+        0.22909889, 0.426822  ],
+       [0.01387394, 0.23290432, 0.41617212, 0.87465893, 0.30136726,
+        0.18176155, 0.86035495],
+       [0.32076153, 0.42789865, 0.84488909, 0.75994986, 0.19928266,
+        0.37146267, 0.38008484],
 ...
-       [0.48476945, 0.16531302, 0.7950559 , 0.60409515, 0.24581087,
-        0.8789088 , 0.77532636],
-       [0.54262556, 0.9704229 , 0.56878009, 0.79033912, 0.49774164,
-        0.87035974, 0.75280018],
-       [0.63634734, 0.30306593, 0.8140422 , 0.33027646, 0.71912339,
-        0.20255632, 0.46088294],
-       [0.67297951, 0.13284099, 0.44077856, 0.25682832, 0.46080185,
-        0.66164864, 0.2296423 ],
-       [0.92588528, 0.09519797, 0.2434003 , 0.86935579, 0.6931599 ,
-        0.60537608, 0.93864481],
-       [0.05508636, 0.90696817, 0.28591126, 0.09319288, 0.08975798,
-        0.42805415, 0.75136937],
-       [0.40647053, 0.04287147, 0.61812088, 0.64547189, 0.1384803 ,
-        0.42763457, 0.09808521],
-       [0.04579651, 0.88136085, 0.07728141, 0.54808185, 0.28394845,
-        0.85743498, 0.47709896],
-       [0.15871354, 0.26469622, 0.00361434, 0.48835099, 0.70191478,
-        0.54143684, 0.29964842],
-       [0.47491287, 0.4179521 , 0.62010783, 0.19420047, 0.54217938,
-        0.99285678, 0.64173557]])
+       [0.06512498, 0.785885  , 0.24676636, 0.94288706, 0.62720933,
+        0.11209956, 0.66007528],
+       [0.97635802, 0.16192294, 0.09636129, 0.71669226, 0.65037285,
+        0.42317399, 0.00414297],
+       [0.74655871, 0.30771597, 0.13231752, 0.77307095, 0.07128206,
+        0.14439323, 0.80716657],
+       [0.49223486, 0.01768603, 0.0144138 , 0.16008339, 0.50460729,
+        0.37431725, 0.0989207 ],
+       [0.85500927, 0.58031832, 0.40135991, 0.3642922 , 0.02876152,
+        0.70217861, 0.95154773],
+       [0.14320567, 0.6379272 , 0.58193149, 0.05448816, 0.27974062,
+        0.88573802, 0.1576379 ],
+       [0.63031181, 0.29178755, 0.02179892, 0.31811733, 0.19778018,
+        0.22385441, 0.17812804],
+       [0.62311774, 0.0176734 , 0.41049185, 0.60746642, 0.9283265 ,
+        0.67508737, 0.13856256],
+       [0.86644167, 0.88918651, 0.39354706, 0.99981547, 0.70523266,
+        0.39168451, 0.02973706],
+       [0.97994841, 0.20186359, 0.00770482, 0.10324846, 0.90069416,
+        0.85836015, 0.30073998]])
 Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
@@ -384,14 +385,14 @@ Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
 Data variables:
-    first    (times, roi) float64 0.8286 0.2977 0.8583 ... 0.5422 0.9929 0.6417
-    second   (times, roi) float64 0.1201 0.7406 0.5675 ... 0.1691 0.6359 0.35
+    first    (times, roi) float64 0.05431 0.4194 0.4469 ... 0.9007 0.8584 0.3007
+    second   (times, roi) float64 0.3972 0.8794 0.01006 ... 0.8311 0.6695 0.8109
 Attributes:
     desc:     This is my dataset
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.126 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.123 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/627bcf09a570d93abafc523838ae8987/plot_xr_export.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_xr_export.py</span></code></a></p>
@@ -429,7 +430,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-08-26.</p>
+        <p>&copy; Copyright Last updated on 2020-08-27.</p>
     </footer>
 
   </body>
