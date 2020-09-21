@@ -33,8 +33,8 @@ n_epochs = 50                # number of epochs per stimulus
 ss = StimSpecAR()
 ar = ss.fit(ar_type=ar_type, n_epochs=n_epochs, n_stim=n_stim)
 
-# ###############################################################################
-# # plot the network
+###############################################################################
+# plot the network
 
 plt.figure(figsize=(5, 4))
 ss.plot_model()

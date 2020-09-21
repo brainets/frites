@@ -141,6 +141,7 @@ sphinx_gallery_conf = {
     'filename_pattern': '/plot_|sim_',
     'default_thumb_file': 'source/_static/frites.png',
     'subsection_order': ExplicitOrder([
+        '../../examples/tutorials',
         '../../examples/dataset',
         '../../examples/mi',
         '../../examples/conn',
