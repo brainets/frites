@@ -80,8 +80,8 @@ class WfMi(WfBase):
         self.update_cfg(mi_type=mi_type, inference=inference,
             mi_method=mi_method, kernel=kernel)
 
-        logger.info(f"Workflow for computing mutual information ({mi_type} - "
-                    f"{mi_method})")
+        logger.info(f"Workflow for computing mutual information ({inference} -"
+                    f" {mi_method} - {mi_type})")
 
     def _node_prepare_data(self, dataset):
         """Prepare the data before computing the mi.
