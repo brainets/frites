@@ -3,6 +3,17 @@
 What's new
 ==========
 
+v0.3.5
+------
+
+New Features
+++++++++++++
+* New function for reshaping undirected arrays of connectivity (like DFC) :py:func:`frites.utils.conn_reshape_undirected` (:commit:`ffcae34`)
+
+.. raw:: html
+
+    <hr>
+
 v0.3.4
 ------
 
@@ -24,6 +35,10 @@ New Features
 Internal Changes
 ++++++++++++++++
 * Improve testings (:commit:`6644cd`)
+
+.. raw:: html
+
+    <hr>
 
 v0.3.3
 ------
