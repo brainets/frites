@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Xarray : Saving the results &#8212; frites 0.3.4 documentation</title>
+    <title>Xarray : Saving the results &#8212; frites 0.3.5 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
           frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.4</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -183,32 +183,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -302,47 +306,47 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
-array([[3.85927306e-01, 3.07970122e-01, 7.77713462e-01, 5.15547388e-01,
-        2.00717573e-01, 4.40669121e-01, 9.91362673e-01],
-       [6.87965099e-01, 9.32857928e-01, 8.78248421e-01, 9.90132769e-01,
-        3.03811000e-01, 5.68038461e-02, 1.64053879e-01],
-       [4.98219820e-01, 7.40022487e-01, 2.76968675e-01, 2.51023094e-01,
-        8.62642101e-01, 9.07158395e-02, 7.30820540e-01],
-       [9.13151550e-01, 9.03754929e-01, 1.14279290e-01, 4.86779761e-01,
-        1.10375183e-01, 3.90624379e-01, 8.47903075e-01],
-       [6.08834466e-01, 6.96843169e-01, 1.01286942e-01, 2.35574508e-01,
-        9.16556772e-01, 7.66669423e-01, 2.14025233e-01],
-       [3.40244704e-01, 7.35685261e-01, 4.25943924e-01, 6.98226330e-01,
-        6.59169339e-01, 9.92117746e-01, 7.41757660e-01],
-       [2.81875482e-01, 7.11326031e-01, 8.05195722e-01, 6.99688835e-01,
-        5.11873720e-01, 1.27129921e-01, 9.56344422e-01],
-       [6.38947460e-02, 3.33636533e-02, 5.12379981e-01, 7.89007955e-01,
-        3.08425583e-01, 9.21673853e-01, 4.76324443e-01],
-       [9.49381557e-01, 3.11475202e-01, 1.87589966e-01, 5.60007297e-01,
-        4.76933340e-01, 7.28010586e-02, 8.11974873e-01],
-       [3.79835940e-01, 9.60936305e-01, 6.71423538e-01, 2.73314188e-01,
-        8.87888073e-01, 8.40501251e-01, 4.75634629e-02],
+array([[0.95200933, 0.87998254, 0.47671323, 0.03249708, 0.85457994,
+        0.6507387 , 0.38345031],
+       [0.71812518, 0.66767491, 0.08712348, 0.32541476, 0.66729356,
+        0.02528242, 0.67323777],
+       [0.05409337, 0.89071686, 0.34036414, 0.4112919 , 0.97689984,
+        0.41972129, 0.21435099],
+       [0.41034357, 0.34991087, 0.42119037, 0.48429014, 0.53980687,
+        0.66140026, 0.47787732],
+       [0.31666784, 0.45155737, 0.85887958, 0.26640221, 0.4540967 ,
+        0.06573095, 0.52208563],
+       [0.56402052, 0.72089269, 0.83423659, 0.04690006, 0.96019575,
+        0.11334585, 0.51848912],
+       [0.91610927, 0.38183063, 0.6682982 , 0.66464155, 0.65406237,
+        0.62097055, 0.61727167],
+       [0.93030505, 0.66114124, 0.93194716, 0.96767381, 0.29949261,
+        0.50530778, 0.16335064],
+       [0.93298926, 0.76599065, 0.03818832, 0.92602787, 0.7022405 ,
+        0.43834834, 0.43743444],
+       [0.39430345, 0.6071607 , 0.42880693, 0.4810414 , 0.64550942,
+        0.87653899, 0.58535335],
 ...
-       [9.36060344e-01, 8.41403435e-02, 8.05937744e-01, 8.89283545e-01,
-        1.80313817e-01, 8.22918026e-01, 5.24640254e-01],
-       [6.48167470e-01, 2.35850989e-01, 8.62014692e-01, 2.20029145e-01,
-        3.48410707e-01, 4.86624657e-01, 1.41658598e-01],
-       [6.23959534e-01, 8.02008240e-01, 8.59120470e-02, 2.56483850e-01,
-        4.30348782e-01, 6.40533514e-01, 7.87864424e-01],
-       [2.86450775e-02, 7.99789248e-01, 9.54970401e-01, 1.10129576e-01,
-        4.19620279e-01, 2.14827115e-01, 2.70799172e-01],
-       [5.60385895e-01, 6.57660584e-01, 2.70360524e-01, 1.04062559e-01,
-        6.64096676e-01, 2.69732393e-01, 4.15618521e-01],
-       [3.89992178e-01, 9.79811597e-01, 9.39721604e-01, 7.25424647e-01,
-        6.84226535e-01, 6.88272427e-01, 6.40259514e-01],
-       [3.19192263e-01, 2.24215371e-01, 1.00955829e-01, 4.49874370e-02,
-        5.75149566e-01, 8.55737565e-01, 8.37414051e-01],
-       [5.78078747e-01, 5.00436171e-01, 4.06654316e-01, 4.72362791e-01,
-        2.75440301e-01, 7.97313237e-01, 8.64475397e-01],
-       [5.28444171e-01, 3.68609929e-01, 7.96740975e-01, 7.96749826e-01,
-        8.15721730e-01, 2.48895272e-01, 9.09664855e-01],
-       [2.78262448e-02, 3.89359069e-01, 8.32740444e-03, 2.78887481e-01,
-        3.07712172e-01, 4.80304306e-01, 7.42060007e-01]])
+       [0.90530129, 0.91336406, 0.51705383, 0.61374507, 0.08160329,
+        0.71393155, 0.68136177],
+       [0.3451981 , 0.46303986, 0.27387563, 0.67577686, 0.48841818,
+        0.5035447 , 0.5090776 ],
+       [0.72591279, 0.58839412, 0.9910987 , 0.40185083, 0.54278742,
+        0.35123122, 0.38026808],
+       [0.02991285, 0.54614753, 0.43602895, 0.20387766, 0.10130252,
+        0.52009924, 0.25249267],
+       [0.57603116, 0.45803105, 0.53412397, 0.4572036 , 0.17317994,
+        0.34528855, 0.59246089],
+       [0.47585854, 0.24505732, 0.73859671, 0.0877659 , 0.63854554,
+        0.80818155, 0.47974393],
+       [0.22598007, 0.3974025 , 0.17244342, 0.49058376, 0.2239299 ,
+        0.70531671, 0.0061344 ],
+       [0.77771218, 0.43512504, 0.51106737, 0.9328254 , 0.73637483,
+        0.52222955, 0.03600311],
+       [0.60206732, 0.19389854, 0.69221433, 0.86371532, 0.97913032,
+        0.02626297, 0.84466036],
+       [0.33241716, 0.98143034, 0.1313908 , 0.78874905, 0.41835726,
+        0.18954567, 0.16970878]])
 Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
@@ -385,14 +389,14 @@ Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
 Data variables:
-    first    (times, roi) float64 0.3859 0.308 0.7777 ... 0.3077 0.4803 0.7421
-    second   (times, roi) float64 0.4266 0.6746 0.4599 ... 0.2834 0.9863 0.5063
+    first    (times, roi) float64 0.952 0.88 0.4767 ... 0.4184 0.1895 0.1697
+    second   (times, roi) float64 0.007636 0.1937 0.1293 ... 0.2963 0.02899
 Attributes:
     desc:     This is my dataset
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.229 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.131 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/627bcf09a570d93abafc523838ae8987/plot_xr_export.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_xr_export.py</span></code></a></p>
@@ -430,7 +434,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-09-21.</p>
+        <p>&copy; Copyright Last updated on 2020-10-01.</p>
     </footer>
 
   </body>
