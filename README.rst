@@ -56,12 +56,13 @@ The main dependencies of Frites are :
 * `Numpy <https://numpy.org/>`_
 * `Scipy <https://www.scipy.org/>`_
 * `MNE <https://mne.tools/stable/index.html>`_
+* `Xarray <http://xarray.pydata.org/en/stable/>`_
 * `Joblib <https://joblib.readthedocs.io/en/latest/>`_
 
 In addition to the main dependencies, here's the list of additional packages that you might need :
 
-* `Pandas <https://pandas.pydata.org/>`_ and `Xarray <http://xarray.pydata.org/en/stable/>`_ : additional output types
 * `Numba <http://numba.pydata.org/>`_ : speed computations of some functions
+* `Matplotlib <https://matplotlib.org/>`_ and `Networkx <https://networkx.github.io/>`_ for plotting the examples
 
 
 User installation
