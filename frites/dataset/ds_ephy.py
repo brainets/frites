@@ -504,6 +504,7 @@ class DatasetEphy(object):
         set_log_level(verbose)
         assert self._groupedby is "subject", ("Slicing only work when data is "
                                               "grouped by 'subjects'")
+
         from scipy.signal import savgol_filter
         h_freq = float(h_freq)
         if h_freq >= self.sfreq / 2.:

@@ -11,6 +11,35 @@ logger = logging.getLogger("frites")
 
 
 def savgol_filter(x, h_freq, axis=None, sfreq=None, polyorder=5, verbose=None):
+    """Filter the data using Savitzky-Golay polynomial method.
+
+    This function is an adaptation of the mne-python one for xarray.DataArray.
+
+    Parameters
+    ----------
+    x : array_like
+        Multidimensional array or DataArray
+    h_freq : float
+        Approximate high cut-off frequency in Hz. Note that this is not an
+        exact cutoff, since Savitzky-Golay filtering is done using
+        polynomial fits instead of FIR/IIR filtering. This parameter is
+        thus used to determine the length of the window
+    axis : int, string | None
+        Position of the time axis. Can either be an integer when `x` is a
+        NumPy array or a string (e.g 'times') when using a DataArray
+    polyorder : int | 5
+        Polynomial order
+
+    Returns
+    -------
+    x_filt : array_like
+        Filtered data
+
+    Notes
+    -----
+    For Savitzky-Golay low-pass approximation, see:
+        https://gist.github.com/larsoner/bbac101d50176611136b
+    """
     set_log_level(verbose)
     # inputs checking
     if isinstance(x, xr.DataArray):

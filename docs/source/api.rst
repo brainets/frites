@@ -213,6 +213,7 @@ Utils
 
    define_windows
    plot_windows
+   savgol_filter
 
 .. raw:: html
 

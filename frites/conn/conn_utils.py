@@ -10,6 +10,11 @@ def conn_reshape_undirected(da, sep='-', order=None):
     where n_pairs reflects pairs of roi (e.g 'roi_1-roi_2') and reshape it to
     be a symmetric DataArray of shape (n_roi, n_roi, n_times).
 
+    .. warning::
+
+        This function reshape the data inplace. If you need to conserve the
+        ravel version of your connectivity array, send a copy (`da.copy()`)
+
     Parameters
     ----------
     da : xarray.DataArray
