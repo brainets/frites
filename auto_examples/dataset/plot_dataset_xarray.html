@@ -77,6 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
@@ -140,6 +141,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
@@ -190,29 +192,29 @@
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -314,47 +316,47 @@ in a list of length (n_subjects,)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[9.11365116e-01, 9.04561521e-02, 4.34938690e-01, ...,
-         4.50387178e-01, 6.83265762e-01, 5.16039312e-01],
-        [8.09376204e-01, 1.06461580e-01, 5.91660215e-01, ...,
-         2.11288758e-01, 1.29771179e-01, 3.75837269e-01],
-        [9.94640622e-01, 1.33656197e-01, 5.86602578e-01, ...,
-         5.22383218e-01, 5.75594683e-02, 7.24794804e-01],
-        [5.36612551e-01, 9.46587889e-01, 2.95252546e-01, ...,
-         5.71953984e-01, 3.80369090e-01, 8.10412553e-01],
-        [3.37018868e-01, 1.95168155e-01, 4.34269477e-01, ...,
-         8.42081745e-01, 7.17269858e-01, 4.29913648e-02]],
+array([[[0.73505929, 0.40790687, 0.37507997, ..., 0.62794189,
+         0.97894924, 0.19878602],
+        [0.79798324, 0.63215706, 0.98989309, ..., 0.66018227,
+         0.56069899, 0.00776349],
+        [0.61989035, 0.79141368, 0.03955795, ..., 0.81096153,
+         0.72499416, 0.72034988],
+        [0.32305442, 0.38908   , 0.22715903, ..., 0.49402217,
+         0.2360758 , 0.30402094],
+        [0.07296695, 0.80448659, 0.65140772, ..., 0.94209593,
+         0.05099036, 0.52650904]],
 
-       [[8.99130972e-01, 3.97821869e-04, 5.76234214e-01, ...,
-         3.93824747e-01, 1.72039218e-02, 7.54398981e-01],
-        [8.27233577e-01, 4.48251811e-01, 9.92231578e-01, ...,
-         9.31891679e-01, 5.46888211e-01, 5.68995283e-01],
-        [4.69987398e-01, 8.88436984e-03, 6.54565112e-01, ...,
-         8.82866379e-01, 8.62554600e-01, 1.37572451e-01],
-        [3.17457101e-01, 6.92999831e-01, 3.43962273e-01, ...,
-         6.57397477e-01, 7.81084301e-01, 9.14508626e-01],
-        [7.82387847e-01, 3.81213201e-01, 6.80147488e-01, ...,
+       [[0.77115609, 0.55749508, 0.33575739, ..., 0.42944954,
+         0.0839523 , 0.1416454 ],
+        [0.01280587, 0.56836655, 0.07240728, ..., 0.00590093,
+         0.59877011, 0.93178909],
+        [0.24800469, 0.54606907, 0.68624015, ..., 0.63643529,
+         0.2586722 , 0.43184831],
+        [0.8399126 , 0.9772594 , 0.98246386, ..., 0.66617146,
+         0.7056075 , 0.70408482],
+        [0.62803658, 0.09565438, 0.2095971 , ..., 0.22425398,
 ...
-         1.51955235e-01, 4.70431603e-01, 8.92593017e-01],
-        [5.75488406e-01, 1.59388733e-01, 1.95769912e-01, ...,
-         3.53500932e-01, 4.21358451e-01, 1.67459193e-01],
-        [6.93415423e-01, 1.13431757e-02, 9.33878912e-01, ...,
-         5.00359208e-01, 2.29377418e-01, 2.67236692e-01],
-        [7.87179458e-01, 7.63814245e-02, 6.66433578e-01, ...,
-         3.08283554e-01, 3.63567630e-01, 8.40684355e-01],
-        [7.30919500e-01, 8.24958448e-01, 3.09547964e-01, ...,
-         3.99043164e-01, 3.70548948e-01, 8.60125727e-01]],
+         0.02811534, 0.13315452],
+        [0.91867001, 0.16538187, 0.4947489 , ..., 0.62813792,
+         0.00716017, 0.63787604],
+        [0.9328958 , 0.29144167, 0.23919568, ..., 0.89386913,
+         0.47824543, 0.18839691],
+        [0.65985947, 0.48913679, 0.08681331, ..., 0.94251575,
+         0.36584556, 0.09234027],
+        [0.48235339, 0.9720991 , 0.87955642, ..., 0.68255923,
+         0.24265679, 0.84541278]],
 
-       [[1.89632076e-02, 4.50112965e-01, 2.34056549e-01, ...,
-         8.91455251e-01, 5.60537789e-01, 1.35655450e-01],
-        [2.98481609e-01, 4.22165413e-01, 6.20182441e-01, ...,
-         5.00501851e-01, 3.06619325e-01, 4.46900100e-01],
-        [7.20815939e-01, 6.98991492e-01, 3.09833640e-01, ...,
-         5.21475699e-01, 9.08718007e-01, 8.71013161e-01],
-        [3.82044946e-02, 9.99407615e-01, 6.03891000e-01, ...,
-         5.44824064e-01, 6.56700450e-01, 9.37313300e-01],
-        [5.80602475e-01, 2.16407158e-01, 9.84707853e-01, ...,
-         4.53377645e-01, 8.78232709e-01, 3.71527943e-01]]])
+       [[0.13917267, 0.14584117, 0.77146483, ..., 0.62619184,
+         0.77290607, 0.53974576],
+        [0.11091702, 0.99672668, 0.02789591, ..., 0.04893183,
+         0.96480308, 0.38511568],
+        [0.47700676, 0.24170426, 0.82033372, ..., 0.95656842,
+         0.7907662 , 0.60785091],
+        [0.66292331, 0.51281743, 0.58914984, ..., 0.35315825,
+         0.80716118, 0.33337718],
+        [0.32599995, 0.00835004, 0.04781479, ..., 0.70768833,
+         0.59757455, 0.91990875]]])
 Coordinates:
   * epochs    (epochs) int64 0 1 2 3 4 5 6 7 8 9
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
@@ -435,50 +437,50 @@ ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[9.11365116e-01, 9.04561521e-02, 4.34938690e-01, ...,
-         4.50387178e-01, 6.83265762e-01, 5.16039312e-01],
-        [8.09376204e-01, 1.06461580e-01, 5.91660215e-01, ...,
-         2.11288758e-01, 1.29771179e-01, 3.75837269e-01],
-        [9.94640622e-01, 1.33656197e-01, 5.86602578e-01, ...,
-         5.22383218e-01, 5.75594683e-02, 7.24794804e-01],
-        [5.36612551e-01, 9.46587889e-01, 2.95252546e-01, ...,
-         5.71953984e-01, 3.80369090e-01, 8.10412553e-01],
-        [3.37018868e-01, 1.95168155e-01, 4.34269477e-01, ...,
-         8.42081745e-01, 7.17269858e-01, 4.29913648e-02]],
+array([[[0.73505929, 0.40790687, 0.37507997, ..., 0.62794189,
+         0.97894924, 0.19878602],
+        [0.79798324, 0.63215706, 0.98989309, ..., 0.66018227,
+         0.56069899, 0.00776349],
+        [0.61989035, 0.79141368, 0.03955795, ..., 0.81096153,
+         0.72499416, 0.72034988],
+        [0.32305442, 0.38908   , 0.22715903, ..., 0.49402217,
+         0.2360758 , 0.30402094],
+        [0.07296695, 0.80448659, 0.65140772, ..., 0.94209593,
+         0.05099036, 0.52650904]],
 
-       [[8.99130972e-01, 3.97821869e-04, 5.76234214e-01, ...,
-         3.93824747e-01, 1.72039218e-02, 7.54398981e-01],
-        [8.27233577e-01, 4.48251811e-01, 9.92231578e-01, ...,
-         9.31891679e-01, 5.46888211e-01, 5.68995283e-01],
-        [4.69987398e-01, 8.88436984e-03, 6.54565112e-01, ...,
-         8.82866379e-01, 8.62554600e-01, 1.37572451e-01],
-        [3.17457101e-01, 6.92999831e-01, 3.43962273e-01, ...,
-         6.57397477e-01, 7.81084301e-01, 9.14508626e-01],
-        [7.82387847e-01, 3.81213201e-01, 6.80147488e-01, ...,
+       [[0.77115609, 0.55749508, 0.33575739, ..., 0.42944954,
+         0.0839523 , 0.1416454 ],
+        [0.01280587, 0.56836655, 0.07240728, ..., 0.00590093,
+         0.59877011, 0.93178909],
+        [0.24800469, 0.54606907, 0.68624015, ..., 0.63643529,
+         0.2586722 , 0.43184831],
+        [0.8399126 , 0.9772594 , 0.98246386, ..., 0.66617146,
+         0.7056075 , 0.70408482],
+        [0.62803658, 0.09565438, 0.2095971 , ..., 0.22425398,
 ...
-         1.51955235e-01, 4.70431603e-01, 8.92593017e-01],
-        [5.75488406e-01, 1.59388733e-01, 1.95769912e-01, ...,
-         3.53500932e-01, 4.21358451e-01, 1.67459193e-01],
-        [6.93415423e-01, 1.13431757e-02, 9.33878912e-01, ...,
-         5.00359208e-01, 2.29377418e-01, 2.67236692e-01],
-        [7.87179458e-01, 7.63814245e-02, 6.66433578e-01, ...,
-         3.08283554e-01, 3.63567630e-01, 8.40684355e-01],
-        [7.30919500e-01, 8.24958448e-01, 3.09547964e-01, ...,
-         3.99043164e-01, 3.70548948e-01, 8.60125727e-01]],
+         0.02811534, 0.13315452],
+        [0.91867001, 0.16538187, 0.4947489 , ..., 0.62813792,
+         0.00716017, 0.63787604],
+        [0.9328958 , 0.29144167, 0.23919568, ..., 0.89386913,
+         0.47824543, 0.18839691],
+        [0.65985947, 0.48913679, 0.08681331, ..., 0.94251575,
+         0.36584556, 0.09234027],
+        [0.48235339, 0.9720991 , 0.87955642, ..., 0.68255923,
+         0.24265679, 0.84541278]],
 
-       [[1.89632076e-02, 4.50112965e-01, 2.34056549e-01, ...,
-         8.91455251e-01, 5.60537789e-01, 1.35655450e-01],
-        [2.98481609e-01, 4.22165413e-01, 6.20182441e-01, ...,
-         5.00501851e-01, 3.06619325e-01, 4.46900100e-01],
-        [7.20815939e-01, 6.98991492e-01, 3.09833640e-01, ...,
-         5.21475699e-01, 9.08718007e-01, 8.71013161e-01],
-        [3.82044946e-02, 9.99407615e-01, 6.03891000e-01, ...,
-         5.44824064e-01, 6.56700450e-01, 9.37313300e-01],
-        [5.80602475e-01, 2.16407158e-01, 9.84707853e-01, ...,
-         4.53377645e-01, 8.78232709e-01, 3.71527943e-01]]])
+       [[0.13917267, 0.14584117, 0.77146483, ..., 0.62619184,
+         0.77290607, 0.53974576],
+        [0.11091702, 0.99672668, 0.02789591, ..., 0.04893183,
+         0.96480308, 0.38511568],
+        [0.47700676, 0.24170426, 0.82033372, ..., 0.95656842,
+         0.7907662 , 0.60785091],
+        [0.66292331, 0.51281743, 0.58914984, ..., 0.35315825,
+         0.80716118, 0.33337718],
+        [0.32599995, 0.00835004, 0.04781479, ..., 0.70768833,
+         0.59757455, 0.91990875]]])
 Coordinates:
   * epochs    (epochs) MultiIndex
-  - dp        (epochs) float64 0.4504 0.1407 0.4649 ... -0.1866 -0.8841 -0.1086
+  - dp        (epochs) float64 -0.435 0.2538 0.9111 ... 0.7878 -0.1574 0.5262
   - blocks    (epochs) int64 0 0 0 0 0 1 1 1 1 1
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
   * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
@@ -492,7 +494,7 @@ version : 0.3.5
 -------------------------------------------------------------------------------
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.116 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.117 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9a005eb1fa12814043ca3f5d7ba8ead9/plot_dataset_xarray.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_xarray.py</span></code></a></p>
@@ -530,7 +532,7 @@ version : 0.3.5
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-01.</p>
+        <p>&copy; Copyright Last updated on 2020-10-03.</p>
     </footer>
 
   </body>

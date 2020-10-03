@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.stats.cluster_correction_mcp" href="frites.stats.cluster_correction_mcp.html" />
+    <link rel="next" title="frites.conn.conn_reshape_undirected" href="frites.conn.conn_reshape_undirected.html" />
     <link rel="prev" title="frites.conn.conn_fit" href="frites.conn.conn_fit.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -79,6 +79,7 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_transfer_entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
@@ -142,6 +143,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.utils.define_windows.html">frites.utils.define_windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
@@ -192,29 +194,29 @@
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-4">v0.3.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id2">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -323,7 +325,7 @@ computed</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-01.</p>
+        <p>&copy; Copyright Last updated on 2020-10-03.</p>
     </footer>
 
   </body>

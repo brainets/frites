@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.conn.conn_utils &#8212; frites 0.3.5 documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html"><span><img src="../../../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.5</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../authors.html">Authors</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.stats">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#from-random-data">From random data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#from-real-data">From real data</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#autoregressive-model">Autoregressive model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for frites.conn.conn_utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Utility functions for connectivity.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<div class="viewcode-block" id="conn_reshape_undirected"><a class="viewcode-back" href="../../../generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected">[docs]</a><span class="k">def</span> <span class="nf">conn_reshape_undirected</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reshape a raveled undirected array of connectivity.</span>
+
+<span class="sd">    This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)</span>
+<span class="sd">    where n_pairs reflects pairs of roi (e.g &#39;roi_1-roi_2&#39;) and reshape it to</span>
+<span class="sd">    be a symmetric DataArray of shape (n_roi, n_roi, n_times).</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        This function reshape the data inplace. If you need to conserve the</span>
+<span class="sd">        ravel version of your connectivity array, send a copy (`da.copy()`)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    da : xarray.DataArray</span>
+<span class="sd">        Xarray DataArray of shape (n_pairs, n_times) where actually the roi</span>
+<span class="sd">        dimension contains the pairs (roi_1-roi_2, roi_1-roi_3 etc.)</span>
+<span class="sd">    sep : string | &#39;-&#39;</span>
+<span class="sd">        Separator used to separate the pairs of roi names.</span>
+<span class="sd">    order : list | None</span>
+<span class="sd">        List of roi names to reorder the output.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    da_out : xarray.DataArray</span>
+<span class="sd">        DataArray of shape (n_roi, n_roi, n_times)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;roi&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;times&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">):</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s2">&quot;times&quot;</span><span class="p">)</span>
+
+    <span class="c1"># start by extrating sources / targets names</span>
+    <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">da</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">sources</span> <span class="o">+=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">targets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+
+    <span class="c1"># build the multiindex and unstack it</span>
+    <span class="n">da</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">)</span>
+
+    <span class="c1"># force square matrix</span>
+    <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">u_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">roi_tot</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">roi_tot</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">u_idx</span><span class="p">)]</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="n">roi_tot</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">roi_tot</span><span class="p">),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+
+    <span class="c1"># reorder (if needed)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">order</span><span class="p">))</span>
+
+    <span class="c1"># make it symetric and fill diagonal with nan</span>
+    <span class="n">da</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">da</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s1">&#39;targets&#39;</span><span class="p">,</span> <span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">idx_diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag_indices</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">da</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx_diag</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">idx_diag</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">return</span> <span class="n">da</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../../../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../whatsnew.html">What's new</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../authors.html">Authors</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../../../references.html">References</a></li>
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2020-10-03.</p>
+    </footer>
+
+  </body>
+</html>

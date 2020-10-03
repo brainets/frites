@@ -77,6 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
@@ -140,6 +141,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
@@ -190,29 +192,29 @@
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id2">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -375,7 +377,7 @@ Attributes:
     n_perm:         100
     random_state:   none
     n_bins:         none
-    th:             1.287591389432997
+    th:             1.2699472412949164
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -414,7 +416,7 @@ Attributes:
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_conn_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_conn_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.410 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.091 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/31a26a1996e5a607840326d75d11b163/plot_conn.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_conn.py</span></code></a></p>
@@ -452,7 +454,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-01.</p>
+        <p>&copy; Copyright Last updated on 2020-10-03.</p>
     </footer>
 
   </body>
