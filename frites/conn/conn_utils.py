@@ -1,4 +1,4 @@
-"""Reshaping xarray connectivity arrays."""
+"""Utility functions for connectivity."""
 import numpy as np
 import xarray as xr
 

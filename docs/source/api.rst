@@ -62,6 +62,7 @@ Connectivity
    conn_covgc
    conn_fit
    conn_transfer_entropy
+   conn_reshape_undirected
 
 
 .. raw:: html

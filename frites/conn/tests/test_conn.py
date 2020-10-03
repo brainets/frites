@@ -2,7 +2,8 @@
 import numpy as np
 import xarray as xr
 
-from frites.conn import conn_covgc, conn_transfer_entropy, conn_dfc, conn_fit
+from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc, conn_fit,
+                         conn_reshape_undirected)
 
 
 class TestConn(object):
@@ -34,7 +35,6 @@ class TestConn(object):
 
     def test_conn_dfc(self):
         """Test function conn_dfc."""
-        from xarray import DataArray
         n_epochs = 5
         n_times = 100
         n_roi = 3
@@ -46,7 +46,7 @@ class TestConn(object):
         dfc = conn_dfc(x, times, roi, win_sample)[0]
         assert dfc.shape == (n_epochs, 3, 2)
         dfc = conn_dfc(x, times, roi, win_sample)[0]
-        assert isinstance(dfc, DataArray)
+        assert isinstance(dfc, xr.DataArray)
 
     def test_conn_covgc(self):
         """Test function conn_covgc."""
@@ -64,4 +64,27 @@ class TestConn(object):
         assert isinstance(gc, xr.DataArray)
         gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc',
                         conditional=True)[0]
-        
+
+    def test_conn_reshape_undirected(self):
+        """Test function conn_reshape_undirected."""
+        # compute DFC
+        n_epochs = 5
+        n_times = 100
+        n_roi = 3
+        times = np.linspace(-1, 1, n_times)
+        win_sample = np.array([[10, 20], [30, 40]])
+        roi = [f"roi_{k}" for k in range(n_roi)]
+        order = ['roi_2', 'roi_1']
+        x = np.random.rand(n_epochs, n_roi, n_times)
+        dfc = conn_dfc(x, times, roi, win_sample)[0].mean('trials')
+        # reshape it without the time dimension
+        dfc_mean = conn_reshape_undirected(dfc.mean('times'))
+        assert dfc_mean.shape == (n_roi, n_roi, 1)
+        # reshape it with the time dimension
+        dfc_times = conn_reshape_undirected(dfc.copy())
+        assert dfc_times.shape == (n_roi, n_roi, len(dfc['times']))
+        # try the reorder
+        dfc_order = conn_reshape_undirected(dfc, order=order)
+        assert dfc_order.shape == (2, 2, len(dfc['times']))
+        assert np.array_equal(dfc_order['sources'], dfc_order['targets'])
+        assert np.array_equal(dfc_order['sources'], order)
