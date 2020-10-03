@@ -9,6 +9,7 @@ v0.3.5
 New Features
 ++++++++++++
 * New function for reshaping undirected arrays of connectivity (like DFC) :py:func:`frites.conn.conn_reshape_undirected` (:commit:`ffcae34`, :commit:`56515fe`)
+* New function :py:`frites.utils.savgol_filter` that works on DataArray (:commit:`3e0e256`)
 
 .. raw:: html
 
