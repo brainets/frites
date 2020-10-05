@@ -20,9 +20,11 @@ Causality.
     from itertools import product
 
     from frites.simulations import sim_single_suj_ephy
-    from frites.conn import conn_covgc
+    from frites.conn import (conn_covgc, conn_reshape_directed,
+                             conn_reshape_undirected)
 
     import matplotlib.pyplot as plt
+    import seaborn as sns
     plt.style.use('seaborn-white')
 
 
@@ -98,6 +100,19 @@ each of the temporal window
     dt = 100
     gc, pairs, roi_p, times_p = conn_covgc(x, dt, lag, t0, times=times, roi=roi,
                                            n_jobs=1)
+
+
+
+
+
+
+
+Below we plot the mean time series of both directed and undirected covgc
+
+
+.. code-block:: default
+
+
     # take the mean across trials
     gc = gc.mean('trials')
 
@@ -122,7 +137,51 @@ each of the temporal window
 
 
 
+
 .. image:: /auto_examples/conn/images/sphx_glr_plot_covgc_001.png
+    :class: sphx-glr-single-img
+
+
+
+
+Finally, you can also plot the 2D representation of the connectivity arrays
+
+
+.. code-block:: default
+
+
+    # select instantaneous at -0.4 seconds
+    gc_inst = gc.copy().sel(times=-.4, method='nearest').sel(direction='x.y')
+    gc_2d_inst = conn_reshape_undirected(gc_inst, to_dataframe=True)
+
+    # select directed connectivity at 0. and 0.4 seconds
+    gc_0 = gc.copy().sel(times=0., method='nearest')
+    gc_2d_0 = conn_reshape_directed(gc_0, to_dataframe=True)
+
+    gc_04 = gc.copy().sel(times=0.4, method='nearest')
+    gc_2d_04 = conn_reshape_directed(gc_04, to_dataframe=True)
+
+    # plot the 2d connectivity arrays
+    plt.figure(figsize=(18, 6))
+
+    kw = dict(cmap='viridis', vmin=0., square=True)
+
+    plt.subplot(131)
+    sns.heatmap(gc_2d_inst, **kw)
+    plt.title("Instantaneous connectivity at -0.4s")
+    plt.subplot(132)
+    sns.heatmap(gc_2d_0, **kw)
+    plt.title("Directed connectivity at 0s")
+    plt.subplot(133)
+    sns.heatmap(gc_2d_04, **kw)
+    plt.title("Directed connectivity at 0.4s")
+    plt.tight_layout()
+
+    plt.show()
+
+
+
+.. image:: /auto_examples/conn/images/sphx_glr_plot_covgc_002.png
     :class: sphx-glr-single-img
 
 
@@ -131,7 +190,7 @@ each of the temporal window
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.022 seconds)
+   **Total running time of the script:** ( 0 minutes  4.097 seconds)
 
 
 .. _sphx_glr_download_auto_examples_conn_plot_covgc.py:

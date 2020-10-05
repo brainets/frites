@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.simulations.sim_local_cd_ss &#8212; frites 0.3.5 documentation</title>
+    <title>frites.conn.conn_reshape_directed &#8212; frites 0.3.5 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.simulations.sim_local_cd_ms" href="frites.simulations.sim_local_cd_ms.html" />
-    <link rel="prev" title="frites.simulations.sim_local_cc_ms" href="frites.simulations.sim_local_cc_ms.html" />
+    <link rel="next" title="frites.stats.cluster_correction_mcp" href="frites.stats.cluster_correction_mcp.html" />
+    <link rel="prev" title="frites.conn.conn_reshape_undirected" href="frites.conn.conn_reshape_undirected.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -74,13 +74,13 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_reshape_directed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.stats">Statistics</a><ul>
@@ -102,17 +102,17 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.simulations">Simulations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="../api.html#from-random-data">From random data</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api.html#from-random-data">From random data</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
 <li class="toctree-l5"><a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
@@ -233,7 +233,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/frites.simulations.sim_local_cd_ss.rst.txt"
+  <a href="../_sources/generated/frites.conn.conn_reshape_directed.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -257,49 +257,56 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-simulations-sim-local-cd-ss">
-<h1>frites.simulations.sim_local_cd_ss<a class="headerlink" href="#frites-simulations-sim-local-cd-ss" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-conn-conn-reshape-directed">
+<h1>frites.conn.conn_reshape_directed<a class="headerlink" href="#frites-conn-conn-reshape-directed" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.simulations.sim_local_cd_ss">
-<code class="sig-prename descclassname">frites.simulations.</code><code class="sig-name descname">sim_local_cd_ss</code><span class="sig-paren">(</span><em class="sig-param">n_conditions=2, n_epochs=10, n_times=100, n_roi=1, cl_index=[40, 60], cl_cov=[0.8], random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/simulations/sim_local_mi.html#sim_local_cd_ss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.simulations.sim_local_cd_ss" title="Permalink to this definition">¶</a></dt>
-<dd><p>Single-subject simulations for computing local MI (CD).</p>
-<p>This function can be used for simulating local representations of mutual
-information between a continuous and a discret variable (CD) for a single
-subject.</p>
+<dt id="frites.conn.conn_reshape_directed">
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_reshape_directed</code><span class="sig-paren">(</span><em class="sig-param">da</em>, <em class="sig-param">sep='-'</em>, <em class="sig-param">order=None</em>, <em class="sig-param">fill_value=nan</em>, <em class="sig-param">to_dataframe=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_utils.html#conn_reshape_directed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_reshape_directed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reshape a raveled directed array of connectivity.</p>
+<p>This function takes a DataArray of shape (n_pairs, n_directions) or
+(n_pairs, n_times, n_direction) where n_pairs reflects pairs of roi
+(e.g ‘roi_1-roi_2’) and n_direction usually contains bidirected ‘x-&gt;y’ and
+‘y-&gt;x’. At the end, this function reshape the input array so that rows
+contains the sources and columns the targets leading to a non-symmetric
+DataArray of shape (n_roi, n_roi, n_times). A typical use case for this
+function would be after computing the covariance based granger causality.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function reshape the data inplace. If you need to conserve the
+ravel version of your connectivity array, send a copy (<cite>da.copy()</cite>)</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>n_conditions</strong><span class="classifier">int | 2</span></dt><dd><p>Number of conditions</p>
+<dt><strong>da</strong><span class="classifier">xarray.DataArray</span></dt><dd><p>Xarray DataArray of shape (n_pairs, n_times, n_directions) where
+actually the roi dimension contains the pairs (roi_1-roi_2, roi_1-roi_3
+etc.). The dimension n_directions should contains the dimensions ‘x-&gt;y’
+and ‘y-&gt;x’</p>
 </dd>
-<dt><strong>n_epochs</strong><span class="classifier">int | 30</span></dt><dd><p>Number of trials</p>
+<dt><strong>sep</strong><span class="classifier">string | ‘-‘</span></dt><dd><p>Separator used to separate the pairs of roi names.</p>
 </dd>
-<dt><strong>n_times</strong><span class="classifier">int | 100</span></dt><dd><p>Number of time points</p>
+<dt><strong>order</strong><span class="classifier">list | None</span></dt><dd><p>List of roi names to reorder the output.</p>
 </dd>
-<dt><strong>n_roi</strong><span class="classifier">int | 1</span></dt><dd><p>Number of ROI</p>
+<dt><strong>fill_value</strong><span class="classifier">float | np.nan</span></dt><dd><p>Value to use for filling missing pairs (e.g diagonal)</p>
 </dd>
-<dt><strong>cl_index</strong><span class="classifier">array_like | [40, 60]</span></dt><dd><p>Sample indices where the clusters are located. Should be an array of
-shape (n_clusters, 2)</p>
-</dd>
-<dt><strong>cl_cov</strong><span class="classifier">array_like | [.8]</span></dt><dd><p>Covariance level between the data and the regressor variable. Should be
-an array of shape (n_clusters,)</p>
-</dd>
-<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Random state (use it for reproducibility)</p>
+<dt><strong>to_dataframe</strong><span class="classifier">bool | False</span></dt><dd><p>Dataframe conversion. Only possible if the da input does not contains
+a time axis.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Data array of shape (n_epochs, n_channels, n_times)</p>
-</dd>
-<dt><strong>y</strong><span class="classifier">array_like</span></dt><dd><p>Condition array of shape (n_epochs,)</p>
-</dd>
-<dt><strong>roi</strong><span class="classifier">array_like</span></dt><dd><p>Array of ROI names of shape (n_roi,)</p>
-</dd>
-<dt><strong>times</strong><span class="classifier">array_like</span></dt><dd><p>Time vector of shape (n_times,)</p>
+<dt><strong>da_out</strong><span class="classifier">xarray.DataArray</span></dt><dd><p>DataArray of shape (n_roi, n_roi, n_times)</p>
 </dd>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a></dt><dd></dd>
+</dl>
+</div>
 </dd></dl>
 
 </div>

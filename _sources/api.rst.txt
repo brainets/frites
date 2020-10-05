@@ -63,6 +63,7 @@ Connectivity
    conn_fit
    conn_transfer_entropy
    conn_reshape_undirected
+   conn_reshape_directed
 
 
 .. raw:: html

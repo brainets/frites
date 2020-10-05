@@ -78,6 +78,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
@@ -319,11 +320,11 @@ information transfer</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ],
-        [0.00696301, 0.0065299 , 0.00571523, ..., 0.01304198,
-         0.02887237, 0.03193691]],
+        [0.0272271 , 0.00979323, 0.01669858, ..., 0.00581013,
+         0.03733889, 0.02670395]],
 
-       [[0.02831936, 0.0151583 , 0.02412469, ..., 0.00914342,
-         0.00726   , 0.01447338],
+       [[0.0106087 , 0.00995216, 0.00567009, ..., 0.02466835,
+         0.01168617, 0.015961  ],
         [0.        , 0.        , 0.        , ..., 0.        ,
          0.        , 0.        ]]])
 Coordinates:
@@ -337,7 +338,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             1.39503
+    th:             1.3818427
     tfce:           none
     mcp:            cluster
     tail:           1
@@ -368,8 +369,8 @@ difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</ci
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
 array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
-        [-0.02135635, -0.0086284 , -0.01840946, ...,  0.00389856,
-          0.02161238,  0.01746353]],
+        [ 0.01661841, -0.00015893,  0.01102849, ..., -0.01885822,
+          0.02565273,  0.01074295]],
 
        [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
           0.        ,  0.        ],
@@ -386,7 +387,7 @@ Attributes:
     inference:      rfx
     mi_method:      gc
     kernel:         none
-    th:             2.4114106
+    th:             2.3889697
     tfce:           none
     mcp:            cluster
     tail:           0
@@ -395,7 +396,7 @@ Attributes:
     ttested:        True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.056 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.353 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
@@ -433,7 +434,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-03.</p>
+        <p>&copy; Copyright Last updated on 2020-10-05.</p>
     </footer>
 
   </body>
