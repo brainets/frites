@@ -62,7 +62,7 @@ The main dependencies of Frites are :
 In addition to the main dependencies, here's the list of additional packages that you might need :
 
 * `Numba <http://numba.pydata.org/>`_ : speed computations of some functions
-* `Matplotlib <https://matplotlib.org/>`_ and `Networkx <https://networkx.github.io/>`_ for plotting the examples
+* `Matplotlib <https://matplotlib.org/>`_, `Seaborn <https://seaborn.pydata.org/>`_ and `Networkx <https://networkx.github.io/>`_ for plotting the examples
 
 
 User installation
