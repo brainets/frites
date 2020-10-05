@@ -3,7 +3,7 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc, conn_fit,
-                         conn_reshape_undirected)
+                         conn_reshape_undirected, conn_reshape_directed)
 
 
 class TestConn(object):
@@ -68,9 +68,7 @@ class TestConn(object):
     def test_conn_reshape_undirected(self):
         """Test function conn_reshape_undirected."""
         # compute DFC
-        n_epochs = 5
-        n_times = 100
-        n_roi = 3
+        n_epochs, n_times, n_roi = 5, 100, 3
         times = np.linspace(-1, 1, n_times)
         win_sample = np.array([[10, 20], [30, 40]])
         roi = [f"roi_{k}" for k in range(n_roi)]
@@ -88,3 +86,24 @@ class TestConn(object):
         assert dfc_order.shape == (2, 2, len(dfc['times']))
         assert np.array_equal(dfc_order['sources'], dfc_order['targets'])
         assert np.array_equal(dfc_order['sources'], order)
+
+    def test_conn_reshape_directed(self):
+        """Test function conn_reshape_directed."""
+        n_epochs, n_times, n_roi = 5, 100, 3
+        x = np.random.rand(n_epochs, n_roi, n_times)
+        dt, lag, t0 = 10, 2, [50, 80]
+        order = ['roi_2', 'roi_1']
+        # compute covgc
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gauss')[0]
+        gc = gc.mean('trials')
+        # reshape it without the time dimension
+        gc_mean = conn_reshape_directed(gc.copy().mean('times'))
+        assert gc_mean.shape == (n_roi, n_roi, 1)
+        # reshape it with the time dimension
+        gc_times = conn_reshape_directed(gc.copy())
+        assert gc_times.shape == (n_roi, n_roi, len(gc['times']))
+        # try the reorder
+        gc_order = conn_reshape_directed(gc.copy(), order=order)
+        assert gc_order.shape == (2, 2, len(gc['times']))
+        assert np.array_equal(gc_order['sources'], gc_order['targets'])
+        assert np.array_equal(gc_order['sources'], order)

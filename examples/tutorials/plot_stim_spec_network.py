@@ -242,8 +242,8 @@ pv_gc = xr.Dataset(pv_gc).to_array('direction')
 ###############################################################################
 # plot the result
 
-fig, gs  = plt.subplots(3, 3, sharex='all', sharey='all',
-                        figsize=(12, 12))
+# sphinx_gallery_thumbnail_number = 6
+fig, gs  = plt.subplots(3, 3, sharex='all', sharey='all', figsize=(12, 12))
 for n_d, direction in enumerate(['x->y', 'y->x', 'x.y']):
     for n_r, r in enumerate(gc_roi):
         # select mi and p-values computed on covgc

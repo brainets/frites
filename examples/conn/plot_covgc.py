@@ -9,9 +9,11 @@ import numpy as np
 from itertools import product
 
 from frites.simulations import sim_single_suj_ephy
-from frites.conn import conn_covgc
+from frites.conn import (conn_covgc, conn_reshape_directed,
+                         conn_reshape_undirected)
 
 import matplotlib.pyplot as plt
+import seaborn as sns
 plt.style.use('seaborn-white')
 
 
@@ -60,6 +62,10 @@ lag = 10
 dt = 100
 gc, pairs, roi_p, times_p = conn_covgc(x, dt, lag, t0, times=times, roi=roi,
                                        n_jobs=1)
+
+###############################################################################
+# Below we plot the mean time series of both directed and undirected covgc
+
 # take the mean across trials
 gc = gc.mean('trials')
 
@@ -80,4 +86,36 @@ for r in roi_p:
              label=r.replace('-', ' . '))
 plt.legend()
 plt.xlabel('Time')
+plt.show()
+
+###############################################################################
+# Finally, you can also plot the 2D representation of the connectivity arrays
+
+# select instantaneous at -0.4 seconds
+gc_inst = gc.copy().sel(times=-.4, method='nearest').sel(direction='x.y')
+gc_2d_inst = conn_reshape_undirected(gc_inst, to_dataframe=True)
+
+# select directed connectivity at 0. and 0.4 seconds
+gc_0 = gc.copy().sel(times=0., method='nearest')
+gc_2d_0 = conn_reshape_directed(gc_0, to_dataframe=True)
+
+gc_04 = gc.copy().sel(times=0.4, method='nearest')
+gc_2d_04 = conn_reshape_directed(gc_04, to_dataframe=True)
+
+# plot the 2d connectivity arrays
+plt.figure(figsize=(18, 6))
+
+kw = dict(cmap='viridis', vmin=0., square=True)
+
+plt.subplot(131)
+sns.heatmap(gc_2d_inst, **kw)
+plt.title("Instantaneous connectivity at -0.4s")
+plt.subplot(132)
+sns.heatmap(gc_2d_0, **kw)
+plt.title("Directed connectivity at 0s")
+plt.subplot(133)
+sns.heatmap(gc_2d_04, **kw)
+plt.title("Directed connectivity at 0.4s")
+plt.tight_layout()
+
 plt.show()
