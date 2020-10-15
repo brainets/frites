@@ -3,13 +3,14 @@ import numpy as np
 import xarray as xr
 
 from frites.io import set_log_level, logger
-
 from frites.core import mi_nd_gg, copnorm_nd
 from frites.config import CONFIG
 
+from joblib import Parallel, delayed
 
 
-def conn_dfc(data, times, roi, win_sample, verbose=None):
+
+def conn_dfc(data, times, roi, win_sample, n_jobs=-1, verbose=None):
     """Compute the Dynamic Functional Connectivity using the GCMI.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
@@ -30,6 +31,9 @@ def conn_dfc(data, times, roi, win_sample, verbose=None):
         Array of shape (n_windows, 2) describing where each window start and
         finish. You can use the function :func:`frites.utils.define_windows`
         to define either manually either sliding windows.
+    n_jobs : int | -1
+        Number of jobs to use for parallel computing (use -1 to use all
+        jobs). The parallel loop is set at the pair level.
 
     Returns
     -------
@@ -42,7 +46,7 @@ def conn_dfc(data, times, roi, win_sample, verbose=None):
 
     See also
     --------
-    define_windows, covgc
+    define_windows, conn_covgc
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
@@ -68,9 +72,10 @@ def conn_dfc(data, times, roi, win_sample, verbose=None):
         # select the data in the window and copnorm across time points
         data_w = copnorm_nd(data[..., w[0]:w[1]], axis=2)
         # compute mi between pairs
-        for n_p, (s, t) in enumerate(zip(x_s, x_t)):
-            dfc[:, n_p, n_w] = mi_nd_gg(data_w[:, [s], :], data_w[:, [t], :],
-                                        **CONFIG["KW_GCMI"])
+        _dfc = Parallel(n_jobs=n_jobs)(delayed(mi_nd_gg)(
+            data_w[:, [s], :], data_w[:, [t], :],
+            **CONFIG["KW_GCMI"]) for s, t in zip(x_s, x_t))
+        dfc[..., n_w] = np.stack(_dfc, axis=1)
 
     # -------------------------------------------------------------------------
     # dataarray conversion
