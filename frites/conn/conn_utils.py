@@ -3,8 +3,9 @@ import numpy as np
 import xarray as xr
 
 
-def conn_reshape_undirected(da, sep='-', order=None, fill_value=np.nan,
-                            to_dataframe=False):
+def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
+                            fill_value=np.nan, to_dataframe=False,
+                            inplace=False):
     """Reshape a raveled undirected array of connectivity.
 
     This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)
@@ -25,6 +26,10 @@ def conn_reshape_undirected(da, sep='-', order=None, fill_value=np.nan,
         Separator used to separate the pairs of roi names.
     order : list | None
         List of roi names to reorder the output.
+    rm_missing : bool | False
+        When reordering the connectivity array, choose if you prefer to reindex
+        even if there's missing regions (rm_missing=False) or if missing
+        regions should be removed (rm_missing=True)
     fill_value : float | np.nan
         Value to use for filling missing pairs (e.g diagonal)
     to_dataframe : bool | False
@@ -41,6 +46,8 @@ def conn_reshape_undirected(da, sep='-', order=None, fill_value=np.nan,
     conn_dfc
     """
     assert isinstance(da, xr.DataArray)
+    if not inplace:
+        da = da.copy()
     assert 'roi' in list(da.dims)
     if 'times' not in list(da.dims):
         da = da.expand_dims("times")
@@ -50,7 +57,8 @@ def conn_reshape_undirected(da, sep='-', order=None, fill_value=np.nan,
 
     # build the multiindex and unstack it
     da = xr.concat((da, da), 'roi')
-    da = _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order)
+    da, order = _dataarray_unstack(da, sources, targets, roi_tot, fill_value,
+                                   order, rm_missing)
 
     # dataframe conversion
     if to_dataframe:
@@ -59,8 +67,9 @@ def conn_reshape_undirected(da, sep='-', order=None, fill_value=np.nan,
     return da
 
 
-def conn_reshape_directed(da, sep='-', order=None, fill_value=np.nan,
-                          to_dataframe=False):
+def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
+                          fill_value=np.nan, to_dataframe=False,
+                          inplace=False):
     """Reshape a raveled directed array of connectivity.
 
     This function takes a DataArray of shape (n_pairs, n_directions) or
@@ -87,6 +96,10 @@ def conn_reshape_directed(da, sep='-', order=None, fill_value=np.nan,
         Separator used to separate the pairs of roi names.
     order : list | None
         List of roi names to reorder the output.
+    rm_missing : bool | False
+        When reordering the connectivity array, choose if you prefer to reindex
+        even if there's missing regions (rm_missing=False) or if missing
+        regions should be removed (rm_missing=True)
     fill_value : float | np.nan
         Value to use for filling missing pairs (e.g diagonal)
     to_dataframe : bool | False
@@ -103,6 +116,8 @@ def conn_reshape_directed(da, sep='-', order=None, fill_value=np.nan,
     conn_covgc
     """
     assert isinstance(da, xr.DataArray)
+    if not inplace:
+        da = da.copy()
     assert ('roi' in list(da.dims)) and ('direction' in list(da.dims))
     if 'times' not in list(da.dims):
         da = da.expand_dims("times")
@@ -112,8 +127,12 @@ def conn_reshape_directed(da, sep='-', order=None, fill_value=np.nan,
 
     # transpose, reindex and reorder (if needed)
     da_xy, da_yx = da.sel(direction='x->y'), da.sel(direction='y->x')
-    da = xr.concat((da_xy, da_yx), 'roi')
-    da = _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order)
+    if net:
+        da = xr.concat((da_xy - da_yx, da_xy - da_yx), 'roi')
+    else:
+        da = xr.concat((da_xy, da_yx), 'roi')
+    da, order = _dataarray_unstack(da, sources, targets, roi_tot, fill_value,
+                                   order, rm_missing)
 
     # dataframe conversion
     if to_dataframe:
@@ -138,7 +157,8 @@ def _untangle_roi(da, sep):
     return sources, targets, roi_tot
 
 
-def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order):
+def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order,
+                       rm_missing):
     """Unstack a 1d to 2d DataArray."""
     import pandas as pd
 
@@ -150,10 +170,14 @@ def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order):
     da = da.transpose('sources', 'targets', 'times')
     da = da.reindex(dict(sources=roi_tot, targets=roi_tot),
                     fill_value=fill_value)
+
+    # change order
     if isinstance(order, (list, np.ndarray)):
+        if rm_missing:
+            order = [k for k in order.copy() if k in roi_tot.tolist()]
         da = da.reindex(dict(sources=order, targets=order))
 
-    return da
+    return da, order
 
 
 def _dataframe_conversion(da, order):
