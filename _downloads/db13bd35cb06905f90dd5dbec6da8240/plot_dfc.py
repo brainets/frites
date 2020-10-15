@@ -14,7 +14,7 @@ from frites.conn import conn_dfc
 from frites.utils import define_windows, plot_windows
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+# plt.style.use('seaborn-white')
 
 
 ###############################################################################
@@ -59,10 +59,10 @@ win_sample = define_windows(times, slwin_len=slwin_len,
                             slwin_step=slwin_step)[0]
 times_p = times[win_sample].mean(1)
 
-plt.figure(figsize=(10, 8))
-plot_windows(times, win_sample, title='Sliding windows')
-plt.ylim(-1, 1)
-plt.show()
+# plt.figure(figsize=(10, 8))
+# plot_windows(times, win_sample, title='Sliding windows')
+# plt.ylim(-1, 1)
+# plt.show()
 
 ###############################################################################
 # Compute the DFC
@@ -72,7 +72,7 @@ plt.show()
 # each of the temporal window
 
 # compute DFC
-dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample)
+dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample, n_jobs=1)
 
 # sphinx_gallery_thumbnail_number = 2
 plt.figure(figsize=(10, 8))

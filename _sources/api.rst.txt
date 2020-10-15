@@ -39,7 +39,6 @@ Workflow
 
    WfMi
    WfConn
-   WfFit
    WfStatsEphy
 
 .. raw:: html
@@ -60,7 +59,6 @@ Connectivity
 
    conn_dfc
    conn_covgc
-   conn_fit
    conn_transfer_entropy
    conn_reshape_undirected
    conn_reshape_directed

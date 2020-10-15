@@ -25,7 +25,7 @@ for each trial either inside a single window or across multiple windows.
     from frites.utils import define_windows, plot_windows
 
     import matplotlib.pyplot as plt
-    plt.style.use('seaborn-white')
+    # plt.style.use('seaborn-white')
 
 
 
@@ -106,16 +106,13 @@ and 5ms between each consecutive windows
                                 slwin_step=slwin_step)[0]
     times_p = times[win_sample].mean(1)
 
-    plt.figure(figsize=(10, 8))
-    plot_windows(times, win_sample, title='Sliding windows')
-    plt.ylim(-1, 1)
-    plt.show()
+    # plt.figure(figsize=(10, 8))
+    # plot_windows(times, win_sample, title='Sliding windows')
+    # plt.ylim(-1, 1)
+    # plt.show()
 
 
 
-
-.. image:: /auto_examples/conn/images/sphx_glr_plot_dfc_001.png
-    :class: sphx-glr-single-img
 
 
 
@@ -131,7 +128,7 @@ each of the temporal window
 
 
     # compute DFC
-    dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample)
+    dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample, n_jobs=1)
 
     # sphinx_gallery_thumbnail_number = 2
     plt.figure(figsize=(10, 8))
@@ -143,7 +140,7 @@ each of the temporal window
 
 
 
-.. image:: /auto_examples/conn/images/sphx_glr_plot_dfc_002.png
+.. image:: /auto_examples/conn/images/sphx_glr_plot_dfc_001.png
     :class: sphx-glr-single-img
 
 
@@ -152,7 +149,7 @@ each of the temporal window
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.948 seconds)
+   **Total running time of the script:** ( 0 minutes  0.543 seconds)
 
 
 .. _sphx_glr_download_auto_examples_conn_plot_dfc.py:

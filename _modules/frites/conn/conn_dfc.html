@@ -68,14 +68,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#module-frites.conn">Connectivity</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
@@ -257,13 +255,14 @@
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
-
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">copnorm_nd</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
 
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
 
-<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the Dynamic Functional Connectivity using the GCMI.</span>
 
 <span class="sd">    This function computes the Dynamic Functional Connectivity (DFC) using the</span>
@@ -284,6 +283,9 @@
 <span class="sd">        Array of shape (n_windows, 2) describing where each window start and</span>
 <span class="sd">        finish. You can use the function :func:`frites.utils.define_windows`</span>
 <span class="sd">        to define either manually either sliding windows.</span>
+<span class="sd">    n_jobs : int | -1</span>
+<span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
+<span class="sd">        jobs). The parallel loop is set at the pair level.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -296,7 +298,7 @@
 
 <span class="sd">    See also</span>
 <span class="sd">    --------</span>
-<span class="sd">    define_windows, covgc</span>
+<span class="sd">    define_windows, conn_covgc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
     <span class="c1"># -------------------------------------------------------------------------</span>
@@ -322,9 +324,10 @@
         <span class="c1"># select the data in the window and copnorm across time points</span>
         <span class="n">data_w</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="c1"># compute mi between pairs</span>
-        <span class="k">for</span> <span class="n">n_p</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">)):</span>
-            <span class="n">dfc</span><span class="p">[:,</span> <span class="n">n_p</span><span class="p">,</span> <span class="n">n_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_nd_gg</span><span class="p">(</span><span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="p">:],</span> <span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="p">:],</span>
-                                        <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">])</span>
+        <span class="n">_dfc</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">mi_nd_gg</span><span class="p">)(</span>
+            <span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="p">:],</span> <span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="p">:],</span>
+            <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
+        <span class="n">dfc</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">n_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">_dfc</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># dataarray conversion</span>
@@ -363,7 +366,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-05.</p>
+        <p>&copy; Copyright Last updated on 2020-10-15.</p>
     </footer>
 
   </body>

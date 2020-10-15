@@ -70,14 +70,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_reshape_directed</a></li>
@@ -261,7 +259,7 @@
 <h1>frites.conn.conn_reshape_directed<a class="headerlink" href="#frites-conn-conn-reshape-directed" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.conn.conn_reshape_directed">
-<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_reshape_directed</code><span class="sig-paren">(</span><em class="sig-param">da</em>, <em class="sig-param">sep='-'</em>, <em class="sig-param">order=None</em>, <em class="sig-param">fill_value=nan</em>, <em class="sig-param">to_dataframe=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_utils.html#conn_reshape_directed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_reshape_directed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_reshape_directed</code><span class="sig-paren">(</span><em class="sig-param">da</em>, <em class="sig-param">net=False</em>, <em class="sig-param">sep='-'</em>, <em class="sig-param">order=None</em>, <em class="sig-param">rm_missing=False</em>, <em class="sig-param">fill_value=nan</em>, <em class="sig-param">to_dataframe=False</em>, <em class="sig-param">inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_utils.html#conn_reshape_directed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_reshape_directed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reshape a raveled directed array of connectivity.</p>
 <p>This function takes a DataArray of shape (n_pairs, n_directions) or
 (n_pairs, n_times, n_direction) where n_pairs reflects pairs of roi
@@ -270,11 +268,6 @@
 contains the sources and columns the targets leading to a non-symmetric
 DataArray of shape (n_roi, n_roi, n_times). A typical use case for this
 function would be after computing the covariance based granger causality.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This function reshape the data inplace. If you need to conserve the
-ravel version of your connectivity array, send a copy (<cite>da.copy()</cite>)</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -286,6 +279,10 @@ and ‘y-&gt;x’</p>
 <dt><strong>sep</strong><span class="classifier">string | ‘-‘</span></dt><dd><p>Separator used to separate the pairs of roi names.</p>
 </dd>
 <dt><strong>order</strong><span class="classifier">list | None</span></dt><dd><p>List of roi names to reorder the output.</p>
+</dd>
+<dt><strong>rm_missing</strong><span class="classifier">bool | False</span></dt><dd><p>When reordering the connectivity array, choose if you prefer to reindex
+even if there’s missing regions (rm_missing=False) or if missing
+regions should be removed (rm_missing=True)</p>
 </dd>
 <dt><strong>fill_value</strong><span class="classifier">float | np.nan</span></dt><dd><p>Value to use for filling missing pairs (e.g diagonal)</p>
 </dd>
@@ -336,7 +333,7 @@ a time axis.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-05.</p>
+        <p>&copy; Copyright Last updated on 2020-10-15.</p>
     </footer>
 
   </body>

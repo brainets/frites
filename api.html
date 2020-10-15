@@ -70,14 +70,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-frites.conn">Connectivity</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
@@ -323,10 +321,7 @@ information and statistics (fixed effect or random effect).</p>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.workflow.WfConn.html#frites.workflow.WfConn" title="frites.workflow.WfConn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfConn</span></code></a>([inference, mi_method, kernel, verbose])</p></td>
 <td><p>Workflow of instantaneous pairwise connectivity and statistics.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="frites.workflow.WfFit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfFit</span></code></a>([mi_type, inference, mi_method, …])</p></td>
-<td><p>Workflow for Feature Specific Information Transfer.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy" title="frites.workflow.WfStatsEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfStatsEphy</span></code></a>([verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy" title="frites.workflow.WfStatsEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfStatsEphy</span></code></a>([verbose])</p></td>
 <td><p>Workflow of non-parametric statistics for electropĥysiological data.</p></td>
 </tr>
 </tbody>
@@ -341,22 +336,19 @@ information and statistics (fixed effect or random effect).</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_dfc</span></code></a>(data, times, roi, win_sample[, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_dfc</span></code></a>(data, times, roi, win_sample[, …])</p></td>
 <td><p>Compute the Dynamic Functional Connectivity using the GCMI.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a>(data, dt, lag, t0[, step, roi, …])</p></td>
 <td><p>Single-trial covariance-based Granger Causality for gaussian variables.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_fit.html#frites.conn.conn_fit" title="frites.conn.conn_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_fit</span></code></a></p></td>
-<td><p>Compute Feature-specific Information Transfer (FIT).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy" title="frites.conn.conn_transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_transfer_entropy</span></code></a>(x[, max_delay, pairs, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy" title="frites.conn.conn_transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_transfer_entropy</span></code></a>(x[, max_delay, pairs, …])</p></td>
 <td><p>Compute the transfer entropy.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="frites.conn.conn_reshape_undirected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_undirected</span></code></a>(da[, sep, order, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="frites.conn.conn_reshape_undirected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_undirected</span></code></a>(da[, sep, order, …])</p></td>
 <td><p>Reshape a raveled undirected array of connectivity.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed" title="frites.conn.conn_reshape_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_directed</span></code></a>(da[, sep, order, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed" title="frites.conn.conn_reshape_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_directed</span></code></a>(da[, net, sep, order, …])</p></td>
 <td><p>Reshape a raveled directed array of connectivity.</p></td>
 </tr>
 </tbody>
@@ -694,7 +686,7 @@ entropy etc..</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-05.</p>
+        <p>&copy; Copyright Last updated on 2020-10-15.</p>
     </footer>
 
   </body>

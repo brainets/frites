@@ -70,14 +70,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-frites.conn">Connectivity</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
@@ -261,7 +259,7 @@
 <h1>frites.conn.conn_dfc<a class="headerlink" href="#frites-conn-conn-dfc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.conn.conn_dfc">
-<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_dfc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">win_sample</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_dfc.html#conn_dfc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_dfc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">win_sample</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_dfc.html#conn_dfc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Dynamic Functional Connectivity using the GCMI.</p>
 <p>This function computes the Dynamic Functional Connectivity (DFC) using the
 Gaussian Copula Mutual Information (GCMI). The DFC is computed across time
@@ -281,6 +279,9 @@ manually defined or on sliding windows.</p>
 finish. You can use the function <a class="reference internal" href="frites.utils.define_windows.html#frites.utils.define_windows" title="frites.utils.define_windows"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.utils.define_windows()</span></code></a>
 to define either manually either sliding windows.</p>
 </dd>
+<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs). The parallel loop is set at the pair level.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -297,7 +298,7 @@ to define either manually either sliding windows.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">covgc</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code>, <a class="reference internal" href="frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a></dt><dd></dd>
 </dl>
 </div>
 </dd></dl>
@@ -329,7 +330,7 @@ to define either manually either sliding windows.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-05.</p>
+        <p>&copy; Copyright Last updated on 2020-10-15.</p>
     </footer>
 
   </body>

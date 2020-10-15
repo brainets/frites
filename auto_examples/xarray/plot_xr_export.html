@@ -68,14 +68,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.conn">Connectivity</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
@@ -309,47 +307,47 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
-array([[0.19355296, 0.4979892 , 0.81183151, 0.44792164, 0.8260332 ,
-        0.8021857 , 0.7423906 ],
-       [0.65932337, 0.6705651 , 0.85983522, 0.2487724 , 0.75064121,
-        0.13506197, 0.17758783],
-       [0.50482439, 0.29613951, 0.23518555, 0.52699076, 0.9543499 ,
-        0.26216529, 0.06816323],
-       [0.45029108, 0.15226411, 0.59124773, 0.42032551, 0.62603825,
-        0.81693142, 0.41917716],
-       [0.42032909, 0.79149156, 0.66492879, 0.58936964, 0.08344408,
-        0.07325271, 0.11826491],
-       [0.48392446, 0.6696751 , 0.38137587, 0.43573531, 0.65513918,
-        0.55763581, 0.12025779],
-       [0.82664744, 0.96731702, 0.35471175, 0.64581667, 0.88560383,
-        0.09222218, 0.91778277],
-       [0.89872882, 0.53418765, 0.69913012, 0.83504971, 0.76401238,
-        0.6591188 , 0.57221425],
-       [0.68412319, 0.40990461, 0.37592162, 0.9983983 , 0.35698223,
-        0.42943336, 0.26858279],
-       [0.71645882, 0.78794542, 0.25514603, 0.64253167, 0.34431145,
-        0.3809109 , 0.13090222],
+array([[0.5947096 , 0.30737232, 0.18513606, 0.37792084, 0.26058378,
+        0.64583326, 0.87776745],
+       [0.33928207, 0.17070868, 0.24501436, 0.17264109, 0.08177222,
+        0.58720757, 0.29649322],
+       [0.71612155, 0.98241259, 0.38458203, 0.6470403 , 0.14964626,
+        0.35196691, 0.87229297],
+       [0.22205263, 0.23876613, 0.66288847, 0.90885044, 0.21514951,
+        0.20912483, 0.65675566],
+       [0.07261618, 0.77340159, 0.80943245, 0.80886352, 0.39278402,
+        0.73597586, 0.67745094],
+       [0.43278872, 0.94265897, 0.58519971, 0.82601605, 0.68937949,
+        0.8674968 , 0.6733285 ],
+       [0.27230654, 0.13572147, 0.39496112, 0.65703839, 0.52535173,
+        0.09260217, 0.41505006],
+       [0.5899405 , 0.81889525, 0.20561842, 0.97521922, 0.34961928,
+        0.96312774, 0.20219617],
+       [0.7868698 , 0.86794113, 0.49088044, 0.65134084, 0.84532602,
+        0.39503786, 0.88933038],
+       [0.46734865, 0.38025723, 0.75181997, 0.4839112 , 0.7710586 ,
+        0.83496676, 0.78538312],
 ...
-       [0.13440515, 0.40769902, 0.92490297, 0.25057592, 0.57850491,
-        0.0939685 , 0.87021805],
-       [0.09192322, 0.70943156, 0.31550398, 0.51962039, 0.50679528,
-        0.90027192, 0.79717176],
-       [0.60753345, 0.31633765, 0.61292182, 0.60048512, 0.70847187,
-        0.9260936 , 0.40355191],
-       [0.66659108, 0.05835767, 0.81257967, 0.23545449, 0.37713227,
-        0.00339232, 0.21111577],
-       [0.82424277, 0.70592567, 0.03868019, 0.57105231, 0.88698572,
-        0.74289558, 0.1572213 ],
-       [0.65807197, 0.86208193, 0.92268629, 0.91776791, 0.36684715,
-        0.64985455, 0.6696789 ],
-       [0.67792169, 0.27818602, 0.62547427, 0.56057836, 0.97757731,
-        0.28600993, 0.24139434],
-       [0.47812428, 0.19792825, 0.63780086, 0.96061646, 0.79234207,
-        0.22277285, 0.89640717],
-       [0.90805005, 0.92107337, 0.36702685, 0.11559898, 0.03512546,
-        0.30538135, 0.12117583],
-       [0.89311422, 0.33378263, 0.49274745, 0.61547282, 0.53207069,
-        0.67682063, 0.22155697]])
+       [0.61204987, 0.50373469, 0.41151842, 0.98578704, 0.57293093,
+        0.16521167, 0.36090207],
+       [0.91391525, 0.71044144, 0.12259406, 0.85871948, 0.60439664,
+        0.46763865, 0.06513101],
+       [0.40380841, 0.46148234, 0.48502058, 0.00820721, 0.10366469,
+        0.46472075, 0.01121289],
+       [0.9958985 , 0.69556318, 0.87419638, 0.4605412 , 0.20742539,
+        0.31296053, 0.02116335],
+       [0.13212341, 0.2388493 , 0.40210971, 0.20215619, 0.70785655,
+        0.18626326, 0.78851202],
+       [0.21163881, 0.10483518, 0.10377918, 0.81439045, 0.83454403,
+        0.36837599, 0.46759574],
+       [0.81112662, 0.05164599, 0.76109256, 0.69258332, 0.83450394,
+        0.42351045, 0.73241713],
+       [0.42051644, 0.20468876, 0.99373384, 0.94734649, 0.6326609 ,
+        0.48741744, 0.48834988],
+       [0.9988967 , 0.27703132, 0.01907551, 0.01949987, 0.01295146,
+        0.37160685, 0.99808562],
+       [0.2539147 , 0.63180678, 0.27187357, 0.03206467, 0.43974814,
+        0.78294429, 0.5687564 ]])
 Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
@@ -392,14 +390,14 @@ Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
 Data variables:
-    first    (times, roi) float64 0.1936 0.498 0.8118 ... 0.5321 0.6768 0.2216
-    second   (times, roi) float64 0.6005 0.1256 0.5167 ... 0.2346 0.778 0.6716
+    first    (times, roi) float64 0.5947 0.3074 0.1851 ... 0.4397 0.7829 0.5688
+    second   (times, roi) float64 0.43 0.5199 0.6564 ... 0.2575 0.3407 0.7586
 Attributes:
     desc:     This is my dataset
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.180 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.120 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/627bcf09a570d93abafc523838ae8987/plot_xr_export.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_xr_export.py</span></code></a></p>
@@ -437,7 +435,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-05.</p>
+        <p>&copy; Copyright Last updated on 2020-10-15.</p>
     </footer>
 
   </body>

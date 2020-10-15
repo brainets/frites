@@ -68,14 +68,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfFit.html">frites.workflow.WfFit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.conn">Connectivity</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_fit.html">frites.conn.conn_fit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
@@ -231,7 +229,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../../_sources/auto_examples/conn/plot_fit_cc.rst.txt"
+  <a href="../../_sources/auto_examples/conn/_plot_fit_cc.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -268,7 +266,7 @@ details, see Bim et al. 2019 <a class="bibtex reference internal" href="../../re
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../generated/frites.simulations.sim_distant_cc_ms.html#frites.simulations.sim_distant_cc_ms" title="View documentation for frites.simulations.sim_distant_cc_ms"><span class="n">sim_distant_cc_ms</span></a>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
-<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="View documentation for frites.workflow.WfFit"><span class="n">WfFit</span></a>
+<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <span class="n">WfFit</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
@@ -296,9 +294,9 @@ n_epochs, n_sites, n_times</p>
 <div class="section" id="compute-the-bidirectionnal-information-transfer">
 <h2>Compute the bidirectionnal information transfer<a class="headerlink" href="#compute-the-bidirectionnal-information-transfer" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
-<a class="reference internal" href="../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="frites.workflow.WfFit"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfFit</span></code></a>. This instance is used to compute the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfFit</span></code>. This instance is used to compute the
 information transfer</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="View documentation for frites.workflow.WfFit"><span class="n">WfFit</span></a><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <span class="n">WfFit</span><span class="p">()</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
 
@@ -315,44 +313,12 @@ information transfer</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_fit_cc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_fit_cc_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
-array([[[0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.0272271 , 0.00979323, 0.01669858, ..., 0.00581013,
-         0.03733889, 0.02670395]],
-
-       [[0.0106087 , 0.00995216, 0.00567009, ..., 0.02466835,
-         0.01168617, 0.015961  ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ]]])
-Coordinates:
-  * source   (source) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
-  * target   (target) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
-  * times    (times) float32 -0.69924814 -0.68922305 ... 2.989975 3.0
-Attributes:
-    max_delay:      0.3
-    net:            False
-    mi_type:        cc
-    inference:      rfx
-    mi_method:      gc
-    kernel:         none
-    th:             1.3818427
-    tfce:           none
-    mcp:            cluster
-    tail:           1
-    cluster_th:     none
-    cluster_alpha:  0.05
-    ttested:        True
-</pre></div>
-</div>
 </div>
 <div class="section" id="compute-the-unidirectionnal-information-transfer">
 <h2>Compute the unidirectionnal information transfer<a class="headerlink" href="#compute-the-unidirectionnal-information-transfer" title="Permalink to this headline">¶</a></h2>
 <p>Note that you can also compute the unidirectionnal FIT which is define as the
 difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</cite>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfFit.html#frites.workflow.WfFit" title="View documentation for frites.workflow.WfFit"><span class="n">WfFit</span></a><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <span class="n">WfFit</span><span class="p">()</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
 <span class="n">it_net</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;roi_0&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;roi_1&#39;</span><span class="p">)</span>
@@ -364,45 +330,13 @@ difference between <cite>FIT(source - &gt;target) - FIT(target -&gt; source)</ci
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_fit_cc_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_fit_cc_002.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (source: 2, target: 2, times: 370)&gt;
-array([[[ 0.        ,  0.        ,  0.        , ...,  0.        ,
-          0.        ,  0.        ],
-        [ 0.01661841, -0.00015893,  0.01102849, ..., -0.01885822,
-          0.02565273,  0.01074295]],
-
-       [[ 0.        ,  0.        ,  0.        , ...,  0.        ,
-          0.        ,  0.        ],
-        [ 0.        ,  0.        ,  0.        , ...,  0.        ,
-          0.        ,  0.        ]]])
-Coordinates:
-  * source   (source) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
-  * target   (target) &lt;U5 &#39;roi_0&#39; &#39;roi_1&#39;
-  * times    (times) float32 -0.69924814 -0.68922305 ... 2.989975 3.0
-Attributes:
-    max_delay:      0.3
-    net:            True
-    mi_type:        cc
-    inference:      rfx
-    mi_method:      gc
-    kernel:         none
-    th:             2.3889697
-    tfce:           none
-    mcp:            cluster
-    tail:           0
-    cluster_th:     none
-    cluster_alpha:  0.05
-    ttested:        True
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.353 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-fit-cc-py">
 <div class="sphx-glr-download docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/909f8211e306366da2e8c9997d8e8178/plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fit_cc.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/d7c40b41ca7ed87e4ece3d852213930c/_plot_fit_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">_plot_fit_cc.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/4844f798b62e81c766ba32eb63382156/plot_fit_cc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_fit_cc.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/db3c2a36825d5d2250f3606cb486b796/_plot_fit_cc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">_plot_fit_cc.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -434,7 +368,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-05.</p>
+        <p>&copy; Copyright Last updated on 2020-10-15.</p>
     </footer>
 
   </body>
