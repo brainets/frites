@@ -12,6 +12,11 @@ New Features
 * New function :py:`frites.utils.savgol_filter` that works on DataArray (:commit:`3e0e256`)
 * New function for reshaping directed connectivity arrays (like COVGC) :py:func:`frites.conn.conn_reshape_directed` (:commit:`8c2bb63`)
 
+Bug fixes
++++++++++
+* Fix ttested attribute when saving (:commit:`3d029be`)
+
+
 .. raw:: html
 
     <hr>
