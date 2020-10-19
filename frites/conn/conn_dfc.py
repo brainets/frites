@@ -10,7 +10,7 @@ from joblib import Parallel, delayed
 
 
 
-def conn_dfc(data, times, roi, win_sample, n_jobs=-1, verbose=None):
+def conn_dfc(data, times, roi, win_sample, n_jobs=1, verbose=None):
     """Compute the Dynamic Functional Connectivity using the GCMI.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
@@ -31,7 +31,7 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=-1, verbose=None):
         Array of shape (n_windows, 2) describing where each window start and
         finish. You can use the function :func:`frites.utils.define_windows`
         to define either manually either sliding windows.
-    n_jobs : int | -1
+    n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
 

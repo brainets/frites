@@ -20,23 +20,23 @@ class TestParam(object):  # noqa
         x = [np.random.rand(n_suj, n_times) for _ in range(n_roi)]
         x_p = [np.random.rand(n_perm, n_suj, n_times) for _ in range(n_roi)]
         # basic version
-        tv, tv_p = rfx_ttest(x, x_p)
+        tv, tv_p, _ = rfx_ttest(x, x_p)
         assert tv.shape == (n_roi, n_times)
         assert tv_p.shape == (n_perm, n_roi, n_times)
         # center
         for center in [False, 'mean', 'median', 'trimmed']:
-            tv, tv_p = rfx_ttest(x, x_p, center=center)
+            tv, tv_p, _ = rfx_ttest(x, x_p, center=center)
             assert tv.shape == (n_roi, n_times)
             assert tv_p.shape == (n_perm, n_roi, n_times)
         # zscore
-        tv, tv_p = rfx_ttest(x, x_p, zscore=True)
+        tv, tv_p, _ = rfx_ttest(x, x_p, zscore=True)
         assert tv.shape == (n_roi, n_times)
         assert tv_p.shape == (n_perm, n_roi, n_times)
         # center + zscore
-        tv, tv_p = rfx_ttest(x, x_p, zscore=True, center=True)
+        tv, tv_p, _ = rfx_ttest(x, x_p, zscore=True, center=True)
         assert tv.shape == (n_roi, n_times)
         assert tv_p.shape == (n_perm, n_roi, n_times)
         # t-tested
-        tv, tv_p = rfx_ttest(x, x_p, ttested=True)
+        tv, tv_p, _ = rfx_ttest(x, x_p, ttested=True)
         assert tv.shape == (n_roi * n_suj, n_times)
         assert tv_p.shape == (n_perm, n_roi * n_suj, n_times)

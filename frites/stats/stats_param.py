@@ -69,18 +69,20 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
         Array of true t-values of shape (n_suj, n_times)
     tobs_surr : array_like
         Array of permuted t-values of shape (n_perm, n_suj, n_times)
+    pop_mean : float
+        The value that have been used to compute the one-sample t-test. If the
+        data have already been t-tested, this parameter is set to NaN
 
     References
     ----------
     Giordano et al., 2017 :cite:`giordano2017contributions`
     """
-    logger.info(f"    T-test across subjects (center={center}; "
-                f"zscore={zscore})")
     # if data have already been t-tested, just return it
     if ttested:
+        logger.debug("    Data already t-tested")
         t_obs = np.concatenate(mi, axis=0)
         t_obs_surr = np.concatenate(mi_p, axis=1)
-        return t_obs, t_obs_surr
+        return t_obs, t_obs_surr, np.nan
 
     n_roi = len(mi_p)
     # remove the mean / median / trimmed
@@ -95,6 +97,8 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     # get the mean of surrogates
     _merge_perm = np.r_[tuple([mi_p[k].ravel() for k in range(n_roi)])]
     pop_mean_surr = np.mean(_merge_perm)
+    logger.info(f"    T-test across subjects (pop_mean={pop_mean_surr}; "
+                f"center={center}; zscore={zscore})")
     # perform the one sample t-test against the mean both on the true and
     # permuted mi
     t_obs = np.stack([ttest_1samp(mi[k], pop_mean_surr) for k in range(n_roi)])
@@ -102,4 +106,4 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
                                        axis=1) for k in range(n_roi)])
     t_obs_surr = np.swapaxes(t_obs_surr, 0, 1)
 
-    return t_obs, t_obs_surr
+    return t_obs, t_obs_surr, pop_mean_surr

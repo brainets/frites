@@ -127,7 +127,8 @@ class WfStatsEphy(WfBase):
                 rfx_suj = np.min(nb_suj_roi) > 1
                 assert rfx_suj, "For RFX, `n_subjects` should be > 1"
                 # modelise how subjects are distributed
-                es, es_p = rfx_ttest(effect, perms)
+                es, es_p, pop_mean = rfx_ttest(effect, perms)
+                self.update_cfg(ttest_pop_mean=pop_mean)
             tvalues = es
 
         # ---------------------------------------------------------------------
