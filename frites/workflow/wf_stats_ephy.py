@@ -169,7 +169,7 @@ class WfStatsEphy(WfBase):
         # update internal config
         self.update_cfg(inference=inference, mcp=mcp, tail=tail,
             cluster_th=cluster_th, cluster_alpha=cluster_alpha,
-            ttested=ttested)
+            ttested=int(ttested))
 
         return pvalues, tvalues
 
