@@ -380,7 +380,8 @@
                 <span class="n">rfx_suj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">nb_suj_roi</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
                 <span class="k">assert</span> <span class="n">rfx_suj</span><span class="p">,</span> <span class="s2">&quot;For RFX, `n_subjects` should be &gt; 1&quot;</span>
                 <span class="c1"># modelise how subjects are distributed</span>
-                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span> <span class="o">=</span> <span class="n">rfx_ttest</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">)</span>
+                <span class="n">es</span><span class="p">,</span> <span class="n">es_p</span><span class="p">,</span> <span class="n">pop_mean</span> <span class="o">=</span> <span class="n">rfx_ttest</span><span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">perms</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">ttest_pop_mean</span><span class="o">=</span><span class="n">pop_mean</span><span class="p">)</span>
             <span class="n">tvalues</span> <span class="o">=</span> <span class="n">es</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>

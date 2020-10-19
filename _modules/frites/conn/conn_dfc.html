@@ -263,7 +263,7 @@
 
 
 
-<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the Dynamic Functional Connectivity using the GCMI.</span>
 
 <span class="sd">    This function computes the Dynamic Functional Connectivity (DFC) using the</span>
@@ -284,7 +284,7 @@
 <span class="sd">        Array of shape (n_windows, 2) describing where each window start and</span>
 <span class="sd">        finish. You can use the function :func:`frites.utils.define_windows`</span>
 <span class="sd">        to define either manually either sliding windows.</span>
-<span class="sd">    n_jobs : int | -1</span>
+<span class="sd">    n_jobs : int | 1</span>
 <span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">        jobs). The parallel loop is set at the pair level.</span>
 
