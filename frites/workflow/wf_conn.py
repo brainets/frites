@@ -259,7 +259,8 @@ class WfConn(WfBase):
             mi = np.concatenate(mi, axis=0).T  # mi
         mi = convert_dfc_outputs(mi, *args)
         # converting outputs
-        mi, pvalues = self._attrs_xarray(mi), self._attrs_xarray(pvalues)
+        mi = self._attrs_xarray(mi, da_type='mi')
+        pvalues = self._attrs_xarray(pvalues, da_type='pvalues')
 
         return mi, pvalues
 

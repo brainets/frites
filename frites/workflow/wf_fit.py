@@ -260,7 +260,8 @@ class WfFit(WfBase):
             fit = np.stack(self._fit_m, axis=1)     # mean mi
         fit = convert_dfc_outputs(fit, *args)
         # adding attributes
-        fit, pvalues = self._attrs_xarray(fit), self._attrs_xarray(pvalues)
+        fit = self._attrs_xarray(fit, da_type='FIT')
+        pvalues = self._attrs_xarray(pvalues, da_type='pvalues')
 
         return fit, pvalues
 

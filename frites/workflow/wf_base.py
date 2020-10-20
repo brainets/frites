@@ -13,10 +13,12 @@ class WfBase(object):
     def __setitem__(self, key, value):
         self.cfg[key] = value
 
-    def _attrs_xarray(self, dat):
+    def _attrs_xarray(self, dat, da_type='none'):
         """Set attributes to a DataArray or Dataset."""
         for k, v in self.cfg.items():
             dat.attrs[k] = 'none' if v is None else v
+        dat.attrs['type'] = da_type
+        dat.name = da_type
         return dat
 
     def update_cfg(self, **kwargs):

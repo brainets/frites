@@ -379,6 +379,8 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     gc.attrs['dt'] = dt
     gc.attrs['t0'] = t0
     gc.attrs['conditional'] = conditional
+    gc.attrs['type'] = 'covgc'
+    gc.name = 'covgc'
 
     return gc, pairs, roi_p, times_p
 

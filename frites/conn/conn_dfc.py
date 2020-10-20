@@ -86,5 +86,7 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=1, verbose=None):
     # add the windows used in the attributes
     dfc.attrs['win_sample'] = np.r_[tuple(win_sample)]
     dfc.attrs['win_times'] = np.r_[tuple(win_times)]
+    dfc.attrs['type'] = 'dfc'
+    dfc.name = 'dfc'
 
     return dfc, pairs, roi_p
