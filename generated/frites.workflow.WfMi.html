@@ -188,6 +188,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
@@ -195,28 +196,28 @@
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -338,7 +339,10 @@ moving average</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(dataset[, mcp, n_perm, cluster_th, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(**kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(dataset, *params)</p></td>
+<td><p>Get formatted parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(**kwargs)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -422,7 +426,7 @@ subjects that have a significant MI</p>
 the cluster size. This means that in your results, you can only
 discuss about the presence of a significant cluster without being
 precise about its spatio-temporal properties
-(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[8]</a>)</p>
+(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[9]</a>)</p>
 </div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -489,6 +493,36 @@ is ‘rfx’ it’s the mean across subjects.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="frites.workflow.WfMi.get_params">
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">*params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.get_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get formatted parameters.</p>
+<p>This method can be used to get internal arrays formatted as xarray
+DataArray.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>The dataset instance that have been used for fitting (WfMi.fit)</p>
+</dd>
+<dt><strong>params</strong><span class="classifier">string</span></dt><dd><p>Internal array names to get as xarray DataArray. You can use :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘tvalues’ : DataArray of t-values of shape (n_times, n_roi).
+Only possible with RFX inferences</p></li>
+<li><p>‘mi_ss’ : DataArray of single subject mutual-information of
+shape (n_subjects, n_times, n_roi)</p></li>
+<li><p>‘perm_ss’ : DataArray of computed permutations of shape
+(n_perm, n_subjects, n_times, n_roi)</p></li>
+<li><p>‘<a href="#id5"><span class="problematic" id="id6">perm_</span></a>’ : DataArray of maximum computed permutations of
+shape (n_perm,)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="frites.workflow.WfMi.mi">
 <em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WfMi.mi" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of length (n_roi) of true mutual information. Each element of
@@ -546,7 +580,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-19.</p>
+        <p>&copy; Copyright Last updated on 2020-10-20.</p>
     </footer>
 
   </body>

@@ -11,6 +11,12 @@ New Features
 * New function for reshaping undirected connectivity arrays (like DFC) :py:func:`frites.conn.conn_reshape_undirected` (:commit:`ffcae34`, :commit:`56515fe`)
 * New function :py:`frites.utils.savgol_filter` that works on DataArray (:commit:`3e0e256`)
 * New function for reshaping directed connectivity arrays (like COVGC) :py:func:`frites.conn.conn_reshape_directed` (:commit:`8c2bb63`)
+* New method :py:class:`frites.workflow.WfMi.get_params` in order to get the internal arrays formatted as DataArray (:commit:`03dd2f3`)
+
+Internal Changes
+++++++++++++++++
+* DataArray now contain a name such as a type to make it clear what is it (:commit:`2d6a61`)
+* sigma parameter when performing the t-test can be changed though the CONFIG file (:commit:`5d7ba9f`)
 
 Bug fixes
 +++++++++
