@@ -16,6 +16,7 @@ New Features
 Internal Changes
 ++++++++++++++++
 * DataArray now contain a name such as a type to make it clear what is it (:commit:`2d6a61`)
+* sigma parameter when performing the t-test can be changed though the CONFIG file (:commit:`5d7ba9f`)
 
 Bug fixes
 +++++++++
