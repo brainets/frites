@@ -57,3 +57,10 @@ CONFIG['MA_NAMES'] = [
     'R_PFrd', 'R_PFrm', 'R_OFCvl', 'R_OFCv', 'R_OFCvm', 'R_PFCvm', 'R_ACC',
     'R_Insula', 'L_Thal', 'L_Cd', 'L_Put', 'L_GP', 'L_Hipp', 'L_Amyg', 'L_NAc',
     'R_Thal', 'R_Cd', 'R_Put', 'R_GP', 'R_Hipp', 'R_Amyg', 'R_NAc']
+
+
+"""
+Default sigma for the hat correction when performing the t-test using
+MNE-Python
+"""
+CONFIG['TTEST_MNE_SIGMA'] = 0.001

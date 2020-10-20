@@ -128,7 +128,9 @@ class WfStatsEphy(WfBase):
                 assert rfx_suj, "For RFX, `n_subjects` should be > 1"
                 # modelise how subjects are distributed
                 es, es_p, pop_mean = rfx_ttest(effect, perms)
-                self.update_cfg(ttest_pop_mean=pop_mean)
+                from frites.config import CONFIG
+                sigma = CONFIG['TTEST_MNE_SIGMA']
+                self.update_cfg(ttest_pop_mean=pop_mean, ttest_sigma=sigma)
             tvalues = es
 
         # ---------------------------------------------------------------------

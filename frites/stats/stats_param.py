@@ -12,7 +12,7 @@ RECENTER = dict(mean=np.mean, median=np.median,
                 trimmed=lambda x, axis=0: trim_mean(x, .2, axis=axis))
 
 
-def ttest_1samp(x, pop_mean, axis=0, method='mne'):
+def ttest_1samp(x, pop_mean, axis=0, method='mne', sigma=0.001):
     """One-sample t-test.
 
     Parameters
@@ -25,11 +25,17 @@ def ttest_1samp(x, pop_mean, axis=0, method='mne'):
         Axis along which to perform the t-test
     method : {'mne', 'scipy'}
         Use either the scipy or the mne t-test
+    sigma : float | 0.001
+        Hat adjustment method, a value of 1e-3 may be a reasonable choice
 
     Returns
     -------
     tvalues : array_like
         Array of t-values
+
+    References
+    ----------
+    Ridgway et al., 2012 :cite:`ridgway2012problem`
     """
     if method == 'scipy':
         from scipy.stats import ttest_1samp as sp_ttest
@@ -38,7 +44,7 @@ def ttest_1samp(x, pop_mean, axis=0, method='mne'):
     elif method == 'mne':
         from mne.stats import ttest_1samp_no_p as mne_ttest
         def fcn(x, pop_mean, axis):  # noqa
-            return mne_ttest(np.moveaxis(x, axis, 0) - pop_mean, sigma=1e-3)
+            return mne_ttest(np.moveaxis(x, axis, 0) - pop_mean, sigma=sigma)
 
     return fcn(x, pop_mean, axis)
 
@@ -97,13 +103,16 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     # get the mean of surrogates
     _merge_perm = np.r_[tuple([mi_p[k].ravel() for k in range(n_roi)])]
     pop_mean_surr = np.mean(_merge_perm)
-    logger.info(f"    T-test across subjects (pop_mean={pop_mean_surr}; "
-                f"center={center}; zscore={zscore})")
     # perform the one sample t-test against the mean both on the true and
     # permuted mi
-    t_obs = np.stack([ttest_1samp(mi[k], pop_mean_surr) for k in range(n_roi)])
-    t_obs_surr = np.stack([ttest_1samp(mi_p[k], pop_mean_surr,
-                                       axis=1) for k in range(n_roi)])
+    from frites.config import CONFIG
+    kw = dict(method='mne', sigma=CONFIG['TTEST_MNE_SIGMA'])
+    logger.info(f"    T-test across subjects (pop_mean={pop_mean_surr}; "
+                f"center={center}; zscore={zscore}; sigma={kw['sigma']})")
+    t_obs = np.stack([ttest_1samp(
+        mi[k], pop_mean_surr, axis=0, **kw) for k in range(n_roi)])
+    t_obs_surr = np.stack([ttest_1samp(
+        mi_p[k], pop_mean_surr, axis=1, **kw) for k in range(n_roi)])
     t_obs_surr = np.swapaxes(t_obs_surr, 0, 1)
 
     return t_obs, t_obs_surr, pop_mean_surr
