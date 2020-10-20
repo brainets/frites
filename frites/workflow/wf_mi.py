@@ -281,19 +281,19 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # tvalues conversion
         if isinstance(tvalues, np.ndarray):
-            self._tvalues = self._xr_conversion(tvalues)
+            self._tvalues = self._xr_conversion(tvalues, 'tvalues')
         # mean mi across subjects
         if self._inference is 'rfx':
             logger.info("    Mean mi across subjects")
             mi = [k.mean(axis=0, keepdims=True) for k in mi]
         mi = np.moveaxis(np.concatenate(mi, axis=0), 0, -1)
         # dataarray conversion
-        mi = self._xr_conversion(mi)
-        pv = self._xr_conversion(pvalues)
+        mi = self._xr_conversion(mi, 'mi')
+        pv = self._xr_conversion(pvalues, 'pvalues')
 
         return mi, pv
 
-    def _xr_conversion(self, x):
+    def _xr_conversion(self, x, da_type):
         """Xarray conversion."""
         times, roi = self._times, self._roi
         if x.ndim == 2:
@@ -302,7 +302,7 @@ class WfMi(WfBase):
             freqs = np.arange(x.shape[0])
             x_da = xr.DataArray(x, dims=('freqs', 'times', 'roi'),
                                 coords=(freqs, times, roi))
-        self._attrs_xarray(x_da)
+        self._attrs_xarray(x_da, da_type=da_type)
 
         return x_da
 
@@ -383,6 +383,73 @@ class WfMi(WfBase):
             conj[k], conj_ss[k] = v, v
 
         return conj_ss, conj
+
+    def get_params(self, dataset, *params):
+        """Get formatted parameters.
+
+        This method can be used to get internal arrays formatted as xarray
+        DataArray.
+
+        Parameters
+        ----------
+        dataset : :class:`frites.dataset.DatasetEphy`
+            The dataset instance that have been used for fitting (WfMi.fit)
+        params : string
+            Internal array names to get as xarray DataArray. You can use :
+
+                * 'tvalues' : DataArray of t-values of shape (n_times, n_roi).
+                  Only possible with RFX inferences
+                * 'mi_ss' : DataArray of single subject mutual-information of
+                  shape (n_subjects, n_times, n_roi)
+                * 'perm_ss' : DataArray of computed permutations of shape
+                  (n_perm, n_subjects, n_times, n_roi)
+                * 'perm_' : DataArray of maximum computed permutations of
+                  shape (n_perm,)
+        """
+        # get coordinates
+        times, roi = self._times, self._roi
+        if self._inference == 'ffx':
+            suj = [np.array([-1])] * len(roi)
+        elif self._inference == 'rfx':
+            suj = dataset.suj_roi_u
+        n_perm = self._mi_p[0].shape[0]
+        perm = np.arange(n_perm)
+        # loop over possible outputs
+        outs = []
+        for param in params:
+            assert isinstance(param, str)
+            logger.info(f'    Formatting array {param}')
+            if param == 'tvalues':
+                da = self._tvalues
+            elif param == 'mi_ss':
+                mi = dict()
+                for n_r, r in enumerate(roi):
+                    mi[r] = xr.DataArray(
+                        self._mi[n_r], coords=(suj[n_r], times),
+                        dims=('subjects', 'times'))
+                da = xr.Dataset(mi).to_array('roi')
+                da = da.transpose('subjects', 'times', 'roi')
+            elif param == 'perm_ss':
+                mi = dict()
+                for n_r, r in enumerate(roi):
+                    mi[r] = xr.DataArray(
+                        self._mi_p[n_r], dims=('perm', 'subjects', 'times'),
+                        coords=(perm, suj[n_r], times))
+                da = xr.Dataset(mi).to_array('roi')
+                da = da.transpose('perm', 'subjects', 'times', 'roi')
+            elif param == 'perm_':
+                mi_p = np.r_[tuple([k.ravel() for k in self._mi_p])]
+                mi_p.sort()
+                print(mi_p[-n_perm:].shape, perm.shape)
+                da = xr.DataArray(mi_p[-n_perm:], dims=('perm',),
+                                  coords=(perm,))
+            else:
+                raise ValueError(f"Parameter {param} not found")
+            # add workflow attributes
+            self._attrs_xarray(da, da_type=param)
+            outs += [da]
+
+        return tuple(outs)
 
     def clean(self):
         """Clean computations."""
