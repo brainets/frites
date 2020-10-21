@@ -12,7 +12,7 @@ RECENTER = dict(mean=np.mean, median=np.median,
                 trimmed=lambda x, axis=0: trim_mean(x, .2, axis=axis))
 
 
-def ttest_1samp(x, pop_mean, axis=0, method='mne', sigma=0.001):
+def ttest_1samp(x, pop_mean, axis=0, implementation='mne', sigma=0.001, **kw):
     """One-sample t-test.
 
     Parameters
@@ -23,7 +23,7 @@ def ttest_1samp(x, pop_mean, axis=0, method='mne', sigma=0.001):
         Expected value in the null hypothesis
     axis : int | 0
         Axis along which to perform the t-test
-    method : {'mne', 'scipy'}
+    implementation : {'mne', 'scipy'}
         Use either the scipy or the mne t-test
     sigma : float | 0.001
         Hat adjustment method, a value of 1e-3 may be a reasonable choice
@@ -37,14 +37,15 @@ def ttest_1samp(x, pop_mean, axis=0, method='mne', sigma=0.001):
     ----------
     Ridgway et al., 2012 :cite:`ridgway2012problem`
     """
-    if method == 'scipy':
+    if implementation == 'scipy':
         from scipy.stats import ttest_1samp as sp_ttest
         def fcn(x, pop_mean, axis):  # noqa
-            return sp_ttest(x, pop_mean, axis=axis)[0]
-    elif method == 'mne':
+            return sp_ttest(x, pop_mean, axis=axis, **kw)[0]
+    elif implementation == 'mne':
         from mne.stats import ttest_1samp_no_p as mne_ttest
         def fcn(x, pop_mean, axis):  # noqa
-            return mne_ttest(np.moveaxis(x, axis, 0) - pop_mean, sigma=sigma)
+            return mne_ttest(np.moveaxis(x, axis, 0) - pop_mean, sigma=sigma,
+                             **kw)
 
     return fcn(x, pop_mean, axis)
 
@@ -89,8 +90,8 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
         t_obs = np.concatenate(mi, axis=0)
         t_obs_surr = np.concatenate(mi_p, axis=1)
         return t_obs, t_obs_surr, np.nan
-
     n_roi = len(mi_p)
+
     # remove the mean / median / trimmed
     if center in RECENTER.keys():
         logger.info(f"    RFX recenter distributions (center={center}, "
@@ -100,19 +101,34 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
             _std = mi_p[k].std(axis=0) if zscore else 1.
             mi[k] = (mi[k] - _med) / _std
             mi_p[k] = (mi_p[k] - _med) / _std
+
     # get the mean of surrogates
     _merge_perm = np.r_[tuple([mi_p[k].ravel() for k in range(n_roi)])]
     pop_mean_surr = np.mean(_merge_perm)
+
+    """sigma estimation
+    Here, the data are organized into a list of length (roi,), which means
+    that the MNE t-test is going to evaluate one sigma per roi. To fix that,
+    we estimate this sigma using the variance of all of the data
+    """
+    from frites.config import CONFIG
+    s_hat = CONFIG['TTEST_MNE_SIGMA']
+    mi_var = np.stack([np.var(k, axis=0, ddof=1) for k in mi])
+    sigma = s_hat * np.max(mi_var)      # sigma on true mi
+    mi_p_var = np.stack([np.var(k, axis=1, ddof=1) for k in mi_p])
+    sigma_p = s_hat * np.max(mi_p_var)  # sigma on permuted mi
+    logger.debug(f"sigma_true={sigma}; sigma_permuted={sigma_p}")
+    kw = dict(implementation='mne', method='absolute', sigma=sigma)
+    kw_p = dict(implementation='mne', method='absolute', sigma=sigma_p)
+
     # perform the one sample t-test against the mean both on the true and
     # permuted mi
-    from frites.config import CONFIG
-    kw = dict(method='mne', sigma=CONFIG['TTEST_MNE_SIGMA'])
     logger.info(f"    T-test across subjects (pop_mean={pop_mean_surr}; "
-                f"center={center}; zscore={zscore}; sigma={kw['sigma']})")
+                f"center={center}; zscore={zscore}; sigma={s_hat})")
     t_obs = np.stack([ttest_1samp(
         mi[k], pop_mean_surr, axis=0, **kw) for k in range(n_roi)])
     t_obs_surr = np.stack([ttest_1samp(
-        mi_p[k], pop_mean_surr, axis=1, **kw) for k in range(n_roi)])
+        mi_p[k], pop_mean_surr, axis=1, **kw_p) for k in range(n_roi)])
     t_obs_surr = np.swapaxes(t_obs_surr, 0, 1)
 
     return t_obs, t_obs_surr, pop_mean_surr

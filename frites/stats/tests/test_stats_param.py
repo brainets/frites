@@ -10,8 +10,8 @@ class TestParam(object):  # noqa
         """Test function ttest_1samp."""
         x = np.random.rand(2, 100, 3)
         popmean = 0.
-        tt_sci = ttest_1samp(x, popmean, axis=1, method='scipy')
-        tt_mne = ttest_1samp(x, popmean, axis=1, method='mne')
+        tt_sci = ttest_1samp(x, popmean, axis=1, implementation='scipy')
+        tt_mne = ttest_1samp(x, popmean, axis=1, implementation='mne')
         assert tt_sci.shape == tt_mne.shape == (2, 3)
 
     def test_rfx_ttest(self):
