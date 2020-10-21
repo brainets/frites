@@ -266,7 +266,7 @@
                 <span class="n">trimmed</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span> <span class="n">trim_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
 
 
-<div class="viewcode-block" id="ttest_1samp"><a class="viewcode-back" href="../../../generated/frites.stats.ttest_1samp.html#frites.stats.ttest_1samp">[docs]</a><span class="k">def</span> <span class="nf">ttest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mne&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+<div class="viewcode-block" id="ttest_1samp"><a class="viewcode-back" href="../../../generated/frites.stats.ttest_1samp.html#frites.stats.ttest_1samp">[docs]</a><span class="k">def</span> <span class="nf">ttest_1samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;mne&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;One-sample t-test.</span>
 
 <span class="sd">    Parameters</span>
@@ -277,7 +277,7 @@
 <span class="sd">        Expected value in the null hypothesis</span>
 <span class="sd">    axis : int | 0</span>
 <span class="sd">        Axis along which to perform the t-test</span>
-<span class="sd">    method : {&#39;mne&#39;, &#39;scipy&#39;}</span>
+<span class="sd">    implementation : {&#39;mne&#39;, &#39;scipy&#39;}</span>
 <span class="sd">        Use either the scipy or the mne t-test</span>
 <span class="sd">    sigma : float | 0.001</span>
 <span class="sd">        Hat adjustment method, a value of 1e-3 may be a reasonable choice</span>
@@ -291,14 +291,15 @@
 <span class="sd">    ----------</span>
 <span class="sd">    Ridgway et al., 2012 :cite:`ridgway2012problem`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;scipy&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">implementation</span> <span class="o">==</span> <span class="s1">&#39;scipy&#39;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span> <span class="k">as</span> <span class="n">sp_ttest</span>
         <span class="k">def</span> <span class="nf">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>  <span class="c1"># noqa</span>
-            <span class="k">return</span> <span class="n">sp_ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mne&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sp_ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">implementation</span> <span class="o">==</span> <span class="s1">&#39;mne&#39;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">mne.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp_no_p</span> <span class="k">as</span> <span class="n">mne_ttest</span>
         <span class="k">def</span> <span class="nf">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>  <span class="c1"># noqa</span>
-            <span class="k">return</span> <span class="n">mne_ttest</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">mne_ttest</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+                             <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pop_mean</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span></div>
 
@@ -343,8 +344,8 @@
         <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mi_p</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
     <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi_p</span><span class="p">)</span>
+
     <span class="c1"># remove the mean / median / trimmed</span>
     <span class="k">if</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">RECENTER</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    RFX recenter distributions (center=</span><span class="si">{</span><span class="n">center</span><span class="si">}</span><span class="s2">, &quot;</span>
@@ -354,19 +355,34 @@
             <span class="n">_std</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">zscore</span> <span class="k">else</span> <span class="mf">1.</span>
             <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
             <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
+
     <span class="c1"># get the mean of surrogates</span>
     <span class="n">_merge_perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])]</span>
     <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_merge_perm</span><span class="p">)</span>
+
+    <span class="sd">&quot;&quot;&quot;sigma estimation</span>
+<span class="sd">    Here, the data are organized into a list of length (roi,), which means</span>
+<span class="sd">    that the MNE t-test is going to evaluate one sigma per roi. To fix that,</span>
+<span class="sd">    we estimate this sigma using the variance of all of the data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
+    <span class="n">s_hat</span> <span class="o">=</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;TTEST_MNE_SIGMA&#39;</span><span class="p">]</span>
+    <span class="n">mi_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi</span><span class="p">])</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">s_hat</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">mi_var</span><span class="p">)</span>      <span class="c1"># sigma on true mi</span>
+    <span class="n">mi_p_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi_p</span><span class="p">])</span>
+    <span class="n">sigma_p</span> <span class="o">=</span> <span class="n">s_hat</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">mi_p_var</span><span class="p">)</span>  <span class="c1"># sigma on permuted mi</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sigma_true=</span><span class="si">{</span><span class="n">sigma</span><span class="si">}</span><span class="s2">; sigma_permuted=</span><span class="si">{</span><span class="n">sigma_p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;mne&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;absolute&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="n">kw_p</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;mne&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;absolute&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma_p</span><span class="p">)</span>
+
     <span class="c1"># perform the one sample t-test against the mean both on the true and</span>
     <span class="c1"># permuted mi</span>
-    <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
-    <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;mne&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;TTEST_MNE_SIGMA&#39;</span><span class="p">])</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    T-test across subjects (pop_mean=</span><span class="si">{</span><span class="n">pop_mean_surr</span><span class="si">}</span><span class="s2">; &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;center=</span><span class="si">{</span><span class="n">center</span><span class="si">}</span><span class="s2">; zscore=</span><span class="si">{</span><span class="n">zscore</span><span class="si">}</span><span class="s2">; sigma=</span><span class="si">{</span><span class="n">kw</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;center=</span><span class="si">{</span><span class="n">center</span><span class="si">}</span><span class="s2">; zscore=</span><span class="si">{</span><span class="n">zscore</span><span class="si">}</span><span class="s2">; sigma=</span><span class="si">{</span><span class="n">s_hat</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">t_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span>
         <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
     <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">ttest_1samp</span><span class="p">(</span>
-        <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
+        <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pop_mean_surr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_p</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])</span>
     <span class="n">t_obs_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">t_obs_surr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">t_obs</span><span class="p">,</span> <span class="n">t_obs_surr</span><span class="p">,</span> <span class="n">pop_mean_surr</span></div>
@@ -396,7 +412,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-20.</p>
+        <p>&copy; Copyright Last updated on 2020-10-21.</p>
     </footer>
 
   </body>

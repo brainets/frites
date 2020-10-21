@@ -21,6 +21,7 @@ Internal Changes
 Bug fixes
 +++++++++
 * Fix ttested attribute when saving (:commit:`3d029be`)
+* Fix computing the sigma across all ROI since it uses the maximum over every axes (:commit:`ffaca1e`)
 
 
 .. raw:: html

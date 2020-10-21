@@ -694,7 +694,6 @@
             <span class="k">elif</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;perm_&#39;</span><span class="p">:</span>
                 <span class="n">mi_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">])]</span>
                 <span class="n">mi_p</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="o">-</span><span class="n">n_perm</span><span class="p">:]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
                 <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="o">-</span><span class="n">n_perm</span><span class="p">:],</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;perm&#39;</span><span class="p">,),</span>
                                   <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">perm</span><span class="p">,))</span>
             <span class="k">else</span><span class="p">:</span>
@@ -759,7 +758,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-20.</p>
+        <p>&copy; Copyright Last updated on 2020-10-21.</p>
     </footer>
 
   </body>
