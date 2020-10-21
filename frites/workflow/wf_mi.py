@@ -440,7 +440,6 @@ class WfMi(WfBase):
             elif param == 'perm_':
                 mi_p = np.r_[tuple([k.ravel() for k in self._mi_p])]
                 mi_p.sort()
-                print(mi_p[-n_perm:].shape, perm.shape)
                 da = xr.DataArray(mi_p[-n_perm:], dims=('perm',),
                                   coords=(perm,))
             else:
