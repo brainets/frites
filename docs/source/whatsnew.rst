@@ -12,6 +12,7 @@ New Features
 * New function :py:`frites.utils.savgol_filter` that works on DataArray (:commit:`3e0e256`)
 * New function for reshaping directed connectivity arrays (like COVGC) :py:func:`frites.conn.conn_reshape_directed` (:commit:`8c2bb63`)
 * New method :py:class:`frites.workflow.WfMi.get_params` in order to get the internal arrays formatted as DataArray (:commit:`03dd2f3`)
+* Integration of MNE's progress bar (:commit:`74dc66`, :commit:`8ec636d`, :commit:`2bb7e75`)
 
 Internal Changes
 ++++++++++++++++
