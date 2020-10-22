@@ -131,13 +131,13 @@ ffx_stat = 'ffx_cluster_tfce'
 dt_ffx = DatasetEphy(x, y, roi)
 wf_ffx = WfMi(mi_type, 'ffx')
 mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, mcp='cluster', cluster_th='tfce',
-                            n_perm=n_perm)
+                            n_perm=n_perm, n_jobs=1)
 
 # between-subject statistics (rfx=random-effect)
 dt_rfx = DatasetEphy(x, y, roi)
 wf_rfx = WfMi(mi_type, 'rfx')
 mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
-                            n_perm=n_perm)
+                            n_perm=n_perm, n_jobs=1)
 
 # plot the comparison
 fig = plt.figure(figsize=(10, 8))

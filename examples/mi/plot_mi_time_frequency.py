@@ -79,7 +79,7 @@ ds = DatasetEphy(x, y=y, roi=roi, times=times)
 
 # compute the mutual information
 wf = WfMi(inference='ffx', mi_type='cc')
-mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0)
+mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0, n_jobs=1)
 # set the true frequencies
 mi['freqs'] = freqs
 pv['freqs'] = freqs
