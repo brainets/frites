@@ -102,9 +102,10 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
             mi[k] = (mi[k] - _med) / _std
             mi_p[k] = (mi_p[k] - _med) / _std
 
-    # get the mean of surrogates
-    _merge_perm = np.r_[tuple([mi_p[k].ravel() for k in range(n_roi)])]
-    pop_mean_surr = np.mean(_merge_perm)
+    # get the mean of surrogates (low ram method)
+    n_element = np.sum([np.prod(k.shape) for k in mi_p])
+    sum_all = np.sum([np.sum(k) for k in mi_p])
+    pop_mean_surr = sum_all / n_element
 
     """sigma estimation
     Here, the data are organized into a list of length (roi,), which means
