@@ -22,6 +22,7 @@ Bug fixes
 +++++++++
 * Fix ttested attribute when saving (:commit:`3d029be`)
 * Fix computing the sigma across all ROI since it uses the maximum over every axes (:commit:`ffaca1e`)
+* Fix high RAM consumption when computing the `pop_mean_surr` (:commit:`fe6e4d1`)
 
 
 .. raw:: html
