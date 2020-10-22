@@ -6,7 +6,8 @@ from frites.io import set_log_level, logger
 from frites.core import mi_nd_gg, copnorm_nd
 from frites.config import CONFIG
 
-from joblib import Parallel, delayed
+from mne.parallel import parallel_func
+from mne.utils import ProgressBar
 
 
 
@@ -67,15 +68,20 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=1, verbose=None):
     # -------------------------------------------------------------------------
     # compute dfc
     logger.info(f'Computing DFC between {n_pairs} pairs')
+    # get the parallel function
+    parallel, p_fun, _ = parallel_func(mi_nd_gg, n_jobs=n_jobs, verbose=False)
+    pbar = ProgressBar(range(n_win), mesg='Estimating DFC')
+
     dfc = np.zeros((n_epochs, n_pairs, n_win), dtype=np.float32)
     for n_w, w in enumerate(win_sample):
         # select the data in the window and copnorm across time points
         data_w = copnorm_nd(data[..., w[0]:w[1]], axis=2)
         # compute mi between pairs
-        _dfc = Parallel(n_jobs=n_jobs)(delayed(mi_nd_gg)(
-            data_w[:, [s], :], data_w[:, [t], :],
-            **CONFIG["KW_GCMI"]) for s, t in zip(x_s, x_t))
+        _dfc = parallel(
+            p_fun(data_w[:, [s], :], data_w[:, [t], :],
+                  **CONFIG["KW_GCMI"]) for s, t in zip(x_s, x_t))
         dfc[..., n_w] = np.stack(_dfc, axis=1)
+        pbar.update_with_increment_value(1)
 
     # -------------------------------------------------------------------------
     # dataarray conversion
