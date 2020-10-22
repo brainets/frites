@@ -356,9 +356,10 @@
             <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
             <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">_med</span><span class="p">)</span> <span class="o">/</span> <span class="n">_std</span>
 
-    <span class="c1"># get the mean of surrogates</span>
-    <span class="n">_merge_perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">)])]</span>
-    <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">_merge_perm</span><span class="p">)</span>
+    <span class="c1"># get the mean of surrogates (low ram method)</span>
+    <span class="n">n_element</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi_p</span><span class="p">])</span>
+    <span class="n">sum_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mi_p</span><span class="p">])</span>
+    <span class="n">pop_mean_surr</span> <span class="o">=</span> <span class="n">sum_all</span> <span class="o">/</span> <span class="n">n_element</span>
 
     <span class="sd">&quot;&quot;&quot;sigma estimation</span>
 <span class="sd">    Here, the data are organized into a list of length (roi,), which means</span>
@@ -412,7 +413,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-21.</p>
+        <p>&copy; Copyright Last updated on 2020-10-22.</p>
     </footer>
 
   </body>
