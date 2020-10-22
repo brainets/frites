@@ -139,6 +139,14 @@ information
     :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,  473.83it/s]
+
 
 
 Multivariate regressor
@@ -186,6 +194,7 @@ of multivariate regressor
  .. code-block:: none
 
     [(400, 2), (400, 2), (400, 2), (400, 2), (400, 2)]
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,   92.53it/s]
 
 
 
@@ -209,13 +218,13 @@ within (ffx) or between subject (rfx) statistics.
     dt_ffx = DatasetEphy(x, y, roi)
     wf_ffx = WfMi(mi_type, 'ffx')
     mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, mcp='cluster', cluster_th='tfce',
-                                n_perm=n_perm)
+                                n_perm=n_perm, n_jobs=1)
 
     # between-subject statistics (rfx=random-effect)
     dt_rfx = DatasetEphy(x, y, roi)
     wf_rfx = WfMi(mi_type, 'rfx')
     mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
-                                n_perm=n_perm)
+                                n_perm=n_perm, n_jobs=1)
 
     # plot the comparison
     fig = plt.figure(figsize=(10, 8))
@@ -243,12 +252,21 @@ within (ffx) or between subject (rfx) statistics.
     :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    4.19it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    4.19it/s]
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:01<00:00,    1.22s/it]    100%|##########| Estimating MI : 1/1 [00:01<00:00,    1.22s/it]
+
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.441 seconds)
+   **Total running time of the script:** ( 0 minutes  4.023 seconds)
 
 
 .. _sphx_glr_download_auto_examples_mi_plot_wf_mi_cc.py:

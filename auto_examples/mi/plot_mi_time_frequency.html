@@ -336,10 +336,16 @@ and the continuous regressor</p>
 </div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the mutual information</span>
 <span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">inference</span><span class="o">=</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
-<span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1"># set the true frequencies</span>
 <span class="n">mi</span><span class="p">[</span><span class="s1">&#39;freqs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqs</span>
 <span class="n">pv</span><span class="p">[</span><span class="s1">&#39;freqs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqs</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    1.62it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    1.62it/s]
 </pre></div>
 </div>
 <p>plot the mutual information and p-values</p>
@@ -355,7 +361,7 @@ and the continuous regressor</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_mi_time_frequency_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_time_frequency_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.771 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.005 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-time-frequency-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/48fdfcc1d08b84ef598d6345deae9ab0/plot_mi_time_frequency.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mi_time_frequency.py</span></code></a></p>

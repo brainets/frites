@@ -126,7 +126,7 @@ Compute the mutual information
 
     # compute the mutual information
     wf = WfMi(inference='ffx', mi_type='cc')
-    mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0)
+    mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0, n_jobs=1)
     # set the true frequencies
     mi['freqs'] = freqs
     pv['freqs'] = freqs
@@ -134,6 +134,14 @@ Compute the mutual information
 
 
 
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    1.62it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    1.62it/s]
 
 
 
@@ -164,7 +172,7 @@ plot the mutual information and p-values
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.771 seconds)
+   **Total running time of the script:** ( 0 minutes  1.005 seconds)
 
 
 .. _sphx_glr_download_auto_examples_mi_plot_mi_time_frequency.py:
