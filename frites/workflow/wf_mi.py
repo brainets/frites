@@ -1,9 +1,10 @@
 """Workflow for computing MI and evaluate statistics."""
 import numpy as np
 import xarray as xr
-from joblib import Parallel, delayed
 
-from frites import config
+from mne.parallel import parallel_func
+from mne.utils import ProgressBar
+
 from frites.io import set_log_level, logger
 from frites.core import get_core_mi_fun, permute_mi_vector
 from frites.workflow.wf_stats_ephy import WfStatsEphy
@@ -117,21 +118,24 @@ class WfMi(WfBase):
         # evaluate true mi
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs})")
-        mi = [mi_fun(x[k], y[k], z[k], suj[k], inf,
-                     n_bins=n_bins) for k in range(n_roi)]
-        # get joblib configuration
-        cfg_jobs = config.CONFIG["JOBLIB_CFG"]
+        # parallel function for computing permutations
+        parallel, p_fun, _ = parallel_func(mi_fun, n_jobs=n_jobs,
+                                           verbose=False)
+        pbar = ProgressBar(range(n_roi), mesg='MI estimation')
         # evaluate permuted mi
-        mi_p = []
+        mi, mi_p = [], []
         for r in range(n_roi):
+            # compute the true mi
+            mi += [mi_fun(x[r], y[r], z[r], suj[r], inf, n_bins=n_bins)]
+
             # get the randomize version of y
             y_p = permute_mi_vector(y[r], suj[r], mi_type=self._mi_type,
                                     inference=self._inference, n_perm=n_perm)
             # run permutations using the randomize regressor
-            _mi = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(mi_fun)(
-                x[r], y_p[p], z[r], suj[r], inf,
-                n_bins=n_bins) for p in range(n_perm))
+            _mi = parallel(p_fun(x[r], y_p[p], z[r], suj[r], inf,
+                                 n_bins=n_bins) for p in range(n_perm))
             mi_p += [np.asarray(_mi)]
+            pbar.update_with_increment_value(1)
         # smoothing
         if isinstance(self._kernel, np.ndarray):
             logger.info("    Apply smoothing to the true and permuted MI")
