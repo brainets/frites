@@ -1,7 +1,9 @@
 """Single-trial covariance-based Granger Causality for gaussian variables."""
 import numpy as np
 import xarray as xr
-from joblib import Parallel, delayed
+
+from mne.parallel import parallel_func
+from mne.utils import ProgressBar
 
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
@@ -138,7 +140,7 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
         gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, x_past, **kw)
         # gc(pairs(:,2) . pairs(:,1))
         gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw)
-    
+
     return gc
 
 
@@ -177,7 +179,7 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
         xy_past = np.concatenate((x[:, 1:, :], y[:, 1:, :]), axis=1)
         # conditional granger causality case
         if conditional:
-            # condition by the past of every other possible sources 
+            # condition by the past of every other possible sources
             z_past = z_roi[..., ind_t0[1:, :]]  # (lag_past, dt) selection
             z_past = z_past.reshape(n_trials, rsh, n_dt)
             # cat with past
@@ -204,7 +206,7 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
         gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, xz_past, **kw)
         # gc(pairs(:,2) . pairs(:,1))
         gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xyz_past, **kw)
-    
+
     return gc
 
 
@@ -359,13 +361,14 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     # compute covgc and parallel over pairs
     logger.info(f"Compute the {ext} covgc (method={method}, n_pairs={len(x_s)}"
                 f"; n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
+    kw_par = dict(n_jobs=n_jobs, total=len(x_s), verbose=False)
     if not conditional:
-        gc = Parallel(n_jobs=n_jobs)(delayed(fcn)(
-            data[:, s, :], data[:, t, :], ind_tx, t0) for s, t in zip(
-            x_s, x_t))
+        parallel, p_fun, _ = parallel_func(fcn, **kw_par)
+        gc = parallel(p_fun(data[:, s, :], data[:, t, :], ind_tx,
+                            t0) for s, t in zip(x_s, x_t))
     else:
-        gc = Parallel(n_jobs=n_jobs)(delayed(_cond_gccovgc)(
-                data, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
+        parallel, p_fun, _ = parallel_func(_cond_gccovgc, **kw_par)
+        gc = parallel(p_fun(data, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
     # -------------------------------------------------------------------------

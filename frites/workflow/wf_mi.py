@@ -121,7 +121,7 @@ class WfMi(WfBase):
         # parallel function for computing permutations
         parallel, p_fun, _ = parallel_func(mi_fun, n_jobs=n_jobs,
                                            verbose=False)
-        pbar = ProgressBar(range(n_roi), mesg='MI estimation')
+        pbar = ProgressBar(range(n_roi), mesg='Estimating MI')
         # evaluate permuted mi
         mi, mi_p = [], []
         for r in range(n_roi):
