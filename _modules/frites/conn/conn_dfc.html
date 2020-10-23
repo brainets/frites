@@ -265,7 +265,7 @@
 
 
 
-<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the Dynamic Functional Connectivity using the GCMI.</span>
 
 <span class="sd">    This function computes the Dynamic Functional Connectivity (DFC) using the</span>
@@ -289,6 +289,10 @@
 <span class="sd">    n_jobs : int | 1</span>
 <span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">        jobs). The parallel loop is set at the pair level.</span>
+<span class="sd">    gcrn : bool | False</span>
+<span class="sd">        Specify if the Gaussian Copula Rank Normalization should be applied.</span>
+<span class="sd">        Usually, the data are Gaussian across time that is why this</span>
+<span class="sd">        transformation is set to </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -321,7 +325,7 @@
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># compute dfc</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing DFC between </span><span class="si">{</span><span class="n">n_pairs</span><span class="si">}</span><span class="s1"> pairs&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing DFC between </span><span class="si">{</span><span class="n">n_pairs</span><span class="si">}</span><span class="s1"> pairs (gcrn=</span><span class="si">{</span><span class="n">gcrn</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
     <span class="c1"># get the parallel function</span>
     <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_win</span><span class="p">),</span> <span class="n">mesg</span><span class="o">=</span><span class="s1">&#39;Estimating DFC&#39;</span><span class="p">)</span>
@@ -329,7 +333,10 @@
     <span class="n">dfc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_pairs</span><span class="p">,</span> <span class="n">n_win</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">n_w</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">win_sample</span><span class="p">):</span>
         <span class="c1"># select the data in the window and copnorm across time points</span>
-        <span class="n">data_w</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">data_w</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="c1"># apply gcrn</span>
+        <span class="k">if</span> <span class="n">gcrn</span><span class="p">:</span>
+            <span class="n">data_w</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">data_w</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="c1"># compute mi between pairs</span>
         <span class="n">_dfc</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span>
             <span class="n">p_fun</span><span class="p">(</span><span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="p">:],</span> <span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="p">:],</span>
@@ -376,7 +383,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-22.</p>
+        <p>&copy; Copyright Last updated on 2020-10-23.</p>
     </footer>
 
   </body>
