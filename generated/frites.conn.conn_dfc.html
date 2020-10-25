@@ -261,7 +261,7 @@
 <h1>frites.conn.conn_dfc<a class="headerlink" href="#frites-conn-conn-dfc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.conn.conn_dfc">
-<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_dfc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">win_sample</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">gcrn=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_dfc.html#conn_dfc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_dfc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">win_sample</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">gcrn=True</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_dfc.html#conn_dfc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the Dynamic Functional Connectivity using the GCMI.</p>
 <p>This function computes the Dynamic Functional Connectivity (DFC) using the
 Gaussian Copula Mutual Information (GCMI). The DFC is computed across time
@@ -284,9 +284,9 @@ to define either manually either sliding windows.</p>
 <dt><strong>n_jobs</strong><span class="classifier">int | 1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs). The parallel loop is set at the pair level.</p>
 </dd>
-<dt><strong>gcrn</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the Gaussian Copula Rank Normalization should be applied.
-Usually, the data are Gaussian across time that is why this
-transformation is set to</p>
+<dt><strong>gcrn</strong><span class="classifier">bool | True</span></dt><dd><p>Specify if the Gaussian Copula Rank Normalization should be applied.
+If the data are normalized (e.g z-score) this parameter can be set to
+False because the data can be considered as gaussian over time.</p>
 </dd>
 </dl>
 </dd>
@@ -336,7 +336,7 @@ transformation is set to</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-10-23.</p>
+        <p>&copy; Copyright Last updated on 2020-10-25.</p>
     </footer>
 
   </body>
