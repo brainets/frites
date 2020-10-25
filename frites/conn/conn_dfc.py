@@ -11,7 +11,7 @@ from mne.utils import ProgressBar
 
 
 
-def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=False, verbose=None):
+def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=True, verbose=None):
     """Compute the Dynamic Functional Connectivity using the GCMI.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
@@ -35,10 +35,10 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=False, verbose=None):
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
-    gcrn : bool | False
+    gcrn : bool | True
         Specify if the Gaussian Copula Rank Normalization should be applied.
-        Usually, the data are Gaussian across time that is why this
-        transformation is set to 
+        If the data are normalized (e.g z-score) this parameter can be set to
+        False because the data can be considered as gaussian over time.
 
     Returns
     -------
@@ -80,7 +80,7 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=False, verbose=None):
     for n_w, w in enumerate(win_sample):
         # select the data in the window and copnorm across time points
         data_w = data[..., w[0]:w[1]]
-        # apply gcrn
+        # apply gcrn over time
         if gcrn:
             data_w = copnorm_nd(data_w, axis=2)
         # compute mi between pairs
