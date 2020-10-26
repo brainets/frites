@@ -256,13 +256,11 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
-<span class="kn">from</span> <span class="nn">mne.parallel</span> <span class="kn">import</span> <span class="n">parallel_func</span>
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
-
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
 <span class="kn">from</span> <span class="nn">frites.core.gcmi_nd</span> <span class="kn">import</span> <span class="n">cmi_nd_ggg</span>
 <span class="kn">from</span> <span class="nn">frites.core.copnorm</span> <span class="kn">import</span> <span class="n">copnorm_nd</span>
+<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span>
 
 
 
@@ -617,11 +615,11 @@
                 <span class="sa">f</span><span class="s2">&quot;; n_windows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="si">}</span><span class="s2">, lag=</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s2">, dt=</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s2">, step=</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">kw_par</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">conditional</span><span class="p">:</span>
-        <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">fcn</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_par</span><span class="p">)</span>
+        <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">fcn</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_par</span><span class="p">)</span>
         <span class="n">gc</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span><span class="n">p_fun</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">t</span><span class="p">,</span> <span class="p">:],</span> <span class="n">ind_tx</span><span class="p">,</span>
                             <span class="n">t0</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">_cond_gccovgc</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_par</span><span class="p">)</span>
+        <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">_cond_gccovgc</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_par</span><span class="p">)</span>
         <span class="n">gc</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span><span class="n">p_fun</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
