@@ -2,13 +2,11 @@
 import numpy as np
 import xarray as xr
 
-from mne.parallel import parallel_func
-from mne.utils import ProgressBar
-
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
 from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
+from frites.utils import parallel_func
 
 
 
@@ -363,11 +361,11 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                 f"; n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
     kw_par = dict(n_jobs=n_jobs, total=len(x_s), verbose=False)
     if not conditional:
-        parallel, p_fun, _ = parallel_func(fcn, **kw_par)
+        parallel, p_fun = parallel_func(fcn, **kw_par)
         gc = parallel(p_fun(data[:, s, :], data[:, t, :], ind_tx,
                             t0) for s, t in zip(x_s, x_t))
     else:
-        parallel, p_fun, _ = parallel_func(_cond_gccovgc, **kw_par)
+        parallel, p_fun = parallel_func(_cond_gccovgc, **kw_par)
         gc = parallel(p_fun(data, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
