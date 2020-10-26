@@ -144,6 +144,9 @@ def set_log_level(verbose=None, match=None):
                              "%s" % ', '.join(LOGGING_TYPES))
     if isinstance(match, str):
         _lh._str_pattern = match
+    # also set mne logger
+    from mne.utils import set_log_level as mne_set_log_level
+    mne_set_log_level(verbose=verbose)
 
 
 class use_log_level(object):  # noqa
