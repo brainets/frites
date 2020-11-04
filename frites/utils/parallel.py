@@ -1,10 +1,13 @@
 """Parallel function wrapper."""
-from joblib import Parallel, delayed
+import os
+
+from joblib import Parallel, delayed, Memory
 
 from mne.utils import ProgressBar
 
 
-def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, **kwargs):
+def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
+                  **kwargs):
     """Get an instance of parallel and delayed function.
 
     This function is inspired by MNE's one.
@@ -20,6 +23,9 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, **kwargs):
         jobs. This should only be used when directly iterating, not when
         using ``split_list`` or :func:`np.array_split`.
         If None (default), do not add a progress bar.
+    cache_dir : string | None
+        If path to an existing directory, the function is going to cache the
+        computations
     kwargs : dict | {}
         Additional arguments are sent to the joblibe.Parallel function.
 
@@ -37,6 +43,11 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, **kwargs):
         kwargs[k] = v
     # verbosity level of joblib
     kwargs['verbose'] = 1 if verbose in ['debug', True] else 0
+
+    # caching option
+    if isinstance(cache_dir, str) and os.path.isdir(cache_dir):
+        memory = Memory(cache_dir, verbose=kwargs['verbose'])
+        fcn = memory.cache(fcn)
 
     # parallel functions
     para_fcn = delayed(fcn)
