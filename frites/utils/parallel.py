@@ -5,6 +5,8 @@ from joblib import Parallel, delayed, Memory
 
 from mne.utils import ProgressBar
 
+from frites.io import set_log_level, logger
+
 
 def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
                   **kwargs):
@@ -37,6 +39,7 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
         ``func`` if not parallel or delayed(func).
     """
     from frites.config import CONFIG
+    # set_log_level(verbose)
 
     # manually merge inputs inside the default config
     for k, v in CONFIG["JOBLIB_CFG"].copy().items():
@@ -46,6 +49,7 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
 
     # caching option
     if isinstance(cache_dir, str) and os.path.isdir(cache_dir):
+        logger.info(f'Caching computations to {cache_dir}')
         memory = Memory(cache_dir, verbose=kwargs['verbose'])
         fcn = memory.cache(fcn)
 
