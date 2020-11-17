@@ -10,6 +10,7 @@ class TestPerfTools(object):
     def test_timeit(self):
         @timeit
         def fcn(sec): return sleep(sec)  # noqa
+        fcn(1.)
 
     def test_id(self):
         x = np.random.rand(1000)
