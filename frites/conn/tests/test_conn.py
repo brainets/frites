@@ -1,6 +1,7 @@
 """Test connectivity measures."""
 import numpy as np
 import xarray as xr
+import pandas as pd
 
 from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc, conn_fit,
                          conn_reshape_undirected, conn_reshape_directed)
@@ -78,6 +79,9 @@ class TestConn(object):
         # reshape it without the time dimension
         dfc_mean = conn_reshape_undirected(dfc.mean('times'))
         assert dfc_mean.shape == (n_roi, n_roi, 1)
+        df = conn_reshape_undirected(dfc.mean('times'), order=order,
+                                     to_dataframe=True)
+        assert isinstance(df, pd.DataFrame)
         # reshape it with the time dimension
         dfc_times = conn_reshape_undirected(dfc.copy())
         assert dfc_times.shape == (n_roi, n_roi, len(dfc['times']))
