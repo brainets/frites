@@ -56,7 +56,7 @@ class TestDsEphyIO(object):
         """Test function xr_to_arr."""
         # testing elements independantly
         x_xr = self._to_xr()
-        x_x, roi_xn, y_xn, z_xn, times_xn = xr_to_arr(x_xr.copy())
+        x_x, roi_xn, y_xn, z_xn, times_xn, sub_roi = xr_to_arr(x_xr.copy())
         assert roi_xn == y_xn == z_xn == times_xn == None
         roi_x = xr_to_arr(x_xr.copy(), roi='roi')[1]
         y_x = xr_to_arr(x_xr.copy(), y='y')[2]
@@ -74,18 +74,18 @@ class TestDsEphyIO(object):
         """Test function ds_ephy_io."""
         # ---------------------------------------------------------------------
         # using numpy inputs
-        x_arr, y_arr, z_arr, roi_arr, times_arr = ds_ephy_io(
+        x_arr, y_arr, z_arr, roi_arr, times_arr, sub_roi = ds_ephy_io(
             x, roi=roi, y=y, z=z, times=times)
 
         # ---------------------------------------------------------------------
         # using mne inputs
         x_mne = self._to_mne()
-        x_mne, y_mne, z_mne, roi_mne, times_mne = ds_ephy_io(
+        x_mne, y_mne, z_mne, roi_mne, times_mne, sub_roi = ds_ephy_io(
             x_mne, roi=roi, y=y, z=z, times=times)
 
         # ---------------------------------------------------------------------
         x_xr = self._to_xr()
-        x_xr, y_xr, z_xr, roi_xr, times_xr = ds_ephy_io(
+        x_xr, y_xr, z_xr, roi_xr, times_xr, sub_roi = ds_ephy_io(
             x_xr, roi='roi', y='y', z='z', times='times')
 
         # ---------------------------------------------------------------------

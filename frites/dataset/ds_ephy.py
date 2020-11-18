@@ -46,7 +46,7 @@ class DatasetEphy(object):
         the data are one of the MNE-Python supported type, the channel names
         are used (ch_names). Otherwise, the list is going to be filled with
         generic roi names.
-    y, z : list | None
+    y, z : list, sting | None
         List of length (n_subjects,) of continuous or discrete variables. Each
         element of the list should be an array of shape (n_epochs,) that is
         then going to be used to compute the MI. The type of MI depends on the
@@ -67,18 +67,26 @@ class DatasetEphy(object):
     nb_min_suj : int | None
         The minimum number of subjects per roi. Roi with n_suj < nb_min_suj
         are going to be skipped. Use None to skip this parameter
+    sub_roi : list, string | None
+        List of length (n_subjects,) that contains additional anatomical
+        informations about the data of each subject. This argument can be used
+        to estimate the mutual-information at the single contact level (or MEG
+        sensor for exemple). As an example, the `roi` input could refer to the
+        parcel name (e.g 'Insula', 'vmPFC' etc.) while the `sub_roi` input can
+        refer to the contact / sensor name ('x1', 'x2' etc.)
     """
 
     def __init__(self, x, y=None, roi=None, z=None, times=None,
-                 nb_min_suj=None, verbose=None):
+                 nb_min_suj=None, sub_roi=None, verbose=None):
         """Init."""
         set_log_level(verbose)
         # ---------------------------------------------------------------------
         # conversion of the electrophysiological data
         # ---------------------------------------------------------------------
         logger.info('Definition of an electrophysiological dataset')
-        x, y, z, roi, times = ds_ephy_io(x, roi=roi, y=y, z=z, times=times,
-                                         verbose=verbose)
+        x, y, z, roi, times, sub_roi = ds_ephy_io(
+            x, roi=roi, y=y, z=z, times=times, sub_roi=sub_roi,
+            verbose=verbose)
         if y is None:
             logger.debug("Fill the y input because otherwise everything fails")
             y = [np.zeros((x[k].shape[0])) for k in range(len(x))]
@@ -88,18 +96,34 @@ class DatasetEphy(object):
         # ---------------------------------------------------------------------
         self._y_dtype = self._infer_dtypes(y, 'y')
         self._z_dtype = self._infer_dtypes(z, 'z')
+        self._sub_roi_dtype = self._infer_dtypes(sub_roi, 'sub_roi')
         if (self._y_dtype == 'float') and (self._z_dtype == 'none'):
-            self._mi_type = 'cc'
+            if self._sub_roi_dtype == 'int':
+                self._mi_type = 'ccd'
+                _mi_st = 'Regr (continuous) | sub_roi'
+            else:
+                self._mi_type = 'cc'
+                _mi_st = 'Regr (continuous)'
         elif (self._y_dtype == 'int') and (self._z_dtype == 'none'):
             self._mi_type = 'cd'
+            if self._sub_roi_dtype == 'int':
+                _mi_st = '[Regr (discret), sub_roi]'
+            else:
+                _mi_st = 'Regr (discret)'
         elif (self._y_dtype == 'float') and (self._z_dtype == 'int'):
             self._mi_type = 'ccd'
+            if self._sub_roi_dtype == 'int':
+                _mi_st = 'Regr (continuous) | [Regr (discret), sub_roi]'
+            else:
+                _mi_st = 'Regr (continuous) | Regr (discret)'
         else:
             raise TypeError(f"Types of y ({self._y_dtype}) and z ("
                             f"{self._z_dtype}) doesn't allow to then compute "
                             "mi on it")
-        logger.info(f"    Allowed mi_type={self._mi_type} (y.dtype="
-                    f"{self._y_dtype}; z.dtype={self._z_dtype})")
+        logger.debug(f"y.dtype={self._y_dtype}; z.dtype={self._z_dtype}); "
+                     f"sub_roi.dtype={self._sub_roi_dtype}")
+        logger.info(f"    Supported MI definition ({self._mi_type}) : "
+                    f"I(ephy; {_mi_st})")
         # (optionnal) multi-conditions conversion
         if self._y_dtype == 'int':
             y = self._multicond_conversion(y, 'y', verbose)
@@ -136,9 +160,10 @@ class DatasetEphy(object):
         self._groupedby = "subject"
         self.__version__ = frites.__version__
         # main data
-        self._x = x  # [(n_epochs, n_channels, n_times)]
-        self._y = y  # [(n_epochs,)]
-        self._z = z  # [(n_epochs,)]
+        self._x = x              # [(n_epochs, n_channels, n_times)]
+        self._y = y              # [(n_epochs,)]
+        self._z = z              # [(n_epochs,)]
+        self._sub_roi = sub_roi  # [(n_roi,)]
         self.n_times = self._x[0].shape[-1]
         if len(self.times) > 1:
             self.sfreq = 1. / (self.times[1] - self.times[0])
@@ -310,10 +335,10 @@ class DatasetEphy(object):
                 yz = self._y
             # group by roi
             roi, x_roi, yz_roi, suj_roi, suj_roi_u = [], [], [], [], []
-            roi_ignored = []
+            sub_roi, roi_ignored = [], []
             for r in self.roi_names:
                 # loop over subjects to find if roi is present. If not, discard
-                _x, _yz, _suj, _suj_u = [], [], [], []
+                _x, _yz, _suj, _suj_u, _sub_roi = [], [], [], [], []
                 for n_s, data in enumerate(self._x):
                     # skip missing roi
                     if r not in self.roi[n_s]:
@@ -323,6 +348,7 @@ class DatasetEphy(object):
                     idx = self.roi[n_s] == r
                     __x = np.moveaxis(data, 0, -1)[idx, ...].squeeze()
                     __yz = yz[n_s]
+                    __n_tr = __yz.shape[0]
                     # fix if the data contains a single time point
                     __x = np.atleast_2d(__x)
                     # in case there's multiple sites in this roi, we reshape
@@ -342,6 +368,10 @@ class DatasetEphy(object):
                     _yz += [__yz]
                     _suj += [n_s] * len(__yz)
                     _suj_u += [n_s]
+                    # if sub_roi used, repeat to match the number of trials
+                    if self._sub_roi_dtype == 'int':
+                        _sub = self._sub_roi[n_s][idx]
+                        _sub_roi += [np.repeat(_sub, __n_tr)]
                 # test if the minimum number of unique subject is met inside
                 # the roi
                 u_suj = len(np.unique(_suj))
@@ -358,6 +388,8 @@ class DatasetEphy(object):
                 suj_roi += [_suj]
                 suj_roi_u += [np.array(_suj_u)]
                 roi += [r]
+                if self._sub_roi_dtype == 'int':
+                    sub_roi += [np.r_[tuple(_sub_roi)]]
             # test if the data are not empty
             assert len(x_roi), ("Empty dataset probably because `nb_min_suj` "
                                 "is too high for your dataset")
@@ -373,6 +405,23 @@ class DatasetEphy(object):
             else:
                 self._y = [k[:, 0:n_cols_y] for k in yz_roi]
                 self._z = [k[:, n_cols_y:].astype(int) for k in yz_roi]
+            # in case sub_roi is used, additional controls need to be performed
+            if self._sub_roi_dtype == 'int':
+                assert len(sub_roi)
+                if self._mi_type == 'cd':
+                    # I(C; D) where the D=[y, sub_roi]
+                    ysub = [np.c_[k, i] for k, i in zip(self._y, sub_roi)]
+                    self._y = self._multicond_conversion(
+                        ysub, '[Regr (y discret), sub_roi]', False)
+                elif self._mi_type == 'ccd' and not isinstance(self._z, list):
+                    # I(C; C; D) where D=sub_roi. In that case z=D
+                    self._z = [k.reshape(-1, 1) for k in sub_roi]
+                elif self._mi_type == 'ccd' and isinstance(self._z, list):
+                    # I(C; C; D) where D=[z, sub_roi]
+                    zsub = [np.c_[k, i] for k, i in zip(self._z, sub_roi)]
+                    zsub = self._multicond_conversion(
+                        zsub, '[Regr (z discret), sub_roi]', False)
+                    self._z = [k.reshape(-1, 1) for k in zsub]
             self.suj_roi = suj_roi
             self.suj_roi_u = suj_roi_u
             self.roi_names = roi
@@ -632,16 +681,29 @@ class DatasetEphy(object):
 
 if __name__ == '__main__':
     import numpy as np
+    import pandas as pd
+    import xarray as xr
 
     n_suj = 3
     x = [np.random.rand(10, 3, 20) for k in range(n_suj)]
     y = [np.random.rand(10) for k in range(n_suj)]
+    # y = [[0] * 5 + [1] * 5 for k in range(n_suj)]
     # y = [np.random.randint(0, 1, (10,)) for k in range(n_suj)]
     z = [np.random.randint(0, 2, (10, 2)) for k in range(n_suj)]
-    roi = [['0', '1', '2'], ['1', '2', '3'], ['1', '2', '3']]
+    roi = [['0', '0', '2'], ['1', '1', '2'], ['0', '0', '0']]
+    sub_roi = [['x1', 'x2', 'x3'], ['a1', 'a2', 'a3'], ['b1', 'b2', 'b3']]
     times = np.linspace(-1, 1, 20)
 
-    dt = DatasetEphy(x, roi=roi, times=times)
+    # xarray conversion
+    da = []
+    for k in range(n_suj):
+        midx = pd.MultiIndex.from_arrays([roi[k], sub_roi[k]],
+                                         names=('roi', 'contacts'))
+        _da = xr.DataArray(x[k], dims=('tr', 'midx', 'times'),
+                           coords=(y[k], midx, times))
+        da += [_da]
+
+    dt = DatasetEphy(da, roi='roi', times='times', y='tr', sub_roi='contacts')
     dt.groupby('roi')
-    pairs = dt.get_connectivity_pairs(nb_min_suj=2, directed=True)
-    print(pairs)
+    # pairs = dt.get_connectivity_pairs(nb_min_suj=2, directed=True)
+    # print(pairs)
