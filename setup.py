@@ -4,7 +4,7 @@
 import os
 from setuptools import setup, find_packages
 
-__version__ = "0.3.5"
+__version__ = "0.3.6"
 NAME = 'frites'
 AUTHOR = "BraiNets"
 MAINTAINER = "Etienne Combrisson"
