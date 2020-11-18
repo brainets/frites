@@ -121,7 +121,8 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
         logger.info("    Replacing sub roi by categorical integers")
 
         # get unique sub roi and build replacement dict
-        sub_roi_u = np.unique(np.r_[sub_roi], return_index=True)
+        sub_roi_cat = np.r_[tuple([k.squeeze() for k in sub_roi])]
+        sub_roi_u = np.unique(sub_roi_cat, return_index=True)
         repl = {k: v for k, v in zip(*sub_roi_u)}
 
         # replace for each subject
