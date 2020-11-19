@@ -74,7 +74,6 @@ times_p = times[win_sample].mean(1)
 # compute DFC
 dfc, pairs, roi_p = conn_dfc(x, times, roi, win_sample, n_jobs=1)
 
-# sphinx_gallery_thumbnail_number = 2
 plt.figure(figsize=(10, 8))
 plt.plot(times_p, dfc.mean('trials').T)
 plt.xlabel('Time')
