@@ -3,6 +3,13 @@
 What's new
 ==========
 
+v0.3.6
+------
+* :py:class:`frites.dataset.DatasetEphy` support multi-level anatomical informations (:commit:`3a9ce540`)
+
+New Features
+++++++++++++
+
 v0.3.5
 ------
 
