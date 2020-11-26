@@ -9,6 +9,13 @@ from frites.config import CONFIG
 logger = logging.getLogger("frites")
 
 
+###############################################################################
+###############################################################################
+#                   MNE / XARRAY / NUMPY ---> NUMPY
+###############################################################################
+###############################################################################
+
+
 def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
                verbose=None):
     """Manage inputs conversion for the DatasetEphy.
@@ -180,3 +187,49 @@ def xr_to_arr(x, roi=None, y=None, z=None, times=None, sub_roi=None):
     x = [x[k].data for k in range(len(x))]
 
     return x, roi, y, z, times, sub_roi
+
+
+###############################################################################
+###############################################################################
+#                     MULTI TO UNIVARITE CONDITIONS
+###############################################################################
+###############################################################################
+
+def multi_to_uni_cond_io(y):
+    """Convert a vector of multi-conditions to a single one.
+
+    Parameters
+    ----------
+    y : array_like
+        Multi-variate array of discret values of shape (n_trials, n_conditions)
+
+    Returns
+    -------
+    y : array_like
+        Univariate array of discret values of shape (n_trials, n_conditions)
+    """
+    # evacuate single categories
+    if y.ndim == 1 or (y.shape[1] == 1):
+        return y
+    n_trials, n_cond = y.shape
+
+    # get unique multi-condition patterns
+    idx = np.unique(y, axis=0, return_index=True)[1]
+    u_cat = y[sorted(idx), :]
+
+    # replace multi-conditions with a single integer
+    y_uni = np.zeros((n_trials,), dtype=int)
+    for n_p in range(u_cat.shape[0]):
+        y_uni[np.all(y == u_cat[[n_p], ...], axis=1)] = n_p
+
+    return y_uni
+
+
+
+if __name__ == '__main__':
+    y = np.array([[1, 0, 0, 0, 1, 1, 1, 2, 2],
+                  ['a', 'a', 'a', 'b', 'b', 'b', 1, 1, 1]]).T
+    print(y.shape)
+
+    y_uni = multi_to_uni_cond_io(y)
+    print(np.c_[y, y_uni])
