@@ -7,6 +7,7 @@ from frites.config import CONFIG
 from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
 from frites.utils import parallel_func
+from frites.conn.conn_io import conn_io
 
 
 
@@ -304,12 +305,8 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     dt, lag, step, trials = int(dt), int(lag), int(step), None
     # handle dataarray input
     if isinstance(data, xr.DataArray):
-        if isinstance(roi, str):
-            roi = data[roi].data
-        if isinstance(times, str):
-            times = data[times].data
         trials = data['trials'].data
-        data = data.data
+    data, roi, times = conn_io(data, roi=roi, times=times, verbose=verbose)
     # force C contiguous array because operations on row-major
     if not data.flags.c_contiguous:
         data = np.ascontiguousarray(data)
