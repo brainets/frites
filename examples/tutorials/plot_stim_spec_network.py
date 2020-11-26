@@ -148,7 +148,8 @@ win_sample = define_windows(times, slwin_len=slwin_len,
 # compute the DFC for each subject
 dfc = []
 for n_s in range(n_subjects):
-    _dfc = conn_dfc(x[n_s].data, times, roi, win_sample, verbose=False)[0]
+    _dfc = conn_dfc(x[n_s].data, win_sample, times=times, roi=roi,
+                    verbose=False)[0]
     # reset trials dimension
     _dfc['trials'] = x[n_s]['trials'].data
     dfc += [_dfc]

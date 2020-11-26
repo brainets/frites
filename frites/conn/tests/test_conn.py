@@ -44,9 +44,9 @@ class TestConn(object):
         roi = [f"roi_{k}" for k in range(n_roi)]
         x = np.random.rand(n_epochs, n_roi, n_times)
 
-        dfc = conn_dfc(x, times, roi, win_sample)[0]
+        dfc = conn_dfc(x, win_sample, times=times, roi=roi)[0]
         assert dfc.shape == (n_epochs, 3, 2)
-        dfc = conn_dfc(x, times, roi, win_sample)[0]
+        dfc = conn_dfc(x, win_sample, times=times, roi=roi)[0]
         assert isinstance(dfc, xr.DataArray)
 
     def test_conn_covgc(self):
@@ -75,7 +75,7 @@ class TestConn(object):
         roi = [f"roi_{k}" for k in range(n_roi)]
         order = ['roi_2', 'roi_1']
         x = np.random.rand(n_epochs, n_roi, n_times)
-        dfc = conn_dfc(x, times, roi, win_sample)[0].mean('trials')
+        dfc = conn_dfc(x, win_sample, times=times, roi=roi)[0].mean('trials')
         # reshape it without the time dimension
         dfc_mean = conn_reshape_undirected(dfc.mean('times'))
         assert dfc_mean.shape == (n_roi, n_roi, 1)

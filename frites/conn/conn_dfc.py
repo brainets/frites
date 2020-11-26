@@ -7,11 +7,14 @@ from frites.core import mi_nd_gg, copnorm_nd
 from frites.config import CONFIG
 from frites.utils import parallel_func
 
+from frites.conn.conn_io import conn_io
+
 from mne.utils import ProgressBar
 
 
 
-def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=True, verbose=None):
+def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
+             verbose=None):
     """Compute the Dynamic Functional Connectivity using the GCMI.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
@@ -24,14 +27,14 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=True, verbose=None):
     data : array_like
         Electrophysiological data array of a single subject organized as
         (n_epochs, n_roi, n_times)
-    times : array_like
-        Time vector array of shape (n_times,)
-    roi : array_like
-        ROI names of a single subject
     win_sample : array_like
         Array of shape (n_windows, 2) describing where each window start and
         finish. You can use the function :func:`frites.utils.define_windows`
         to define either manually either sliding windows.
+    times : array_like | None
+        Time vector array of shape (n_times,)
+    roi : array_like | None
+        ROI names of a single subject
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
@@ -55,8 +58,11 @@ def conn_dfc(data, times, roi, win_sample, n_jobs=1, gcrn=True, verbose=None):
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
+    # inputs conversion
+    da, roi, times = conn_io(data, roi=roi, times=times, verbose=verbose)
+
+    # -------------------------------------------------------------------------
     # data checking
-    assert isinstance(data, np.ndarray) and (data.ndim == 3)
     n_epochs, n_roi, n_pts = data.shape
     assert (len(roi) == n_roi) and (len(times) == n_pts)
     assert isinstance(win_sample, np.ndarray) and (win_sample.ndim == 2)

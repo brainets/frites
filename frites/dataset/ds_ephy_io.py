@@ -3,10 +3,8 @@ import logging
 
 import numpy as np
 
-from frites.io import set_log_level
+from frites.io import set_log_level, logger
 from frites.config import CONFIG
-
-logger = logging.getLogger("frites")
 
 
 ###############################################################################
