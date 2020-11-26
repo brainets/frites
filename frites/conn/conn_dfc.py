@@ -59,7 +59,7 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
     set_log_level(verbose)
     # -------------------------------------------------------------------------
     # inputs conversion
-    da, roi, times = conn_io(data, roi=roi, times=times, verbose=verbose)
+    data, roi, times = conn_io(data, roi=roi, times=times, verbose=verbose)
 
     # -------------------------------------------------------------------------
     # data checking
