@@ -60,8 +60,8 @@ x[:, [0], slice(599, 799)] += x[:, [0], slice(600, 800)]
 t0 = np.arange(100, 900, 10)
 lag = 10
 dt = 100
-gc, pairs, roi_p, times_p = conn_covgc(x, dt, lag, t0, times=times, roi=roi,
-                                       n_jobs=1)
+gc = conn_covgc(x, dt, lag, t0, times=times, roi=roi, n_jobs=1)
+roi_p = gc['roi'].data
 
 ###############################################################################
 # Below we plot the mean time series of both directed and undirected covgc

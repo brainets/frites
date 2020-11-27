@@ -93,10 +93,10 @@ causality (i.e conditioning by the past coming from other sources)
     kw_gc = dict(dt=dt, lag=lag, step=1, t0=t0, roi='roi', times='times',
                  n_jobs=-1)
     # granger causality
-    gc = conn_covgc(ar, conditional=False, **kw_gc)[0]
+    gc = conn_covgc(ar, conditional=False, **kw_gc)
 
     # conditional granger causality
-    gc_cond = conn_covgc(ar, conditional=True, **kw_gc)[0]
+    gc_cond = conn_covgc(ar, conditional=True, **kw_gc)
 
 
 
@@ -109,8 +109,8 @@ causality (i.e conditioning by the past coming from other sources)
 
  .. code-block:: none
 
-      0%|          |  : 0/3 [00:00<?,       ?it/s]    100%|##########|  : 3/3 [00:00<00:00, 3782.06it/s]
-      0%|          |  : 0/3 [00:00<?,       ?it/s]    100%|##########|  : 3/3 [00:00<00:00, 4981.36it/s]
+      0%|          |  : 0/3 [00:00<?,       ?it/s]    100%|##########|  : 3/3 [00:00<00:00, 4518.10it/s]
+      0%|          |  : 0/3 [00:00<?,       ?it/s]    100%|##########|  : 3/3 [00:00<00:00, 3129.30it/s]
 
 
 
@@ -209,7 +209,7 @@ granger and conditional granger causality
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  20.033 seconds)
+   **Total running time of the script:** ( 0 minutes  19.013 seconds)
 
 
 .. _sphx_glr_download_auto_examples_armodel_plot_ar_condcovgc.py:

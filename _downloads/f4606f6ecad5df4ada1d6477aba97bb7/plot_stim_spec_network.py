@@ -148,7 +148,8 @@ win_sample = define_windows(times, slwin_len=slwin_len,
 # compute the DFC for each subject
 dfc = []
 for n_s in range(n_subjects):
-    _dfc = conn_dfc(x[n_s].data, times, roi, win_sample, verbose=False)[0]
+    _dfc = conn_dfc(x[n_s].data, win_sample, times=times, roi=roi,
+                    verbose=False)
     # reset trials dimension
     _dfc['trials'] = x[n_s]['trials'].data
     dfc += [_dfc]
@@ -192,7 +193,7 @@ t0 = np.arange(lag, len(times) - dt, step)
 gc = []
 for n_s in range(n_subjects):
     _gc = conn_covgc(x[n_s], roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                     n_jobs=1)[0]
+                     n_jobs=1)
     gc += [_gc]
 gc_times, gc_roi = _gc['times'].data, _gc['roi'].data
 

@@ -69,7 +69,7 @@ lag = 5
 step = 2
 t0 = np.arange(lag, ar.shape[-1] - dt, step)
 gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                n_jobs=-1)[0]
+                n_jobs=-1)
 
 # sphinx_gallery_thumbnail_number = 4
 plt.figure(figsize=(12, 10))

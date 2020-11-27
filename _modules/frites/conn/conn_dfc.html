@@ -186,40 +186,41 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -265,11 +266,14 @@
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
 <span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span>
 
+<span class="kn">from</span> <span class="nn">frites.conn.conn_io</span> <span class="kn">import</span> <span class="n">conn_io</span>
+
 <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
 
 
 
-<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the Dynamic Functional Connectivity using the GCMI.</span>
 
 <span class="sd">    This function computes the Dynamic Functional Connectivity (DFC) using the</span>
@@ -282,14 +286,14 @@
 <span class="sd">    data : array_like</span>
 <span class="sd">        Electrophysiological data array of a single subject organized as</span>
 <span class="sd">        (n_epochs, n_roi, n_times)</span>
-<span class="sd">    times : array_like</span>
-<span class="sd">        Time vector array of shape (n_times,)</span>
-<span class="sd">    roi : array_like</span>
-<span class="sd">        ROI names of a single subject</span>
 <span class="sd">    win_sample : array_like</span>
 <span class="sd">        Array of shape (n_windows, 2) describing where each window start and</span>
 <span class="sd">        finish. You can use the function :func:`frites.utils.define_windows`</span>
 <span class="sd">        to define either manually either sliding windows.</span>
+<span class="sd">    times : array_like | None</span>
+<span class="sd">        Time vector array of shape (n_times,)</span>
+<span class="sd">    roi : array_like | None</span>
+<span class="sd">        ROI names of a single subject</span>
 <span class="sd">    n_jobs : int | 1</span>
 <span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">        jobs). The parallel loop is set at the pair level.</span>
@@ -302,10 +306,6 @@
 <span class="sd">    -------</span>
 <span class="sd">    dfc : array_like</span>
 <span class="sd">        The DFC array of shape (n_epochs, n_pairs, n_windows)</span>
-<span class="sd">    pairs : array_like</span>
-<span class="sd">        Array of pairs of shape (n_pairs, 2)</span>
-<span class="sd">    roi_p : array_like</span>
-<span class="sd">        Array of shape (n_pairs,) describing the name of each pair</span>
 
 <span class="sd">    See also</span>
 <span class="sd">    --------</span>
@@ -313,8 +313,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
     <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># inputs conversion</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">trials</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">conn_io</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
+                                              <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># data checking</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_pts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_roi</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_pts</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">win_sample</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">win_sample</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
@@ -352,17 +356,15 @@
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># dataarray conversion</span>
-    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
     <span class="n">win_times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span>
-    <span class="n">dfc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">dfc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
+    <span class="n">dfc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">dfc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dfc&#39;</span><span class="p">,</span>
                        <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">win_times</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
     <span class="c1"># add the windows used in the attributes</span>
-    <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;win_sample&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_sample</span><span class="p">)]</span>
-    <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;win_times&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_times</span><span class="p">)]</span>
-    <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dfc&#39;</span>
-    <span class="n">dfc</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dfc&#39;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">win_sample</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_sample</span><span class="p">)],</span>
+               <span class="n">win_times</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_times</span><span class="p">)],</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dfc&#39;</span><span class="p">)</span>
+    <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">cfg</span><span class="p">,</span> <span class="o">**</span><span class="n">attrs</span><span class="p">}</span>
 
-    <span class="k">return</span> <span class="n">dfc</span><span class="p">,</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">roi_p</span></div>
+    <span class="k">return</span> <span class="n">dfc</span></div>
 </pre></div>
 
     </div>
@@ -389,7 +391,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-11-26.</p>
+        <p>&copy; Copyright Last updated on 2020-11-27.</p>
     </footer>
 
   </body>
