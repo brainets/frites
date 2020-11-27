@@ -284,8 +284,6 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
             * 0 : pairs[:, 0] -> pairs[:, 1] (x->y)
             * 1 : pairs[:, 1] -> pairs[:, 0] (y->x)
             * 2 : instantaneous  (x.y)
-    pairs : array_like
-        Array of pairs of shape (n_pairs, 2)
 
     References
     ----------
@@ -304,15 +302,12 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     t0 = np.asarray(t0).astype(int)
     dt, lag, step, trials = int(dt), int(lag), int(step), None
     # handle dataarray input
-    if isinstance(data, xr.DataArray):
-        trials = data['trials'].data
-    data, roi, times = conn_io(data, roi=roi, times=times, verbose=verbose)
+    data, trials, roi, times, attrs = conn_io(data, roi=roi, times=times,
+                                              verbose=verbose)
     # force C contiguous array because operations on row-major
     if not data.flags.c_contiguous:
         data = np.ascontiguousarray(data)
     n_epochs, n_roi, n_times = data.shape
-    if trials is None:
-        trials = np.arange(n_epochs)
     # default roi vector
     if roi is None:
         roi = np.array([f"roi_{k}" for k in range(n_roi)])
@@ -370,17 +365,13 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     # change output type
     dire = np.array(['x->y', 'y->x', 'x.y'])
     gc = xr.DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
-                      coords=(trials, roi_p, times_p, dire))
+                      coords=(trials, roi_p, times_p, dire), name='covgc')
     # set attributes
-    gc.attrs['lag'] = lag
-    gc.attrs['step'] = step
-    gc.attrs['dt'] = dt
-    gc.attrs['t0'] = t0
-    gc.attrs['conditional'] = conditional
-    gc.attrs['type'] = 'covgc'
-    gc.name = 'covgc'
+    cfg = dict(lag='lag', step='step', dt='dt', t0='t0',
+               conditional='conditional', type='covgc')
+    gc.attrs = {**attrs, **cfg}
 
-    return gc, pairs, roi_p, times_p
+    return gc
 
 
 if __name__ == '__main__':
@@ -388,7 +379,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     ss = StimSpecAR()
-    ar = ss.fit(ar_type='ding_3', n_stim=2, n_epochs=20)
+    ar = ss.fit(ar_type='ding_3_direct', n_stim=2, n_epochs=20)
     # plot the model
     # plt.figure(figsize=(7, 8))
     # ss.plot()
@@ -396,6 +387,6 @@ if __name__ == '__main__':
     dt, lag, step = 50, 5, 2
     t0 = np.arange(lag, ar.shape[-1] - dt, step)
     gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                    n_jobs=-1, conditional=False)[0]
+                    n_jobs=-1, conditional=False)
     ss.plot_covgc(gc=gc)
     plt.show()

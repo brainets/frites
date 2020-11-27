@@ -44,9 +44,9 @@ class TestConn(object):
         roi = [f"roi_{k}" for k in range(n_roi)]
         x = np.random.rand(n_epochs, n_roi, n_times)
 
-        dfc = conn_dfc(x, win_sample, times=times, roi=roi)[0]
+        dfc = conn_dfc(x, win_sample, times=times, roi=roi)
         assert dfc.shape == (n_epochs, 3, 2)
-        dfc = conn_dfc(x, win_sample, times=times, roi=roi)[0]
+        dfc = conn_dfc(x, win_sample, times=times, roi=roi)
         assert isinstance(dfc, xr.DataArray)
 
     def test_conn_covgc(self):
@@ -59,12 +59,12 @@ class TestConn(object):
         lag = 2
         t0 = [50, 80]
 
-        _ = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc')[0]
-        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gauss')[0]
+        _ = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc')
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gauss')
         assert gc.shape == (n_epochs, 3, len(t0), 3)
         assert isinstance(gc, xr.DataArray)
         gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc',
-                        conditional=True)[0]
+                        conditional=True)
 
     def test_conn_reshape_undirected(self):
         """Test function conn_reshape_undirected."""
@@ -75,7 +75,7 @@ class TestConn(object):
         roi = [f"roi_{k}" for k in range(n_roi)]
         order = ['roi_2', 'roi_1']
         x = np.random.rand(n_epochs, n_roi, n_times)
-        dfc = conn_dfc(x, win_sample, times=times, roi=roi)[0].mean('trials')
+        dfc = conn_dfc(x, win_sample, times=times, roi=roi).mean('trials')
         # reshape it without the time dimension
         dfc_mean = conn_reshape_undirected(dfc.mean('times'))
         assert dfc_mean.shape == (n_roi, n_roi, 1)
@@ -98,7 +98,7 @@ class TestConn(object):
         dt, lag, t0 = 10, 2, [50, 80]
         order = ['roi_2', 'roi_1']
         # compute covgc
-        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gauss')[0]
+        gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gauss')
         gc = gc.mean('trials')
         # reshape it without the time dimension
         gc_mean = conn_reshape_directed(gc.copy().mean('times'))

@@ -315,8 +315,8 @@ class StimSpecAR(object):
         """
         # compute the granger causality
         t0 = np.arange(lag, ar.shape[-1] - dt, step)
-        gc, _, _, _ = conn_covgc(ar, dt, lag, t0, times='times', method=method,
-                                 roi='roi', step=1, conditional=conditional)
+        gc = conn_covgc(ar, dt, lag, t0, times='times', method=method,
+                        roi='roi', step=1, conditional=conditional)
         gc['trials'] = ar['trials']
         self._gc = gc
         # compute the MI between stimulus / raw

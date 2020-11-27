@@ -72,7 +72,8 @@ times_p = times[win_sample].mean(1)
 # each of the temporal window
 
 # compute DFC
-dfc, pairs, roi_p = conn_dfc(x, win_sample, times=times, roi=roi, n_jobs=1)
+dfc = conn_dfc(x, win_sample, times=times, roi=roi, n_jobs=1)
+print(dfc)
 
 plt.figure(figsize=(10, 8))
 plt.plot(times_p, dfc.mean('trials').T)

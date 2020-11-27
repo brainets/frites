@@ -47,10 +47,6 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
     -------
     dfc : array_like
         The DFC array of shape (n_epochs, n_pairs, n_windows)
-    pairs : array_like
-        Array of pairs of shape (n_pairs, 2)
-    roi_p : array_like
-        Array of shape (n_pairs,) describing the name of each pair
 
     See also
     --------
@@ -59,7 +55,8 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
     set_log_level(verbose)
     # -------------------------------------------------------------------------
     # inputs conversion
-    data, roi, times = conn_io(data, roi=roi, times=times, verbose=verbose)
+    data, trials, roi, times, attrs = conn_io(data, roi=roi, times=times,
+                                              verbose=verbose)
 
     # -------------------------------------------------------------------------
     # data checking
@@ -100,14 +97,12 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
 
     # -------------------------------------------------------------------------
     # dataarray conversion
-    trials = np.arange(n_epochs)
     win_times = times[win_sample]
-    dfc = xr.DataArray(dfc, dims=('trials', 'roi', 'times'),
+    dfc = xr.DataArray(dfc, dims=('trials', 'roi', 'times'), name='dfc',
                        coords=(trials, roi_p, win_times.mean(1)))
     # add the windows used in the attributes
-    dfc.attrs['win_sample'] = np.r_[tuple(win_sample)]
-    dfc.attrs['win_times'] = np.r_[tuple(win_times)]
-    dfc.attrs['type'] = 'dfc'
-    dfc.name = 'dfc'
+    cfg = dict(win_sample=np.r_[tuple(win_sample)],
+               win_times=np.r_[tuple(win_times)], type='dfc')
+    dfc.attrs = {**cfg, **attrs}
 
-    return dfc, pairs, roi_p
+    return dfc
