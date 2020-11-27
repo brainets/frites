@@ -52,10 +52,10 @@ t0 = np.arange(lag, ar.shape[-1] - dt, step)
 kw_gc = dict(dt=dt, lag=lag, step=1, t0=t0, roi='roi', times='times',
              n_jobs=-1)
 # granger causality
-gc = conn_covgc(ar, conditional=False, **kw_gc)[0]
+gc = conn_covgc(ar, conditional=False, **kw_gc)
 
 # conditional granger causality
-gc_cond = conn_covgc(ar, conditional=True, **kw_gc)[0]
+gc_cond = conn_covgc(ar, conditional=True, **kw_gc)
 
 
 ###############################################################################
