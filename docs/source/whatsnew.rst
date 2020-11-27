@@ -5,10 +5,14 @@ What's new
 
 v0.3.6
 ------
-* :py:class:`frites.dataset.DatasetEphy` support multi-level anatomical informations (:commit:`3a9ce540`)
 
 New Features
 ++++++++++++
+* :py:class:`frites.dataset.DatasetEphy` support multi-level anatomical informations (:commit:`3a9ce540`)
+
+Internal Changes
+++++++++++++++++
+* Connectivity functions have a better support of Xarray inputs (:commit:`60cc16`, :commit:`b72d1519`, :commit:`3d24c98`, :commit:`65bf08`)
 
 v0.3.5
 ------
