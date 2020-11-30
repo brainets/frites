@@ -13,6 +13,7 @@ New Features
 Internal Changes
 ++++++++++++++++
 * Connectivity functions have a better support of Xarray inputs (:commit:`60cc16`, :commit:`b72d1519`, :commit:`3d24c98`, :commit:`65bf08`)
+* Replace every string comparison 'is' with '==' to test the content (:commit:`1337aa6e`)
 
 v0.3.5
 ------

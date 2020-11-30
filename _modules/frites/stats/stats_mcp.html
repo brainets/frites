@@ -322,7 +322,7 @@
 
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># mcp correction</span>
-    <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">mcp</span> <span class="o">==</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">:</span>
         <span class="n">x_p_sh</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">n_perm</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
         <span class="c1"># maximum over all dimensions except the perm one</span>
         <span class="n">x_p</span> <span class="o">=</span> <span class="n">x_p</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_perm</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="n">x_p_sh</span><span class="p">)</span>
@@ -330,9 +330,9 @@
         <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">n_perm</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
-        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;fdr&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="o">==</span> <span class="s1">&#39;fdr&#39;</span><span class="p">:</span>
             <span class="n">pv</span> <span class="o">=</span> <span class="n">fdr_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">is</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mcp</span> <span class="o">==</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">:</span>
             <span class="n">pv</span> <span class="o">=</span> <span class="n">bonferroni_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 
@@ -547,7 +547,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-11-27.</p>
+        <p>&copy; Copyright Last updated on 2020-11-30.</p>
     </footer>
 
   </body>
