@@ -76,9 +76,9 @@ class StimSpecAR(object):
         kw_noise = dict(size=(n_epochs_tot, n_times), loc=0,
                         random_state=random_state)
 
-        if ar_type is 'hga':
+        if ar_type == 'hga':
             self._lab = 'Evoked HGA'
-        elif ar_type is 'osc_20':
+        elif ar_type == 'osc_20':
             self._lab = '20Hz oscillations'
         elif ar_type in ['osc_40', 'osc_40_3']:
             self._lab = '40Hz oscillations'
@@ -163,7 +163,7 @@ class StimSpecAR(object):
                     x[:, _sl_a12] @ a12)
             # concatenate everything
             dat, roi = np.stack((x, y), axis=1), ['x', 'y']
-        elif ar_type is 'osc_40_3':
+        elif ar_type == 'osc_40_3':
             n1, n2, n3 = self._generate_noise(var=[.05] * 3, **kw_noise)
             c2 = self._n_std_gain(c, n2, n_std)
             c3 = self._n_std_gain(c, n3, n_std)
@@ -176,7 +176,7 @@ class StimSpecAR(object):
                 z[:, t] = n3[:, t] + .35 * z[:, t - 1] - .5 * z[:, t - 2] + (
                     c3[:, t] * (.5 * x[:, t - 1]))
             dat, roi = np.stack((x, y, z), axis=1), ['x', 'y', 'z']
-        elif ar_type is 'ding_2':
+        elif ar_type == 'ding_2':
             n1, n2 = self._generate_noise(var=[1., .7], **kw_noise)
             c2 = self._n_std_gain(c, n2, n_std)
 
@@ -194,10 +194,10 @@ class StimSpecAR(object):
 
             x, y, z = n1, n2, n3
             for t in range(2, n_times):
-                if ar_type is 'ding_3_indirect':
+                if ar_type == 'ding_3_indirect':
                     x[:, t] = .8 * x[:, t - 1] - .5 * x[:, t - 2] + c1[
                         :, t] * (.4 * z[:, t - 1]) + n1[:, t]
-                elif ar_type is 'ding_3_direct':
+                elif ar_type == 'ding_3_direct':
                     x[:, t] = .8 * x[:, t - 1] - .5 * x[:, t - 2] + c1[
                         :, t] * (.4 * z[:, t - 1] + .2 * y[:, t - 2]) + n1[
                         :, t]
@@ -206,7 +206,7 @@ class StimSpecAR(object):
                     .5 * y[:, t - 1]) + n3[:, t]
             dat, roi = np.stack((x, y, z), axis=1), ['x', 'y', 'z']
             ar_type = 'ding_3'
-        elif ar_type is 'ding_5':
+        elif ar_type == 'ding_5':
             n1, n2, n3, n4, n5 = self._generate_noise(var=[.6, .5, .3, .3, .6],
                                                       **kw_noise)
             c2 = self._n_std_gain(c, n2, n_std)
@@ -411,20 +411,20 @@ class StimSpecAR(object):
             lab = self._lab
             edge_labels = {('X', 'Y'): lab + f"\n(n_stim={self._n_stim}, "
                 f"n_std={self._n_std})"}
-        elif self._ar_type is 'osc_40_3':
+        elif self._ar_type == 'osc_40_3':
             G.add_edges_from([('X', 'Y')], weight=1)
             G.add_edges_from([('X', 'Z')], weight=1)
             lab = self._lab
             edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}" for
                 u, v, d in G.edges(data=True)}
         elif self._ar_type in ['ding_2', 'ding_3', 'ding_5']:
-            if self._ar_type is 'ding_2':
+            if self._ar_type == 'ding_2':
                 G.add_edges_from([('X', 'Y')], weight=1)
-            elif self._ar_type is 'ding_3':
+            elif self._ar_type == 'ding_3':
                 G.add_edges_from([('Y', 'X')], weight=5)
                 G.add_edges_from([('Y', 'Z')], weight=6)
                 G.add_edges_from([('Z', 'X')], weight=4)
-            elif self._ar_type is 'ding_5':
+            elif self._ar_type == 'ding_5':
                 G.add_edges_from([('X1', 'X2'), ('X1', 'X3'), ('X1', 'X4')],
                                  weight=5)
                 G.add_edges_from([('X4', 'X5')], weight=2)
@@ -433,9 +433,9 @@ class StimSpecAR(object):
             edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}" for
                 u, v, d in G.edges(data=True)}
             # fix ding_5 for bidirectional connectivity between 4 <-> 5
-            if self._ar_type is 'ding_3':
+            if self._ar_type == 'ding_3':
                 edge_labels[('Y', 'X')] = "indirect\n(mediated by Z)"
-            elif self._ar_type is 'ding_5':
+            elif self._ar_type == 'ding_5':
                 edge_labels[('X5', 'X4')] = (r"X4$\rightarrow$X5=2" + "\n" +
                                              r'X5$\rightarrow$X4=1')
 

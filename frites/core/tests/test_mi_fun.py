@@ -27,7 +27,7 @@ class TestMiFun(object):  # noqa
             for mi in mi_types:
                 fun = mi_funs[mi]
                 for inf in inferences:
-                    y_c = z if mi is 'cd' else y
+                    y_c = z if mi == 'cd' else y
                     fun(x, y_c, z, suj, inf)
         # test mi conn
         x_2 = rnd.rand(n_times, 1, n_epochs)
@@ -54,9 +54,9 @@ class TestMiFun(object):  # noqa
             assert len(y_p) == n_perm
 
             # rfx testing
-            if inf is 'ffx':
+            if inf == 'ffx':
                 assert any([k[0:3].max() > 2 for k in y_p])
-            elif inf is 'rfx':
+            elif inf == 'rfx':
                 for k in y_p:
                     assert (k[0:3].min() == 0) and (k[0:3].max() == 2)
                     assert (k[3::].min() == 3) and (k[3::].max() == 5)

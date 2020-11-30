@@ -101,7 +101,7 @@ class WfFit(WfBase):
                     f"n_pairs={len(all_s)})")
         # get the unique subjects across roi (depends on inference type)
         inference = self._inference
-        if inference is 'ffx':
+        if inference == 'ffx':
             sujr = [np.array([0])] * n_roi
         else:
             sujr = dataset.suj_roi_u
@@ -254,9 +254,9 @@ class WfFit(WfBase):
         if isinstance(tvalues, np.ndarray):
             self._tvalues = convert_dfc_outputs(tvalues, *args)
         pvalues = convert_dfc_outputs(pvalues, is_pvalue=True, *args)
-        if inference is 'ffx':
+        if inference == 'ffx':
             fit = np.concatenate(self._fit_roi, axis=0).T  # mi
-        elif inference is 'rfx':
+        elif inference == 'rfx':
             fit = np.stack(self._fit_m, axis=1)     # mean mi
         fit = convert_dfc_outputs(fit, *args)
         # adding attributes

@@ -63,7 +63,7 @@ def testwise_correction_mcp(x, x_p, tail=1, mcp='maxstat'):
 
     # -------------------------------------------------------------------------
     # mcp correction
-    if mcp is 'maxstat':
+    if mcp == 'maxstat':
         x_p_sh = tuple([n_perm] + [1] * (x.ndim - 1))
         # maximum over all dimensions except the perm one
         x_p = x_p.reshape(n_perm, -1).max(1).reshape(*x_p_sh)
@@ -71,9 +71,9 @@ def testwise_correction_mcp(x, x_p, tail=1, mcp='maxstat'):
         pv = np.clip(pv, 1. / n_perm, 1.)
     else:
         pv = (x <= x_p).sum(0) / n_perm
-        if mcp is 'fdr':
+        if mcp == 'fdr':
             pv = fdr_correction(pv, .05)[1]
-        if mcp is 'bonferroni':
+        if mcp == 'bonferroni':
             pv = bonferroni_correction(pv, .05)[1]
     pv = np.clip(pv, 0., 1.)
 

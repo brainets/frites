@@ -32,13 +32,13 @@ def convert_spatiotemporal_outputs(arr, times, roi, astype='array'):
     # output conversion
     force_np = not is_pandas_installed() and not is_xarray_installed()
     astype = 'array' if force_np else astype
-    if astype is 'array':                     # numpy
+    if astype == 'array':                     # numpy
         return arr
-    elif astype is 'dataframe':               # pandas
+    elif astype == 'dataframe':               # pandas
         is_pandas_installed(raise_error=True)
         import pandas as pd
         return pd.DataFrame(arr, index=times, columns=roi)
-    elif astype is 'dataarray':               # xarray
+    elif astype == 'dataarray':               # xarray
         is_xarray_installed(raise_error=True)
         from xarray import DataArray
         return DataArray(arr, dims=('times', 'roi'), coords=(times, roi))
@@ -105,22 +105,22 @@ def convert_dfc_outputs(arr, times, roi, sources, targets, astype='2d_array',
     force_np = not is_pandas_installed() and not is_xarray_installed()
     astype = '2d_array' if force_np else astype
 
-    if astype is '2d_array':
+    if astype == '2d_array':
         return arr
-    elif astype is '3d_array':
+    elif astype == '3d_array':
         out = empty_fcn((len(roi), len(roi), n_times))
         out[sources, targets, :] = arr.T
         return out
-    elif astype is '2d_dataframe':
+    elif astype == '2d_dataframe':
         import pandas as pd
         columns = [(s, t) for s, t in zip(s_roi, t_roi)]
         return pd.DataFrame(arr, index=times, columns=columns)
-    elif astype is '3d_dataframe':
+    elif astype == '3d_dataframe':
         import pandas as pd
         idx = pd.MultiIndex.from_arrays([s_roi, t_roi],
                                         names=['source', 'target'])
         return pd.DataFrame(arr, index=times, columns=idx)
-    elif astype is 'dataarray':
+    elif astype == 'dataarray':
         from xarray import DataArray
         out = empty_fcn((len(roi), len(roi), n_times))
         out[sources, targets, :] = arr.T

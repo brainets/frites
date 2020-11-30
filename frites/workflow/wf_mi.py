@@ -72,7 +72,7 @@ class WfMi(WfBase):
         self._inference = inference
         self._mi_method = mi_method
         self._need_copnorm = mi_method == 'gc'
-        self._gcrn = inference is 'rfx'
+        self._gcrn = inference == 'rfx'
         self._kernel = kernel
         set_log_level(verbose)
         self.clean()
@@ -230,7 +230,7 @@ class WfMi(WfBase):
         if mcp in ['noperm', None]:
             n_perm = 0
         # infer the number of bins if needed
-        if (self._mi_method is 'bin') and not isinstance(n_bins, int):
+        if (self._mi_method == 'bin') and not isinstance(n_bins, int):
             n_bins = 4
             logger.info(f"    Use an automatic number of bins of {n_bins}")
         self._n_bins = n_bins
@@ -253,7 +253,7 @@ class WfMi(WfBase):
         permuted mi but then, the statistics at the local representation mcp
         are discarded in favor of statistics on the information transfer
         """
-        if mcp is 'nostat':
+        if mcp == 'nostat':
             logger.debug("Permutations computed. Stop there")
             return None
 
@@ -288,7 +288,7 @@ class WfMi(WfBase):
         if isinstance(tvalues, np.ndarray):
             self._tvalues = self._xr_conversion(tvalues, 'tvalues')
         # mean mi across subjects
-        if self._inference is 'rfx':
+        if self._inference == 'rfx':
             logger.info("    Mean mi across subjects")
             mi = [k.mean(axis=0, keepdims=True) for k in mi]
         mi = np.moveaxis(np.concatenate(mi, axis=0), 0, -1)

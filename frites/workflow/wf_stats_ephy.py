@@ -110,7 +110,7 @@ class WfStatsEphy(WfBase):
         # FFX / RFX
         # ---------------------------------------------------------------------
         nb_suj_roi = [k.shape[0] for k in effect]
-        if inference is 'ffx':
+        if inference == 'ffx':
             # check that the number of subjects is 1
             ffx_suj = np.max(nb_suj_roi) == 1
             assert ffx_suj, "For FFX, `n_subjects` should be 1"
@@ -118,7 +118,7 @@ class WfStatsEphy(WfBase):
             logger.info("    Fixed-effect inference (FFX)")
             # es = (n_roi, n_times); es_p = (n_perm, n_roi, n_times)
             es, es_p = np.concatenate(es, axis=0), np.concatenate(es_p, axis=1)
-        elif inference is 'rfx':
+        elif inference == 'rfx':
             if ttested:
                 es = np.concatenate(effect, axis=0)
                 es_p = np.concatenate(perms, axis=1)
@@ -136,11 +136,11 @@ class WfStatsEphy(WfBase):
         # ---------------------------------------------------------------------
         # cluster forming threshold
         # ---------------------------------------------------------------------
-        if mcp is 'cluster':
+        if mcp == 'cluster':
             if isinstance(cluster_th, (int, float)):
                 th, tfce = cluster_th, None
             else:
-                if (cluster_th is 'tfce'):          # TFCE auto
+                if (cluster_th == 'tfce'):          # TFCE auto
                     tfce = True
                 elif isinstance(cluster_th, dict):  # TFCE manual
                     tfce = cluster_th
@@ -154,7 +154,7 @@ class WfStatsEphy(WfBase):
         # ---------------------------------------------------------------------
         # test-wise or cluster-based correction for multiple comparisons
         # ---------------------------------------------------------------------
-        if mcp is 'cluster':
+        if mcp == 'cluster':
             logger.info('    Inference at cluster-level')
             pvalues = cluster_correction_mcp(es, es_p, th, tail=tail)
         else:

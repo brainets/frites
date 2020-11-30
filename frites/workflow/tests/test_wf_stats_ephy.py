@@ -54,10 +54,10 @@ class TestWfStatsEphy(object):  # noqa
 
         for inf, mcp in prod:
             # data selection
-            if inf is 'ffx': x, x_p = effect_ffx, perms_ffx  # noqa
-            elif inf is 'rfx': x, x_p = effect_rfx, perms_rfx  # noqa
+            if inf == 'ffx': x, x_p = effect_ffx, perms_ffx  # noqa
+            elif inf == 'rfx': x, x_p = effect_rfx, perms_rfx  # noqa
             # threshold definition
-            if mcp is 'cluster':
+            if mcp == 'cluster':
                 cluster_th = [None, 'tfce']
             else:
                 cluster_th = [None]
@@ -76,4 +76,4 @@ class TestWfStatsEphy(object):  # noqa
                 pv, tv = wf.fit(x, x_p, **kw)
                 self._testing(gt_bot.T, pv, kw)
 
-        assert wf.cluster_th is 'tfce'
+        assert wf.cluster_th == 'tfce'
