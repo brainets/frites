@@ -104,6 +104,7 @@ Thanks goes to these wonderful people (`emoji key`_):
     <td align="center"><a href="https://github.com/StanSStanman"><img src="https://avatars1.githubusercontent.com/u/26648765?v=4" width="100px;" alt=""/><br /><sub><b>Ruggero Basanisi</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=StanSStanman" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ViniciusLima94"><img src="https://avatars3.githubusercontent.com/u/17538901?v=4" width="100px;" alt=""/><br /><sub><b>Vinícius Lima</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=ViniciusLima94" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/tprzybyl"><img src="https://avatars1.githubusercontent.com/u/58084045?v=4" width="100px;" alt=""/><br /><sub><b>tprzybyl</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=tprzybyl" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/EtienneCmb"><img src="https://avatars3.githubusercontent.com/u/15892073?v=4" width="100px;" alt=""/><br /><sub><b>Etienne Combrisson</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=EtienneCmb" title="Code">💻</a></td>
   </tr>
 </table>
 
