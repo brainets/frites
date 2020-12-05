@@ -86,3 +86,18 @@ For developers, you can install frites in develop mode with the following comman
     cd frites
     python setup.py develop
 
+
+Contributors ✨
+--------------
+
+Thanks goes to these wonderful people (`emoji key`_):
+
+.. _emoji key: https://allcontributors.org/docs/en/emoji-key
+
+.. raw:: html
+   <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+   <table>
+     # ...
+   </table>
+
+   <!-- ALL-CONTRIBUTORS-LIST:END -->
