@@ -97,8 +97,19 @@ Thanks goes to these wonderful people (`emoji key`_):
 .. raw:: html
 
    <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-   <table>
-     # ...
-   </table>
+  <!-- prettier-ignore-start -->
+  <!-- markdownlint-disable -->
+  <table>
+    <tr>
+      <td align="center"><a href="https://github.com/EtienneCmb"><img src="https://avatars3.githubusercontent.com/u/15892073?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Etienne Combrisson</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=EtienneCmb" title="Code">💻</a> <a href="#design-EtienneCmb" title="Design">🎨</a> <a href="#example-EtienneCmb" title="Examples">💡</a> <a href="#maintenance-EtienneCmb" title="Maintenance">🚧</a> <a href="#mentoring-EtienneCmb" title="Mentoring">🧑‍🏫</a> <a href="#projectManagement-EtienneCmb" title="Project Management">📆</a></td>
+      <td align="center"><a href="http://andrea-brovelli.net/"><img src="https://avatars0.githubusercontent.com/u/19585963?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrea Brovelli</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=brovelli" title="Code">💻</a> <a href="#ideas-brovelli" title="Ideas, Planning, & Feedback">🤔</a> <a href="#mentoring-brovelli" title="Mentoring">🧑‍🏫</a> <a href="#projectManagement-brovelli" title="Project Management">📆</a></td>
+      <td align="center"><a href="https://github.com/StanSStanman"><img src="https://avatars1.githubusercontent.com/u/26648765?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ruggero Basanisi</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=StanSStanman" title="Code">💻</a> <a href="#design-StanSStanman" title="Design">🎨</a></td>
+      <td align="center"><a href="https://github.com/ViniciusLima94"><img src="https://avatars3.githubusercontent.com/u/17538901?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vinícius Lima</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=ViniciusLima94" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/tprzybyl"><img src="https://avatars1.githubusercontent.com/u/58084045?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tprzybyl</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=tprzybyl" title="Code">💻</a></td>
+    </tr>
+  </table>
 
-   <!-- ALL-CONTRIBUTORS-LIST:END -->
+  <!-- markdownlint-restore -->
+  <!-- prettier-ignore-end -->
+
+  <!-- ALL-CONTRIBUTORS-LIST:END -->
