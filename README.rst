@@ -111,6 +111,7 @@ Thanks goes to these wonderful people (`emoji key`_):
     </tr>
     <tr>
       <td align="center"><a href="https://github.com/samuelgarcia"><img src="https://avatars1.githubusercontent.com/u/815627?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Garcia Samuel</b></sub></a><br /><a href="#ideas-samuelgarcia" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/brungio"><img src="https://avatars0.githubusercontent.com/u/33055790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>brungio</b></sub></a><br /><a href="https://github.com/brainets/frites/commits?author=brungio" title="Code">💻</a> <a href="#ideas-brungio" title="Ideas, Planning, & Feedback">🤔</a> <a href="#mentoring-brungio" title="Mentoring">🧑‍🏫</a> <a href="#projectManagement-brungio" title="Project Management">📆</a></td>
     </tr>
   </table>
 
