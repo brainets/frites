@@ -3,7 +3,7 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 
-from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc, conn_fit,
+from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc,
                          conn_reshape_undirected, conn_reshape_directed)
 
 
@@ -24,15 +24,6 @@ class TestConn(object):
         te, pairs = conn_transfer_entropy(x, max_delay=max_delay, pairs=pairs)
         assert te.shape == (n_pairs, n_times - max_delay)
         assert pairs.shape == (n_pairs, 2)
-
-    def test_conn_fit(self):
-        """Test function conn_fit."""
-        n_times = 100
-        max_delay = np.float32(.1)
-        times = np.linspace(-1, 1, n_times).astype(np.float32)
-        x_s = np.random.rand(5, 10, n_times).astype(np.float32)
-        x_t = np.random.rand(5, 10, n_times).astype(np.float32)
-        conn_fit(x_s, x_t, times, max_delay)
 
     def test_conn_dfc(self):
         """Test function conn_dfc."""
