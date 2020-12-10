@@ -1,5 +1,13 @@
 {% extends '!layout.html' %}
 
+{% block header %}
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+{% endblock %}
+
 {% block footer %}
     <hr>
     <footer>
@@ -15,7 +23,7 @@
                 <li>·</li>
                 <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
                 <li>·</li>
-                <li style="font-weight:bold"><a href="{{pathto('authors.html', 1) }}">Authors</a></li>
+                <li style="font-weight:bold"><a href="{{pathto('community.html', 1) }}">Community</a></li>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="{{pathto('references.html', 1) }}">References</a></li>
             </ul>

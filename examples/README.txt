@@ -1,5 +1,5 @@
-Frites' examples
-================
+Examples
+========
 
 Illustration of the main functions.
 

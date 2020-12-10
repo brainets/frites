@@ -108,8 +108,9 @@ html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 html_theme = 'bootstrap'
 html_theme_options = {
     'bootstrap_version': "3",
+    'navbar_site_name': "Site",
     'navbar_sidebarrel': False,
-    'navbar_pagenav': False,
+    'navbar_pagenav': True,
     'navbar_pagenav_name': "Page",
     'globaltoc_depth': -1,
     'globaltoc_includehidden': "true",
@@ -118,7 +119,9 @@ html_theme_options = {
     'bootswatch_theme': "readable",
     'navbar_fixed_top': True,
     'navbar_links': [
-        ("Authors", "authors"),
+        ("Overview", "overview"),
+        ("Install", "install"),
+        ("Community", "community"),
         ("API", "api"),
         ("Examples", "auto_examples/index"),
     ],
@@ -194,6 +197,7 @@ html_logo = '_static/frites_128x128.png'
 # 32x32 pixels large.
 html_favicon = '_static/favicon.ico'
 
+html_show_sourcelink = False
 
 # -- Options for LaTeX output ------------------------------------------------
 
