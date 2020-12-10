@@ -9,8 +9,8 @@ from frites.workflow.wf_stats_ephy import WfStatsEphy
 from frites.workflow.wf_base import WfBase
 
 
-class WfConn(WfBase):
-    """Workflow of instantaneous pairwise connectivity and statistics.
+class WfComod(WfBase):
+    """Workflow of instantaneous pairwise comodulations and statistics.
 
     This class allows to define a workflow for computing the instantaneous
     pairwise connectivity using mutual information and then to evaluate the
@@ -224,7 +224,7 @@ class WfConn(WfBase):
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
-                        "computed. Use WfConn.clean to reset "
+                        "computed. Use WfComod.clean to reset "
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:

@@ -38,8 +38,8 @@ Workflow
    :toctree: generated/
 
    WfMi
-   WfConn
    WfStatsEphy
+   WfComod
 
 .. raw:: html
 
