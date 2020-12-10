@@ -80,7 +80,7 @@ In addition to the main dependencies, here's the list of additional packages tha
 
 
 Contributors ✨
---------------
+---------------
 
 Thanks goes to these wonderful people (`emoji key`_):
 
