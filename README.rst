@@ -1,7 +1,3 @@
-======
-frites
-======
-
 .. image:: https://github.com/brainets/frites/workflows/frites/badge.svg
     :target: https://github.com/brainets/frites/workflows/frites
 
@@ -20,33 +16,51 @@ frites
 .. image:: https://pepy.tech/badge/frites
     :target: https://pepy.tech/project/frites
 
-.. figure::  https://github.com/brainets/frites/blob/master/docs/source/_static/frites.png
+.. figure::  https://github.com/brainets/frites/blob/master/docs/source/_static/logo_desc.png
     :align:  center
 
+======
+Frites
+======
 
 Description
 -----------
 
+`Frites <https://brainets.github.io/frites/>`_ is a Python toolbox for assessing information-theorical measures on human and animal neurophysiological data (M/EEG, Intracranial). The aim of Frites is to extract task-related cognitive brain networks (i.e modulated by the task). The toolbox also includes directed and undirected connectivity metrics such as group-level statistics.
 
-**FRITES = Framework for Information Theoretical analysis of Electrophysiological data and Statistics**
+.. figure::  https://github.com/brainets/frites/blob/master/docs/source/_static/network_framework.png
+    :align:  center
 
+Documentation
+-------------
 
-Frites is a python package for analyzing neurophysiological brain data (i.e M/EEG, sEEG / iEEG / ECoG). The package is entirely based on information theoretic measures (such as mutual information (MI)) in order to perform analysis such as :
-
-* "Correlation like" (**I(c; c)** = MI between two continuous variables)
-* "Machine-learning like" (**I(c; d)** = MI between a continuous and a discrete variable)
-* "Partial correlation like" (**I(c; c | d)** = MI between two continuous variables and removing the influence of a discrete one)
-* Information-transfer about a specific feature
-
-For a comprehensive (and extensive) review, see the paper of Robin AA Ince `A statistical framework for neuroimaging data analysis based on mutual information estimated via a gaussian copula <https://www.ncbi.nlm.nih.gov/pubmed/27860095>`_.
-
-Frites also comes with embedded statistics which support fixed and random-effect analysis in combination with inferences either at the single time-point level or at the temporal cluster level.
-
-Take a look at the online documentation and examples to start analyzing your data with Frites : https://brainets.github.io/frites/
-
+Frites documentation is available online at https://brainets.github.io/frites/
 
 Installation
 ------------
+
+Run the following command into your terminal to get the latest stable version :
+
+.. code-block:: shell
+
+    pip install -U frites
+
+
+You can also install the latest version of the software directly from Github :
+
+.. code-block:: shell
+
+    pip install git+https://github.com/brainets/frites.git
+
+
+For developers, you can install it in develop mode with the following commands :
+
+.. code-block:: shell
+
+    git clone https://github.com/brainets/frites.git
+    cd frites
+    python setup.py develop
+    # or : pip install -e .
 
 Dependencies
 ++++++++++++
@@ -55,36 +69,14 @@ The main dependencies of Frites are :
 
 * `Numpy <https://numpy.org/>`_
 * `Scipy <https://www.scipy.org/>`_
-* `MNE <https://mne.tools/stable/index.html>`_
+* `MNE Python <https://mne.tools/stable/index.html>`_
 * `Xarray <http://xarray.pydata.org/en/stable/>`_
 * `Joblib <https://joblib.readthedocs.io/en/latest/>`_
 
 In addition to the main dependencies, here's the list of additional packages that you might need :
 
-* `Numba <http://numba.pydata.org/>`_ : speed computations of some functions
+* `Numba <http://numba.pydata.org/>`_ : speed up the computations of some functions
 * `Matplotlib <https://matplotlib.org/>`_, `Seaborn <https://seaborn.pydata.org/>`_ and `Networkx <https://networkx.github.io/>`_ for plotting the examples
-
-
-User installation
-+++++++++++++++++
-
-Frites can be installed (and/or updated) via pip with the following command :
-
-.. code-block:: shell
-
-    pip install -U frites
-
-
-Developer installation
-++++++++++++++++++++++
-
-For developers, you can install frites in develop mode with the following commands :
-
-.. code-block:: shell
-
-    git clone https://github.com/brainets/frites.git
-    cd frites
-    python setup.py develop
 
 
 Contributors ✨
