@@ -17,6 +17,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MI between two continuous variables conditioned by a discret one" href="../mi/plot_wf_mi_ccd.html" />
+    <link rel="prev" title="Build an electrophysiological dataset" href="plot_dataset_ephy.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -27,6 +29,12 @@
 <script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -45,7 +53,9 @@
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="../../authors.html">Authors</a></li>
+                <li><a href="../../overview.html">Overview</a></li>
+                <li><a href="../../install.html">Install</a></li>
+                <li><a href="../../community.html">Community</a></li>
                 <li><a href="../../api.html">API</a></li>
                 <li><a href="../index.html">Examples</a></li>
             
@@ -58,88 +68,292 @@
      href="../../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#goals-of-frites">1. Goals of Frites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#task-related-and-feature-specificity">1.1 Task-related and feature-specificity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#it-framework-to-extract-task-related-cognitive-brain-networks">1.2 IT framework to extract task-related cognitive brain networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#methods">2. Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#data-analysis-within-the-information-theoretical-framework">2.1 Data analysis within the information theoretical framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#gaussian-copula-mutual-information">2.1.1 Gaussian Copula Mutual Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#the-different-types-of-mutual-informations">2.1.2 The different types of mutual informations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#equivalence-with-other-statistical-measures">2.1.3 Equivalence with other statistical measures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#references">2.1.4 References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#statistical-analyses">2.2 Statistical analyses</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#subject-and-group-level-statistical-inferences">2.2.1 Subject and group-level statistical inferences</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#correction-for-multiple-comparisons">2.2.2 Correction for multiple comparisons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../overview.html#id6">2.2.3 References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#what-you-need-to-know-to-start-analyzing-your-data-with-frites">3. What you need to know to start analyzing your data with Frites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#package-organization">3.1 Package organization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#main-frites-workflows">3.2 Main Frites’ workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#deep-integration-with-xarray">3.3 Deep integration with Xarray</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#installation-from-pip">Installation from pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#installation-from-github">Installation from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#developer-installation">Developer installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html">Statistical analysis of a stimulus-specific network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#simulate-a-stimulus-specific-network">Simulate a stimulus-specific network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-nodes-of-the-network">Stimulus-specificity of the nodes of the network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-undirected-connectivity">Stimulus-specificity of the undirected connectivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-directed-connectivity">Stimulus-specificity of the directed connectivity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#multi-subjects-dataset">Multi-subjects dataset</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_dataset_mne.html">Define an electrophysiological dataset using MNE-Python structures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_mne.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_mne.html#mne-conversion-to-epoch">MNE conversion to Epoch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_mne.html#build-the-dataset">Build the dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plot_dataset_ephy.html">Build an electrophysiological dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Define an electrophysiological dataset using Xarray</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xarray-conversion-to-dataarray">Xarray conversion to DataArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-the-dataset">Build the dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multiindex-support">MultiIndex support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#mutual-information">Mutual-Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html">MI between two continuous variables conditioned by a discret one</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#extract-the-continuous-and-the-discret-variable">Extract the continuous and the discret variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_cd.html">MI between a continuous and a discret variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#extract-the-discret-variable">Extract the discret variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_mi_time_frequency.html">Compute MI across time and frequencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_time_frequency.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_time_frequency.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_cc.html">MI between two continuous variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#compute-the-mutual-information">Compute the mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#perform-the-conjunction-analysis">Perform the conjunction analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#plot-where-there-s-significant-effect-for-each-subject">Plot where there’s significant effect for each subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#plot-the-number-of-subjects-that-have-an-effect">Plot the number of subjects that have an effect</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html">Mutual-information at the contact level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#i-continuous-continuous-case">I(Continuous; Continuous) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#i-continuous-discret-case">I(Continuous; Discret) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#i-continuous-continuous-discret-case">I(Continuous ; Continuous | Discret) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#xarray-definition-with-multi-indexing">Xarray definition with multi-indexing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#connectivity-and-information-transfer">Connectivity and Information Transfer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conn/plot_dfc.html">Estimate dynamic functional connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_dfc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_dfc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_dfc.html#define-sliding-windows">Define sliding windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#compute-the-pairwise-connectivity">Compute the pairwise connectivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#plot-the-result-of-the-dataarray">Plot the result of the DataArray</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../conn/plot_covgc.html">Estimate the covariance-based Granger Causality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_covgc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_covgc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../conn/plot_covgc.html#compute-the-covgc">Compute the covgc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#autoregressive-model">Autoregressive model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../armodel/plot_ar_pairwise.html">AR : pairwise illustration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_pairwise.html#simulate-40hz-oscillations">Simulate 40hz oscillations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html">AR : simulate common driving input</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html">AR : conditional covariance based Granger Causality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html#direct-comparison">Direct comparison</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#utility">Utility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../utils/plot_time_windows.html">Define temporal windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../utils/plot_time_windows.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/plot_time_windows.html#manually-define-windows">Manually define windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/plot_time_windows.html#define-sliding-windows">Define sliding windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#statistics">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">Compare between-subjects statistics when computing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#simulate-mutual-information">Simulate mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#define-the-workflow">Define the workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">Compare within-subjects statistics when computing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#simulate-mutual-information">Simulate mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#define-the-workflow">Define the workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simulations/plot_generate_random_data.html">Generate random electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulations/plot_generate_random_data.html#generate-electrophysiological-for-a-single-subject">Generate electrophysiological for a single subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulations/plot_generate_random_data.html#generate-electrophysiological-for-multiple-subjects">Generate electrophysiological for multiple subjects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray">Xarray</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../xarray/plot_xr_export.html">Xarray : Saving the results</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_export.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_export.html#export-and-load-a-single-dataarray">Export and load a single DataArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_export.html#export-and-load-multiple-dataarrays">Export and load multiple DataArrays</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html">Xarray : Quick tour</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-conversion-and-access-to-the-internal-components">Xarray conversion and access to the internal components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-slicing-and-indexing">Xarray slicing and indexing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-attributes">Xarray attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-to-an-other-format">Xarray to an other format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#dataset">Dataset</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.conn">Connectivity</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#statistical-workflows">Statistical workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfStats.html">frites.workflow.WfStats</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.stats">Statistics</a><ul>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#connectivity">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-metrics">Connectivity metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#utility-functions">Utility functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#stimulus-specific-autoregressive-model">Stimulus-specific autoregressive model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#single-and-multi-subjects-gaussian-based-simulations">Single and multi-subjects gaussian-based simulations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#statistics">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.io">I/O</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#i-o">I/O</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.simulations">Simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api.html#from-random-data">From random data</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="../../api.html#from-real-data">From real data</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api.html#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#autoregressive-model">Autoregressive model</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 </ul>
 </li>
@@ -148,7 +362,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-frites.core">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
@@ -181,7 +395,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community.html">Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../community.html#ask-your-questions-and-get-some-help">Ask your questions and get some help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community.html#events">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../community.html#brainhack-marseille-2020">Brainhack Marseille 2020</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../community.html#software-presentations">Software presentations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../community.html#authors-and-contributors">Authors and contributors</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
@@ -229,16 +452,32 @@
 </ul>
 </li>
               
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Define an electrophysiological dataset using Xarray</a><ul>
+<li><a class="reference internal" href="#create-artificial-data">Create artificial data</a></li>
+<li><a class="reference internal" href="#xarray-conversion-to-dataarray">Xarray conversion to DataArray</a></li>
+<li><a class="reference internal" href="#build-the-dataset">Build the dataset</a></li>
+<li><a class="reference internal" href="#multiindex-support">MultiIndex support</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
             
             
             
             
             
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="../../_sources/auto_examples/dataset/plot_dataset_xarray.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
+              <li class="hidden-sm"></li>
             
           </ul>
 
@@ -322,47 +561,47 @@ in a list of length (n_subjects,)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[3.38744244e-01, 2.04233459e-01, 4.14976986e-01, ...,
-         2.08043920e-01, 4.74242401e-01, 9.03653457e-01],
-        [8.02693854e-01, 9.67004863e-01, 8.40695782e-01, ...,
-         8.07584797e-01, 4.96265906e-01, 2.69322753e-01],
-        [3.94783700e-01, 8.77424695e-02, 3.81171400e-01, ...,
-         2.56822025e-01, 3.96088782e-01, 8.86863163e-01],
-        [9.68643396e-01, 8.57345451e-01, 5.77660859e-01, ...,
-         5.45045724e-01, 6.48591044e-01, 9.90266685e-01],
-        [1.62678608e-04, 6.35050342e-02, 7.26933232e-01, ...,
-         9.98007327e-01, 5.66941329e-01, 8.79426813e-02]],
+array([[[0.64811798, 0.78886561, 0.7755907 , ..., 0.84282642,
+         0.54271122, 0.50248727],
+        [0.33558787, 0.47568086, 0.67650419, ..., 0.52400765,
+         0.08384083, 0.95263782],
+        [0.51078401, 0.41892229, 0.96971212, ..., 0.54750508,
+         0.13644883, 0.68644137],
+        [0.85485999, 0.23015521, 0.51632893, ..., 0.69855501,
+         0.44837491, 0.14675188],
+        [0.87628515, 0.70892359, 0.15612708, ..., 0.47071832,
+         0.56830411, 0.92936968]],
 
-       [[1.55649460e-01, 9.86977909e-01, 8.67643496e-01, ...,
-         9.65804930e-01, 2.58090278e-01, 9.95961027e-01],
-        [9.12659798e-01, 1.27899850e-01, 4.13866680e-01, ...,
-         6.61477021e-01, 7.24605922e-01, 1.77848069e-01],
-        [6.86765376e-02, 2.18269633e-01, 1.31625195e-01, ...,
-         6.35092870e-01, 9.74984983e-01, 4.94658882e-03],
-        [3.80563078e-01, 1.81734822e-01, 6.99797355e-02, ...,
-         8.24807348e-01, 6.41267898e-02, 7.87882333e-01],
-        [7.66824434e-01, 6.11442689e-01, 7.11166462e-01, ...,
+       [[0.87983839, 0.62930211, 0.54915417, ..., 0.32869243,
+         0.36393118, 0.04532224],
+        [0.50061055, 0.33750564, 0.60515782, ..., 0.30497793,
+         0.43904576, 0.92746349],
+        [0.6225546 , 0.89849975, 0.37609325, ..., 0.43953036,
+         0.56469112, 0.75903877],
+        [0.1854591 , 0.29006978, 0.38757967, ..., 0.08695512,
+         0.47998514, 0.43439005],
+        [0.03221586, 0.43923296, 0.13451996, ..., 0.40288943,
 ...
-         9.23480866e-01, 3.65742262e-01, 2.63006177e-01],
-        [3.97619053e-01, 7.44191424e-01, 6.74048880e-01, ...,
-         9.98179114e-01, 1.27619796e-01, 6.11165014e-01],
-        [7.50041747e-01, 5.93110749e-01, 2.48372030e-01, ...,
-         4.70397783e-01, 6.65130666e-01, 4.04627043e-01],
-        [7.99263892e-01, 7.02191543e-01, 4.90346169e-01, ...,
-         7.04342218e-01, 8.57595897e-01, 8.26801654e-01],
-        [7.96411158e-01, 6.89005387e-01, 1.22095201e-01, ...,
-         6.54481491e-01, 7.15915317e-01, 5.58631097e-01]],
+         0.33649416, 0.48979398],
+        [0.6999787 , 0.40707946, 0.20588212, ..., 0.73352358,
+         0.48348934, 0.69972433],
+        [0.54716802, 0.63289375, 0.84159305, ..., 0.31635627,
+         0.54098677, 0.21779816],
+        [0.09359905, 0.9195859 , 0.51731408, ..., 0.43108275,
+         0.0536468 , 0.7236834 ],
+        [0.74288531, 0.82835759, 0.59308084, ..., 0.53498939,
+         0.30255232, 0.57482959]],
 
-       [[2.41456515e-01, 2.83076208e-01, 5.05619346e-01, ...,
-         4.46623522e-01, 3.16396365e-01, 5.99280157e-01],
-        [1.69838276e-01, 8.48708332e-01, 1.61563423e-02, ...,
-         7.50375246e-01, 4.99845678e-01, 6.00870098e-02],
-        [8.14844349e-02, 4.16265886e-01, 2.78850646e-01, ...,
-         1.21074185e-01, 4.83306434e-01, 6.73803151e-01],
-        [4.33229248e-01, 5.77683085e-01, 5.92743993e-02, ...,
-         6.56600257e-01, 8.97485623e-01, 8.22813234e-02],
-        [1.27789486e-01, 1.27865069e-01, 2.82614320e-01, ...,
-         6.28276801e-01, 8.58238216e-01, 9.96054687e-01]]])
+       [[0.7353122 , 0.00876587, 0.25619327, ..., 0.06968492,
+         0.55483254, 0.66910774],
+        [0.63802437, 0.16574486, 0.8173247 , ..., 0.45412878,
+         0.66239714, 0.50860145],
+        [0.82656163, 0.53543967, 0.26536057, ..., 0.97785658,
+         0.93394884, 0.05290055],
+        [0.85881904, 0.79979449, 0.10661888, ..., 0.65394938,
+         0.16306981, 0.76665966],
+        [0.69039417, 0.73492975, 0.34678398, ..., 0.08202198,
+         0.99368628, 0.34284139]]])
 Coordinates:
   * epochs    (epochs) int64 0 1 2 3 4 5 6 7 8 9
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
@@ -443,50 +682,50 @@ ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[3.38744244e-01, 2.04233459e-01, 4.14976986e-01, ...,
-         2.08043920e-01, 4.74242401e-01, 9.03653457e-01],
-        [8.02693854e-01, 9.67004863e-01, 8.40695782e-01, ...,
-         8.07584797e-01, 4.96265906e-01, 2.69322753e-01],
-        [3.94783700e-01, 8.77424695e-02, 3.81171400e-01, ...,
-         2.56822025e-01, 3.96088782e-01, 8.86863163e-01],
-        [9.68643396e-01, 8.57345451e-01, 5.77660859e-01, ...,
-         5.45045724e-01, 6.48591044e-01, 9.90266685e-01],
-        [1.62678608e-04, 6.35050342e-02, 7.26933232e-01, ...,
-         9.98007327e-01, 5.66941329e-01, 8.79426813e-02]],
+array([[[0.64811798, 0.78886561, 0.7755907 , ..., 0.84282642,
+         0.54271122, 0.50248727],
+        [0.33558787, 0.47568086, 0.67650419, ..., 0.52400765,
+         0.08384083, 0.95263782],
+        [0.51078401, 0.41892229, 0.96971212, ..., 0.54750508,
+         0.13644883, 0.68644137],
+        [0.85485999, 0.23015521, 0.51632893, ..., 0.69855501,
+         0.44837491, 0.14675188],
+        [0.87628515, 0.70892359, 0.15612708, ..., 0.47071832,
+         0.56830411, 0.92936968]],
 
-       [[1.55649460e-01, 9.86977909e-01, 8.67643496e-01, ...,
-         9.65804930e-01, 2.58090278e-01, 9.95961027e-01],
-        [9.12659798e-01, 1.27899850e-01, 4.13866680e-01, ...,
-         6.61477021e-01, 7.24605922e-01, 1.77848069e-01],
-        [6.86765376e-02, 2.18269633e-01, 1.31625195e-01, ...,
-         6.35092870e-01, 9.74984983e-01, 4.94658882e-03],
-        [3.80563078e-01, 1.81734822e-01, 6.99797355e-02, ...,
-         8.24807348e-01, 6.41267898e-02, 7.87882333e-01],
-        [7.66824434e-01, 6.11442689e-01, 7.11166462e-01, ...,
+       [[0.87983839, 0.62930211, 0.54915417, ..., 0.32869243,
+         0.36393118, 0.04532224],
+        [0.50061055, 0.33750564, 0.60515782, ..., 0.30497793,
+         0.43904576, 0.92746349],
+        [0.6225546 , 0.89849975, 0.37609325, ..., 0.43953036,
+         0.56469112, 0.75903877],
+        [0.1854591 , 0.29006978, 0.38757967, ..., 0.08695512,
+         0.47998514, 0.43439005],
+        [0.03221586, 0.43923296, 0.13451996, ..., 0.40288943,
 ...
-         9.23480866e-01, 3.65742262e-01, 2.63006177e-01],
-        [3.97619053e-01, 7.44191424e-01, 6.74048880e-01, ...,
-         9.98179114e-01, 1.27619796e-01, 6.11165014e-01],
-        [7.50041747e-01, 5.93110749e-01, 2.48372030e-01, ...,
-         4.70397783e-01, 6.65130666e-01, 4.04627043e-01],
-        [7.99263892e-01, 7.02191543e-01, 4.90346169e-01, ...,
-         7.04342218e-01, 8.57595897e-01, 8.26801654e-01],
-        [7.96411158e-01, 6.89005387e-01, 1.22095201e-01, ...,
-         6.54481491e-01, 7.15915317e-01, 5.58631097e-01]],
+         0.33649416, 0.48979398],
+        [0.6999787 , 0.40707946, 0.20588212, ..., 0.73352358,
+         0.48348934, 0.69972433],
+        [0.54716802, 0.63289375, 0.84159305, ..., 0.31635627,
+         0.54098677, 0.21779816],
+        [0.09359905, 0.9195859 , 0.51731408, ..., 0.43108275,
+         0.0536468 , 0.7236834 ],
+        [0.74288531, 0.82835759, 0.59308084, ..., 0.53498939,
+         0.30255232, 0.57482959]],
 
-       [[2.41456515e-01, 2.83076208e-01, 5.05619346e-01, ...,
-         4.46623522e-01, 3.16396365e-01, 5.99280157e-01],
-        [1.69838276e-01, 8.48708332e-01, 1.61563423e-02, ...,
-         7.50375246e-01, 4.99845678e-01, 6.00870098e-02],
-        [8.14844349e-02, 4.16265886e-01, 2.78850646e-01, ...,
-         1.21074185e-01, 4.83306434e-01, 6.73803151e-01],
-        [4.33229248e-01, 5.77683085e-01, 5.92743993e-02, ...,
-         6.56600257e-01, 8.97485623e-01, 8.22813234e-02],
-        [1.27789486e-01, 1.27865069e-01, 2.82614320e-01, ...,
-         6.28276801e-01, 8.58238216e-01, 9.96054687e-01]]])
+       [[0.7353122 , 0.00876587, 0.25619327, ..., 0.06968492,
+         0.55483254, 0.66910774],
+        [0.63802437, 0.16574486, 0.8173247 , ..., 0.45412878,
+         0.66239714, 0.50860145],
+        [0.82656163, 0.53543967, 0.26536057, ..., 0.97785658,
+         0.93394884, 0.05290055],
+        [0.85881904, 0.79979449, 0.10661888, ..., 0.65394938,
+         0.16306981, 0.76665966],
+        [0.69039417, 0.73492975, 0.34678398, ..., 0.08202198,
+         0.99368628, 0.34284139]]])
 Coordinates:
   * epochs    (epochs) MultiIndex
-  - dp        (epochs) float64 -0.8256 0.4207 -0.4131 ... 0.04512 0.7315 -0.9178
+  - dp        (epochs) float64 -0.7025 -0.04399 0.7201 ... -0.2932 -0.5939
   - blocks    (epochs) int64 0 0 0 0 0 1 1 1 1 1
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
   * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
@@ -500,7 +739,7 @@ version : 0.3.6
 -------------------------------------------------------------------------------
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.119 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.148 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9a005eb1fa12814043ca3f5d7ba8ead9/plot_dataset_xarray.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_xarray.py</span></code></a></p>
@@ -532,13 +771,13 @@ version : 0.3.6
                 <li>·</li>
                 <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
                 <li>·</li>
-                <li style="font-weight:bold"><a href="../../authors.html">Authors</a></li>
+                <li style="font-weight:bold"><a href="../../community.html">Community</a></li>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="../../references.html">References</a></li>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-12-06.</p>
+        <p>&copy; Copyright Last updated on 2020-12-10.</p>
     </footer>
 
   </body>

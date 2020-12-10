@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>frites.workflow.WfComod &#8212; frites 0.3.6 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="frites.workflow.WfStats" href="frites.workflow.WfStats.html" />
+    <link rel="prev" title="frites.workflow.WfMi" href="frites.workflow.WfMi.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/frites_128x128.png"></span>
+          frites</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.6</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../overview.html">Overview</a></li>
+                <li><a href="../install.html">Install</a></li>
+                <li><a href="../community.html">Community</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#goals-of-frites">1. Goals of Frites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#task-related-and-feature-specificity">1.1 Task-related and feature-specificity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#it-framework-to-extract-task-related-cognitive-brain-networks">1.2 IT framework to extract task-related cognitive brain networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#methods">2. Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#data-analysis-within-the-information-theoretical-framework">2.1 Data analysis within the information theoretical framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#gaussian-copula-mutual-information">2.1.1 Gaussian Copula Mutual Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#the-different-types-of-mutual-informations">2.1.2 The different types of mutual informations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#equivalence-with-other-statistical-measures">2.1.3 Equivalence with other statistical measures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#references">2.1.4 References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#statistical-analyses">2.2 Statistical analyses</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#subject-and-group-level-statistical-inferences">2.2.1 Subject and group-level statistical inferences</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#correction-for-multiple-comparisons">2.2.2 Correction for multiple comparisons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../overview.html#id6">2.2.3 References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-you-need-to-know-to-start-analyzing-your-data-with-frites">3. What you need to know to start analyzing your data with Frites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#package-organization">3.1 Package organization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#main-frites-workflows">3.2 Main Frites’ workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#deep-integration-with-xarray">3.3 Deep integration with Xarray</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#installation-from-pip">Installation from pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#installation-from-github">Installation from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#developer-installation">Developer installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/tutorials/plot_stim_spec_network.html">Statistical analysis of a stimulus-specific network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/tutorials/plot_stim_spec_network.html#simulate-a-stimulus-specific-network">Simulate a stimulus-specific network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-nodes-of-the-network">Stimulus-specificity of the nodes of the network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-undirected-connectivity">Stimulus-specificity of the undirected connectivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-directed-connectivity">Stimulus-specificity of the directed connectivity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#multi-subjects-dataset">Multi-subjects dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_mne.html">Define an electrophysiological dataset using MNE-Python structures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_mne.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_mne.html#mne-conversion-to-epoch">MNE conversion to Epoch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_mne.html#build-the-dataset">Build the dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html">Build an electrophysiological dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html#xarray-conversion-to-dataarray">Xarray conversion to DataArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html#build-the-dataset">Build the dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html#multiindex-support">MultiIndex support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#mutual-information">Mutual-Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_ccd.html">MI between two continuous variables conditioned by a discret one</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_ccd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_ccd.html#extract-the-continuous-and-the-discret-variable">Extract the continuous and the discret variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_ccd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_ccd.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cd.html">MI between a continuous and a discret variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cd.html#extract-the-discret-variable">Extract the discret variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cd.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_mi_time_frequency.html">Compute MI across time and frequencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_time_frequency.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_time_frequency.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html">MI between two continuous variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#compute-the-mutual-information">Compute the mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#perform-the-conjunction-analysis">Perform the conjunction analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#plot-where-there-s-significant-effect-for-each-subject">Plot where there’s significant effect for each subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#plot-the-number-of-subjects-that-have-an-effect">Plot the number of subjects that have an effect</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_contact_level.html">Mutual-information at the contact level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_contact_level.html#i-continuous-continuous-case">I(Continuous; Continuous) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_contact_level.html#i-continuous-discret-case">I(Continuous; Discret) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_contact_level.html#i-continuous-continuous-discret-case">I(Continuous ; Continuous | Discret) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_contact_level.html#xarray-definition-with-multi-indexing">Xarray definition with multi-indexing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#connectivity-and-information-transfer">Connectivity and Information Transfer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html">Estimate dynamic functional connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#define-sliding-windows">Define sliding windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#compute-the-pairwise-connectivity">Compute the pairwise connectivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#plot-the-result-of-the-dataarray">Plot the result of the DataArray</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_covgc.html">Estimate the covariance-based Granger Causality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_covgc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_covgc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_covgc.html#compute-the-covgc">Compute the covgc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#autoregressive-model">Autoregressive model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/armodel/plot_ar_pairwise.html">AR : pairwise illustration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/armodel/plot_ar_pairwise.html#simulate-40hz-oscillations">Simulate 40hz oscillations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/armodel/plot_ar_instantaneous.html">AR : simulate common driving input</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/armodel/plot_ar_instantaneous.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/armodel/plot_ar_instantaneous.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/armodel/plot_ar_condcovgc.html">AR : conditional covariance based Granger Causality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/armodel/plot_ar_condcovgc.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/armodel/plot_ar_condcovgc.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/armodel/plot_ar_condcovgc.html#direct-comparison">Direct comparison</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#utility">Utility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/utils/plot_time_windows.html">Define temporal windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/utils/plot_time_windows.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/utils/plot_time_windows.html#manually-define-windows">Manually define windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/utils/plot_time_windows.html#define-sliding-windows">Define sliding windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#statistics">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html">Compare between-subjects statistics when computing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#simulate-mutual-information">Simulate mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#define-the-workflow">Define the workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html">Compare within-subjects statistics when computing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#simulate-mutual-information">Simulate mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#define-the-workflow">Define the workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/simulations/plot_generate_random_data.html">Generate random electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/simulations/plot_generate_random_data.html#generate-electrophysiological-for-a-single-subject">Generate electrophysiological for a single subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/simulations/plot_generate_random_data.html#generate-electrophysiological-for-multiple-subjects">Generate electrophysiological for multiple subjects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_examples/index.html#xarray">Xarray</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/xarray/plot_xr_export.html">Xarray : Saving the results</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_export.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_export.html#export-and-load-a-single-dataarray">Export and load a single DataArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_export.html#export-and-load-multiple-dataarrays">Export and load multiple DataArrays</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/xarray/plot_xr_quick_tour.html">Xarray : Quick tour</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_quick_tour.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_quick_tour.html#xarray-conversion-and-access-to-the-internal-components">Xarray conversion and access to the internal components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_quick_tour.html#xarray-slicing-and-indexing">Xarray slicing and indexing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_quick_tour.html#xarray-attributes">Xarray attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/xarray/plot_xr_quick_tour.html#xarray-to-an-other-format">Xarray to an other format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#statistical-workflows">Statistical workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfStats.html">frites.workflow.WfStats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#connectivity">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-metrics">Connectivity metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#utility-functions">Utility functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.define_windows.html">frites.conn.define_windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#stimulus-specific-autoregressive-model">Stimulus-specific autoregressive model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#single-and-multi-subjects-gaussian-based-simulations">Single and multi-subjects gaussian-based simulations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#statistics">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#i-o">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.get_config.html">frites.get_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../community.html#ask-your-questions-and-get-some-help">Ask your questions and get some help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community.html#events">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../community.html#brainhack-marseille-2020">Brainhack Marseille 2020</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../community.html#software-presentations">Software presentations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community.html#authors-and-contributors">Authors and contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-4">v0.3.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">frites.workflow.WfComod</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="frites-workflow-wfcomod">
+<h1>frites.workflow.WfComod<a class="headerlink" href="#frites-workflow-wfcomod" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frites.workflow.WfComod">
+<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfComod</code><span class="sig-paren">(</span><em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Workflow of instantaneous pairwise comodulations and statistics.</p>
+<p>This class allows to define a workflow for computing the instantaneous
+pairwise connectivity using mutual information and then to evaluate the
+significance with non-parametric statistics (either within-subjects or
+between subjects). Note that the MI is computed at each time point and
+across trials.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>inference</strong><span class="classifier">{“ffx”, “rfx”}</span></dt><dd><p>Statistical inferences that is desired. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘ffx’ : fixed-effect to make inferences only for the population
+that have been used</p></li>
+<li><p>‘rfx’ : random-effect to generalize inferences to a random
+population.</p></li>
+</ul>
+</div></blockquote>
+<p>By default, the workflow uses group level inference (‘rfx’)</p>
+</dd>
+<dt><strong>mi_method</strong><span class="classifier">{‘gc’, ‘bin’}</span></dt><dd><p>Method for computing the mutual information. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘gc’ : gaussian-copula based mutual information. This is the
+fastest method but it can only captures monotonic relationships
+between variables</p></li>
+<li><p>‘bin’ : binning-based method that can captures any kind of
+relationships but is much slower and also required to define the
+number of bins to use. Note that if the Numba package is
+installed computations should be much faster</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>kernel</strong><span class="classifier">array_like | None</span></dt><dd><p>Kernel for smoothing true and permuted MI. For example, use
+np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
+moving average</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Friston et al., 1996, 1999 <a class="bibtex reference internal" href="../references.html#friston1996detecting" id="id1">[5]</a><a class="bibtex reference internal" href="../references.html#friston1999many" id="id2">[6]</a></p>
+<dl class="method">
+<dt id="frites.workflow.WfComod.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.__init__" title="frites.workflow.WfComod.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([inference, mi_method, kernel, verbose])</p></td>
+<td><p>Init.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfComod.clean" title="frites.workflow.WfComod.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>()</p></td>
+<td><p>Clean computations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.fit" title="frites.workflow.WfComod.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(dataset[, mcp, n_perm, cluster_th, …])</p></td>
+<td><p>Run the workflow on a dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.mi" title="frites.workflow.WfComod.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
+<td><p>List of length (n_roi) of true mutual information.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfComod.mi_p" title="frites.workflow.WfComod.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
+<td><p>List of length (n_roi) of permuted mutual information.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.tvalues" title="frites.workflow.WfComod.tvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></a></p></td>
+<td><p>T-values array of shape (n_times, n_roi) when group level analysis is selected.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfComod.wf_stats" title="frites.workflow.WfComod.wf_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wf_stats</span></code></a></p></td>
+<td><p>Get the workflow of statistics.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="frites.workflow.WfComod.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean computations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfComod.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the workflow on a dataset.</p>
+<p>In order to run the worflow, you must first provide a dataset instance
+(see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When performing statistics at the cluster-level, we only test
+the cluster size. This means that in your results, you can only
+discuss about the presence of a significant cluster without being
+precise about its spatio-temporal properties
+(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[13]</a>)</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance</p>
+</dd>
+<dt><strong>mcp</strong><span class="classifier">{‘cluster’, ‘maxstat’, ‘fdr’, ‘bonferroni’, ‘nostat’, None}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
+problem. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘cluster’ : cluster-based statistics [default]</p></li>
+<li><p>‘maxstat’ : test-wise maximum statistics correction</p></li>
+<li><p>‘fdr’ : test-wise FDR correction</p></li>
+<li><p>‘bonferroni’ : test-wise Bonferroni correction</p></li>
+<li><p>‘noperm’ / None : no permutations are computed</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
+distribution of mi that can be obtained by chance</p>
+</dd>
+<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a float that is going to act as a threshold</p></li>
+<li><p>None and the threshold is automatically going to be inferred
+using the distribution of permutations</p></li>
+<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
+the 95th percentile of the permutations is used.</p>
+</dd>
+<dt><strong>n_bins</strong><span class="classifier">int | None</span></dt><dd><p>Number of bins to use if the method for computing the mutual
+information is based on binning (mi_method=’bin’). If None, the
+number of bins is going to be automatically inferred based on the
+number of trials and variables</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs)</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Fix the random state of the machine (use it for reproducibility).
+If None, a random state is randomly assigned.</p>
+</dd>
+<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
+selected using the <cite>stat_method</cite> input parameter</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>mi, pvalues</strong><span class="classifier">array_like</span></dt><dd><p>DataArray of mean mutual information and p-values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../references.html#maris2007nonparametric" id="id4">[10]</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfComod.mi">
+<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WfComod.mi" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of length (n_roi) of true mutual information. Each element of
+this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘rfx’
+(1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfComod.mi_p">
+<em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WfComod.mi_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of length (n_roi) of permuted mutual information. Each element
+of this list has a shape of (n_perm, n_subjects, n_times) if
+<cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfComod.tvalues">
+<em class="property">property </em><code class="sig-name descname">tvalues</code><a class="headerlink" href="#frites.workflow.WfComod.tvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>T-values array of shape (n_times, n_roi) when group level analysis
+is selected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.workflow.WfComod.wf_stats">
+<em class="property">property </em><code class="sig-name descname">wf_stats</code><a class="headerlink" href="#frites.workflow.WfComod.wf_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the workflow of statistics.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="list-inline">
+                <li style="font-weight:bold"><a href="../genindex.html">Index</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../whatsnew.html">What's new</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../community.html">Community</a></li>
+                <li>·</li>
+                <li style="font-weight:bold"><a href="../references.html">References</a></li>
+            </ul>
+         </div>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2020-12-10.</p>
+    </footer>
+
+  </body>
+</html>

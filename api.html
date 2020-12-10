@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="frites.dataset.DatasetEphy" href="generated/frites.dataset.DatasetEphy.html" />
-    <link rel="prev" title="Frites" href="index.html" />
+    <link rel="prev" title="Xarray : Quick tour" href="auto_examples/xarray/plot_xr_quick_tour.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -29,6 +29,12 @@
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -47,7 +53,9 @@
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="authors.html">Authors</a></li>
+                <li><a href="overview.html">Overview</a></li>
+                <li><a href="install.html">Install</a></li>
+                <li><a href="community.html">Community</a></li>
                 <li><a href="#">API</a></li>
                 <li><a href="auto_examples/index.html">Examples</a></li>
             
@@ -60,88 +68,292 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#goals-of-frites">1. Goals of Frites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#task-related-and-feature-specificity">1.1 Task-related and feature-specificity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#it-framework-to-extract-task-related-cognitive-brain-networks">1.2 IT framework to extract task-related cognitive brain networks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#methods">2. Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#data-analysis-within-the-information-theoretical-framework">2.1 Data analysis within the information theoretical framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#gaussian-copula-mutual-information">2.1.1 Gaussian Copula Mutual Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#the-different-types-of-mutual-informations">2.1.2 The different types of mutual informations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#equivalence-with-other-statistical-measures">2.1.3 Equivalence with other statistical measures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#references">2.1.4 References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#statistical-analyses">2.2 Statistical analyses</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#subject-and-group-level-statistical-inferences">2.2.1 Subject and group-level statistical inferences</a></li>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#correction-for-multiple-comparisons">2.2.2 Correction for multiple comparisons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="overview.html#id6">2.2.3 References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-you-need-to-know-to-start-analyzing-your-data-with-frites">3. What you need to know to start analyzing your data with Frites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#package-organization">3.1 Package organization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#main-frites-workflows">3.2 Main Frites’ workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#deep-integration-with-xarray">3.3 Deep integration with Xarray</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#installation-from-pip">Installation from pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#installation-from-github">Installation from Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#developer-installation">Developer installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#tutorials">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/tutorials/plot_stim_spec_network.html">Statistical analysis of a stimulus-specific network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/tutorials/plot_stim_spec_network.html#simulate-a-stimulus-specific-network">Simulate a stimulus-specific network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-nodes-of-the-network">Stimulus-specificity of the nodes of the network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-undirected-connectivity">Stimulus-specificity of the undirected connectivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-directed-connectivity">Stimulus-specificity of the directed connectivity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#multi-subjects-dataset">Multi-subjects dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/dataset/plot_dataset_mne.html">Define an electrophysiological dataset using MNE-Python structures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_mne.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_mne.html#mne-conversion-to-epoch">MNE conversion to Epoch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_mne.html#build-the-dataset">Build the dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html">Build an electrophysiological dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_xarray.html#create-artificial-data">Create artificial data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_xarray.html#xarray-conversion-to-dataarray">Xarray conversion to DataArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_xarray.html#build-the-dataset">Build the dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/dataset/plot_dataset_xarray.html#multiindex-support">MultiIndex support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#mutual-information">Mutual-Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_ccd.html">MI between two continuous variables conditioned by a discret one</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_ccd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_ccd.html#extract-the-continuous-and-the-discret-variable">Extract the continuous and the discret variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_ccd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_ccd.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cd.html">MI between a continuous and a discret variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cd.html#extract-the-discret-variable">Extract the discret variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cd.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/mi/plot_mi_time_frequency.html">Compute MI across time and frequencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_time_frequency.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_time_frequency.html#compute-the-mutual-information">Compute the mutual information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html">MI between two continuous variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#compute-the-mutual-information">Compute the mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#perform-the-conjunction-analysis">Perform the conjunction analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#plot-where-there-s-significant-effect-for-each-subject">Plot where there’s significant effect for each subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#plot-the-number-of-subjects-that-have-an-effect">Plot the number of subjects that have an effect</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_contact_level.html">Mutual-information at the contact level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_contact_level.html#i-continuous-continuous-case">I(Continuous; Continuous) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_contact_level.html#i-continuous-discret-case">I(Continuous; Discret) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_contact_level.html#i-continuous-continuous-discret-case">I(Continuous ; Continuous | Discret) case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/mi/plot_wf_mi_contact_level.html#xarray-definition-with-multi-indexing">Xarray definition with multi-indexing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#connectivity-and-information-transfer">Connectivity and Information Transfer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/conn/plot_dfc.html">Estimate dynamic functional connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_dfc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_dfc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_dfc.html#define-sliding-windows">Define sliding windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_conn.html#compute-the-pairwise-connectivity">Compute the pairwise connectivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_conn.html#plot-the-result-of-the-dataarray">Plot the result of the DataArray</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/conn/plot_covgc.html">Estimate the covariance-based Granger Causality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_covgc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_covgc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/conn/plot_covgc.html#compute-the-covgc">Compute the covgc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#autoregressive-model">Autoregressive model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/armodel/plot_ar_pairwise.html">AR : pairwise illustration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/armodel/plot_ar_pairwise.html#simulate-40hz-oscillations">Simulate 40hz oscillations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/armodel/plot_ar_instantaneous.html">AR : simulate common driving input</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/armodel/plot_ar_instantaneous.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/armodel/plot_ar_instantaneous.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/armodel/plot_ar_condcovgc.html">AR : conditional covariance based Granger Causality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/armodel/plot_ar_condcovgc.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/armodel/plot_ar_condcovgc.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/armodel/plot_ar_condcovgc.html#direct-comparison">Direct comparison</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#utility">Utility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/utils/plot_time_windows.html">Define temporal windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/utils/plot_time_windows.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/utils/plot_time_windows.html#manually-define-windows">Manually define windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/utils/plot_time_windows.html#define-sliding-windows">Define sliding windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#statistics">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html">Compare between-subjects statistics when computing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#simulate-mutual-information">Simulate mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#define-the-workflow">Define the workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html">Compare within-subjects statistics when computing mutual information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#simulate-mutual-information">Simulate mutual information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#define-the-workflow">Define the workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/simulations/plot_generate_random_data.html">Generate random electrophysiological data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/simulations/plot_generate_random_data.html#generate-electrophysiological-for-a-single-subject">Generate electrophysiological for a single subject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/simulations/plot_generate_random_data.html#generate-electrophysiological-for-multiple-subjects">Generate electrophysiological for multiple subjects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#xarray">Xarray</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/xarray/plot_xr_export.html">Xarray : Saving the results</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_export.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_export.html#export-and-load-a-single-dataarray">Export and load a single DataArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_export.html#export-and-load-multiple-dataarrays">Export and load multiple DataArrays</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html">Xarray : Quick tour</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html#simulate-data">Simulate data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html#xarray-conversion-and-access-to-the-internal-components">Xarray conversion and access to the internal components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html#xarray-slicing-and-indexing">Xarray slicing and indexing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html#xarray-attributes">Xarray attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html#xarray-to-an-other-format">Xarray to an other format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.dataset">Dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dataset">Dataset</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfConn.html">frites.workflow.WfConn</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html">frites.workflow.WfStatsEphy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#task-related-workflows">Task-related workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.conn">Connectivity</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#statistical-workflows">Statistical workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.workflow.WfStats.html">frites.workflow.WfStats</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.stats">Statistics</a><ul>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connectivity">Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connectivity-metrics">Connectivity metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utility-functions">Utility functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simulations">Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stimulus-specific-autoregressive-model">Stimulus-specific autoregressive model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#single-and-multi-subjects-gaussian-based-simulations">Single and multi-subjects gaussian-based simulations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#statistics">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#random-effect-rfx">Random effect (rfx)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.io">I/O</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#i-o">I/O</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.simulations">Simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#simulate-electrophysiological-data">Simulate electrophysiological data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_single_suj_ephy.html">frites.simulations.sim_single_suj_ephy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.sim_multi_suj_ephy.html">frites.simulations.sim_multi_suj_ephy</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#simulate-data-for-testing-mutual-information">Simulate data for testing mutual information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#from-random-data">From random data</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#from-real-data">From real data</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_mi_cc.html">frites.simulations.sim_mi_cc</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_mi_cd.html">frites.simulations.sim_mi_cd</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_mi_ccd.html">frites.simulations.sim_mi_ccd</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#simulate-data-for-testing-connectivity">Simulate data for testing connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#random-data-for-directed-connectivity-measures">Random data for directed connectivity measures</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ms.html">frites.simulations.sim_distant_cc_ms</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ss.html">frites.simulations.sim_distant_cc_ss</a></li>
-<li class="toctree-l5"><a class="reference internal" href="generated/frites.simulations.sim_gauss_fit.html">frites.simulations.sim_gauss_fit</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#autoregressive-model">Autoregressive model</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.utils.define_windows.html">frites.utils.define_windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/frites.utils.plot_windows.html">frites.utils.plot_windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 </ul>
 </li>
@@ -150,7 +362,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-frites.core">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
@@ -183,7 +395,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="community.html#ask-your-questions-and-get-some-help">Ask your questions and get some help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="community.html#events">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="community.html#brainhack-marseille-2020">Brainhack Marseille 2020</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="community.html#software-presentations">Software presentations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="community.html#authors-and-contributors">Authors and contributors</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-6">v0.3.6</a><ul>
@@ -231,16 +452,57 @@
 </ul>
 </li>
               
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#dataset">Dataset</a></li>
+<li><a class="reference internal" href="#workflow">Workflow</a><ul>
+<li><a class="reference internal" href="#task-related-workflows">Task-related workflows</a></li>
+<li><a class="reference internal" href="#statistical-workflows">Statistical workflows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#connectivity">Connectivity</a><ul>
+<li><a class="reference internal" href="#connectivity-metrics">Connectivity metrics</a></li>
+<li><a class="reference internal" href="#utility-functions">Utility functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#simulations">Simulations</a><ul>
+<li><a class="reference internal" href="#stimulus-specific-autoregressive-model">Stimulus-specific autoregressive model</a></li>
+<li><a class="reference internal" href="#single-and-multi-subjects-gaussian-based-simulations">Single and multi-subjects gaussian-based simulations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#statistics">Statistics</a><ul>
+<li><a class="reference internal" href="#random-effect-rfx">Random effect (rfx)</a></li>
+<li><a class="reference internal" href="#correction-for-multiple-comparisons">Correction for multiple comparisons</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#i-o">I/O</a></li>
+<li><a class="reference internal" href="#utils">Utils</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#core">Core</a><ul>
+<li><a class="reference internal" href="#gaussian-copula-1d">Gaussian-Copula (1d)</a></li>
+<li><a class="reference internal" href="#gaussian-copula-nd">Gaussian-copula (Nd)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
             
             
             
             
             
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="_sources/api.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
+              <li class="hidden-sm"></li>
             
           </ul>
 
@@ -266,39 +528,52 @@
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#module-frites.dataset" id="id2">Dataset</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.workflow" id="id3">Workflow</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.conn" id="id4">Connectivity</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.stats" id="id5">Statistics</a></p>
+<li><p><a class="reference internal" href="#dataset" id="id2">Dataset</a></p></li>
+<li><p><a class="reference internal" href="#workflow" id="id3">Workflow</a></p>
 <ul>
-<li><p><a class="reference internal" href="#correction-for-multiple-comparisons" id="id6">Correction for multiple comparisons</a></p></li>
-<li><p><a class="reference internal" href="#random-effect-rfx" id="id7">Random effect (rfx)</a></p></li>
+<li><p><a class="reference internal" href="#task-related-workflows" id="id4">Task-related workflows</a></p></li>
+<li><p><a class="reference internal" href="#statistical-workflows" id="id5">Statistical workflows</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#module-frites.io" id="id8">I/O</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.simulations" id="id9">Simulations</a></p>
+<li><p><a class="reference internal" href="#connectivity" id="id6">Connectivity</a></p>
 <ul>
-<li><p><a class="reference internal" href="#simulate-electrophysiological-data" id="id10">Simulate electrophysiological data</a></p></li>
-<li><p><a class="reference internal" href="#simulate-data-for-testing-mutual-information" id="id11">Simulate data for testing mutual information</a></p></li>
-<li><p><a class="reference internal" href="#simulate-data-for-testing-connectivity" id="id12">Simulate data for testing connectivity</a></p></li>
-<li><p><a class="reference internal" href="#autoregressive-model" id="id13">Autoregressive model</a></p></li>
+<li><p><a class="reference internal" href="#connectivity-metrics" id="id7">Connectivity metrics</a></p></li>
+<li><p><a class="reference internal" href="#utility-functions" id="id8">Utility functions</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#module-frites.utils" id="id14">Utils</a></p></li>
-<li><p><a class="reference internal" href="#configuration" id="id15">Configuration</a></p></li>
-<li><p><a class="reference internal" href="#module-frites.core" id="id16">Core</a></p>
+<li><p><a class="reference internal" href="#simulations" id="id9">Simulations</a></p>
 <ul>
-<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id17">Gaussian-Copula (1d)</a></p></li>
-<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id18">Gaussian-copula (Nd)</a></p></li>
+<li><p><a class="reference internal" href="#stimulus-specific-autoregressive-model" id="id10">Stimulus-specific autoregressive model</a></p></li>
+<li><p><a class="reference internal" href="#single-and-multi-subjects-gaussian-based-simulations" id="id11">Single and multi-subjects gaussian-based simulations</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#statistics" id="id12">Statistics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#random-effect-rfx" id="id13">Random effect (rfx)</a></p></li>
+<li><p><a class="reference internal" href="#correction-for-multiple-comparisons" id="id14">Correction for multiple comparisons</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#i-o" id="id15">I/O</a></p></li>
+<li><p><a class="reference internal" href="#utils" id="id16">Utils</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id17">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#core" id="id18">Core</a></p>
+<ul>
+<li><p><a class="reference internal" href="#gaussian-copula-1d" id="id19">Gaussian-Copula (1d)</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-copula-nd" id="id20">Gaussian-copula (Nd)</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="module-frites.dataset">
-<span id="dataset"></span><h2><a class="toc-backref" href="#id2">Dataset</a><a class="headerlink" href="#module-frites.dataset" title="Permalink to this headline">¶</a></h2>
-<p>Dataset’s related functions and classes.</p>
-<p>This submodule contains functions and classes to handle electrophysiological
-data coming from several subjects.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This first section contains the most-used functions and classes for a user</p>
+</div>
+<div class="section" id="dataset">
+<h2><a class="toc-backref" href="#id2">Dataset</a><a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.dataset" title="frites.dataset"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.dataset</span></code></a>:</p>
+<span class="target" id="module-frites.dataset"></span><p>Multi-subjects container.</p>
+<p>The datasets are used to merge the data coming from multiple subjects. Several
+input types are supported (NumPy, MNE, Xarray).</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -306,16 +581,27 @@ data coming from several subjects.</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a>(x[, y, roi, z, times, …])</p></td>
-<td><p>Dataset of electrophysiological data coming from several subjects.</p></td>
+<td><p>Multi-subject dataset of electrophysiological data.</p></td>
 </tr>
 </tbody>
 </table>
 <hr></div>
-<div class="section" id="module-frites.workflow">
-<span id="workflow"></span><h2><a class="toc-backref" href="#id3">Workflow</a><a class="headerlink" href="#module-frites.workflow" title="Permalink to this headline">¶</a></h2>
-<p>Workflow functions for assessing mutual information and statistics.</p>
-<p>The following functions are pipelines designed for computing the mutual
-information and statistics (fixed effect or random effect).</p>
+<div class="section" id="workflow">
+<h2><a class="toc-backref" href="#id3">Workflow</a><a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.workflow" title="frites.workflow"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.workflow</span></code></a>:</p>
+<span class="target" id="module-frites.workflow"></span><p>Workflows performing a series of analysis.</p>
+<p>This submodule contains several pipelines of analysis. It is divided into two
+categories of workflows :</p>
+<ol class="arabic simple">
+<li><p><strong>Task-related workflows :</strong> two-steps pipelines where the first step
+consist in quantifying an effect size (either on local brain activity either
+on connectivity) and the second step consisting in computing group-level
+statistics</p></li>
+<li><p><strong>Statistics workflows :</strong> pure statistics workflows dedicated to
+information-based measures</p></li>
+</ol>
+<div class="section" id="task-related-workflows">
+<h3><a class="toc-backref" href="#id4">Task-related workflows</a><a class="headerlink" href="#task-related-workflows" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -325,18 +611,43 @@ information and statistics (fixed effect or random effect).</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfMi</span></code></a>([mi_type, inference, mi_method, …])</p></td>
 <td><p>Workflow of local mutual-information and statistics.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.workflow.WfConn.html#frites.workflow.WfConn" title="frites.workflow.WfConn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfConn</span></code></a>([inference, mi_method, kernel, verbose])</p></td>
-<td><p>Workflow of instantaneous pairwise connectivity and statistics.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.workflow.WfComod.html#frites.workflow.WfComod" title="frites.workflow.WfComod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfComod</span></code></a>([inference, mi_method, kernel, verbose])</p></td>
+<td><p>Workflow of instantaneous pairwise comodulations and statistics.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.workflow.WfStatsEphy.html#frites.workflow.WfStatsEphy" title="frites.workflow.WfStatsEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfStatsEphy</span></code></a>([verbose])</p></td>
+</tbody>
+</table>
+</div>
+<div class="section" id="statistical-workflows">
+<h3><a class="toc-backref" href="#id5">Statistical workflows</a><a class="headerlink" href="#statistical-workflows" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.workflow.WfStats.html#frites.workflow.WfStats" title="frites.workflow.WfStats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WfStats</span></code></a>([verbose])</p></td>
 <td><p>Workflow of non-parametric statistics for electropĥysiological data.</p></td>
 </tr>
 </tbody>
 </table>
 <hr></div>
-<div class="section" id="module-frites.conn">
-<span id="connectivity"></span><h2><a class="toc-backref" href="#id4">Connectivity</a><a class="headerlink" href="#module-frites.conn" title="Permalink to this headline">¶</a></h2>
-<p>Information-theritical measures of connectivity.</p>
+</div>
+<div class="section" id="connectivity">
+<h2><a class="toc-backref" href="#id6">Connectivity</a><a class="headerlink" href="#connectivity" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.conn" title="frites.conn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.conn</span></code></a>:</p>
+<span class="target" id="module-frites.conn"></span><p>Information-based connectivity metrics and utility functions.</p>
+<p>This submodule contains two types of functions :</p>
+<ol class="arabic simple">
+<li><p><strong>Connectivity metrics :</strong> methods to estimate either the undirected or
+directed connectivity. Some methods are performed within-trials and others
+across-trials. In the case of within-trials metrics, it is then possible to
+estimate if the connectivity is modulated by the task by passing the
+connectivity arrays to <cite>frites.workflow.WfMi</cite></p></li>
+<li><p><strong>Connectivity related utility functions :</strong> small utility functions that
+work on connectivity arrays</p></li>
+</ol>
+<div class="section" id="connectivity-metrics">
+<h3><a class="toc-backref" href="#id7">Connectivity metrics</a><a class="headerlink" href="#connectivity-metrics" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -344,106 +655,70 @@ information and statistics (fixed effect or random effect).</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_dfc</span></code></a>(data, win_sample[, times, roi, …])</p></td>
-<td><p>Compute the Dynamic Functional Connectivity using the GCMI.</p></td>
+<td><p>Single trial Dynamic Functional Connectivity.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a>(data, dt, lag, t0[, step, roi, …])</p></td>
 <td><p>Single-trial covariance-based Granger Causality for gaussian variables.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy" title="frites.conn.conn_transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_transfer_entropy</span></code></a>(x[, max_delay, pairs, …])</p></td>
-<td><p>Compute the transfer entropy.</p></td>
+<td><p>Across-trials transfer entropy.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="frites.conn.conn_reshape_undirected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_undirected</span></code></a>(da[, sep, order, …])</p></td>
+</tbody>
+</table>
+</div>
+<div class="section" id="utility-functions">
+<h3><a class="toc-backref" href="#id8">Utility functions</a><a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="frites.conn.conn_reshape_undirected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_undirected</span></code></a>(da[, sep, order, …])</p></td>
 <td><p>Reshape a raveled undirected array of connectivity.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed" title="frites.conn.conn_reshape_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_directed</span></code></a>(da[, net, sep, order, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed" title="frites.conn.conn_reshape_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_directed</span></code></a>(da[, net, sep, order, …])</p></td>
 <td><p>Reshape a raveled directed array of connectivity.</p></td>
 </tr>
-</tbody>
-</table>
-<hr></div>
-<div class="section" id="module-frites.stats">
-<span id="statistics"></span><h2><a class="toc-backref" href="#id5">Statistics</a><a class="headerlink" href="#module-frites.stats" title="Permalink to this headline">¶</a></h2>
-<p>Fixed and random effect methods.</p>
-<div class="section" id="correction-for-multiple-comparisons">
-<h3><a class="toc-backref" href="#id6">Correction for multiple comparisons</a><a class="headerlink" href="#correction-for-multiple-comparisons" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.cluster_correction_mcp.html#frites.stats.cluster_correction_mcp" title="frites.stats.cluster_correction_mcp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_correction_mcp</span></code></a>(x, x_p, th[, tail])</p></td>
-<td><p>Cluster-based correction for MCP using non-parametric statistics.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code></a>(times[, windows, slwin_len, …])</p></td>
+<td><p>Define temporal windows.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.testwise_correction_mcp.html#frites.stats.testwise_correction_mcp" title="frites.stats.testwise_correction_mcp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testwise_correction_mcp</span></code></a>(x, x_p[, tail, mcp])</p></td>
-<td><p>Test-wise correction for MCP using non-parametric statistics.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold" title="frites.stats.cluster_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_threshold</span></code></a>(x, x_p[, alpha, tail, …])</p></td>
-<td><p>Threshold detection for cluster-based inferencse.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="random-effect-rfx">
-<h3><a class="toc-backref" href="#id7">Random effect (rfx)</a><a class="headerlink" href="#random-effect-rfx" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.ttest_1samp.html#frites.stats.ttest_1samp" title="frites.stats.ttest_1samp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ttest_1samp</span></code></a>(x, pop_mean[, axis, …])</p></td>
-<td><p>One-sample t-test.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.rfx_ttest.html#frites.stats.rfx_ttest" title="frites.stats.rfx_ttest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rfx_ttest</span></code></a>(mi, mi_p[, center, zscore, ttested])</p></td>
-<td><p>Perform the t-test across subjects.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.plot_windows.html#frites.conn.plot_windows" title="frites.conn.plot_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_windows</span></code></a>(times, win_sample[, x, title, …])</p></td>
+<td><p>Simple plotting function for representing windows.</p></td>
 </tr>
 </tbody>
 </table>
 <hr></div>
 </div>
-<div class="section" id="module-frites.io">
-<span id="i-o"></span><h2><a class="toc-backref" href="#id8">I/O</a><a class="headerlink" href="#module-frites.io" title="Permalink to this headline">¶</a></h2>
-<p>I/O related functions.</p>
+<div class="section" id="simulations">
+<h2><a class="toc-backref" href="#id9">Simulations</a><a class="headerlink" href="#simulations" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.simulations" title="frites.simulations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.simulations</span></code></a>:</p>
+<span class="target" id="module-frites.simulations"></span><p>Simulate data for testing Frites functions.</p>
+<p>This submodule contains a collection of functions to simulate data in order to
+test Frites functions and workflows. There are several ways to simulate data :</p>
+<ol class="arabic simple">
+<li><p><strong>Using an auto-regressive model :</strong> this method can be used to simulate
+a task-related brain network (i.e with local activity and information flow
+modulated by a stimulus)</p></li>
+<li><p><strong>Using gaussian variables :</strong> in that case, the generated data are feature
+specific but only at the node level</p></li>
+</ol>
+<div class="section" id="stimulus-specific-autoregressive-model">
+<h3><a class="toc-backref" href="#id10">Stimulus-specific autoregressive model</a><a class="headerlink" href="#stimulus-specific-autoregressive-model" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs" title="frites.io.convert_spatiotemporal_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_spatiotemporal_outputs</span></code></a>(arr, times, roi)</p></td>
-<td><p>Convert spatio-temporal outputs.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs" title="frites.io.convert_dfc_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_dfc_outputs</span></code></a>(arr, times, roi, …[, …])</p></td>
-<td><p>Convert dynamic functional connectivity outputs.</p></td>
-</tr>
-</tbody>
-</table>
-<hr></div>
-<div class="section" id="module-frites.simulations">
-<span id="simulations"></span><h2><a class="toc-backref" href="#id9">Simulations</a><a class="headerlink" href="#module-frites.simulations" title="Permalink to this headline">¶</a></h2>
-<p>Simulations’ functions.</p>
-<div class="section" id="simulate-electrophysiological-data">
-<h3><a class="toc-backref" href="#id10">Simulate electrophysiological data</a><a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h3>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_single_suj_ephy.html#frites.simulations.sim_single_suj_ephy" title="frites.simulations.sim_single_suj_ephy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_single_suj_ephy</span></code></a>([modality, sf, n_times, …])</p></td>
-<td><p>Simulate electrophysiological data of a single subject.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_multi_suj_ephy.html#frites.simulations.sim_multi_suj_ephy" title="frites.simulations.sim_multi_suj_ephy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_multi_suj_ephy</span></code></a>([modality, n_subjects])</p></td>
-<td><p>Simulate electrophysiological data of multiple subjects.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR" title="frites.simulations.StimSpecAR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StimSpecAR</span></code></a>([verbose])</p></td>
+<td><p>Stimulus-specific autoregressive (AR) Model.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="simulate-data-for-testing-mutual-information">
-<h3><a class="toc-backref" href="#id11">Simulate data for testing mutual information</a><a class="headerlink" href="#simulate-data-for-testing-mutual-information" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="from-random-data">
-<h4>From random data<a class="headerlink" href="#from-random-data" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="single-and-multi-subjects-gaussian-based-simulations">
+<h3><a class="toc-backref" href="#id11">Single and multi-subjects gaussian-based simulations</a><a class="headerlink" href="#single-and-multi-subjects-gaussian-based-simulations" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -470,81 +745,92 @@ information and statistics (fixed effect or random effect).</p>
 </tr>
 </tbody>
 </table>
+<hr><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This second section contains important internal functions for developers</p>
 </div>
-<div class="section" id="from-real-data">
-<h4>From real data<a class="headerlink" href="#from-real-data" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="statistics">
+<h2><a class="toc-backref" href="#id12">Statistics</a><a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.stats" title="frites.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.stats</span></code></a>:</p>
+<span class="target" id="module-frites.stats"></span><p>Statistical methods.</p>
+<p>This submodule contains a collection of statistical internal methods divided
+into two categories :</p>
+<ol class="arabic simple">
+<li><p><strong>Random efect estimation :</strong> t-test related functions</p></li>
+<li><p><strong>P-values correction for multiple comparisons :</strong> test-wise and cluster
+based corrections</p></li>
+</ol>
+<p>Most of those stastical functions are using
+<a class="reference external" href="https://mne.tools/stable/index.html">MNE Python</a></p>
+<div class="section" id="random-effect-rfx">
+<h3><a class="toc-backref" href="#id13">Random effect (rfx)</a><a class="headerlink" href="#random-effect-rfx" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_mi_cc.html#frites.simulations.sim_mi_cc" title="frites.simulations.sim_mi_cc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cc</span></code></a>(x[, snr])</p></td>
-<td><p>Extract a continuous variable from data.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.ttest_1samp.html#frites.stats.ttest_1samp" title="frites.stats.ttest_1samp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ttest_1samp</span></code></a>(x, pop_mean[, axis, …])</p></td>
+<td><p>One-sample t-test.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_mi_cd.html#frites.simulations.sim_mi_cd" title="frites.simulations.sim_mi_cd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_cd</span></code></a>(x[, n_conditions, snr])</p></td>
-<td><p>Extract a discret variable from data.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.rfx_ttest.html#frites.stats.rfx_ttest" title="frites.stats.rfx_ttest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rfx_ttest</span></code></a>(mi, mi_p[, center, zscore, ttested])</p></td>
+<td><p>Perform the t-test across subjects.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_mi_ccd.html#frites.simulations.sim_mi_ccd" title="frites.simulations.sim_mi_ccd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_mi_ccd</span></code></a>(x[, snr])</p></td>
-<td><p>Extract a continuous and a discret variable from data.</p></td>
+</tbody>
+</table>
+</div>
+<div class="section" id="correction-for-multiple-comparisons">
+<h3><a class="toc-backref" href="#id14">Correction for multiple comparisons</a><a class="headerlink" href="#correction-for-multiple-comparisons" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.cluster_correction_mcp.html#frites.stats.cluster_correction_mcp" title="frites.stats.cluster_correction_mcp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_correction_mcp</span></code></a>(x, x_p, th[, tail])</p></td>
+<td><p>Cluster-based correction for MCP using non-parametric statistics.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.stats.testwise_correction_mcp.html#frites.stats.testwise_correction_mcp" title="frites.stats.testwise_correction_mcp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testwise_correction_mcp</span></code></a>(x, x_p[, tail, mcp])</p></td>
+<td><p>Test-wise correction for MCP using non-parametric statistics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold" title="frites.stats.cluster_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_threshold</span></code></a>(x, x_p[, alpha, tail, …])</p></td>
+<td><p>Threshold detection for cluster-based inferencse.</p></td>
 </tr>
 </tbody>
 </table>
 <hr></div>
 </div>
-<div class="section" id="simulate-data-for-testing-connectivity">
-<h3><a class="toc-backref" href="#id12">Simulate data for testing connectivity</a><a class="headerlink" href="#simulate-data-for-testing-connectivity" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="random-data-for-directed-connectivity-measures">
-<h4>Random data for directed connectivity measures<a class="headerlink" href="#random-data-for-directed-connectivity-measures" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="i-o">
+<h2><a class="toc-backref" href="#id15">I/O</a><a class="headerlink" href="#i-o" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.io" title="frites.io"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.io</span></code></a>:</p>
+<span class="target" id="module-frites.io"></span><p>I/O conversion functions.</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ms.html#frites.simulations.sim_distant_cc_ms" title="frites.simulations.sim_distant_cc_ms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_distant_cc_ms</span></code></a>(n_subjects, **kwargs)</p></td>
-<td><p>Multi-subjects simulations for computing connectivity (CC).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.io.convert_spatiotemporal_outputs.html#frites.io.convert_spatiotemporal_outputs" title="frites.io.convert_spatiotemporal_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_spatiotemporal_outputs</span></code></a>(arr, times, roi)</p></td>
+<td><p>Convert spatio-temporal outputs.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.simulations.sim_distant_cc_ss.html#frites.simulations.sim_distant_cc_ss" title="frites.simulations.sim_distant_cc_ss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_distant_cc_ss</span></code></a>([n_epochs, n_roi, …])</p></td>
-<td><p>Single-subject simulation for computing connectivity (CC).</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.sim_gauss_fit.html#frites.simulations.sim_gauss_fit" title="frites.simulations.sim_gauss_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_gauss_fit</span></code></a>([stim_type, n_epochs, n_sti, …])</p></td>
-<td><p>Simulated signals for the FIT.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.io.convert_dfc_outputs.html#frites.io.convert_dfc_outputs" title="frites.io.convert_dfc_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_dfc_outputs</span></code></a>(arr, times, roi, …[, …])</p></td>
+<td><p>Convert dynamic functional connectivity outputs.</p></td>
 </tr>
 </tbody>
 </table>
 <hr></div>
-</div>
-<div class="section" id="autoregressive-model">
-<h3><a class="toc-backref" href="#id13">Autoregressive model</a><a class="headerlink" href="#autoregressive-model" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="utils">
+<h2><a class="toc-backref" href="#id16">Utils</a><a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.utils" title="frites.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.utils</span></code></a>:</p>
+<span class="target" id="module-frites.utils"></span><p>Global utility functions.</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR" title="frites.simulations.StimSpecAR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StimSpecAR</span></code></a>([verbose])</p></td>
-<td><p>Stimulus-specific autoregressive (AR) Model.</p></td>
-</tr>
-</tbody>
-</table>
-<hr></div>
-</div>
-<div class="section" id="module-frites.utils">
-<span id="utils"></span><h2><a class="toc-backref" href="#id14">Utils</a><a class="headerlink" href="#module-frites.utils" title="Permalink to this headline">¶</a></h2>
-<p>Utility functions.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.utils.define_windows.html#frites.utils.define_windows" title="frites.utils.define_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code></a>(times[, windows, slwin_len, …])</p></td>
-<td><p>Define temporal windows.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.utils.plot_windows.html#frites.utils.plot_windows" title="frites.utils.plot_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_windows</span></code></a>(times, win_sample[, x, title, …])</p></td>
-<td><p>Simple plotting function for representing windows.</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.utils.savgol_filter.html#frites.utils.savgol_filter" title="frites.utils.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(x, h_freq[, axis, sfreq, …])</p></td>
 <td><p>Filter the data using Savitzky-Golay polynomial method.</p></td>
 </tr>
@@ -552,7 +838,8 @@ information and statistics (fixed effect or random effect).</p>
 </table>
 <hr></div>
 <div class="section" id="configuration">
-<h2><a class="toc-backref" href="#id15">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.config</span></code>:</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -568,16 +855,17 @@ information and statistics (fixed effect or random effect).</p>
 </tbody>
 </table>
 <hr></div>
-<div class="section" id="module-frites.core">
-<span id="core"></span><h2><a class="toc-backref" href="#id16">Core</a><a class="headerlink" href="#module-frites.core" title="Permalink to this headline">¶</a></h2>
-<p>Core functions of information theoretical measures.</p>
-<p>This submodule contains all of the functions to compute mutual-information,
-entropy etc..</p>
+<div class="section" id="core">
+<h2><a class="toc-backref" href="#id18">Core</a><a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#module-frites.core" title="frites.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.core</span></code></a>:</p>
+<span class="target" id="module-frites.core"></span><p>Core functions of information theoretical measures.</p>
+<p>This submodule contains all of the core functions to estimate information-based
+quantities (mutual-information, entropy etc.)</p>
 <p>For further details about the Gaussian-Copula Mutual information see
-<a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[6]</a></p>
+<a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[9]</a></p>
 <div class="section" id="gaussian-copula-1d">
-<h3><a class="toc-backref" href="#id17">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
-<p>Gaussian-Copula based measures to apply to unidimensional vectors</p>
+<h3><a class="toc-backref" href="#id19">Gaussian-Copula (1d)</a><a class="headerlink" href="#gaussian-copula-1d" title="Permalink to this headline">¶</a></h3>
+<p>Gaussian-Copula mutual-information supporting univariate / multivariate 2D inputs</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -624,8 +912,8 @@ entropy etc..</p>
 </table>
 </div>
 <div class="section" id="gaussian-copula-nd">
-<h3><a class="toc-backref" href="#id18">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
-<p>Gaussian-Copula based measures to apply to multidimensional vectors</p>
+<h3><a class="toc-backref" href="#id20">Gaussian-copula (Nd)</a><a class="headerlink" href="#gaussian-copula-nd" title="Permalink to this headline">¶</a></h3>
+<p>Gaussian-Copula mutual-information supporting univariate / multivariate multi-dimensional inputs</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -687,13 +975,13 @@ entropy etc..</p>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
                 <li>·</li>
-                <li style="font-weight:bold"><a href="authors.html">Authors</a></li>
+                <li style="font-weight:bold"><a href="community.html">Community</a></li>
                 <li>·</li>
                 <li style="font-weight:bold"><a href="references.html">References</a></li>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2020-12-06.</p>
+        <p>&copy; Copyright Last updated on 2020-12-10.</p>
     </footer>
 
   </body>
