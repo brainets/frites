@@ -13,11 +13,14 @@ logger = logging.getLogger("frites")
 
 
 class DatasetEphy(object):
-    """Dataset of electrophysiological data coming from several subjects.
+    """Multi-subject dataset of electrophysiological data.
 
-    This class is used to represent the neurophysiological data coming from
-    multiple subjects. Then, the created object can be used to compute the
-    mutual information (MI) and perform statistics on it.
+    This class is a container used to represent the neurophysiological data
+    coming from multiple subjects. In addition to passing the data, this
+    container is also going to need the anatomical information such as the
+    feature (continuous or discret). Then, the created object can be used to
+    compute the mutual information (MI) between the data and the feature and
+    perform statistics on it.
 
     .. warning::
 

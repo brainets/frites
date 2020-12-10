@@ -75,6 +75,7 @@ plt.show()
 
 ###############################################################################
 # Data resampling
+# ---------------
 #
 # Still using MNE-Python, you can also resample the dataset using 
 # :class:`frites.dataset.DatasetEphy.resample`

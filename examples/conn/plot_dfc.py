@@ -10,8 +10,7 @@ import numpy as np
 from itertools import product
 
 from frites.simulations import sim_single_suj_ephy
-from frites.conn import conn_dfc
-from frites.utils import define_windows, plot_windows
+from frites.conn import conn_dfc, define_windows, plot_windows
 
 import matplotlib.pyplot as plt
 # plt.style.use('seaborn-white')

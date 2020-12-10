@@ -9,7 +9,7 @@ sizes.
 """
 import numpy as np
 
-from frites.utils import define_windows, plot_windows
+from frites.conn import define_windows, plot_windows
 
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection

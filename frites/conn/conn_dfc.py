@@ -15,7 +15,7 @@ from mne.utils import ProgressBar
 
 def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
              verbose=None):
-    """Compute the Dynamic Functional Connectivity using the GCMI.
+    """Single trial Dynamic Functional Connectivity.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
     Gaussian Copula Mutual Information (GCMI). The DFC is computed across time
@@ -29,7 +29,7 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
         (n_epochs, n_roi, n_times)
     win_sample : array_like
         Array of shape (n_windows, 2) describing where each window start and
-        finish. You can use the function :func:`frites.utils.define_windows`
+        finish. You can use the function :func:`frites.conn.define_windows`
         to define either manually either sliding windows.
     times : array_like | None
         Time vector array of shape (n_times,)

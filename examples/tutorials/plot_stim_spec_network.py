@@ -14,9 +14,7 @@ import xarray as xr
 from frites.simulations import StimSpecAR
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
-from frites.utils import define_windows
-from frites.conn import conn_dfc
-from frites.conn import conn_covgc
+from frites.conn import conn_dfc, define_windows, conn_covgc
 
 import matplotlib.pyplot as plt
 

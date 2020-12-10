@@ -6,7 +6,7 @@ from mne.utils import ProgressBar
 
 from frites.io import set_log_level, logger
 from frites.core import get_core_mi_fun, permute_mi_vector
-from frites.workflow.wf_stats_ephy import WfStatsEphy
+from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.utils import parallel_func
 
@@ -76,7 +76,7 @@ class WfMi(WfBase):
         self._kernel = kernel
         set_log_level(verbose)
         self.clean()
-        self._wf_stats = WfStatsEphy(verbose=verbose)
+        self._wf_stats = WfStats(verbose=verbose)
         # update internal config
         self.update_cfg(mi_type=mi_type, inference=inference,
             mi_method=mi_method, kernel=kernel)
@@ -210,7 +210,7 @@ class WfMi(WfBase):
             If None, a random state is randomly assigned.
         kw_stats : dict | {}
             Additional arguments are sent to
-            :py:class:`frites.dataset.WfStatsEphy.fit`
+            :py:class:`frites.workflow.WfStats.fit`
 
         Returns
         -------

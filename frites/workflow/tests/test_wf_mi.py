@@ -1,7 +1,7 @@
 """Test workflow of mutual information."""
 import numpy as np
 
-from frites.workflow import WfMi, WfStatsEphy
+from frites.workflow import WfMi, WfStats
 from frites.simulations import (sim_multi_suj_ephy, sim_mi_cc, sim_mi_cd,
                                 sim_mi_ccd)
 from frites.dataset import DatasetEphy
@@ -79,7 +79,7 @@ class TestWfMi(object):  # noqa
         # compute permutations but not statistics
         kernel = np.hanning(3)
         wf = WfMi('cc', 'ffx', kernel=kernel, verbose=False)
-        assert isinstance(wf.wf_stats, WfStatsEphy)
+        assert isinstance(wf.wf_stats, WfStats)
         wf.fit(dt, mcp='nostat', **kw_mi)
         assert len(wf.mi) == len(wf.mi_p) == n_roi
         assert len(wf.mi_p[0].shape) != 0

@@ -1,7 +1,7 @@
 """Core functions of information theoretical measures.
 
-This submodule contains all of the functions to compute mutual-information,
-entropy etc..
+This submodule contains all of the core functions to estimate information-based
+quantities (mutual-information, entropy etc.)
 
 For further details about the Gaussian-Copula Mutual information see
 :cite:`ince2017statistical`

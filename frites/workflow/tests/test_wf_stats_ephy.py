@@ -2,7 +2,7 @@
 import numpy as np
 from itertools import product
 
-from frites.workflow import WfStatsEphy
+from frites.workflow import WfStats
 
 
 n_roi = 2
@@ -34,7 +34,7 @@ gt_bot[:, cl_pos] = 1
 gt_bot[:, cl_neg] = 1
 
 
-class TestWfStatsEphy(object):  # noqa
+class TestWfStats(object):  # noqa
 
     @staticmethod
     def _testing(gt, pv, settings, alpha=0.05, tolerance=0.05):
@@ -50,7 +50,7 @@ class TestWfStatsEphy(object):  # noqa
         prod = product(inferences, mcps)
 
         # definition of the workflow
-        wf = WfStatsEphy(verbose=False)
+        wf = WfStats(verbose=False)
 
         for inf, mcp in prod:
             # data selection

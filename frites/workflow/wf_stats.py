@@ -13,7 +13,7 @@ from frites.io import set_log_level
 logger = logging.getLogger("frites")
 
 
-class WfStatsEphy(WfBase):
+class WfStats(WfBase):
     """Workflow of non-parametric statistics for electropĥysiological data.
 
     The goal of this workflow is to provide an interface for assessing non-

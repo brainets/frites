@@ -1,4 +1,4 @@
-"""I/O related functions."""
+"""I/O conversion functions."""
 from .io_conversion import (convert_spatiotemporal_outputs,  # noqa
                             convert_dfc_outputs)
 from .io_dependencies import (is_pandas_installed, is_xarray_installed,  # noqa

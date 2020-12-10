@@ -5,7 +5,7 @@ from joblib import Parallel, delayed
 from frites import config
 from frites.io import (set_log_level, logger, convert_dfc_outputs)
 from frites.core import get_core_mi_fun, permute_mi_trials
-from frites.workflow.wf_stats_ephy import WfStatsEphy
+from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 
 
@@ -65,7 +65,7 @@ class WfComod(WfBase):
         self._kernel = kernel
         set_log_level(verbose)
         self.clean()
-        self._wf_stats = WfStatsEphy(verbose=verbose)
+        self._wf_stats = WfStats(verbose=verbose)
         # update internal config
         self.update_cfg(mi_type=self._mi_type, inference=inference,
             mi_method=mi_method, kernel=kernel)

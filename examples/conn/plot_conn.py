@@ -2,15 +2,15 @@
 Estimate instantaneous connectivity using MI
 ============================================
 
-This example illustrates how to compute the connectivity using mutual
-information between pairwise ROI and also perform statistics.
+This example illustrates how to estimate the instantaneous comodulations using
+mutual information between pairwise ROI and also perform statistics.
 """
 import numpy as np
 from itertools import product
 
 from frites.simulations import sim_multi_suj_ephy
 from frites.dataset import DatasetEphy
-from frites.workflow import WfConn
+from frites.workflow import WfComod
 
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-white')
@@ -60,13 +60,13 @@ dt = DatasetEphy(x, roi=roi, times=times)
 # ---------------------------------
 #
 # Once we have the dataset instance, we can then define an instance of workflow
-# :class:`frites.workflow.WfConn`. This instance is then used to compute the
+# :class:`frites.workflow.WfComod`. This instance is then used to compute the
 # pairwise connectivity
 
 n_perm = 100  # number of permutations to compute
 kernel = np.hanning(10)  # used for smoothing the MI
 
-wf = WfConn(kernel=kernel)
+wf = WfComod(kernel=kernel)
 mi, pv = wf.fit(dt, n_perm=n_perm, n_jobs=1)
 print(mi)
 

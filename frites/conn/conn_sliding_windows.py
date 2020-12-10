@@ -1,4 +1,4 @@
-"""Utility functions to define (sliding) windows."""
+"""Sliding windows for connectivity functions."""
 from frites.io import set_log_level, logger
 
 import numpy as np

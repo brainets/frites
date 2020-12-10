@@ -7,7 +7,7 @@ from frites.config import CONFIG
 
 
 def conn_transfer_entropy(x, max_delay=30, pairs=None, gcrn=True):
-    """Compute the transfer entropy.
+    """Across-trials transfer entropy.
 
     The transfer entropy represents the amount of information that is send
     from a source to a target. It is defined as :

@@ -5,9 +5,16 @@ API
    :local:
    :depth: 2
 
+.. note::
+
+    This first section contains the most-used functions and classes for a user
+
+.. ----------------------------------------------------------------------------
 
 Dataset
 -------
+
+:py:mod:`frites.dataset`:
 
 .. currentmodule:: frites.dataset
 
@@ -24,9 +31,12 @@ Dataset
 
   <hr>
 
+.. ----------------------------------------------------------------------------
 
 Workflow
 --------
+
+:py:mod:`frites.workflow`:
 
 .. currentmodule:: frites.workflow
 
@@ -34,19 +44,34 @@ Workflow
    :no-members:
    :no-inherited-members:
 
+Task-related workflows
+++++++++++++++++++++++
+
 .. autosummary::
    :toctree: generated/
 
    WfMi
-   WfStatsEphy
    WfComod
+
+
+Statistical workflows
++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   WfStats
 
 .. raw:: html
 
   <hr>
 
+.. ----------------------------------------------------------------------------
+
 Connectivity
 ------------
+
+:py:mod:`frites.conn`:
 
 .. currentmodule:: frites.conn
 
@@ -54,28 +79,95 @@ Connectivity
    :no-members:
    :no-inherited-members:
 
+Connectivity metrics
+++++++++++++++++++++
+
 .. autosummary::
    :toctree: generated/
 
    conn_dfc
    conn_covgc
    conn_transfer_entropy
+
+Utility functions
++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
    conn_reshape_undirected
    conn_reshape_directed
-
+   define_windows
+   plot_windows
 
 .. raw:: html
 
   <hr>
 
+.. ----------------------------------------------------------------------------
+
+Simulations
+-----------
+
+:py:mod:`frites.simulations`:
+
+.. currentmodule:: frites.simulations
+
+.. automodule:: frites.simulations
+   :no-members:
+   :no-inherited-members:
+
+Stimulus-specific autoregressive model
+++++++++++++++++++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   StimSpecAR
+
+
+Single and multi-subjects gaussian-based simulations
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   sim_local_cc_ss
+   sim_local_cc_ms
+   sim_local_cd_ss
+   sim_local_cd_ms
+   sim_local_ccd_ms
+   sim_local_ccd_ss
+
+.. raw:: html
+
+  <hr>
+
+.. ----------------------------------------------------------------------------
+
+.. note::
+
+    This second section contains important internal functions for developers
+
 Statistics
 ----------
+
+:py:mod:`frites.stats`:
 
 .. currentmodule:: frites.stats
 
 .. automodule:: frites.stats
    :no-members:
    :no-inherited-members:
+
+Random effect (rfx)
++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   ttest_1samp
+   rfx_ttest
 
 Correction for multiple comparisons
 +++++++++++++++++++++++++++++++++++
@@ -88,21 +180,16 @@ Correction for multiple comparisons
    cluster_threshold
 
 
-Random effect (rfx)
-+++++++++++++++++++
-
-.. autosummary::
-   :toctree: generated/
-
-   ttest_1samp
-   rfx_ttest
-
 .. raw:: html
 
   <hr>
 
+.. ----------------------------------------------------------------------------
+
 I/O
 ---
+
+:py:mod:`frites.io`:
 
 .. currentmodule:: frites.io
 
@@ -120,86 +207,13 @@ I/O
 
   <hr>
 
-Simulations
------------
+.. ----------------------------------------------------------------------------
 
-
-.. currentmodule:: frites.simulations
-
-.. automodule:: frites.simulations
-   :no-members:
-   :no-inherited-members:
-
-Simulate electrophysiological data
-++++++++++++++++++++++++++++++++++
-
-.. autosummary::
-   :toctree: generated/
-
-   sim_single_suj_ephy
-   sim_multi_suj_ephy
-
-Simulate data for testing mutual information
-++++++++++++++++++++++++++++++++++++++++++++
-
-From random data
-****************
-
-.. autosummary::
-   :toctree: generated/
-
-   sim_local_cc_ss
-   sim_local_cc_ms
-   sim_local_cd_ss
-   sim_local_cd_ms
-   sim_local_ccd_ms
-   sim_local_ccd_ss
-
-From real data
-****************
-
-.. autosummary::
-   :toctree: generated/
-
-   sim_mi_cc
-   sim_mi_cd
-   sim_mi_ccd
-
-.. raw:: html
-
-  <hr>
-
-Simulate data for testing connectivity
-++++++++++++++++++++++++++++++++++++++
-
-Random data for directed connectivity measures
-**********************************************
-
-.. autosummary::
-   :toctree: generated/
-
-   sim_distant_cc_ms
-   sim_distant_cc_ss
-   sim_gauss_fit
-
-.. raw:: html
-
-  <hr>
-
-Autoregressive model
-++++++++++++++++++++
-
-.. autosummary::
-   :toctree: generated/
-
-   StimSpecAR
-
-.. raw:: html
-
-  <hr>
 
 Utils
 -----
+
+:py:mod:`frites.utils`:
 
 .. currentmodule:: frites.utils
 
@@ -210,16 +224,18 @@ Utils
 .. autosummary::
    :toctree: generated/
 
-   define_windows
-   plot_windows
    savgol_filter
 
 .. raw:: html
 
   <hr>
 
+.. ----------------------------------------------------------------------------
+
 Configuration
 -------------
+
+:py:mod:`frites.config`:
 
 .. currentmodule:: frites
 
@@ -236,6 +252,8 @@ Configuration
 Core
 ----
 
+:py:mod:`frites.core`:
+
 .. currentmodule:: frites.core
 
 .. automodule:: frites.core
@@ -246,7 +264,7 @@ Core
 Gaussian-Copula (1d)
 ++++++++++++++++++++
 
-Gaussian-Copula based measures to apply to unidimensional vectors
+Gaussian-Copula mutual-information supporting univariate / multivariate 2D inputs
 
 .. autosummary::
    :toctree: generated/
@@ -267,7 +285,7 @@ Gaussian-Copula based measures to apply to unidimensional vectors
 Gaussian-copula (Nd)
 ++++++++++++++++++++
 
-Gaussian-Copula based measures to apply to multidimensional vectors
+Gaussian-Copula mutual-information supporting univariate / multivariate multi-dimensional inputs
 
 .. autosummary::
    :toctree: generated/
