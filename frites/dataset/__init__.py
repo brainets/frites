@@ -5,3 +5,4 @@ input types are supported (NumPy, MNE, Xarray).
 """
 from .ds_ephy import DatasetEphy  # noqa
 from .ds_fmri import DatasetFMRI  # noqa
+from .ds_merge import merge_datasets  # noqa

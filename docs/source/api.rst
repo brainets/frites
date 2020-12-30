@@ -26,6 +26,7 @@ Dataset
    :toctree: generated/
 
    DatasetEphy
+   merge_datasets
 
 .. raw:: html
 
