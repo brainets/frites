@@ -20,6 +20,7 @@ import frites
 from sphinx_gallery.sorting import ExplicitOrder
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('sphinxext'))
+bibtex_bibfiles = ['refs.bib']
 
 
 # -- Project information -----------------------------------------------------
