@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.core.ent_1d_g &#8212; frites 0.3.7 documentation</title>
+    <title>frites.dataset.merge_datasets &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.core.mi_1d_gg" href="frites.core.mi_1d_gg.html" />
-    <link rel="prev" title="frites.core.copnorm_cat_1d" href="frites.core.copnorm_cat_1d.html" />
+    <link rel="next" title="frites.workflow.WfMi" href="frites.workflow.WfMi.html" />
+    <link rel="prev" title="frites.dataset.DatasetEphy" href="frites.dataset.DatasetEphy.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -286,9 +286,9 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul>
@@ -363,11 +363,11 @@
 <li class="toctree-l3"><a class="reference internal" href="frites.set_config.html">frites.set_config</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#core">Core</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.core.ent_1d_g</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
@@ -463,7 +463,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">frites.core.ent_1d_g</a></li>
+<li><a class="reference internal" href="#">frites.dataset.merge_datasets</a></li>
 </ul>
 </ul>
 </li>
@@ -495,26 +495,24 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-core-ent-1d-g">
-<h1>frites.core.ent_1d_g<a class="headerlink" href="#frites-core-ent-1d-g" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-dataset-merge-datasets">
+<h1>frites.dataset.merge_datasets<a class="headerlink" href="#frites-dataset-merge-datasets" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.core.ent_1d_g">
-<code class="sig-prename descclassname">frites.core.</code><code class="sig-name descname">ent_1d_g</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">biascorrect=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/core/gcmi_1d.html#ent_1d_g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.core.ent_1d_g" title="Permalink to this definition">¶</a></dt>
-<dd><p>Entropy of a Gaussian variable in bits.</p>
-<p>H = ent_g(x) returns the entropy of a (possibly multidimensional) Gaussian
-variable x with bias correction.</p>
+<dt id="frites.dataset.merge_datasets">
+<code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">merge_datasets</code><span class="sig-paren">(</span><em class="sig-param">ds_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_merge.html#merge_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.merge_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge electrophysiological datasets to build multivariate data.</p>
+<p>This function can be used to concatenate datasets in order to build
+multi-variate electrophysiological data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of data of shape (n_epochs,)</p>
-</dd>
-<dt><strong>biascorrect</strong><span class="classifier">bool | True</span></dt><dd><p>Specifies whether bias correction should be applied to the estimated MI</p>
+<dt><strong>ds_list</strong><span class="classifier">list</span></dt><dd><p>List of datasets (<a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>hx</strong><span class="classifier">float</span></dt><dd><p>Entropy of the gaussian variable (in bits)</p>
+<dt><strong>ds_cat</strong><span class="classifier">frites.dataset.DatasetEphy</span></dt><dd><p>Concatenated datasets.</p>
 </dd>
 </dl>
 </dd>

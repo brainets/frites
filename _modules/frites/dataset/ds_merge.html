@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.conn.conn_dfc &#8212; frites 0.3.7 documentation</title>
+    <title>frites.dataset.ds_merge &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -490,115 +490,87 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <h1>Source code for frites.conn.conn_dfc</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Dynamic Functional Connectivity.&quot;&quot;&quot;</span>
+  <h1>Source code for frites.dataset.ds_merge</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Merge datasets.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">copnorm_nd</span>
-<span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
-<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span>
-
-<span class="kn">from</span> <span class="nn">frites.conn.conn_io</span> <span class="kn">import</span> <span class="n">conn_io</span>
-
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="kn">from</span> <span class="nn">frites.dataset.ds_ephy</span> <span class="kn">import</span> <span class="n">DatasetEphy</span>
 
 
+<div class="viewcode-block" id="merge_datasets"><a class="viewcode-back" href="../../../generated/frites.dataset.merge_datasets.html#frites.dataset.merge_datasets">[docs]</a><span class="k">def</span> <span class="nf">merge_datasets</span><span class="p">(</span><span class="n">ds_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Merge electrophysiological datasets to build multivariate data.</span>
 
-<div class="viewcode-block" id="conn_dfc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc">[docs]</a><span class="k">def</span> <span class="nf">conn_dfc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gcrn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-             <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Single trial Dynamic Functional Connectivity.</span>
-
-<span class="sd">    This function computes the Dynamic Functional Connectivity (DFC) using the</span>
-<span class="sd">    Gaussian Copula Mutual Information (GCMI). The DFC is computed across time</span>
-<span class="sd">    points for each trial. Note that the DFC can either be computed on windows</span>
-<span class="sd">    manually defined or on sliding windows.</span>
+<span class="sd">    This function can be used to concatenate datasets in order to build</span>
+<span class="sd">    multi-variate electrophysiological data.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    data : array_like</span>
-<span class="sd">        Electrophysiological data array of a single subject organized as</span>
-<span class="sd">        (n_epochs, n_roi, n_times)</span>
-<span class="sd">    win_sample : array_like</span>
-<span class="sd">        Array of shape (n_windows, 2) describing where each window start and</span>
-<span class="sd">        finish. You can use the function :func:`frites.conn.define_windows`</span>
-<span class="sd">        to define either manually either sliding windows.</span>
-<span class="sd">    times : array_like | None</span>
-<span class="sd">        Time vector array of shape (n_times,)</span>
-<span class="sd">    roi : array_like | None</span>
-<span class="sd">        ROI names of a single subject</span>
-<span class="sd">    n_jobs : int | 1</span>
-<span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
-<span class="sd">        jobs). The parallel loop is set at the pair level.</span>
-<span class="sd">    gcrn : bool | True</span>
-<span class="sd">        Specify if the Gaussian Copula Rank Normalization should be applied.</span>
-<span class="sd">        If the data are normalized (e.g z-score) this parameter can be set to</span>
-<span class="sd">        False because the data can be considered as gaussian over time.</span>
+<span class="sd">    ds_list : list</span>
+<span class="sd">        List of datasets (:class:`frites.dataset.DatasetEphy`)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    dfc : array_like</span>
-<span class="sd">        The DFC array of shape (n_epochs, n_pairs, n_windows)</span>
-
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    define_windows, conn_covgc</span>
+<span class="sd">    ds_cat : frites.dataset.DatasetEphy</span>
+<span class="sd">        Concatenated datasets.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># inputs conversion</span>
-    <span class="n">data</span><span class="p">,</span> <span class="n">trials</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">conn_io</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span>
-                                              <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="c1"># inputs checking</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">DatasetEphy</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ds_list</span><span class="p">])</span>
+    <span class="n">n_datasets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_list</span><span class="p">)</span>
 
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># data checking</span>
-    <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_pts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_roi</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_pts</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">win_sample</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">win_sample</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">win_sample</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;INT_DTYPE&#39;</span><span class="p">]</span>
-    <span class="n">n_win</span> <span class="o">=</span> <span class="n">win_sample</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1"># get the non-directed pairs</span>
-    <span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">n_pairs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">)</span>
-    <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">]</span>
-    <span class="c1"># build roi pairs names</span>
-    <span class="n">roi_p</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">)]</span>
+    <span class="c1"># group the data by roi</span>
+    <span class="k">for</span> <span class="n">n_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">):</span>
+        <span class="n">ds_list</span><span class="p">[</span><span class="n">n_d</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
+    <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">_x</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_roi</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ds_list</span><span class="p">])</span>
 
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># compute dfc</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing DFC between </span><span class="si">{</span><span class="n">n_pairs</span><span class="si">}</span><span class="s1"> pairs (gcrn=</span><span class="si">{</span><span class="n">gcrn</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
-    <span class="c1"># get the parallel function</span>
-    <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                                    <span class="n">prefer</span><span class="o">=</span><span class="s1">&#39;threads&#39;</span><span class="p">)</span>
-    <span class="n">pbar</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_win</span><span class="p">),</span> <span class="n">mesg</span><span class="o">=</span><span class="s1">&#39;Estimating DFC&#39;</span><span class="p">)</span>
+    <span class="c1"># concatenate inside the first dataset</span>
+    <span class="k">for</span> <span class="n">n_r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+        <span class="n">data_r</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">n_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">):</span>
+            <span class="n">data_r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds_list</span><span class="p">[</span><span class="n">n_d</span><span class="p">]</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_r</span><span class="p">])</span>
+        <span class="c1"># put it inside the first dataset</span>
+        <span class="n">ds_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_r</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">data_r</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="n">dfc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_pairs</span><span class="p">,</span> <span class="n">n_win</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">parallel</span> <span class="k">as</span> <span class="n">para</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">n_w</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">win_sample</span><span class="p">):</span>
-            <span class="c1"># select the data in the window and copnorm across time points</span>
-            <span class="n">data_w</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-            <span class="c1"># apply gcrn over time</span>
-            <span class="k">if</span> <span class="n">gcrn</span><span class="p">:</span>
-                <span class="n">data_w</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">data_w</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-            <span class="c1"># compute mi between pairs</span>
-            <span class="n">_dfc</span> <span class="o">=</span> <span class="n">para</span><span class="p">(</span>
-                <span class="n">p_fun</span><span class="p">(</span><span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="p">:],</span> <span class="n">data_w</span><span class="p">[:,</span> <span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="p">:],</span>
-                      <span class="o">**</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">))</span>
-            <span class="n">dfc</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">n_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">_dfc</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">pbar</span><span class="o">.</span><span class="n">update_with_increment_value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
-    <span class="c1"># -------------------------------------------------------------------------</span>
-    <span class="c1"># dataarray conversion</span>
-    <span class="n">win_times</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span>
-    <span class="n">dfc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">dfc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dfc&#39;</span><span class="p">,</span>
-                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">win_times</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
-    <span class="c1"># add the windows used in the attributes</span>
-    <span class="n">cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">win_sample</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_sample</span><span class="p">)],</span>
-               <span class="n">win_times</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">win_times</span><span class="p">)],</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dfc&#39;</span><span class="p">)</span>
-    <span class="n">dfc</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">cfg</span><span class="p">,</span> <span class="o">**</span><span class="n">attrs</span><span class="p">}</span>
 
-    <span class="k">return</span> <span class="n">dfc</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+    <span class="n">n_datasets</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">n_trials</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">n_times</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;roi_0&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;roi_1&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span>
+    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_trials</span><span class="p">)</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="mf">256.</span>
+
+    <span class="n">datasets</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">):</span>
+        <span class="n">ds_suj</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">n_d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">n_d</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">n_d</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
+                             <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+            <span class="n">ds_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">d</span><span class="p">]</span>
+        <span class="n">datasets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">ds_suj</span><span class="p">]</span>
+
+    <span class="n">kw_ds</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span>
+    <span class="n">ds_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">DatasetEphy</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="o">**</span><span class="n">kw_ds</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">)]</span>
+    <span class="n">ds_cat</span> <span class="o">=</span> <span class="n">merge_datasets</span><span class="p">(</span><span class="n">ds_list</span><span class="p">)</span>
+
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">ds_cat</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ds_cat</span><span class="o">.</span><span class="n">_x</span><span class="p">])</span>
+
 </pre></div>
 
     </div>
