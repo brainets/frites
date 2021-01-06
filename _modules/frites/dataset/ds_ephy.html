@@ -632,8 +632,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    4d reshaping&quot;</span><span class="p">)</span>
-            <span class="n">n_e</span><span class="p">,</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+                <span class="n">n_e</span><span class="p">,</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
                 <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_e</span><span class="p">,</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">n_f</span> <span class="o">*</span> <span class="n">n_t</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
 
@@ -1229,7 +1229,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-01-04.</p>
+        <p>&copy; Copyright Last updated on 2021-01-06.</p>
     </footer>
 
   </body>
