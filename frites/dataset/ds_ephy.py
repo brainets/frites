@@ -139,8 +139,8 @@ class DatasetEphy(object):
         self._reshape = None
         if all([k.ndim == 4 for k in x]):
             logger.debug(f"    4d reshaping")
-            n_e, n_r, n_f, n_t = x[0].shape
             for k in range(len(x)):
+                n_e, n_r, n_f, n_t = x[k].shape
                 x[k] = x[k].reshape(n_e, n_r, n_f * n_t)
             self._reshape = (n_f, n_t)
 

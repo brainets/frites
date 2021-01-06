@@ -17,26 +17,27 @@ import matplotlib.pyplot as plt
 ###############################################################################
 # Simulate data
 ###############################################################################
-# First, we simulate time-frequency data coming from multiple subjects. For a
-# single subject, the data is based on normals (with an addition of noise). The
-# regressor variable is going to be continuous and is also going to be a normal
+# First, we simulate time-frequency data coming from multiple subjects with a
+# variable number of trials. For a single subject, the data is based on normals
+# (with an addition of noise). The regressor variable is going to be continuous
+# and is also going to be a normal.
 
 # dataset parameters
 n_subjects = 5
 n_freqs = 20
 n_times = 50
-n_trials = 100
+n_trials = np.random.randint(50, 100, n_subjects)
 
 ###############################################################################
 # function to simulate a single subject
 
-def sim_single_subject(noise_level=10.):
+def sim_single_subject(n_freqs, n_times, n_trials, noise_level=10.):
     # generate the mask modulating the amplitude of the gaussian
     t_range, f_range = np.linspace(-1, 1, n_times), np.linspace(-1, 1, n_freqs)
     x, y = np.meshgrid(t_range, f_range)
     d = np.sqrt(x * x + y * y)
     sigma, mu = 2.0, 0.0
-    mask_2d = np.exp(-((d - mu) ** .5 / (2. * sigma ** .5 )))
+    mask_2d = np.exp(-((d - mu) ** .5 / (2. * sigma ** .5)))
     # [0, 1] normalize the mask
     mask_2d -= mask_2d.min()
     mask_2d /= mask_2d.max()
@@ -59,9 +60,9 @@ def sim_single_subject(noise_level=10.):
 x, y, roi = [], [], []
 times = np.linspace(-1, 1, n_times)
 freqs = np.linspace(60, 160, n_freqs)
-for s in range(n_subjects):
+for s, tr in zip(range(n_subjects), n_trials):
     # simulate the data coming from a single subject
-    x_single_suj, y_single_suj = sim_single_subject()
+    x_single_suj, y_single_suj = sim_single_subject(n_freqs, n_times, tr)
     # x_single_suj.shape = (n_trials, n_roi, n_freqs, n_times)
     # y_single_suj.shape = (n_trials)
     x += [x_single_suj]
