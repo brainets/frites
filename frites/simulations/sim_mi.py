@@ -75,7 +75,16 @@ def sim_mi_cc(x, snr=.9):
     # if mne types, turn into arrays
     if isinstance(x[0], CONFIG["MNE_EPOCHS_TYPE"]):
         x = [x[k].get_data() for k in range(len(x))]
+    elif 'neo.core' in str(type(x[0])):
+        subject_list = []
+        for block in x:
+            subject_data = np.stack([seg.analogsignals[0].magnitude for seg in block.segments])
+            # reorder dimensions to match (n_epochs, n_channels, n_times)
+            subject_list.append(subject_data.swapaxes(1, 2))
+        x = subject_list
+
     n_times = x[0].shape[-1]
+
     # cluster definition (20% length around central point)
     cluster = _get_cluster(n_times, location='center', perc=.2)
     # ground truth definition

@@ -4,6 +4,13 @@ from scipy.stats import zscore
 from scipy.signal import savgol_filter
 from itertools import product
 
+try:
+    import neo
+    import quantities as pq
+    HAS_NEO = True
+except ModuleNotFoundError:
+    HAS_NEO = False
+
 MA_NAMES = ['L_VCcm', 'L_VCl', 'L_VCs', 'L_Cu', 'L_VCrm', 'L_ITCm', 'L_ITCr',
             'L_MTCc', 'L_STCc', 'L_STCr', 'L_MTCr', 'L_ICC', 'L_IPCv',
             'L_IPCd', 'L_SPC', 'L_SPCm', 'L_PCm', 'L_PCC', 'L_Sv', 'L_Sdl',
@@ -23,7 +30,8 @@ MA_NAMES = ['L_VCcm', 'L_VCl', 'L_VCs', 'L_Cu', 'L_VCrm', 'L_ITCm', 'L_ITCr',
 
 def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
                         n_sites_per_roi=1, n_epochs=100, n_sines=100, f_min=.5,
-                        f_max=160., noise=10, as_mne=False, random_state=None):
+                        f_max=160., noise=10, as_mne=False, as_neo=False,
+                        random_state=None):
     """Simulate electrophysiological data of a single subject.
 
     This function generate some illustrative random electrophysiological data
@@ -54,6 +62,8 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
         Noise level.
     as_mne : bool | False
         If True, data are converted to a mne.EpochsArray structure
+    as_neo : bool | False
+        If True, data are converted to a neo.Block structure
     random_state : int | None
         Fix the random state for the reproducibility.
 
@@ -103,6 +113,18 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
         from mne import create_info, EpochsArray
         info = create_info(roi.tolist(), sf, ch_types='seeg')
         signal = EpochsArray(signal, info, tmin=float(time[0]), verbose=False)
+    elif as_neo:
+        if not HAS_NEO:
+            raise ImportError('`as_neo` requires neo to be installed.')
+        block = neo.Block()
+        for epoch_id in range(len(signal)):
+            seg = neo.Segment()
+            anasig = neo.AnalogSignal(signal[epoch_id].T*pq.dimensionless,
+                                      t_start=time[0, 0]*pq.s,
+                                      sampling_rate=sf*pq.Hz)
+            seg.analogsignals.append(anasig)
+            block.segments.append(seg)
+        signal = block
     return signal, roi, time.squeeze()
 
 
