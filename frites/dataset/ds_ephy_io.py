@@ -49,6 +49,8 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
         Time vector of shape (n_times,)
     sub_roi : array_like
         List of arrays of shape (n_channels,)
+    attrs : list
+        List of attributes or each array (xarray only)
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
@@ -64,11 +66,14 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
     # -------------------------------------------------------------------------
     if 'numpy' in str(type(x[0])):
         logger.info("    NumPy inputs detected")
+        attrs = []
     elif 'mne' in str(type(x[0])):
         logger.info("    Converting mne inputs")
         x, times, roi = mne_to_arr(x, roi=roi)
+        attrs = []
     elif 'xarray' in str(type(x[0])):
         logger.info("    Converting xarray inputs")
+        attrs = [k.attrs for k in x]
         x, roi, y, z, times, sub_roi = xr_to_arr(
             x, roi=roi, y=y, z=z, times=times, sub_roi=sub_roi)
 
@@ -139,7 +144,7 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
         sub_roi_int = None
 
 
-    return x, y, z, roi, times, sub_roi_int
+    return x, y, z, roi, times, sub_roi_int, attrs
 
 
 def mne_to_arr(x, roi=None):

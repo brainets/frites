@@ -48,6 +48,8 @@ class Attributes(UserDict):
     def merge(self, list_attrs):
         """Merge a list of multiple attributes."""
         assert isinstance(list_attrs, list)
+        if not len(list_attrs):
+            return
         for k in list_attrs:
             assert isinstance(k, dict)
             self.update(k, check=False)

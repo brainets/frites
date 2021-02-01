@@ -25,6 +25,7 @@ Dataset
 .. autosummary::
    :toctree: generated/
 
+   SubjectEphy
    DatasetEphy
    merge_datasets
 
