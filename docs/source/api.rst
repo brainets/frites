@@ -27,7 +27,6 @@ Dataset
 
    SubjectEphy
    DatasetEphy
-   merge_datasets
 
 .. raw:: html
 
