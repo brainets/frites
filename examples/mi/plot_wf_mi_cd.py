@@ -56,8 +56,7 @@ print(y[0])
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi)
-
+dt = DatasetEphy(x, y=y, roi=roi, times=time)
 
 ###############################################################################
 # Compute the mutual information
@@ -71,9 +70,9 @@ dt = DatasetEphy(x, y, roi)
 mi_type = 'cd'
 
 # define the workflow
-wf = WfMi(mi_type)
+wf = WfMi(mi_type=mi_type, verbose=False)
 # compute the mutual information
-mi, _ = wf.fit(dt, mcp=None)
+mi, _ = wf.fit(dt, mcp=None, n_jobs=1)
 
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)
