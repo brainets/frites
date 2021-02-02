@@ -1,5 +1,4 @@
 """Single-subject container of neurophysiological."""
-import logging
 from collections import OrderedDict
 
 import numpy as np
@@ -8,10 +7,8 @@ import mne
 
 import frites
 from frites.config import CONFIG
-from frites.io import Attributes, set_log_level
+from frites.io import Attributes, logger, set_log_level
 from frites.dataset.ds_utils import multi_to_uni_conditions
-
-logger = logging.getLogger("frites")
 
 
 class SubjectEphy(Attributes):
@@ -205,12 +202,12 @@ class SubjectEphy(Attributes):
             coords['subject'] = ('trials', [name] * n_trials)
         dims += ['trials']
         # build space (potentially) multi-coordinates
-        coords['space'] = ('space', np.arange(n_roi))
-        if (roi is not None) and (len(roi) == n_roi):
-            coords['roi'] = ('space', roi)
-        if not agg_ch:
-            coords['agg_roi'] = ('space', np.arange(n_roi))
-        dims += ['space']
+        coords['roi'] = ('roi', roi)
+        if agg_ch:
+            coords['agg_ch'] = ('roi', [0] * n_roi)
+        else:
+            coords['agg_ch'] = ('roi', np.arange(n_roi))
+        dims += ['roi']
         if _supp_dim:
             coords[_supp_dim[0]] = _supp_dim[1]
             dims += [_supp_dim[0]]

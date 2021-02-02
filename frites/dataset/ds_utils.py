@@ -33,6 +33,10 @@ def multi_to_uni_conditions(x, var_name=None, verbose=None):
 
     if not isinstance(x, (list, tuple)):
         return [x]
+    assert all([type(x[0]) == type(k) for k in x])
+    x_types = type(x[0])
+    if not x_types == np.ndarray:
+        return x
     # get if all variables are integers and multicolumns else skip it
     is_int = all([k.dtype in CONFIG['INT_DTYPE'] for k in x])
     is_ndim = all([k.ndim > 1 for k in x])
@@ -70,5 +74,6 @@ if __name__ == '__main__':
     z = [0, 1, 0, 0, 1, 2]
     # result = [0, 1, 1, 1, 2, 2]
     x = np.c_[y, z]
+    x = None
     x_new = multi_to_uni_conditions([x], 'x', verbose='debug')
     print(x_new)

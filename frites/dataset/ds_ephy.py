@@ -59,7 +59,7 @@ class DatasetEphy(object):
     """
 
     def __init__(self, x, y=None, z=None, roi=None, agg_ch=True, times=None,
-                 multivariate=None, nb_min_suj=False, attrs=None,
+                 multivariate=False, nb_min_suj=False, attrs=None,
                  verbose=None):
         """Init."""
         set_log_level(verbose)
@@ -95,7 +95,7 @@ class DatasetEphy(object):
             for k in range(n_subjects):
                 x[k] = SubjectEphy(
                     x[k], y=y[k], z=z[k], roi=roi[k], agg_ch=True, times=times,
-                    multivariate=multivariate)
+                    multivariate=multivariate, verbose=verbose)
         self._x = x
 
         # minimum number of subject / roi
@@ -127,7 +127,7 @@ class DatasetEphy(object):
             # add additional dimension
             for k in range(len(self._x)):
                 self._x[k] = self._x[k].assign_coords(
-                    agg_ch=('space', agg_split[k]))
+                    agg_ch=('roi', agg_split[k]))
 
         # ============================= Attributes ============================
 
@@ -230,10 +230,10 @@ class DatasetEphy(object):
             x_r_ms = []
             for s in suj_list:
                 # roi (possibly multi-sites) selection
-                x_roi = self._x[s].sel(space=self._x[s]['roi'].data == roi)
+                x_roi = self._x[s].sel(roi=self._x[s]['roi'].data == roi)
                 # stack roi and trials
-                x_roi = x_roi.stack(rtr=('space', 'trials'))
-                x_r_ms.append(x_roi.astype(np.float32, copy=False))
+                x_roi = x_roi.stack(rtr=('roi', 'trials'))
+                x_r_ms.append(x_roi)
             x_r_ms = xr.concat(x_r_ms, 'rtr')
             # 4d or multivariate
             if self._multivariate:
@@ -242,7 +242,7 @@ class DatasetEphy(object):
                 x_r_ms = x_r_ms.expand_dims('mv', axis=-2)
 
             # channels aggregation
-            if not self._agg_ch:
+            if not self._agg_ch and ('y' in x_r_ms.dims):
                 # shortcuts
                 ch_id = x_r_ms['agg_ch'].data
                 y = x_r_ms['y'].data

@@ -29,24 +29,30 @@ CONFIG["COPULA_CONV"] = dict(cc='gg', cd='gd', ccd='ggd')
 
 # mi types table
 CONFIG['MI_TABLE'] = {
-  'int' : {
-    'none': 'cc',
-    'int': 'cd',
-    'float': 'none'
-  },
-  'float': {
-    'none': 'cd',
-    'int': 'ccd',
-    'float': 'ccc'
-  }
+    'int': {
+        'none': 'cc',
+        'int': 'cd',
+        'float': 'none'
+    },
+    'float': {
+        'none': 'cd',
+        'int': 'ccd',
+        'float': 'ccc'
+    },
+    'none': {
+        'none': 'none',
+        'int': 'none',
+        'float': 'none',
+    }
 }
 
 # mi type full description
 CONFIG['MI_REPR'] = {
-  'cc': 'I(x; y (continuous))',
-  'cd': 'I(x; y (discret))',
-  'ccd': 'I(x; y (continuous)) | z (discret)',
-  'ccc': 'I(x; y (continuous)) | z (continuous)',
+    'none': 'none',
+    'cc': 'I(x; y (continuous))',
+    'cd': 'I(x; y (discret))',
+    'ccd': 'I(x; y (continuous)) | z (discret)',
+    'ccc': 'I(x; y (continuous)) | z (continuous)',
 }
 
 # general joblib config
