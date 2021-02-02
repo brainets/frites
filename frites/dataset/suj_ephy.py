@@ -1,4 +1,4 @@
-"""Container for the electrophysiological data of a single subject."""
+"""Single-subject container of neurophysiological."""
 import logging
 from collections import OrderedDict
 
