@@ -7,14 +7,15 @@ import xarray as xr
 import mne
 
 import frites
-from frites.io import Attributes, set_log_level
 from frites.config import CONFIG
+from frites.io import Attributes, set_log_level
+from frites.dataset.ds_utils import multi_to_uni_conditions
 
 logger = logging.getLogger("frites")
 
 
 class SubjectEphy(Attributes):
-    """Container for the electrophysiological data of a single subject.
+    """Single-subject electrophysiological data container.
 
     This class can be used to convert the data from different types (e.g
     NumPy, MNE-Python, Xarray) into a single format (xarray.DataArray).
@@ -65,18 +66,6 @@ class SubjectEphy(Attributes):
             * If x is a DataArray, the dimension name to use to infer the
               anatomical informations
 
-    sub_roi : list, string | None
-        Additional anatomical informations about the data of each subject. This
-        argument can be used to estimate the mutual-information at the single
-        contact level (or MEG sensor for exemple). As an example, the `roi`
-        input could refer to the parcel name (e.g 'Insula', 'vmPFC' etc.) while
-        the `sub_roi` input can refer to the contact / sensor name
-        ('x1', 'x2' etc.). Several input types are supported :
-
-            * A NumPy array of length (n_channels)
-            * The dimension name to use to infer the additional anatomical
-              information
-
     times : array_like | None
         The time vector to use. Several types are supported :
 
@@ -86,11 +75,18 @@ class SubjectEphy(Attributes):
             * If x is a DataArray, the dimension name to use to infer to the
               time vector
 
+    agg_ch : bool | True
+        If multiple channels belong to the same ROI, specify whether if the
+        data should be aggregated across channels (True) or if the information
+        per channel have to be take into account (False - conditional mutual
+        information).
     multivariate : bool | False
         If 4d input is provided, this parameter specifies whether this axis
         should be considered as multi-variate (True) or uni-varariate (False)
     name : string | None
         Subject name
+    attrs : dict | {}
+        Dictionary of additional attributes about the data
     sfreq : float | None
         The sampling frequency. If None, it could be inferred if the time
         vector is provided or if the input x is an MNE object
@@ -102,7 +98,13 @@ class SubjectEphy(Attributes):
         task-related variables inside
     """
 
-    def __new__(self, x, y=None, z=None, roi=None, sub_roi=None, times=None,
+    def __init__(self, x, y=None, z=None, roi=None, times=None, agg_ch=True,
+                 multivariate=False, name=None, attrs=None, sfreq=None,
+                 verbose=None):
+        """Init."""
+        pass
+
+    def __new__(self, x, y=None, z=None, roi=None, times=None, agg_ch=True,
                 multivariate=False, name=None, attrs=None, sfreq=None,
                 verbose=None):
         """Init."""
@@ -110,7 +112,7 @@ class SubjectEphy(Attributes):
         attrs = Attributes(attrs=attrs)
         _supp_dim = []
 
-        # ========================= Inputs conversion =========================
+        # ========================== Data extraction ==========================
 
         # ____________________________ extraction _____________________________
         if isinstance(x, xr.DataArray):  # xr -> xr
@@ -121,9 +123,8 @@ class SubjectEphy(Attributes):
             # get y / z regressors
             y = x[y].data if isinstance(y, str) else y
             z = x[z].data if isinstance(z, str) else z
-            # get spatial informations (roi & sub_roi)
+            # get spatial informations (roi)
             roi = x[roi].data if isinstance(roi, str) else roi
-            sub_roi = x[sub_roi].data if isinstance(sub_roi, str) else sub_roi
             # build 4d (possibly multivariate) coordinate
             if x.ndim == 4:
                 if multivariate:
@@ -156,7 +157,18 @@ class SubjectEphy(Attributes):
 
         assert data.ndim <= 4, "Data up to 4-dimensions are supported"
 
-        # __________________________ sampling rate ____________________________
+        # ____________________________ Y/Z dtypes _____________________________
+        # infer dtypes
+        y_dtype = self._infer_dtypes(y, 'y')
+        z_dtype = self._infer_dtypes(z, 'z')
+        # infer supported mi_type
+        mi_type = CONFIG['MI_TABLE'][y_dtype][z_dtype]
+        mi_repr = CONFIG['MI_REPR'][mi_type]
+        # uni to multi condition remapping
+        y = multi_to_uni_conditions([y], var_name='y', verbose=verbose)[0]
+        z = multi_to_uni_conditions([z], var_name='z', verbose=verbose)[0]
+
+        # __________________________ Sampling rate ____________________________
         # infer the sampling frequency (if needed)
         if sfreq is None:
             if times is not None:
@@ -167,15 +179,9 @@ class SubjectEphy(Attributes):
                 sfreq = 1.
         sfreq = float(sfreq)
 
-        # _______________________________ y / z _______________________________
-
-        # infer dtypes
-        y_dtype = self._infer_dtypes(y, 'y')
-        z_dtype = self._infer_dtypes(z, 'z')
-
         # ============================= DataArray =============================
 
-        # ___________________________ dims & coords ___________________________
+        # ___________________________ Dims & Coords ___________________________
 
         dims, coords = [], OrderedDict()
         n_trials, n_roi, n_times = np.array(list(data.shape))[[0, 1, -1]]
@@ -202,8 +208,8 @@ class SubjectEphy(Attributes):
         coords['space'] = ('space', np.arange(n_roi))
         if (roi is not None) and (len(roi) == n_roi):
             coords['roi'] = ('space', roi)
-        if (sub_roi is not None) and (len(sub_roi) == n_roi):
-            coords['sub_roi'] = ('space', sub_roi)
+        if not agg_ch:
+            coords['agg_roi'] = ('space', np.arange(n_roi))
         dims += ['space']
         if _supp_dim:
             coords[_supp_dim[0]] = _supp_dim[1]
@@ -213,17 +219,21 @@ class SubjectEphy(Attributes):
             coords['times'] = ('times', times)
         dims += ['times']
 
-        # _______________________ additional attributes _______________________
+        # _____________________________ Attributes ____________________________
         attrs.update({
             '__version__': frites.__version__,
             'modality': "electrophysiology",
             'dtype': 'SubjectEphy',
             'y_dtype': y_dtype,
             'z_dtype': z_dtype,
+            'mi_type': mi_type,
+            'mi_repr': mi_repr,
             'sfreq': sfreq,
+            'agg_ch' : agg_ch,
+            'multivariate' : multivariate
         })
 
-        # _____________________________ dataarray _____________________________
+        # _____________________________ DataArray _____________________________
         # for a given reason, DataArray are not easy to subclass (see #706,
         # #728, #3980). Therefore, for the moment, it's just easier to simply
         # return a dataarray
@@ -232,6 +242,7 @@ class SubjectEphy(Attributes):
 
         return da
 
+
     @staticmethod
     def _infer_dtypes(var, var_name):
         """Check that the dtypes of list of variables is consistent."""
@@ -239,7 +250,6 @@ class SubjectEphy(Attributes):
         if var is None:
             return 'none'
         dtype = np.asarray(var).dtype
-        print(dtype)
         if dtype in CONFIG['INT_DTYPE']:
             return 'int'
         elif dtype in CONFIG['FLOAT_DTYPE']:

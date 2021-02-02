@@ -1,5 +1,6 @@
 """Configuration file."""
 import numpy as np
+import pandas as pd
 import mne
 
 # Empty config
@@ -25,6 +26,28 @@ CONFIG["KW_GCMI"] = dict(shape_checking=False, biascorrect=True,
 
 # copula name conversion
 CONFIG["COPULA_CONV"] = dict(cc='gg', cd='gd', ccd='ggd')
+
+# mi types table
+CONFIG['MI_TABLE'] = {
+  'int' : {
+    'none': 'cc',
+    'int': 'cd',
+    'float': 'none'
+  },
+  'float': {
+    'none': 'cd',
+    'int': 'ccd',
+    'float': 'ccc'
+  }
+}
+
+# mi type full description
+CONFIG['MI_REPR'] = {
+  'cc': 'I(x; y (continuous))',
+  'cd': 'I(x; y (discret))',
+  'ccd': 'I(x; y (continuous)) | z (discret)',
+  'ccc': 'I(x; y (continuous)) | z (continuous)',
+}
 
 # general joblib config
 CONFIG["JOBLIB_CFG"] = dict()
