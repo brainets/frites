@@ -7,11 +7,14 @@ time-frequency inputs (e.g time-frequency maps). Then, it uses cluster-based
 to correct for multiple comparisons.
 """
 import numpy as np
+import xarray as xr
 
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
 
 import matplotlib.pyplot as plt
+
+np.random.seed(0)
 
 
 ###############################################################################
@@ -62,14 +65,13 @@ freqs = np.linspace(60, 160, n_freqs)
 for s in range(n_subjects):
     # simulate the data coming from a single subject
     x_single_suj, y_single_suj = sim_single_subject()
-    # x_single_suj.shape = (n_trials, n_roi, n_freqs, n_times)
-    # y_single_suj.shape = (n_trials)
-    x += [x_single_suj]
-    y += [y_single_suj]
-    roi += [np.array(['roi_0'])]
+    # xarray conversion
+    _x = xr.DataArray(x_single_suj, dims=('trials', 'roi', 'freqs', 'times'),
+                      coords=(y_single_suj, ['roi_0'], freqs, times))
+    x += [_x]
 
 # define an instance of DatasetEphy
-ds = DatasetEphy(x, y=y, roi=roi, times=times)
+ds = DatasetEphy(x, y='trials', roi='roi', times='times')
 
 ###############################################################################
 # Compute the mutual information
@@ -80,9 +82,6 @@ ds = DatasetEphy(x, y=y, roi=roi, times=times)
 # compute the mutual information
 wf = WfMi(inference='ffx', mi_type='cc')
 mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0, n_jobs=1)
-# set the true frequencies
-mi['freqs'] = freqs
-pv['freqs'] = freqs
 
 ###############################################################################
 # plot the mutual information and p-values

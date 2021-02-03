@@ -61,7 +61,7 @@ y = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi)
+dt = DatasetEphy(x, y=y, roi=roi, times=time)
 
 
 ###############################################################################
@@ -87,34 +87,6 @@ plt.title('I(C; C)')
 plt.show()
 
 ###############################################################################
-# Multivariate regressor
-# ----------------------
-#
-# Example above uses a univariate regressor (i.e a single column vector). But
-# multivariate regressors are also supported. Here is an example
-# of multivariate regressor
-
-# take the mean over time points [10, 30]
-sl = slice(10, 30)
-_y_1 = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
-# take the mean over time points [70, 90]
-sl = slice(70, 90)
-_y_2 = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
-# concatenate the two vectors
-y_mv = [np.c_[_y_1[k], _y_2[k]] for k in range(len(_y_1))]
-print([k.shape for k in y_mv])
-
-
-# compute the mutual information
-dt = DatasetEphy(x, y_mv, roi)
-mi, _ = WfMi('cc').fit(dt, mcp=None)
-# plot the result
-plt.plot(time, mi)
-plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-plt.title("Multivariate regressor")
-plt.show()
-
-###############################################################################
 # Evaluate the statistics
 # -----------------------
 #
@@ -128,14 +100,14 @@ y, _ = sim_mi_cc(x, snr=.1)
 
 # within subject statistics (ffx=fixed-effect)
 ffx_stat = 'ffx_cluster_tfce'
-dt_ffx = DatasetEphy(x, y, roi)
-wf_ffx = WfMi(mi_type, 'ffx')
+dt_ffx = DatasetEphy(x, y=y, roi=roi)
+wf_ffx = WfMi(mi_type=mi_type, inference='ffx')
 mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm, n_jobs=1)
 
 # between-subject statistics (rfx=random-effect)
-dt_rfx = DatasetEphy(x, y, roi)
-wf_rfx = WfMi(mi_type, 'rfx')
+dt_rfx = DatasetEphy(x, y=y, roi=roi)
+wf_rfx = WfMi(mi_type=mi_type, inference='rfx')
 mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm, n_jobs=1)
 

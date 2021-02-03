@@ -67,4 +67,4 @@ dt = DatasetEphy(x_mne)
 print(dt)
 
 print('Time vector : ', dt.times)
-print('ROI (first subject) : ', dt.roi[0])
+print('ROI DataFrame\n: ', dt.df_rs)

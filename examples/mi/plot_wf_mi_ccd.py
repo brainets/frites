@@ -51,7 +51,7 @@ y, z, _ = sim_mi_ccd(x, snr=1.)
 #
 # Now we define an instance of :class:`frites.dataset.DatasetEphy`
 
-dt = DatasetEphy(x, y, roi, z=z, times=time)
+dt = DatasetEphy(x, y=y, roi=roi, z=z, times=time)
 
 
 ###############################################################################
@@ -66,9 +66,9 @@ dt = DatasetEphy(x, y, roi, z=z, times=time)
 mi_type = 'ccd'
 
 # define the workflow
-wf = WfMi(mi_type)
+wf = WfMi(mi_type=mi_type)
 # compute the mutual information
-mi, _ = wf.fit(dt, mcp=None)
+mi, _ = wf.fit(dt, mcp=None, n_jobs=1)
 
 # plot the information shared between the data and the regressor y
 plt.plot(time, mi)

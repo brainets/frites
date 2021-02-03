@@ -75,7 +75,7 @@ for s_nb, s_name in enumerate(ephy.keys()):
     y += [_y.squeeze()]
 
 # Define the electrophysiological dataset
-dt = DatasetEphy(x, y, roi)
+dt = DatasetEphy(x, y=y, roi=roi, times=times)
 
 ###############################################################################
 # Compute the mutual information
@@ -126,7 +126,7 @@ plt.show()
 #          each roi
 
 # perform the conjunction analysis
-conj_ss, conj = wf.conjunction_analysis(dt)
+conj_ss, conj = wf.conjunction_analysis()
 
 ###############################################################################
 # Plot where there's significant effect for each subject

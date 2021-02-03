@@ -86,7 +86,7 @@ plt.show()
 # high-gamma and the stimulus variable.
 
 # define an electrophysiological dataset
-ds = DatasetEphy(x, y='trials', times='times', roi='roi')
+ds = DatasetEphy(x.copy(), y='trials', times='times', roi='roi')
 # define a workflow of mutual information
 wf = WfMi(mi_type='cd', inference='rfx')
 # run the workflow

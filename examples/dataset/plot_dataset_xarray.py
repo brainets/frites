@@ -73,7 +73,7 @@ dt = DatasetEphy(x_xr, roi='channels', times='times')
 print(dt)
 
 print('Time vector : ', dt.times)
-print('ROI (first subject) : ', dt.roi[0])
+print('ROI\n: ', dt.df_rs)
 
 ###############################################################################
 # MultiIndex support
