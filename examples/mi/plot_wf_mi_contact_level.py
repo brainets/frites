@@ -54,7 +54,7 @@ for suj in range(n_suj):
     roi += [np.array(['roi_0', 'roi_0'])]
 
 # now, compute the mi with default parameters
-ds = DatasetEphy(x, y=y, roi=roi, times=times)
+ds = DatasetEphy(x, y=y, roi=roi, times=times, agg_ch=True)
 mi = WfMi(mi_type='cc').fit(ds, mcp='noperm')[0]
 
 # compute the mi at the contact level

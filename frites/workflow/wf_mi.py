@@ -232,8 +232,12 @@ class WfMi(WfBase):
         # get needed dataset's informations
         self._times, self._roi = dataset.times, dataset.roi_names
         self._mi_dims = dataset._mi_dims
-        coords = dataset.x[0].coords
-        self._mi_coords = {k: coords[k].data for k in self._mi_dims}
+        self._mi_coords = dict()
+        for k in self._mi_dims:
+            if k != 'roi':
+                self._mi_coords[k] = dataset.x[0].coords[k].data
+            else:
+                self._mi_coords['roi'] = self._roi
         self._df_rs, self._n_subjects = dataset.df_rs, dataset._n_subjects
 
         # ---------------------------------------------------------------------
