@@ -22,7 +22,7 @@ Breaking changes
 
 Bug fixes
 +++++++++
-* Bug fixing according to the new version of :py:class:`frites.dataset.DatasetEphy` (:commit:`1a15e05`, :commit:`7b83a3d`, :commit:`abd1b281`, :commit:`70bfefb`, :commit:`5879950`, :commit:`66acdf2`, :commit:`4309be9c5`)
+* Bug fixing according to the new version of :py:class:`frites.dataset.DatasetEphy` (:commit:`1a15e05`, :commit:`7b83a3d`, :commit:`abd1b281`, :commit:`70bfefb`, :commit:`5879950`, :commit:`66acdf2`, :commit:`4309be9c5`, :commit:`6dc2fbf8`)
 
 v0.3.6
 ------
