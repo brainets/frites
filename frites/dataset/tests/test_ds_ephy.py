@@ -50,14 +50,14 @@ class TestDatasetEphy(object):  # noqa
     def test_definition(self):
         """Test function definition."""
         d_3d = self._get_data(3)
-        DatasetEphy(d_3d, **kw)
-        DatasetEphy(d_3d, y='y', **kw)
-        DatasetEphy(d_3d, y='y', z='z', **kw)
-        DatasetEphy(d_3d, y='y', z='z', roi='roi', **kw)
-        DatasetEphy(d_3d, y='y', z='z', roi='roi', times='time', **kw)
-        DatasetEphy(d_3d, y='y', z='z', roi='roi', times='time', agg_ch=False,
-                    **kw)
-        DatasetEphy(d_3d, y='y', z='z', roi='roi', times='time', agg_ch=False,
+        DatasetEphy(d_3d.copy(), **kw)
+        DatasetEphy(d_3d.copy(), y='y', **kw)
+        DatasetEphy(d_3d.copy(), y='y', z='z', **kw)
+        DatasetEphy(d_3d.copy(), y='y', z='z', roi='roi', **kw)
+        DatasetEphy(d_3d.copy(), y='y', z='z', roi='roi', times='times', **kw)
+        DatasetEphy(d_3d.copy(), y='y', z='z', roi='roi', times='times',
+                    agg_ch=False, **kw)
+        DatasetEphy(d_3d, y='y', z='z', roi='roi', times='times', agg_ch=False,
                     multivariate=True, **kw)
 
     def test_multiconditions(self):
@@ -192,6 +192,4 @@ class TestDatasetEphy(object):  # noqa
 
 
 if __name__ == '__main__':
-    # TestDatasetEphy().test_definition()
-    # TestDatasetEphy().test_multiconditions()
-    TestDatasetEphy().test_multivariate()
+    TestDatasetEphy().test_definition()

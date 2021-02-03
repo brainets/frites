@@ -30,8 +30,8 @@ class TestWfMi(object):  # noqa
 
     def test_definition(self):
         """Test workflow definition."""
-        y, gt = sim_mi_cc(x, snr=1.)
-        dt = DatasetEphy(x, y, roi, times=time)
+        y, gt = sim_mi_cc(x.copy(), snr=1.)
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
         wf = WfMi(mi_type='cc', inference='rfx')
         wf.fit(dt, **kw_mi)
         wf.tvalues
@@ -41,8 +41,8 @@ class TestWfMi(object):  # noqa
         # built the regressor
         y, gt = sim_mi_cc(x, snr=1.)
         # run workflow
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
         for mi_meth in ['gc', 'bin']:
-            dt = DatasetEphy(x, y, roi, times=time)
             WfMi(mi_type='cc', inference='ffx', mi_method=mi_meth,
                  verbose=False).fit(dt, **kw_mi)
             WfMi(mi_type='cc', inference='rfx', mi_method=mi_meth,
@@ -51,10 +51,10 @@ class TestWfMi(object):  # noqa
     def test_mi_cd(self):
         """Test method fit."""
         # built the discret variable
-        x_s, y, gt = sim_mi_cd(x, snr=1.)
+        x_s, y, gt = sim_mi_cd(x.copy(), snr=1.)
         # run workflow
+        dt = DatasetEphy(x_s, y=y, roi=roi, times=time)
         for mi_meth in ['gc', 'bin']:
-            dt = DatasetEphy(x_s, y, roi, times=time)
             WfMi(mi_type='cd', inference='ffx', mi_method=mi_meth,
                  verbose=False).fit(dt, **kw_mi)
             WfMi(mi_type='cd', inference='rfx', mi_method=mi_meth,
@@ -63,10 +63,10 @@ class TestWfMi(object):  # noqa
     def test_mi_ccd(self):
         """Test method fit."""
         # built the regressor and discret variables
-        y, z, gt = sim_mi_ccd(x, snr=1.)
+        y, z, gt = sim_mi_ccd(x.copy(), snr=1.)
         # run workflow
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, z=z, times=time)
         for mi_meth in ['gc', 'bin']:
-            dt = DatasetEphy(x, y, roi, z=z, times=time)
             WfMi(mi_type='ccd', inference='ffx', mi_method=mi_meth,
                  verbose=False).fit(dt, **kw_mi)
             WfMi(mi_type='ccd', inference='rfx', mi_method=mi_meth,
@@ -74,8 +74,8 @@ class TestWfMi(object):  # noqa
 
     def test_no_stat(self):
         """Test on no stats / no permutations / don't repeat computations."""
-        y, gt = sim_mi_cc(x, snr=1.)
-        dt = DatasetEphy(x, y, roi, times=time)
+        y, gt = sim_mi_cc(x.copy(), snr=1.)
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
         # compute permutations but not statistics
         kernel = np.hanning(3)
         wf = WfMi('cc', 'ffx', kernel=kernel, verbose=False)
@@ -100,10 +100,14 @@ class TestWfMi(object):  # noqa
 
     def test_conjunction_analysis(self):
         """Test the conjunction analysis."""
-        y, gt = sim_mi_cc(x, snr=1.)
-        dt = DatasetEphy(x, y, roi, times=time)
+        y, gt = sim_mi_cc(x.copy(), snr=1.)
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
         wf = WfMi(mi_type='cc', inference='rfx')
         mi, pv = wf.fit(dt, **kw_mi)
-        cj_ss, cj = wf.conjunction_analysis(dt)
+        cj_ss, cj = wf.conjunction_analysis()
         assert cj_ss.shape == (n_subjects, n_times, n_roi)
         assert cj.shape == (n_times, n_roi)
+
+if __name__ == '__main__':
+    TestWfMi().test_mi_cc()
+    TestWfMi().test_mi_cd()

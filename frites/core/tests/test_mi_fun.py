@@ -12,8 +12,8 @@ n_perm = 15
 
 n_times, n_epochs, n_suj, n_conds = 100, 100, 2, 3
 x = rnd.rand(n_times, 1, n_epochs)
-y = rnd.rand(n_epochs).reshape(-1, 1)
-z = np.round(np.linspace(0, n_conds, n_epochs)).astype(int).reshape(-1, 1)
+y = rnd.rand(n_epochs)
+z = np.round(np.linspace(0, n_conds, n_epochs)).astype(int)
 suj = np.round(np.linspace(0, n_suj, n_epochs)).astype(int)
 
 
@@ -60,3 +60,6 @@ class TestMiFun(object):  # noqa
                 for k in y_p:
                     assert (k[0:3].min() == 0) and (k[0:3].max() == 2)
                     assert (k[3::].min() == 3) and (k[3::].max() == 5)
+
+if __name__ == '__main__':
+    TestMiFun().test_mi_fun()

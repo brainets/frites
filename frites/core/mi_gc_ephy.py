@@ -136,7 +136,7 @@ def mi_gc_ephy_ccd(x, y, z, suj, inference, **kwargs):
     y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        mi = gccmi_nd_ccnd(x, y_t, z, **kw)[np.newaxis, :]
+        mi = gccmi_nd_ccnd(x, y_t, z.squeeze(), **kw)[np.newaxis, :]
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.unique(suj)
@@ -146,6 +146,6 @@ def mi_gc_ephy_ccd(x, y, z, suj, inference, **kwargs):
         for n_s, s in enumerate(suj_u):
             is_suj = suj == s
             mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj],
-                                       z[is_suj], **kw)
+                                       z[is_suj].squeeze(), **kw)
 
     return reshape_3d_to_4d(mi, rsh)

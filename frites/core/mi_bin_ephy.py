@@ -283,7 +283,7 @@ def mi_bin_ephy_cc(x, y, z, suj, inference, n_bins=8, **kwargs):
     n_times, _, n_trials = x.shape
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        mi = mi_bin_time(x[:, 0, :], y[:, 0], n_bins, n_bins).reshape(1, -1)
+        mi = mi_bin_time(x[:, 0, :], y, n_bins, n_bins).reshape(1, -1)
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.unique(suj)
@@ -292,7 +292,7 @@ def mi_bin_ephy_cc(x, y, z, suj, inference, n_bins=8, **kwargs):
         mi = np.zeros((n_subjects, n_times), dtype=float)
         for n_s, s in enumerate(suj_u):
             is_suj = suj == s
-            mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj, 0], n_bins,
+            mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj], n_bins,
                                      n_bins).reshape(1, -1)
 
     return mi
@@ -343,7 +343,7 @@ def mi_bin_ephy_cd(x, y, z, suj, inference, n_bins=8, **kwargs):
     bins_y = len(np.unique(y))
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        mi = mi_bin_time(x[:, 0, :], y[:, 0], n_bins, bins_y).reshape(1, -1)
+        mi = mi_bin_time(x[:, 0, :], y, n_bins, bins_y).reshape(1, -1)
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.unique(suj)
@@ -352,7 +352,7 @@ def mi_bin_ephy_cd(x, y, z, suj, inference, n_bins=8, **kwargs):
         mi = np.zeros((n_subjects, n_times), dtype=float)
         for n_s, s in enumerate(suj_u):
             is_suj = suj == s
-            mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj, 0], n_bins,
+            mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj], n_bins,
                                      bins_y).reshape(1, -1)
     return mi
 
@@ -371,8 +371,7 @@ def mi_bin_ephy_ccd(x, y, z, suj, inference, n_bins=8, **kwargs):
     n_times, _, n_trials = x.shape
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        mi = mi_bin_ccd_time(x[:, 0, :], y[:, 0], z[:, 0],
-                             n_bins).reshape(1, -1)
+        mi = mi_bin_ccd_time(x[:, 0, :], y, z, n_bins).reshape(1, -1)
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.unique(suj)
@@ -381,6 +380,6 @@ def mi_bin_ephy_ccd(x, y, z, suj, inference, n_bins=8, **kwargs):
         mi = np.zeros((n_subjects, n_times), dtype=float)
         for n_s, s in enumerate(suj_u):
             is_suj = suj == s
-            mi[n_s, :] = mi_bin_ccd_time(x[:, 0, is_suj], y[is_suj, 0],
-                                         z[is_suj, 0], n_bins).reshape(1, -1)
+            mi[n_s, :] = mi_bin_ccd_time(x[:, 0, is_suj], y[is_suj],
+                                         z[is_suj], n_bins).reshape(1, -1)
     return mi
