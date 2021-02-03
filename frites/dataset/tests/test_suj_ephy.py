@@ -199,6 +199,24 @@ class TestSubjectEphy(object):  # noqa
         assert da.attrs['agg_ch'] is False
         assert da.attrs['multivariate'] is True
 
+    def test_dtypes(self):
+        """Test y, z dtypes and mi_type."""
+        # cd
+        da = SubjectEphy(x_3d, y=y_int, **kw)
+        assert da.attrs['y_dtype'] == 'int'
+        assert da.attrs['z_dtype'] == 'none'
+        assert da.attrs['mi_type'] == 'cd'
+        # cc
+        da = SubjectEphy(x_3d, y=y_flo, **kw)
+        assert da.attrs['y_dtype'] == 'float'
+        assert da.attrs['z_dtype'] == 'none'
+        assert da.attrs['mi_type'] == 'cc'
+        # ccd
+        da = SubjectEphy(x_3d, y=y_flo, z=z, **kw)
+        assert da.attrs['y_dtype'] == 'float'
+        assert da.attrs['z_dtype'] == 'int'
+        assert da.attrs['mi_type'] == 'ccd'
+
 
 if __name__ == '__main__':
-    TestSubjectEphy().test_multivariate()
+    TestSubjectEphy().test_dtypes()

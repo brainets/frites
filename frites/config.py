@@ -30,12 +30,12 @@ CONFIG["COPULA_CONV"] = dict(cc='gg', cd='gd', ccd='ggd')
 # mi types table
 CONFIG['MI_TABLE'] = {
     'int': {
-        'none': 'cc',
+        'none': 'cd',
         'int': 'cd',
         'float': 'none'
     },
     'float': {
-        'none': 'cd',
+        'none': 'cc',
         'int': 'ccd',
         'float': 'ccc'
     },

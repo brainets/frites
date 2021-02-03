@@ -81,21 +81,15 @@ class DatasetEphy(object):
 
         # ===================== Multi-subjects conversion =====================
 
-        # check if the data have already been converted
-        is_suj_ephy, n_subjects = [], len(x)
-        for k in x:
-            if isinstance(k, xr.DataArray) and ('dtype' in k.attrs.keys()):
-                is_suj_ephy += [k.attrs['dtype'] == 'SubjectEphy']
-        if len(is_suj_ephy) and all(is_suj_ephy):
-            pass
-        else:
-            y = [y] * n_subjects if not isinstance(y, list) else y
-            z = [z] * n_subjects if not isinstance(z, list) else z
-            roi = [roi] * n_subjects if not isinstance(roi, list) else roi
-            for k in range(n_subjects):
-                x[k] = SubjectEphy(
-                    x[k], y=y[k], z=z[k], roi=roi[k], agg_ch=True, times=times,
-                    multivariate=multivariate, verbose=verbose)
+        # force converting the data (latest task-related variables)
+        n_subjects = len(x)
+        y = [y] * n_subjects if not isinstance(y, list) else y
+        z = [z] * n_subjects if not isinstance(z, list) else z
+        roi = [roi] * n_subjects if not isinstance(roi, list) else roi
+        for k in range(n_subjects):
+            x[k] = SubjectEphy(
+                x[k], y=y[k], z=z[k], roi=roi[k], agg_ch=True, times=times,
+                multivariate=multivariate, verbose=verbose)
         self._x = x
 
         # minimum number of subject / roi
@@ -128,6 +122,9 @@ class DatasetEphy(object):
             for k in range(len(self._x)):
                 self._x[k] = self._x[k].assign_coords(
                     agg_ch=('roi', agg_split[k]))
+        # final mi dimension
+        dims = list(self._x[0].dims)
+        self._mi_dims = [k for k in dims if k not in ['trials', 'mv']]
 
         # ============================= Attributes ============================
 
@@ -242,25 +239,27 @@ class DatasetEphy(object):
                 x_r_ms = x_r_ms.expand_dims('mv', axis=-2)
 
             # channels aggregation
-            if not self._agg_ch and ('y' in x_r_ms.dims):
+            if not self._agg_ch and ('y' in list(x_r_ms.coords)):
                 # shortcuts
                 ch_id = x_r_ms['agg_ch'].data
                 y = x_r_ms['y'].data
                 coords_list = list(x_r_ms.coords)
                 # transformation depends on mi_type
-                if self._mi_type == 'cd':
+                if mi_type == 'cd':
                     # I(C; D) where the D=[y, ch_id]
                     ysub = np.c_[y, ch_id]
                     x_r_ms['y'].data = multi_to_uni_conditions(
                         [ysub], False)[0]
-                elif self._mi_type == 'ccd' and ('z' not in coords_list):
+                elif mi_type == 'ccd' and ('z' not in coords_list):
                     # I(C; C; D) where D=ch_id. In that case z=D
                     x_r_ms = x_r_ms.assign_coords(z=('rtr', ch_id))
-                elif self._mi_type == 'ccd' and  ('z' in coords_list):
+                elif mi_type == 'ccd' and  ('z' in coords_list):
                     # I(C; C; D) where D=[z, ch_id]
                     zsub = np.c_[x_r_ms['z'].data, ch_id]
                     x_r_ms['z'].data = multi_to_uni_conditions(
                         [zsub], False)[0]
+                else:
+                    raise ValueError("Can't avoid aggregating channels")
 
             # gaussian copula rank normalization
             if copnorm:
@@ -268,13 +267,13 @@ class DatasetEphy(object):
                     logger.debug("copnorm applied per subjects")
                     suj = x_r_ms['subject'].data
                     x_r_ms.data = copnorm_cat_nd(x_r_ms.data, suj, axis=-1)
-                    if self._mi_type in ['cc', 'ccd']:
-                        x_r_ms['y'].data = copnorm_cat_nd(x_r_ms['y'].data,
-                                                          suj, axis=0)
+                    if mi_type in ['cc', 'ccd']:
+                        x_r_ms['y'].data = copnorm_cat_nd(
+                            x_r_ms['y'].data, suj, axis=0)
                 else:             # gcrn across subjects
                     logger.debug("copnorm applied across subjects")
                     x_r_ms.data = copnorm_nd(x_r_ms.data, axis=-1)
-                    if self._mi_type in ['cc', 'ccd']:
+                    if mi_type in ['cc', 'ccd']:
                         x_r_ms['y'].data = copnorm_nd(x_r_ms['y'].data, axis=0)
 
             return x_r_ms
