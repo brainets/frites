@@ -17,7 +17,7 @@ CONFIG['INT_DTYPE'] = INT_DTYPE
 CONFIG['FLOAT_DTYPE'] = FLOAT_DTYPE
 
 # gcmi configuration
-CONFIG["KW_GCMI"] = dict(shape_checking=False, biascorrect=True,
+CONFIG["KW_GCMI"] = dict(shape_checking=False, biascorrect=False,
                          demeaned=False, mvaxis=-2, traxis=-1)
 
 # copula name conversion
