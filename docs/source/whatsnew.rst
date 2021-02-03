@@ -6,6 +6,24 @@ What's new
 v0.3.7
 ------
 
+New Features
+++++++++++++
+* new :py:class:`frites.io.Attributes` class for managing and printing datasets' and workflow's attributes (:commit:`be046b1`)
+* new :py:class:`frites.dataset.SubjectEphy` single-subject container (:commit:`ac22cf4`)
+ 
+Internal Changes
+++++++++++++++++
+* Removed files (:commit:`cdff9b4`, :commit:`9e96f8e`, :commit:`14961aa0`)
+* :py:class:`frites.dataset.DatasetEphy` don't perform internal data copy when getting the data in a specific ROI (:commit:`2da73ef`)
+
+Breaking changes
+++++++++++++++++
+* :py:class:`frites.dataset.SubjectEphy` and :py:class:`frites.dataset.DatasetEphy` to specify whether channels should be aggregated (default `agg_ch=True`) or not (`agg=False`) when computing MI. The `agg_ch` replace `sub_roi` (:commit:`18d4e24`)
+
+Bug fixes
++++++++++
+* Bug fixing according to the new version of :py:class:`frites.dataset.DatasetEphy` (:commit:`1a15e05`, :commit:`7b83a3d`, :commit:`abd1b281`, :commit:`70bfefb`, :commit:`5879950`, :commit:`66acdf2`, :commit:`4309be9c5`)
+
 v0.3.6
 ------
 
