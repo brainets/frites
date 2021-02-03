@@ -1,6 +1,6 @@
 """
-Estimate instantaneous connectivity using MI
-============================================
+Estimate comodulations between brain areas
+==========================================
 
 This example illustrates how to estimate the instantaneous comodulations using
 mutual information between pairwise ROI and also perform statistics.

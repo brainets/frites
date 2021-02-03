@@ -67,25 +67,12 @@ class WfComod(WfBase):
         self.clean()
         self._wf_stats = WfStats(verbose=verbose)
         # update internal config
-        self.update_cfg(mi_type=self._mi_type, inference=inference,
-            mi_method=mi_method, kernel=kernel)
+        self.attrs.update(dict(mi_type=self._mi_type, inference=inference,
+                               mi_method=mi_method, kernel=kernel))
 
         logger.info(f"Workflow for computing connectivity ({self._mi_type} - "
                     f"{mi_method})")
 
-    def _node_prepare_data(self, dataset):
-        """Prepare the data before computing the mi.
-
-        The preparation of the data depends both on the type of inferences
-        that are required and on the type of mutual information that is going
-        to be performed.
-        """
-        # inplace preparation
-        dataset.groupby("roi")
-        if self._need_copnorm:
-            dataset.copnorm(mi_type=self._mi_type, gcrn_per_suj=self._gcrn)
-        # track time and roi
-        self._times, self._roi = dataset.times, dataset.roi_names
 
     def _node_compute_mi(self, dataset, n_bins, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
@@ -99,32 +86,42 @@ class WfComod(WfBase):
         assert (f"mi_{self._mi_method}_ephy_conn_"
                 f"{self._mi_type}" == mi_fun.__name__)
         # get x, y, z and subject names per roi
-        x, y, suj = dataset.x, dataset.y, dataset.suj_roi
-        roi = dataset.roi_names
-        n_roi, inf = dataset.n_roi, self._inference
+        roi, inf = dataset.roi_names, self._inference
         # get the pairs for computing mi
-        self.pairs = dataset.get_connectivity_pairs(
-            nb_min_suj=dataset.nb_min_suj, directed=False)
-        x_s, x_t = self.pairs
+        (x_s, x_t) = dataset.get_connectivity_pairs(
+            directed=False, as_blocks=True, verbose=False)
+        self.pairs = dataset.get_connectivity_pairs(directed=False)
+        # x_s, x_t = self.pairs
         n_pairs = len(self.pairs)
+        # get joblib configuration
+        cfg_jobs = config.CONFIG["JOBLIB_CFG"]
         # evaluate true mi
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs}, n_pairs={len(x_s)})")
-        mi = [mi_fun(x[s], x[t], suj[s], suj[t], inf,
-                     n_bins=n_bins) for s, t in zip(x_s, x_t)]
-        # get joblib configuration
-        cfg_jobs = config.CONFIG["JOBLIB_CFG"]
-        # evaluate permuted mi
-        mi_p = []
-        for s, t in zip(x_s, x_t):
-            # get the randomize version of y
-            y_p = permute_mi_trials(suj[t], inference=self._inference,
-                                    n_perm=n_perm)
-            # run permutations using the randomize regressor
-            _mi = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(mi_fun)(
-                x[s], x[t][..., y_p[p]], suj[s], suj[t], inf,
-                n_bins=n_bins) for p in range(n_perm))
-            mi_p += [np.asarray(_mi)]
+        mi, mi_p = [], []
+        kw_get = dict(mi_type=self._mi_type, copnorm=self._need_copnorm,
+                      gcrn_per_suj=self._gcrn)
+        for s in x_s:
+            # get source data
+            da_s = dataset.get_roi_data(roi[s], **kw_get)
+            suj_s = da_s['subject'].data
+            for t in x_t[s]:
+                # get target data
+                da_t = dataset.get_roi_data(roi[t], **kw_get)
+                suj_t = da_t['subject'].data
+                # compute mi
+                _mi = mi_fun(da_s.data, da_t.data, suj_s, suj_t, inf,
+                             n_bins=n_bins)
+                mi += [_mi]
+                # get the randomize version of y
+                y_p = permute_mi_trials(suj_t, inference=self._inference,
+                                        n_perm=n_perm)
+                # run permutations using the randomize regressor
+                _mi_p = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(mi_fun)(
+                    da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
+                    n_bins=n_bins) for p in range(n_perm))
+                mi_p += [np.asarray(_mi_p)]
+            
         # # smoothing
         if isinstance(self._kernel, np.ndarray):
             logger.info("    Apply smoothing to the true and permuted MI")
@@ -217,6 +214,8 @@ class WfComod(WfBase):
             n_bins = 4
             logger.info(f"    Use an automatic number of bins of {n_bins}")
         self._n_bins = n_bins
+        # get important dataset's variables
+        self._times, self._roi = dataset.times, dataset.roi_names
 
         # ---------------------------------------------------------------------
         # compute connectivity
@@ -228,7 +227,6 @@ class WfComod(WfBase):
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:
-            self._node_prepare_data(dataset)
             mi, mi_p = self._node_compute_mi(
                 dataset, self._n_bins, n_perm, n_jobs, random_state)
 
@@ -241,8 +239,9 @@ class WfComod(WfBase):
             cluster_alpha=cluster_alpha, inference=self._inference,
             **kw_stats)
         # update internal config
-        self.update_cfg(n_perm=n_perm, random_state=random_state,
-                        n_bins=n_bins, **self._wf_stats.cfg)
+        self.attrs.update(dict(n_perm=n_perm, random_state=random_state,
+                               n_bins=n_bins))
+        self.attrs.update(self._wf_stats.attrs)
 
         # ---------------------------------------------------------------------
         # post-processing
@@ -259,8 +258,8 @@ class WfComod(WfBase):
             mi = np.concatenate(mi, axis=0).T  # mi
         mi = convert_dfc_outputs(mi, *args)
         # converting outputs
-        mi = self._attrs_xarray(mi, da_type='mi')
-        pvalues = self._attrs_xarray(pvalues, da_type='pvalues')
+        mi = self.attrs.wrap_xr(mi, name='mi')
+        pvalues = self.attrs.wrap_xr(pvalues, name='pvalues')
 
         return mi, pvalues
 

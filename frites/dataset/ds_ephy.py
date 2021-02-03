@@ -237,23 +237,23 @@ class DatasetEphy(object):
                 x_r_ms = x_r_ms.transpose('times', 'mv', 'rtr')
             else:
                 x_r_ms = x_r_ms.expand_dims('mv', axis=-2)
+            x_coords = list(x_r_ms.coords)
 
             # channels aggregation
-            if not self._agg_ch and ('y' in list(x_r_ms.coords)):
+            if not self._agg_ch and ('y' in x_coords):
                 # shortcuts
                 ch_id = x_r_ms['agg_ch'].data
                 y = x_r_ms['y'].data
-                coords_list = list(x_r_ms.coords)
                 # transformation depends on mi_type
                 if mi_type == 'cd':
                     # I(C; D) where the D=[y, ch_id]
                     ysub = np.c_[y, ch_id]
                     x_r_ms['y'].data = multi_to_uni_conditions(
                         [ysub], False)[0]
-                elif mi_type == 'ccd' and ('z' not in coords_list):
+                elif mi_type == 'ccd' and ('z' not in x_coords):
                     # I(C; C; D) where D=ch_id. In that case z=D
                     x_r_ms = x_r_ms.assign_coords(z=('rtr', ch_id))
-                elif mi_type == 'ccd' and  ('z' in coords_list):
+                elif mi_type == 'ccd' and  ('z' in x_coords):
                     # I(C; C; D) where D=[z, ch_id]
                     zsub = np.c_[x_r_ms['z'].data, ch_id]
                     x_r_ms['z'].data = multi_to_uni_conditions(
@@ -267,13 +267,13 @@ class DatasetEphy(object):
                     logger.debug("copnorm applied per subjects")
                     suj = x_r_ms['subject'].data
                     x_r_ms.data = copnorm_cat_nd(x_r_ms.data, suj, axis=-1)
-                    if mi_type in ['cc', 'ccd']:
+                    if (mi_type in ['cc', 'ccd']) and ('y' in x_coords):
                         x_r_ms['y'].data = copnorm_cat_nd(
                             x_r_ms['y'].data, suj, axis=0)
                 else:             # gcrn across subjects
                     logger.debug("copnorm applied across subjects")
                     x_r_ms.data = copnorm_nd(x_r_ms.data, axis=-1)
-                    if mi_type in ['cc', 'ccd']:
+                    if (mi_type in ['cc', 'ccd']) and ('y' in x_coords):
                         x_r_ms['y'].data = copnorm_nd(x_r_ms['y'].data, axis=0)
 
             return x_r_ms
@@ -382,7 +382,8 @@ class DatasetEphy(object):
         return self
 
 
-    def get_connectivity_pairs(self, directed=False, verbose=None):
+    def get_connectivity_pairs(self, as_blocks=False, directed=False,
+                               verbose=None):
         """Get the connectivity pairs for this dataset.
 
         This method can be used to get the possible connectivity pairs i.e
@@ -428,6 +429,13 @@ class DatasetEphy(object):
         logger.info(f"    {len(pairs[0])} remaining connectivity pairs / "
                     f"{len(bad)} pairs have been ignored "
                     f"(nb_min_suj={nb_min_suj})")
+        if as_blocks:
+            blocks_s, blocks_t, u_sources = [], [], np.unique(pairs[0])
+            for s in u_sources:
+                blocks_s += [s]
+                blocks_t += [pairs[1][pairs[0] == s].tolist()]
+            pairs = (blocks_s, blocks_t)
+
 
         return pairs[0], pairs[1]
 
