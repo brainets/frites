@@ -62,4 +62,5 @@ class Attributes(UserDict):
         da.attrs = self.data
         if isinstance(name, str):
             da.name = name
+            da.attrs['type'] = name
         return da

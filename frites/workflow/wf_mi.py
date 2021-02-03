@@ -78,25 +78,12 @@ class WfMi(WfBase):
         self.clean()
         self._wf_stats = WfStats(verbose=verbose)
         # update internal config
-        self.update_cfg(mi_type=mi_type, inference=inference,
-            mi_method=mi_method, kernel=kernel)
+        self.attrs.update(dict(
+            mi_type=mi_type, inference=inference, mi_method=mi_method,
+            kernel=kernel))
 
         logger.info(f"Workflow for computing mutual information ({inference} -"
                     f" {mi_method} - {mi_type})")
-
-    def _node_prepare_data(self, dataset):
-        """Prepare the data before computing the mi.
-
-        The preparation of the data depends both on the type of inferences
-        that are required and on the type of mutual information that is going
-        to be performed.
-        """
-        # inplace preparation
-        dataset.groupby("roi")
-        if self._need_copnorm:
-            dataset.copnorm(mi_type=self._mi_type, gcrn_per_suj=self._gcrn)
-        # track time and roi
-        self._times, self._roi = dataset.times, dataset.roi_names
 
     def _node_compute_mi(self, dataset, n_bins, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
@@ -113,8 +100,8 @@ class WfMi(WfBase):
             assert TypeError(f"Your dataset doesn't allow to compute the mi "
                              f"{self._mi_type}. Allowed mi is "
                              f"{dataset._mi_type}")
-        x, y, z, suj = dataset.x, dataset.y, dataset.z, dataset.suj_roi
-        n_roi, inf = dataset.n_roi, self._inference
+        # get data variables
+        n_roi, inf = len(self._roi), self._inference
         # evaluate true mi
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs})")
@@ -125,16 +112,24 @@ class WfMi(WfBase):
         with parallel as para:
             mi, mi_p = [], []
             for r in range(n_roi):
+                # get the data of selected roi
+                da = dataset.get_roi_data(
+                    self._roi[r], copnorm=self._need_copnorm,
+                    mi_type=self._mi_type, gcrn_per_suj=self._gcrn)
+                x, y = da.data, da['y'].data, 
+                z = da['z'].data if 'z' in list(da.coords) else None
+                suj = da['subject'].data
+
                 # compute the true mi
-                mi += [mi_fun(x[r], y[r], z[r], suj[r], inf, n_bins=n_bins)]
+                mi += [mi_fun(x, y, z, suj, inf, n_bins=n_bins)]
 
                 # get the randomize version of y
-                y_p = permute_mi_vector(y[r], suj[r], mi_type=self._mi_type,
-                                        inference=self._inference,
-                                        n_perm=n_perm)
+                y_p = permute_mi_vector(
+                    y, suj, mi_type=self._mi_type, inference=self._inference,
+                    n_perm=n_perm)
                 # run permutations using the randomize regressor
-                _mi = para(p_fun(x[r], y_p[p], z[r], suj[r], inf,
-                                     n_bins=n_bins) for p in range(n_perm))
+                _mi = para(p_fun(x, y_p[p], z, suj, inf,
+                                 n_bins=n_bins) for p in range(n_perm))
                 mi_p += [np.asarray(_mi)]
                 pbar.update_with_increment_value(1)
         # smoothing
@@ -234,6 +229,12 @@ class WfMi(WfBase):
             n_bins = 4
             logger.info(f"    Use an automatic number of bins of {n_bins}")
         self._n_bins = n_bins
+        # get needed dataset's informations
+        self._times, self._roi = dataset.times, dataset.roi_names
+        self._mi_dims = dataset._mi_dims
+        coords = dataset.x[0].coords
+        self._mi_coords = {k: coords[k].data for k in self._mi_dims}
+        self._df_rs, self._n_subjects = dataset.df_rs, dataset._n_subjects
 
         # ---------------------------------------------------------------------
         # compute mutual information
@@ -245,7 +246,6 @@ class WfMi(WfBase):
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:
-            self._node_prepare_data(dataset)
             mi, mi_p = self._node_compute_mi(
                 dataset, self._n_bins, n_perm, n_jobs, random_state)
         """
@@ -258,28 +258,16 @@ class WfMi(WfBase):
             return None
 
         # ---------------------------------------------------------------------
-        # 4d reshaping before the stats
-        # ---------------------------------------------------------------------
-        self._reshape = dataset._reshape
-        if self._reshape is not None:
-            logger.debug(f"    reshaping before computing statistics")
-            n_f, n_t = self._reshape
-            for k in range(len(mi)):
-                n_p, n_s, _ = mi_p[k].shape
-                mi[k] = mi[k].reshape(n_s, n_f, n_t)
-                mi_p[k] = mi_p[k].reshape(n_p, n_s, n_f, n_t)
-
-        # ---------------------------------------------------------------------
         # compute statistics
         # ---------------------------------------------------------------------
         # infer p-values and t-values
         pvalues, tvalues = self._wf_stats.fit(
             mi, mi_p, mcp=mcp, cluster_th=cluster_th, tail=1,
-            cluster_alpha=cluster_alpha, inference=self._inference,
-            **kw_stats)
-        # update internal config
-        self.update_cfg(n_perm=n_perm, random_state=random_state,
-                        n_bins=n_bins, **self._wf_stats.cfg)
+            cluster_alpha=cluster_alpha, inference=self._inference, **kw_stats)
+        # update attributes
+        self.attrs.update(self._wf_stats.attrs)
+        self.attrs.update(dict(n_perm=n_perm, random_state=random_state,
+                               n_bins=n_bins))
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions
@@ -298,22 +286,22 @@ class WfMi(WfBase):
 
         return mi, pv
 
-    def _xr_conversion(self, x, da_type):
+    def _xr_conversion(self, x, name):
         """Xarray conversion."""
-        times, roi = self._times, self._roi
-        if x.ndim == 2:
-            x_da = xr.DataArray(x, dims=('times', 'roi'), coords=(times, roi))
-        elif x.ndim == 3:
-            freqs = np.arange(x.shape[0])
-            x_da = xr.DataArray(x, dims=('freqs', 'times', 'roi'),
-                                coords=(freqs, times, roi))
-        self._attrs_xarray(x_da, da_type=da_type)
+        # build dimension order
+        dims = ['times', 'roi']
+        supp_dim = [k for k in self._mi_dims if k not in dims]
+        dims = supp_dim + dims
+        # build coordinates
+        coords = [self._mi_coords[k] for k in dims]
+        # build xarray
+        da = xr.DataArray(x, dims=dims, coords=coords)
+        # wrap with workflow's attributes
+        da = self.attrs.wrap_xr(da, name=name)
+        return da
 
-        return x_da
-
-
-    def conjunction_analysis(self, dataset, p=.05, mcp='cluster',
-                             cluster_th=None, cluster_alpha=0.05):
+    def conjunction_analysis(self, p=.05, mcp='cluster', cluster_th=None,
+                             cluster_alpha=0.05):
         """Perform a conjunction analysis.
 
         This method can be used in order to determine the number of subjects
@@ -330,9 +318,6 @@ class WfMi(WfBase):
 
         Parameters
         ----------
-        dataset : :class:`frites.dataset.DatasetEphy`
-            A dataset instance. Note that it should be the same dataset used
-            with the fit() method.
         p : float | 0.05
             Significiency threshold to find significant effect per subject.
         kwargs : dict | {}
@@ -359,27 +344,29 @@ class WfMi(WfBase):
         # retrieve the original number of subjects
         n_roi = len(self._mi)
         pv_s = {}
-        for s in range(dataset.n_subjects):
+        for s in range(self._n_subjects):
             # reconstruct the mi and mi_p of each subject
             mi_s, mi_ps, roi_s = [], [], []
-            for r in range(n_roi):
-                suj_roi_u = dataset.suj_roi_u[r]
+            for n_r, r in enumerate(self._roi):
+                suj_roi_u = np.array(self._df_rs.loc[r, 'subjects'])
                 if s not in suj_roi_u: continue  # noqa
                 is_suj = suj_roi_u == s
-                mi_s += [self._mi[r][is_suj, :]]
-                mi_ps += [self._mi_p[r][:, is_suj, :]]
-                roi_s += [self._roi[r]]
+                mi_s += [self._mi[n_r][is_suj, :]]
+                mi_ps += [self._mi_p[n_r][:, is_suj, :]]
+                roi_s += [self._roi[n_r]]
 
             # perform the statistics
             _pv_s = self._wf_stats.fit(
-            mi_s, mi_ps, mcp=mcp, cluster_th=cluster_th, tail=1,
-            cluster_alpha=cluster_alpha, inference='ffx')[0]
+                mi_s, mi_ps, mcp=mcp, cluster_th=cluster_th, tail=1,
+                cluster_alpha=cluster_alpha, inference='ffx')[0]
             # dataarray conversion
             pv_s[s] = xr.DataArray(_pv_s < p, dims=('times', 'roi'),
                                    coords=(self._times, roi_s))
         # cross-subjects conjunction
         conj_ss = xr.Dataset(pv_s).to_array('subject')
+        conj_ss.name = 'Single subject conjunction'
         conj = conj_ss.sum('subject')
+        conj.name = 'Across subjects conjunction'
         # add attributes to the dataarray
         attrs = dict(p=p, cluster_th=cluster_th, cluster_alpha=cluster_alpha,
                      mcp=mcp)
@@ -389,7 +376,7 @@ class WfMi(WfBase):
 
         return conj_ss, conj
 
-    def get_params(self, dataset, *params):
+    def get_params(self, *params):
         """Get formatted parameters.
 
         This method can be used to get internal arrays formatted as xarray
@@ -397,8 +384,6 @@ class WfMi(WfBase):
 
         Parameters
         ----------
-        dataset : :class:`frites.dataset.DatasetEphy`
-            The dataset instance that have been used for fitting (WfMi.fit)
         params : string
             Internal array names to get as xarray DataArray. You can use :
 
@@ -412,11 +397,11 @@ class WfMi(WfBase):
                   shape (n_perm,)
         """
         # get coordinates
-        times, roi = self._times, self._roi
+        times, roi, df_rs = self._times, self._roi, self._df_rs
         if self._inference == 'ffx':
             suj = [np.array([-1])] * len(roi)
         elif self._inference == 'rfx':
-            suj = dataset.suj_roi_u
+            suj = [np.array(df_rs.loc[r, 'subjects']) for r in roi]
         n_perm = self._mi_p[0].shape[0]
         perm = np.arange(n_perm)
         # loop over possible outputs
@@ -450,7 +435,7 @@ class WfMi(WfBase):
             else:
                 raise ValueError(f"Parameter {param} not found")
             # add workflow attributes
-            self._attrs_xarray(da, da_type=param)
+            self.attrs.wrap_xr(da, name=param)
             outs += [da]
 
         return tuple(outs)

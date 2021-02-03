@@ -16,18 +16,32 @@ from frites.core import mi_nd_gg, mi_model_nd_gd, gccmi_nd_ccnd
 ###############################################################################
 
 
+def reshape_4d_to_3d(x):
+    if x.ndim < 4:
+        return x, None
+    n_1, n_2, n_3, n_4 = x.shape
+    return x.reshape(n_1 * n_2, n_3, n_4), x.shape
+
+
+def reshape_3d_to_4d(x, rsh):
+    if rsh is None:
+        return x
+    return x.reshape(x.shape[0], rsh[0], rsh[1])
+
+
 def mi_gc_ephy_cc(x, y, z, suj, inference, **kwargs):
     """I(C; C) for rfx.
 
     The returned mi array has a shape of (n_subjects, n_times) if inference is
     "rfx", (1, n_times) if "ffx".
     """
+    x, rsh = reshape_4d_to_3d(x)
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
     y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        mi = mi_nd_gg(x, y_t, **CONFIG["KW_GCMI"])[np.newaxis, :]
+        mi = mi_nd_gg(x, y_t, **CONFIG["KW_GCMI"])[np.newaxis, ...]
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.unique(suj)
@@ -39,7 +53,7 @@ def mi_gc_ephy_cc(x, y, z, suj, inference, **kwargs):
             mi[n_s, :] = mi_nd_gg(x[..., is_suj], y_t[..., is_suj],
                                   **CONFIG["KW_GCMI"])
 
-    return mi
+    return reshape_3d_to_4d(mi, rsh)
 
 
 def mi_gc_ephy_conn_cc(x_1, x_2, suj_1, suj_2, inference, **kwargs):
@@ -80,6 +94,7 @@ def mi_gc_ephy_cd(x, y, z, suj, inference, **kwargs):
     The returned mi array has a shape of (n_subjects, n_times) if inference is
     "rfx", (1, n_times) if "ffx".
     """
+    x, rsh = reshape_4d_to_3d(x)
     n_times, _, _ = x.shape
     _y = y.squeeze().astype(int)
     # compute mi across (ffx) or per subject (rfx)
@@ -96,7 +111,7 @@ def mi_gc_ephy_cd(x, y, z, suj, inference, **kwargs):
             mi[n_s, :] = mi_model_nd_gd(x[..., is_suj], _y[is_suj],
                                         **CONFIG["KW_GCMI"])
 
-    return mi
+    return reshape_3d_to_4d(mi, rsh)
 
 
 ###############################################################################
@@ -112,6 +127,7 @@ def mi_gc_ephy_ccd(x, y, z, suj, inference, **kwargs):
     The returned mi array has a shape of (n_subjects, n_times) if inference is
     "rfx", (1, n_times) if "ffx".
     """
+    x, rsh = reshape_4d_to_3d(x)
     # discard gcrn
     kw = CONFIG["KW_GCMI"].copy()
     kw['gcrn'] = False
@@ -120,8 +136,7 @@ def mi_gc_ephy_ccd(x, y, z, suj, inference, **kwargs):
     y_t = np.tile(y.T[np.newaxis, ...], (n_times, 1, 1))
     # compute mi across (ffx) or per subject (rfx)
     if inference == 'ffx':
-        _z = tuple([z[:, n] for n in range(z.shape[1])])
-        mi = gccmi_nd_ccnd(x, y_t, *_z, **kw)[np.newaxis, :]
+        mi = gccmi_nd_ccnd(x, y_t, z, **kw)[np.newaxis, :]
     elif inference == 'rfx':
         # get subject informations
         suj_u = np.unique(suj)
@@ -130,8 +145,7 @@ def mi_gc_ephy_ccd(x, y, z, suj, inference, **kwargs):
         mi = np.zeros((n_subjects, n_times), dtype=float)
         for n_s, s in enumerate(suj_u):
             is_suj = suj == s
-            _z = tuple([z[is_suj, n] for n in range(z.shape[1])])
-            mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj], *_z,
-                                       **kw)
+            mi[n_s, :] = gccmi_nd_ccnd(x[..., is_suj], y_t[..., is_suj],
+                                       z[is_suj], **kw)
 
-    return mi
+    return reshape_3d_to_4d(mi, rsh)

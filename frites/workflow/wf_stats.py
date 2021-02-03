@@ -1,6 +1,4 @@
 """Statistical workflow for electrophysiological data."""
-import logging
-
 import numpy as np
 
 from frites.stats.stats_mcp import (testwise_correction_mcp,
@@ -8,9 +6,7 @@ from frites.stats.stats_mcp import (testwise_correction_mcp,
 from frites.stats.stats_param import rfx_ttest
 
 from frites.workflow.wf_base import WfBase
-from frites.io import set_log_level
-
-logger = logging.getLogger("frites")
+from frites.io import set_log_level, logger
 
 
 class WfStats(WfBase):
@@ -130,7 +126,8 @@ class WfStats(WfBase):
                 es, es_p, pop_mean = rfx_ttest(effect, perms)
                 from frites.config import CONFIG
                 sigma = CONFIG['TTEST_MNE_SIGMA']
-                self.update_cfg(ttest_pop_mean=pop_mean, ttest_sigma=sigma)
+                self.attrs.update(dict(ttest_pop_mean=pop_mean,
+                                       ttest_sigma=sigma))
             tvalues = es
 
         # ---------------------------------------------------------------------
@@ -149,7 +146,7 @@ class WfStats(WfBase):
                 th = cluster_threshold(es, es_p, alpha=cluster_alpha,
                                        tail=tail, tfce=tfce)
                 self._cluster_th = cluster_th
-            self.update_cfg(th=th, tfce=tfce)
+            self.attrs.update(dict(th=th, tfce=tfce))
 
         # ---------------------------------------------------------------------
         # test-wise or cluster-based correction for multiple comparisons
@@ -170,10 +167,9 @@ class WfStats(WfBase):
         pvalues = np.moveaxis(pvalues, 0, -1)
 
         # update internal config
-        self.update_cfg(inference=inference, mcp=mcp, tail=tail,
-            cluster_th=cluster_th, cluster_alpha=cluster_alpha,
-            ttested=int(ttested))
-
+        self.attrs.update(dict(
+            inference=inference, mcp=mcp, tail=tail, cluster_th=cluster_th,
+            cluster_alpha=cluster_alpha, ttested=int(ttested)))
         return pvalues, tvalues
 
     @property
