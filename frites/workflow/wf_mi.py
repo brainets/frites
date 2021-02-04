@@ -5,9 +5,10 @@ import xarray as xr
 from mne.utils import ProgressBar
 
 from frites.io import set_log_level, logger
-from frites.core import get_core_mi_fun, permute_mi_vector
+from frites.core import permute_mi_vector
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
+from frites.estimator import GCMIEstimator
 from frites.utils import parallel_func
 
 
@@ -38,16 +39,9 @@ class WfMi(WfBase):
               population.
 
         By default, the workflow uses group level inference ('rfx')
-    mi_method : {'gc', 'bin'}
-        Method for computing the mutual information. Use either :
-
-            * 'gc' : gaussian-copula based mutual information. This is the
-              fastest method but it can only captures monotonic relationships
-              between variables
-            * 'bin' : binning-based method that can captures any kind of
-              relationships but is much slower and also required to define the
-              number of bins to use. Note that if the Numba package is
-              installed computations should be much faster
+    estimator : MIEstimator | None
+        Estimator of mutual-information. If None, the Gaussian-Copula is used
+        instead
     kernel : array_like | None
         Kernel for smoothing true and permuted MI. For example, use
         np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
@@ -58,7 +52,7 @@ class WfMi(WfBase):
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
-    def __init__(self, mi_type='cc', inference='rfx', mi_method='gc',
+    def __init__(self, mi_type='cc', inference='rfx', estimator=None,
                  kernel=None, verbose=None):
         """Init."""
         WfBase.__init__(self)
@@ -66,12 +60,12 @@ class WfMi(WfBase):
             "'mi_type' input parameter should either be 'cc', 'cd', 'ccd'")
         assert inference in ['ffx', 'rfx'], (
             "'inference' input parameter should either be 'ffx' or 'rfx'")
-        assert mi_method in ['gc', 'bin'], (
-            "'mi_method' input parameter should either be 'gc' or 'bin'")
         self._mi_type = mi_type
         self._inference = inference
-        self._mi_method = mi_method
-        self._need_copnorm = mi_method == 'gc'
+        if estimator is None:
+            estimator = GCMIEstimator(mi_type=mi_type, copnorm=False,
+                                      verbose=verbose)
+        self.estimator = estimator
         self._gcrn = inference == 'rfx'
         self._kernel = kernel
         set_log_level(verbose)
@@ -79,13 +73,12 @@ class WfMi(WfBase):
         self._wf_stats = WfStats(verbose=verbose)
         # update internal config
         self.attrs.update(dict(
-            mi_type=mi_type, inference=inference, mi_method=mi_method,
-            kernel=kernel))
+            mi_type=mi_type, inference=inference, kernel=kernel))
 
         logger.info(f"Workflow for computing mutual information ({inference} -"
-                    f" {mi_method} - {mi_type})")
+                    f" {estimator.name} - {mi_type})")
 
-    def _node_compute_mi(self, dataset, n_bins, n_perm, n_jobs, random_state):
+    def _node_compute_mi(self, dataset, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
 
         Permutations are performed by randomizing the regressor variable. For
@@ -93,8 +86,7 @@ class WfMi(WfBase):
         the random effect, the randomization is performed per subject.
         """
         # get the function for computing mi
-        mi_fun = get_core_mi_fun(self._mi_method)[self._mi_type]
-        assert f"mi_{self._mi_method}_ephy_{self._mi_type}" == mi_fun.__name__
+        mi_fun = self.estimator.get_function()
         # get x, y, z and subject names per roi
         if dataset._mi_type != self._mi_type:
             assert TypeError(f"Your dataset doesn't allow to compute the mi "
@@ -114,22 +106,25 @@ class WfMi(WfBase):
             for r in range(n_roi):
                 # get the data of selected roi
                 da = dataset.get_roi_data(
-                    self._roi[r], copnorm=self._need_copnorm,
-                    mi_type=self._mi_type, gcrn_per_suj=self._gcrn)
-                x, y = da.data, da['y'].data, 
-                z = da['z'].data if 'z' in list(da.coords) else None
-                suj = da['subject'].data
+                    self._roi[r], copnorm=True, mi_type=self._mi_type,
+                    gcrn_per_suj=self._gcrn)
+                x, y, suj = da.data, da['y'].data, da['subject'].data
+                kw_mi = dict()
+                # cmi and categorical MI
+                if 'z' in list(da.coords):
+                    kw_mi['z'] = da['z'].data
+                if self._inference == 'rfx':
+                    kw_mi['categories'] = suj
 
                 # compute the true mi
-                mi += [mi_fun(x, y, z, suj, inf, n_bins=n_bins)]
+                mi += [mi_fun(x, y, **kw_mi)]
 
                 # get the randomize version of y
                 y_p = permute_mi_vector(
                     y, suj, mi_type=self._mi_type, inference=self._inference,
                     n_perm=n_perm)
                 # run permutations using the randomize regressor
-                _mi = para(p_fun(x, y_p[p], z, suj, inf,
-                                 n_bins=n_bins) for p in range(n_perm))
+                _mi = para(p_fun(x, y_p[p], **kw_mi) for p in range(n_perm))
                 mi_p += [np.asarray(_mi)]
                 pbar.update_with_increment_value(1)
         # smoothing
@@ -149,8 +144,7 @@ class WfMi(WfBase):
 
 
     def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
-            cluster_alpha=0.05, n_bins=None, n_jobs=-1, random_state=None,
-            **kw_stats):
+            cluster_alpha=0.05, n_jobs=-1, random_state=None, **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -192,11 +186,6 @@ class WfMi(WfBase):
         cluster_alpha : float | 0.05
             Control the percentile to use for forming the clusters. By default
             the 95th percentile of the permutations is used.
-        n_bins : int | None
-            Number of bins to use if the method for computing the mutual
-            information is based on binning (mi_method='bin'). If None, the
-            number of bins is going to be automatically inferred based on the
-            number of trials and variables
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
@@ -224,11 +213,6 @@ class WfMi(WfBase):
         # don't compute permutations if mcp is either nostat / None
         if mcp in ['noperm', None]:
             n_perm = 0
-        # infer the number of bins if needed
-        if (self._mi_method == 'bin') and not isinstance(n_bins, int):
-            n_bins = 4
-            logger.info(f"    Use an automatic number of bins of {n_bins}")
-        self._n_bins = n_bins
         # get needed dataset's informations
         self._times, self._roi = dataset.times, dataset.roi_names
         self._mi_dims = dataset._mi_dims
@@ -251,7 +235,7 @@ class WfMi(WfBase):
             mi, mi_p = self._mi, self._mi_p
         else:
             mi, mi_p = self._node_compute_mi(
-                dataset, self._n_bins, n_perm, n_jobs, random_state)
+                dataset, n_perm, n_jobs, random_state)
         """
         For information transfer (e.g FIT) we only need to compute the true and
         permuted mi but then, the statistics at the local representation mcp
@@ -270,8 +254,7 @@ class WfMi(WfBase):
             cluster_alpha=cluster_alpha, inference=self._inference, **kw_stats)
         # update attributes
         self.attrs.update(self._wf_stats.attrs)
-        self.attrs.update(dict(n_perm=n_perm, random_state=random_state,
-                               n_bins=n_bins))
+        self.attrs.update(dict(n_perm=n_perm, random_state=random_state))
 
         # ---------------------------------------------------------------------
         # postprocessing and conversions
