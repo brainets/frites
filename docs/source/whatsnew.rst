@@ -10,11 +10,13 @@ New Features
 ++++++++++++
 * new :py:class:`frites.io.Attributes` class for managing and printing datasets' and workflow's attributes (:commit:`be046b1`)
 * new :py:class:`frites.dataset.SubjectEphy` single-subject container (:commit:`ac22cf4`)
+* new estimators of mutual-information, :py:class:`frites.estimator.GCMIEstimator` (:commit:`901b3cbf`, :commit:`65d1e08`, :commit:`0015bf58`, :commit:`beed6a09`), :py:class:`frites.estimator.BinMIEstimator` (:commit:`beed6a09`)
  
 Internal Changes
 ++++++++++++++++
 * Removed files (:commit:`cdff9b4`, :commit:`9e96f8e`, :commit:`14961aa0`)
 * :py:class:`frites.dataset.DatasetEphy` don't perform internal data copy when getting the data in a specific ROI (:commit:`2da73ef`)
+* Compatibility of MI estimators with workflows (:commit:`7dc76ee9`, :commit:`e7a9c23f`)
 
 Breaking changes
 ++++++++++++++++
