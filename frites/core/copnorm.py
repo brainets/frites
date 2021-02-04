@@ -107,4 +107,6 @@ def copnorm_cat_nd(x, y, axis=-1):
         Standard normal samples with the same empirical CDF value as the input.
     """
     assert isinstance(x, np.ndarray) and (x.ndim >= 1)
+    if y is None:
+        return copnorm_nd(x, axis=axis)
     return np.apply_along_axis(copnorm_cat_1d, axis, x, y)
