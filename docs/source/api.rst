@@ -107,6 +107,29 @@ Utility functions
 
 .. ----------------------------------------------------------------------------
 
+Mutual-Information estimators
+-----------------------------
+
+:py:mod:`frites.estimator`:
+
+.. currentmodule:: frites.estimator
+
+.. automodule:: frites.estimator
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   GCMIEstimator
+   BinMIEstimator
+
+.. raw:: html
+
+  <hr>
+
+.. ----------------------------------------------------------------------------
+
 Simulations
 -----------
 

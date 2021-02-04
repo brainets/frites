@@ -89,7 +89,8 @@ class GCMIEstimator(BaseMIEstimator):
         Parameters
         ----------
         x : array_like
-            Array of shape (n_var, n_mv, n_samples)
+            Array of shape (n_var, n_mv, n_samples). If x has more than three
+            dimensions, it's going to be internally reshaped.
         y : array_like
             Array with a shape that depends on the type of MI (mi_type) :
 
@@ -100,7 +101,7 @@ class GCMIEstimator(BaseMIEstimator):
 
         z : array_like | None
             Array for conditional mutual-information. The shape is going to
-            depend on the type of MI (mi_type) : 
+            depend on the type of MI (mi_type) :
 
                 * If mi_type is 'ccd', z should be a row vector of shape
                   (n_samples,)
@@ -150,7 +151,13 @@ class GCMIEstimator(BaseMIEstimator):
                 if (mi_type == 'ccc') and (z is not None):
                     z = copnorm_cat_nd(z, categories, axis=-1)
 
-            # nd var support
+            # be sure that x is at least 3d
+            if x.ndim == 1:
+                x = x[np.newaxis, np.newaxis, :]
+            if x.ndim == 2:
+                x = x[np.newaxis, :]
+
+            # internal reshaping if x has more than 3 dimensions
             assert x.ndim >= 3
             reshape = None
             if x.ndim > 3:

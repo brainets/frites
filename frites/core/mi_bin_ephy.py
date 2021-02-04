@@ -208,31 +208,6 @@ def mi_bin_time(x, y, bins_x, bins_y):
     return mi
 
 
-@jit("f4[:](f4[:,:], f4[:,:], i8, i8)")
-def mi_bin_conn_time(x, y, bins_x, bins_y):
-    """Compute the MI between two variables of equal shapes across time.
-
-    Parameters
-    ----------
-    x : array_like
-        Array of data of shape (n_times, n_trials)
-    y : array_like
-        Regressor array of shape (n_times, n_trials)
-    bins_x, bins_y : int64
-        Number of bins respectively for the x and y variables
-
-    Returns
-    -------
-    mi : array_like
-        Array of mutual information of shape (n_times)
-    """
-    n_times, n_trials = x.shape
-    mi = np.zeros((n_times), dtype=np.float32)
-    for t in range(n_times):
-        mi[t] = mi_bin(x[t, :], y[t, :], bins_x, bins_y)
-    return mi
-
-
 @jit("f4[:](f4[:,:], f4[:], f4[:], i8)")
 def mi_bin_ccd_time(x, y, z, bins):
     """Compute the MI between two variables across time.
@@ -260,126 +235,26 @@ def mi_bin_ccd_time(x, y, z, bins):
     return mi
 
 
-###############################################################################
-###############################################################################
-#                        HIGH-LEVEL CORE FUNCTIONS
-###############################################################################
-###############################################################################
-"""This final part defines high level functions for computing the mutual
-information on electrophysiological data organized as (n_times, 1, n_trials)
-"""
+@jit("f4[:](f4[:,:], f4[:,:], i8, i8)")
+def mi_bin_conn_time(x, y, bins_x, bins_y):
+    """Compute the MI between two variables of equal shapes across time.
 
+    Parameters
+    ----------
+    x : array_like
+        Array of data of shape (n_times, n_trials)
+    y : array_like
+        Regressor array of shape (n_times, n_trials)
+    bins_x, bins_y : int64
+        Number of bins respectively for the x and y variables
 
-def mi_bin_ephy_cc(x, y, z, suj, inference, n_bins=8, **kwargs):
-    """Compute mi using binning on neurophysiological data.
-
-    This function compute the mi between two continuous variables using
-    binning method either for ffx or rfx.
+    Returns
+    -------
+    mi : array_like
+        Array of mutual information of shape (n_times)
     """
-    # float32 conversion
-    x = x.astype(np.float32)
-    y = y.astype(np.float32)
-    # proper shape of the regressor
-    n_times, _, n_trials = x.shape
-    # compute mi across (ffx) or per subject (rfx)
-    if inference == 'ffx':
-        mi = mi_bin_time(x[:, 0, :], y, n_bins, n_bins).reshape(1, -1)
-    elif inference == 'rfx':
-        # get subject informations
-        suj_u = np.unique(suj)
-        n_subjects = len(suj_u)
-        # compute mi per subject
-        mi = np.zeros((n_subjects, n_times), dtype=float)
-        for n_s, s in enumerate(suj_u):
-            is_suj = suj == s
-            mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj], n_bins,
-                                     n_bins).reshape(1, -1)
-
-    return mi
-
-
-def mi_bin_ephy_conn_cc(x_1, x_2, suj_1, suj_2, inference, n_bins=8, **kwargs):
-    """Compute mi using binning on neurophysiological data.
-
-    This function compute the mi between two continuous variables using
-    binning method either for ffx or rfx.
-    """
-    # float32 conversion
-    x_1, x_2 = x_1.astype(np.float32), x_2.astype(np.float32)
-    # proper shape of the regressor
-    n_times, _, n_trials = x_1.shape
-    # compute mi across (ffx) or per subject (rfx)
-    if inference == 'ffx':
-        mi = mi_bin_conn_time(x_1[:, 0, :], x_2[:, 0], n_bins,
-                              n_bins).reshape(1, -1)
-    elif inference == 'rfx':
-        # get subject informations
-        suj_u = np.intersect1d(suj_1, suj_2)
-        n_subjects = len(suj_u)
-        # compute mi per subject
-        mi = np.zeros((n_subjects, n_times), dtype=float)
-        for n_s, s in enumerate(suj_u):
-            is_suj_1 = suj_1 == s
-            is_suj_2 = suj_2 == s
-            mi[n_s, :] = mi_bin_conn_time(
-                x_1[:, 0, is_suj_1], x_2[:, 0, is_suj_2], n_bins,
-                n_bins).reshape(1, -1)
-
-    return mi
-
-
-def mi_bin_ephy_cd(x, y, z, suj, inference, n_bins=8, **kwargs):
-    """Compute mi using binning on neurophysiological data.
-
-    This function compute the mi between a continuous and a discret variables
-    using binning method either for ffx or rfx.
-    """
-    # float32 conversion
-    x = x.astype(np.float32)
-    y = y.astype(np.float32)
-    # proper shape of the regressor
-    n_times, _, n_trials = x.shape
-    # get the number of bins for the y variable
-    bins_y = len(np.unique(y))
-    # compute mi across (ffx) or per subject (rfx)
-    if inference == 'ffx':
-        mi = mi_bin_time(x[:, 0, :], y, n_bins, bins_y).reshape(1, -1)
-    elif inference == 'rfx':
-        # get subject informations
-        suj_u = np.unique(suj)
-        n_subjects = len(suj_u)
-        # compute mi per subject
-        mi = np.zeros((n_subjects, n_times), dtype=float)
-        for n_s, s in enumerate(suj_u):
-            is_suj = suj == s
-            mi[n_s, :] = mi_bin_time(x[:, 0, is_suj], y[is_suj], n_bins,
-                                     bins_y).reshape(1, -1)
-    return mi
-
-
-def mi_bin_ephy_ccd(x, y, z, suj, inference, n_bins=8, **kwargs):
-    """Compute cmi using binning on neurophysiological data.
-
-    This function compute the cmi between two continuous variables conditioned
-    on a third using binning method either for ffx or rfx.
-    """
-    # float32 conversion
-    x = x.astype(np.float32)
-    y = y.astype(np.float32)
-    z = z.astype(np.float32)
-    # proper shape of the regressor
-    n_times, _, n_trials = x.shape
-    # compute mi across (ffx) or per subject (rfx)
-    if inference == 'ffx':
-        mi = mi_bin_ccd_time(x[:, 0, :], y, z, n_bins).reshape(1, -1)
-    elif inference == 'rfx':
-        # get subject informations
-        suj_u = np.unique(suj)
-        n_subjects = len(suj_u)
-        # compute mi per subject
-        mi = np.zeros((n_subjects, n_times), dtype=float)
-        for n_s, s in enumerate(suj_u):
-            is_suj = suj == s
-            mi[n_s, :] = mi_bin_ccd_time(x[:, 0, is_suj], y[is_suj],
-                                         z[is_suj], n_bins).reshape(1, -1)
+    n_times, n_trials = x.shape
+    mi = np.zeros((n_times), dtype=np.float32)
+    for t in range(n_times):
+        mi[t] = mi_bin(x[t, :], y[t, :], bins_x, bins_y)
     return mi
