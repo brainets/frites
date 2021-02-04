@@ -1,5 +1,4 @@
 """Base class for managing Xarray attributes."""
-"""Base class for managing Xarray attributes."""
 from collections import UserDict
 
 import xarray as xr
@@ -10,10 +9,11 @@ class Attributes(UserDict):
 
     """Base class attributes."""
 
-    def __init__(self, attrs=None):
+    def __init__(self, attrs=None, section_name='Attributes'):
         """Init."""
         if not isinstance(attrs, dict):
             attrs = dict()
+        self.section_name = section_name
         UserDict.__init__(self, attrs)
 
     def __getitem__(self, key):
@@ -32,7 +32,7 @@ class Attributes(UserDict):
         """HTML representation."""
         data = {str(k): i for k, i in self.data.items()}
         sections = [formatting_html.attr_section(data)]
-        return formatting_html._obj_repr(None, 'Attributes', sections)
+        return formatting_html._obj_repr(None, self.section_name, sections)
 
     def _check_netcdf(self):
         """Check attributes for netcdf compatibility."""
