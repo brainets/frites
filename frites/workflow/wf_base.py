@@ -14,7 +14,10 @@ class WfBase(object):
         self.attrs[key] = value
 
     def __repr__(self):
-        return repr(self.attrs)
+        return self.attrs.__repr__()
+
+    def _repr_html_(self):
+        return self.attrs._repr_html_()
 
     def fit(self):  # noqa
         raise NotImplementedError()
