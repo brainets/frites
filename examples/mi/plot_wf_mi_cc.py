@@ -100,13 +100,13 @@ y, _ = sim_mi_cc(x, snr=.1)
 
 # within subject statistics (ffx=fixed-effect)
 ffx_stat = 'ffx_cluster_tfce'
-dt_ffx = DatasetEphy(x, y=y, roi=roi)
+dt_ffx = DatasetEphy(x, y=y, roi=roi, times=time)
 wf_ffx = WfMi(mi_type=mi_type, inference='ffx')
 mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm, n_jobs=1)
 
 # between-subject statistics (rfx=random-effect)
-dt_rfx = DatasetEphy(x, y=y, roi=roi)
+dt_rfx = DatasetEphy(x, y=y, roi=roi, times=time)
 wf_rfx = WfMi(mi_type=mi_type, inference='rfx')
 mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm, n_jobs=1)
