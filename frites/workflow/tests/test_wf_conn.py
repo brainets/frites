@@ -37,11 +37,6 @@ class TestWfComod(object):
         ds = DatasetEphy(x, roi=roi, times=times)
         WfComod(inference='rfx').fit(ds, **kw_conn)
 
-    def test_mi_methods(self):
-        for meth in ['gc', 'bin']:
-            ds = DatasetEphy(x, roi=roi, times=times)
-            WfComod(inference='ffx', mi_method=meth).fit(ds, **kw_conn)
-
     def test_properties(self):
         ds = DatasetEphy(x, roi=roi, times=times)
         wf = WfComod()

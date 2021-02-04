@@ -78,6 +78,24 @@ class TestGCMIEstimator(object):
                 mi_v = c.estimate(x, y_c, z=z_c, categories=cat)
                 np.testing.assert_array_almost_equal(mi_t, mi_v)
 
+    def test_support_dim(self):
+        """Test the support for different dimensions."""
+        y = np.random.rand(100)
+        c = GCMIEstimator(mi_type='cc')
+        # 1d
+        x = np.random.rand(100)
+        c = GCMIEstimator(mi_type='cc')
+        mi = c.estimate(x, y)
+        assert mi.shape == (1, 1)
+        # 2d
+        x = np.random.rand(1, 100)
+        mi = c.estimate(x, y)
+        assert mi.shape == (1, 1)
+        # Nd
+        x = np.random.rand(4, 5, 6, 1, 100)
+        mi = c.estimate(x, y)
+        assert mi.shape == (1, 4, 5, 6)
+
     def test_functional_cc(self):
         """Functional test for cc MI."""
         # build the testing data
@@ -139,4 +157,4 @@ class TestGCMIEstimator(object):
                 self._compare_effects(effect, mi)
 
 if __name__ == '__main__':
-    TestGCMIEstimator().test_functional_ccc()
+    TestGCMIEstimator().test_support_dim()
