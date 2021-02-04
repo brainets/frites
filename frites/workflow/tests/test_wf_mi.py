@@ -5,6 +5,7 @@ from frites.workflow import WfMi, WfStats
 from frites.simulations import (sim_multi_suj_ephy, sim_mi_cc, sim_mi_cd,
                                 sim_mi_ccd)
 from frites.dataset import DatasetEphy
+from frites.estimator import GCMIEstimator, BinMIEstimator
 
 from time import time as tst
 
@@ -22,6 +23,7 @@ x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                   n_sites_per_roi=n_sites_per_roi,
                                   modality=modality, random_state=1)
 time = np.arange(n_times) / 512
+est_list = [GCMIEstimator, BinMIEstimator]
 
 kw_mi = dict(n_perm=n_perm, n_jobs=1)
 
@@ -42,10 +44,11 @@ class TestWfMi(object):  # noqa
         y, gt = sim_mi_cc(x, snr=1.)
         # run workflow
         dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
-        for mi_meth in ['gc', 'bin']:
-            WfMi(mi_type='cc', inference='ffx', mi_method=mi_meth,
+        for est in est_list:
+            estimator = est(mi_type='cc')
+            WfMi(mi_type='cc', inference='ffx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
-            WfMi(mi_type='cc', inference='rfx', mi_method=mi_meth,
+            WfMi(mi_type='cc', inference='rfx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
 
     def test_mi_cd(self):
@@ -54,10 +57,11 @@ class TestWfMi(object):  # noqa
         x_s, y, gt = sim_mi_cd(x.copy(), snr=1.)
         # run workflow
         dt = DatasetEphy(x_s, y=y, roi=roi, times=time)
-        for mi_meth in ['gc', 'bin']:
-            WfMi(mi_type='cd', inference='ffx', mi_method=mi_meth,
+        for est in est_list:
+            estimator = est(mi_type='cd')
+            WfMi(mi_type='cd', inference='ffx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
-            WfMi(mi_type='cd', inference='rfx', mi_method=mi_meth,
+            WfMi(mi_type='cd', inference='rfx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
 
     def test_mi_ccd(self):
@@ -66,10 +70,11 @@ class TestWfMi(object):  # noqa
         y, z, gt = sim_mi_ccd(x.copy(), snr=1.)
         # run workflow
         dt = DatasetEphy(x.copy(), y=y, roi=roi, z=z, times=time)
-        for mi_meth in ['gc', 'bin']:
-            WfMi(mi_type='ccd', inference='ffx', mi_method=mi_meth,
+        for est in est_list:
+            estimator = est(mi_type='ccd')
+            WfMi(mi_type='ccd', inference='ffx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
-            WfMi(mi_type='ccd', inference='rfx', mi_method=mi_meth,
+            WfMi(mi_type='ccd', inference='rfx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
 
     def test_no_stat(self):
@@ -109,5 +114,4 @@ class TestWfMi(object):  # noqa
         assert cj.shape == (n_times, n_roi)
 
 if __name__ == '__main__':
-    TestWfMi().test_mi_cc()
-    TestWfMi().test_mi_cd()
+    TestWfMi().test_mi_ccd()
