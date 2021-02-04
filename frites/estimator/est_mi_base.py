@@ -28,17 +28,17 @@ class BaseMIEstimator(object):
         settings = {'description': desc}
         self.settings = Attributes(attrs=settings, section_name='Settings')
         self._kwargs = dict()
-        assert hasattr(self, '_est_name')
+        assert hasattr(self, 'name')
 
-        logger.info(f"{self._est_name} ({mi_type})")
+        logger.info(f"{self.name} ({mi_type})")
 
     def __repr__(self):
         """Overall representation."""
-        return '*** ' + self._est_name + ' ***\n' + self.settings.__repr__()
+        return '*** ' + self.name + ' ***\n' + self.settings.__repr__()
 
     def _repr_html_(self):
         """IPython representation."""
-        title = f"<h3><br>{self._est_name}</br></h3>"
+        title = f"<h3><br>{self.name}</br></h3>"
         return title + self.settings._repr_html_()
 
     def estimate(self, x, y, z=None, categories=None):

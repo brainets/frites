@@ -44,7 +44,7 @@ class GCMIEstimator(BaseMIEstimator):
 
     def __init__(self, mi_type='cc', copnorm=True, biascorrect=True,
                  demeaned=False, tensor=True, gpu=False, verbose=None):
-        self._est_name = 'Gaussian Copula Mutual Information Estimator'
+        self.name = 'Gaussian Copula Mutual Information Estimator'
         super(GCMIEstimator, self).__init__(mi_type=mi_type, verbose=verbose)
 
         # =========================== Core function ===========================
@@ -150,6 +150,24 @@ class GCMIEstimator(BaseMIEstimator):
                 if (mi_type == 'ccc') and (z is not None):
                     z = copnorm_cat_nd(z, categories, axis=-1)
 
+            # nd var support
+            assert x.ndim >= 3
+            reshape = None
+            if x.ndim > 3:
+                head_shape = list(x.shape)[0:-2]
+                reshape = (head_shape, np.prod(head_shape))
+                tail_shape = list(x.shape)[-2::]
+                x = x.reshape([reshape[1]] + tail_shape)
+
+            # repeat y and z(if needed)
+            if (mi_type != 'cd') and (y.ndim == 1):
+                n_var, n_mv, _ = x.shape
+                y = np.tile(y, (n_var, n_mv, 1))
+            if (mi_type == 'ccc') and (y.ndim == 1):
+                n_var, n_mv, _ = x.shape
+                z = np.tile(z, (n_var, n_mv, 1))
+
+            # compute (potentially categorical) MI
             n_var = x.shape[0]
             args = ()
             if isinstance(categories, np.ndarray):
@@ -168,6 +186,11 @@ class GCMIEstimator(BaseMIEstimator):
                 if mi_type in ['ccd', 'ccc']:
                     args = [z]
                 mi = core_fun(x, y, *args, **kwargs)[np.newaxis, :]
+
+            # retrieve original shape (if needed)
+            if reshape is not None:
+                mi = mi.reshape([mi.shape[0]] + reshape[0])
+
             return mi
         return estimator
 
