@@ -161,7 +161,7 @@ class GCMIEstimator(BaseMIEstimator):
                 for n_c, c in enumerate(u_cat):
                     is_cat = categories == c
                     if mi_type in ['ccd', 'ccc']:
-                        args = [z[is_cat]]
+                        args = [z[..., is_cat]]
                     mi[n_c, :] = core_fun(x[..., is_cat], y[..., is_cat],
                                           *args, **kwargs)
             else:
