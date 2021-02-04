@@ -4,9 +4,10 @@ from joblib import Parallel, delayed
 
 from frites import config
 from frites.io import (set_log_level, logger, convert_dfc_outputs)
-from frites.core import get_core_mi_fun, permute_mi_trials
+from frites.core import permute_mi_trials
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
+from frites.estimator import GCMIEstimator
 
 
 class WfComod(WfBase):
@@ -29,16 +30,11 @@ class WfComod(WfBase):
               population.
 
         By default, the workflow uses group level inference ('rfx')
-    mi_method : {'gc', 'bin'}
-        Method for computing the mutual information. Use either :
-
-            * 'gc' : gaussian-copula based mutual information. This is the
-              fastest method but it can only captures monotonic relationships
-              between variables
-            * 'bin' : binning-based method that can captures any kind of
-              relationships but is much slower and also required to define the
-              number of bins to use. Note that if the Numba package is
-              installed computations should be much faster
+    estimator : MIEstimator | None
+        Estimator of mutual-information. If None, the Gaussian-Copula is used
+        instead. Note that here, since the mutual information is computed
+        between two time-series coming from two brain regions, the estimator
+        should has a mi_type='cc'
     kernel : array_like | None
         Kernel for smoothing true and permuted MI. For example, use
         np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
@@ -49,18 +45,20 @@ class WfComod(WfBase):
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
     """
 
-    def __init__(self, inference='rfx', mi_method='gc', kernel=None,
+    def __init__(self, inference='rfx', estimator=None, kernel=None,
                  verbose=None):
         """Init."""
         WfBase.__init__(self)
         assert inference in ['ffx', 'rfx'], (
             "'inference' input parameter should either be 'ffx' or 'rfx'")
-        assert mi_method in ['gc', 'bin'], (
-            "'mi_method' input parameter should either be 'gc' or 'bin'")
         self._mi_type = 'cc'
+        if estimator is None:
+            estimator = GCMIEstimator(mi_type='cc', copnorm=False,
+                                      verbose=verbose)
+        assert estimator.settings['mi_type'] == self._mi_type
+        self._copnorm = isinstance(estimator, GCMIEstimator)
         self._inference = inference
-        self._mi_method = mi_method
-        self._need_copnorm = mi_method == 'gc'
+        self.estimator = estimator
         self._gcrn = inference == 'rfx'
         self._kernel = kernel
         set_log_level(verbose)
@@ -68,13 +66,13 @@ class WfComod(WfBase):
         self._wf_stats = WfStats(verbose=verbose)
         # update internal config
         self.attrs.update(dict(mi_type=self._mi_type, inference=inference,
-                               mi_method=mi_method, kernel=kernel))
+                               kernel=kernel))
 
-        logger.info(f"Workflow for computing connectivity ({self._mi_type} - "
-                    f"{mi_method})")
+        logger.info(f"Workflow for computing comodulations between distant "
+                    f"brain areas ({inference})")
 
 
-    def _node_compute_mi(self, dataset, n_bins, n_perm, n_jobs, random_state):
+    def _node_compute_mi(self, dataset, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
 
         Permutations are performed by randomizing the target roi. For the fixed
@@ -82,9 +80,7 @@ class WfComod(WfBase):
         effect, the randomization is performed per subject.
         """
         # get the function for computing mi
-        mi_fun = get_core_mi_fun(self._mi_method)[f"{self._mi_type}_conn"]
-        assert (f"mi_{self._mi_method}_ephy_conn_"
-                f"{self._mi_type}" == mi_fun.__name__)
+        core_fun = self.estimator.get_function()
         # get x, y, z and subject names per roi
         roi, inf = dataset.roi_names, self._inference
         # get the pairs for computing mi
@@ -99,7 +95,7 @@ class WfComod(WfBase):
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs}, n_pairs={len(x_s)})")
         mi, mi_p = [], []
-        kw_get = dict(mi_type=self._mi_type, copnorm=self._need_copnorm,
+        kw_get = dict(mi_type=self._mi_type, copnorm=self._copnorm,
                       gcrn_per_suj=self._gcrn)
         for s in x_s:
             # get source data
@@ -110,19 +106,18 @@ class WfComod(WfBase):
                 da_t = dataset.get_roi_data(roi[t], **kw_get)
                 suj_t = da_t['subject'].data
                 # compute mi
-                _mi = mi_fun(da_s.data, da_t.data, suj_s, suj_t, inf,
-                             n_bins=n_bins)
+                _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf, core_fun)
                 mi += [_mi]
                 # get the randomize version of y
                 y_p = permute_mi_trials(suj_t, inference=self._inference,
                                         n_perm=n_perm)
                 # run permutations using the randomize regressor
-                _mi_p = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(mi_fun)(
+                _mi_p = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(comod)(
                     da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
-                    n_bins=n_bins) for p in range(n_perm))
+                    core_fun) for p in range(n_perm))
                 mi_p += [np.asarray(_mi_p)]
             
-        # # smoothing
+        # smoothing
         if isinstance(self._kernel, np.ndarray):
             logger.info("    Apply smoothing to the true and permuted MI")
             for r in range(len(mi)):
@@ -138,8 +133,7 @@ class WfComod(WfBase):
         return mi, mi_p
 
     def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
-            cluster_alpha=0.05, n_bins=None, n_jobs=-1, random_state=None,
-            **kw_stats):
+            cluster_alpha=0.05, n_jobs=-1, random_state=None, **kw_stats):
         """Run the workflow on a dataset.
 
         In order to run the worflow, you must first provide a dataset instance
@@ -179,11 +173,6 @@ class WfComod(WfBase):
         cluster_alpha : float | 0.05
             Control the percentile to use for forming the clusters. By default
             the 95th percentile of the permutations is used.
-        n_bins : int | None
-            Number of bins to use if the method for computing the mutual
-            information is based on binning (mi_method='bin'). If None, the
-            number of bins is going to be automatically inferred based on the
-            number of trials and variables
         n_jobs : int | -1
             Number of jobs to use for parallel computing (use -1 to use all
             jobs)
@@ -209,11 +198,6 @@ class WfComod(WfBase):
         # don't compute permutations if mcp is either nostat / None
         if mcp in ['noperm', None]:
             n_perm = 0
-        # infer the number of bins if needed
-        if (self._mi_method == 'bin') and not isinstance(n_bins, int):
-            n_bins = 4
-            logger.info(f"    Use an automatic number of bins of {n_bins}")
-        self._n_bins = n_bins
         # get important dataset's variables
         self._times, self._roi = dataset.times, dataset.roi_names
 
@@ -228,7 +212,7 @@ class WfComod(WfBase):
             mi, mi_p = self._mi, self._mi_p
         else:
             mi, mi_p = self._node_compute_mi(
-                dataset, self._n_bins, n_perm, n_jobs, random_state)
+                dataset, n_perm, n_jobs, random_state)
 
         # ---------------------------------------------------------------------
         # compute statistics
@@ -239,8 +223,7 @@ class WfComod(WfBase):
             cluster_alpha=cluster_alpha, inference=self._inference,
             **kw_stats)
         # update internal config
-        self.attrs.update(dict(n_perm=n_perm, random_state=random_state,
-                               n_bins=n_bins))
+        self.attrs.update(dict(n_perm=n_perm, random_state=random_state))
         self.attrs.update(self._wf_stats.attrs)
 
         # ---------------------------------------------------------------------
@@ -291,3 +274,28 @@ class WfComod(WfBase):
     def wf_stats(self):
         """Get the workflow of statistics."""
         return self._wf_stats
+
+
+def comod(x_1, x_2, suj_1, suj_2, inference, fun):
+    """I(C; C) for rfx.
+
+    The returned mi array has a shape of (n_subjects, n_times) if inference is
+    "rfx", (1, n_times) if "ffx".
+    """
+    # proper shape of the regressor
+    n_times, _, n_trials = x_1.shape
+    # compute mi across (ffx) or per subject (rfx)
+    if inference == 'ffx':
+        mi = fun(x_1, x_2)
+    elif inference == 'rfx':
+        # get subject informations
+        suj_u = np.intersect1d(suj_1, suj_2)
+        n_subjects = len(suj_u)
+        # compute mi per subject
+        mi = np.zeros((n_subjects, n_times), dtype=float)
+        for n_s, s in enumerate(suj_u):
+            is_suj_1 = suj_1 == s
+            is_suj_2 = suj_2 == s
+            mi[n_s, :] = fun(x_1[..., is_suj_1], x_2[..., is_suj_2])
+
+    return mi

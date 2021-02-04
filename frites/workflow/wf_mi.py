@@ -41,7 +41,7 @@ class WfMi(WfBase):
         By default, the workflow uses group level inference ('rfx')
     estimator : MIEstimator | None
         Estimator of mutual-information. If None, the Gaussian-Copula is used
-        instead
+        instead.
     kernel : array_like | None
         Kernel for smoothing true and permuted MI. For example, use
         np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
@@ -66,6 +66,7 @@ class WfMi(WfBase):
             estimator = GCMIEstimator(mi_type=mi_type, copnorm=False,
                                       verbose=verbose)
         self.estimator = estimator
+        self._copnorm = isinstance(estimator, GCMIEstimator)
         self._gcrn = inference == 'rfx'
         self._kernel = kernel
         set_log_level(verbose)
@@ -76,7 +77,7 @@ class WfMi(WfBase):
             mi_type=mi_type, inference=inference, kernel=kernel))
 
         logger.info(f"Workflow for computing mutual information ({inference} -"
-                    f" {estimator.name} - {mi_type})")
+                    f" {mi_type})")
 
     def _node_compute_mi(self, dataset, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
@@ -106,7 +107,7 @@ class WfMi(WfBase):
             for r in range(n_roi):
                 # get the data of selected roi
                 da = dataset.get_roi_data(
-                    self._roi[r], copnorm=True, mi_type=self._mi_type,
+                    self._roi[r], copnorm=self._copnorm, mi_type=self._mi_type,
                     gcrn_per_suj=self._gcrn)
                 x, y, suj = da.data, da['y'].data, da['subject'].data
                 kw_mi = dict()
