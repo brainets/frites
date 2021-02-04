@@ -14,36 +14,3 @@ from .gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg, gcmi_nd_cc,  # noqa
                       gcmi_model_nd_cd, gccmi_nd_ccnd, gccmi_model_nd_cdnd,
                       gccmi_nd_ccc, cmi_nd_ggd)
 from .mi_stats import (permute_mi_vector, permute_mi_trials) # noqa
-
-# -----------------------------------------------------------------------------
-# get the core functions to use for the mi estimation
-
-
-def get_core_mi_fun(mi_method):
-    """Get the core functions for estimating the mutual information.
-
-    Parameters
-    ----------
-    mi_method : {'gc', 'bin'}
-        Method type for computing MI. Use either :
-
-            * 'gc' : Gaussian-Copula based methods
-            * 'bin' : binning based methods
-
-    Returns
-    -------
-    mi_fun : dict
-        Dictionary of methods
-    """
-    assert mi_method in ['gc', 'bin']
-    if mi_method == 'gc':
-        from .mi_gc_ephy import (mi_gc_ephy_cc, mi_gc_ephy_cd, mi_gc_ephy_ccd,
-                                 mi_gc_ephy_conn_cc)
-        mi_fun = dict(cc=mi_gc_ephy_cc, cd=mi_gc_ephy_cd, ccd=mi_gc_ephy_ccd,
-                      cc_conn=mi_gc_ephy_conn_cc)
-    elif mi_method == 'bin':
-        from .mi_bin_ephy import (mi_bin_ephy_cc, mi_bin_ephy_cd,
-                                  mi_bin_ephy_ccd, mi_bin_ephy_conn_cc)
-        mi_fun = dict(cc=mi_bin_ephy_cc, cd=mi_bin_ephy_cd,
-                      ccd=mi_bin_ephy_ccd, cc_conn=mi_bin_ephy_conn_cc)
-    return mi_fun

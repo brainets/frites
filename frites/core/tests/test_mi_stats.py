@@ -1,42 +1,20 @@
 """Test high-level mutual information functions."""
 import numpy as np
 
-from frites.core import permute_mi_vector, permute_mi_trials, get_core_mi_fun
+from frites.core import permute_mi_vector, permute_mi_trials
 
 rnd = np.random.RandomState(0)
 
-mi_methods = ['gc', 'bin']
 mi_types = ['cc', 'cd', 'ccd']
 inferences = ['ffx', 'rfx']
 n_perm = 15
 
 n_times, n_epochs, n_suj, n_conds = 100, 100, 2, 3
-x = rnd.rand(n_times, 1, n_epochs)
 y = rnd.rand(n_epochs)
-z = np.round(np.linspace(0, n_conds, n_epochs)).astype(int)
 suj = np.round(np.linspace(0, n_suj, n_epochs)).astype(int)
 
 
-class TestMiFun(object):  # noqa
-
-    def test_mi_fun(self):
-        """Test mi functions."""
-        # test local mi
-        for mi_meth in mi_methods:
-            mi_funs = get_core_mi_fun(mi_meth)
-            for mi in mi_types:
-                fun = mi_funs[mi]
-                for inf in inferences:
-                    y_c = z if mi == 'cd' else y
-                    fun(x, y_c, z, suj, inf)
-        # test mi conn
-        x_2 = rnd.rand(n_times, 1, n_epochs)
-        suj_2 = np.round(np.linspace(0, n_suj, n_epochs)).astype(int)
-        for mi_meth in mi_methods:
-            for inf in inferences:
-                fun = get_core_mi_fun(mi_meth)['cc_conn']
-                fun(x, x_2, suj, suj_2, inf)
-
+class TestMiStats(object):  # noqa
 
     def test_permute_mi_vector(self):
         """Test function permute_mi_vector."""
