@@ -516,6 +516,73 @@ def gccmi_nd_ccnd(x, y, *z, mvaxis=None, traxis=-1, gcrn=True,
     return cmi
 
 
+def cmi_nd_ggd(x, y, z, mvaxis=None, traxis=-1, shape_checking=True,
+               biascorrect=True, demeaned=False):
+    """Conditional MI between a continuous and a discret variable.
+
+    This function performs a CMI between a continuous and a discret variable
+    conditioned with multiple discrete variables.
+
+    Parameters
+    ----------
+    x : array_like
+        Continuous variable
+    y : array_like
+        Discret variable
+    z : list | array_like
+        Array that describes the conditions across the trial axis of shape
+        (n_trials,)
+    mvaxis : int | None
+        Spatial location of the axis to consider if multi-variate analysis
+        is needed
+    traxis : int | -1
+        Spatial location of the trial axis. By default the last axis is
+        considered
+    shape_checking : bool | True
+        Perform a reshape and check that x and y shapes are consistents. For
+        high performances and to avoid extensive memory usage, it's better to
+        already have x and y with a shape of (..., mvaxis, traxis) and to set
+        this parameter to False
+    demeaned : bool | False
+        Specifies whether the input data already has zero mean (true if it has
+        been copula-normalized)
+
+    Returns
+    -------
+    cmi : array_like
+        Conditional mutual-information with the same shape as x and y without
+        the mvaxis and traxis
+    """
+    # Multi-dimentional shape checking
+    if shape_checking:
+        x = nd_reshape(x, mvaxis=mvaxis, traxis=traxis)
+        y = nd_reshape(y, mvaxis=mvaxis, traxis=traxis)
+        nd_shape_checking(x, y, mvaxis, traxis)
+        assert (z.ndim == 1) and (len(z) == ntrl)
+    ntrl = x.shape[-1]
+
+    # sh = x.shape[:-3] if isinstance(mvaxis, int) else x.shape[:-2]
+    u_z = np.unique(z)
+    sh = x.shape[:-2]
+    zm_shape = list(sh) + [len(u_z)]
+
+    # calculate gcmi for each z value
+    pz = np.zeros((len(u_z),), dtype=float)
+    icond = np.zeros(zm_shape, dtype=float)
+    for n_z, zi in enumerate(u_z):
+        idx = z == zi
+        pz[n_z] = idx.sum()
+        thsx, thsy = x[..., idx], y[..., idx]
+        icond[..., n_z] = mi_nd_gg(thsx, thsy, mvaxis=-2, traxis=-1,
+                                   biascorrect=biascorrect, demeaned=demeaned,
+                                   shape_checking=False)
+    pz /= ntrl
+
+    # conditional mutual information
+    cmi = np.sum(np.multiply(pz, icond), axis=-1)
+    return cmi
+
+
 def gccmi_model_nd_cdnd(x, y, *z, mvaxis=None, traxis=-1, gcrn=True,
                         shape_checking=True):
     """Conditional GCMI between a continuous and a discret variable.

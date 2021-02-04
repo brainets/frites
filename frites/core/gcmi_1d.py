@@ -9,15 +9,10 @@ Gaussian copula mutual information estimation.
 information estimated via a Gaussian copula" Human Brain Mapping (2017)
 38 p. 1541-1573 doi:10.1002/hbm.23471
 """
-import logging
-
 import numpy as np
 import scipy as sp
 
-from frites.io import set_log_level
-from frites.core import copnorm_nd
-
-logger = logging.getLogger('frites')
+from frites.core import copnorm_nd, copnorm_cat_nd
 
 
 def ent_1d_g(x, biascorrect=True):
@@ -128,7 +123,7 @@ def mi_1d_gg(x, y, biascorrect=True, demeaned=False):
     return i
 
 
-def gcmi_1d_cc(x, y, verbose=None):
+def gcmi_1d_cc(x, y):
     """Gaussian-Copula MI between two continuous variables.
 
     I = gcmi_cc(x,y) returns the MI between two (possibly multidimensional)
@@ -144,7 +139,6 @@ def gcmi_1d_cc(x, y, verbose=None):
     i : float
         Information shared by x and y (in bits)
     """
-    set_log_level(verbose)
     x, y = np.atleast_2d(x), np.atleast_2d(y)
     if x.ndim > 2 or y.ndim > 2:
         raise ValueError("x and y must be at most 2d")
@@ -153,16 +147,6 @@ def gcmi_1d_cc(x, y, verbose=None):
 
     if y.shape[1] != ntrl:
         raise ValueError("number of trials do not match")
-
-    # check for repeated values
-    for xi in range(nvarx):
-        if (np.unique(x[xi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input x has more than 10% repeated values")
-            break
-    for yi in range(nvary):
-        if (np.unique(y[yi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input y has more than 10% repeated values")
-            break
 
     # copula normalization
     cx, cy = copnorm_nd(x, axis=1), copnorm_nd(y, axis=1)
@@ -250,7 +234,7 @@ def mi_model_1d_gd(x, y, biascorrect=True, demeaned=False):
     return i
 
 
-def gcmi_model_1d_cd(x, y, verbose=None):
+def gcmi_model_1d_cd(x, y):
     """Gaussian-Copula MI between a continuous and a discrete variable.
 
     This method is based on ANOVA style model comparison.
@@ -268,7 +252,6 @@ def gcmi_model_1d_cd(x, y, verbose=None):
     i : float
         Information shared by x and y (in bits)
     """
-    set_log_level(verbose)
     x, y = np.atleast_2d(x), np.squeeze(y)
     if x.ndim > 2:
         raise ValueError("x must be at most 2d")
@@ -281,12 +264,6 @@ def gcmi_model_1d_cd(x, y, verbose=None):
 
     if y.size != ntrl:
         raise ValueError("number of trials do not match")
-
-    # check for repeated values
-    for xi in range(nvarx):
-        if (np.unique(x[xi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input x has more than 10% repeated values")
-            break
 
     # copula normalization
     cx = copnorm_nd(x, axis=1)
@@ -400,7 +377,7 @@ def _norm_innerv(x, chc):
     return w
 
 
-def gcmi_mixture_1d_cd(x, y, verbose=None):
+def gcmi_mixture_1d_cd(x, y):
     """Gaussian-Copula MI between a continuous and a discrete variable.
 
     This method evaluate MI from a Gaussian mixture.
@@ -421,7 +398,6 @@ def gcmi_mixture_1d_cd(x, y, verbose=None):
     i : float
         Information shared by x and y (in bits)
     """
-    set_log_level(verbose)
     x, y = np.atleast_2d(x), np.squeeze(y)
     if x.ndim > 2:
         raise ValueError("x must be at most 2d")
@@ -435,12 +411,6 @@ def gcmi_mixture_1d_cd(x, y, verbose=None):
 
     if y.size != ntrl:
         raise ValueError("number of trials do not match")
-
-    # check for repeated values
-    for xi in range(nvarx):
-        if (np.unique(x[xi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input x has more than 10% repeated values")
-            break
 
     # copula normalise each class
     # shift and rescale to match loc and scale of raw data
@@ -546,7 +516,7 @@ def cmi_1d_ggg(x, y, z, biascorrect=True, demeaned=False):
     return i
 
 
-def gccmi_1d_ccc(x, y, z, verbose=None):
+def gccmi_1d_ccc(x, y, z, biascorrect=True):
     """Gaussian-Copula CMI between three continuous variables.
 
     I = gccmi_1d_ccc(x,y,z) returns the CMI between two (possibly
@@ -563,7 +533,6 @@ def gccmi_1d_ccc(x, y, z, verbose=None):
     i : float
         Information shared by x and y conditioned by z (in bits)
     """
-    set_log_level(verbose)
     x, y, z = np.atleast_2d(x), np.atleast_2d(y), np.atleast_2d(z)
     if x.ndim > 2 or y.ndim > 2 or z.ndim > 2:
         raise ValueError("x, y and z must be at most 2d")
@@ -575,32 +544,18 @@ def gccmi_1d_ccc(x, y, z, verbose=None):
     if y.shape[1] != ntrl or z.shape[1] != ntrl:
         raise ValueError("number of trials do not match")
 
-    # check for repeated values
-    for xi in range(nvarx):
-        if (np.unique(x[xi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input x has more than 10% repeated values")
-            break
-    for yi in range(nvary):
-        if (np.unique(y[yi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input y has more than 10% repeated values")
-            break
-    for zi in range(nvarz):
-        if (np.unique(z[zi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input y has more than 10% repeated values")
-            break
-
     # copula normalization
     cx = copnorm_nd(x, axis=1)
     cy = copnorm_nd(y, axis=1)
     cz = copnorm_nd(z, axis=1)
     # parametric Gaussian CMI
-    return cmi_1d_ggg(cx, cy, cz, True, True)
+    return cmi_1d_ggg(cx, cy, cz, biascorrect=True, demeaned=True)
 
 
-def gccmi_1d_ccd(x, y, z, verbose=None):
-    """GCCMI between 2 continuous variables conditioned on a discrete variable.
+def cmi_1d_ggd(x, y, z, biascorrect=True, demeaned=False):
+    """MI between 2 continuous variables conditioned on a discrete variable.
 
-    I = gccmi_ccd(x,y,z,Zm) returns the CMI between two (possibly
+    I = cmi_1d_ggd(x,y,z) returns the CMI between two (possibly
     multidimensional) continuous variables, x and y, conditioned on a third
     discrete variable z, estimated via a Gaussian copula.
 
@@ -617,7 +572,6 @@ def gccmi_1d_ccd(x, y, z, verbose=None):
         Conditional Mutual Information shared by x and y conditioned by z
         (in bits)
     """
-    set_log_level(verbose)
     x = np.atleast_2d(x)
     y = np.atleast_2d(y)
     if x.ndim > 2 or y.ndim > 2:
@@ -629,38 +583,49 @@ def gccmi_1d_ccd(x, y, z, verbose=None):
 
     nvarx, ntrl = x.shape
     nvary = y.shape[0]
-    zm = np.unique(z)
+    u_z = np.unique(z)
 
     if y.shape[1] != ntrl or z.size != ntrl:
         raise ValueError("number of trials do not match")
 
-    # check for repeated values
-    for xi in range(nvarx):
-        if (np.unique(x[xi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input x has more than 10% repeated values")
-            break
-    for yi in range(nvary):
-        if (np.unique(y[yi, :]).size / float(ntrl)) < 0.9:
-            logger.info("Input y has more than 10% repeated values")
-            break
-
     # calculate gcmi for each z value
-    icond = np.zeros(len(zm))
-    pz = np.zeros(len(zm))
-    cx = []
-    cy = []
-    for zi in zm:
+    icond = np.zeros((len(u_z),))
+    pz = np.zeros((len(u_z),))
+    for n_z, zi in enumerate(u_z):
         idx = z == zi
-        thsx = copnorm_nd(x[:, idx], axis=1)
-        thsy = copnorm_nd(y[:, idx], axis=1)
-        pz[zi] = idx.sum()
-        cx.append(thsx)
-        cy.append(thsy)
-        icond[zi] = mi_1d_gg(thsx, thsy, True, True)
+        thsx, thsy = x[:, idx], y[:, idx]
+        pz[n_z] = idx.sum()
+        icond[n_z] = mi_1d_gg(thsx, thsy, biascorrect=biascorrect,
+                             demeaned=demeaned)
 
-    pz = pz / float(ntrl)
+    pz /= float(ntrl)
 
     # conditional mutual information
     cmi = np.sum(pz * icond)
-    i = mi_1d_gg(np.hstack(cx), np.hstack(cy), True, False)
-    return (cmi, i)
+    return cmi
+
+
+def gccmi_1d_ccd(x, y, z, biascorrect=True, demeaned=False):
+    """GCCMI between 2 continuous variables conditioned on a discrete variable.
+
+    I = gccmi_ccd(x,y,z) returns the CMI between two (possibly
+    multidimensional) continuous variables, x and y, conditioned on a third
+    discrete variable z, estimated via a Gaussian copula.
+
+    Parameters
+    ----------
+    x, y : array_like
+        Continuous arrays of shape (n_epochs,) or (n_dimensions, n_epochs).
+    z : array_like
+        Discret array of shape (n_epochs,)
+
+    Returns
+    -------
+    cmi : float
+        Conditional Mutual Information shared by x and y conditioned by z
+        (in bits)
+    """
+    x, y = np.atleast_2d(x), np.atleast_2d(y)
+    x = copnorm_cat_nd(x, z, axis=-1)
+    y = copnorm_cat_nd(y, z, axis=-1)
+    return cmi_1d_ggd(x, y, z, biascorrect=biascorrect, demeaned=True)
