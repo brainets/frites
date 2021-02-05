@@ -43,6 +43,26 @@ class TestDatasetEphy(object):  # noqa
         y, _ = sim_mi_cc(data, snr=.8)
         ds = DatasetEphy(data, y, roi, times=time)
 
+    def test_definition_as_neo(self):
+        """Test function definition."""
+        # test array definition
+        data, roi, time = sim_multi_suj_ephy(modality="intra", n_times=57,
+                                             n_roi=5, n_sites_per_roi=7,
+                                             n_epochs=10, n_subjects=5,
+                                             random_state=0)
+        y, _ = sim_mi_cc(data, snr=.8)
+        z = [np.random.randint(0, 3, (10,)) for _ in range(len(y))]
+        dt = DatasetEphy(data, y, roi, z=z, times=time)
+        dt.groupby('roi')
+        # test mne definition
+        data, roi, time = sim_multi_suj_ephy(modality="meeg", n_times=57,
+                                             n_roi=5, n_sites_per_roi=1,
+                                             n_epochs=7, n_subjects=5,
+                                             as_mne=False, as_neo=True,
+                                             random_state=0)
+        y, _ = sim_mi_cc(data, snr=.8)
+        ds = DatasetEphy(data, y, roi, times=time)
+
     def test_multiconditions(self):
         """Test multi-conditions remapping."""
         n_suj, n_epochs, n_roi, n_times = 3, 3, 1, 10

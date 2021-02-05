@@ -40,6 +40,8 @@ setup(
     platforms='any',
     setup_requires=['numpy'],
     install_requires=requirements,
+    extras_require={'neo': 'neo',
+                    'all': ['matplotlib', 'networkx', 'neo']},
     dependency_links=[],
     author=AUTHOR,
     maintainer=MAINTAINER,

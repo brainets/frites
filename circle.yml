@@ -54,7 +54,7 @@ jobs:
             name: Install frites
             command: |
               source activate testenv;
-              python setup.py develop;
+              pip install .['all'];
         - run:
             name: Run tests
             command: |

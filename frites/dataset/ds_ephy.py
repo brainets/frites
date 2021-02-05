@@ -42,6 +42,12 @@ class DatasetEphy(object):
             * xarray.DataArray. In that case `y`, `z`, `roi` and `times` inputs
               can be strings that refer to the coordinate name to use in the
               DataArray
+            * a neo.Block with n_epoch neo.Segments each containing a
+              neo.AnalogSignal (n_times, n_channels).
+              Note that each neo.Block has to contain (n_epochs) segments
+              with one neo.AnalogSignal object each. AnalogSignals will be
+              aligned by the first sample and only n_samples will be considered,
+              where n_samples is the number of samples of the shortest AnalogSignal.
 
     roi : list | None
         List of length (n_subjects,) where each element is an array of shape
@@ -64,9 +70,9 @@ class DatasetEphy(object):
         categories inside are going to be automatically remapped to a single
         vector.
     times : array_like | None
-        The time vector to use. If the data are defined using MNE-Python, the
-        time vector is directly inferred from those files. If None, a time
-        vector is going to be created.
+        The time vector to use. If the data are defined using MNE-Python or
+        neo, the time vector is directly inferred from those files. If None,
+        a time vector is going to be created.
     nb_min_suj : int | None
         The minimum number of subjects per roi. Roi with n_suj < nb_min_suj
         are going to be skipped. Use None to skip this parameter

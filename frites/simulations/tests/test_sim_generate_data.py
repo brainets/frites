@@ -2,6 +2,12 @@
 import numpy as np
 from mne import EpochsArray
 
+try:
+    import neo
+    HAS_NEO = True
+except ModuleNotFoundError:
+    HAS_NEO = False
+
 from frites.simulations import (sim_single_suj_ephy, sim_multi_suj_ephy)
 
 
@@ -19,6 +25,10 @@ class TestGenerateData(object):
         # mne type
         data, _, _ = sim_single_suj_ephy(as_mne=True)
         assert isinstance(data, EpochsArray)
+        # neo type
+        if HAS_NEO:
+            data, _, _ = sim_single_suj_ephy(as_neo=True)
+            assert isinstance(data, neo.Block)
 
     def test_sim_multi_suj_ephy(self):
         """Test function sim_multi_suj_ephy."""
@@ -34,3 +44,8 @@ class TestGenerateData(object):
         # mne type
         data, _, _ = sim_multi_suj_ephy(n_subjects=5, as_mne=True)
         assert all([isinstance(k, EpochsArray) for k in data])
+        # neo type
+        if HAS_NEO:
+            data, _, _ = sim_multi_suj_ephy(n_subjects=5, as_neo=True)
+            assert all([isinstance(k, neo.Block) for k in data])
+

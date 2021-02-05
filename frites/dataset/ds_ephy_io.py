@@ -3,13 +3,19 @@ import logging
 
 import numpy as np
 
+try:
+    import neo
+    HAS_NEO = True
+except ModuleNotFoundError:
+    HAS_NEO = False
+
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
 
 
 ###############################################################################
 ###############################################################################
-#                   MNE / XARRAY / NUMPY ---> NUMPY
+#                   MNE / XARRAY / NUMPY / NEO ---> NUMPY
 ###############################################################################
 ###############################################################################
 
@@ -18,15 +24,19 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
                verbose=None):
     """Manage inputs conversion for the DatasetEphy.
 
-    This function is used to convert NumPy / MNE / Xarray inputs into a
-    standardize NumPy version.
+    This function is used to convert NumPy / MNE / Xarray / Neo inputs into a
+    standardized NumPy version.
 
     Parameters
     ----------
     x : list
         List of length (n_subjects,). Each element of the list should either be
         an array of shape (n_epochs, n_channels, n_times), mne.Epochs,
-        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power) or DataArray
+        mne.EpochsArray, mne.EpochsTFR (i.e. non-averaged power), DataArray or
+        neo.Block. Note that each neo.Block has to contain (n_epochs) segments
+        with one neo.AnalogSignal object each. AnalogSignals will be aligned by
+        the first sample and only n_samples will be considered, where n_samples
+        is the number of samples of the shortest AnalogSignal.
     roi : list | None
         List of length (n_subjects,) of roi names of length (n_channels)
     y, z : list | None
@@ -40,15 +50,15 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
     Returns
     -------
     x : list
-        List of data array of shape (n_epochs, n_channels, n_times)
+        List of data arrays each of shape (n_epochs, n_channels, n_times)
     y, z : list
-        List of arrays of shape (n_epochs,)
+        List of arrays each of shape (n_epochs,)
     roi : list
-        List of arrays of shape (n_channels,)
+        List of arrays each of shape (n_channels,)
     times : array_like
         Time vector of shape (n_times,)
     sub_roi : array_like
-        List of arrays of shape (n_channels,)
+        List of arrays each of shape (n_channels,)
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
@@ -71,7 +81,13 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
         logger.info("    Converting xarray inputs")
         x, roi, y, z, times, sub_roi = xr_to_arr(
             x, roi=roi, y=y, z=z, times=times, sub_roi=sub_roi)
-
+    elif 'neo.core' in str(type(x[0])):
+        logger.info("    Neo inputs detected")
+        if not HAS_NEO:
+            raise ImportError('Can not convert neo ephy data.'
+                              ' Neo can not be imported.')
+        logger.info("    Converting neo inputs")
+        x, times = neo_to_arr(x)
     # -------------------------------------------------------------------------
     # manage none inputs
     # -------------------------------------------------------------------------
@@ -138,7 +154,6 @@ def ds_ephy_io(x, roi=None, y=None, z=None, times=None, sub_roi=None,
     else:
         sub_roi_int = None
 
-
     return x, y, z, roi, times, sub_roi_int
 
 
@@ -154,6 +169,38 @@ def mne_to_arr(x, roi=None):
         x[k] = x[k].get_data()
 
     return x, times, roi
+
+
+def neo_to_arr(x):
+    """Convert list of neo.Block objects into numpy arrays"""
+    subject_list = []
+
+    # identify number of epochs and channels
+    n_epochs = min([len(bl.segments) for bl in x])
+    n_times, *_, n_channels = x[0].segments[0].analogsignals[0].shape
+    sampling_rate = x[0].segments[0].analogsignals[0].sampling_rate
+
+    # consistency checks
+    for bl in x:
+        for seg in bl.segments:
+            assert len(seg.analogsignals) == 1, \
+            'Found more than 1 neo.AnalogSignal for a given Epoch.'
+            assert n_channels == seg.analogsignals[0].shape[-1], \
+            'AnalogSignals contain different numbers of channels.'
+            assert sampling_rate == seg.analogsignals[0].sampling_rate,\
+            'AnalogSignals have different sampling rates.'
+
+            # find minimal number of samples
+            n_times = min(n_times, len(seg.analogsignals[0]))
+
+    # create 3D array for each subject
+    for bl in x:
+        subject_array = np.stack([seg.analogsignals[0].magnitude[:n_times] for seg in bl.segments])
+        # reorder dimensions to match (n_epochs, n_channels, n_times)
+        subject_list.append(subject_array.swapaxes(1, 2))
+
+    times = x[0].segments[0].analogsignals[0].times[:n_times]
+    return subject_list, times
 
 
 def xr_to_arr(x, roi=None, y=None, z=None, times=None, sub_roi=None):
