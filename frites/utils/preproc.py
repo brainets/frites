@@ -71,3 +71,26 @@ def savgol_filter(x, h_freq, axis=None, sfreq=None, polyorder=5, verbose=None):
     else:
         return savgol(x, axis=axis, polyorder=polyorder,
                       window_length=window_length)
+
+
+def nonsorted_unique(data, assert_unique=False):
+    """Get an unsorted version of a element.
+
+    Parameters
+    ----------
+    data : array_like
+        Array of data, list etc.
+    assert_unique : bool | False
+        Raise an error if the input doesn't contain unique elements
+
+    Returns
+    -------
+    u_data : array_like
+        Array of non-sorted unique elements
+    """
+    data = np.asarray(data)
+    if assert_unique:
+        assert len(np.unique(data)) == len(data), (
+            "Brain regions are not unique for inferring connectivity pairs")
+    _, u_idx = np.unique(data, return_index=True)
+    return data[np.sort(u_idx)]

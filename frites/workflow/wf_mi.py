@@ -128,6 +128,7 @@ class WfMi(WfBase):
                 _mi = para(p_fun(x, y_p[p], **kw_mi) for p in range(n_perm))
                 mi_p += [np.asarray(_mi)]
                 pbar.update_with_increment_value(1)
+
         # smoothing
         if isinstance(self._kernel, np.ndarray):
             logger.info("    Apply smoothing to the true and permuted MI")

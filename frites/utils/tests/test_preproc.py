@@ -2,7 +2,7 @@
 import numpy as np
 import xarray as xr
 
-from frites.utils import savgol_filter
+from frites.utils import savgol_filter, nonsorted_unique
 
 class TestPreproc(object):
 
@@ -22,5 +22,10 @@ class TestPreproc(object):
         savgol_filter(x_xr, h_freq)
         savgol_filter(x_xr, h_freq, axis='times')
 
+    def test_nonsorted_unique(self):
+        """Test function nonsorted_unique."""
+        a = ['r2', 'r0', 'r0', 'r1', 'r2']
+        np.testing.assert_array_equal(nonsorted_unique(a), ['r2', 'r0', 'r1'])
+
 if __name__ == '__main__':
-    TestPreproc().test_savgol_filter()
+    TestPreproc().test_nonsorted_unique()

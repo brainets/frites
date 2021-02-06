@@ -7,6 +7,7 @@ from frites.core.gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggd,
                                  cmi_nd_ggg)
 from frites.core.gcmi_1d import (mi_1d_gg, mi_model_1d_gd, cmi_1d_ggd,
                                  cmi_1d_ggg)
+from frites.utils import nonsorted_unique
 
 
 class GCMIEstimator(BaseMIEstimator):
@@ -179,8 +180,7 @@ class GCMIEstimator(BaseMIEstimator):
             args = ()
             if isinstance(categories, np.ndarray):
                 # get unique non-sorted categories
-                _, u_idx = np.unique(categories, return_index=True)
-                u_cat = categories[np.sort(u_idx)]
+                u_cat = nonsorted_unique(categories)
                 # compute per category
                 mi = np.zeros((len(u_cat), n_var), dtype=x.dtype)
                 for n_c, c in enumerate(u_cat):
