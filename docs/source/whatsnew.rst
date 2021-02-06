@@ -17,10 +17,12 @@ Internal Changes
 * Removed files (:commit:`cdff9b4`, :commit:`9e96f8e`, :commit:`14961aa0`)
 * :py:class:`frites.dataset.DatasetEphy` don't perform internal data copy when getting the data in a specific ROI (:commit:`2da73ef`)
 * Compatibility of MI estimators with workflows (:commit:`7dc76ee9`, :commit:`e7a9c23f`)
+* Improve the way to manage pairs of brain regions (:commit:`8b955a16`, :commit:`bfdf2dba`, :commit:`57c1e4ba`, :commit:`b1ff8c3d`)
 
 Breaking changes
 ++++++++++++++++
 * :py:class:`frites.dataset.SubjectEphy` and :py:class:`frites.dataset.DatasetEphy` to specify whether channels should be aggregated (default `agg_ch=True`) or not (`agg=False`) when computing MI. The `agg_ch` replace `sub_roi` (:commit:`18d4e24`)
+* The workflow `WfComod` has been renamed :py:class:`frites.workflow.WfConnComod` (:commit:`b7b58248`)
 
 Bug fixes
 +++++++++

@@ -101,22 +101,26 @@ class TestDatasetEphy(object):  # noqa
     def test_nb_min_suj(self):
         """Test if the selection based on a minimum number of subjects."""
         d_3d = self._get_data(3)
+        roi = [['r2', 'r1', 'r0', 'r3', 'r4'], ['r0', 'r1', 'r5', 'r6', 'r7']]
+        print(roi)
         # nb_min_suj = -inf
-        ds = DatasetEphy(d_3d, roi='roi', nb_min_suj=None, **kw)
-        assert len(ds.roi_names) == 4
-        conn_ud = np.c_[ds.get_connectivity_pairs(directed=False)]
-        assert conn_ud.shape == (6, 2)
-        conn_d = np.c_[ds.get_connectivity_pairs(directed=True)]
-        assert conn_d.shape == (12, 2)
+        ds = DatasetEphy(d_3d, roi=roi, nb_min_suj=None, **kw)
+        assert len(ds.roi_names) == 8
+        ds.get_connectivity_pairs(directed=False, as_blocks=True)
+        df = ds.get_connectivity_pairs(directed=False)
+        assert len(df) == 19
+        ds.get_connectivity_pairs(directed=True, as_blocks=True)
+        df = ds.get_connectivity_pairs(directed=True)
+        assert len(df) == 38
         # nb_min_suj = 2
-        ds = DatasetEphy(d_3d, roi='roi', nb_min_suj=2, **kw)
-        assert len(ds.roi_names) == 3
-        np.testing.assert_array_equal(
-            ds.roi_names, ['roi_0', 'roi_1', 'roi_2'])
-        conn_ud = np.c_[ds.get_connectivity_pairs(directed=False)]
-        assert conn_ud.shape == (3, 2)
-        conn_d = np.c_[ds.get_connectivity_pairs(directed=True)]
-        assert conn_d.shape == (6, 2)
+        ds = DatasetEphy(d_3d, roi=roi, nb_min_suj=2, **kw)
+        assert len(ds.roi_names) == 2
+        ds.get_connectivity_pairs(directed=False, as_blocks=True)
+        df = ds.get_connectivity_pairs(directed=False)
+        assert len(df) == 1
+        ds.get_connectivity_pairs(directed=True, as_blocks=True)
+        df = ds.get_connectivity_pairs(directed=True)
+        assert len(df) == 2
 
     def test_copnorm(self):
         """Test function copnorm."""
@@ -202,4 +206,4 @@ class TestDatasetEphy(object):  # noqa
 
 
 if __name__ == '__main__':
-    TestDatasetEphy().test_get_connectivity_pairs()
+    TestDatasetEphy().test_nb_min_suj()

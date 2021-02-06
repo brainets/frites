@@ -52,7 +52,14 @@ Task-related workflows
    :toctree: generated/
 
    WfMi
-   WfComod
+
+Connectivity workflows
+++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   WfConnComod
 
 
 Statistical workflows
