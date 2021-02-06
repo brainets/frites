@@ -201,9 +201,10 @@ class WfMi(WfBase):
         Returns
         -------
         mi, pvalues : array_like
-            DataArray of mutual information and p-values. If `inference` is
-            'ffx' the mi represents the MI computed across subjects while if it
-            is 'rfx' it's the mean across subjects.
+            DataArray of mutual information and p-values both of shapes
+            (n_times, n_roi). If `inference` is 'ffx' the mi represents the MI
+            computed across subjects while if it is 'rfx' it's the mean across
+            subjects.
 
         References
         ----------

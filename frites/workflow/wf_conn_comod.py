@@ -48,7 +48,8 @@ class WfConnComod(WfBase):
 
     See also
     --------
-    conn_get_pairs, conn_reshape_undirected
+    conn_get_pairs
+    conn_reshape_undirected
     """
 
     def __init__(self, inference='rfx', estimator=None, kernel=None,
@@ -195,7 +196,8 @@ class WfConnComod(WfBase):
         Returns
         -------
         mi, pvalues : array_like
-            DataArray of mean mutual information and p-values.
+            DataArray of mean mutual information and p-values both of shapes
+            (n_times, n_pairs)
 
         References
         ----------
