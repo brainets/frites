@@ -216,28 +216,6 @@ Correction for multiple comparisons
 
   <hr>
 
-.. ----------------------------------------------------------------------------
-
-I/O
----
-
-:py:mod:`frites.io`:
-
-.. currentmodule:: frites.io
-
-.. automodule:: frites.io
-   :no-members:
-   :no-inherited-members:
-
-.. autosummary::
-   :toctree: generated/
-
-   convert_spatiotemporal_outputs
-   convert_dfc_outputs
-
-.. raw:: html
-
-  <hr>
 
 .. ----------------------------------------------------------------------------
 
