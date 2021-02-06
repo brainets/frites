@@ -6,6 +6,8 @@ This example illustrates how to estimate the instantaneous comodulations using
 mutual information between pairwise ROI and also perform statistics.
 """
 import numpy as np
+import xarray as xr
+
 from itertools import product
 
 from frites.simulations import sim_multi_suj_ephy
@@ -81,18 +83,15 @@ pv.data[is_signi] = 1.02 * mi.data.max()
 
 # plot each pair separately
 plt.figure(figsize=(9, 7))
-for s, t in product(mi.source.data, mi.target.data):
-    if s == t: continue
-    # select the mi and p-values for the (source, target)
-    mi_st = mi.sel(source=s, target=t)
-    pv_st = pv.sel(source=s, target=t)
-    color = np.random.rand(3,)
-    plt.plot(times, mi_st, label=f"{s}-{t}", color=color)
-    plt.plot(times, pv_st, color=color, lw=4)
-    if not np.isnan(pv_st.data).all():
-        x_txt = times[~np.isnan(pv_st)].mean()
+for n_r, r in enumerate(mi['roi'].data):
+    # select the mi and p-values for the selected pair of roi
+    mi_r, pv_r = mi.sel(roi=r), pv.sel(roi=r)
+    plt.plot(times, mi_r, label=r, color=f"C{n_r}")
+    if not np.isnan(pv_r.data).all():
+        plt.plot(times, pv_r, color=f"C{n_r}", lw=4)
+        x_txt = times[~np.isnan(pv_r)].mean()
         y_txt = 1.03 * mi.data.max()
-        plt.text(x_txt, y_txt, f"{s}-{t}", color=color, ha='center')
+        plt.text(x_txt, y_txt, r, color=f"C{n_r}", ha='center')
 plt.legend()
 plt.xlabel('Times')
 plt.ylabel('Mi (bits)')

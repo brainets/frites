@@ -98,6 +98,7 @@ Utility functions
 
    conn_reshape_undirected
    conn_reshape_directed
+   conn_get_pairs
    define_windows
    plot_windows
 

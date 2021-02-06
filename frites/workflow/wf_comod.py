@@ -1,10 +1,12 @@
 """Workflow of connectivity."""
 import numpy as np
-from joblib import Parallel, delayed
+import xarray as xr
 
-from frites import config
-from frites.io import (set_log_level, logger, convert_dfc_outputs)
+from mne.utils import ProgressBar
+
+from frites.io import (set_log_level, logger)
 from frites.core import permute_mi_trials
+from frites.utils import parallel_func
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator
@@ -43,6 +45,10 @@ class WfComod(WfBase):
     References
     ----------
     Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`
+
+    See also
+    --------
+    conn_get_pairs, conn_reshape_undirected
     """
 
     def __init__(self, inference='rfx', estimator=None, kernel=None,
@@ -81,42 +87,45 @@ class WfComod(WfBase):
         """
         # get the function for computing mi
         core_fun = self.estimator.get_function()
-        # get x, y, z and subject names per roi
-        roi, inf = dataset.roi_names, self._inference
         # get the pairs for computing mi
-        (x_s, x_t) = dataset.get_connectivity_pairs(
-            directed=False, as_blocks=True, verbose=False)
-        self.pairs = dataset.get_connectivity_pairs(directed=False)
-        # x_s, x_t = self.pairs
-        n_pairs = len(self.pairs)
-        # get joblib configuration
-        cfg_jobs = config.CONFIG["JOBLIB_CFG"]
+        df_conn = dataset.get_connectivity_pairs(
+            directed=False, as_blocks=True)
+        sources, targets = df_conn['sources'], df_conn['targets']
+        self._pair_names = np.concatenate(df_conn['names'])
+        n_pairs = len(self._pair_names)
+        # parallel function for computing permutations
+        parallel, p_fun = parallel_func(comod, n_jobs=n_jobs, verbose=False)
+        pbar = ProgressBar(range(n_pairs), mesg='Estimating MI')
         # evaluate true mi
-        logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
-                    f"n_jobs={n_jobs}, n_pairs={len(x_s)})")
-        mi, mi_p = [], []
+        mi, mi_p, inf = [], [], self._inference
         kw_get = dict(mi_type=self._mi_type, copnorm=self._copnorm,
                       gcrn_per_suj=self._gcrn)
-        for s in x_s:
-            # get source data
-            da_s = dataset.get_roi_data(roi[s], **kw_get)
-            suj_s = da_s['subject'].data
-            for t in x_t[s]:
-                # get target data
-                da_t = dataset.get_roi_data(roi[t], **kw_get)
-                suj_t = da_t['subject'].data
-                # compute mi
-                _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf, core_fun)
-                mi += [_mi]
-                # get the randomize version of y
-                y_p = permute_mi_trials(suj_t, inference=self._inference,
-                                        n_perm=n_perm)
-                # run permutations using the randomize regressor
-                _mi_p = Parallel(n_jobs=n_jobs, **cfg_jobs)(delayed(comod)(
-                    da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
-                    core_fun) for p in range(n_perm))
-                mi_p += [np.asarray(_mi_p)]
-            
+        with parallel as para:
+            for n_s, s in enumerate(sources):
+                # get source data
+                da_s = dataset.get_roi_data(s, **kw_get)
+                suj_s = da_s['subject'].data
+                for t in targets[n_s]:
+                    # get target data
+                    da_t = dataset.get_roi_data(t, **kw_get)
+                    suj_t = da_t['subject'].data
+
+                    # compute mi
+                    _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf,
+                                core_fun)
+                    mi += [_mi]
+
+                    # get the randomize version of y
+                    y_p = permute_mi_trials(suj_t, inference=inf,
+                                            n_perm=n_perm)
+                    # run permutations using the randomize regressor
+                    _mi_p = para(p_fun(
+                        da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
+                        core_fun) for p in range(n_perm))
+                    mi_p += [np.asarray(_mi_p)]
+
+                    pbar.update_with_increment_value(1)
+
         # smoothing
         if isinstance(self._kernel, np.ndarray):
             logger.info("    Apply smoothing to the true and permuted MI")
@@ -154,7 +163,7 @@ class WfComod(WfBase):
         mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
             problem. Use either :
-                
+
                 * 'cluster' : cluster-based statistics [default]
                 * 'maxstat' : test-wise maximum statistics correction
                 * 'fdr' : test-wise FDR correction
@@ -199,7 +208,7 @@ class WfComod(WfBase):
         if mcp in ['noperm', None]:
             n_perm = 0
         # get important dataset's variables
-        self._times, self._roi = dataset.times, dataset.roi_names
+        self._times = dataset.times
 
         # ---------------------------------------------------------------------
         # compute connectivity
@@ -230,25 +239,31 @@ class WfComod(WfBase):
         # post-processing
         # ---------------------------------------------------------------------
         logger.info(f"    Formatting outputs")
-        args = (self._times, dataset.roi_names, self.pairs[0], self.pairs[1],
-                'dataarray')
         if isinstance(tvalues, np.ndarray):
-            self._tvalues = convert_dfc_outputs(tvalues, *args)
-        pvalues = convert_dfc_outputs(pvalues, is_pvalue=True, *args)
+            self._tvalues = self._xr_conversion(tvalues, 'tvalues')
+        pvalues = self._xr_conversion(pvalues, 'pvalues')
         if self._inference == 'rfx':
-            mi = np.stack([k.mean(axis=0) for k in mi]).T     # mean mi
+            mi = np.stack([k.mean(axis=0) for k in mi]).T
         elif self._inference == 'ffx':
-            mi = np.concatenate(mi, axis=0).T  # mi
-        mi = convert_dfc_outputs(mi, *args)
-        # converting outputs
-        mi = self.attrs.wrap_xr(mi, name='mi')
-        pvalues = self.attrs.wrap_xr(pvalues, name='pvalues')
+            mi = np.concatenate(mi, axis=0).T
+        mi = self._xr_conversion(mi, 'mi')
 
         return mi, pvalues
 
     def clean(self):
         """Clean computations."""
         self._mi, self._mi_p, self._tvalues = [], [], None
+
+    def _xr_conversion(self, x, name):
+        """Xarray conversion."""
+        # build dimension order
+        dims = ['times', 'roi']
+        coords = [self._times, self._pair_names]
+        # build xarray
+        da = xr.DataArray(x, dims=dims, coords=coords)
+        # wrap with workflow's attributes
+        da = self.attrs.wrap_xr(da, name=name)
+        return da
 
     @property
     def mi(self):
