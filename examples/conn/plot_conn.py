@@ -12,7 +12,7 @@ from itertools import product
 
 from frites.simulations import sim_multi_suj_ephy
 from frites.dataset import DatasetEphy
-from frites.workflow import WfComod
+from frites.workflow import WfConnComod
 
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-white')
@@ -62,13 +62,13 @@ dt = DatasetEphy(x, roi=roi, times=times)
 # ---------------------------------
 #
 # Once we have the dataset instance, we can then define an instance of workflow
-# :class:`frites.workflow.WfComod`. This instance is then used to compute the
-# pairwise connectivity
+# :class:`frites.workflow.WfConnComod`. This instance is then used to compute
+# the pairwise connectivity
 
 n_perm = 100  # number of permutations to compute
 kernel = np.hanning(10)  # used for smoothing the MI
 
-wf = WfComod(kernel=kernel)
+wf = WfConnComod(kernel=kernel)
 mi, pv = wf.fit(dt, n_perm=n_perm, n_jobs=1)
 print(mi)
 

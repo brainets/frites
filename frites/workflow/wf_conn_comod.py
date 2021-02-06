@@ -12,7 +12,7 @@ from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator
 
 
-class WfComod(WfBase):
+class WfConnComod(WfBase):
     """Workflow of instantaneous pairwise comodulations and statistics.
 
     This class allows to define a workflow for computing the instantaneous
@@ -216,7 +216,7 @@ class WfComod(WfBase):
         # if mi and mi_p have already been computed, reuse it instead
         if len(self._mi) and len(self._mi_p):
             logger.info("    True and permuted mutual-information already "
-                        "computed. Use WfComod.clean to reset "
+                        "computed. Use WfConnComod.clean to reset "
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:

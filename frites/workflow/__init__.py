@@ -12,6 +12,7 @@ categories of workflows :
 """
 # task related workflows
 from .wf_mi import WfMi  # noqa
-from .wf_comod import WfComod  # noqa
+# connectivity workflows
+from .wf_conn_comod import WfConnComod  # noqa
 # statistical workflows
 from .wf_stats import WfStats  # noqa

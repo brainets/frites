@@ -2,7 +2,7 @@
 import numpy as np
 
 from frites.dataset import DatasetEphy
-from frites.workflow import WfComod
+from frites.workflow import WfConnComod
 
 n_subjects = 3
 n_epochs = 30
@@ -20,26 +20,26 @@ for k in range(n_subjects):
 roi = [np.array([f"roi_{k}" for k in range(n_roi)])] * n_subjects
 
 
-class TestWfComod(object):
+class TestWfConnComod(object):
 
     def test_definition(self):
-        WfComod()
+        WfConnComod()
 
     def test_fit(self):
         ds = DatasetEphy(x, roi=roi, times=times)
-        WfComod().fit(ds, **kw_conn)
+        WfConnComod().fit(ds, **kw_conn)
 
     def test_stats(self):
         # FFX
         ds = DatasetEphy(x, roi=roi, times=times)
-        WfComod(inference='ffx').fit(ds, **kw_conn)
+        WfConnComod(inference='ffx').fit(ds, **kw_conn)
         # RFX
         ds = DatasetEphy(x, roi=roi, times=times)
-        WfComod(inference='rfx').fit(ds, **kw_conn)
+        WfConnComod(inference='rfx').fit(ds, **kw_conn)
 
     def test_properties(self):
         ds = DatasetEphy(x, roi=roi, times=times)
-        wf = WfComod()
+        wf = WfConnComod()
         wf.fit(ds, **kw_conn)
         assert isinstance(wf.mi, list)
         assert isinstance(wf.mi_p, list)
