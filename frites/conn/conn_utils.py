@@ -1,6 +1,108 @@
 """Utility functions for connectivity."""
 import numpy as np
 import xarray as xr
+import pandas as pd
+
+from frites.utils import nonsorted_unique
+from frites.io import set_log_level, logger
+
+
+###############################################################################
+###############################################################################
+#                                 CONN PAIRS
+###############################################################################
+###############################################################################
+
+
+def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
+    """Get possible connectivity pairs for multiple subjects.
+
+    This function returns a DataFrame that contains all of the necessary
+    informations for managing pairs of brain regions across many subjects.
+
+    Parameters
+    ----------
+    roi : list
+        List where each item in this list is an array descriving the brain
+        region names of a single subject.
+    directed : bool | False
+        Specify whether the the returned pairs should be for directed (True)
+        or undirected (default : False) connectivity.
+    nb_min_suj : int | -np.inf
+        Specify whether the pairs should be represented by a minimum number of
+        subjects.
+
+    Returns
+    -------
+    df : pd.DataFrame
+        A pandas DataFrame with the following entries :
+
+            * 'sources' / 'targets' : respectively, the source and target names
+            * 'subjects' : list of subjects per pair of brain regions
+            * '#subjects' : number of subjects per pair of brain regions
+            * 'names' : name of each pair. If undirected, the names are going
+              to be like 'roi_0-roi_1' or 'roi_0->roi_1' if directed
+            * 'keep' : booleans indicating whether the number of subjects per
+              pair of brain regions is over nb_min_suj
+    """
+    set_log_level(verbose)
+    assert isinstance(roi, list)
+    n_subjects = len(roi)
+    roi = [np.asarray(k) for k in roi]
+    
+    # ======================= Brain regions per subject =======================
+    
+    s_ss, t_ss, ss = [], [], []
+    for k in range(n_subjects):
+        # get the unique list of unsorted list of brain regions
+        u_roi = nonsorted_unique(roi[k], assert_unique=True)
+        n_u_roi = len(u_roi)
+        # get all possible pairs
+        if directed:
+            pairs = np.where(~np.eye(n_u_roi, dtype=bool))
+        else:
+            pairs = np.triu_indices(n_u_roi, k=1)
+        s_names, t_names = u_roi[pairs[0]], u_roi[pairs[1]]
+        # if not directed, merge '0-1' and '1-0'
+        if not directed:
+            st_names = np.c_[s_names, t_names]
+            s_names, t_names = np.unique(np.sort(st_names, axis=1), axis=0).T
+        # keep single-subject source and target names
+        s_ss += [s_names]
+        t_ss += [t_names]
+        ss += [k] * len(s_names)
+    # fill info in a dataframe
+    df_ss = pd.DataFrame({
+        'subjects': ss,
+        'sources': np.concatenate(s_ss),
+        'targets': np.concatenate(t_ss)
+    })
+    
+    # get the number of subjects per pair
+    pattern = '->' if directed else '-'
+    gp = df_ss.groupby(['sources', 'targets'])
+    fcn = lambda df : len(np.unique(df))
+    df = gp.subjects.aggregate([list]).reset_index()
+    df = df.rename(columns={'list': 'subjects'})
+    df['#subjects'] = [len(k) for k in df['subjects']]
+    df['names'] = [f"{k}{pattern}{i}" for k, i in zip(
+        df['sources'], df['targets'])]
+    df['keep'] = df['#subjects'] >= nb_min_suj
+
+    # print the info
+    n_remain = np.sum(list(df['keep']))
+    n_drop = np.sum(list(~df['keep']))
+    logger.info(f"    {n_remain} remaining pairs of brain regions "
+                f"(nb_min_suj={nb_min_suj}), {n_drop} dropped")
+
+    return df
+
+
+###############################################################################
+###############################################################################
+#                              CONN RESHAPING
+###############################################################################
+###############################################################################
 
 
 def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
@@ -140,9 +242,7 @@ def _untangle_roi(da, sep):
         targets += [k.split(sep)[1]]
 
     # merge sources and targets to force square matrix
-    roi_tot = sources + targets
-    _, u_idx = np.unique(roi_tot, return_index=True)
-    roi_tot = np.array(roi_tot)[np.sort(u_idx)]
+    roi_tot = nonsorted_unique(sources + targets)
 
     return sources, targets, roi_tot
 
