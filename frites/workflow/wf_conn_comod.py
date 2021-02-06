@@ -114,6 +114,8 @@ class WfConnComod(WfBase):
                     # compute mi
                     _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf,
                                 core_fun)
+                    print(_mi.dtype)
+                    exit()
                     mi += [_mi]
 
                     # get the randomize version of y

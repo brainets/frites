@@ -198,7 +198,7 @@ class GCMIEstimator(BaseMIEstimator):
             if reshape is not None:
                 mi = mi.reshape([mi.shape[0]] + reshape[0])
 
-            return mi
+            return mi.astype(np.float32)
         return estimator
 
 
