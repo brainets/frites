@@ -11,7 +11,8 @@ from frites.io import set_log_level, logger, Attributes
 from frites.dataset import SubjectEphy
 from frites.dataset.ds_utils import multi_to_uni_conditions
 from frites.core import copnorm_cat_nd, copnorm_nd
-from frites.utils import savgol_filter
+from frites.conn.conn_utils import conn_get_pairs
+from frites.utils import savgol_filter, nonsorted_unique
 
 
 
@@ -161,8 +162,7 @@ class DatasetEphy(object):
         """Update internal variables."""
         # build a unique list of unsorted roi names
         merged_roi = np.r_[tuple([k['roi'].data for k in self._x])]
-        _, u_idx = np.unique(merged_roi, return_index=True)
-        roi_names = merged_roi[np.sort(u_idx)]
+        roi_names = nonsorted_unique(merged_roi)
 
         # dataframe made of unique roi per subjects and subject id
         suj_r, roi_r = [], []
@@ -403,41 +403,19 @@ class DatasetEphy(object):
         targets : array_like
             Indices of the target
         """
-        set_log_level(verbose)
-        bad, df_rs, nb_min_suj = [], self._df_rs, self._nb_min_suj
-        n_roi_full = len(df_rs.index)
-        # get all possible pairs
-        if directed:
-            pairs = np.where(~np.eye(n_roi_full, dtype=bool))
-        else:
-            pairs = np.triu_indices(n_roi_full, k=1)
-        # remove pairs where there's not enough subjects
-        s_new, t_new = [], []
-        for s, t in zip(pairs[0], pairs[1]):
-            n_suj_s = int(df_rs.iloc[s]['#subjects'])
-            n_suj_t = int(df_rs.iloc[t]['#subjects'])
-            if min(n_suj_s, n_suj_t) >= nb_min_suj:
-                s_new += [s]
-                t_new += [t]
-            else:
-                bad += [f"{str(df_rs.index[s])}-{str(df_rs.index[t])}"]
-        if len(bad):
-            logger.warning("The following connectivity pairs are going to "
-                           "be ignored because the number of subjects is "
-                           f"bellow {nb_min_suj} : {bad}")
-        pairs = (np.asarray(s_new), np.asarray(t_new))
-        logger.info(f"    {len(pairs[0])} remaining connectivity pairs / "
-                    f"{len(bad)} pairs have been ignored "
-                    f"(nb_min_suj={nb_min_suj})")
+        rois = [k['roi'].data.astype(str) for k in self.x]
+        # get the dataframe for connectivity
+        self.df_conn = conn_get_pairs(
+            rois, directed=directed, nb_min_suj=self._nb_min_suj,
+            verbose=verbose)
+        df_conn = self.df_conn.loc[self.df_conn['keep']]
+        df_conn = df_conn.drop(columns='keep')
+
+        # group by sources
         if as_blocks:
-            blocks_s, blocks_t, u_sources = [], [], np.unique(pairs[0])
-            for s in u_sources:
-                blocks_s += [s]
-                blocks_t += [pairs[1][pairs[0] == s].tolist()]
-            pairs = (blocks_s, blocks_t)
+            df_conn = df_conn.groupby('sources').agg(list).reset_index()
 
-
-        return pairs[0], pairs[1]
+        return df_conn
 
 
     ###########################################################################
