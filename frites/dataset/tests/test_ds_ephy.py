@@ -190,6 +190,16 @@ class TestDatasetEphy(object):  # noqa
         ds = DatasetEphy(d_3d, times='times', **kw)
         ds.savgol_filter(10., verbose=False)
 
+    def test_get_connectivity_pairs(self):
+        """Test function get_connectivity_pairs."""
+        d_3d = self._get_data(3)
+        ds = DatasetEphy(d_3d, times='times', **kw)
+        for direction in [True, False]:
+            for blocks in [True, False]:
+                df = ds.get_connectivity_pairs(
+                    directed=direction, as_blocks=blocks, verbose=False)
+                assert isinstance(df, pd.DataFrame)
+
 
 if __name__ == '__main__':
-    TestDatasetEphy().test_definition()
+    TestDatasetEphy().test_get_connectivity_pairs()

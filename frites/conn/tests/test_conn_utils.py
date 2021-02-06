@@ -2,7 +2,8 @@
 import numpy as np
 
 from frites.conn import (conn_reshape_undirected, conn_reshape_directed,
-                         define_windows, plot_windows, conn_dfc, conn_covgc)
+                         define_windows, plot_windows, conn_dfc, conn_covgc,
+                         conn_get_pairs)
 
 
 class TestConnUtils(object):
@@ -106,3 +107,52 @@ class TestConnUtils(object):
         kw = dict(verbose=False)
         ts = define_windows(times, slwin_len=.1, **kw)[0]
         plot_windows(times, ts)
+
+    def test_conn_get_pairs(self):
+        """Test function conn_get_pairs."""
+        roi = [np.array(['r1', 'r0']), np.array(['r0', 'r2', 'r1'])]
+        # test non-directed
+        df = conn_get_pairs(roi, directed=False)
+        rundir = np.c_[['r0', 'r0', 'r1'], ['r1', 'r2', 'r2']]
+        names = [f'{k}-{i}' for k, i in zip(rundir[:, 0], rundir[:, 1])]
+        suj = [0, 1, 1, 1]
+        nsuj = [2, 1, 1]
+        assert np.all(df['keep'])
+        np.testing.assert_array_equal(df['sources'], rundir[:, 0])
+        np.testing.assert_array_equal(df['targets'], rundir[:, 1])
+        np.testing.assert_array_equal(df['#subjects'], nsuj)
+        np.testing.assert_array_equal(df['names'], names)
+        np.testing.assert_array_equal(np.concatenate(df['subjects']), suj)
+        # test directed
+        df = conn_get_pairs(roi, directed=True)
+        rdir = np.c_[['r0', 'r0', 'r1', 'r1', 'r2', 'r2'],
+                     ['r1', 'r2', 'r0', 'r2', 'r0', 'r1']]
+        names = [f'{k}->{i}' for k, i in zip(rdir[:, 0], rdir[:, 1])]
+        suj = [0, 1, 1, 0, 1, 1, 1, 1]
+        nsuj = [2, 1, 2, 1, 1, 1]
+        assert np.all(df['keep'])
+        np.testing.assert_array_equal(df['sources'], rdir[:, 0])
+        np.testing.assert_array_equal(df['targets'], rdir[:, 1])
+        np.testing.assert_array_equal(df['#subjects'], nsuj)
+        np.testing.assert_array_equal(df['names'], names)
+        np.testing.assert_array_equal(np.concatenate(df['subjects']), suj)
+        # test nb_min_suj filtering (non-directed)
+        df = conn_get_pairs(roi, directed=False, nb_min_suj=2)
+        np.testing.assert_array_equal(df['keep'], [True, False, False])
+        df = df.loc[df['keep']]
+        np.testing.assert_array_equal(df['sources'], ['r0'])
+        np.testing.assert_array_equal(df['targets'], ['r1'])
+        np.testing.assert_array_equal(df['#subjects'], [2])
+        np.testing.assert_array_equal(np.concatenate(df['subjects']), [0, 1])
+        np.testing.assert_array_equal(df['names'], ['r0-r1'])
+        # test nb_min_suj filtering (directed)
+        df = conn_get_pairs(roi, directed=True, nb_min_suj=2)
+        np.testing.assert_array_equal(
+            df['keep'], [True, False, True, False, False, False])
+        df = df.loc[df['keep']]
+        np.testing.assert_array_equal(df['sources'], ['r0', 'r1'])
+        np.testing.assert_array_equal(df['targets'], ['r1', 'r0'])
+        np.testing.assert_array_equal(df['#subjects'], [2, 2])
+        np.testing.assert_array_equal(
+            np.concatenate(list(df['subjects'])), [0, 1, 0, 1])
+        np.testing.assert_array_equal(df['names'], ['r0->r1', 'r1->r0'])
