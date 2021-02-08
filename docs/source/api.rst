@@ -235,6 +235,7 @@ Utils
    :toctree: generated/
 
    savgol_filter
+   kernel_smoothing
 
 .. raw:: html
 

@@ -29,12 +29,12 @@ plt.style.use('seaborn-white')
 # n_epochs, n_sites, n_times
 
 modality = 'meeg'
-n_subjects = 10
+n_subjects = 5
 n_epochs = 50
 n_times = 100
 x, roi, _ = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                n_times=n_times, modality=modality,
-                               random_state=0, n_roi=10)
+                               random_state=0, n_roi=4)
 times = np.linspace(-1, 1, n_times)
 
 ###############################################################################

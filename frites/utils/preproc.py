@@ -1,13 +1,10 @@
 """Pre- and post-processing functions."""
-import logging
-
 import numpy as np
 import xarray as xr
 from scipy.signal import savgol_filter as savgol
+from scipy.signal import fftconvolve
 
-from frites.io import set_log_level
-
-logger = logging.getLogger("frites")
+from frites.io import set_log_level, logger
 
 
 def savgol_filter(x, h_freq, axis=None, sfreq=None, polyorder=5, verbose=None):
@@ -39,6 +36,10 @@ def savgol_filter(x, h_freq, axis=None, sfreq=None, polyorder=5, verbose=None):
     -----
     For Savitzky-Golay low-pass approximation, see:
         https://gist.github.com/larsoner/bbac101d50176611136b
+
+    See also
+    --------
+    kernel_smoothing
     """
     set_log_level(verbose)
     # inputs checking
@@ -64,13 +65,52 @@ def savgol_filter(x, h_freq, axis=None, sfreq=None, polyorder=5, verbose=None):
     logger.info(f'    Using savgol length {window_length}')
 
     # apply savgol depending on input type
+    kw = dict(axis=axis, polyorder=polyorder, window_length=window_length)
     if isinstance(x, xr.DataArray):
-        x.data = savgol(x.data, axis=axis, polyorder=polyorder,
-                        window_length=window_length)
+        x.data = savgol(x.data, **kw)
         return x
     else:
-        return savgol(x, axis=axis, polyorder=polyorder,
-                      window_length=window_length)
+        return savgol(x, **kw)
+
+
+def kernel_smoothing(x, kernel, axis=-1):
+    """Apply a kernel smoothing using the fftconvolve.
+
+    Parameters
+    ----------
+    x : array_like
+        Array to smooth. It can also be an instance of xarray.DataArray.
+    kernel : array_like
+        Kernel to use for smoothing (e.g kernel=np.ones((10,)) for a moving
+        average or np.hanning(10))
+    axis : int, string | -1
+        The axis to use for smoothing (typically the time-axis). If the x input
+        is a DataArray, axis can be a string (e.g axis='times')
+
+    Returns
+    -------
+    x : array_like
+        The smoothed array with the same shape and type as the input x.
+
+    See also
+    --------
+    savgol_filter
+    """
+    assert isinstance(kernel, np.ndarray) and (kernel.ndim == 1)
+    # get axis number when dataarray
+    if isinstance(x, xr.DataArray) and isinstance(axis, str):
+        axis = x.get_axis_num(axis)
+    axis = np.arange(x.ndim)[axis]
+    # reshape kernel to match input number of dims
+    k_sh = [1 if k != axis else len(kernel) for k in range(x.ndim)]
+    kernel = kernel.reshape(*tuple(k_sh))
+    # apply the convolution
+    kw = dict(axes=axis, mode='same')
+    if isinstance(x, xr.DataArray):
+        x.data = fftconvolve(x.data, kernel, **kw)
+    else:
+        x = fftconvolve(x, kernel, **kw)
+    return x
 
 
 def nonsorted_unique(data, assert_unique=False):
