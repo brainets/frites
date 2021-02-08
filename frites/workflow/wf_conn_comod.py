@@ -101,31 +101,29 @@ class WfConnComod(WfBase):
         mi, mi_p, inf = [], [], self._inference
         kw_get = dict(mi_type=self._mi_type, copnorm=self._copnorm,
                       gcrn_per_suj=self._gcrn)
-        with parallel as para:
-            for n_s, s in enumerate(sources):
-                # get source data
-                da_s = dataset.get_roi_data(s, **kw_get)
-                suj_s = da_s['subject'].data
-                for t in targets[n_s]:
-                    # get target data
-                    da_t = dataset.get_roi_data(t, **kw_get)
-                    suj_t = da_t['subject'].data
+        for n_s, s in enumerate(sources):
+            # get source data
+            da_s = dataset.get_roi_data(s, **kw_get)
+            suj_s = da_s['subject'].data
+            for t in targets[n_s]:
+                # get target data
+                da_t = dataset.get_roi_data(t, **kw_get)
+                suj_t = da_t['subject'].data
 
-                    # compute mi
-                    _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf,
-                                core_fun)
-                    mi += [_mi]
+                # compute mi
+                _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf,
+                            core_fun)
+                mi += [_mi]
 
-                    # get the randomize version of y
-                    y_p = permute_mi_trials(suj_t, inference=inf,
-                                            n_perm=n_perm)
-                    # run permutations using the randomize regressor
-                    _mi_p = para(p_fun(
-                        da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
-                        core_fun) for p in range(n_perm))
-                    mi_p += [np.asarray(_mi_p)]
+                # get the randomize version of y
+                y_p = permute_mi_trials(suj_t, inference=inf, n_perm=n_perm)
+                # run permutations using the randomize regressor
+                _mi_p = parallel(p_fun(
+                    da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
+                    core_fun) for p in range(n_perm))
+                mi_p += [np.asarray(_mi_p)]
 
-                    pbar.update_with_increment_value(1)
+                pbar.update_with_increment_value(1)
 
         # smoothing
         if isinstance(self._kernel, np.ndarray):
