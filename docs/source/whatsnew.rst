@@ -11,6 +11,7 @@ New Features
 * new :py:class:`frites.io.Attributes` class for managing and printing datasets' and workflow's attributes (:commit:`be046b1`)
 * new :py:class:`frites.dataset.SubjectEphy` single-subject container (:commit:`ac22cf4`)
 * new estimators of mutual-information, :py:class:`frites.estimator.GCMIEstimator` (:commit:`901b3cbf`, :commit:`65d1e08`, :commit:`0015bf58`, :commit:`beed6a09`), :py:class:`frites.estimator.BinMIEstimator` (:commit:`beed6a09`)
+* new kernel smoothing function :py:`frites.utils.kernel_smoothing`
  
 Internal Changes
 ++++++++++++++++

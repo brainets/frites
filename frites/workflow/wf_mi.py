@@ -9,7 +9,7 @@ from frites.core import permute_mi_vector
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator
-from frites.utils import parallel_func
+from frites.utils import parallel_func, kernel_smoothing
 
 
 class WfMi(WfBase):
@@ -102,43 +102,38 @@ class WfMi(WfBase):
         parallel, p_fun = parallel_func(mi_fun, n_jobs=n_jobs, verbose=False)
         pbar = ProgressBar(range(n_roi), mesg='Estimating MI')
         # evaluate permuted mi
-        with parallel as para:
-            mi, mi_p = [], []
-            for r in range(n_roi):
-                # get the data of selected roi
-                da = dataset.get_roi_data(
-                    self._roi[r], copnorm=self._copnorm, mi_type=self._mi_type,
-                    gcrn_per_suj=self._gcrn)
-                x, y, suj = da.data, da['y'].data, da['subject'].data
-                kw_mi = dict()
-                # cmi and categorical MI
-                if 'z' in list(da.coords):
-                    kw_mi['z'] = da['z'].data
-                if self._inference == 'rfx':
-                    kw_mi['categories'] = suj
+        mi, mi_p = [], []
+        for r in range(n_roi):
+            # get the data of selected roi
+            da = dataset.get_roi_data(
+                self._roi[r], copnorm=self._copnorm, mi_type=self._mi_type,
+                gcrn_per_suj=self._gcrn)
+            x, y, suj = da.data, da['y'].data, da['subject'].data
+            kw_mi = dict()
+            # cmi and categorical MI
+            if 'z' in list(da.coords):
+                kw_mi['z'] = da['z'].data
+            if self._inference == 'rfx':
+                kw_mi['categories'] = suj
 
-                # compute the true mi
-                mi += [mi_fun(x, y, **kw_mi)]
+            # compute the true mi
+            _mi = mi_fun(x, y, **kw_mi)
+            # get the randomize version of y
+            y_p = permute_mi_vector(
+                y, suj, mi_type=self._mi_type, inference=self._inference,
+                n_perm=n_perm)
+            # run permutations using the randomize regressor
+            _mi_p = parallel(p_fun(x, y_p[p], **kw_mi) for p in range(n_perm))
+            _mi_p = np.asarray(_mi_p)
 
-                # get the randomize version of y
-                y_p = permute_mi_vector(
-                    y, suj, mi_type=self._mi_type, inference=self._inference,
-                    n_perm=n_perm)
-                # run permutations using the randomize regressor
-                _mi = para(p_fun(x, y_p[p], **kw_mi) for p in range(n_perm))
-                mi_p += [np.asarray(_mi)]
-                pbar.update_with_increment_value(1)
+            # kernel smoothing
+            if isinstance(self._kernel, np.ndarray):
+                _mi = kernel_smoothing(_mi, self._kernel, axis=-1)
+                _mi_p = kernel_smoothing(_mi_p, self._kernel, axis=-1)
 
-        # smoothing
-        if isinstance(self._kernel, np.ndarray):
-            logger.info("    Apply smoothing to the true and permuted MI")
-            for r in range(len(mi)):
-                for s in range(mi[r].shape[0]):
-                    mi[r][s, :] = np.convolve(
-                        mi[r][s, :], self._kernel, mode='same')
-                    for p in range(mi_p[r].shape[0]):
-                        mi_p[r][p, s, :] = np.convolve(
-                            mi_p[r][p, s, :], self._kernel, mode='same')
+            mi += [_mi]
+            mi_p += [_mi_p]
+            pbar.update_with_increment_value(1)
 
         self._mi, self._mi_p = mi, mi_p
 

@@ -6,7 +6,7 @@ from mne.utils import ProgressBar
 
 from frites.io import (set_log_level, logger)
 from frites.core import permute_mi_trials
-from frites.utils import parallel_func
+from frites.utils import parallel_func, kernel_smoothing
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator
@@ -113,28 +113,22 @@ class WfConnComod(WfBase):
                 # compute mi
                 _mi = comod(da_s.data, da_t.data, suj_s, suj_t, inf,
                             core_fun)
-                mi += [_mi]
-
                 # get the randomize version of y
                 y_p = permute_mi_trials(suj_t, inference=inf, n_perm=n_perm)
                 # run permutations using the randomize regressor
                 _mi_p = parallel(p_fun(
                     da_s.data, da_t.data[..., y_p[p]], suj_s, suj_t, inf,
                     core_fun) for p in range(n_perm))
-                mi_p += [np.asarray(_mi_p)]
+                _mi_p = np.asarray(_mi_p)
 
+                # kernel smoothing
+                if isinstance(self._kernel, np.ndarray):
+                    _mi = kernel_smoothing(_mi, self._kernel, axis=-1)
+                    _mi_p = kernel_smoothing(_mi_p, self._kernel, axis=-1)
+
+                mi += [_mi]
+                mi_p += [_mi_p]
                 pbar.update_with_increment_value(1)
-
-        # smoothing
-        if isinstance(self._kernel, np.ndarray):
-            logger.info("    Apply smoothing to the true and permuted MI")
-            for r in range(len(mi)):
-                for s in range(mi[r].shape[0]):
-                    mi[r][s, :] = np.convolve(
-                        mi[r][s, :], self._kernel, mode='same')
-                    for p in range(mi_p[r].shape[0]):
-                        mi_p[r][p, s, :] = np.convolve(
-                            mi_p[r][p, s, :], self._kernel, mode='same')
 
         self._mi, self._mi_p = mi, mi_p
 
