@@ -34,8 +34,9 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
     Returns
     -------
-    df : pd.DataFrame
-        A pandas DataFrame with the following entries :
+    df_conn : pd.DataFrame
+        A Pandas DataFrame that describes the connectivity informations at the
+        group level. The table contains the following entries :
 
             * 'sources' / 'targets' : respectively, the source and target names
             * 'subjects' : list of subjects per pair of brain regions
@@ -44,14 +45,24 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
               to be like 'roi_0-roi_1' or 'roi_0->roi_1' if directed
             * 'keep' : booleans indicating whether the number of subjects per
               pair of brain regions is over nb_min_suj
+    df_suj : pd.DataFrame
+        A Pandas DataFrame that describes the connectivity information per
+        subject. The table contains the following entries :
+
+            * 'subjects' : subject number
+            * 'keep_roi' / 'drop_roi' : the brain regions respectively to keep
+              and to remove to fit the input parameters nb_min_suj
+            * 'keep_suj' : boolean describing if the subject should be dropped
+              or conserved
+            * 'conn' : the 2D boolean connectivity array per subject
     """
     set_log_level(verbose)
     assert isinstance(roi, list)
     n_subjects = len(roi)
     roi = [np.asarray(k) for k in roi]
-    
-    # ======================= Brain regions per subject =======================
-    
+
+    # =========================== Conn info per pair ==========================
+
     s_ss, t_ss, ss = [], [], []
     for k in range(n_subjects):
         # get the unique list of unsorted list of brain regions
@@ -77,25 +88,59 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
         'sources': np.concatenate(s_ss),
         'targets': np.concatenate(t_ss)
     })
-    
+
     # get the number of subjects per pair
     pattern = '->' if directed else '-'
     gp = df_ss.groupby(['sources', 'targets'])
     fcn = lambda df : len(np.unique(df))
-    df = gp.subjects.aggregate([list]).reset_index()
-    df = df.rename(columns={'list': 'subjects'})
-    df['#subjects'] = [len(k) for k in df['subjects']]
-    df['names'] = [f"{k}{pattern}{i}" for k, i in zip(
-        df['sources'], df['targets'])]
-    df['keep'] = df['#subjects'] >= nb_min_suj
+    df_conn = gp.subjects.aggregate([list]).reset_index()
+    df_conn = df_conn.rename(columns={'list': 'subjects'})
+    df_conn['#subjects'] = [len(k) for k in df_conn['subjects']]
+    df_conn['names'] = [f"{k}{pattern}{i}" for k, i in zip(
+        df_conn['sources'], df_conn['targets'])]
+    df_conn['keep'] = df_conn['#subjects'] >= nb_min_suj
 
     # print the info
-    n_remain = np.sum(list(df['keep']))
-    n_drop = np.sum(list(~df['keep']))
+    n_remain = np.sum(list(df_conn['keep']))
+    n_drop = np.sum(list(~df_conn['keep']))
     logger.info(f"    {n_remain} remaining pairs of brain regions "
                 f"(nb_min_suj={nb_min_suj}), {n_drop} dropped")
 
-    return df
+    # ========================= Conn info per subject =========================
+
+    # build 2d connectivity array per subject
+    conn = {}
+    for n_s in range(n_subjects):
+        n_roi_s = len(roi[n_s])
+        _conn = xr.DataArray(
+            ~np.eye(n_roi_s, dtype=bool), dims=('sources', 'targets'),
+            coords=(roi[n_s], roi[n_s]))
+        conn[n_s] = _conn
+    
+    # fill the information
+    for k in range(len(df_conn)):
+        _df = df_conn.iloc[k, :]
+        for s in _df['subjects']:
+            _s, _t, _k = _df['sources'], _df['targets'], bool(_df['keep'])
+            conn[s].loc[dict(sources=_s, targets=_t)] = _k
+            if not directed:
+                conn[s].loc[dict(sources=_t, targets=_s)] = _k
+    
+    # get the brain regions to keep / drop per subject
+    suj, roi_keep, roi_drop, conn_tot = [], [], [], []
+    for s in range(n_subjects):
+        _keep = roi[s][np.union1d(*np.where(conn[s]))]
+        _drop = np.setdiff1d(roi[s], _keep)
+        suj += [s]
+        roi_keep += [_keep.tolist()]
+        roi_drop += [_drop.tolist()]
+        conn_tot += [conn[s].data]
+    # create the final dataframe
+    df_suj = pd.DataFrame({'subjects': suj, 'keep_roi': roi_keep,
+                           'drop_roi': roi_drop})  # , 'conn': conn_tot
+    df_suj['keep_suj'] = [len(k) > 1 for k in df_suj['keep_roi']]
+
+    return df_conn, df_suj
 
 
 ###############################################################################

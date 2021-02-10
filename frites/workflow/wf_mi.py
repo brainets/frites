@@ -65,6 +65,7 @@ class WfMi(WfBase):
         if estimator is None:
             estimator = GCMIEstimator(mi_type=mi_type, copnorm=False,
                                       verbose=verbose)
+        assert estimator.settings['mi_type'] == self._mi_type
         self.estimator = estimator
         self._copnorm = isinstance(estimator, GCMIEstimator)
         self._gcrn = inference == 'rfx'

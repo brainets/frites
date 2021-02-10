@@ -398,24 +398,30 @@ class DatasetEphy(object):
 
         Returns
         -------
-        sources : array_like
-            Indices of the source
-        targets : array_like
-            Indices of the target
+        df_conn : pd.DataFrame
+            The table describing the connectivity informations per pair of
+            brain regions
+        df_conn_suj : pd.DataFrame
+            The table describing the connectivity informations per subject
         """
         rois = [k['roi'].data.astype(str) for k in self.x]
         # get the dataframe for connectivity
-        self.df_conn = conn_get_pairs(
+        self.df_conn, self.df_conn_suj = conn_get_pairs(
             rois, directed=directed, nb_min_suj=self._nb_min_suj,
             verbose=verbose)
+        # filter both dataframes
         df_conn = self.df_conn.loc[self.df_conn['keep']]
         df_conn = df_conn.drop(columns='keep')
+        df_conn = df_conn.reset_index(drop=True)
+        df_conn_suj = self.df_conn_suj.loc[self.df_conn_suj['keep_suj']]
+        df_conn_suj = df_conn_suj.drop(columns='keep_suj')
+        df_conn_suj = df_conn_suj.reset_index(drop=True)
 
         # group by sources
         if as_blocks:
             df_conn = df_conn.groupby('sources').agg(list).reset_index()
 
-        return df_conn
+        return df_conn, df_conn_suj
 
 
     ###########################################################################

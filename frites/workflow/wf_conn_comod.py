@@ -89,7 +89,7 @@ class WfConnComod(WfBase):
         # get the function for computing mi
         core_fun = self.estimator.get_function()
         # get the pairs for computing mi
-        df_conn = dataset.get_connectivity_pairs(
+        df_conn, _ = dataset.get_connectivity_pairs(
             directed=False, as_blocks=True)
         sources, targets = df_conn['sources'], df_conn['targets']
         self._pair_names = np.concatenate(df_conn['names'])

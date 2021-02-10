@@ -102,24 +102,23 @@ class TestDatasetEphy(object):  # noqa
         """Test if the selection based on a minimum number of subjects."""
         d_3d = self._get_data(3)
         roi = [['r2', 'r1', 'r0', 'r3', 'r4'], ['r0', 'r1', 'r5', 'r6', 'r7']]
-        print(roi)
         # nb_min_suj = -inf
         ds = DatasetEphy(d_3d, roi=roi, nb_min_suj=None, **kw)
         assert len(ds.roi_names) == 8
-        ds.get_connectivity_pairs(directed=False, as_blocks=True)
-        df = ds.get_connectivity_pairs(directed=False)
+        ds.get_connectivity_pairs(directed=False, as_blocks=True)[0]
+        df = ds.get_connectivity_pairs(directed=False)[0]
         assert len(df) == 19
-        ds.get_connectivity_pairs(directed=True, as_blocks=True)
-        df = ds.get_connectivity_pairs(directed=True)
+        ds.get_connectivity_pairs(directed=True, as_blocks=True)[0]
+        df = ds.get_connectivity_pairs(directed=True)[0]
         assert len(df) == 38
         # nb_min_suj = 2
         ds = DatasetEphy(d_3d, roi=roi, nb_min_suj=2, **kw)
         assert len(ds.roi_names) == 2
-        ds.get_connectivity_pairs(directed=False, as_blocks=True)
-        df = ds.get_connectivity_pairs(directed=False)
+        ds.get_connectivity_pairs(directed=False, as_blocks=True)[0]
+        df = ds.get_connectivity_pairs(directed=False)[0]
         assert len(df) == 1
-        ds.get_connectivity_pairs(directed=True, as_blocks=True)
-        df = ds.get_connectivity_pairs(directed=True)
+        ds.get_connectivity_pairs(directed=True, as_blocks=True)[0]
+        df = ds.get_connectivity_pairs(directed=True)[0]
         assert len(df) == 2
 
     def test_copnorm(self):
@@ -172,7 +171,6 @@ class TestDatasetEphy(object):  # noqa
         """Test function builtin."""
         d_3d = self._get_data(3)
         ds = DatasetEphy(d_3d, y='y', z='z', **kw)
-        print(ds)
 
     def test_slicing(self):
         """Test spatio-temporal slicing."""
@@ -200,9 +198,10 @@ class TestDatasetEphy(object):  # noqa
         ds = DatasetEphy(d_3d, times='times', **kw)
         for direction in [True, False]:
             for blocks in [True, False]:
-                df = ds.get_connectivity_pairs(
+                df_1, df_2 = ds.get_connectivity_pairs(
                     directed=direction, as_blocks=blocks, verbose=False)
-                assert isinstance(df, pd.DataFrame)
+                assert isinstance(df_1, pd.DataFrame)
+                assert isinstance(df_2, pd.DataFrame)
 
 
 if __name__ == '__main__':
