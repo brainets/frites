@@ -116,7 +116,7 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
             ~np.eye(n_roi_s, dtype=bool), dims=('sources', 'targets'),
             coords=(roi[n_s], roi[n_s]))
         conn[n_s] = _conn
-    
+
     # fill the information
     for k in range(len(df_conn)):
         _df = df_conn.iloc[k, :]
@@ -125,7 +125,7 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
             conn[s].loc[dict(sources=_s, targets=_t)] = _k
             if not directed:
                 conn[s].loc[dict(sources=_t, targets=_s)] = _k
-    
+
     # get the brain regions to keep / drop per subject
     suj, roi_keep, roi_drop, conn_tot = [], [], [], []
     for s in range(n_subjects):
@@ -197,9 +197,11 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
     # get sources, targets names and sorted full list
     sources, targets, roi_tot = _untangle_roi(da, sep)
 
-    # build the multiindex and unstack it
+    # duplicates to make it symmetrical
     da = xr.concat((da, da), 'roi')
-    da, order = _dataarray_unstack(da, sources, targets, roi_tot, fill_value,
+    s_, t_ = sources + targets, targets + sources
+    # build the multiindex and unstack it
+    da, order = _dataarray_unstack(da, s_, t_, roi_tot, fill_value,
                                    order, rm_missing)
 
     # dataframe conversion
@@ -255,7 +257,7 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     assert isinstance(da, xr.DataArray)
     if not inplace:
         da = da.copy()
-    assert ('roi' in list(da.dims)) and ('direction' in list(da.dims))
+    assert 'roi' in list(da.dims)
     if 'times' not in list(da.dims):
         da = da.expand_dims("times")
 
@@ -263,12 +265,16 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     sources, targets, roi_tot = _untangle_roi(da, sep)
 
     # transpose, reindex and reorder (if needed)
-    da_xy, da_yx = da.sel(direction='x->y'), da.sel(direction='y->x')
-    if net:
-        da = xr.concat((da_xy - da_yx, da_xy - da_yx), 'roi')
+    if 'direction' in list(da.dims):
+        da_xy, da_yx = da.sel(direction='x->y'), da.sel(direction='y->x')
+        if net:
+            da = xr.concat((da_xy - da_yx, da_xy - da_yx), 'roi')
+        else:
+            da = xr.concat((da_xy, da_yx), 'roi')
+        s_, t_ = sources + targets, targets + sources
     else:
-        da = xr.concat((da_xy, da_yx), 'roi')
-    da, order = _dataarray_unstack(da, sources, targets, roi_tot, fill_value,
+        s_, t_ = sources, targets
+    da, order = _dataarray_unstack(da, s_, t_, roi_tot, fill_value,
                                    order, rm_missing)
 
     # dataframe conversion
@@ -298,7 +304,7 @@ def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order,
     import pandas as pd
 
     da['roi'] = pd.MultiIndex.from_arrays(
-        [sources + targets, targets + sources], names=['sources', 'targets'])
+        [sources, targets], names=['sources', 'targets'])
     da = da.unstack(fill_value=fill_value)
 
     # transpose, reindex and reorder (if needed)
