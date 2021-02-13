@@ -170,10 +170,10 @@ class GCMIEstimator(BaseMIEstimator):
             # repeat y and z(if needed)
             if (mi_type != 'cd') and (y.ndim == 1):
                 n_var, n_mv, _ = x.shape
-                y = np.tile(y, (n_var, n_mv, 1))
+                y = np.tile(y, (n_var, 1, 1))
             if (mi_type == 'ccc') and (y.ndim == 1):
                 n_var, n_mv, _ = x.shape
-                z = np.tile(z, (n_var, n_mv, 1))
+                z = np.tile(z, (n_var, 1, 1))
 
             # compute (potentially categorical) MI
             n_var = x.shape[0]
