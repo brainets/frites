@@ -53,7 +53,7 @@ y, _ = sim_mi_cc(data, snr=.1)
 # Now, we use the :class:`frites.dataset.DatasetEphy` in order to create a
 # compatible electrophysiological dataset
 
-dt = DatasetEphy(data, y, roi=roi, times=time, verbose=False)
+dt = DatasetEphy(data, y=y, roi=roi, times=time, verbose=False)
 
 ###############################################################################
 # Define the workflow

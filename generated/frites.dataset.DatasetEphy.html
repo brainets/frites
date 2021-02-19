@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.dataset.merge_datasets" href="frites.dataset.merge_datasets.html" />
-    <link rel="prev" title="API" href="../api.html" />
+    <link rel="next" title="frites.workflow.WfMi" href="frites.workflow.WfMi.html" />
+    <link rel="prev" title="frites.dataset.SubjectEphy" href="frites.dataset.SubjectEphy.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -313,10 +314,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -499,80 +508,52 @@
 <h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="frites.dataset.DatasetEphy">
-<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">sub_roi=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multi-subject dataset of electrophysiological data.</p>
+<em class="property">class </em><code class="sig-prename descclassname">frites.dataset.</code><code class="sig-name descname">DatasetEphy</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">agg_ch=True</em>, <em class="sig-param">times=None</em>, <em class="sig-param">multivariate=False</em>, <em class="sig-param">nb_min_suj=False</em>, <em class="sig-param">attrs=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multi-subjects electrophysiological data container.</p>
 <p>This class is a container used to represent the neurophysiological data
 coming from multiple subjects. In addition to passing the data, this
 container is also going to need the anatomical information such as the
-feature (continuous or discret). Then, the created object can be used to
-compute the mutual information (MI) between the data and the feature and
-perform statistics on it.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When using MNE or Xarray inputs, operations are performed inplace which
-means that the original list of inputs are going to be replaced by
-NumPy arrays. This behavior is decreasing memory usage by avoiding data
-duplication</p>
-</div>
-<dl class="field-list">
+task-related variables (continuous or discret). Then, the created object
+can be used to compute the mutual information (MI) between the data and the
+task variable and group-level.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>x</strong><span class="classifier">list</span></dt><dd><p>List of length (n_subjects,) where each element of the list should be
-the data of single subject with one of the following form :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>3d NumPy array of shape (n_epochs, n_channels, n_times)</p></li>
-<li><p>4d NumPy array of shape (n_epochs, n_channels, n_freqs, n_times)</p></li>
-<li><p>mne.Epochs or mne.EpochsArray</p></li>
-<li><p>mne.EpochsTFR (i.e. non-averaged power)</p></li>
-<li><p>xarray.DataArray. In that case <cite>y</cite>, <cite>z</cite>, <cite>roi</cite> and <cite>times</cite> inputs
-can be strings that refer to the coordinate name to use in the
-DataArray</p></li>
-</ul>
-</div></blockquote>
+the neural data of single subject. Supported types for each element of
+the list are the same as in <a class="reference internal" href="frites.dataset.SubjectEphy.html#frites.dataset.SubjectEphy" title="frites.dataset.SubjectEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubjectEphy</span></code></a></p>
 </dd>
-<dt><strong>roi</strong><span class="classifier">list | None</span></dt><dd><p>List of length (n_subjects,) where each element is an array of shape
-(n_channels,) describing the ROI name of each channel. If None and if
-the data are one of the MNE-Python supported type, the channel names
-are used (ch_names). Otherwise, the list is going to be filled with
-generic roi names.</p>
+<dt><strong>y, z</strong><span class="classifier">list, sting | None</span></dt><dd><p>List of length (n_subjects,) of continuous or discrete task-related
+variables per subject. Supported types for each element of the list are
+the same as in <a class="reference internal" href="frites.dataset.SubjectEphy.html#frites.dataset.SubjectEphy" title="frites.dataset.SubjectEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubjectEphy</span></code></a></p>
 </dd>
-<dt><strong>y, z</strong><span class="classifier">list, sting | None</span></dt><dd><p>List of length (n_subjects,) of continuous or discrete variables. Each
-element of the list should be an array of shape (n_epochs,) that is
-then going to be used to compute the MI. The type of MI depends on the
-type of this two variables :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>y=continuous, z=None : I(x; y) and mi_type should be ‘cc’</p></li>
-<li><p>y=discrete, z=None : I(x; y) and mi_type should be ‘cd’</p></li>
-<li><p>y=continuous, z=discrete : I(x; y | z) and mi_type should
-be ‘ccd’</p></li>
-</ul>
-</div></blockquote>
-<p>Note that if y (or z) are multi-dimensional discrete variables, the
-categories inside are going to be automatically remapped to a single
-vector.</p>
+<dt><strong>roi</strong><span class="classifier">list | None</span></dt><dd><p>List of length (n_subjects,) where each element represents the
+anatomical information of each channel. Supported types for each
+element of the list are the same as in <a class="reference internal" href="frites.dataset.SubjectEphy.html#frites.dataset.SubjectEphy" title="frites.dataset.SubjectEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubjectEphy</span></code></a></p>
 </dd>
-<dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>The time vector to use. If the data are defined using MNE-Python, the
-time vector is directly inferred from those files. If None, a time
-vector is going to be created.</p>
+<dt><strong>agg_ch</strong><span class="classifier">bool | True</span></dt><dd><p>If multiple channels belong to the same ROI, specify whether if the
+data should be aggregated across channels (True) or if the information
+per channel have to be take into account (False - conditional mutual
+information).</p>
+</dd>
+<dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>The time vector to use. Supported types are listed in
+<a class="reference internal" href="frites.dataset.SubjectEphy.html#frites.dataset.SubjectEphy" title="frites.dataset.SubjectEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubjectEphy</span></code></a></p>
+</dd>
+<dt><strong>multivariate</strong><span class="classifier">bool | False</span></dt><dd><p>If 4d input is provided, this parameter specifies whether this axis
+should be considered as multi-variate (True) or uni-varariate (False)</p>
 </dd>
 <dt><strong>nb_min_suj</strong><span class="classifier">int | None</span></dt><dd><p>The minimum number of subjects per roi. Roi with n_suj &lt; nb_min_suj
-are going to be skipped. Use None to skip this parameter</p>
+are going to be skipped. Use None to force selecting all of the
+subjects</p>
 </dd>
-<dt><strong>sub_roi</strong><span class="classifier">list, string | None</span></dt><dd><p>List of length (n_subjects,) that contains additional anatomical
-informations about the data of each subject. This argument can be used
-to estimate the mutual-information at the single contact level (or MEG
-sensor for exemple). As an example, the <cite>roi</cite> input could refer to the
-parcel name (e.g ‘Insula’, ‘vmPFC’ etc.) while the <cite>sub_roi</cite> input can
-refer to the contact / sensor name (‘x1’, ‘x2’ etc.)</p>
+<dt><strong>attrs</strong><span class="classifier">dict | {}</span></dt><dd><p>Dictionary of additional attributes about the data</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">sub_roi=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y=None</em>, <em class="sig-param">z=None</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">agg_ch=True</em>, <em class="sig-param">times=None</em>, <em class="sig-param">multivariate=False</em>, <em class="sig-param">nb_min_suj=False</em>, <em class="sig-param">attrs=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -583,26 +564,23 @@ refer to the contact / sensor name (‘x1’, ‘x2’ etc.)</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(x[, y, roi, z, times, nb_min_suj, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.__init__" title="frites.dataset.DatasetEphy.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(x[, y, z, roi, agg_ch, times, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.copnorm" title="frites.dataset.DatasetEphy.copnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copnorm</span></code></a>([mi_type, gcrn_per_suj])</p></td>
-<td><p>Apply the Gaussian-Copula rank normalization.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_pairs</span></code></a>([nb_min_suj, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_pairs</span></code></a>([as_blocks, …])</p></td>
 <td><p>Get the connectivity pairs for this dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.groupby" title="frites.dataset.DatasetEphy.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>([groupby])</p></td>
-<td><p>Reorganize the data inplace.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_roi_data" title="frites.dataset.DatasetEphy.get_roi_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_roi_data</span></code></a>(roi[, groupby, mi_type, …])</p></td>
+<td><p>Get the data of a single brain region.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.resample" title="frites.dataset.DatasetEphy.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>(sfreq[, npad, window, n_jobs, pad, …])</p></td>
-<td><p>Resample data.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.isel" title="frites.dataset.DatasetEphy.isel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isel</span></code></a>(**kwargs)</p></td>
+<td><p>Index-based data slicing.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.save" title="frites.dataset.DatasetEphy.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>()</p></td>
-<td><p>Save the dataset.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(h_freq[, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">savgol_filter</span></code></a>(h_freq[, edges, verbose])</p></td>
 <td><p>Filter the data using Savitzky-Golay polynomial method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.sel" title="frites.dataset.DatasetEphy.sel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sel</span></code></a>(**kwargs)</p></td>
+<td><p>Coordinate-based data slicing.</p></td>
 </tr>
 </tbody>
 </table>
@@ -613,46 +591,23 @@ refer to the contact / sensor name (‘x1’, ‘x2’ etc.)</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.nb_min_suj" title="frites.dataset.DatasetEphy.nb_min_suj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_min_suj</span></code></a></p></td>
-<td><p>Get the minimum number of subjects needed per roi.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.df_rs" title="frites.dataset.DatasetEphy.df_rs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">df_rs</span></code></a></p></td>
+<td><p>Pandas DataFrame of cross-subjects anatomical repartition.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.shape" title="frites.dataset.DatasetEphy.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code></a></p></td>
-<td><p>Get the shape of the x, y and z (if defined).</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.roi_names" title="frites.dataset.DatasetEphy.roi_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">roi_names</span></code></a></p></td>
+<td><p>List of brain regions to keep across subjects.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.x" title="frites.dataset.DatasetEphy.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a></p></td>
-<td><p>Get the data.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.times" title="frites.dataset.DatasetEphy.times"><code class="xref py py-obj docutils literal notranslate"><span class="pre">times</span></code></a></p></td>
+<td><p>Time vector.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.y" title="frites.dataset.DatasetEphy.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a></p></td>
-<td><p>Get the y value.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.z" title="frites.dataset.DatasetEphy.z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z</span></code></a></p></td>
-<td><p>Get the z value.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.x" title="frites.dataset.DatasetEphy.x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code></a></p></td>
+<td><p>Multi-subjects electrophysiological data (DataArray).</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="frites.dataset.DatasetEphy.copnorm">
-<code class="sig-name descname">copnorm</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">gcrn_per_suj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.copnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.copnorm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply the Gaussian-Copula rank normalization.</p>
-<p>The copnorm is only applied to continuous variables.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’}</span></dt><dd><p>The copnorm depends on the mutual-information type that is going to
-be performed. Choose either ‘cc’ (continuous / continuous), ‘cd’
-(continuous / discret) or ‘ccd’ (continuous / continuous / discret)</p>
-</dd>
-<dt><strong>gcrn_per_suj</strong><span class="classifier">bool | True</span></dt><dd><p>Apply the Gaussian-rank normalization either per subject (True)
-or across subjects (False).</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="frites.dataset.DatasetEphy.get_connectivity_pairs">
-<code class="sig-name descname">get_connectivity_pairs</code><span class="sig-paren">(</span><em class="sig-param">nb_min_suj=None</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.get_connectivity_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_connectivity_pairs</code><span class="sig-paren">(</span><em class="sig-param">as_blocks=False</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.get_connectivity_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the connectivity pairs for this dataset.</p>
 <p>This method can be used to get the possible connectivity pairs i.e
 (sources, targets) for directed connectivity (or not). In addition,
@@ -661,31 +616,16 @@ low.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>nb_min_suj</strong><span class="classifier">int | None</span></dt><dd><p>Minimum number of shared subjects between two pairs</p>
-</dd>
 <dt><strong>directed</strong><span class="classifier">bool | False</span></dt><dd><p>Get either directed (True) or non-directed (False) pairs</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>sources</strong><span class="classifier">array_like</span></dt><dd><p>Indices of the source</p>
+<dt><strong>df_conn</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>The table describing the connectivity informations per pair of
+brain regions</p>
 </dd>
-<dt><strong>targets</strong><span class="classifier">array_like</span></dt><dd><p>Indices of the target</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.dataset.DatasetEphy.groupby">
-<code class="sig-name descname">groupby</code><span class="sig-paren">(</span><em class="sig-param">groupby='roi'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.groupby" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reorganize the data inplace.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>groupby</strong><span class="classifier">{“roi”, “subject”}</span></dt><dd><p>Group data either by subject or by roi</p>
+<dt><strong>df_conn_suj</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>The table describing the connectivity informations per subject</p>
 </dd>
 </dl>
 </dd>
@@ -693,53 +633,69 @@ low.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.dataset.DatasetEphy.resample">
-<code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param">sfreq</em>, <em class="sig-param">npad='auto'</em>, <em class="sig-param">window='boxcar'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">pad='edge'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.resample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resample data.</p>
-<p>This method is an adaptation of the mne-python one.</p>
+<dt id="frites.dataset.DatasetEphy.get_roi_data">
+<code class="sig-name descname">get_roi_data</code><span class="sig-paren">(</span><em class="sig-param">roi</em>, <em class="sig-param">groupby='subjects'</em>, <em class="sig-param">mi_type='cc'</em>, <em class="sig-param">copnorm=True</em>, <em class="sig-param">gcrn_per_suj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.get_roi_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_roi_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the data of a single brain region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>sfreq</strong><span class="classifier">float</span></dt><dd><p>New sample rate to use.</p>
+<dt><strong>roi</strong><span class="classifier">string</span></dt><dd><p>ROI name to get</p>
 </dd>
-<dt><strong>npad</strong><span class="classifier">int | str</span></dt><dd><p>Amount to pad the start and end of the data. Can also be “auto” to
-use a padding that will result in a power-of-two size (can be much
-faster).</p>
+<dt><strong>groupby</strong><span class="classifier">{‘subjects’}</span></dt><dd><p>Specify if the data across subjects have to be concatenated</p>
 </dd>
-<dt><strong>window</strong><span class="classifier">str | tuple</span></dt><dd><p>Frequency-domain window to use in resampling. See
-scipy.signal.resample().</p>
+<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’}</span></dt><dd><p>The type of mutual-information that is then going to be used. This
+is going to have an influence on how the data are organized and
+how the copnorm is going to be applied</p>
 </dd>
-<dt><strong>pad</strong><span class="classifier">str | ‘edge’</span></dt><dd><p>The type of padding to use. Supports all numpy.pad() mode options.
-Can also be “reflect_limited”, which pads with a reflected version
-of each vector mirrored on the first and last values of the vector,
-followed by zeros. Only used for method=’fir’. The default is
-‘edge’, which pads with the edge values of each vector.</p>
+<dt><strong>copnorm</strong><span class="classifier">bool | True</span></dt><dd><p>Apply the gaussian copula rank normalization</p>
+</dd>
+<dt><strong>gcrn_per_suj</strong><span class="classifier">bool | True</span></dt><dd><p>Specify whether the gaussian copula rank normalization have to be
+applied per subject (True - RFX) or across subjects (False - FFX)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>inst</strong><span class="classifier">instance of DatasetEphy</span></dt><dd><p>The object with the filtering applied.</p>
+<dt><strong>da</strong><span class="classifier">xr.DataArray</span></dt><dd><p>The data of the single brain region</p>
 </dd>
 </dl>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>For some data, it may be more accurate to use npad=0 to reduce
-artifacts. This is dataset dependent – check your data!</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.dataset.DatasetEphy.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save the dataset.</p>
+<dt id="frites.dataset.DatasetEphy.isel">
+<code class="sig-name descname">isel</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.isel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.isel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index-based data slicing.</p>
+<p>Slice the entire dataset based on indexes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kwargs</strong><span class="classifier">{} | None</span></dt><dd><p>Additional inputs are sent to to the method <cite>xr.DataArray.isel</cite> of
+the data of each subject.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>inst</strong><span class="classifier">instance of DatasetEphy</span></dt><dd><p>The sliced object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>&gt; # define the dataset
+&gt; ds = DatasetEphy(…)
+&gt; # temporal slicing of the data between time points (100, 2500)
+&gt; ds.sel(times=slice(100, 2500))</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.savgol_filter">
-<code class="sig-name descname">savgol_filter</code><span class="sig-paren">(</span><em class="sig-param">h_freq</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.savgol_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">savgol_filter</code><span class="sig-paren">(</span><em class="sig-param">h_freq</em>, <em class="sig-param">edges=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.savgol_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter the data using Savitzky-Golay polynomial method.</p>
-<p>This method is an adaptation of the mne-python one.</p>
+<p>This method is an adaptation of the mne-python one. Note that this
+smoothing operation is performed inplace to avoid data copy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -748,6 +704,11 @@ exact cutoff, since Savitzky-Golay filtering is done using
 polynomial fits instead of FIR/IIR filtering. This parameter is
 thus used to determine the length of the window over which a
 5th-order polynomial smoothing is used.</p>
+</dd>
+<dt><strong>edges</strong><span class="classifier">int, float | None</span></dt><dd><p>Edge compensation. Use either an integer to drop a specific number
+of time points (e.g edges=100 remove 100 time points at the
+begining and at the end) or a float to drop a period (e.g
+edges=0.2 drop 200ms at the begining and at the end)</p>
 </dd>
 </dl>
 </dd>
@@ -766,33 +727,54 @@ thus used to determine the length of the window over which a
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.dataset.DatasetEphy.nb_min_suj">
-<em class="property">property </em><code class="sig-name descname">nb_min_suj</code><a class="headerlink" href="#frites.dataset.DatasetEphy.nb_min_suj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the minimum number of subjects needed per roi.</p>
+<dt id="frites.dataset.DatasetEphy.sel">
+<code class="sig-name descname">sel</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/dataset/ds_ephy.html#DatasetEphy.sel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.sel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate-based data slicing.</p>
+<p>Slice the entire dataset based on the coordinates values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kwargs</strong><span class="classifier">{} | None</span></dt><dd><p>Additional inputs are sent to to the method <cite>xr.DataArray.sel</cite> of
+the data of each subject.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>inst</strong><span class="classifier">instance of DatasetEphy</span></dt><dd><p>The sliced object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>&gt; # define the dataset
+&gt; ds = DatasetEphy(…)
+&gt; # temporal slicing of the data between (-100ms, 1500ms)
+&gt; ds.sel(times=slice(-0.1, 1.5))</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.dataset.DatasetEphy.shape">
-<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#frites.dataset.DatasetEphy.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the shape of the x, y and z (if defined).</p>
+<dt id="frites.dataset.DatasetEphy.df_rs">
+<em class="property">property </em><code class="sig-name descname">df_rs</code><a class="headerlink" href="#frites.dataset.DatasetEphy.df_rs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pandas DataFrame of cross-subjects anatomical repartition.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.roi_names">
+<em class="property">property </em><code class="sig-name descname">roi_names</code><a class="headerlink" href="#frites.dataset.DatasetEphy.roi_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of brain regions to keep across subjects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.dataset.DatasetEphy.times">
+<em class="property">property </em><code class="sig-name descname">times</code><a class="headerlink" href="#frites.dataset.DatasetEphy.times" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time vector.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="frites.dataset.DatasetEphy.x">
 <em class="property">property </em><code class="sig-name descname">x</code><a class="headerlink" href="#frites.dataset.DatasetEphy.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the data.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.dataset.DatasetEphy.y">
-<em class="property">property </em><code class="sig-name descname">y</code><a class="headerlink" href="#frites.dataset.DatasetEphy.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the y value.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.dataset.DatasetEphy.z">
-<em class="property">property </em><code class="sig-name descname">z</code><a class="headerlink" href="#frites.dataset.DatasetEphy.z" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the z value.</p>
+<dd><p>Multi-subjects electrophysiological data (DataArray).</p>
 </dd></dl>
 
 </dd></dl>
@@ -824,7 +806,7 @@ thus used to determine the length of the window over which a
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

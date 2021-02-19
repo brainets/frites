@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.io.convert_spatiotemporal_outputs &#8212; frites 0.3.7 documentation</title>
+    <title>frites.conn.conn_get_pairs &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.io.convert_dfc_outputs" href="frites.io.convert_dfc_outputs.html" />
-    <link rel="prev" title="frites.stats.cluster_threshold" href="frites.stats.cluster_threshold.html" />
+    <link rel="next" title="frites.conn.define_windows" href="frites.conn.define_windows.html" />
+    <link rel="prev" title="frites.conn.conn_reshape_directed" href="frites.conn.conn_reshape_directed.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -303,20 +304,26 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#connectivity">Connectivity</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#connectivity">Connectivity</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-metrics">Connectivity metrics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api.html#utility-functions">Utility functions</a><ul>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#utility-functions">Utility functions</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#i-o">I/O</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -463,7 +472,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">frites.io.convert_spatiotemporal_outputs</a></li>
+<li><a class="reference internal" href="#">frites.conn.conn_get_pairs</a></li>
 </ul>
 </ul>
 </li>
@@ -495,30 +504,56 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-io-convert-spatiotemporal-outputs">
-<h1>frites.io.convert_spatiotemporal_outputs<a class="headerlink" href="#frites-io-convert-spatiotemporal-outputs" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-conn-conn-get-pairs">
+<h1>frites.conn.conn_get_pairs<a class="headerlink" href="#frites-conn-conn-get-pairs" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="frites.io.convert_spatiotemporal_outputs">
-<code class="sig-prename descclassname">frites.io.</code><code class="sig-name descname">convert_spatiotemporal_outputs</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">astype='array'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/io/io_conversion.html#convert_spatiotemporal_outputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.io.convert_spatiotemporal_outputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert spatio-temporal outputs.</p>
-<dl class="field-list simple">
+<dt id="frites.conn.conn_get_pairs">
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_get_pairs</code><span class="sig-paren">(</span><em class="sig-param">roi</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">nb_min_suj=-inf</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_utils.html#conn_get_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_get_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get possible connectivity pairs for multiple subjects.</p>
+<p>This function returns a DataFrame that contains all of the necessary
+informations for managing pairs of brain regions across many subjects.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>arr</strong><span class="classifier">array_like</span></dt><dd><p>2d array of shape (n_times, n_roi)</p>
+<dt><strong>roi</strong><span class="classifier">list</span></dt><dd><p>List where each item in this list is an array descriving the brain
+region names of a single subject.</p>
 </dd>
-<dt><strong>times</strong><span class="classifier">array_like | None</span></dt><dd><p>Array of roi names</p>
+<dt><strong>directed</strong><span class="classifier">bool | False</span></dt><dd><p>Specify whether the the returned pairs should be for directed (True)
+or undirected (default : False) connectivity.</p>
 </dd>
-<dt><strong>roi</strong><span class="classifier">array_like | None</span></dt><dd><p>Array of time index</p>
-</dd>
-<dt><strong>astype</strong><span class="classifier">{‘array’, ‘dataframe’, ‘dataarray’}</span></dt><dd><p>Convert the array either to a pandas DataFrames (require pandas to be
-installed) either to a xarray DataArray (require xarray to be
-installed)</p>
+<dt><strong>nb_min_suj</strong><span class="classifier">int | -np.inf</span></dt><dd><p>Specify whether the pairs should be represented by a minimum number of
+subjects.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>arr_c</strong><span class="classifier">array_like | DataFrame | DataArray</span></dt><dd><p>Converted spatio-temporal array</p>
+<dd class="field-even"><dl>
+<dt><strong>df_conn</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>A Pandas DataFrame that describes the connectivity informations at the
+group level. The table contains the following entries :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘sources’ / ‘targets’ : respectively, the source and target names</p></li>
+<li><p>‘subjects’ : list of subjects per pair of brain regions</p></li>
+<li><p>‘#subjects’ : number of subjects per pair of brain regions</p></li>
+<li><p>‘names’ : name of each pair. If undirected, the names are going
+to be like ‘roi_0-roi_1’ or ‘roi_0-&gt;roi_1’ if directed</p></li>
+<li><p>‘keep’ : booleans indicating whether the number of subjects per
+pair of brain regions is over nb_min_suj</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>df_suj</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>A Pandas DataFrame that describes the connectivity information per
+subject. The table contains the following entries :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘subjects’ : subject number</p></li>
+<li><p>‘keep_roi’ / ‘drop_roi’ : the brain regions respectively to keep
+and to remove to fit the input parameters nb_min_suj</p></li>
+<li><p>‘keep_suj’ : boolean describing if the subject should be dropped
+or conserved</p></li>
+<li><p>‘conn’ : the 2D boolean connectivity array per subject</p></li>
+</ul>
+</div></blockquote>
 </dd>
 </dl>
 </dd>
@@ -552,7 +587,7 @@ installed)</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

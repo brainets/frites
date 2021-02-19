@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.io.convert_dfc_outputs &#8212; frites 0.3.7 documentation</title>
+    <title>frites.estimator.BinMIEstimator &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.utils.savgol_filter" href="frites.utils.savgol_filter.html" />
-    <link rel="prev" title="frites.io.convert_spatiotemporal_outputs" href="frites.io.convert_spatiotemporal_outputs.html" />
+    <link rel="next" title="frites.simulations.StimSpecAR" href="frites.simulations.StimSpecAR.html" />
+    <link rel="prev" title="frites.estimator.GCMIEstimator" href="frites.estimator.GCMIEstimator.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -313,10 +314,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#i-o">I/O</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -463,7 +472,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">frites.io.convert_dfc_outputs</a></li>
+<li><a class="reference internal" href="#">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </ul>
 </li>
@@ -495,57 +504,129 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-io-convert-dfc-outputs">
-<h1>frites.io.convert_dfc_outputs<a class="headerlink" href="#frites-io-convert-dfc-outputs" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="frites.io.convert_dfc_outputs">
-<code class="sig-prename descclassname">frites.io.</code><code class="sig-name descname">convert_dfc_outputs</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">times</em>, <em class="sig-param">roi</em>, <em class="sig-param">sources</em>, <em class="sig-param">targets</em>, <em class="sig-param">astype='2d_array'</em>, <em class="sig-param">is_pvalue=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/io/io_conversion.html#convert_dfc_outputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.io.convert_dfc_outputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert dynamic functional connectivity outputs.</p>
-<p>This functions can be used to convert an array of dynamical functional
-connectivity (dFC) from a shape (n_times, n_pairs) into either the same
-shape but using pandas DataFrame or to an array of shape
-(n_sources, n_targets, n_times). The number of pairs n_pairs is defined as
-the length of <cite>sources</cite> or <cite>targets</cite> inputs
-(pairs = np.c_[sources, targets]).</p>
+  <div class="section" id="frites-estimator-binmiestimator">
+<h1>frites.estimator.BinMIEstimator<a class="headerlink" href="#frites-estimator-binmiestimator" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="frites.estimator.BinMIEstimator">
+<em class="property">class </em><code class="sig-prename descclassname">frites.estimator.</code><code class="sig-name descname">BinMIEstimator</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">n_bins=4</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_bin.html#BinMIEstimator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.BinMIEstimator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binning-based Mutual Information estimator.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The functions for estimating the mutual-information using binning are
+relatively slow. If Numba is installed, those functions can be
+considerably accelerated.</p>
+</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>arr</strong><span class="classifier">array_like</span></dt><dd><p>Array of connectivity of shape (n_times, n_pairs)</p>
-</dd>
-<dt><strong>times</strong><span class="classifier">array_like</span></dt><dd><p>Array of time points of shape (n_times,)</p>
-</dd>
-<dt><strong>roi</strong><span class="classifier">array_like</span></dt><dd><p>Array of region of interest names of shape (n_roi,)</p>
-</dd>
-<dt><strong>sources</strong><span class="classifier">array_like</span></dt><dd><p>Array of sources indices of shape (n_pairs,)</p>
-</dd>
-<dt><strong>targets</strong><span class="classifier">array_like</span></dt><dd><p>Array of targets indices of shape (n_pairs,)</p>
-</dd>
-<dt><strong>astype</strong><span class="classifier">{2d_array, 3d_array, 2d_dataframe, 3d_dataframe, dataarray}</span></dt><dd><p>String describing the output type. Use either :</p>
+<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’}</span></dt><dd><p>Mutual information type (default : ‘cc’) :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>‘2d_array’, ‘3d_array’ : NumPy arrays respectively of shapes
-(n_pairs, n_times) or (n_sources, n_targets, n_times)</p></li>
-<li><p>‘2d_dataframe’, ‘3d_dataframe’ : Pandas DataFrame both of shapes
-(n_pairs, n_times) but the 2d version is a single column level
-(roi_source, roi_target) while the 3d version is a muli-level
-index DataFrame. Require pandas to be installed</p></li>
-<li><p>‘dataarray’ : a 3d xarray DataArray of shape
-(n_sources, n_targets, n_times). Requires xarray to be installed
-but this the recommended output as slicing is much easier.</p></li>
+<li><p>‘cc’ : MI between two continuous variables</p></li>
+<li><p>‘cd’ : MI between a continuous and a discret variables</p></li>
+<li><p>‘ccd’ : MI between two continuous variables conditioned by a
+third discret one</p></li>
 </ul>
 </div></blockquote>
 </dd>
-<dt><strong>is_pvalue</strong><span class="classifier">bool | False</span></dt><dd><p>Specify if the array is p-values</p>
+<dt><strong>n_bins</strong><span class="classifier">int | 4</span></dt><dd><p>Number of bins to estimate the probability distribution.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="frites.estimator.BinMIEstimator.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">n_bins=4</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_bin.html#BinMIEstimator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.BinMIEstimator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.estimator.BinMIEstimator.__init__" title="frites.estimator.BinMIEstimator.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([mi_type, n_bins, verbose])</p></td>
+<td><p>Init.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.estimator.BinMIEstimator.estimate" title="frites.estimator.BinMIEstimator.estimate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">estimate</span></code></a>(x, y[, z, categories])</p></td>
+<td><p>Estimate the (possibly conditional) mutual-information.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.estimator.BinMIEstimator.get_function" title="frites.estimator.BinMIEstimator.get_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_function</span></code></a>()</p></td>
+<td><p>Get the function to execute according to the input parameters.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="frites.estimator.BinMIEstimator.estimate">
+<code class="sig-name descname">estimate</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z=None</em>, <em class="sig-param">categories=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_bin.html#BinMIEstimator.estimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.BinMIEstimator.estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the (possibly conditional) mutual-information.</p>
+<p>This method is made for computing the mutual-information on 3D
+variables (i.e (n_var, 1, n_samples)) where n_var is an additional
+dimension (e.g times, times x freqs etc.), 1 is a multivariate
+axis and n_samples the number of samples. When computing MI, both the
+multivariate and samples axes are reduced.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of shape (n_var, 1, n_samples). If x has more than three
+dimensions, it’s going to be internally reshaped.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array_like</span></dt><dd><p>Array with a shape that depends on the type of MI (mi_type) :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If mi_type is ‘cc’ or ‘ccd’, y should be an array with the
+same shape as x</p></li>
+<li><p>If mi_type is ‘cd’, y should be a row vector of shape
+(n_samples,)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>z</strong><span class="classifier">array_like | None</span></dt><dd><p>Array for conditional mutual-information. The shape is going to
+depend on the type of MI (mi_type) :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If mi_type is ‘ccd’, z should be a row vector of shape
+(n_samples,)</p></li>
+<li><p>If mi_type is ‘ccc’, z should have the same shape as x and y</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>categories</strong><span class="classifier">array_like | None</span></dt><dd><p>Row vector of categories. This vector should have a shape of
+(n_samples,) and should contains integers describing the category
+of each sample. If categories are provided, the copnorm is going to
+be performed per categories.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>arr_c</strong><span class="classifier">array_like | DataFrame | DataArray</span></dt><dd><p>Converted dFC array</p>
+<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of (possibly conditional) mutual-information of shape
+(n_categories, n_var). If categories is None when computing MI,
+n_categories is going to be one.</p>
 </dd>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="frites.estimator.BinMIEstimator.get_function">
+<code class="sig-name descname">get_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_bin.html#BinMIEstimator.get_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.BinMIEstimator.get_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the function to execute according to the input parameters.</p>
+<p>This can be particulary usefull when computing MI in parallel as it
+avoids to pickle the whole estimator and therefore, leading to faster
+computations.</p>
+<p>The returned function has the following signature :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>fcn(x, y, z=None, categories=None)</p></li>
+</ul>
+</div></blockquote>
+<p>and return an array of shape (n_categories, n_var).</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -575,7 +656,7 @@ but this the recommended output as slicing is much easier.</p></li>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

@@ -74,36 +74,17 @@ plt.title('Smoothed dataset')
 plt.show()
 
 ###############################################################################
-# Data resampling
-# ---------------
-#
-# Still using MNE-Python, you can also resample the dataset using 
-# :class:`frites.dataset.DatasetEphy.resample`
-
-# resample the dataset using a new sampling rate of 256Hz
-dt.resample(256)
-
-plt.plot(dt.times, dt.x[0][:, 0, :].T)
-plt.xlabel('Times')
-plt.title('Resampled dataset')
-plt.show()
-
-###############################################################################
-# Spatio-temporal slicing
+# Temporal slicing
 # -----------------------
 #
-# The dataset also supports some basic slicing operations through time and
-# space. Slicing is still performed inplace
+# The dataset also supports some basic slicing operations through time. Slicing
+# is still performed inplace
 
 # temporal selection between [0.25, 1.75]
-dt[0.25:1.75, :]  # the ':' symbol means that we are selecting every channel
+dt = dt.sel(times=slice(0.25, 1.75))
 
 # sphinx_gallery_thumbnail_number = 3
 plt.plot(dt.times, dt.x[0][:, 0, :].T)
 plt.xlabel('Times')
 plt.title('Temporal slicing')
 plt.show()
-
-# spatial selection of channels ch_0 and ch_1
-dt[:, ['ch_0', 'ch_1']]
-print(dt.roi)

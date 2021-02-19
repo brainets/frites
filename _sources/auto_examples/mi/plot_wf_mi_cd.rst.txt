@@ -112,8 +112,7 @@ Now we define an instance of :class:`frites.dataset.DatasetEphy`
 .. code-block:: default
 
 
-    dt = DatasetEphy(x, y, roi)
-
+    dt = DatasetEphy(x, y=y, roi=roi, times=time)
 
 
 
@@ -136,9 +135,9 @@ information
     mi_type = 'cd'
 
     # define the workflow
-    wf = WfMi(mi_type)
+    wf = WfMi(mi_type=mi_type, verbose=False)
     # compute the mutual information
-    mi, _ = wf.fit(dt, mcp=None)
+    mi, _ = wf.fit(dt, mcp=None, n_jobs=1)
 
     # plot the information shared between the data and the regressor y
     plt.plot(time, mi)
@@ -152,20 +151,12 @@ information
     :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,  175.44it/s]
-
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.516 seconds)
+   **Total running time of the script:** ( 0 minutes  6.552 seconds)
 
 
 .. _sphx_glr_download_auto_examples_mi_plot_wf_mi_cd.py:

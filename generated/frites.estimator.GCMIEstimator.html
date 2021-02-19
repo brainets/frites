@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.workflow.WfComod &#8212; frites 0.3.7 documentation</title>
+    <title>frites.estimator.GCMIEstimator &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.workflow.WfStats" href="frites.workflow.WfStats.html" />
-    <link rel="prev" title="frites.workflow.WfMi" href="frites.workflow.WfMi.html" />
+    <link rel="next" title="frites.estimator.BinMIEstimator" href="frites.estimator.BinMIEstimator.html" />
+    <link rel="prev" title="frites.conn.plot_windows" href="frites.conn.plot_windows.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -313,10 +314,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -463,7 +472,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">frites.workflow.WfComod</a></li>
+<li><a class="reference internal" href="#">frites.estimator.GCMIEstimator</a></li>
 </ul>
 </ul>
 </li>
@@ -495,56 +504,48 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="frites-workflow-wfcomod">
-<h1>frites.workflow.WfComod<a class="headerlink" href="#frites-workflow-wfcomod" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="frites-estimator-gcmiestimator">
+<h1>frites.estimator.GCMIEstimator<a class="headerlink" href="#frites-estimator-gcmiestimator" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="frites.workflow.WfComod">
-<em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfComod</code><span class="sig-paren">(</span><em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod" title="Permalink to this definition">¶</a></dt>
-<dd><p>Workflow of instantaneous pairwise comodulations and statistics.</p>
-<p>This class allows to define a workflow for computing the instantaneous
-pairwise connectivity using mutual information and then to evaluate the
-significance with non-parametric statistics (either within-subjects or
-between subjects). Note that the MI is computed at each time point and
-across trials.</p>
+<dt id="frites.estimator.GCMIEstimator">
+<em class="property">class </em><code class="sig-prename descclassname">frites.estimator.</code><code class="sig-name descname">GCMIEstimator</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">copnorm=True</em>, <em class="sig-param">biascorrect=True</em>, <em class="sig-param">demeaned=False</em>, <em class="sig-param">tensor=True</em>, <em class="sig-param">gpu=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_gcmi.html#GCMIEstimator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gaussian Copula Mutual Information estimator.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>inference</strong><span class="classifier">{“ffx”, “rfx”}</span></dt><dd><p>Statistical inferences that is desired. Use either :</p>
+<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’, ‘ccc’}</span></dt><dd><p>Mutual information type (default : ‘cc’) :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>‘ffx’ : fixed-effect to make inferences only for the population
-that have been used</p></li>
-<li><p>‘rfx’ : random-effect to generalize inferences to a random
-population.</p></li>
-</ul>
-</div></blockquote>
-<p>By default, the workflow uses group level inference (‘rfx’)</p>
-</dd>
-<dt><strong>mi_method</strong><span class="classifier">{‘gc’, ‘bin’}</span></dt><dd><p>Method for computing the mutual information. Use either :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘gc’ : gaussian-copula based mutual information. This is the
-fastest method but it can only captures monotonic relationships
-between variables</p></li>
-<li><p>‘bin’ : binning-based method that can captures any kind of
-relationships but is much slower and also required to define the
-number of bins to use. Note that if the Numba package is
-installed computations should be much faster</p></li>
+<li><p>‘cc’ : MI between two continuous variables</p></li>
+<li><p>‘cd’ : MI between a continuous and a discret variables</p></li>
+<li><p>‘ccd’ : MI between two continuous variables conditioned by a
+third discret one</p></li>
+<li><p>‘ccc’ : MI between two continuous variables conditioned by a
+third continuous one</p></li>
 </ul>
 </div></blockquote>
 </dd>
-<dt><strong>kernel</strong><span class="classifier">array_like | None</span></dt><dd><p>Kernel for smoothing true and permuted MI. For example, use
-np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a
-moving average</p>
+<dt><strong>copnorm</strong><span class="classifier">bool | True</span></dt><dd><p>Apply the gaussian-copula rank normalization (default : True)</p>
+</dd>
+<dt><strong>biascorrect</strong><span class="classifier">bool | True</span></dt><dd><p>Specifies whether bias correction should be applied to the estimated MI
+(default : True)</p>
+</dd>
+<dt><strong>demeaned</strong><span class="classifier">bool | False</span></dt><dd><p>Specifies whether the input data already has zero mean (true if it has
+been copula-normalized) (default : False)</p>
+</dd>
+<dt><strong>tensor</strong><span class="classifier">bool | True</span></dt><dd><p>Specify the implementation of the GCMI, either tensor-based (Nd) or
+vector-based (1d). Usually, tensor-based implementation is faster but
+also requires more RAM (default : True)</p>
+</dd>
+<dt><strong>gpu</strong><span class="classifier">bool | False</span></dt><dd><p>Specify whether the mutual-information has to be computed on CPU
+(gpu=False) or on GPU (gpu=True) (default : False)</p>
 </dd>
 </dl>
 </dd>
 </dl>
-<p class="rubric">References</p>
-<p>Friston et al., 1996, 1999 <a class="bibtex reference internal" href="../references.html#friston1996detecting" id="id1">[5]</a><a class="bibtex reference internal" href="../references.html#friston1999many" id="id2">[6]</a></p>
 <dl class="method">
-<dt id="frites.workflow.WfComod.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">inference='rfx'</em>, <em class="sig-param">mi_method='gc'</em>, <em class="sig-param">kernel=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="frites.estimator.GCMIEstimator.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">mi_type='cc'</em>, <em class="sig-param">copnorm=True</em>, <em class="sig-param">biascorrect=True</em>, <em class="sig-param">demeaned=False</em>, <em class="sig-param">tensor=True</em>, <em class="sig-param">gpu=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_gcmi.html#GCMIEstimator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
 </dd></dl>
 
@@ -555,148 +556,84 @@ moving average</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.__init__" title="frites.workflow.WfComod.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([inference, mi_method, kernel, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.estimator.GCMIEstimator.__init__" title="frites.estimator.GCMIEstimator.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([mi_type, copnorm, biascorrect, …])</p></td>
 <td><p>Init.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfComod.clean" title="frites.workflow.WfComod.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>()</p></td>
-<td><p>Clean computations.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.estimator.GCMIEstimator.estimate" title="frites.estimator.GCMIEstimator.estimate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">estimate</span></code></a>(x, y[, z, categories])</p></td>
+<td><p>Estimate the (possibly conditional) mutual-information.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.fit" title="frites.workflow.WfComod.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(dataset[, mcp, n_perm, cluster_th, …])</p></td>
-<td><p>Run the workflow on a dataset.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_cfg</span></code>(**kwargs)</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.mi" title="frites.workflow.WfComod.mi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi</span></code></a></p></td>
-<td><p>List of length (n_roi) of true mutual information.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfComod.mi_p" title="frites.workflow.WfComod.mi_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mi_p</span></code></a></p></td>
-<td><p>List of length (n_roi) of permuted mutual information.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfComod.tvalues" title="frites.workflow.WfComod.tvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tvalues</span></code></a></p></td>
-<td><p>T-values array of shape (n_times, n_roi) when group level analysis is selected.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfComod.wf_stats" title="frites.workflow.WfComod.wf_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wf_stats</span></code></a></p></td>
-<td><p>Get the workflow of statistics.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.estimator.GCMIEstimator.get_function" title="frites.estimator.GCMIEstimator.get_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_function</span></code></a>()</p></td>
+<td><p>Get the function to execute according to the input parameters.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="frites.workflow.WfComod.clean">
-<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod.clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod.clean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clean computations.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.workflow.WfComod.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_bins=None</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_comod.html#WfComod.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfComod.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the workflow on a dataset.</p>
-<p>In order to run the worflow, you must first provide a dataset instance
-(see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When performing statistics at the cluster-level, we only test
-the cluster size. This means that in your results, you can only
-discuss about the presence of a significant cluster without being
-precise about its spatio-temporal properties
-(see <a class="bibtex reference internal" href="../references.html#sassenhagen2019cluster" id="id3">[13]</a>)</p>
-</div>
+<dt id="frites.estimator.GCMIEstimator.estimate">
+<code class="sig-name descname">estimate</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z=None</em>, <em class="sig-param">categories=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_gcmi.html#GCMIEstimator.estimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the (possibly conditional) mutual-information.</p>
+<p>This method is made for computing the mutual-information on 3D
+variables (i.e (n_var, n_mv, n_samples)) where n_var is an additional
+dimension (e.g times, times x freqs etc.), n_mv is a multivariate
+axis and n_samples the number of samples. When computing MI, both the
+multivariate and samples axes are reduced.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance</p>
+<dt><strong>x</strong><span class="classifier">array_like</span></dt><dd><p>Array of shape (n_var, n_mv, n_samples). If x has more than three
+dimensions, it’s going to be internally reshaped.</p>
 </dd>
-<dt><strong>mcp</strong><span class="classifier">{‘cluster’, ‘maxstat’, ‘fdr’, ‘bonferroni’, ‘nostat’, None}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
-problem. Use either :</p>
+<dt><strong>y</strong><span class="classifier">array_like</span></dt><dd><p>Array with a shape that depends on the type of MI (mi_type) :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>‘cluster’ : cluster-based statistics [default]</p></li>
-<li><p>‘maxstat’ : test-wise maximum statistics correction</p></li>
-<li><p>‘fdr’ : test-wise FDR correction</p></li>
-<li><p>‘bonferroni’ : test-wise Bonferroni correction</p></li>
-<li><p>‘noperm’ / None : no permutations are computed</p></li>
+<li><p>If mi_type is ‘cc’ or ‘ccd’, y should be an array with the
+same shape as x</p></li>
+<li><p>If mi_type is ‘cd’, y should be a row vector of shape
+(n_samples,)</p></li>
 </ul>
 </div></blockquote>
 </dd>
-<dt><strong>n_perm</strong><span class="classifier">int | 1000</span></dt><dd><p>Number of permutations to perform in order to estimate the random
-distribution of mi that can be obtained by chance</p>
-</dd>
-<dt><strong>cluster_th</strong><span class="classifier">str, float | None</span></dt><dd><p>The threshold to use for forming clusters. Use either :</p>
+<dt><strong>z</strong><span class="classifier">array_like | None</span></dt><dd><p>Array for conditional mutual-information. The shape is going to
+depend on the type of MI (mi_type) :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>a float that is going to act as a threshold</p></li>
-<li><p>None and the threshold is automatically going to be inferred
-using the distribution of permutations</p></li>
-<li><p>‘tfce’ : for Threshold Free Cluster Enhancement</p></li>
+<li><p>If mi_type is ‘ccd’, z should be a row vector of shape
+(n_samples,)</p></li>
+<li><p>If mi_type is ‘ccc’, z should have the same shape as x and y</p></li>
 </ul>
 </div></blockquote>
 </dd>
-<dt><strong>cluster_alpha</strong><span class="classifier">float | 0.05</span></dt><dd><p>Control the percentile to use for forming the clusters. By default
-the 95th percentile of the permutations is used.</p>
-</dd>
-<dt><strong>n_bins</strong><span class="classifier">int | None</span></dt><dd><p>Number of bins to use if the method for computing the mutual
-information is based on binning (mi_method=’bin’). If None, the
-number of bins is going to be automatically inferred based on the
-number of trials and variables</p>
-</dd>
-<dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
-jobs)</p>
-</dd>
-<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>Fix the random state of the machine (use it for reproducibility).
-If None, a random state is randomly assigned.</p>
-</dd>
-<dt><strong>kw_stats</strong><span class="classifier">dict | {}</span></dt><dd><p>Additional arguments to pass to the selected statistical method
-selected using the <cite>stat_method</cite> input parameter</p>
+<dt><strong>categories</strong><span class="classifier">array_like | None</span></dt><dd><p>Row vector of categories. This vector should have a shape of
+(n_samples,) and should contains integers describing the category
+of each sample. If categories are provided, the copnorm is going to
+be performed per categories.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>mi, pvalues</strong><span class="classifier">array_like</span></dt><dd><p>DataArray of mean mutual information and p-values.</p>
+<dt><strong>mi</strong><span class="classifier">array_like</span></dt><dd><p>Array of (possibly conditional) mutual-information of shape
+(n_categories, n_var). If categories is None when computing MI,
+n_categories is going to be one.</p>
 </dd>
 </dl>
 </dd>
 </dl>
-<p class="rubric">References</p>
-<p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../references.html#maris2007nonparametric" id="id4">[10]</a></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="frites.workflow.WfComod.mi">
-<em class="property">property </em><code class="sig-name descname">mi</code><a class="headerlink" href="#frites.workflow.WfComod.mi" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of length (n_roi) of true mutual information. Each element of
-this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘rfx’
-(1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.workflow.WfComod.mi_p">
-<em class="property">property </em><code class="sig-name descname">mi_p</code><a class="headerlink" href="#frites.workflow.WfComod.mi_p" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of length (n_roi) of permuted mutual information. Each element
-of this list has a shape of (n_perm, n_subjects, n_times) if
-<cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.workflow.WfComod.tvalues">
-<em class="property">property </em><code class="sig-name descname">tvalues</code><a class="headerlink" href="#frites.workflow.WfComod.tvalues" title="Permalink to this definition">¶</a></dt>
-<dd><p>T-values array of shape (n_times, n_roi) when group level analysis
-is selected.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="frites.workflow.WfComod.wf_stats">
-<em class="property">property </em><code class="sig-name descname">wf_stats</code><a class="headerlink" href="#frites.workflow.WfComod.wf_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the workflow of statistics.</p>
+<dt id="frites.estimator.GCMIEstimator.get_function">
+<code class="sig-name descname">get_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_gcmi.html#GCMIEstimator.get_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.get_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the function to execute according to the input parameters.</p>
+<p>This can be particulary usefull when computing MI in parallel as it
+avoids to pickle the whole estimator and therefore, leading to faster
+computations.</p>
+<p>The returned function has the following signature :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>fcn(x, y, z=None, categories=None)</p></li>
+</ul>
+</div></blockquote>
+<p>and return an array of shape (n_categories, n_var).</p>
 </dd></dl>
 
 </dd></dl>
@@ -728,7 +665,7 @@ is selected.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

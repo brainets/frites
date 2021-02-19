@@ -126,8 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -164,7 +163,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -194,7 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -285,14 +283,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -311,10 +312,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#simulations">Simulations</a><ul>
@@ -347,13 +354,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
@@ -406,44 +409,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -498,10 +507,11 @@
 <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
 
 <span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">get_core_mi_fun</span><span class="p">,</span> <span class="n">permute_mi_vector</span>
+<span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">permute_mi_vector</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_stats</span> <span class="kn">import</span> <span class="n">WfStats</span>
 <span class="kn">from</span> <span class="nn">frites.workflow.wf_base</span> <span class="kn">import</span> <span class="n">WfBase</span>
-<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span>
+<span class="kn">from</span> <span class="nn">frites.estimator</span> <span class="kn">import</span> <span class="n">GCMIEstimator</span>
+<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span><span class="p">,</span> <span class="n">kernel_smoothing</span>
 
 
 <div class="viewcode-block" id="WfMi"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi">[docs]</a><span class="k">class</span> <span class="nc">WfMi</span><span class="p">(</span><span class="n">WfBase</span><span class="p">):</span>
@@ -531,16 +541,9 @@
 <span class="sd">              population.</span>
 
 <span class="sd">        By default, the workflow uses group level inference (&#39;rfx&#39;)</span>
-<span class="sd">    mi_method : {&#39;gc&#39;, &#39;bin&#39;}</span>
-<span class="sd">        Method for computing the mutual information. Use either :</span>
-
-<span class="sd">            * &#39;gc&#39; : gaussian-copula based mutual information. This is the</span>
-<span class="sd">              fastest method but it can only captures monotonic relationships</span>
-<span class="sd">              between variables</span>
-<span class="sd">            * &#39;bin&#39; : binning-based method that can captures any kind of</span>
-<span class="sd">              relationships but is much slower and also required to define the</span>
-<span class="sd">              number of bins to use. Note that if the Numba package is</span>
-<span class="sd">              installed computations should be much faster</span>
+<span class="sd">    estimator : MIEstimator | None</span>
+<span class="sd">        Estimator of mutual-information. If None, the Gaussian-Copula is used</span>
+<span class="sd">        instead.</span>
 <span class="sd">    kernel : array_like | None</span>
 <span class="sd">        Kernel for smoothing true and permuted MI. For example, use</span>
 <span class="sd">        np.hanning(3) for a 3 time points smoothing or np.ones((3)) for a</span>
@@ -551,7 +554,7 @@
 <span class="sd">    Friston et al., 1996, 1999 :cite:`friston1996detecting,friston1999many`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">mi_method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="WfMi.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="n">WfBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -559,39 +562,27 @@
             <span class="s2">&quot;&#39;mi_type&#39; input parameter should either be &#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;&quot;</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">inference</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ffx&#39;</span><span class="p">,</span> <span class="s1">&#39;rfx&#39;</span><span class="p">],</span> <span class="p">(</span>
             <span class="s2">&quot;&#39;inference&#39; input parameter should either be &#39;ffx&#39; or &#39;rfx&#39;&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">mi_method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span> <span class="s1">&#39;bin&#39;</span><span class="p">],</span> <span class="p">(</span>
-            <span class="s2">&quot;&#39;mi_method&#39; input parameter should either be &#39;gc&#39; or &#39;bin&#39;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">=</span> <span class="n">mi_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">=</span> <span class="n">inference</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">=</span> <span class="n">mi_method</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span> <span class="o">=</span> <span class="n">mi_method</span> <span class="o">==</span> <span class="s1">&#39;gc&#39;</span>
+        <span class="k">if</span> <span class="n">estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">estimator</span> <span class="o">=</span> <span class="n">GCMIEstimator</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">copnorm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                      <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">estimator</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;mi_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copnorm</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">GCMIEstimator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span> <span class="o">=</span> <span class="n">inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span> <span class="o">=</span> <span class="n">kernel</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span> <span class="o">=</span> <span class="n">WfStats</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="c1"># update internal config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span>
-            <span class="n">mi_method</span><span class="o">=</span><span class="n">mi_method</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">))</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing mutual information (</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2"> -&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">mi_method</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">mi_type</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_node_prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Prepare the data before computing the mi.</span>
-
-<span class="sd">        The preparation of the data depends both on the type of inferences</span>
-<span class="sd">        that are required and on the type of mutual information that is going</span>
-<span class="sd">        to be performed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># inplace preparation</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_copnorm</span><span class="p">:</span>
-            <span class="n">dataset</span><span class="o">.</span><span class="n">copnorm</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span><span class="p">)</span>
-        <span class="c1"># track time and roi</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
-
-    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
 
 <span class="sd">        Permutations are performed by randomizing the regressor variable. For</span>
@@ -599,15 +590,14 @@
 <span class="sd">        the random effect, the randomization is performed per subject.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get the function for computing mi</span>
-        <span class="n">mi_fun</span> <span class="o">=</span> <span class="n">get_core_mi_fun</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;mi_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span><span class="si">}</span><span class="s2">_ephy_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="n">mi_fun</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">mi_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">get_function</span><span class="p">()</span>
         <span class="c1"># get x, y, z and subject names per roi</span>
         <span class="k">if</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_mi_type</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">:</span>
             <span class="k">assert</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your dataset doesn&#39;t allow to compute the mi &quot;</span>
                              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="si">}</span><span class="s2">. Allowed mi is &quot;</span>
                              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dataset</span><span class="o">.</span><span class="n">_mi_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">suj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi</span>
-        <span class="n">n_roi</span><span class="p">,</span> <span class="n">inf</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
+        <span class="c1"># get data variables</span>
+        <span class="n">n_roi</span><span class="p">,</span> <span class="n">inf</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_roi</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span>
         <span class="c1"># evaluate true mi</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Evaluate true and permuted mi (n_perm=</span><span class="si">{</span><span class="n">n_perm</span><span class="si">}</span><span class="s2">, &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;n_jobs=</span><span class="si">{</span><span class="n">n_jobs</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
@@ -615,31 +605,38 @@
         <span class="n">parallel</span><span class="p">,</span> <span class="n">p_fun</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">mi_fun</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">pbar</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">),</span> <span class="n">mesg</span><span class="o">=</span><span class="s1">&#39;Estimating MI&#39;</span><span class="p">)</span>
         <span class="c1"># evaluate permuted mi</span>
-        <span class="k">with</span> <span class="n">parallel</span> <span class="k">as</span> <span class="n">para</span><span class="p">:</span>
-            <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
-                <span class="c1"># compute the true mi</span>
-                <span class="n">mi</span> <span class="o">+=</span> <span class="p">[</span><span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)]</span>
+        <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
+            <span class="c1"># get the data of selected roi</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_roi_data</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">copnorm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_copnorm</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span>
+                <span class="n">gcrn_per_suj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_gcrn</span><span class="p">)</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">suj</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">da</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">da</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">kw_mi</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="c1"># cmi and categorical MI</span>
+            <span class="k">if</span> <span class="s1">&#39;z&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">coords</span><span class="p">):</span>
+                <span class="n">kw_mi</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
+                <span class="n">kw_mi</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">suj</span>
 
-                <span class="c1"># get the randomize version of y</span>
-                <span class="n">y_p</span> <span class="o">=</span> <span class="n">permute_mi_vector</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span>
-                                        <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span>
-                                        <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
-                <span class="c1"># run permutations using the randomize regressor</span>
-                <span class="n">_mi</span> <span class="o">=</span> <span class="n">para</span><span class="p">(</span><span class="n">p_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">suj</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">inf</span><span class="p">,</span>
-                                     <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
-                <span class="n">mi_p</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_mi</span><span class="p">)]</span>
-                <span class="n">pbar</span><span class="o">.</span><span class="n">update_with_increment_value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1"># smoothing</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Apply smoothing to the true and permuted MI&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)):</span>
-                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                    <span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">s</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
-                        <span class="n">mi</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                        <span class="n">mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
-                            <span class="n">mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+            <span class="c1"># compute the true mi</span>
+            <span class="n">_mi</span> <span class="o">=</span> <span class="n">mi_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_mi</span><span class="p">)</span>
+            <span class="c1"># get the randomize version of y</span>
+            <span class="n">y_p</span> <span class="o">=</span> <span class="n">permute_mi_vector</span><span class="p">(</span>
+                <span class="n">y</span><span class="p">,</span> <span class="n">suj</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span>
+                <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">)</span>
+            <span class="c1"># run permutations using the randomize regressor</span>
+            <span class="n">_mi_p</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span><span class="n">p_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_p</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="o">**</span><span class="n">kw_mi</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">))</span>
+            <span class="n">_mi_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_mi_p</span><span class="p">)</span>
+
+            <span class="c1"># kernel smoothing</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">_mi</span> <span class="o">=</span> <span class="n">kernel_smoothing</span><span class="p">(</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">_mi_p</span> <span class="o">=</span> <span class="n">kernel_smoothing</span><span class="p">(</span><span class="n">_mi_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">mi</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_mi</span><span class="p">]</span>
+            <span class="n">mi_p</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_mi_p</span><span class="p">]</span>
+            <span class="n">pbar</span><span class="o">.</span><span class="n">update_with_increment_value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span> <span class="o">=</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
 
@@ -647,8 +644,7 @@
 
 
 <div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
+            <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
 <span class="sd">        In order to run the worflow, you must first provide a dataset instance</span>
@@ -690,11 +686,6 @@
 <span class="sd">        cluster_alpha : float | 0.05</span>
 <span class="sd">            Control the percentile to use for forming the clusters. By default</span>
 <span class="sd">            the 95th percentile of the permutations is used.</span>
-<span class="sd">        n_bins : int | None</span>
-<span class="sd">            Number of bins to use if the method for computing the mutual</span>
-<span class="sd">            information is based on binning (mi_method=&#39;bin&#39;). If None, the</span>
-<span class="sd">            number of bins is going to be automatically inferred based on the</span>
-<span class="sd">            number of trials and variables</span>
 <span class="sd">        n_jobs : int | -1</span>
 <span class="sd">            Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">            jobs)</span>
@@ -708,9 +699,10 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        mi, pvalues : array_like</span>
-<span class="sd">            DataArray of mutual information and p-values. If `inference` is</span>
-<span class="sd">            &#39;ffx&#39; the mi represents the MI computed across subjects while if it</span>
-<span class="sd">            is &#39;rfx&#39; it&#39;s the mean across subjects.</span>
+<span class="sd">            DataArray of mutual information and p-values both of shapes</span>
+<span class="sd">            (n_times, n_roi). If `inference` is &#39;ffx&#39; the mi represents the MI</span>
+<span class="sd">            computed across subjects while if it is &#39;rfx&#39; it&#39;s the mean across</span>
+<span class="sd">            subjects.</span>
 
 <span class="sd">        References</span>
 <span class="sd">        ----------</span>
@@ -722,11 +714,16 @@
         <span class="c1"># don&#39;t compute permutations if mcp is either nostat / None</span>
         <span class="k">if</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="c1"># infer the number of bins if needed</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_method</span> <span class="o">==</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">n_bins</span> <span class="o">=</span> <span class="mi">4</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Use an automatic number of bins of </span><span class="si">{</span><span class="n">n_bins</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span> <span class="o">=</span> <span class="n">n_bins</span>
+        <span class="c1"># get needed dataset&#39;s informations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_mi_dims</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;roi&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_df_rs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_subjects</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">df_rs</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_n_subjects</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute mutual information</span>
@@ -738,9 +735,8 @@
                         <span class="s2">&quot;arguments&quot;</span><span class="p">)</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_node_prepare_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span>
-                <span class="n">dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_bins</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For information transfer (e.g FIT) we only need to compute the true and</span>
 <span class="sd">        permuted mi but then, the statistics at the local representation mcp</span>
@@ -751,28 +747,15 @@
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># 4d reshaping before the stats</span>
-        <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_reshape</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    reshaping before computing statistics&quot;</span><span class="p">)</span>
-            <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reshape</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">)):</span>
-                <span class="n">n_p</span><span class="p">,</span> <span class="n">n_s</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-                <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_s</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
-                <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_p</span><span class="p">,</span> <span class="n">n_s</span><span class="p">,</span> <span class="n">n_f</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
-
-        <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute statistics</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># infer p-values and t-values</span>
         <span class="n">pvalues</span><span class="p">,</span> <span class="n">tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
-        <span class="c1"># update internal config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_cfg</span><span class="p">(</span><span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
-                        <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">cfg</span><span class="p">)</span>
+            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">)</span>
+        <span class="c1"># update attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">))</span>
 
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># postprocessing and conversions</span>
@@ -791,22 +774,22 @@
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span></div>
 
-    <span class="k">def</span> <span class="nf">_xr_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">da_type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_xr_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Xarray conversion.&quot;&quot;&quot;</span>
-        <span class="n">times</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">x_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span> <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">x_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;freqs&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span>
-                                <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">x_da</span><span class="p">,</span> <span class="n">da_type</span><span class="o">=</span><span class="n">da_type</span><span class="p">)</span>
+        <span class="c1"># build dimension order</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">]</span>
+        <span class="n">supp_dim</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">]</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="n">supp_dim</span> <span class="o">+</span> <span class="n">dims</span>
+        <span class="c1"># build coordinates</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">]</span>
+        <span class="c1"># build xarray</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span>
+        <span class="c1"># wrap with workflow&#39;s attributes</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">wrap_xr</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">da</span>
 
-        <span class="k">return</span> <span class="n">x_da</span>
-
-
-<div class="viewcode-block" id="WfMi.conjunction_analysis"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.conjunction_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">conjunction_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">p</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-                             <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.conjunction_analysis"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.conjunction_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">conjunction_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                             <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Perform a conjunction analysis.</span>
 
 <span class="sd">        This method can be used in order to determine the number of subjects</span>
@@ -823,9 +806,6 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
-<span class="sd">            A dataset instance. Note that it should be the same dataset used</span>
-<span class="sd">            with the fit() method.</span>
 <span class="sd">        p : float | 0.05</span>
 <span class="sd">            Significiency threshold to find significant effect per subject.</span>
 <span class="sd">        kwargs : dict | {}</span>
@@ -852,27 +832,29 @@
         <span class="c1"># retrieve the original number of subjects</span>
         <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">)</span>
         <span class="n">pv_s</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_subjects</span><span class="p">):</span>
             <span class="c1"># reconstruct the mi and mi_p of each subject</span>
             <span class="n">mi_s</span><span class="p">,</span> <span class="n">mi_ps</span><span class="p">,</span> <span class="n">roi_s</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
-                <span class="n">suj_roi_u</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi_u</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_roi</span><span class="p">):</span>
+                <span class="n">suj_roi_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_df_rs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="s1">&#39;subjects&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suj_roi_u</span><span class="p">:</span> <span class="k">continue</span>  <span class="c1"># noqa</span>
                 <span class="n">is_suj</span> <span class="o">=</span> <span class="n">suj_roi_u</span> <span class="o">==</span> <span class="n">s</span>
-                <span class="n">mi_s</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">is_suj</span><span class="p">,</span> <span class="p">:]]</span>
-                <span class="n">mi_ps</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">[</span><span class="n">r</span><span class="p">][:,</span> <span class="n">is_suj</span><span class="p">,</span> <span class="p">:]]</span>
-                <span class="n">roi_s</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_roi</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span>
+                <span class="n">mi_s</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">[</span><span class="n">n_r</span><span class="p">][</span><span class="n">is_suj</span><span class="p">,</span> <span class="p">:]]</span>
+                <span class="n">mi_ps</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">[</span><span class="n">n_r</span><span class="p">][:,</span> <span class="n">is_suj</span><span class="p">,</span> <span class="p">:]]</span>
+                <span class="n">roi_s</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_roi</span><span class="p">[</span><span class="n">n_r</span><span class="p">]]</span>
 
             <span class="c1"># perform the statistics</span>
             <span class="n">_pv_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wf_stats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-            <span class="n">mi_s</span><span class="p">,</span> <span class="n">mi_ps</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;ffx&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">mi_s</span><span class="p">,</span> <span class="n">mi_ps</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;ffx&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="c1"># dataarray conversion</span>
             <span class="n">pv_s</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">_pv_s</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">),</span>
                                    <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="n">roi_s</span><span class="p">))</span>
         <span class="c1"># cross-subjects conjunction</span>
         <span class="n">conj_ss</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">pv_s</span><span class="p">)</span><span class="o">.</span><span class="n">to_array</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+        <span class="n">conj_ss</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Single subject conjunction&#39;</span>
         <span class="n">conj</span> <span class="o">=</span> <span class="n">conj_ss</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span>
+        <span class="n">conj</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Across subjects conjunction&#39;</span>
         <span class="c1"># add attributes to the dataarray</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="n">cluster_th</span><span class="p">,</span> <span class="n">cluster_alpha</span><span class="o">=</span><span class="n">cluster_alpha</span><span class="p">,</span>
                      <span class="n">mcp</span><span class="o">=</span><span class="n">mcp</span><span class="p">)</span>
@@ -882,7 +864,7 @@
 
         <span class="k">return</span> <span class="n">conj_ss</span><span class="p">,</span> <span class="n">conj</span></div>
 
-<div class="viewcode-block" id="WfMi.get_params"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="WfMi.get_params"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get formatted parameters.</span>
 
 <span class="sd">        This method can be used to get internal arrays formatted as xarray</span>
@@ -890,8 +872,6 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
-<span class="sd">            The dataset instance that have been used for fitting (WfMi.fit)</span>
 <span class="sd">        params : string</span>
 <span class="sd">            Internal array names to get as xarray DataArray. You can use :</span>
 
@@ -905,11 +885,11 @@
 <span class="sd">                  shape (n_perm,)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get coordinates</span>
-        <span class="n">times</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span>
+        <span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">df_rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_df_rs</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">==</span> <span class="s1">&#39;ffx&#39;</span><span class="p">:</span>
             <span class="n">suj</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span> <span class="o">==</span> <span class="s1">&#39;rfx&#39;</span><span class="p">:</span>
-            <span class="n">suj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">suj_roi_u</span>
+            <span class="n">suj</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_rs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="s1">&#39;subjects&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">roi</span><span class="p">]</span>
         <span class="n">n_perm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_perm</span><span class="p">)</span>
         <span class="c1"># loop over possible outputs</span>
@@ -943,7 +923,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2"> not found&quot;</span><span class="p">)</span>
             <span class="c1"># add workflow attributes</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_attrs_xarray</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_type</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">wrap_xr</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
             <span class="n">outs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">da</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">outs</span><span class="p">)</span></div>
@@ -1002,7 +982,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

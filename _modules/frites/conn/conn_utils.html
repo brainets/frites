@@ -126,8 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -164,7 +163,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -194,7 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -285,14 +283,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -311,10 +312,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#simulations">Simulations</a><ul>
@@ -347,13 +354,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
@@ -406,44 +409,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -494,6 +503,153 @@
 <span></span><span class="sd">&quot;&quot;&quot;Utility functions for connectivity.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">nonsorted_unique</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                                 CONN PAIRS</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+
+
+<div class="viewcode-block" id="conn_get_pairs"><a class="viewcode-back" href="../../../generated/frites.conn.conn_get_pairs.html#frites.conn.conn_get_pairs">[docs]</a><span class="k">def</span> <span class="nf">conn_get_pairs</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nb_min_suj</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get possible connectivity pairs for multiple subjects.</span>
+
+<span class="sd">    This function returns a DataFrame that contains all of the necessary</span>
+<span class="sd">    informations for managing pairs of brain regions across many subjects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    roi : list</span>
+<span class="sd">        List where each item in this list is an array descriving the brain</span>
+<span class="sd">        region names of a single subject.</span>
+<span class="sd">    directed : bool | False</span>
+<span class="sd">        Specify whether the the returned pairs should be for directed (True)</span>
+<span class="sd">        or undirected (default : False) connectivity.</span>
+<span class="sd">    nb_min_suj : int | -np.inf</span>
+<span class="sd">        Specify whether the pairs should be represented by a minimum number of</span>
+<span class="sd">        subjects.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    df_conn : pd.DataFrame</span>
+<span class="sd">        A Pandas DataFrame that describes the connectivity informations at the</span>
+<span class="sd">        group level. The table contains the following entries :</span>
+
+<span class="sd">            * &#39;sources&#39; / &#39;targets&#39; : respectively, the source and target names</span>
+<span class="sd">            * &#39;subjects&#39; : list of subjects per pair of brain regions</span>
+<span class="sd">            * &#39;#subjects&#39; : number of subjects per pair of brain regions</span>
+<span class="sd">            * &#39;names&#39; : name of each pair. If undirected, the names are going</span>
+<span class="sd">              to be like &#39;roi_0-roi_1&#39; or &#39;roi_0-&gt;roi_1&#39; if directed</span>
+<span class="sd">            * &#39;keep&#39; : booleans indicating whether the number of subjects per</span>
+<span class="sd">              pair of brain regions is over nb_min_suj</span>
+<span class="sd">    df_suj : pd.DataFrame</span>
+<span class="sd">        A Pandas DataFrame that describes the connectivity information per</span>
+<span class="sd">        subject. The table contains the following entries :</span>
+
+<span class="sd">            * &#39;subjects&#39; : subject number</span>
+<span class="sd">            * &#39;keep_roi&#39; / &#39;drop_roi&#39; : the brain regions respectively to keep</span>
+<span class="sd">              and to remove to fit the input parameters nb_min_suj</span>
+<span class="sd">            * &#39;keep_suj&#39; : boolean describing if the subject should be dropped</span>
+<span class="sd">              or conserved</span>
+<span class="sd">            * &#39;conn&#39; : the 2D boolean connectivity array per subject</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">roi</span><span class="p">]</span>
+
+    <span class="c1"># =========================== Conn info per pair ==========================</span>
+
+    <span class="n">s_ss</span><span class="p">,</span> <span class="n">t_ss</span><span class="p">,</span> <span class="n">ss</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+        <span class="c1"># get the unique list of unsorted list of brain regions</span>
+        <span class="n">u_roi</span> <span class="o">=</span> <span class="n">nonsorted_unique</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">assert_unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">n_u_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">u_roi</span><span class="p">)</span>
+        <span class="c1"># get all possible pairs</span>
+        <span class="k">if</span> <span class="n">directed</span><span class="p">:</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_u_roi</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">n_u_roi</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">s_names</span><span class="p">,</span> <span class="n">t_names</span> <span class="o">=</span> <span class="n">u_roi</span><span class="p">[</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">u_roi</span><span class="p">[</span><span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="c1"># if not directed, merge &#39;0-1&#39; and &#39;1-0&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">directed</span><span class="p">:</span>
+            <span class="n">st_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">s_names</span><span class="p">,</span> <span class="n">t_names</span><span class="p">]</span>
+            <span class="n">s_names</span><span class="p">,</span> <span class="n">t_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">st_names</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="c1"># keep single-subject source and target names</span>
+        <span class="n">s_ss</span> <span class="o">+=</span> <span class="p">[</span><span class="n">s_names</span><span class="p">]</span>
+        <span class="n">t_ss</span> <span class="o">+=</span> <span class="p">[</span><span class="n">t_names</span><span class="p">]</span>
+        <span class="n">ss</span> <span class="o">+=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_names</span><span class="p">)</span>
+    <span class="c1"># fill info in a dataframe</span>
+    <span class="n">df_ss</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;subjects&#39;</span><span class="p">:</span> <span class="n">ss</span><span class="p">,</span>
+        <span class="s1">&#39;sources&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">s_ss</span><span class="p">),</span>
+        <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">t_ss</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="c1"># get the number of subjects per pair</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="k">if</span> <span class="n">directed</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">df_ss</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">])</span>
+    <span class="n">fcn</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">df_conn</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">subjects</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="nb">list</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_conn</span> <span class="o">=</span> <span class="n">df_conn</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="s1">&#39;subjects&#39;</span><span class="p">})</span>
+    <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;#subjects&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;subjects&#39;</span><span class="p">]]</span>
+    <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}{</span><span class="n">pattern</span><span class="si">}{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">],</span> <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">])]</span>
+    <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;keep&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;#subjects&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nb_min_suj</span>
+
+    <span class="c1"># print the info</span>
+    <span class="n">n_remain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;keep&#39;</span><span class="p">]))</span>
+    <span class="n">n_drop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="o">~</span><span class="n">df_conn</span><span class="p">[</span><span class="s1">&#39;keep&#39;</span><span class="p">]))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">n_remain</span><span class="si">}</span><span class="s2"> remaining pairs of brain regions &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(nb_min_suj=</span><span class="si">{</span><span class="n">nb_min_suj</span><span class="si">}</span><span class="s2">), </span><span class="si">{</span><span class="n">n_drop</span><span class="si">}</span><span class="s2"> dropped&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ========================= Conn info per subject =========================</span>
+
+    <span class="c1"># build 2d connectivity array per subject</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+        <span class="n">n_roi_s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">n_s</span><span class="p">])</span>
+        <span class="n">_conn</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+            <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_roi_s</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">),</span>
+            <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">n_s</span><span class="p">],</span> <span class="n">roi</span><span class="p">[</span><span class="n">n_s</span><span class="p">]))</span>
+        <span class="n">conn</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">_conn</span>
+
+    <span class="c1"># fill the information</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_conn</span><span class="p">)):</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="n">df_conn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;subjects&#39;</span><span class="p">]:</span>
+            <span class="n">_s</span><span class="p">,</span> <span class="n">_t</span><span class="p">,</span> <span class="n">_k</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">],</span> <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">],</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_df</span><span class="p">[</span><span class="s1">&#39;keep&#39;</span><span class="p">])</span>
+            <span class="n">conn</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="n">_s</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_t</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_k</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">directed</span><span class="p">:</span>
+                <span class="n">conn</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="n">_t</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">_s</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_k</span>
+
+    <span class="c1"># get the brain regions to keep / drop per subject</span>
+    <span class="n">suj</span><span class="p">,</span> <span class="n">roi_keep</span><span class="p">,</span> <span class="n">roi_drop</span><span class="p">,</span> <span class="n">conn_tot</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+        <span class="n">_keep</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">union1d</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">conn</span><span class="p">[</span><span class="n">s</span><span class="p">]))]</span>
+        <span class="n">_drop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">roi</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">_keep</span><span class="p">)</span>
+        <span class="n">suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">s</span><span class="p">]</span>
+        <span class="n">roi_keep</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_keep</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+        <span class="n">roi_drop</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_drop</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+        <span class="n">conn_tot</span> <span class="o">+=</span> <span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+    <span class="c1"># create the final dataframe</span>
+    <span class="n">df_suj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;subjects&#39;</span><span class="p">:</span> <span class="n">suj</span><span class="p">,</span> <span class="s1">&#39;keep_roi&#39;</span><span class="p">:</span> <span class="n">roi_keep</span><span class="p">,</span>
+                           <span class="s1">&#39;drop_roi&#39;</span><span class="p">:</span> <span class="n">roi_drop</span><span class="p">})</span>  <span class="c1"># , &#39;conn&#39;: conn_tot</span>
+    <span class="n">df_suj</span><span class="p">[</span><span class="s1">&#39;keep_suj&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">df_suj</span><span class="p">[</span><span class="s1">&#39;keep_roi&#39;</span><span class="p">]]</span>
+
+    <span class="k">return</span> <span class="n">df_conn</span><span class="p">,</span> <span class="n">df_suj</span></div>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">#                              CONN RESHAPING</span>
+<span class="c1">###############################################################################</span>
+<span class="c1">###############################################################################</span>
 
 
 <div class="viewcode-block" id="conn_reshape_undirected"><a class="viewcode-back" href="../../../generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected">[docs]</a><span class="k">def</span> <span class="nf">conn_reshape_undirected</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rm_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -543,9 +699,11 @@
     <span class="c1"># get sources, targets names and sorted full list</span>
     <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">_untangle_roi</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
 
-    <span class="c1"># build the multiindex and unstack it</span>
+    <span class="c1"># duplicates to make it symmetrical</span>
     <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">da</span><span class="p">,</span> <span class="n">da</span><span class="p">),</span> <span class="s1">&#39;roi&#39;</span><span class="p">)</span>
-    <span class="n">da</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span>
+    <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span> <span class="o">=</span> <span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span><span class="p">,</span> <span class="n">targets</span> <span class="o">+</span> <span class="n">sources</span>
+    <span class="c1"># build the multiindex and unstack it</span>
+    <span class="n">da</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span>
                                    <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">)</span>
 
     <span class="c1"># dataframe conversion</span>
@@ -601,7 +759,7 @@
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;roi&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;direction&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="s1">&#39;roi&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;times&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">):</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="s2">&quot;times&quot;</span><span class="p">)</span>
 
@@ -609,12 +767,16 @@
     <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">_untangle_roi</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
 
     <span class="c1"># transpose, reindex and reorder (if needed)</span>
-    <span class="n">da_xy</span><span class="p">,</span> <span class="n">da_yx</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">),</span> <span class="n">da</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;y-&gt;x&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">net</span><span class="p">:</span>
-        <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">da_xy</span> <span class="o">-</span> <span class="n">da_yx</span><span class="p">,</span> <span class="n">da_xy</span> <span class="o">-</span> <span class="n">da_yx</span><span class="p">),</span> <span class="s1">&#39;roi&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;direction&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">):</span>
+        <span class="n">da_xy</span><span class="p">,</span> <span class="n">da_yx</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x-&gt;y&#39;</span><span class="p">),</span> <span class="n">da</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;y-&gt;x&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">net</span><span class="p">:</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">da_xy</span> <span class="o">-</span> <span class="n">da_yx</span><span class="p">,</span> <span class="n">da_xy</span> <span class="o">-</span> <span class="n">da_yx</span><span class="p">),</span> <span class="s1">&#39;roi&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">da_xy</span><span class="p">,</span> <span class="n">da_yx</span><span class="p">),</span> <span class="s1">&#39;roi&#39;</span><span class="p">)</span>
+        <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span> <span class="o">=</span> <span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span><span class="p">,</span> <span class="n">targets</span> <span class="o">+</span> <span class="n">sources</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">da_xy</span><span class="p">,</span> <span class="n">da_yx</span><span class="p">),</span> <span class="s1">&#39;roi&#39;</span><span class="p">)</span>
-    <span class="n">da</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span>
+        <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span> <span class="o">=</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span>
+    <span class="n">da</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span>
                                    <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">)</span>
 
     <span class="c1"># dataframe conversion</span>
@@ -633,9 +795,7 @@
         <span class="n">targets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
 
     <span class="c1"># merge sources and targets to force square matrix</span>
-    <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">u_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">roi_tot</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">roi_tot</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">u_idx</span><span class="p">)]</span>
+    <span class="n">roi_tot</span> <span class="o">=</span> <span class="n">nonsorted_unique</span><span class="p">(</span><span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">roi_tot</span>
 
@@ -646,7 +806,7 @@
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
     <span class="n">da</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span><span class="p">,</span> <span class="n">targets</span> <span class="o">+</span> <span class="n">sources</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">])</span>
+        <span class="p">[</span><span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">])</span>
     <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
 
     <span class="c1"># transpose, reindex and reorder (if needed)</span>
@@ -700,7 +860,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

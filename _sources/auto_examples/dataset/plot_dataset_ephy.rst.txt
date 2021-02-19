@@ -98,14 +98,33 @@ The creation of the dataset is performed using the class
 
  .. code-block:: none
 
-    -------------------------------------------------------------------------------
-    number of (subjects, roi, time points) : (5, 5, 1000)
-    minimum number of subject per roi: -inf
-    modality : electrophysiological
-    data grouped by : subject
-    copnormed : False
-    version : 0.3.7
-    -------------------------------------------------------------------------------
+    <xarray.Dataset>
+    Dimensions:    (roi: 5, times: 1000, trials: 10)
+    Coordinates:
+      * trials     (trials) int64 0 1 2 3 4 5 6 7 8 9
+      * roi        (roi) <U4 'ch_0' 'ch_1' 'ch_2' 'ch_3' 'ch_4'
+        agg_ch     (roi) int64 0 0 0 0 0
+      * times      (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
+        subject    (trials) int64 0 0 0 0 0 0 0 0 0 0
+    Data variables:
+        subject_0  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_1  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_2  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_3  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_4  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    Attributes:
+        __version__:   0.3.7
+        modality:      electrophysiology
+        dtype:         DatasetEphy
+        y_dtype:       none
+        z_dtype:       none
+        mi_type:       none
+        mi_repr:       none
+        sfreq:         512.0
+        agg_ch:        True
+        multivariate:  False
+        nb_min_suj:    False
+        n_subjects:    5
 
 
 
@@ -138,24 +157,24 @@ data are modified inside the dataset without copy
 
 
 
-Data resampling
----------------
+Temporal slicing
+-----------------------
 
-Still using MNE-Python, you can also resample the dataset using 
-:class:`frites.dataset.DatasetEphy.resample`
+The dataset also supports some basic slicing operations through time. Slicing
+is still performed inplace
 
 
 .. code-block:: default
 
 
-    # resample the dataset using a new sampling rate of 256Hz
-    dt.resample(256)
+    # temporal selection between [0.25, 1.75]
+    dt = dt.sel(times=slice(0.25, 1.75))
 
+    # sphinx_gallery_thumbnail_number = 3
     plt.plot(dt.times, dt.x[0][:, 0, :].T)
     plt.xlabel('Times')
-    plt.title('Resampled dataset')
+    plt.title('Temporal slicing')
     plt.show()
-
 
 
 
@@ -165,49 +184,10 @@ Still using MNE-Python, you can also resample the dataset using
 
 
 
-Spatio-temporal slicing
------------------------
-
-The dataset also supports some basic slicing operations through time and
-space. Slicing is still performed inplace
-
-
-.. code-block:: default
-
-
-    # temporal selection between [0.25, 1.75]
-    dt[0.25:1.75, :]  # the ':' symbol means that we are selecting every channel
-
-    # sphinx_gallery_thumbnail_number = 3
-    plt.plot(dt.times, dt.x[0][:, 0, :].T)
-    plt.xlabel('Times')
-    plt.title('Temporal slicing')
-    plt.show()
-
-    # spatial selection of channels ch_0 and ch_1
-    dt[:, ['ch_0', 'ch_1']]
-    print(dt.roi)
-
-
-
-.. image:: /auto_examples/dataset/images/sphx_glr_plot_dataset_ephy_004.png
-    :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    [array(['ch_0', 'ch_1'], dtype='<U4'), array(['ch_0', 'ch_1'], dtype='<U4'), array(['ch_0', 'ch_1'], dtype='<U4'), array(['ch_0', 'ch_1'], dtype='<U4'), array(['ch_0', 'ch_1'], dtype='<U4')]
-
-
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.008 seconds)
+   **Total running time of the script:** ( 0 minutes  1.613 seconds)
 
 
 .. _sphx_glr_download_auto_examples_dataset_plot_dataset_ephy.py:

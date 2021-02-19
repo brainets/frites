@@ -37,29 +37,28 @@ n_times = 100
 half = int(n_trials / 2)
 times = np.arange(n_times)
 
-x, y, roi, contacts = [], [], [], []
+x, y, roi = [], [], []
 for suj in range(n_suj):
     # initialize subject's data with random noise
     _x = np.random.rand(n_trials, 2, n_times)
     # normal continuous regressor
-    _y = np.random.normal(size=(n_trials,)).reshape(-1, 1)
+    _y = np.random.normal(size=(n_trials,))
 
     # first contact has positive correlations
-    _x[:, 0, slice(30, 70)] += _y
+    _x[:, 0, slice(30, 70)] += _y.reshape(-1, 1)
     # second contact has negative correlations
-    _x[:, 1, slice(30, 70)] -= _y
+    _x[:, 1, slice(30, 70)] -= _y.reshape(-1, 1)
 
     x += [_x]
     y += [_y]
     roi += [np.array(['roi_0', 'roi_0'])]
-    contacts += [np.array(['c1', 'c2'])]
 
 # now, compute the mi with default parameters
-ds = DatasetEphy(x, y=y, roi=roi, times=times)
+ds = DatasetEphy(x, y=y, roi=roi, times=times, agg_ch=True)
 mi = WfMi(mi_type='cc').fit(ds, mcp='noperm')[0]
 
 # compute the mi at the contact level
-ds = DatasetEphy(x, y=y, roi=roi, times=times, sub_roi=contacts)
+ds = DatasetEphy(x, y=y, roi=roi, times=times, agg_ch=False)
 mi_c = WfMi(mi_type='ccd').fit(ds, mcp='noperm')[0]
 
 # plot the comparison
@@ -78,7 +77,7 @@ plt.show()
 # Same example as above except that this time the MI is compute between the
 # data and a discret variable
 
-x, y, roi, contacts = [], [], [], []
+x, y, roi = [], [], []
 for suj in range(n_suj):
     # initialize subject's data with random noise
     _x = np.random.rand(n_trials, 2, n_times)
@@ -97,7 +96,6 @@ for suj in range(n_suj):
     x += [_x]
     y += [np.array([0] * half + [1] * half)]
     roi += [np.array(['roi_0', 'roi_0'])]
-    contacts += [np.array(['c1', 'c2'])]
 times = np.arange(n_times)
 
 # now, compute the mi with default parameters
@@ -105,7 +103,7 @@ ds = DatasetEphy(x, y=y, roi=roi, times=times)
 mi = WfMi(mi_type='cd').fit(ds, mcp='noperm')[0]
 
 # compute the mi at the contact level
-ds = DatasetEphy(x, y=y, roi=roi, times=times, sub_roi=contacts)
+ds = DatasetEphy(x, y=y, roi=roi, times=times, agg_ch=False)
 mi_c = WfMi(mi_type='cd').fit(ds, mcp='noperm')[0]
 
 # plot the comparison
@@ -125,30 +123,29 @@ plt.show()
 # data and a discret variable
 
 
-x, y, z, roi, contacts = [], [], [], [], []
+x, y, z, roi = [], [], [], []
 for suj in range(n_suj):
     # initialize subject's data with random noise
     _x = np.random.rand(n_trials, 2, n_times)
     # define a positive and negative correlations
-    _y_pos = np.random.normal(loc=1, size=(half, 1))
-    _y_neg = np.random.normal(loc=-1, size=(half, 1))
+    _y_pos = np.random.normal(loc=1, size=(half))
+    _y_neg = np.random.normal(loc=-1, size=(half))
     _y = np.r_[_y_pos, _y_neg]
     _z = np.array([0] * half + [1] * half)
 
     # first contact / first half trials : positive offset
-    _x[0:half, 0, slice(30, 70)] += _y_pos
+    _x[0:half, 0, slice(30, 70)] += _y_pos.reshape(-1, 1)
     # first contact / second half trials : negative offset
-    _x[half::, 0, slice(30, 70)] += _y_neg
+    _x[half::, 0, slice(30, 70)] += _y_neg.reshape(-1, 1)
     # second contact / first half trials : negative offset
-    _x[0:half, 1, slice(30, 70)] += _y_neg
+    _x[0:half, 1, slice(30, 70)] += _y_neg.reshape(-1, 1)
     # second contact / second half trials : positive offset
-    _x[half::, 1, slice(30, 70)] += _y_pos
+    _x[half::, 1, slice(30, 70)] += _y_pos.reshape(-1, 1)
 
     x += [_x]
     y += [_y]
     z += [_z]
     roi += [np.array(['roi_0', 'roi_0'])]
-    contacts += [np.array(['c1', 'c2'])]
 times = np.arange(n_times)
 
 # now, compute the mi with default parameters
@@ -156,7 +153,7 @@ ds = DatasetEphy(x, y=y, z=z, roi=roi, times=times)
 mi = WfMi(mi_type='ccd').fit(ds, mcp='noperm')[0]
 
 # compute the mi at the contact level
-ds = DatasetEphy(x, y=y, z=z, roi=roi, times=times, sub_roi=contacts)
+ds = DatasetEphy(x, y=y, z=z, roi=roi, times=times, agg_ch=False)
 mi_c = WfMi(mi_type='ccd').fit(ds, mcp='noperm')[0]
 
 # plot the comparison
@@ -200,6 +197,5 @@ for suj in range(n_suj):
 
 # finally, define the electrophysiological dataset and specify the dimension
 # names to use
-ds_xr = DatasetEphy(x, y='trials', roi='parcel', sub_roi='contacts',
-                    times='times')
+ds_xr = DatasetEphy(x, y='trials', roi='parcel', agg_ch=False, times='times')
 print(ds_xr)

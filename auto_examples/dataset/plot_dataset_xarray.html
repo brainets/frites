@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -313,10 +314,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -563,47 +572,47 @@ in a list of length (n_subjects,)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[0.12107129, 0.9952119 , 0.57404274, ..., 0.96312151,
-         0.72064977, 0.89658662],
-        [0.42162729, 0.09743391, 0.45956584, ..., 0.77701043,
-         0.78035704, 0.65878343],
-        [0.73239596, 0.46186102, 0.93335652, ..., 0.62682449,
-         0.68474198, 0.19463706],
-        [0.05154245, 0.95995107, 0.03155413, ..., 0.68158676,
-         0.18093351, 0.54690423],
-        [0.68756876, 0.37131833, 0.74727537, ..., 0.26062729,
-         0.95928143, 0.90956381]],
+array([[[0.22104202, 0.16403965, 0.60253518, ..., 0.0163717 ,
+         0.73192971, 0.36475118],
+        [0.91057083, 0.06390583, 0.08251771, ..., 0.39747154,
+         0.90065935, 0.72420173],
+        [0.96889083, 0.21128346, 0.8085686 , ..., 0.85362959,
+         0.02403699, 0.7463435 ],
+        [0.05795484, 0.99020759, 0.41497381, ..., 0.08560227,
+         0.88489002, 0.71115979],
+        [0.11323511, 0.39559274, 0.01109298, ..., 0.9002552 ,
+         0.556737  , 0.19655636]],
 
-       [[0.53937416, 0.53925107, 0.63430526, ..., 0.41884659,
-         0.62260478, 0.45666068],
-        [0.83101035, 0.21967524, 0.6951897 , ..., 0.07328107,
-         0.23481653, 0.40018411],
-        [0.12521157, 0.90439366, 0.01781078, ..., 0.3668303 ,
-         0.68634998, 0.52405464],
-        [0.26354425, 0.07637761, 0.30966166, ..., 0.59967094,
-         0.18682431, 0.28565147],
-        [0.24845446, 0.02163696, 0.19241383, ..., 0.44066816,
+       [[0.60018409, 0.83681536, 0.376312  , ..., 0.07685856,
+         0.69612311, 0.25063147],
+        [0.23949761, 0.68493211, 0.20918579, ..., 0.61164585,
+         0.06379279, 0.55802831],
+        [0.17086112, 0.40918784, 0.82389968, ..., 0.90521596,
+         0.11202713, 0.47310609],
+        [0.9028765 , 0.98493275, 0.9587905 , ..., 0.82480065,
+         0.62989505, 0.83754537],
+        [0.31922268, 0.19439122, 0.61575868, ..., 0.9942614 ,
 ...
-         0.00230573, 0.632249  ],
-        [0.92792015, 0.64123252, 0.53456681, ..., 0.04482652,
-         0.91375704, 0.07356441],
-        [0.4173945 , 0.22405767, 0.50033978, ..., 0.32511087,
-         0.69121286, 0.93364215],
-        [0.2731481 , 0.06206044, 0.53375515, ..., 0.02393198,
-         0.76777201, 0.06703139],
-        [0.1652521 , 0.9926364 , 0.04988826, ..., 0.05145227,
-         0.62462009, 0.33618133]],
+         0.52830334, 0.36760459],
+        [0.01411991, 0.91744296, 0.76392271, ..., 0.10775464,
+         0.99754798, 0.72461493],
+        [0.76721644, 0.53247187, 0.10139571, ..., 0.63989609,
+         0.40098517, 0.08160539],
+        [0.14432855, 0.46304982, 0.12051346, ..., 0.08143562,
+         0.46695565, 0.29122374],
+        [0.2681284 , 0.65525582, 0.052911  , ..., 0.83707502,
+         0.25468539, 0.91202272]],
 
-       [[0.93426459, 0.37844937, 0.50008542, ..., 0.86251264,
-         0.71529768, 0.93230203],
-        [0.03869857, 0.61841619, 0.37508232, ..., 0.07091961,
-         0.67055425, 0.56377713],
-        [0.40582864, 0.6795076 , 0.70838314, ..., 0.47917292,
-         0.20550887, 0.86780445],
-        [0.67543555, 0.67095996, 0.85055451, ..., 0.56011892,
-         0.1927962 , 0.24721631],
-        [0.80995222, 0.84727778, 0.46423884, ..., 0.00218713,
-         0.32692729, 0.01372606]]])
+       [[0.01537735, 0.69435813, 0.30371525, ..., 0.41912458,
+         0.11259552, 0.40528058],
+        [0.51657513, 0.90791529, 0.02983929, ..., 0.96744164,
+         0.77980235, 0.87570831],
+        [0.11142003, 0.86229495, 0.76153851, ..., 0.46173761,
+         0.11385048, 0.40205644],
+        [0.78056781, 0.42726566, 0.5628527 , ..., 0.56184072,
+         0.6862694 , 0.51305381],
+        [0.95039907, 0.19408285, 0.37493924, ..., 0.57273225,
+         0.50562258, 0.5021988 ]]])
 Coordinates:
   * epochs    (epochs) int64 0 1 2 3 4 5 6 7 8 9
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
@@ -621,18 +630,37 @@ in order to create the dataset</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time vector : &#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ROI (first subject) : &#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ROI</span><span class="se">\n</span><span class="s1">: &#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">df_rs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>-------------------------------------------------------------------------------
-number of (subjects, roi, time points) : (5, 5, 100)
-minimum number of subject per roi: -inf
-modality : electrophysiological
-data grouped by : subject
-copnormed : False
-version : 0.3.7
--------------------------------------------------------------------------------
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.Dataset&gt;
+Dimensions:    (roi: 5, times: 100, trials: 10)
+Coordinates:
+  * trials     (trials) int64 0 1 2 3 4 5 6 7 8 9
+  * roi        (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch     (roi) int64 0 0 0 0 0
+  * times      (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+    subject    (trials) int64 0 0 0 0 0 0 0 0 0 0
+Data variables:
+    subject_0  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_1  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_2  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_3  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_4  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+Attributes:
+    __version__:   0.3.7
+    modality:      electrophysiology
+    dtype:         DatasetEphy
+    y_dtype:       none
+    z_dtype:       none
+    mi_type:       none
+    mi_repr:       none
+    sfreq:         512.0
+    agg_ch:        True
+    multivariate:  False
+    nb_min_suj:    False
+    n_subjects:    5
 Time vector :  [0.         0.00195312 0.00390625 0.00585938 0.0078125  0.00976562
  0.01171875 0.01367188 0.015625   0.01757812 0.01953125 0.02148438
  0.0234375  0.02539062 0.02734375 0.02929688 0.03125    0.03320312
@@ -650,7 +678,16 @@ Time vector :  [0.         0.00195312 0.00390625 0.00585938 0.0078125  0.0097656
  0.1640625  0.16601562 0.16796875 0.16992188 0.171875   0.17382812
  0.17578125 0.17773438 0.1796875  0.18164062 0.18359375 0.18554688
  0.1875     0.18945312 0.19140625 0.19335938]
-ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;]
+ROI
+:        #subjects  ...  keep
+roi              ...
+ch_0          5  ...  True
+ch_1          5  ...  True
+ch_2          5  ...  True
+ch_3          5  ...  True
+ch_4          5  ...  True
+
+[5 rows x 3 columns]
 </pre></div>
 </div>
 </div>
@@ -684,64 +721,85 @@ ROI (first subject) :  [&#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (epochs: 10, channels: 5, times: 100)&gt;
-array([[[0.12107129, 0.9952119 , 0.57404274, ..., 0.96312151,
-         0.72064977, 0.89658662],
-        [0.42162729, 0.09743391, 0.45956584, ..., 0.77701043,
-         0.78035704, 0.65878343],
-        [0.73239596, 0.46186102, 0.93335652, ..., 0.62682449,
-         0.68474198, 0.19463706],
-        [0.05154245, 0.95995107, 0.03155413, ..., 0.68158676,
-         0.18093351, 0.54690423],
-        [0.68756876, 0.37131833, 0.74727537, ..., 0.26062729,
-         0.95928143, 0.90956381]],
+array([[[0.22104202, 0.16403965, 0.60253518, ..., 0.0163717 ,
+         0.73192971, 0.36475118],
+        [0.91057083, 0.06390583, 0.08251771, ..., 0.39747154,
+         0.90065935, 0.72420173],
+        [0.96889083, 0.21128346, 0.8085686 , ..., 0.85362959,
+         0.02403699, 0.7463435 ],
+        [0.05795484, 0.99020759, 0.41497381, ..., 0.08560227,
+         0.88489002, 0.71115979],
+        [0.11323511, 0.39559274, 0.01109298, ..., 0.9002552 ,
+         0.556737  , 0.19655636]],
 
-       [[0.53937416, 0.53925107, 0.63430526, ..., 0.41884659,
-         0.62260478, 0.45666068],
-        [0.83101035, 0.21967524, 0.6951897 , ..., 0.07328107,
-         0.23481653, 0.40018411],
-        [0.12521157, 0.90439366, 0.01781078, ..., 0.3668303 ,
-         0.68634998, 0.52405464],
-        [0.26354425, 0.07637761, 0.30966166, ..., 0.59967094,
-         0.18682431, 0.28565147],
-        [0.24845446, 0.02163696, 0.19241383, ..., 0.44066816,
+       [[0.60018409, 0.83681536, 0.376312  , ..., 0.07685856,
+         0.69612311, 0.25063147],
+        [0.23949761, 0.68493211, 0.20918579, ..., 0.61164585,
+         0.06379279, 0.55802831],
+        [0.17086112, 0.40918784, 0.82389968, ..., 0.90521596,
+         0.11202713, 0.47310609],
+        [0.9028765 , 0.98493275, 0.9587905 , ..., 0.82480065,
+         0.62989505, 0.83754537],
+        [0.31922268, 0.19439122, 0.61575868, ..., 0.9942614 ,
 ...
-         0.00230573, 0.632249  ],
-        [0.92792015, 0.64123252, 0.53456681, ..., 0.04482652,
-         0.91375704, 0.07356441],
-        [0.4173945 , 0.22405767, 0.50033978, ..., 0.32511087,
-         0.69121286, 0.93364215],
-        [0.2731481 , 0.06206044, 0.53375515, ..., 0.02393198,
-         0.76777201, 0.06703139],
-        [0.1652521 , 0.9926364 , 0.04988826, ..., 0.05145227,
-         0.62462009, 0.33618133]],
+         0.52830334, 0.36760459],
+        [0.01411991, 0.91744296, 0.76392271, ..., 0.10775464,
+         0.99754798, 0.72461493],
+        [0.76721644, 0.53247187, 0.10139571, ..., 0.63989609,
+         0.40098517, 0.08160539],
+        [0.14432855, 0.46304982, 0.12051346, ..., 0.08143562,
+         0.46695565, 0.29122374],
+        [0.2681284 , 0.65525582, 0.052911  , ..., 0.83707502,
+         0.25468539, 0.91202272]],
 
-       [[0.93426459, 0.37844937, 0.50008542, ..., 0.86251264,
-         0.71529768, 0.93230203],
-        [0.03869857, 0.61841619, 0.37508232, ..., 0.07091961,
-         0.67055425, 0.56377713],
-        [0.40582864, 0.6795076 , 0.70838314, ..., 0.47917292,
-         0.20550887, 0.86780445],
-        [0.67543555, 0.67095996, 0.85055451, ..., 0.56011892,
-         0.1927962 , 0.24721631],
-        [0.80995222, 0.84727778, 0.46423884, ..., 0.00218713,
-         0.32692729, 0.01372606]]])
+       [[0.01537735, 0.69435813, 0.30371525, ..., 0.41912458,
+         0.11259552, 0.40528058],
+        [0.51657513, 0.90791529, 0.02983929, ..., 0.96744164,
+         0.77980235, 0.87570831],
+        [0.11142003, 0.86229495, 0.76153851, ..., 0.46173761,
+         0.11385048, 0.40205644],
+        [0.78056781, 0.42726566, 0.5628527 , ..., 0.56184072,
+         0.6862694 , 0.51305381],
+        [0.95039907, 0.19408285, 0.37493924, ..., 0.57273225,
+         0.50562258, 0.5021988 ]]])
 Coordinates:
   * epochs    (epochs) MultiIndex
-  - dp        (epochs) float64 0.7739 0.4944 0.9328 ... 0.773 -0.1755 0.1704
+  - dp        (epochs) float64 0.08442 -0.6965 0.2158 ... -0.2391 -0.5827 0.1156
   - blocks    (epochs) int64 0 0 0 0 0 1 1 1 1 1
   * channels  (channels) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
   * times     (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
--------------------------------------------------------------------------------
-number of (subjects, roi, time points) : (5, 5, 100)
-minimum number of subject per roi: -inf
-modality : electrophysiological
-data grouped by : subject
-copnormed : False
-version : 0.3.7
--------------------------------------------------------------------------------
+&lt;xarray.Dataset&gt;
+Dimensions:    (roi: 5, times: 100, trials: 10)
+Coordinates:
+  * trials     (trials) int64 0 1 2 3 4 5 6 7 8 9
+    y          (trials) float64 0.08442 -0.6965 0.2158 ... -0.5827 0.1156
+    z          (trials) int64 0 0 0 0 0 1 1 1 1 1
+  * roi        (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch     (roi) int64 0 0 0 0 0
+  * times      (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+    subject    (trials) int64 0 0 0 0 0 0 0 0 0 0
+Data variables:
+    subject_0  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_1  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_2  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_3  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    subject_4  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+Attributes:
+    __version__:   0.3.7
+    modality:      electrophysiology
+    dtype:         DatasetEphy
+    y_dtype:       float
+    z_dtype:       int
+    mi_type:       ccd
+    mi_repr:       I(x; y (continuous)) | z (discret)
+    sfreq:         512.0
+    agg_ch:        True
+    multivariate:  False
+    nb_min_suj:    False
+    n_subjects:    5
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.127 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.227 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9a005eb1fa12814043ca3f5d7ba8ead9/plot_dataset_xarray.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_xarray.py</span></code></a></p>
@@ -779,7 +837,7 @@ version : 0.3.7
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

@@ -25,8 +25,8 @@ Dataset
 .. autosummary::
    :toctree: generated/
 
+   SubjectEphy
    DatasetEphy
-   merge_datasets
 
 .. raw:: html
 
@@ -52,7 +52,14 @@ Task-related workflows
    :toctree: generated/
 
    WfMi
-   WfComod
+
+Connectivity workflows
+++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   WfConnComod
 
 
 Statistical workflows
@@ -98,8 +105,32 @@ Utility functions
 
    conn_reshape_undirected
    conn_reshape_directed
+   conn_get_pairs
    define_windows
    plot_windows
+
+.. raw:: html
+
+  <hr>
+
+.. ----------------------------------------------------------------------------
+
+Mutual-Information estimators
+-----------------------------
+
+:py:mod:`frites.estimator`:
+
+.. currentmodule:: frites.estimator
+
+.. automodule:: frites.estimator
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: generated/
+
+   GCMIEstimator
+   BinMIEstimator
 
 .. raw:: html
 
@@ -185,28 +216,6 @@ Correction for multiple comparisons
 
   <hr>
 
-.. ----------------------------------------------------------------------------
-
-I/O
----
-
-:py:mod:`frites.io`:
-
-.. currentmodule:: frites.io
-
-.. automodule:: frites.io
-   :no-members:
-   :no-inherited-members:
-
-.. autosummary::
-   :toctree: generated/
-
-   convert_spatiotemporal_outputs
-   convert_dfc_outputs
-
-.. raw:: html
-
-  <hr>
 
 .. ----------------------------------------------------------------------------
 
@@ -226,6 +235,7 @@ Utils
    :toctree: generated/
 
    savgol_filter
+   kernel_smoothing
 
 .. raw:: html
 

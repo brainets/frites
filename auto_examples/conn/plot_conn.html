@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Estimate instantaneous connectivity using MI &#8212; frites 0.3.7 documentation</title>
+    <title>Estimate comodulations between brain areas &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -313,10 +314,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -463,7 +472,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Estimate instantaneous connectivity using MI</a><ul>
+<li><a class="reference internal" href="#">Estimate comodulations between brain areas</a><ul>
 <li><a class="reference internal" href="#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li><a class="reference internal" href="#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li><a class="reference internal" href="#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -506,16 +515,18 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-conn-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimate-instantaneous-connectivity-using-mi">
-<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate instantaneous connectivity using MI<a class="headerlink" href="#estimate-instantaneous-connectivity-using-mi" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="estimate-comodulations-between-brain-areas">
+<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate comodulations between brain areas<a class="headerlink" href="#estimate-comodulations-between-brain-areas" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to estimate the instantaneous comodulations using
 mutual information between pairwise ROI and also perform statistics.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_multi_suj_ephy</span>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a>
-<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../generated/frites.workflow.WfComod.html#frites.workflow.WfComod" title="View documentation for frites.workflow.WfComod"><span class="n">WfComod</span></a>
+<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../generated/frites.workflow.WfConnComod.html#frites.workflow.WfConnComod" title="View documentation for frites.workflow.WfConnComod"><span class="n">WfConnComod</span></a>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
@@ -566,68 +577,79 @@ Corr 2 : L_VCs-L_Cu between [0.21212121212121215-0.6161616161616164]
 <div class="section" id="compute-the-pairwise-connectivity">
 <h2>Compute the pairwise connectivity<a class="headerlink" href="#compute-the-pairwise-connectivity" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
-<a class="reference internal" href="../../generated/frites.workflow.WfComod.html#frites.workflow.WfComod" title="frites.workflow.WfComod"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfComod</span></code></a>. This instance is then used to compute the
-pairwise connectivity</p>
+<a class="reference internal" href="../../generated/frites.workflow.WfConnComod.html#frites.workflow.WfConnComod" title="frites.workflow.WfConnComod"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfConnComod</span></code></a>. This instance is then used to compute
+the pairwise connectivity</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_perm</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># number of permutations to compute</span>
 <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># used for smoothing the MI</span>
 
-<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfComod.html#frites.workflow.WfComod" title="View documentation for frites.workflow.WfComod"><span class="n">WfComod</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
+<span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfConnComod.html#frites.workflow.WfConnComod" title="View documentation for frites.workflow.WfConnComod"><span class="n">WfConnComod</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray &#39;mi&#39; (source: 4, target: 4, times: 100)&gt;
-array([[[0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.01842208, 0.02406251, 0.02750422, ..., 0.06213146,
-         0.05655586, 0.04440434],
-        [0.02770122, 0.03899341, 0.04850729, ..., 0.09280769,
-         0.0990997 , 0.08878132],
-        [0.07227535, 0.09675911, 0.11006359, ..., 0.06616406,
-         0.04571074, 0.02689257]],
-
-       [[0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.01995809, 0.02980501, 0.03847941, ..., 0.04031742,
-         0.03693827, 0.03065904],
-        [0.04409665, 0.06801132, 0.08811049, ..., 0.10888197,
-         0.09368213, 0.0707151 ]],
-
-       [[0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.06497172, 0.09283924, 0.10946753, ..., 0.07669559,
-         0.06127905, 0.04158382]],
-
-       [[0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ],
-        [0.        , 0.        , 0.        , ..., 0.        ,
-         0.        , 0.        ]]])
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/6 [00:00&lt;?,       ?it/s]
+ 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:01,    3.00it/s]
+ 33%|###3      | Estimating MI : 2/6 [00:00&lt;00:01,    3.01it/s]
+ 50%|#####     | Estimating MI : 3/6 [00:00&lt;00:00,    3.01it/s]
+ 67%|######6   | Estimating MI : 4/6 [00:01&lt;00:00,    3.01it/s]
+ 83%|########3 | Estimating MI : 5/6 [00:01&lt;00:00,    3.02it/s]
+100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.00it/s]
+100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.01it/s]
+&lt;xarray.DataArray &#39;mi&#39; (times: 100, roi: 6)&gt;
+array([[ 3.81100170e-02,  9.93129635e-03,  3.08063622e-02,
+        -1.57432552e-02, -6.46413969e-03, -1.42072425e-02],
+       [ 4.78670422e-02,  1.91192336e-02,  4.39471590e-02,
+        -2.48295685e-02, -9.89867658e-03, -1.90870444e-02],
+       [ 4.97830695e-02,  2.78299595e-02,  4.91869950e-02,
+        -3.27763185e-02, -1.17732336e-02, -2.18010919e-02],
+       [ 4.42378373e-02,  3.11256639e-02,  4.41122743e-02,
+        -3.54902207e-02, -1.09317976e-02, -2.17797055e-02],
+       [ 3.54614078e-02,  2.64789554e-02,  3.09597577e-02,
+        -2.97813754e-02, -7.22593180e-03, -1.87393195e-02],
+       [ 2.90338318e-02,  1.55980511e-02,  1.60559750e-02,
+        -1.82566072e-02, -1.28890639e-03, -1.36092876e-02],
+       [ 2.67894121e-02,  2.79145887e-03,  5.40103015e-03,
+        -7.51756587e-03,  4.73812172e-03, -7.90915604e-03],
+       [ 2.73218532e-02, -7.89616349e-03, -4.27800566e-04,
+        -3.53819107e-03,  1.00334736e-02, -2.98166005e-03],
+       [ 2.92925541e-02, -1.18959045e-02, -5.27984078e-03,
+        -8.68820963e-03,  1.53332565e-02,  1.78624950e-04],
+       [ 3.08684130e-02, -6.19701377e-03, -1.09536592e-02,
+        -2.09788897e-02,  2.03798908e-02, -5.68186008e-04],
+...
+       [-1.55322576e-02,  1.53093084e-02,  3.64898718e-03,
+        -2.32618961e-02, -8.36461155e-03, -3.82575722e-02],
+       [-1.05650033e-02,  2.72019144e-02,  1.00501854e-02,
+        -2.81729709e-02, -1.86817089e-02, -3.83549006e-02],
+       [ 9.97867229e-04,  3.59704840e-02,  1.34850531e-02,
+        -2.89759278e-02, -2.33999399e-02, -3.72659062e-02],
+       [ 1.34728115e-02,  4.05878562e-02,  1.38141548e-02,
+        -2.61143734e-02, -2.40135389e-02, -3.54009462e-02],
+       [ 2.24736359e-02,  4.33153684e-02,  1.36452655e-02,
+        -2.08592129e-02, -2.04786052e-02, -3.27995353e-02],
+       [ 2.33199680e-02,  4.57717725e-02,  1.41993169e-02,
+        -1.39899823e-02, -1.00210812e-02, -2.99506386e-02],
+       [ 1.45373274e-02,  4.63818215e-02,  1.44237465e-02,
+        -7.83177679e-03,  7.41187732e-03, -2.79710396e-02],
+       [-3.90368948e-04,  4.23275751e-02,  1.01411322e-02,
+        -4.42294719e-03,  2.62532602e-02, -2.62370464e-02],
+       [-1.45697842e-02,  3.34016522e-02,  9.98505930e-04,
+        -3.72465911e-03,  3.88191796e-02, -2.33422674e-02],
+       [-2.19995043e-02,  2.18230744e-02, -7.30826338e-03,
+        -4.48774917e-03,  3.98892441e-02, -1.82330485e-02]])
 Coordinates:
-  * source   (source) &lt;U6 &#39;L_VCcm&#39; &#39;L_VCl&#39; &#39;L_VCs&#39; &#39;L_Cu&#39;
-  * target   (target) &lt;U6 &#39;L_VCcm&#39; &#39;L_VCl&#39; &#39;L_VCs&#39; &#39;L_Cu&#39;
-  * times    (times) float32 -1.0 -0.9798 -0.9596 -0.9394 ... 0.9596 0.9798 1.0
+  * times    (times) float64 -1.0 -0.9798 -0.9596 -0.9394 ... 0.9596 0.9798 1.0
+  * roi      (roi) &lt;U12 &#39;L_Cu-L_VCcm&#39; &#39;L_Cu-L_VCl&#39; ... &#39;L_VCl-L_VCs&#39;
 Attributes:
     mi_type:         cc
     inference:       rfx
-    mi_method:       gc
     kernel:          [0.         0.11697778 0.41317591 0.75       0.96984631 ...
     n_perm:          100
     random_state:    none
-    n_bins:          none
-    ttest_pop_mean:  0.06710494649076602
+    ttest_pop_mean:  -0.00011169480521623639
     ttest_sigma:     0.001
-    th:              1.281707268054139
+    th:              1.267940235332363
     tfce:            none
     mcp:             cluster
     tail:            1
@@ -647,18 +669,15 @@ Attributes:
 
 <span class="c1"># plot each pair separately</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">mi</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">mi</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span> <span class="k">continue</span>
-    <span class="c1"># select the mi and p-values for the (source, target)</span>
-    <span class="n">mi_st</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">pv_st</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_st</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">pv_st</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pv_st</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="n">x_txt</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pv_st</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># select the mi and p-values for the selected pair of roi</span>
+    <span class="n">mi_r</span><span class="p">,</span> <span class="n">pv_r</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">),</span> <span class="n">pv</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_r</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">n_r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pv_r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">pv_r</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">n_r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">x_txt</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">pv_r</span><span class="p">)]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="n">y_txt</span> <span class="o">=</span> <span class="mf">1.03</span> <span class="o">*</span> <span class="n">mi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_txt</span><span class="p">,</span> <span class="n">y_txt</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_txt</span><span class="p">,</span> <span class="n">y_txt</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">n_r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Mi (bits)&#39;</span><span class="p">)</span>
@@ -667,7 +686,7 @@ Attributes:
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_conn_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_conn_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.738 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.801 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/31a26a1996e5a607840326d75d11b163/plot_conn.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_conn.py</span></code></a></p>
@@ -705,7 +724,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

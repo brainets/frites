@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Estimate instantaneous connectivity using MI" href="plot_conn.html" />
+    <link rel="next" title="Estimate comodulations between brain areas" href="plot_conn.html" />
     <link rel="prev" title="Mutual-information at the contact level" href="../mi/plot_wf_mi_contact_level.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -128,8 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -166,7 +165,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -196,7 +194,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -287,14 +285,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -313,10 +314,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
@@ -349,13 +356,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
@@ -408,44 +411,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -587,55 +596,55 @@ each of the temporal window</p>
 <img alt="../../_images/sphx_glr_plot_dfc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/24 [00:00&lt;?,       ?it/s]
- 17%|#6        | Estimating DFC : 4/24 [00:00&lt;00:00,  243.20it/s]
- 29%|##9       | Estimating DFC : 7/24 [00:00&lt;00:00,  210.33it/s]
- 46%|####5     | Estimating DFC : 11/24 [00:00&lt;00:00,  211.61it/s]
- 62%|######2   | Estimating DFC : 15/24 [00:00&lt;00:00,  213.07it/s]
- 79%|#######9  | Estimating DFC : 19/24 [00:00&lt;00:00,  214.56it/s]
- 92%|#########1| Estimating DFC : 22/24 [00:00&lt;00:00,  187.97it/s]
-100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,  133.07it/s]
+ 12%|#2        | Estimating DFC : 3/24 [00:00&lt;00:00,   29.03it/s]
+ 25%|##5       | Estimating DFC : 6/24 [00:00&lt;00:00,   30.26it/s]
+ 38%|###7      | Estimating DFC : 9/24 [00:00&lt;00:00,   31.53it/s]
+ 50%|#####     | Estimating DFC : 12/24 [00:00&lt;00:00,   32.86it/s]
+ 75%|#######5  | Estimating DFC : 18/24 [00:00&lt;00:00,   34.40it/s]
+100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,   36.01it/s]
+100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,  120.03it/s]
 &lt;xarray.DataArray &#39;dfc&#39; (trials: 50, roi: 3, times: 24)&gt;
-array([[[1.56825074e-04, 1.00681238e-01, 6.02146506e-01, ...,
-         1.30359709e-01, 2.90310867e-02, 1.31007880e-01],
-        [2.90474296e-01, 4.10464406e-01, 1.08906850e-02, ...,
-         3.10235526e-02, 3.81992720e-02, 1.47599110e-03],
-        [5.19937603e-03, 1.68037997e-03, 2.28282018e-03, ...,
-         7.27816075e-02, 9.10789147e-02, 1.28346477e-02]],
+array([[[-1.50277568e-02,  8.54966566e-02,  5.86961925e-01, ...,
+          1.15175135e-01,  1.38465045e-02,  1.15823291e-01],
+        [ 2.75289714e-01,  3.95279825e-01, -4.29389719e-03, ...,
+          1.58389714e-02,  2.30146907e-02, -1.37085905e-02],
+        [-9.98520572e-03, -1.35042015e-02, -1.29017616e-02, ...,
+          5.75970300e-02,  7.58943334e-02, -2.34993361e-03]],
 
-       [[2.36477062e-01, 1.69572160e-02, 8.51217955e-02, ...,
-         4.26396057e-02, 1.82143250e-03, 2.35835407e-02],
-        [1.08510286e-01, 6.84038848e-02, 6.13169298e-02, ...,
-         1.08328015e-02, 3.37320566e-03, 5.80490716e-02],
-        [1.37805387e-01, 1.06196687e-01, 5.44398176e-07, ...,
-         1.73646538e-03, 4.14629541e-02, 1.47347927e-01]],
+       [[ 2.21292481e-01,  1.77263445e-03,  6.99372143e-02, ...,
+          2.74550226e-02, -1.33631490e-02,  8.39895941e-03],
+        [ 9.33257043e-02,  5.32193035e-02,  4.61323485e-02, ...,
+         -4.35178075e-03, -1.18113765e-02,  4.28644903e-02],
+        [ 1.22620806e-01,  9.10121053e-02, -1.51840374e-02, ...,
+         -1.34481164e-02,  2.62783729e-02,  1.32163346e-01]],
 
-       [[1.07033029e-01, 3.25215012e-01, 3.45180213e-01, ...,
-         2.01343486e-04, 3.87340069e-01, 3.55712414e-01],
-        [5.99548395e-04, 1.32664535e-02, 1.66751772e-01, ...,
-         6.27236605e-01, 8.28665495e-01, 2.86664218e-01],
-        [1.92496106e-02, 1.16940781e-01, 2.11044654e-01, ...,
-         3.68218310e-02, 2.87429094e-01, 3.67406532e-02]],
+       [[ 9.18484479e-02,  3.10030431e-01,  3.29995632e-01, ...,
+         -1.49832387e-02,  3.72155488e-01,  3.40527833e-01],
+        [-1.45850331e-02, -1.91812799e-03,  1.51567191e-01, ...,
+          6.12052023e-01,  8.13480914e-01,  2.71479636e-01],
+        [ 4.06502979e-03,  1.01756200e-01,  1.95860073e-01, ...,
+          2.16372497e-02,  2.72244513e-01,  2.15560738e-02]],
 ...
-       [[1.39821144e-02, 2.58555174e-01, 7.84389675e-01, ...,
-         2.58281291e-01, 8.75702202e-02, 2.65311658e-01],
-        [7.16161609e-01, 1.11703858e-01, 4.58084419e-02, ...,
-         4.05580271e-03, 4.76677001e-01, 5.35933599e-02],
-        [9.55951691e-04, 1.03461832e-01, 1.73515838e-03, ...,
-         9.91485831e-06, 7.45986868e-03, 7.74288736e-03]],
+          2.43096709e-01,  7.23856390e-02,  2.50127077e-01],
+        [ 7.00977027e-01,  9.65192765e-02,  3.06238588e-02, ...,
+         -1.11287795e-02,  4.61492419e-01,  3.84087786e-02],
+        [-1.42286299e-02,  8.82772505e-02, -1.34494230e-02, ...,
+         -1.51746674e-02, -7.72471307e-03, -7.44169438e-03]],
 
-       [[2.73542311e-02, 1.53516829e-02, 1.66800320e-01, ...,
-         4.46174085e-01, 4.67684865e-01, 2.73479056e-02],
-        [9.96721908e-02, 2.65009627e-02, 1.07997030e-01, ...,
-         3.63676399e-02, 1.65651157e-01, 3.63055393e-02],
-        [9.36954375e-03, 4.05906141e-02, 2.30591791e-03, ...,
-         8.94622207e-02, 3.64467710e-01, 2.16173723e-01]],
+       [[ 1.21696489e-02,  1.67100981e-04,  1.51615739e-01, ...,
+          4.30989504e-01,  4.52500284e-01,  1.21633243e-02],
+        [ 8.44876096e-02,  1.13163814e-02,  9.28124487e-02, ...,
+          2.11830605e-02,  1.50466576e-01,  2.11209580e-02],
+        [-5.81503799e-03,  2.54060328e-02, -1.28786638e-02, ...,
+          7.42776394e-02,  3.49283129e-01,  2.00989142e-01]],
 
-       [[1.11930560e-04, 3.94069850e-02, 2.18127713e-01, ...,
-         4.96058464e-02, 4.21545422e-03, 1.24869694e-03],
-        [5.71299851e-01, 1.99346200e-01, 3.15195061e-02, ...,
-         8.15295577e-02, 3.39623064e-01, 7.29514193e-03],
-        [4.47385423e-02, 7.40676234e-03, 3.38633806e-01, ...,
-         6.22667633e-02, 9.79943350e-02, 9.17353630e-02]]], dtype=float32)
+       [[-1.50726512e-02,  2.42224019e-02,  2.02943131e-01, ...,
+          3.44212651e-02, -1.09691275e-02, -1.39358854e-02],
+        [ 5.56115270e-01,  1.84161618e-01,  1.63349248e-02, ...,
+          6.63449764e-02,  3.24438483e-01, -7.88944028e-03],
+        [ 2.95539610e-02, -7.77781941e-03,  3.23449224e-01, ...,
+          4.70821820e-02,  8.28097463e-02,  7.65507817e-02]]],
+      dtype=float32)
 Coordinates:
   * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9 ... 41 42 43 44 45 46 47 48 49
   * roi      (roi) &lt;U12 &#39;L_VCcm-L_VCl&#39; &#39;L_VCcm-L_VCs&#39; &#39;L_VCl-L_VCs&#39;
@@ -649,7 +658,7 @@ Attributes:
     n_times:     1000
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.597 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.859 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db13bd35cb06905f90dd5dbec6da8240/plot_dfc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc.py</span></code></a></p>
@@ -687,7 +696,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>frites.dataset.ds_merge &#8212; frites 0.3.7 documentation</title>
+    <title>frites.estimator.est_gcmi &#8212; frites 0.3.7 documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -126,8 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#data-resampling">Data resampling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#spatio-temporal-slicing">Spatio-temporal slicing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
@@ -164,7 +163,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#multivariate-regressor">Multivariate regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
@@ -194,7 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_dfc.html#compute-the-dfc">Compute the DFC</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html">Estimate instantaneous connectivity using MI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html">Estimate comodulations between brain areas</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/conn/plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
@@ -285,14 +283,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#dataset">Dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.dataset.merge_datasets.html">frites.dataset.merge_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfComod.html">frites.workflow.WfComod</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#statistical-workflows">Statistical workflows</a><ul>
@@ -311,10 +312,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#utility-functions">Utility functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#simulations">Simulations</a><ul>
@@ -347,13 +354,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../api.html#i-o">I/O</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_spatiotemporal_outputs.html">frites.io.convert_spatiotemporal_outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.io.convert_dfc_outputs.html">frites.io.convert_dfc_outputs</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
@@ -406,44 +409,50 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-7">v0.3.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-7">v0.3.7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#new-features">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#internal-changes">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id3">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id4">Internal Changes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">Bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id5">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id6">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id7">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id8">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id9">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id10">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id11">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id12">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id19">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id14">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id15">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id16">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id18">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id20">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id21">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id22">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../whatsnew.html#id24">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -490,87 +499,249 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <h1>Source code for frites.dataset.ds_merge</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Merge datasets.&quot;&quot;&quot;</span>
+  <h1>Source code for frites.estimator.est_gcmi</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;GCMI estimator.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">frites.dataset.ds_ephy</span> <span class="kn">import</span> <span class="n">DatasetEphy</span>
+
+<span class="kn">from</span> <span class="nn">frites.estimator.est_mi_base</span> <span class="kn">import</span> <span class="n">BaseMIEstimator</span>
+<span class="kn">from</span> <span class="nn">frites.core.copnorm</span> <span class="kn">import</span> <span class="n">copnorm_cat_nd</span>
+<span class="kn">from</span> <span class="nn">frites.core.gcmi_nd</span> <span class="kn">import</span> <span class="p">(</span><span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">mi_model_nd_gd</span><span class="p">,</span> <span class="n">cmi_nd_ggd</span><span class="p">,</span>
+                                 <span class="n">cmi_nd_ggg</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.core.gcmi_1d</span> <span class="kn">import</span> <span class="p">(</span><span class="n">mi_1d_gg</span><span class="p">,</span> <span class="n">mi_model_1d_gd</span><span class="p">,</span> <span class="n">cmi_1d_ggd</span><span class="p">,</span>
+                                 <span class="n">cmi_1d_ggg</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">nonsorted_unique</span>
 
 
-<div class="viewcode-block" id="merge_datasets"><a class="viewcode-back" href="../../../generated/frites.dataset.merge_datasets.html#frites.dataset.merge_datasets">[docs]</a><span class="k">def</span> <span class="nf">merge_datasets</span><span class="p">(</span><span class="n">ds_list</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Merge electrophysiological datasets to build multivariate data.</span>
+<div class="viewcode-block" id="GCMIEstimator"><a class="viewcode-back" href="../../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator">[docs]</a><span class="k">class</span> <span class="nc">GCMIEstimator</span><span class="p">(</span><span class="n">BaseMIEstimator</span><span class="p">):</span>
 
-<span class="sd">    This function can be used to concatenate datasets in order to build</span>
-<span class="sd">    multi-variate electrophysiological data.</span>
+    <span class="sd">&quot;&quot;&quot;Gaussian Copula Mutual Information estimator.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ds_list : list</span>
-<span class="sd">        List of datasets (:class:`frites.dataset.DatasetEphy`)</span>
+<span class="sd">    mi_type : {&#39;cc&#39;, &#39;cd&#39;, &#39;ccd&#39;, &#39;ccc&#39;}</span>
+<span class="sd">        Mutual information type (default : &#39;cc&#39;) :</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    ds_cat : frites.dataset.DatasetEphy</span>
-<span class="sd">        Concatenated datasets.</span>
+<span class="sd">            * &#39;cc&#39; : MI between two continuous variables</span>
+<span class="sd">            * &#39;cd&#39; : MI between a continuous and a discret variables</span>
+<span class="sd">            * &#39;ccd&#39; : MI between two continuous variables conditioned by a</span>
+<span class="sd">              third discret one</span>
+<span class="sd">            * &#39;ccc&#39; : MI between two continuous variables conditioned by a</span>
+<span class="sd">              third continuous one</span>
+
+<span class="sd">    copnorm : bool | True</span>
+<span class="sd">        Apply the gaussian-copula rank normalization (default : True)</span>
+<span class="sd">    biascorrect : bool | True</span>
+<span class="sd">        Specifies whether bias correction should be applied to the estimated MI</span>
+<span class="sd">        (default : True)</span>
+<span class="sd">    demeaned : bool | False</span>
+<span class="sd">        Specifies whether the input data already has zero mean (true if it has</span>
+<span class="sd">        been copula-normalized) (default : False)</span>
+<span class="sd">    tensor : bool | True</span>
+<span class="sd">        Specify the implementation of the GCMI, either tensor-based (Nd) or</span>
+<span class="sd">        vector-based (1d). Usually, tensor-based implementation is faster but</span>
+<span class="sd">        also requires more RAM (default : True)</span>
+<span class="sd">    gpu : bool | False</span>
+<span class="sd">        Specify whether the mutual-information has to be computed on CPU</span>
+<span class="sd">        (gpu=False) or on GPU (gpu=True) (default : False)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># inputs checking</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">DatasetEphy</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ds_list</span><span class="p">])</span>
-    <span class="n">n_datasets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_list</span><span class="p">)</span>
 
-    <span class="c1"># group the data by roi</span>
-    <span class="k">for</span> <span class="n">n_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">):</span>
-        <span class="n">ds_list</span><span class="p">[</span><span class="n">n_d</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;roi&quot;</span><span class="p">)</span>
-    <span class="n">n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_x</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">_x</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_roi</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ds_list</span><span class="p">])</span>
+<div class="viewcode-block" id="GCMIEstimator.__init__"><a class="viewcode-back" href="../../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">copnorm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">biascorrect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">demeaned</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Gaussian Copula Mutual Information Estimator&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GCMIEstimator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
-    <span class="c1"># concatenate inside the first dataset</span>
-    <span class="k">for</span> <span class="n">n_r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_roi</span><span class="p">):</span>
-        <span class="n">data_r</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">n_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">):</span>
-            <span class="n">data_r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds_list</span><span class="p">[</span><span class="n">n_d</span><span class="p">]</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_r</span><span class="p">])</span>
-        <span class="c1"># put it inside the first dataset</span>
-        <span class="n">ds_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="n">n_r</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">data_r</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># =========================== Core function ===========================</span>
 
-    <span class="k">return</span> <span class="n">ds_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="c1"># get the core function for computing MI</span>
+        <span class="k">if</span> <span class="n">gpu</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tensor</span><span class="p">:</span>
+                <span class="n">fcn</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;cc&#39;</span><span class="p">:</span> <span class="n">mi_nd_gg</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="n">mi_model_nd_gd</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">:</span> <span class="n">cmi_nd_ggd</span><span class="p">,</span>
+                    <span class="s1">&#39;ccc&#39;</span><span class="p">:</span> <span class="n">cmi_nd_ggg</span><span class="p">}[</span><span class="n">mi_type</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fcn</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;cc&#39;</span><span class="p">:</span> <span class="n">mi_gg_loop</span><span class="p">,</span> <span class="s1">&#39;cd&#39;</span><span class="p">:</span> <span class="n">mi_gd_loop</span><span class="p">,</span> <span class="s1">&#39;ccd&#39;</span><span class="p">:</span> <span class="n">mi_ggd_loop</span><span class="p">,</span>
+                    <span class="s1">&#39;ccc&#39;</span><span class="p">:</span> <span class="n">mi_ggg_loop</span><span class="p">}[</span><span class="n">mi_type</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_core_fun</span> <span class="o">=</span> <span class="n">fcn</span>
+
+        <span class="c1"># ========================== Function kwargs ==========================</span>
+
+        <span class="c1"># additional arguments that are going to be passed to the core function</span>
+        <span class="k">if</span> <span class="n">tensor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">biascorrect</span><span class="o">=</span><span class="n">biascorrect</span><span class="p">,</span> <span class="n">demeaned</span><span class="o">=</span><span class="n">demeaned</span><span class="p">,</span>
+                                <span class="n">shape_checking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">traxis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mvaxis</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">biascorrect</span><span class="o">=</span><span class="n">biascorrect</span><span class="p">,</span> <span class="n">demeaned</span><span class="o">=</span><span class="n">demeaned</span><span class="p">)</span>
+        <span class="c1"># update internal settings</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">tensor</span><span class="o">=</span><span class="n">tensor</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="n">gpu</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="n">mi_type</span><span class="p">,</span>
+                        <span class="n">copnorm</span><span class="o">=</span><span class="n">copnorm</span><span class="p">,</span> <span class="n">core_fun</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_core_fun</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">,</span> <span class="n">settings</span><span class="p">])</span></div>
 
 
+<div class="viewcode-block" id="GCMIEstimator.estimate"><a class="viewcode-back" href="../../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Estimate the (possibly conditional) mutual-information.</span>
+
+<span class="sd">        This method is made for computing the mutual-information on 3D</span>
+<span class="sd">        variables (i.e (n_var, n_mv, n_samples)) where n_var is an additional</span>
+<span class="sd">        dimension (e.g times, times x freqs etc.), n_mv is a multivariate</span>
+<span class="sd">        axis and n_samples the number of samples. When computing MI, both the</span>
+<span class="sd">        multivariate and samples axes are reduced.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : array_like</span>
+<span class="sd">            Array of shape (n_var, n_mv, n_samples). If x has more than three</span>
+<span class="sd">            dimensions, it&#39;s going to be internally reshaped.</span>
+<span class="sd">        y : array_like</span>
+<span class="sd">            Array with a shape that depends on the type of MI (mi_type) :</span>
+
+<span class="sd">                * If mi_type is &#39;cc&#39; or &#39;ccd&#39;, y should be an array with the</span>
+<span class="sd">                  same shape as x</span>
+<span class="sd">                * If mi_type is &#39;cd&#39;, y should be a row vector of shape</span>
+<span class="sd">                  (n_samples,)</span>
+
+<span class="sd">        z : array_like | None</span>
+<span class="sd">            Array for conditional mutual-information. The shape is going to</span>
+<span class="sd">            depend on the type of MI (mi_type) :</span>
+
+<span class="sd">                * If mi_type is &#39;ccd&#39;, z should be a row vector of shape</span>
+<span class="sd">                  (n_samples,)</span>
+<span class="sd">                * If mi_type is &#39;ccc&#39;, z should have the same shape as x and y</span>
+
+<span class="sd">        categories : array_like | None</span>
+<span class="sd">            Row vector of categories. This vector should have a shape of</span>
+<span class="sd">            (n_samples,) and should contains integers describing the category</span>
+<span class="sd">            of each sample. If categories are provided, the copnorm is going to</span>
+<span class="sd">            be performed per categories.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        mi : array_like</span>
+<span class="sd">            Array of (possibly conditional) mutual-information of shape</span>
+<span class="sd">            (n_categories, n_var). If categories is None when computing MI,</span>
+<span class="sd">            n_categories is going to be one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fcn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GCMIEstimator.get_function"><a class="viewcode-back" href="../../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator.get_function">[docs]</a>    <span class="k">def</span> <span class="nf">get_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the function to execute according to the input parameters.</span>
+
+<span class="sd">        This can be particulary usefull when computing MI in parallel as it</span>
+<span class="sd">        avoids to pickle the whole estimator and therefore, leading to faster</span>
+<span class="sd">        computations.</span>
+
+<span class="sd">        The returned function has the following signature :</span>
+
+<span class="sd">            * fcn(x, y, z=None, categories=None)</span>
+
+<span class="sd">        and return an array of shape (n_categories, n_var).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span>
+        <span class="n">core_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_fun</span>
+        <span class="n">copnorm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;copnorm&#39;</span><span class="p">]</span>
+        <span class="n">mi_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;mi_type&#39;</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">estimator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="c1"># copnorm the data (if needed)</span>
+            <span class="k">if</span> <span class="n">copnorm</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;cc&#39;</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;ccc&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="n">z</span> <span class="o">=</span> <span class="n">copnorm_cat_nd</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1"># be sure that x is at least 3d</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="c1"># internal reshaping if x has more than 3 dimensions</span>
+            <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+            <span class="n">reshape</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">head_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">reshape</span> <span class="o">=</span> <span class="p">(</span><span class="n">head_shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">head_shape</span><span class="p">))</span>
+                <span class="n">tail_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">::]</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">reshape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">tail_shape</span><span class="p">)</span>
+
+            <span class="c1"># repeat y and z(if needed)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mi_type</span> <span class="o">!=</span> <span class="s1">&#39;cd&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">n_var</span><span class="p">,</span> <span class="n">n_mv</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">n_var</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;ccc&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">n_var</span><span class="p">,</span> <span class="n">n_mv</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">n_var</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="c1"># compute (potentially categorical) MI</span>
+            <span class="n">n_var</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">()</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="c1"># get unique non-sorted categories</span>
+                <span class="n">u_cat</span> <span class="o">=</span> <span class="n">nonsorted_unique</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
+                <span class="c1"># compute per category</span>
+                <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">u_cat</span><span class="p">),</span> <span class="n">n_var</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">n_c</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">u_cat</span><span class="p">):</span>
+                    <span class="n">is_cat</span> <span class="o">=</span> <span class="n">categories</span> <span class="o">==</span> <span class="n">c</span>
+                    <span class="k">if</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ccd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccc&#39;</span><span class="p">]:</span>
+                        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">is_cat</span><span class="p">]]</span>
+                    <span class="n">mi</span><span class="p">[</span><span class="n">n_c</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">core_fun</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">is_cat</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">is_cat</span><span class="p">],</span>
+                                          <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">mi_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ccd&#39;</span><span class="p">,</span> <span class="s1">&#39;ccc&#39;</span><span class="p">]:</span>
+                    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">z</span><span class="p">]</span>
+                <span class="n">mi</span> <span class="o">=</span> <span class="n">core_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="c1"># retrieve original shape (if needed)</span>
+            <span class="k">if</span> <span class="n">reshape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">mi</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">mi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">reshape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="k">return</span> <span class="n">mi</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">estimator</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">mi_gg_loop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;I(C; C) 1d loop.&quot;&quot;&quot;</span>
+    <span class="n">n_var</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_var</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_var</span><span class="p">):</span>
+        <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_1d_gg</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mi</span>
+
+
+<span class="k">def</span> <span class="nf">mi_gd_loop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;I(C; D) 1d loop.&quot;&quot;&quot;</span>
+    <span class="n">n_var</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_var</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_var</span><span class="p">):</span>
+        <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_model_1d_gd</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mi</span>
+
+
+<span class="k">def</span> <span class="nf">mi_ggd_loop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;I(C; C | D) 1d loop.&quot;&quot;&quot;</span>
+    <span class="n">n_var</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_var</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_var</span><span class="p">):</span>
+        <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_1d_ggd</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">z</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mi</span>
+
+
+<span class="k">def</span> <span class="nf">mi_ggg_loop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;I(C; C | C) 1d loop.&quot;&quot;&quot;</span>
+    <span class="n">n_var</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_var</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_var</span><span class="p">):</span>
+        <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_1d_ggg</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mi</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-
-    <span class="n">n_datasets</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">n_trials</span> <span class="o">=</span> <span class="mi">40</span>
-    <span class="n">n_times</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;roi_0&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;roi_1&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span>
-    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_trials</span><span class="p">)</span>
-    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="mf">256.</span>
-
-    <span class="n">datasets</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">n_d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">):</span>
-        <span class="n">ds_suj</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">n_d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">n_d</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">n_d</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">))</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span>
-                             <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
-            <span class="n">ds_suj</span> <span class="o">+=</span> <span class="p">[</span><span class="n">d</span><span class="p">]</span>
-        <span class="n">datasets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">ds_suj</span><span class="p">]</span>
-
-    <span class="n">kw_ds</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span>
-    <span class="n">ds_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">DatasetEphy</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="o">**</span><span class="n">kw_ds</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_datasets</span><span class="p">)]</span>
-    <span class="n">ds_cat</span> <span class="o">=</span> <span class="n">merge_datasets</span><span class="p">(</span><span class="n">ds_list</span><span class="p">)</span>
-
-    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">ds_cat</span><span class="o">.</span><span class="n">_x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ds_cat</span><span class="o">.</span><span class="n">_x</span><span class="p">])</span>
-
+    <span class="n">c</span> <span class="o">=</span> <span class="n">GCMIEstimator</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -597,7 +768,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-02-03.</p>
+        <p>&copy; Copyright Last updated on 2021-02-19.</p>
     </footer>
 
   </body>

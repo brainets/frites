@@ -114,7 +114,7 @@ in order to create the dataset
     print(dt)
 
     print('Time vector : ', dt.times)
-    print('ROI (first subject) : ', dt.roi[0])
+    print('ROI DataFrame\n: ', dt.df_rs)
 
 
 
@@ -125,14 +125,33 @@ in order to create the dataset
 
  .. code-block:: none
 
-    -------------------------------------------------------------------------------
-    number of (subjects, roi, time points) : (5, 5, 100)
-    minimum number of subject per roi: -inf
-    modality : electrophysiological
-    data grouped by : subject
-    copnormed : False
-    version : 0.3.7
-    -------------------------------------------------------------------------------
+    <xarray.Dataset>
+    Dimensions:    (roi: 5, times: 100, trials: 10)
+    Coordinates:
+      * trials     (trials) int64 0 1 2 3 4 5 6 7 8 9
+      * roi        (roi) <U4 'ch_0' 'ch_1' 'ch_2' 'ch_3' 'ch_4'
+        agg_ch     (roi) int64 0 0 0 0 0
+      * times      (times) float64 0.0 0.001953 0.003906 ... 0.1895 0.1914 0.1934
+        subject    (trials) int64 0 0 0 0 0 0 0 0 0 0
+    Data variables:
+        subject_0  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_1  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_2  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_3  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+        subject_4  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+    Attributes:
+        __version__:   0.3.7
+        modality:      electrophysiology
+        dtype:         DatasetEphy
+        y_dtype:       none
+        z_dtype:       none
+        mi_type:       none
+        mi_repr:       none
+        sfreq:         512.0
+        agg_ch:        True
+        multivariate:  False
+        nb_min_suj:    False
+        n_subjects:    5
     Time vector :  [0.         0.00195312 0.00390625 0.00585938 0.0078125  0.00976562
      0.01171875 0.01367188 0.015625   0.01757812 0.01953125 0.02148438
      0.0234375  0.02539062 0.02734375 0.02929688 0.03125    0.03320312
@@ -150,14 +169,23 @@ in order to create the dataset
      0.1640625  0.16601562 0.16796875 0.16992188 0.171875   0.17382812
      0.17578125 0.17773438 0.1796875  0.18164062 0.18359375 0.18554688
      0.1875     0.18945312 0.19140625 0.19335938]
-    ROI (first subject) :  ['ch_0' 'ch_1' 'ch_2' 'ch_3' 'ch_4']
+    ROI DataFrame
+    :        #subjects  ...  keep
+    roi              ...      
+    ch_0          5  ...  True
+    ch_1          5  ...  True
+    ch_2          5  ...  True
+    ch_3          5  ...  True
+    ch_4          5  ...  True
+
+    [5 rows x 3 columns]
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.140 seconds)
+   **Total running time of the script:** ( 0 minutes  0.207 seconds)
 
 
 .. _sphx_glr_download_auto_examples_dataset_plot_dataset_mne.py:

@@ -98,7 +98,7 @@ Now we define an instance of :class:`frites.dataset.DatasetEphy`
 .. code-block:: default
 
 
-    dt = DatasetEphy(x, y, roi)
+    dt = DatasetEphy(x, y=y, roi=roi, times=time)
 
 
 
@@ -145,56 +145,7 @@ information
 
  .. code-block:: none
 
-      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,  264.88it/s]
-
-
-
-Multivariate regressor
-----------------------
-
-Example above uses a univariate regressor (i.e a single column vector). But
-multivariate regressors are also supported. Here is an example
-of multivariate regressor
-
-
-.. code-block:: default
-
-
-    # take the mean over time points [10, 30]
-    sl = slice(10, 30)
-    _y_1 = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
-    # take the mean over time points [70, 90]
-    sl = slice(70, 90)
-    _y_2 = [x[k][..., sl].mean(axis=(1, 2)) for k in range(len(x))]
-    # concatenate the two vectors
-    y_mv = [np.c_[_y_1[k], _y_2[k]] for k in range(len(_y_1))]
-    print([k.shape for k in y_mv])
-
-
-    # compute the mutual information
-    dt = DatasetEphy(x, y_mv, roi)
-    mi, _ = WfMi('cc').fit(dt, mcp=None)
-    # plot the result
-    plt.plot(time, mi)
-    plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-    plt.title("Multivariate regressor")
-    plt.show()
-
-
-
-
-.. image:: /auto_examples/mi/images/sphx_glr_plot_wf_mi_cc_002.png
-    :class: sphx-glr-single-img
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    [(400, 2), (400, 2), (400, 2), (400, 2), (400, 2)]
-      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,   74.22it/s]
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    7.09it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    7.04it/s]
 
 
 
@@ -215,14 +166,14 @@ within (ffx) or between subject (rfx) statistics.
 
     # within subject statistics (ffx=fixed-effect)
     ffx_stat = 'ffx_cluster_tfce'
-    dt_ffx = DatasetEphy(x, y, roi)
-    wf_ffx = WfMi(mi_type, 'ffx')
+    dt_ffx = DatasetEphy(x, y=y, roi=roi, times=time)
+    wf_ffx = WfMi(mi_type=mi_type, inference='ffx')
     mi_ffx, pv_ffx = wf_ffx.fit(dt_ffx, mcp='cluster', cluster_th='tfce',
                                 n_perm=n_perm, n_jobs=1)
 
     # between-subject statistics (rfx=random-effect)
-    dt_rfx = DatasetEphy(x, y, roi)
-    wf_rfx = WfMi(mi_type, 'rfx')
+    dt_rfx = DatasetEphy(x, y=y, roi=roi, times=time)
+    wf_rfx = WfMi(mi_type=mi_type, inference='rfx')
     mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
                                 n_perm=n_perm, n_jobs=1)
 
@@ -248,7 +199,7 @@ within (ffx) or between subject (rfx) statistics.
 
 
 
-.. image:: /auto_examples/mi/images/sphx_glr_plot_wf_mi_cc_003.png
+.. image:: /auto_examples/mi/images/sphx_glr_plot_wf_mi_cc_002.png
     :class: sphx-glr-single-img
 
 
@@ -258,15 +209,15 @@ within (ffx) or between subject (rfx) statistics.
 
  .. code-block:: none
 
-      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    2.31it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    2.31it/s]
-      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:01<00:00,    1.43s/it]    100%|##########| Estimating MI : 1/1 [00:01<00:00,    1.43s/it]
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    1.94it/s]    100%|##########| Estimating MI : 1/1 [00:00<00:00,    1.93it/s]
+      0%|          | Estimating MI : 0/1 [00:00<?,       ?it/s]    100%|##########| Estimating MI : 1/1 [00:01<00:00,    1.84s/it]    100%|##########| Estimating MI : 1/1 [00:01<00:00,    1.84s/it]
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.837 seconds)
+   **Total running time of the script:** ( 0 minutes  8.499 seconds)
 
 
 .. _sphx_glr_download_auto_examples_mi_plot_wf_mi_cc.py:
