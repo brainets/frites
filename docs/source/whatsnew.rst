@@ -6,6 +6,10 @@ What's new
 v0.3.9
 ------
 
+Internal Changes
+++++++++++++++++
+* Connectivity metric now use the :py:class:`frites.dataset.SubjectEphy` for internal conversion of the input data
+
 
 v0.3.8
 ------
