@@ -6,14 +6,13 @@ from frites.io import set_log_level, logger
 from frites.core import mi_nd_gg, copnorm_nd
 from frites.config import CONFIG
 from frites.utils import parallel_func
-
-from frites.conn.conn_io import conn_io
+from frites.dataset import SubjectEphy
 
 from mne.utils import ProgressBar
 
 
 
-def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
+def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
              verbose=None):
     """Single trial Dynamic Functional Connectivity.
 
@@ -25,16 +24,23 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
     Parameters
     ----------
     data : array_like
-        Electrophysiological data array of a single subject organized as
-        (n_epochs, n_roi, n_times)
-    win_sample : array_like
+        Electrophysiological data. Several input types are supported :
+
+            * Standard NumPy arrays of shape (n_epochs, n_roi, n_times)
+            * mne.Epochs
+            * xarray.DataArray of shape (n_epochs, n_roi, n_times)
+
+    win_sample : array_like | None
         Array of shape (n_windows, 2) describing where each window start and
         finish. You can use the function :func:`frites.conn.define_windows`
-        to define either manually either sliding windows.
+        to define either manually either sliding windows. If None, the entire
+        time window is used instead.
     times : array_like | None
-        Time vector array of shape (n_times,)
+        Time vector array of shape (n_times,). If the input is an xarray, the
+        name of the time dimension can be provided
     roi : array_like | None
-        ROI names of a single subject
+        ROI names of a single subject. If the input is an xarray, the
+        name of the ROI dimension can be provided
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
@@ -54,17 +60,25 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
     """
     set_log_level(verbose)
     # -------------------------------------------------------------------------
-    # inputs conversion
-    data, trials, roi, times, attrs = conn_io(data, roi=roi, times=times,
-                                              verbose=verbose)
-
-    # -------------------------------------------------------------------------
-    # data checking
+    # inputs conversion and data checking
+    set_log_level(verbose)
+    if isinstance(data, xr.DataArray):
+        trials, attrs = data[data.dims[0]].data, data.attrs
+    else:
+        trials, attrs = np.arange(data.shape[0]), {}
+    # internal conversion
+    data = SubjectEphy(data, y=trials, roi=roi, times=times)
+    x, roi, times = data.data, data['roi'].data, data['times'].data
+    trials = data['y'].data
     n_epochs, n_roi, n_pts = data.shape
-    assert (len(roi) == n_roi) and (len(times) == n_pts)
+    # deal with the win_sample array
+    if win_sample is None:
+        win_sample = np.array([[0, len(times) - 1]])
     assert isinstance(win_sample, np.ndarray) and (win_sample.ndim == 2)
     assert win_sample.dtype in CONFIG['INT_DTYPE']
     n_win = win_sample.shape[0]
+
+    # -------------------------------------------------------------------------
     # get the non-directed pairs
     x_s, x_t = np.triu_indices(n_roi, k=1)
     n_pairs = len(x_s)
@@ -84,7 +98,7 @@ def conn_dfc(data, win_sample, times=None, roi=None, n_jobs=1, gcrn=True,
     with parallel as para:
         for n_w, w in enumerate(win_sample):
             # select the data in the window and copnorm across time points
-            data_w = data[..., w[0]:w[1]]
+            data_w = x[..., w[0]:w[1]]
             # apply gcrn over time
             if gcrn:
                 data_w = copnorm_nd(data_w, axis=2)
