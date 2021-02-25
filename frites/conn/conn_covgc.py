@@ -7,7 +7,7 @@ from frites.config import CONFIG
 from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
 from frites.utils import parallel_func
-from frites.conn.conn_io import conn_io
+from frites.dataset import SubjectEphy
 
 
 
@@ -248,8 +248,12 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     Parameters
     ----------
     data : array_like
-        Electrophysiological data array of a single subject organized as
-        (n_epochs, n_roi, n_times)
+        Electrophysiological data. Several input types are supported :
+
+            * Standard NumPy arrays of shape (n_epochs, n_roi, n_times)
+            * mne.Epochs
+            * xarray.DataArray of shape (n_epochs, n_roi, n_times)
+
     dt : int
         Duration of the time window for covariance correlation in samples
     lag : int
@@ -258,12 +262,12 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         Array of zero time in samples of length (n_window,)
     step : int | 1
         Number of samples stepping in the past for the lag within each trial
-    roi : array_like | None
-        Array of ROI names of shape (n_roi,). If None, default ROI names will
-        be used instead
     times : array_like | None
-        Time vector of shape (n_times,). If None, a default vector will be used
-        instead
+        Time vector array of shape (n_times,). If the input is an xarray, the
+        name of the time dimension can be provided
+    roi : array_like | None
+        ROI names of a single subject. If the input is an xarray, the
+        name of the ROI dimension can be provided
     method : {'gauss', 'gc'}
         Method for the estimation of the covgc. Use either 'gauss' which
         assumes that the time-points are normally distributed or 'gc' in order
@@ -300,23 +304,20 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         t0, CONFIG['FLOAT_DTYPE']):
         t0 = np.array([t0])
     t0 = np.asarray(t0).astype(int)
-    dt, lag, step, trials = int(dt), int(lag), int(step), None
+    dt, lag, step = int(dt), int(lag), int(step)
     # handle dataarray input
-    data, trials, roi, times, attrs = conn_io(data, roi=roi, times=times,
-                                              verbose=verbose)
+    if isinstance(data, xr.DataArray):
+        trials, attrs = data[data.dims[0]].data, data.attrs
+    else:
+        trials, attrs = np.arange(data.shape[0]), {}
+    # internal conversion
+    data = SubjectEphy(data, y=trials, roi=roi, times=times)
+    x, roi, times = data.data, data['roi'].data, data['times'].data
+    trials = data['y'].data
+    n_epochs, n_roi, n_pts = data.shape
     # force C contiguous array because operations on row-major
-    if not data.flags.c_contiguous:
-        data = np.ascontiguousarray(data)
-    n_epochs, n_roi, n_times = data.shape
-    # default roi vector
-    if roi is None:
-        roi = np.array([f"roi_{k}" for k in range(n_roi)])
-    roi = np.asarray(roi)
-    # default time vector
-    if times is None:
-        times = np.arange(n_times)
-    times = np.asarray(times)
-    assert (len(roi) == n_roi) and (len(times) == n_times)
+    if not x.flags.c_contiguous:
+        x = np.ascontiguousarray(x)
     # method checking
     assert method in ['gauss', 'gc']
     fcn = dict(gauss=_covgc, gc=_gccovgc)[method]
@@ -354,11 +355,11 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     kw_par = dict(n_jobs=n_jobs, total=len(x_s), verbose=False)
     if not conditional:
         parallel, p_fun = parallel_func(fcn, **kw_par)
-        gc = parallel(p_fun(data[:, s, :], data[:, t, :], ind_tx,
+        gc = parallel(p_fun(x[:, s, :], x[:, t, :], ind_tx,
                             t0) for s, t in zip(x_s, x_t))
     else:
         parallel, p_fun = parallel_func(_cond_gccovgc, **kw_par)
-        gc = parallel(p_fun(data, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
+        gc = parallel(p_fun(x, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
     # -------------------------------------------------------------------------
