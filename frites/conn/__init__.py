@@ -16,7 +16,6 @@ from .conn_dfc import conn_dfc  # noqa
 from .conn_transfer_entropy import conn_transfer_entropy  # noqa
 
 # connectivity utility functions
-from .conn_io import conn_io  # noqa
 from .conn_sliding_windows import define_windows, plot_windows  # noqa
 from .conn_utils import (conn_get_pairs, conn_reshape_undirected,  # noqa
                          conn_reshape_directed)
