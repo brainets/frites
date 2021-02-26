@@ -1,9 +1,10 @@
 """Dynamic Functional Connectivity."""
 import numpy as np
+import pandas as pd
 import xarray as xr
 
 from frites.io import set_log_level, logger
-from frites.core import mi_nd_gg, copnorm_nd
+from frites.core import mi_1d_gg, copnorm_nd
 from frites.config import CONFIG
 from frites.utils import parallel_func
 from frites.dataset import SubjectEphy
@@ -70,7 +71,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
     data = SubjectEphy(data, y=trials, roi=roi, times=times)
     x, roi, times = data.data, data['roi'].data, data['times'].data
     trials = data['y'].data
-    n_epochs, n_roi, n_pts = data.shape
+    n_trials = len(trials)
     # deal with the win_sample array
     if win_sample is None:
         win_sample = np.array([[0, len(times) - 1]])
@@ -79,35 +80,38 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
     n_win = win_sample.shape[0]
 
     # -------------------------------------------------------------------------
-    # get the non-directed pairs
+    # find group of brain regions
+    gp = pd.DataFrame({'roi': roi}).groupby('roi').groups
+    roi_gp, roi_idx = list(gp.keys()), list(gp.values())
+    n_roi = len(roi_gp)
     x_s, x_t = np.triu_indices(n_roi, k=1)
     n_pairs = len(x_s)
     pairs = np.c_[x_s, x_t]
-    # build roi pairs names
-    roi_p = [f"{roi[s]}-{roi[t]}" for s, t in zip(x_s, x_t)]
+    roi_p = [f"{roi_gp[s]}-{roi_gp[t]}" for s, t in zip(x_s, x_t)]
 
     # -------------------------------------------------------------------------
-    # compute dfc
-    logger.info(f'Computing DFC between {n_pairs} pairs (gcrn={gcrn})')
-    # get the parallel function
-    parallel, p_fun = parallel_func(mi_nd_gg, n_jobs=n_jobs, verbose=verbose,
-                                    prefer='threads')
-    pbar = ProgressBar(range(n_win), mesg='Estimating DFC')
+    # prepare outputs and elements
+    parallel, p_fun = parallel_func(mi_1d_gg, n_jobs=n_jobs, verbose=verbose)
+    pbar = ProgressBar(range(n_pairs), mesg='Estimating DFC')
 
-    dfc = np.zeros((n_epochs, n_pairs, n_win), dtype=np.float32)
-    with parallel as para:
+    logger.info(f'Computing DFC between {n_pairs} pairs (gcrn={gcrn})')
+    dfc = np.zeros((n_trials, n_pairs, n_win), dtype=np.float64)
+    q = 0
+
+    # -------------------------------------------------------------------------
+    # compute distance correlation
+    for s, t in zip(x_s, x_t):
         for n_w, w in enumerate(win_sample):
-            # select the data in the window and copnorm across time points
-            data_w = x[..., w[0]:w[1]]
-            # apply gcrn over time
+            _x_s = x[:, roi_idx[s], w[0]:w[1]]
+            _x_t = x[:, roi_idx[t], w[0]:w[1]]
             if gcrn:
-                data_w = copnorm_nd(data_w, axis=2)
-            # compute mi between pairs
-            _dfc = para(
-                p_fun(data_w[:, [s], :], data_w[:, [t], :],
-                      **CONFIG["KW_GCMI"]) for s, t in zip(x_s, x_t))
-            dfc[..., n_w] = np.stack(_dfc, axis=1)
-            pbar.update_with_increment_value(1)
+                _x_s = copnorm_nd(_x_s, axis=2)
+                _x_t = copnorm_nd(_x_t, axis=2)
+            _dfc = parallel(p_fun(
+                _x_s[tr, ...], _x_t[tr, ...]) for tr in range(n_trials))
+            dfc[:, q, n_w] = np.array(_dfc)
+        q += 1
+        pbar.update_with_increment_value(1)
 
     # -------------------------------------------------------------------------
     # dataarray conversion
