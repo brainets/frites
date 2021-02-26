@@ -168,7 +168,7 @@ class SubjectEphy(Attributes):
         # __________________________ Sampling rate ____________________________
         # infer the sampling frequency (if needed)
         if sfreq is None:
-            if times is not None:
+            if (times is not None) and (len(times) >= 2):
                 sfreq = 1. / (times[1] - times[0])
             else:
                 logger.warning("Impossible to infer the sampling frequency. "
