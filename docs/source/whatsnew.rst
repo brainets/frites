@@ -10,6 +10,10 @@ Internal Changes
 ++++++++++++++++
 * Connectivity metric now use the :py:class:`frites.dataset.SubjectEphy` for internal conversion of the input data
 
+Bug fixes
++++++++++
+* Fix :py:class:`frites.dataset.SubjectEphy` when the data contains a single time point (:commit:`a33d4437`)
+
 
 v0.3.8
 ------
