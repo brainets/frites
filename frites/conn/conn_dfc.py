@@ -4,13 +4,10 @@ import pandas as pd
 import xarray as xr
 
 from frites.io import set_log_level, logger
-from frites.core import mi_1d_gg, copnorm_nd
+from frites.core import mi_nd_gg, copnorm_nd
 from frites.config import CONFIG
 from frites.utils import parallel_func
 from frites.dataset import SubjectEphy
-
-from mne.utils import ProgressBar
-
 
 
 def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
@@ -91,27 +88,19 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
 
     # -------------------------------------------------------------------------
     # prepare outputs and elements
-    parallel, p_fun = parallel_func(mi_1d_gg, n_jobs=n_jobs, verbose=verbose)
-    pbar = ProgressBar(range(n_pairs), mesg='Estimating DFC')
+    n_jobs = 1 if n_win == 1 else n_jobs
+    parallel, p_fun = parallel_func(_conn_dfc, n_jobs=n_jobs, verbose=verbose,
+                                    total=n_win, mesg='Estimating DFC')
 
     logger.info(f'Computing DFC between {n_pairs} pairs (gcrn={gcrn})')
     dfc = np.zeros((n_trials, n_pairs, n_win), dtype=np.float64)
-    q = 0
 
     # -------------------------------------------------------------------------
     # compute distance correlation
-    for s, t in zip(x_s, x_t):
-        for n_w, w in enumerate(win_sample):
-            _x_s = x[:, roi_idx[s], w[0]:w[1]]
-            _x_t = x[:, roi_idx[t], w[0]:w[1]]
-            if gcrn:
-                _x_s = copnorm_nd(_x_s, axis=2)
-                _x_t = copnorm_nd(_x_t, axis=2)
-            _dfc = parallel(p_fun(
-                _x_s[tr, ...], _x_t[tr, ...]) for tr in range(n_trials))
-            dfc[:, q, n_w] = np.array(_dfc)
-        q += 1
-        pbar.update_with_increment_value(1)
+
+    dfc = parallel(p_fun(
+        x[:, :, w[0]:w[1]], x_s, x_t, roi_idx, gcrn) for w in win_sample)
+    dfc = np.stack(dfc, 2)
 
     # -------------------------------------------------------------------------
     # dataarray conversion
@@ -123,4 +112,21 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
                win_times=np.r_[tuple(win_times)], type='dfc')
     dfc.attrs = {**cfg, **attrs}
 
+    return dfc
+
+
+def _conn_dfc(x_w, x_s, x_t, roi_idx, gcrn):
+    """Parallel function for computing DFC."""
+    dfc = np.zeros((x_w.shape[0], len(x_s)))
+    # copnorm data only once
+    if gcrn:
+        x_w = copnorm_nd(x_w, axis=2)
+    # compute dfc
+    for n_p, (s, t) in enumerate(zip(x_s, x_t)):
+        # select sources and targets time-series
+        _x_s = x_w[:, roi_idx[s], :]
+        _x_t = x_w[:, roi_idx[t], :]
+        # compute mi between time-series
+        dfc[:, n_p] = mi_nd_gg(_x_s, _x_t, traxis=-1, mvaxis=-2,
+                               shape_checking=False)
     return dfc

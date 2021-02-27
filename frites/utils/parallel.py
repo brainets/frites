@@ -8,8 +8,8 @@ from mne.utils import ProgressBar
 from frites.io import set_log_level, logger
 
 
-def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
-                  **kwargs):
+def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, mesg=None,
+                  cache_dir=None, **kwargs):
     """Get an instance of parallel and delayed function.
 
     This function is inspired by MNE's one.
@@ -25,6 +25,8 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
         jobs. This should only be used when directly iterating, not when
         using ``split_list`` or :func:`np.array_split`.
         If None (default), do not add a progress bar.
+    mesg : string | None
+        Message to display on the progress bar
     cache_dir : string | None
         If path to an existing directory, the function is going to cache the
         computations
@@ -59,7 +61,8 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, cache_dir=None,
 
     if total is not None:
         def parallel_progress(op_iter):
-            return parallel(ProgressBar(iterable=op_iter, max_value=total))
+            return parallel(ProgressBar(iterable=op_iter, max_value=total,
+                                        mesg=mesg))
         parallel_out = parallel_progress
     else:
         parallel_out = parallel
