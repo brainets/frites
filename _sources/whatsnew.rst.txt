@@ -6,6 +6,10 @@ What's new
 v0.3.9
 ------
 
+New Features
+++++++++++++
+* :py:`frites.conn.conn_dfc` supports multivariate data + improve computing efficiency (:commit:`1aed842`, :commit:`c4ac490`)
+
 Internal Changes
 ++++++++++++++++
 * Connectivity metric now use the :py:class:`frites.dataset.SubjectEphy` for internal conversion of the input data
