@@ -303,8 +303,17 @@ def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order,
     """Unstack a 1d to 2d DataArray."""
     import pandas as pd
 
+    # build the multi-index
     da['roi'] = pd.MultiIndex.from_arrays(
         [sources, targets], names=['sources', 'targets'])
+    # test for duplicated entries
+    st_names = pd.Series([f"{s}-{t}" for s, t in zip(sources, targets)])
+    duplicates = np.array(list(st_names.duplicated(keep='first')))
+    if duplicates.any():
+        logger.warning(f"Duplicated entries found and removed : "
+                       f"{da['roi'].data[duplicates]}")
+        da = da.sel(roi=~duplicates)
+    # unstack to be 2D/3D
     da = da.unstack(fill_value=fill_value)
 
     # transpose, reindex and reorder (if needed)
