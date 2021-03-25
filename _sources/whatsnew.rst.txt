@@ -9,6 +9,7 @@ v0.3.9
 New Features
 ++++++++++++
 * :py:`frites.conn.conn_dfc` supports multivariate data + improve computing efficiency (:commit:`1aed842`, :commit:`c4ac490`)
+* Reshaping connectivity arrays support elements on the diagonal + internal drop of duplicated elements (:commit:`daac241f`)
 
 Internal Changes
 ++++++++++++++++
@@ -17,6 +18,7 @@ Internal Changes
 Bug fixes
 +++++++++
 * Fix :py:class:`frites.dataset.SubjectEphy` when the data contains a single time point (:commit:`a33d4437`)
+* Fix attributes of :py:class:`frites.conn.conn_covgc` (:commit:`c120626`)
 
 
 v0.3.8
