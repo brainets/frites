@@ -546,7 +546,9 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can&#39;t estimate the entropy properly of the input &quot;</span>
                          <span class="sa">f</span><span class="s2">&quot;matrix of shape </span><span class="si">{</span><span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Try to increase the &quot;</span>
                          <span class="s2">&quot;step&quot;</span><span class="p">)</span>
+    <span class="c1"># Compute entropy</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">h</span>
 
 
@@ -848,10 +850,10 @@
     <span class="n">roi_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">roi</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span><span class="p">)])</span>
     <span class="c1"># check the ratio between lag and dt</span>
     <span class="n">ratio</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">ind_tx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">step</span> <span class="o">*</span> <span class="n">ind_tx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="mf">10.</span> <span class="o">&lt;=</span> <span class="n">ratio</span> <span class="o">&lt;=</span> <span class="mf">15.</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ratio</span> <span class="o">&lt;=</span> <span class="mf">15.</span><span class="p">:</span>
         <span class="n">_step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">lag</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="o">.</span><span class="mi">15</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)))</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The ratio between the lag and dt is </span><span class="si">{</span><span class="n">ratio</span><span class="si">}</span><span class="s2">%. It&#39;s &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;recommended to conserve this ratio between 10-15%.&quot;</span>
+                       <span class="sa">f</span><span class="s2">&quot;recommended to conserve this ratio less than 10-15%.&quot;</span>
                        <span class="sa">f</span><span class="s2">&quot; Try with a step=</span><span class="si">{</span><span class="n">_step</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Index shape : </span><span class="si">{</span><span class="n">ind_tx</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -876,8 +878,8 @@
     <span class="n">gc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span><span class="p">,</span> <span class="n">dire</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;covgc&#39;</span><span class="p">)</span>
     <span class="c1"># set attributes</span>
-    <span class="n">cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lag</span><span class="o">=</span><span class="s1">&#39;lag&#39;</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="s1">&#39;t0&#39;</span><span class="p">,</span>
-               <span class="n">conditional</span><span class="o">=</span><span class="s1">&#39;conditional&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;covgc&#39;</span><span class="p">)</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lag</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span>
+               <span class="n">conditional</span><span class="o">=</span><span class="n">conditional</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;covgc&#39;</span><span class="p">)</span>
     <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">attrs</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">gc</span></div>
@@ -925,7 +927,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-22.</p>
+        <p>&copy; Copyright Last updated on 2021-03-25.</p>
     </footer>
 
   </body>
