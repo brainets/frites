@@ -38,7 +38,9 @@ def entr(xy):
         raise ValueError(f"Can't estimate the entropy properly of the input "
                          f"matrix of shape {xy.shape}. Try to increase the "
                          "step")
+    # Compute entropy
     h = np.log(det)
+
     return h
 
 
@@ -340,10 +342,10 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     roi_p = np.array([f"{roi[s]}-{roi[t]}" for s, t in zip(x_s, x_t)])
     # check the ratio between lag and dt
     ratio = 100 * (ind_tx.shape[0] / (step * ind_tx.shape[1]))
-    if not 10. <= ratio <= 15.:
+    if not ratio <= 15.:
         _step = int(np.ceil((lag + 1) / (.15 * dt)))
         logger.warning(f"The ratio between the lag and dt is {ratio}%. It's "
-                       f"recommended to conserve this ratio between 10-15%."
+                       f"recommended to conserve this ratio less than 10-15%."
                        f" Try with a step={_step}")
     logger.debug(f"Index shape : {ind_tx.shape}")
 
@@ -368,8 +370,8 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     gc = xr.DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
                       coords=(trials, roi_p, times_p, dire), name='covgc')
     # set attributes
-    cfg = dict(lag='lag', step='step', dt='dt', t0='t0',
-               conditional='conditional', type='covgc')
+    cfg = dict(lag=lag, step=step, dt=dt, t0=t0,
+               conditional=conditional, type='covgc')
     gc.attrs = {**attrs, **cfg}
 
     return gc
