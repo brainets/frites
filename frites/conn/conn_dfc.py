@@ -122,8 +122,9 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
     dfc = xr.DataArray(dfc, dims=('trials', 'roi', 'times'), name='dfc',
                        coords=(trials, roi_p, win_times.mean(1)))
     # add the windows used in the attributes
-    cfg = dict(win_sample=np.r_[tuple(win_sample)],
-               win_times=np.r_[tuple(win_times)], type='dfc')
+    cfg = dict(
+        win_sample=np.r_[tuple(win_sample)], win_times=np.r_[tuple(win_times)],
+        agg_ch=agg_ch, type='dfc')
     dfc.attrs = {**cfg, **attrs}
 
     return dfc
