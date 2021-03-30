@@ -10,6 +10,7 @@ New Features
 ++++++++++++
 * :py:`frites.conn.conn_dfc` supports multivariate data + improve computing efficiency (:commit:`1aed842`, :commit:`c4ac490`)
 * Reshaping connectivity arrays support elements on the diagonal + internal drop of duplicated elements (:commit:`daac241f`)
+* :py:`frites.conn.conn_dfc` supports better channel aggregation (:commit:`a66faa77`)
 
 Internal Changes
 ++++++++++++++++
