@@ -38,6 +38,22 @@ class TestConn(object):
         dfc = conn_dfc(x, win_sample, times=times, roi=roi)
         assert isinstance(dfc, xr.DataArray)
 
+        # test empty window definition + sorted channel aggregation
+        x = np.random.rand(10, 3, 100)
+        trials = np.arange(10)
+        roi = ['roi_1', 'roi_0', 'roi_0']
+        times = (np.arange(100) - 10) / 64.
+        x = xr.DataArray(x, dims=('trials', 'roi', 'times'),
+                         coords=(trials, roi, times))
+        dfc = conn_dfc(x, times='times', roi='roi', agg_ch=False)
+        assert dfc.shape == (10, 3, 1)
+        np.testing.assert_array_equal(
+            dfc['roi'].data, ['roi_0-roi_1', 'roi_0-roi_1', 'roi_0-roi_0'])
+
+        dfc = conn_dfc(x, times='times', roi='roi', agg_ch=True)
+        assert dfc.shape == (10, 1, 1)
+        np.testing.assert_array_equal(dfc['roi'].data, ['roi_0-roi_1'])
+
     def test_conn_covgc(self):
         """Test function conn_covgc."""
         n_epochs = 5

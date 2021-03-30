@@ -11,7 +11,7 @@ from frites.dataset import SubjectEphy
 
 
 def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
-             verbose=None):
+             agg_ch=False, verbose=None):
     """Single trial Dynamic Functional Connectivity.
 
     This function computes the Dynamic Functional Connectivity (DFC) using the
@@ -46,6 +46,13 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
         Specify if the Gaussian Copula Rank Normalization should be applied.
         If the data are normalized (e.g z-score) this parameter can be set to
         False because the data can be considered as gaussian over time.
+    agg_ch : bool | False
+        In case there are multiple electrodes, channels, contacts or sources
+        inside a brain region, specify how the data has to be aggregated. Use
+        either :
+
+            * agg_ch=False : compute the pairwise DFC aross all possible pairs
+            * agg_ch=True : compute the multivariate MI
 
     Returns
     -------
@@ -78,13 +85,20 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
 
     # -------------------------------------------------------------------------
     # find group of brain regions
-    gp = pd.DataFrame({'roi': roi}).groupby('roi').groups
-    roi_gp, roi_idx = list(gp.keys()), list(gp.values())
+    if agg_ch:
+        logger.info('    Grouping pairs of brain regions')
+        gp = pd.DataFrame({'roi': roi}).groupby('roi').groups
+        roi_gp = np.array(list(gp.keys()))
+        roi_idx = np.array(list(gp.values()))
+    else:
+        roi_gp, roi_idx = roi, np.arange(len(roi)).reshape(-1, 1)
     n_roi = len(roi_gp)
     x_s, x_t = np.triu_indices(n_roi, k=1)
     n_pairs = len(x_s)
-    pairs = np.c_[x_s, x_t]
-    roi_p = [f"{roi_gp[s]}-{roi_gp[t]}" for s, t in zip(x_s, x_t)]
+    # build names of pairs of brain regions
+    roi_s, roi_t = roi_gp[x_s], roi_gp[x_t]
+    roi_s, roi_t = np.sort(np.c_[roi_s, roi_t], axis=1).T
+    roi_p = [f"{s}-{t}" for s, t in zip(roi_s, roi_t)]
 
     # -------------------------------------------------------------------------
     # prepare outputs and elements
