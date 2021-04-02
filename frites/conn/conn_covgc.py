@@ -34,10 +34,21 @@ def entr(xy):
     out /= (n_c - 1)
     # compute determinant
     det = np.linalg.det(out)
-    if not det > 0:
-        raise ValueError(f"Can't estimate the entropy properly of the input "
-                         f"matrix of shape {xy.shape}. Try to increase the "
-                         "step")
+    if det <= 0:
+        logger.error("Using OAS to solve determinant issue")
+        from sklearn.covariance import oas, ledoit_wolf
+        det = np.linalg.det(oas(xy.T, assume_centered=True)[0])
+        if det <= 0:
+            logger.error("Using Ledoit-Wolf to solve determinant issue")
+            from sklearn.covariance import ledoit_wolf
+            det = np.linalg.det(oas(xy.T, assume_centered=True)[0])
+            if det <= 0:
+                logger.error("Using minimum float as a determinant")
+                det = np.nextafter(0, 1)
+    # if not det > 0:
+    #     raise ValueError(f"Can't estimate the entropy properly of the input "
+    #                      f"matrix of shape {xy.shape}. Try to increase the "
+    #                      "step")
     # Compute entropy
     h = np.log(det)
 
