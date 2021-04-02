@@ -57,7 +57,7 @@ def parallel_func(fcn, n_jobs=-1, verbose=None, total=None, mesg=None,
 
     # parallel functions
     para_fcn = delayed(fcn)
-    parallel = Parallel(n_jobs, **kwargs)
+    parallel = Parallel(n_jobs=n_jobs, **kwargs)
 
     if total is not None:
         def parallel_progress(op_iter):
