@@ -152,7 +152,7 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
                             fill_value=np.nan, to_dataframe=False,
-                            inplace=False):
+                            inplace=False, verbose=None):
     """Reshape a raveled undirected array of connectivity.
 
     This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)
@@ -187,6 +187,7 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
     --------
     conn_dfc
     """
+    set_log_level(verbose)
     assert isinstance(da, xr.DataArray)
     if not inplace:
         da = da.copy()
@@ -213,7 +214,7 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
 
 def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
                           fill_value=np.nan, to_dataframe=False,
-                          inplace=False):
+                          inplace=False, verbose=None):
     """Reshape a raveled directed array of connectivity.
 
     This function takes a DataArray of shape (n_pairs, n_directions) or
@@ -254,6 +255,7 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     --------
     conn_covgc
     """
+    set_log_level(verbose)
     assert isinstance(da, xr.DataArray)
     if not inplace:
         da = da.copy()
