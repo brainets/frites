@@ -151,11 +151,17 @@ class DatasetEphy(object):
     def __repr__(self):
         """String representation."""
         dt = []
-        for k in range(len(self._x)):
-            da = xr.DataArray(dims=self._x[k].dims, coords=self._x[k].coords,
-                              name=self._x[k].name)
-            dt.append(da)
-        return repr(self.attrs.wrap_xr(xr.merge(dt, compat='override')))
+        for k in self._x:
+            dt += [repr(k)]
+        return '\n'.join(dt)
+
+    def _repr_html_(self):
+        from xarray.core.formatting_html import collapsible_section
+        dt = []
+        for k in self._x:
+            dt += [collapsible_section(k.name, details=k._repr_html_(),
+                                       n_items=1, collapsed=True)]
+        return "".join(f"<li class='xr-section-item'>{s}</li>" for s in dt)
 
 
     def _update_internals(self):
