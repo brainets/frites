@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Estimate dynamic functional connectivity &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -520,7 +521,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-dfc-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimate-dynamic-functional-connectivity">
+<section class="sphx-glr-example-title" id="estimate-dynamic-functional-connectivity">
 <span id="sphx-glr-auto-examples-conn-plot-dfc-py"></span><h1>Estimate dynamic functional connectivity<a class="headerlink" href="#estimate-dynamic-functional-connectivity" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the dynamic functional connectivity
 (DFC) using the mutual information (MI). This type of connectivity is computed
@@ -535,7 +536,7 @@ for each trial either inside a single window or across multiple windows.</p>
 <span class="c1"># plt.style.use(&#39;seaborn-white&#39;)</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-electrophysiological-data">
+<section id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 a single subject. The output data of this single subject has a shape of
@@ -549,8 +550,8 @@ a single subject. The output data of this single subject has a shape of
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="simulate-spatial-correlations">
+</section>
+<section id="simulate-spatial-correlations">
 <h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">¶</a></h2>
 <p>Bellow, we are simulating some distant correlations by injecting the
 activity of an ROI to another</p>
@@ -565,8 +566,8 @@ activity of an ROI to another</p>
 Corr 2 : L_VCs-L_VCl between [0.20120120120120122-0.6016016016016015]
 </pre></div>
 </div>
-</div>
-<div class="section" id="define-sliding-windows">
+</section>
+<section id="define-sliding-windows">
 <h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">¶</a></h2>
 <p>Next, we define, and plot sliding windows in order to compute the DFC on
 consecutive time windows. In this example we used windows of length 100ms
@@ -583,8 +584,8 @@ and 5ms between each consecutive windows</p>
 <span class="c1"># plt.show()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-dfc">
+</section>
+<section id="compute-the-dfc">
 <h2>Compute the DFC<a class="headerlink" href="#compute-the-dfc" title="Permalink to this headline">¶</a></h2>
 <p>The DFC is going to be computed per trials, bewteen pairs of ROI and inside
 each of the temporal window</p>
@@ -602,14 +603,16 @@ each of the temporal window</p>
 <img alt="../../_images/sphx_glr_plot_dfc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/24 [00:00&lt;?,       ?it/s]
-  8%|8         | Estimating DFC : 2/24 [00:00&lt;00:01,   21.02it/s]
- 21%|##        | Estimating DFC : 5/24 [00:00&lt;00:00,   21.99it/s]
- 33%|###3      | Estimating DFC : 8/24 [00:00&lt;00:00,   23.01it/s]
- 46%|####5     | Estimating DFC : 11/24 [00:00&lt;00:00,   24.06it/s]
- 58%|#####8    | Estimating DFC : 14/24 [00:00&lt;00:00,   25.16it/s]
- 71%|#######   | Estimating DFC : 17/24 [00:00&lt;00:00,   26.29it/s]
- 88%|########7 | Estimating DFC : 21/24 [00:00&lt;00:00,   27.47it/s]
-100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,  112.66it/s]
+  8%|8         | Estimating DFC : 2/24 [00:00&lt;00:00,   99.85it/s]
+ 17%|#6        | Estimating DFC : 4/24 [00:00&lt;00:00,   92.04it/s]
+ 21%|##        | Estimating DFC : 5/24 [00:00&lt;00:00,   83.87it/s]
+ 33%|###3      | Estimating DFC : 8/24 [00:00&lt;00:00,   85.93it/s]
+ 46%|####5     | Estimating DFC : 11/24 [00:00&lt;00:00,   88.06it/s]
+ 67%|######6   | Estimating DFC : 16/24 [00:00&lt;00:00,   91.29it/s]
+ 75%|#######5  | Estimating DFC : 18/24 [00:00&lt;00:00,   92.31it/s]
+ 83%|########3 | Estimating DFC : 20/24 [00:00&lt;00:00,   93.41it/s]
+ 96%|#########5| Estimating DFC : 23/24 [00:00&lt;00:00,   95.18it/s]
+100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,  108.97it/s]
 &lt;xarray.DataArray &#39;dfc&#39; (trials: 50, roi: 3, times: 24)&gt;
 array([[[-1.50277568e-02,  8.54966555e-02,  5.86961907e-01, ...,
           1.15175133e-01,  1.38465044e-02,  1.15823294e-01],
@@ -663,7 +666,7 @@ Attributes:
     type:        dfc
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.841 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.131 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db13bd35cb06905f90dd5dbec6da8240/plot_dfc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc.py</span></code></a></p>
@@ -673,8 +676,8 @@ Attributes:
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -701,7 +704,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

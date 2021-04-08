@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Estimate comodulations between brain areas &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -521,7 +522,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-conn-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimate-comodulations-between-brain-areas">
+<section class="sphx-glr-example-title" id="estimate-comodulations-between-brain-areas">
 <span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate comodulations between brain areas<a class="headerlink" href="#estimate-comodulations-between-brain-areas" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to estimate the instantaneous comodulations using
 mutual information between pairwise ROI and also perform statistics.</p>
@@ -538,7 +539,7 @@ mutual information between pairwise ROI and also perform statistics.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-electrophysiological-data">
+<section id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 multiple subjects using the function
@@ -555,8 +556,8 @@ n_epochs, n_sites, n_times</p>
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="simulate-spatial-correlations">
+</section>
+<section id="simulate-spatial-correlations">
 <h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">¶</a></h2>
 <p>Bellow, we start by simulating some distant correlations by injecting the
 activity of an ROI to another</p>
@@ -572,15 +573,15 @@ activity of an ROI to another</p>
 Corr 2 : L_VCs-L_Cu between [0.21212121212121215-0.6161616161616164]
 </pre></div>
 </div>
-</div>
-<div class="section" id="define-the-electrophysiological-dataset">
+</section>
+<section id="define-the-electrophysiological-dataset">
 <h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Now we define an instance of <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-pairwise-connectivity">
+</section>
+<section id="compute-the-pairwise-connectivity">
 <h2>Compute the pairwise connectivity<a class="headerlink" href="#compute-the-pairwise-connectivity" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
 <a class="reference internal" href="../../generated/frites.workflow.WfConnComod.html#frites.workflow.WfConnComod" title="frites.workflow.WfConnComod"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfConnComod</span></code></a>. This instance is then used to compute
@@ -595,13 +596,13 @@ the pairwise connectivity</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/6 [00:00&lt;?,       ?it/s]
- 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:01,    3.56it/s]
- 33%|###3      | Estimating MI : 2/6 [00:00&lt;00:01,    3.58it/s]
- 50%|#####     | Estimating MI : 3/6 [00:00&lt;00:00,    3.61it/s]
- 67%|######6   | Estimating MI : 4/6 [00:01&lt;00:00,    3.62it/s]
- 83%|########3 | Estimating MI : 5/6 [00:01&lt;00:00,    3.63it/s]
-100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.62it/s]
-100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.83it/s]
+ 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:03,    1.60it/s]
+ 33%|###3      | Estimating MI : 2/6 [00:01&lt;00:02,    1.60it/s]
+ 50%|#####     | Estimating MI : 3/6 [00:01&lt;00:01,    1.61it/s]
+ 67%|######6   | Estimating MI : 4/6 [00:02&lt;00:01,    1.61it/s]
+ 83%|########3 | Estimating MI : 5/6 [00:02&lt;00:00,    1.63it/s]
+100%|##########| Estimating MI : 6/6 [00:03&lt;00:00,    1.63it/s]
+100%|##########| Estimating MI : 6/6 [00:03&lt;00:00,    1.69it/s]
 &lt;xarray.DataArray &#39;mi&#39; (times: 100, roi: 6)&gt;
 array([[ 3.81100170e-02,  9.93129635e-03,  3.08063622e-02,
         -1.57432552e-02, -6.46413969e-03, -1.42072425e-02],
@@ -663,8 +664,8 @@ Attributes: (12/15)
     type:            mi
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-the-result-of-the-dataarray">
+</section>
+<section id="plot-the-result-of-the-dataarray">
 <h2>Plot the result of the DataArray<a class="headerlink" href="#plot-the-result-of-the-dataarray" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># set to NaN everywhere it&#39;s not significant</span>
 <span class="n">is_signi</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">05</span>
@@ -690,7 +691,7 @@ Attributes: (12/15)
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_conn_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_conn_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.394 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.549 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/31a26a1996e5a607840326d75d11b163/plot_conn.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_conn.py</span></code></a></p>
@@ -700,8 +701,8 @@ Attributes: (12/15)
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -728,7 +729,7 @@ Attributes: (12/15)
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

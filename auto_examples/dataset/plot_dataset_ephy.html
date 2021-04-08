@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Build an electrophysiological dataset &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -520,7 +521,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="build-an-electrophysiological-dataset">
+<section class="sphx-glr-example-title" id="build-an-electrophysiological-dataset">
 <span id="sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"></span><h1>Build an electrophysiological dataset<a class="headerlink" href="#build-an-electrophysiological-dataset" title="Permalink to this headline">¶</a></h1>
 <p>In Frites, a dataset is a structure for grouping the electrophysiological data
 (e.g MEG / EEG / Intracranial) coming from multiple subjects. In addition,
@@ -533,7 +534,7 @@ this example we illutrate how to define a dataset using NumPy arrays.</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
-<div class="section" id="create-artificial-data">
+<section id="create-artificial-data">
 <h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">¶</a></h2>
 <p>We start by creating some random data for several subjects. To do that, each
 subject is going have a 3 dimensional array of shape
@@ -558,8 +559,8 @@ in a list of length (n_subjects,)</p>
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-the-dataset">
+</section>
+<section id="create-the-dataset">
 <h2>Create the dataset<a class="headerlink" href="#create-the-dataset" title="Permalink to this headline">¶</a></h2>
 <p>The creation of the dataset is performed using the class
 <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
@@ -575,24 +576,58 @@ in a list of length (n_subjects,)</p>
 </div>
 <img alt="../../_images/sphx_glr_plot_dataset_ephy_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dataset_ephy_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.Dataset&gt;
-Dimensions:    (roi: 5, times: 1000, trials: 10)
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray &#39;subject_0&#39; (trials: 10, roi: 5, times: 1000)&gt;
+array([[[3.54320111e-01, 4.41415030e-01, 7.78439427e-01, ...,
+         2.82146179e-01, 3.20897807e-01, 4.84740726e-01],
+        [8.72357122e-01, 9.28505131e-02, 6.72869629e-01, ...,
+         9.79656176e-01, 5.44448638e-01, 9.51867010e-01],
+        [9.43354183e-01, 6.27495728e-01, 2.81037202e-01, ...,
+         4.21205182e-01, 9.94906238e-01, 9.90020795e-02],
+        [3.99579998e-02, 3.03906254e-01, 3.96968411e-01, ...,
+         6.09686419e-01, 4.28427728e-01, 5.09175146e-01],
+        [5.48691231e-01, 9.00845865e-01, 1.60861708e-01, ...,
+         8.35179068e-01, 3.53875412e-01, 4.29349075e-01]],
+
+       [[1.87898746e-01, 5.76159585e-01, 5.86741351e-01, ...,
+         6.20590333e-01, 8.03554856e-01, 8.39006020e-01],
+        [5.98592016e-01, 7.64694078e-02, 8.33740775e-01, ...,
+         9.62218181e-01, 5.10702964e-01, 8.20392304e-01],
+        [6.71028749e-01, 3.57114031e-01, 9.64399513e-02, ...,
+         4.72057244e-01, 3.62159303e-01, 9.93875526e-01],
+        [7.42006010e-01, 6.30202824e-01, 1.17113220e-01, ...,
+         1.01650588e-02, 2.99345581e-01, 9.50925447e-01],
+        [8.17693010e-02, 3.06043319e-01, 7.68318171e-01, ...,
+...
+         5.90044132e-01, 1.04554072e-01, 3.73894708e-01],
+        [5.67721118e-02, 4.98884390e-02, 7.41253486e-01, ...,
+         5.97160241e-01, 5.08766151e-01, 2.99761510e-01],
+        [2.91541252e-01, 6.02282333e-02, 6.68631203e-01, ...,
+         4.66300451e-01, 6.22560310e-01, 5.03974759e-02],
+        [8.90300137e-01, 5.06316021e-01, 3.33464061e-01, ...,
+         6.17557457e-01, 8.15739644e-01, 6.88455902e-01],
+        [7.73735392e-01, 8.89422117e-01, 5.45487706e-01, ...,
+         1.51763396e-01, 4.02528405e-02, 3.02565415e-01]],
+
+       [[7.25360317e-01, 7.59761555e-01, 2.89567809e-01, ...,
+         9.80222509e-01, 1.99861383e-01, 5.29505422e-01],
+        [4.06183943e-01, 4.96441572e-01, 5.10316419e-01, ...,
+         9.73744349e-01, 3.03213405e-01, 1.75975120e-01],
+        [3.37647139e-01, 8.70901682e-01, 7.86069013e-01, ...,
+         6.16028229e-01, 7.89205436e-01, 9.80543814e-02],
+        [6.52338335e-01, 4.14887974e-01, 3.12158161e-01, ...,
+         7.17888843e-01, 6.02409681e-01, 8.27570399e-01],
+        [2.82056559e-01, 2.66370756e-01, 3.22819990e-01, ...,
+         3.22040198e-01, 6.46913455e-01, 2.34763880e-02]]])
 Coordinates:
-  * trials     (trials) int64 0 1 2 3 4 5 6 7 8 9
-  * roi        (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
-    agg_ch     (roi) int64 0 0 0 0 0
-  * times      (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
-    subject    (trials) int64 0 0 0 0 0 0 0 0 0 0
-Data variables:
-    subject_0  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
-    subject_1  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
-    subject_2  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
-    subject_3  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
-    subject_4  (trials, roi, times) float64 nan nan nan nan ... nan nan nan nan
+  * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9
+  * roi      (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch   (roi) int64 0 0 0 0 0
+  * times    (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
+    subject  (trials) int64 0 0 0 0 0 0 0 0 0 0
 Attributes:
     __version__:   0.3.8
     modality:      electrophysiology
-    dtype:         DatasetEphy
+    dtype:         SubjectEphy
     y_dtype:       none
     z_dtype:       none
     mi_type:       none
@@ -600,12 +635,246 @@ Attributes:
     sfreq:         512.0
     agg_ch:        True
     multivariate:  False
-    nb_min_suj:    False
-    n_subjects:    5
+&lt;xarray.DataArray &#39;subject_1&#39; (trials: 10, roi: 5, times: 1000)&gt;
+array([[[0.31081323, 0.45356589, 0.41361982, ..., 0.42137985,
+         0.65853353, 0.22275728],
+        [0.21677321, 0.63688009, 0.12280608, ..., 0.46419649,
+         0.24186401, 0.10497563],
+        [0.79884106, 0.94579929, 0.02938151, ..., 0.02780425,
+         0.3061826 , 0.52008029],
+        [0.35935608, 0.55894095, 0.22023662, ..., 0.5065066 ,
+         0.77090403, 0.7378961 ],
+        [0.99853472, 0.36036763, 0.37763079, ..., 0.32448485,
+         0.43921449, 0.43726982]],
+
+       [[0.10517783, 0.00692194, 0.57096338, ..., 0.01107555,
+         0.08035804, 0.94387788],
+        [0.09895572, 0.26917386, 0.63037313, ..., 0.90541367,
+         0.37371901, 0.88259954],
+        [0.30159641, 0.53902518, 0.82057434, ..., 0.00716552,
+         0.69000393, 0.87907855],
+        [0.9254269 , 0.57302362, 0.01105966, ..., 0.57902874,
+         0.58495032, 0.12856159],
+        [0.12959702, 0.8936563 , 0.68369974, ..., 0.8564748 ,
+...
+         0.1325866 , 0.62204011],
+        [0.1461014 , 0.30901691, 0.33274352, ..., 0.47005348,
+         0.8659903 , 0.0363713 ],
+        [0.99521814, 0.66255342, 0.40385761, ..., 0.07543182,
+         0.49934366, 0.71628321],
+        [0.22513451, 0.41456953, 0.97961229, ..., 0.78482605,
+         0.55755065, 0.96600502],
+        [0.79631541, 0.10252667, 0.08021093, ..., 0.30503172,
+         0.26505761, 0.12414753]],
+
+       [[0.52668221, 0.647562  , 0.9266125 , ..., 0.08151289,
+         0.71423663, 0.27961661],
+        [0.58419063, 0.0544918 , 0.80956873, ..., 0.41256821,
+         0.02882558, 0.43710381],
+        [0.84055053, 0.73013442, 0.05383   , ..., 0.73681991,
+         0.59903661, 0.17942173],
+        [0.0858387 , 0.21487497, 0.36713387, ..., 0.21172534,
+         0.55717077, 0.22673997],
+        [0.23621196, 0.99474212, 0.82246503, ..., 0.25858443,
+         0.76018603, 0.42946595]]])
+Coordinates:
+  * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9
+  * roi      (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch   (roi) int64 0 0 0 0 0
+  * times    (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
+    subject  (trials) int64 1 1 1 1 1 1 1 1 1 1
+Attributes:
+    __version__:   0.3.8
+    modality:      electrophysiology
+    dtype:         SubjectEphy
+    y_dtype:       none
+    z_dtype:       none
+    mi_type:       none
+    mi_repr:       none
+    sfreq:         512.0
+    agg_ch:        True
+    multivariate:  False
+&lt;xarray.DataArray &#39;subject_2&#39; (trials: 10, roi: 5, times: 1000)&gt;
+array([[[0.81871618, 0.77835417, 0.67305264, ..., 0.54947528,
+         0.9349607 , 0.19096798],
+        [0.94327044, 0.27347626, 0.05335537, ..., 0.59981134,
+         0.73805318, 0.01759698],
+        [0.3999243 , 0.12780765, 0.74570486, ..., 0.42190401,
+         0.59237689, 0.78100151],
+        [0.67941043, 0.48017827, 0.24024468, ..., 0.28936307,
+         0.57733019, 0.28965838],
+        [0.04219855, 0.8278757 , 0.80575085, ..., 0.72201121,
+         0.8128371 , 0.42850747]],
+
+       [[0.44983028, 0.22148664, 0.29720352, ..., 0.10291506,
+         0.20708238, 0.19880538],
+        [0.68484829, 0.85264604, 0.72409652, ..., 0.04675746,
+         0.20734283, 0.43528978],
+        [0.0294324 , 0.82879655, 0.91639527, ..., 0.85408384,
+         0.31418442, 0.00713025],
+        [0.24799237, 0.49032605, 0.54801854, ..., 0.40680219,
+         0.20297105, 0.4324226 ],
+        [0.90069464, 0.83577055, 0.82285849, ..., 0.10111776,
+...
+         0.53684504, 0.73812179],
+        [0.85362697, 0.86026379, 0.89752829, ..., 0.96344388,
+         0.4864235 , 0.32484553],
+        [0.26041168, 0.32205641, 0.26696327, ..., 0.94003303,
+         0.02459616, 0.75849559],
+        [0.29905308, 0.19263832, 0.26777923, ..., 0.67038742,
+         0.4449894 , 0.14934079],
+        [0.89612112, 0.64759882, 0.32662909, ..., 0.75241324,
+         0.48290315, 0.93430052]],
+
+       [[0.75730375, 0.85925291, 0.00468004, ..., 0.07459717,
+         0.9532994 , 0.24782544],
+        [0.64971938, 0.93968829, 0.77603506, ..., 0.29841301,
+         0.38324712, 0.25894881],
+        [0.83360452, 0.19214853, 0.94706472, ..., 0.74490759,
+         0.17221093, 0.2333028 ],
+        [0.88482839, 0.75524901, 0.62528722, ..., 0.6485099 ,
+         0.54631113, 0.6523195 ],
+        [0.67982932, 0.88878701, 0.13822815, ..., 0.88248879,
+         0.76396684, 0.44765969]]])
+Coordinates:
+  * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9
+  * roi      (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch   (roi) int64 0 0 0 0 0
+  * times    (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
+    subject  (trials) int64 2 2 2 2 2 2 2 2 2 2
+Attributes:
+    __version__:   0.3.8
+    modality:      electrophysiology
+    dtype:         SubjectEphy
+    y_dtype:       none
+    z_dtype:       none
+    mi_type:       none
+    mi_repr:       none
+    sfreq:         512.0
+    agg_ch:        True
+    multivariate:  False
+&lt;xarray.DataArray &#39;subject_3&#39; (trials: 10, roi: 5, times: 1000)&gt;
+array([[[0.95296739, 0.23751068, 0.09522262, ..., 0.05778031,
+         0.23804609, 0.78956056],
+        [0.3901517 , 0.70276503, 0.57536999, ..., 0.26643546,
+         0.87925851, 0.62507627],
+        [0.76886666, 0.83139081, 0.65044776, ..., 0.8861644 ,
+         0.31301605, 0.82095268],
+        [0.57948097, 0.99018658, 0.8464881 , ..., 0.20553619,
+         0.06075732, 0.04128056],
+        [0.69132371, 0.2469144 , 0.2675005 , ..., 0.83308017,
+         0.31713475, 0.79477786]],
+
+       [[0.41475479, 0.09992201, 0.98047819, ..., 0.90632289,
+         0.27045931, 0.35040592],
+        [0.87042357, 0.40810663, 0.94368789, ..., 0.00875416,
+         0.43665025, 0.88272784],
+        [0.50162821, 0.12377159, 0.82332308, ..., 0.0678139 ,
+         0.82767206, 0.04709144],
+        [0.07824841, 0.01706673, 0.03655614, ..., 0.24058363,
+         0.80495366, 0.62230039],
+        [0.57088531, 0.04883712, 0.560723  , ..., 0.23704349,
+...
+         0.51963829, 0.63986134],
+        [0.76239195, 0.76111498, 0.126135  , ..., 0.15085476,
+         0.52642705, 0.18986151],
+        [0.07250053, 0.41814155, 0.04042919, ..., 0.81362494,
+         0.00398183, 0.3216145 ],
+        [0.79345503, 0.311228  , 0.02520197, ..., 0.29014351,
+         0.78621623, 0.31962779],
+        [0.41187427, 0.47718239, 0.37594568, ..., 0.67787751,
+         0.49667237, 0.60645136]],
+
+       [[0.99847171, 0.3877027 , 0.51955535, ..., 0.94840383,
+         0.74936358, 0.09824327],
+        [0.11335041, 0.63346883, 0.26110115, ..., 0.07967345,
+         0.82538549, 0.79579823],
+        [0.14249296, 0.26745015, 0.16333089, ..., 0.54177613,
+         0.47013024, 0.05914712],
+        [0.4321657 , 0.78766629, 0.95600476, ..., 0.46750876,
+         0.71485413, 0.22184821],
+        [0.98241728, 0.2995486 , 0.53184919, ..., 0.56826127,
+         0.94911368, 0.03097665]]])
+Coordinates:
+  * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9
+  * roi      (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch   (roi) int64 0 0 0 0 0
+  * times    (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
+    subject  (trials) int64 3 3 3 3 3 3 3 3 3 3
+Attributes:
+    __version__:   0.3.8
+    modality:      electrophysiology
+    dtype:         SubjectEphy
+    y_dtype:       none
+    z_dtype:       none
+    mi_type:       none
+    mi_repr:       none
+    sfreq:         512.0
+    agg_ch:        True
+    multivariate:  False
+&lt;xarray.DataArray &#39;subject_4&#39; (trials: 10, roi: 5, times: 1000)&gt;
+array([[[0.41395857, 0.89552316, 0.85218534, ..., 0.84672895,
+         0.5185387 , 0.08509975],
+        [0.60462338, 0.50079649, 0.71592515, ..., 0.46108977,
+         0.9486346 , 0.0204913 ],
+        [0.64452014, 0.48417772, 0.8722054 , ..., 0.64236205,
+         0.98001747, 0.33158025],
+        [0.06241275, 0.09393125, 0.70279236, ..., 0.06554363,
+         0.14725859, 0.80545046],
+        [0.26516553, 0.28848563, 0.37744347, ..., 0.18044463,
+         0.53821239, 0.75605945]],
+
+       [[0.97889783, 0.34843629, 0.36401259, ..., 0.21565533,
+         0.86796487, 0.0626017 ],
+        [0.84511307, 0.81729538, 0.63794828, ..., 0.79597055,
+         0.98728219, 0.05193183],
+        [0.01244879, 0.45881465, 0.13282266, ..., 0.20060491,
+         0.57479294, 0.62783   ],
+        [0.17689496, 0.96786433, 0.98261125, ..., 0.17279807,
+         0.45793888, 0.09728194],
+        [0.96448084, 0.21057608, 0.94395064, ..., 0.60831676,
+...
+         0.55227506, 0.89360584],
+        [0.06552313, 0.5677746 , 0.94874185, ..., 0.43108893,
+         0.60571955, 0.21323422],
+        [0.5520897 , 0.45204941, 0.81248856, ..., 0.92804734,
+         0.31667555, 0.00750907],
+        [0.76113185, 0.43409783, 0.3891962 , ..., 0.20798674,
+         0.99011872, 0.83742968],
+        [0.72077863, 0.23872383, 0.30905553, ..., 0.37997308,
+         0.81538941, 0.03730342]],
+
+       [[0.53543629, 0.87101999, 0.90885757, ..., 0.40180297,
+         0.83120789, 0.22886378],
+        [0.52921164, 0.27250436, 0.77554113, ..., 0.42629494,
+         0.82517665, 0.63226406],
+        [0.29624336, 0.40946214, 0.55290688, ..., 0.09814247,
+         0.27744748, 0.97530459],
+        [0.02291814, 0.48296754, 0.56868583, ..., 0.58770365,
+         0.08205781, 0.92904352],
+        [0.99806553, 0.74706682, 0.75856624, ..., 0.1478922 ,
+         0.36831075, 0.47734725]]])
+Coordinates:
+  * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9
+  * roi      (roi) &lt;U4 &#39;ch_0&#39; &#39;ch_1&#39; &#39;ch_2&#39; &#39;ch_3&#39; &#39;ch_4&#39;
+    agg_ch   (roi) int64 0 0 0 0 0
+  * times    (times) float64 0.0 0.001953 0.003906 ... 1.947 1.949 1.951
+    subject  (trials) int64 4 4 4 4 4 4 4 4 4 4
+Attributes:
+    __version__:   0.3.8
+    modality:      electrophysiology
+    dtype:         SubjectEphy
+    y_dtype:       none
+    z_dtype:       none
+    mi_type:       none
+    mi_repr:       none
+    sfreq:         512.0
+    agg_ch:        True
+    multivariate:  False
 </pre></div>
 </div>
-</div>
-<div class="section" id="data-smoothing">
+</section>
+<section id="data-smoothing">
 <h2>Data smoothing<a class="headerlink" href="#data-smoothing" title="Permalink to this headline">¶</a></h2>
 <p>If you have MNE-Python installed, you can also smooth the data using
 <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy.savgol_filter</span></code></a>. One important thing is
@@ -621,8 +890,8 @@ data are modified inside the dataset without copy</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_dataset_ephy_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dataset_ephy_002.png" />
-</div>
-<div class="section" id="temporal-slicing">
+</section>
+<section id="temporal-slicing">
 <h2>Temporal slicing<a class="headerlink" href="#temporal-slicing" title="Permalink to this headline">¶</a></h2>
 <p>The dataset also supports some basic slicing operations through time. Slicing
 is still performed inplace</p>
@@ -637,7 +906,7 @@ is still performed inplace</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_dataset_ephy_003.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dataset_ephy_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.894 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.529 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-ephy-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a03b470839dc8016ec8b8baebc33b3f8/plot_dataset_ephy.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_ephy.py</span></code></a></p>
@@ -647,8 +916,8 @@ is still performed inplace</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -675,7 +944,7 @@ is still performed inplace</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

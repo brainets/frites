@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>MI between a continuous and a discret variables &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -520,7 +521,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="mi-between-a-continuous-and-a-discret-variables">
+<section class="sphx-glr-example-title" id="mi-between-a-continuous-and-a-discret-variables">
 <span id="sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"></span><h1>MI between a continuous and a discret variables<a class="headerlink" href="#mi-between-a-continuous-and-a-discret-variables" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the mutual information between a
 continuous and a discret variables. The first variable is an
@@ -536,7 +537,7 @@ details, see Ince et al., 2017 <a class="bibtex reference internal" href="../../
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-electrophysiological-data">
+<section id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 multiple subjects using the function
@@ -552,8 +553,8 @@ n_epochs, n_sites, n_times</p>
                                   <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="extract-the-discret-variable">
+</section>
+<section id="extract-the-discret-variable">
 <h2>Extract the discret variable<a class="headerlink" href="#extract-the-discret-variable" title="Permalink to this headline">¶</a></h2>
 <p>As explains in the top description, the discret variable is used to describes
 for example conditions. Thus, by computing the mutual information between the
@@ -580,15 +581,15 @@ extract the conditions from the random dataset generated above.</p>
  2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2]
 </pre></div>
 </div>
-</div>
-<div class="section" id="define-the-electrophysiological-dataset">
+</section>
+<section id="define-the-electrophysiological-dataset">
 <h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Now we define an instance of <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-mutual-information">
+</section>
+<section id="compute-the-mutual-information">
 <h2>Compute the mutual information<a class="headerlink" href="#compute-the-mutual-information" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
 <a class="reference internal" href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. This instance is used to compute the mutual
@@ -609,7 +610,7 @@ information</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_wf_mi_cd_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cd_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.163 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.947 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-cd-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/96d232b69fb463045e717af222a8c794/plot_wf_mi_cd.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_cd.py</span></code></a></p>
@@ -619,8 +620,8 @@ information</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -647,7 +648,7 @@ information</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

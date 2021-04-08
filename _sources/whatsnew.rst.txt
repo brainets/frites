@@ -20,6 +20,7 @@ Bug fixes
 +++++++++
 * Fix :py:class:`frites.dataset.SubjectEphy` when the data contains a single time point (:commit:`a33d4437`)
 * Fix attributes of :py:class:`frites.conn.conn_covgc` (:commit:`c120626`)
+* Fix :py:class:`frites.dataset.DatasetEphy` representation without data copy + html representation (:commit:`b3ae7b8ea`, :issue:`16`)
 
 
 v0.3.8

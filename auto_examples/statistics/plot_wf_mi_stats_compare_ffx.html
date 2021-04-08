@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Compare within-subjects statistics when computing mutual information &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -521,7 +522,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="compare-within-subjects-statistics-when-computing-mutual-information">
+<section class="sphx-glr-example-title" id="compare-within-subjects-statistics-when-computing-mutual-information">
 <span id="sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"></span><h1>Compare within-subjects statistics when computing mutual information<a class="headerlink" href="#compare-within-subjects-statistics-when-computing-mutual-information" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to define and run a workflow for computing
 mutual information and evaluate stastitics. Inference are made within-subjects
@@ -536,7 +537,7 @@ mutual information and evaluate stastitics. Inference are made within-subjects
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-electrophysiological-data">
+<section id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 multiple subjects using the function
@@ -552,8 +553,8 @@ n_epochs, n_sites, n_times</p>
                                      <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="simulate-mutual-information">
+</section>
+<section id="simulate-mutual-information">
 <h2>Simulate mutual information<a class="headerlink" href="#simulate-mutual-information" title="Permalink to this headline">¶</a></h2>
 <p>Once the data have been created, we simulate an increase of mutual
 information by creating a continuous variable <cite>y</cite> using the function
@@ -563,16 +564,16 @@ variables</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sim_mi_cc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">snr</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-an-electrophysiological-dataset">
+</section>
+<section id="create-an-electrophysiological-dataset">
 <h2>Create an electrophysiological dataset<a class="headerlink" href="#create-an-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Now, we use the <a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> in order to create a
 compatible electrophysiological dataset</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="define-the-workflow">
+</section>
+<section id="define-the-workflow">
 <h2>Define the workflow<a class="headerlink" href="#define-the-workflow" title="Permalink to this headline">¶</a></h2>
 <p>We now define the workflow for computing mi and evaluate statistics using the
 class <a class="reference internal" href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. Here, the type of mutual
@@ -584,8 +585,8 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 <span class="n">wf</span> <span class="o">=</span> <a href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="View documentation for frites.workflow.WfMi"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="p">,</span> <span class="n">inference</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-mutual-information-and-statistics">
+</section>
+<section id="compute-the-mutual-information-and-statistics">
 <h2>Compute the mutual information and statistics<a class="headerlink" href="#compute-the-mutual-information-and-statistics" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># list of corrections for multiple comparison</span>
 <span class="n">mcps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;maxstat&#39;</span><span class="p">,</span> <span class="s1">&#39;fdr&#39;</span><span class="p">,</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">]</span>
@@ -635,7 +636,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
   plt.subplot(212)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.307 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.260 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/531c227d9c95523d02c4f2dfb933a96e/plot_wf_mi_stats_compare_ffx.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_stats_compare_ffx.py</span></code></a></p>
@@ -645,8 +646,8 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -673,7 +674,7 @@ variables. And we also specify the inference type ‘ffx’ for fixed-effect</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

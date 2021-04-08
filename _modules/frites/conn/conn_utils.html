@@ -660,7 +660,7 @@
 
 <div class="viewcode-block" id="conn_reshape_undirected"><a class="viewcode-back" href="../../../generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected">[docs]</a><span class="k">def</span> <span class="nf">conn_reshape_undirected</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rm_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                             <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                            <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reshape a raveled undirected array of connectivity.</span>
 
 <span class="sd">    This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)</span>
@@ -695,6 +695,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    conn_dfc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -721,7 +722,7 @@
 
 <div class="viewcode-block" id="conn_reshape_directed"><a class="viewcode-back" href="../../../generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed">[docs]</a><span class="k">def</span> <span class="nf">conn_reshape_directed</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rm_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                           <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                          <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                          <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reshape a raveled directed array of connectivity.</span>
 
 <span class="sd">    This function takes a DataArray of shape (n_pairs, n_directions) or</span>
@@ -762,6 +763,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    conn_covgc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -875,7 +877,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

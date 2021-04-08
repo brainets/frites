@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Overview &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -539,7 +540,7 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="overview">
+  <section id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -577,22 +578,22 @@
 </li>
 </ul>
 </div>
-<div class="section" id="goals-of-frites">
+<section id="goals-of-frites">
 <h2><a class="toc-backref" href="#id21">1. Goals of Frites</a><a class="headerlink" href="#goals-of-frites" title="Permalink to this headline">¶</a></h2>
 <p>Frites is an open-source Python software started in 2019 to <strong>analyze neurophysiological data using information theoretical (IT) measures</strong>. Overall, the goals of Frites could be summarized as follow :</p>
 <ol class="arabic simple">
 <li><p><strong>Extract task-related cognitive brain networks :</strong> i.e brain regions and connectivity between brain regions that are modulated according to the task</p></li>
 <li><p><strong>Group-level statistical inferences :</strong> being able to draw conclusions on a population of subjects while taking into account the the richness of data at the single subject level</p></li>
 </ol>
-<div class="section" id="task-related-and-feature-specificity">
+<section id="task-related-and-feature-specificity">
 <h3><a class="toc-backref" href="#id22">1.1 Task-related and feature-specificity</a><a class="headerlink" href="#task-related-and-feature-specificity" title="Permalink to this headline">¶</a></h3>
 <p>The stimulus of the task (e.g visual stimulus like color circles) is first going to be processed by the brain, occurring some changes in the brain activity that are related to the stimulus. This is what we called <strong>stimulus-specific</strong> brain activity. Once processed, this stimulus is going to introduce some changes in the behavior of the subject (e.g decision making). Following the same reasoning as above we called <strong>behavior-specific</strong> the modulations in the activity of the brain that can explain a change in the behavior of the subject.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="_images/feat_spec.png" src="_images/feat_spec.png" />
-</div>
+</figure>
 <p>Now, with Frites we try to isolate the brain activity that is either related to the stimulus or to the behavior. In a more general way, this brain activity is called <strong>task-related</strong> or <strong>feature-specific</strong> where <em>feature</em> can either refer to the <em>stimulus</em> or to the <em>behavior</em>.</p>
-</div>
-<div class="section" id="it-framework-to-extract-task-related-cognitive-brain-networks">
+</section>
+<section id="it-framework-to-extract-task-related-cognitive-brain-networks">
 <h3><a class="toc-backref" href="#id23">1.2 IT framework to extract task-related cognitive brain networks</a><a class="headerlink" href="#it-framework-to-extract-task-related-cognitive-brain-networks" title="Permalink to this headline">¶</a></h3>
 <p>A brain network is composed of two things :</p>
 <ol class="arabic simple">
@@ -604,13 +605,15 @@
 <li><p>The <strong>local neural activity</strong> (i.e the activity of a particular node of the network) is modulated by the task</p></li>
 <li><p>The <strong>connectivity</strong> (which can be undirected or directed) between brain regions is also modulated by the task</p></li>
 </ol>
-<div class="figure align-center" id="id17">
+<figure class="align-center" id="id17">
 <img alt="_images/network_framework.png" src="_images/network_framework.png" />
-<p class="caption"><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="methods">
+<figcaption>
+<p><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="methods">
 <h2><a class="toc-backref" href="#id24">2. Methods</a><a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <p>In this section we are going to cover the basis of the methods used in Frites. In particular two main topics :</p>
 <ol class="arabic simple">
@@ -618,7 +621,7 @@
 <li><p>The implemented statistical approaches</p></li>
 </ol>
 <p>Note that this methodological overview has been written for scientists who are not necessarily familiar with information theory and statistics. Therefore, it is not going to contain the mathematics behind the implemented methods, but instead, the references to the papers in question.</p>
-<div class="section" id="data-analysis-within-the-information-theoretical-framework">
+<section id="data-analysis-within-the-information-theoretical-framework">
 <h3><a class="toc-backref" href="#id25">2.1 Data analysis within the information theoretical framework</a><a class="headerlink" href="#data-analysis-within-the-information-theoretical-framework" title="Permalink to this headline">¶</a></h3>
 <p>The first question that could be asked is <em>Why using the information theory to analyze brain data?</em></p>
 <p>There are several advantages of using information theoretic measures. Here’s a non exhaustive list of the main advantages :</p>
@@ -633,16 +636,18 @@
 <li><p><strong>Strictly positive measures :</strong> IT measures returned the amount of information that is shared between two variables (in bits). And this quantity is superior or equal to zero. As an example, two variables might either be correlated or anti-correlated however, in both cases the amount of information is going to be strictly positive.</p></li>
 <li><p><strong>Computationally expansive :</strong> depending on the implementation, the evaluation of the mutual information can be relatively slow</p></li>
 </ol>
-<div class="figure align-center" id="id18">
+<figure class="align-center" id="id18">
 <img alt="_images/gcmi_corr.png" src="_images/gcmi_corr.png" />
-<p class="caption"><span class="caption-text">Correlation (orange) vs. strictly positive Mutual information (purple). Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[9]</a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
-</div>
-<div class="section" id="gaussian-copula-mutual-information">
+<figcaption>
+<p><span class="caption-text">Correlation (orange) vs. strictly positive Mutual information (purple). Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id1">[9]</a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="gaussian-copula-mutual-information">
 <h4><a class="toc-backref" href="#id26">2.1.1 Gaussian Copula Mutual Information</a><a class="headerlink" href="#gaussian-copula-mutual-information" title="Permalink to this headline">¶</a></h4>
 <p>In Frites we use a special type of mutual information that has been carried recently to neuroscience (see Ince et al 2017 <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id2">[9]</a>) : the Gaussian Copula Mutual Information (GCMI).</p>
 <p>The GCMI provide an estimation of the mutual information <strong>without the necessity of binning the data</strong>. In addition to this point, the GCMI is really fast to compute which makes this method a good candidate when it comes to performing numerous permutations for the statistics. However, the GCMI make the assumption that there’s a <strong>monotonic relation between the two variables</strong> (i.e if one variable is increasing, the other should also increase or decrease but not both).</p>
-</div>
-<div class="section" id="the-different-types-of-mutual-informations">
+</section>
+<section id="the-different-types-of-mutual-informations">
 <h4><a class="toc-backref" href="#id27">2.1.2 The different types of mutual informations</a><a class="headerlink" href="#the-different-types-of-mutual-informations" title="Permalink to this headline">¶</a></h4>
 <p>In this section we are going to make the difference between two types of variables :</p>
 <ul class="simple">
@@ -650,12 +655,14 @@
 <li><p><strong>Continuous variables :</strong> continuous variables are made of <strong>floating points</strong>. Therefore, the brain data are considered as a continuous variable.</p></li>
 </ul>
 <p>With this in mind, the figure bellow summarizes the different types of mutual information :</p>
-<div class="figure align-center" id="id19">
+<figure class="align-center" id="id19">
 <img alt="_images/cc_cd_ccd.png" src="_images/cc_cd_ccd.png" />
-<p class="caption"><span class="caption-text"><strong>Top left</strong> : continuous / discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">D);</span> <span class="pre">mi_type='cd'</span></code>) for contrasting two experimental conditions (e.g two visual stimulus); <strong>Top right</strong> continuous / continuous case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C);</span> <span class="pre">mi_type='cc'</span></code>) for correlating the brain data with, for example, a model of the behavior (e.g Prediction Error / Learning); <strong>Bottom</strong> continuous / continuous | discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C</span> <span class="pre">|</span> <span class="pre">D);</span> <span class="pre">mi_type='ccd'</span></code>) for correlating the brain data with a continuous while removing the influence of a discrete variable (e.g experimental conditions)</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="equivalence-with-other-statistical-measures">
+<figcaption>
+<p><span class="caption-text"><strong>Top left</strong> : continuous / discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">D);</span> <span class="pre">mi_type='cd'</span></code>) for contrasting two experimental conditions (e.g two visual stimulus); <strong>Top right</strong> continuous / continuous case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C);</span> <span class="pre">mi_type='cc'</span></code>) for correlating the brain data with, for example, a model of the behavior (e.g Prediction Error / Learning); <strong>Bottom</strong> continuous / continuous | discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C</span> <span class="pre">|</span> <span class="pre">D);</span> <span class="pre">mi_type='ccd'</span></code>) for correlating the brain data with a continuous while removing the influence of a discrete variable (e.g experimental conditions)</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="equivalence-with-other-statistical-measures">
 <h4><a class="toc-backref" href="#id28">2.1.3 Equivalence with other statistical measures</a><a class="headerlink" href="#equivalence-with-other-statistical-measures" title="Permalink to this headline">¶</a></h4>
 <p>Find bellow the table showing the equivalence between information theoretic quantities and other statistical measures. Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id3">[9]</a></p>
 <table class="docutils align-default">
@@ -741,19 +748,19 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h4><a class="toc-backref" href="#id29">2.1.4 References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Ince et al. 2017 <a class="bibtex reference internal" href="references.html#ince2017statistical" id="id4">[9]</a></p></li>
 <li><p>Timme and Lapish 2018 <a class="bibtex reference internal" href="references.html#timme-tutorial-2018" id="id5">[15]</a></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="statistical-analyses">
+</section>
+</section>
+<section id="statistical-analyses">
 <h3><a class="toc-backref" href="#id30">2.2 Statistical analyses</a><a class="headerlink" href="#statistical-analyses" title="Permalink to this headline">¶</a></h3>
 <p>In addition to the evaluation of the amount of information shared between the data and a feature (stimulus / behavior), Frites also contains a statistical pipeline to evaluate whether an effect can be considered as significant.</p>
-<div class="section" id="subject-and-group-level-statistical-inferences">
+<section id="subject-and-group-level-statistical-inferences">
 <h4><a class="toc-backref" href="#id31">2.2.1 Subject and group-level statistical inferences</a><a class="headerlink" href="#subject-and-group-level-statistical-inferences" title="Permalink to this headline">¶</a></h4>
 <p>From a statistical standpoint, Frites gives the possibility to draw inferences either at the <strong>subject-level</strong> either at the <strong>group-level</strong> :</p>
 <ul>
@@ -767,16 +774,18 @@
 </div></blockquote>
 </li>
 </ul>
-<div class="figure align-center" id="id20">
+<figure class="align-center" id="id20">
 <img alt="_images/group_level.png" src="_images/group_level.png" />
-<p class="caption"><span class="caption-text">Subject and group-level statistics on information-based measures</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="correction-for-multiple-comparisons">
+<figcaption>
+<p><span class="caption-text">Subject and group-level statistics on information-based measures</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="correction-for-multiple-comparisons">
 <h4><a class="toc-backref" href="#id32">2.2.2 Correction for multiple comparisons</a><a class="headerlink" href="#correction-for-multiple-comparisons" title="Permalink to this headline">¶</a></h4>
 <p>Internally, we used permutations in order to estimate the distribution of mutual-information values that could be obtained by chance and also, to correct the p-values for multiple comparisons. There’s three ways to correct the p-values, all using <a class="reference external" href="https://mne.tools/stable/index.html">MNE Python</a> : 1) cluster-based statistics (default), 2) maximum statistics and 3) FDR. About the cluster-based, since some electrophysiological recordings don’t have a spatial contiguity (like sEEG), the clusters are detected across time-points or across time-frequency maps. Note that you can also use the Threshold Free Cluster Enhancement (TFCE) still through MNE.</p>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h4><a class="toc-backref" href="#id33">2.2.3 References</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Friston et al. 1999 <a class="bibtex reference internal" href="references.html#friston1999many" id="id7">[6]</a>, 1996 <a class="bibtex reference internal" href="references.html#friston-detecting-1996" id="id8">[7]</a></p></li>
@@ -788,17 +797,17 @@
 <li><p>Combrisson et al. 2015 <a class="bibtex reference internal" href="references.html#combrisson-exceeding-2015" id="id14">[3]</a></p></li>
 <li><p>Giordano et al. 2017 <a class="bibtex reference internal" href="references.html#giordano2017contributions" id="id15">[8]</a></p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="what-you-need-to-know-to-start-analyzing-your-data-with-frites">
+</section>
+</section>
+</section>
+<section id="what-you-need-to-know-to-start-analyzing-your-data-with-frites">
 <h2><a class="toc-backref" href="#id34">3. What you need to know to start analyzing your data with Frites</a><a class="headerlink" href="#what-you-need-to-know-to-start-analyzing-your-data-with-frites" title="Permalink to this headline">¶</a></h2>
 <p>In this section we are going to cover the basics knowledges if you want to start analyzing your data with Frites.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The gallery of examples contains a <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#tutorials">tutorial</a> section that explain and illustrate the main usages and features of Frites, in a notebook fashion.</p>
 </div>
-<div class="section" id="package-organization">
+<section id="package-organization">
 <h3><a class="toc-backref" href="#id35">3.1 Package organization</a><a class="headerlink" href="#package-organization" title="Permalink to this headline">¶</a></h3>
 <p>As other Python packages, Frites contains subject-specific submodules. Here’s a short description of the main submodules for new users :</p>
 <ul class="simple">
@@ -808,8 +817,8 @@
 </ul>
 <p>In addition to the main modules above, the  <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html">gallery of examples</a> illustrate the main functionalities of Frites using simulated data. Those functions can be imported from <a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.simulations">frites.simulations</a> and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using <a class="reference external" href="https://brainets.github.io/frites/api.html#autoregressive-model">autoregressive models</a>.</p>
 <p>Finally, for the developers here the <a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.core">frites.core</a> module include the very low level functions to estimate the mutual information (vector and tensor based implementations).</p>
-</div>
-<div class="section" id="main-frites-workflows">
+</section>
+<section id="main-frites-workflows">
 <h3><a class="toc-backref" href="#id36">3.2 Main Frites’ workflows</a><a class="headerlink" href="#main-frites-workflows" title="Permalink to this headline">¶</a></h3>
 <p>Frites contains two centrals workflows :</p>
 <ol class="arabic simple">
@@ -832,8 +841,8 @@
 <p>In a nutshell, the <strong>WfMi</strong> is the core workflow to find task-related activity. In addition, this workflow can either be used to quantify the amount of information between local neural activity and a feature <strong>(i.e for each brain region)</strong> but also on <strong>connectivity links (i.e on pairs of brain regions)</strong> to see whether there’s some differences in term of connectivity between experimental conditions or ultimately, if the connectivity correlates with a behavioral model.</p>
 <p>To see this workflow in action, checkout <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#mutual-information">those examples</a></p>
 </div>
-</div>
-<div class="section" id="deep-integration-with-xarray">
+</section>
+<section id="deep-integration-with-xarray">
 <h3><a class="toc-backref" href="#id37">3.3 Deep integration with Xarray</a><a class="headerlink" href="#deep-integration-with-xarray" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://xarray.pydata.org/en/stable/">Xarray</a> is a recent python package to handle of multi-dimensional arrays using labels. For those who are familiar with <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>, you can see Xarray as a generalization of Pandas for multi-dimensional arrays.</p>
 <p>Xarray provide a container for the data called <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray">DataArray</a>. This structure comes with two important inputs : 1) <cite>dims</cite> which describe the name of each dimension of the array and 2) <cite>coords</cite> the values taken by each dimension. For example you can define a DataArray with the dimensions <code class="docutils literal notranslate"><span class="pre">('roi',</span> <span class="pre">'times')</span></code> where <code class="docutils literal notranslate"><span class="pre">roi</span> <span class="pre">=</span> <span class="pre">['insula',</span> <span class="pre">'vmPFC',</span> <span class="pre">'dlPFC']</span></code> and <code class="docutils literal notranslate"><span class="pre">times</span> <span class="pre">=</span> <span class="pre">np.linspace(-3,</span> <span class="pre">3,</span> <span class="pre">1000)</span></code>. After that, the manipulation of the data happen using the values of the coordinates. Bellow, a minimal slicing example :</p>
@@ -850,9 +859,9 @@
 <p class="admonition-title">Note</p>
 <p>Frites make an extensive use of Xarray as most of the outputs returned are DataArrays. Since it’s a relatively recent package, we wrote <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#xarray">two mini tutorials</a> to start working with it.</p>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -879,7 +888,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>

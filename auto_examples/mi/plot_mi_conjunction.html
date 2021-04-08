@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Compute a conjunction analysis on mutual-information &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -522,7 +523,7 @@
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="compute-a-conjunction-analysis-on-mutual-information">
+<section class="sphx-glr-example-title" id="compute-a-conjunction-analysis-on-mutual-information">
 <span id="sphx-glr-auto-examples-mi-plot-mi-conjunction-py"></span><h1>Compute a conjunction analysis on mutual-information<a class="headerlink" href="#compute-a-conjunction-analysis-on-mutual-information" title="Permalink to this headline">¶</a></h1>
 <p>In this example, we show how to perform a conjunction analysis which consist in
 getting the number of subjects that present significant effect.</p>
@@ -536,7 +537,7 @@ getting the number of subjects that present significant effect.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="define-where-to-put-an-effect-for-each-subject">
+<section id="define-where-to-put-an-effect-for-each-subject">
 <h2>Define where to put an effect for each subject<a class="headerlink" href="#define-where-to-put-an-effect-for-each-subject" title="Permalink to this headline">¶</a></h2>
 <p>We start by organising where to set an affect for each subject. To this end,
 we define a dictionary where each key correspond to a subject. Then, for each
@@ -564,8 +565,8 @@ where to introduce effects ((<cite>roi_number</cite>, (<cite>effect_start</cite>
 <span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ephy</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="generate-the-electrophysiological-data">
+</section>
+<section id="generate-the-electrophysiological-data">
 <h2>Generate the electrophysiological data<a class="headerlink" href="#generate-the-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Now we have all the properties where effect have to be present, we generate
 the electrophysiological data using the function
@@ -595,8 +596,8 @@ the electrophysiological data using the function
 <span class="n">dt</span> <span class="o">=</span> <a href="../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="View documentation for frites.dataset.DatasetEphy"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-mutual-information">
+</section>
+<section id="compute-the-mutual-information">
 <h2>Compute the mutual information<a class="headerlink" href="#compute-the-mutual-information" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
 <a class="reference internal" href="../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. This instance is used to compute the mutual
@@ -632,15 +633,15 @@ information</p>
 <img alt="../../_images/sphx_glr_plot_mi_conjunction_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_conjunction_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/4 [00:00&lt;?,       ?it/s]
- 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.26it/s]
- 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.27it/s]
- 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.28it/s]
-100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.31it/s]
-100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.57it/s]
+ 25%|##5       | Estimating MI : 1/4 [00:01&lt;00:04,    1.44s/it]
+ 50%|#####     | Estimating MI : 2/4 [00:02&lt;00:02,    1.44s/it]
+ 75%|#######5  | Estimating MI : 3/4 [00:04&lt;00:01,    1.44s/it]
+100%|##########| Estimating MI : 4/4 [00:05&lt;00:00,    1.42s/it]
+100%|##########| Estimating MI : 4/4 [00:05&lt;00:00,    1.34s/it]
 </pre></div>
 </div>
-</div>
-<div class="section" id="perform-the-conjunction-analysis">
+</section>
+<section id="perform-the-conjunction-analysis">
 <h2>Perform the conjunction analysis<a class="headerlink" href="#perform-the-conjunction-analysis" title="Permalink to this headline">¶</a></h2>
 <p>Now we have the values of MI we can compute the conjunction analysis. The
 following method returns two DataArray :</p>
@@ -661,8 +662,8 @@ each roi</p>
 <span class="n">conj_ss</span><span class="p">,</span> <span class="n">conj</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">conjunction_analysis</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-where-there-s-significant-effect-for-each-subject">
+</section>
+<section id="plot-where-there-s-significant-effect-for-each-subject">
 <h2>Plot where there’s significant effect for each subject<a class="headerlink" href="#plot-where-there-s-significant-effect-for-each-subject" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># printing the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">conj_ss</span><span class="p">)</span>
@@ -721,8 +722,8 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-the-number-of-subjects-that-have-an-effect">
+</section>
+<section id="plot-the-number-of-subjects-that-have-an-effect">
 <h2>Plot the number of subjects that have an effect<a class="headerlink" href="#plot-the-number-of-subjects-that-have-an-effect" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># printing the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">conj</span><span class="p">)</span>
@@ -792,7 +793,7 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.961 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  21.378 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e5176703dd57920024668949c6139555/plot_mi_conjunction.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mi_conjunction.py</span></code></a></p>
@@ -802,8 +803,8 @@ Coordinates:
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -830,7 +831,7 @@ Coordinates:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-03-30.</p>
+        <p>&copy; Copyright Last updated on 2021-04-08.</p>
     </footer>
 
   </body>
