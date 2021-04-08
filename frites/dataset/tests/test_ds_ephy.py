@@ -60,6 +60,13 @@ class TestDatasetEphy(object):  # noqa
         DatasetEphy(d_3d, y='y', z='z', roi='roi', times='times', agg_ch=False,
                     multivariate=True, **kw)
 
+    def test_repr(self):
+        """Test function repr."""
+        d_3d = self._get_data(3)
+        ds = DatasetEphy(d_3d.copy(), **kw)
+        ds.__repr__()
+        ds._repr_html_()
+
     def test_multiconditions(self):
         """Test multi-conditions remapping."""
         d_3d = self._get_data(3)
