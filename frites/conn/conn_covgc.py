@@ -32,14 +32,13 @@ def entr(xy):
     out = np.empty((n_r, n_r), xy.dtype, order='C')
     np.dot(xy, xy.T, out=out)
     out /= (n_c - 1)
-    # compute determinant
-    det = np.linalg.det(out)
-    if not det > 0:
+    # compute entropy using the slogdet in numpy rather than np.linalg.det
+    # nb: the entropy is the logdet
+    (sign, h) = np.linalg.slogdet(out)
+    if not sign > 0:
         raise ValueError(f"Can't estimate the entropy properly of the input "
                          f"matrix of shape {xy.shape}. Try to increase the "
                          "step")
-    # Compute entropy
-    h = np.log(det)
 
     return h
 
