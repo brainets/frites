@@ -515,7 +515,7 @@
 <h1>frites.conn.conn_covgc<a class="headerlink" href="#frites-conn-conn-covgc" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.conn.conn_covgc">
-<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">step=1</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">method='gc'</em>, <em class="sig-param">conditional=False</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_covgc.html#conn_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_covgc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_covgc</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">dt</em>, <em class="sig-param">lag</em>, <em class="sig-param">t0</em>, <em class="sig-param">step=1</em>, <em class="sig-param">roi=None</em>, <em class="sig-param">times=None</em>, <em class="sig-param">method='gc'</em>, <em class="sig-param">conditional=False</em>, <em class="sig-param">norm=False</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_covgc.html#conn_covgc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_covgc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single-trial covariance-based Granger Causality for gaussian variables.</p>
 <p>This function computes the (conditional) covariance-based Granger Causality
 (covgc) for each trial.</p>
@@ -574,6 +574,9 @@ to use the gaussian-copula.</p>
 <dt><strong>conditional</strong><span class="classifier">bool | False</span></dt><dd><p>If True, the conditional Granger Causality is computed i.e the past is
 also conditioned by the past of other sources.</p>
 </dd>
+<dt><strong>norm</strong><span class="classifier">bool | False</span></dt><dd><p>If True, the normalised Granger Causality is computed
+See Deco et al 2021 Nature Human Beh.</p>
+</dd>
 <dt><strong>n_jobs</strong><span class="classifier">int | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs). The parallel loop is set at the pair level.</p>
 </dd>
@@ -631,7 +634,7 @@ the last dimension means :</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-08.</p>
+        <p>&copy; Copyright Last updated on 2021-04-16.</p>
     </footer>
 
   </body>

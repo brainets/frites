@@ -540,24 +540,24 @@
     <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_r</span><span class="p">,</span> <span class="n">n_r</span><span class="p">),</span> <span class="n">xy</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
     <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">xy</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">/=</span> <span class="p">(</span><span class="n">n_c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="c1"># compute determinant</span>
-    <span class="n">det</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">det</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># compute entropy using the slogdet in numpy rather than np.linalg.det</span>
+    <span class="c1"># nb: the entropy is the logdet</span>
+    <span class="p">(</span><span class="n">sign</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">slogdet</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sign</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can&#39;t estimate the entropy properly of the input &quot;</span>
                          <span class="sa">f</span><span class="s2">&quot;matrix of shape </span><span class="si">{</span><span class="n">xy</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Try to increase the &quot;</span>
                          <span class="s2">&quot;step&quot;</span><span class="p">)</span>
-    <span class="c1"># Compute entropy</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">h</span>
 
 
-<span class="k">def</span> <span class="nf">_covgc</span><span class="p">(</span><span class="n">d_s</span><span class="p">,</span> <span class="n">d_t</span><span class="p">,</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_covgc</span><span class="p">(</span><span class="n">d_s</span><span class="p">,</span> <span class="n">d_t</span><span class="p">,</span> <span class="n">ind_tx</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the covGC for a single pair.</span>
 
 <span class="sd">    This function computes the covGC for a single pair, across multiple trials,</span>
 <span class="sd">    at different time indices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">]</span>
     <span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">d_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">d_s</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">n_ti</span><span class="p">,</span> <span class="n">ti</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t0</span><span class="p">):</span>
@@ -572,12 +572,12 @@
             <span class="c1"># -----------------------------------------------------------------</span>
             <span class="c1"># Conditional Entropies</span>
             <span class="c1"># -----------------------------------------------------------------</span>
-            <span class="c1"># H(Y_i+1|Y_i) = H(Y_i+1) - H(Y_i)</span>
+            <span class="c1"># H(Y_i+1|Y_i) = H(Y_i+1, Y_i) - H(Y_i)</span>
             <span class="n">det_yi1</span> <span class="o">=</span> <span class="n">entr</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">det_yi</span> <span class="o">=</span> <span class="n">entr</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:])</span>
             <span class="n">hycy</span> <span class="o">=</span> <span class="n">det_yi1</span> <span class="o">-</span> <span class="n">det_yi</span>
 
-            <span class="c1"># H(X_i+1|X_i) = H(X_i+1) - H(X_i)</span>
+            <span class="c1"># H(X_i+1|X_i) = H(X_i+1, X_i) - H(X_i)</span>
             <span class="n">det_xi1</span> <span class="o">=</span> <span class="n">entr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="n">det_xi</span> <span class="o">=</span> <span class="n">entr</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:])</span>
             <span class="n">hxcx</span> <span class="o">=</span> <span class="n">det_xi1</span> <span class="o">-</span> <span class="n">det_xi</span>
@@ -599,13 +599,34 @@
             <span class="c1"># Granger Causality measures</span>
             <span class="c1"># -----------------------------------------------------------------</span>
             <span class="c1"># gc(pairs(:,1) -&gt; pairs(:,2))</span>
-            <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">hycy</span> <span class="o">-</span> <span class="n">hycx</span>
+            <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hycy</span> <span class="o">-</span> <span class="n">hycx</span><span class="p">)</span>
             <span class="c1"># gc(pairs(:,2) -&gt; pairs(:,1))</span>
-            <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">hxcx</span> <span class="o">-</span> <span class="n">hxcy</span>
+            <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hxcx</span> <span class="o">-</span> <span class="n">hxcy</span><span class="p">)</span>
             <span class="c1"># gc(pairs(:,2) . pairs(:,1))</span>
             <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">hycx</span> <span class="o">+</span> <span class="n">hxcy</span> <span class="o">-</span> <span class="n">hxxcyy</span>
+            <span class="c1"># gc = gc / (2. * LOG2)</span>
 
-    <span class="k">return</span> <span class="n">gc</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">LOG2</span><span class="p">)</span>
+            <span class="c1"># -----------------------------------------------------------------</span>
+            <span class="c1"># Normalisation of GC (Deco et al, Nature Human Beh, 2021)</span>
+            <span class="c1"># -----------------------------------------------------------------</span>
+            <span class="k">if</span> <span class="n">norm</span><span class="p">:</span>
+                <span class="c1"># H(Y_i+1)</span>
+                <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">hy</span> <span class="o">=</span> <span class="n">entr</span><span class="p">(</span><span class="n">y0</span><span class="p">)</span>
+                <span class="c1"># H(X_i+1)</span>
+                <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">hx</span> <span class="o">=</span> <span class="n">entr</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+                <span class="c1"># I(Y_i+1; Y_i) internal predictability of Y</span>
+                <span class="n">mi_yi1yi</span> <span class="o">=</span> <span class="n">hy</span> <span class="o">-</span> <span class="n">hycy</span>
+                <span class="c1"># I(X_i+1; X_i) internal predictability of X</span>
+                <span class="n">mi_xi1xi</span> <span class="o">=</span> <span class="n">hx</span> <span class="o">-</span> <span class="n">hxcx</span>
+                <span class="c1"># gc(pairs(:,1) -&gt; pairs(:,2))</span>
+                <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">mi_yi1yi</span> <span class="o">+</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+                <span class="c1"># gc(pairs(:,2) -&gt; pairs(:,1))</span>
+                <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">mi_xi1xi</span> <span class="o">+</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+
+    <span class="k">return</span> <span class="n">gc</span>
 
 
 <span class="c1">###############################################################################</span>
@@ -727,7 +748,7 @@
 
 
 <div class="viewcode-block" id="conn_covgc"><a class="viewcode-back" href="../../../generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc">[docs]</a><span class="k">def</span> <span class="nf">conn_covgc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gc&#39;</span><span class="p">,</span>
-               <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single-trial covariance-based Granger Causality for gaussian variables.</span>
 
 <span class="sd">    This function computes the (conditional) covariance-based Granger Causality</span>
@@ -785,6 +806,9 @@
 <span class="sd">    conditional : bool | False</span>
 <span class="sd">        If True, the conditional Granger Causality is computed i.e the past is</span>
 <span class="sd">        also conditioned by the past of other sources.</span>
+<span class="sd">    norm : bool | False</span>
+<span class="sd">        If True, the normalised Granger Causality is computed</span>
+<span class="sd">        See Deco et al 2021 Nature Human Beh.</span>
 <span class="sd">    n_jobs : int | -1</span>
 <span class="sd">        Number of jobs to use for parallel computing (use -1 to use all</span>
 <span class="sd">        jobs). The parallel loop is set at the pair level.</span>
@@ -860,7 +884,7 @@
     <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;conditional&#39;</span> <span class="k">if</span> <span class="n">conditional</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
     <span class="c1"># compute covgc and parallel over pairs</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Compute the </span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2"> covgc (method=</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">, n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Compute the </span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2"> covgc (method=</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">, normalised=</span><span class="si">{</span><span class="n">norm</span><span class="si">}</span><span class="s2">, n_pairs=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;; n_windows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="si">}</span><span class="s2">, lag=</span><span class="si">{</span><span class="n">lag</span><span class="si">}</span><span class="s2">, dt=</span><span class="si">{</span><span class="n">dt</span><span class="si">}</span><span class="s2">, step=</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
     <span class="n">kw_par</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_s</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">conditional</span><span class="p">:</span>
@@ -878,7 +902,7 @@
     <span class="n">gc</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">),</span>
                       <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">trials</span><span class="p">,</span> <span class="n">roi_p</span><span class="p">,</span> <span class="n">times_p</span><span class="p">,</span> <span class="n">dire</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;covgc&#39;</span><span class="p">)</span>
     <span class="c1"># set attributes</span>
-    <span class="n">cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lag</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lag</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span>
                <span class="n">conditional</span><span class="o">=</span><span class="n">conditional</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;covgc&#39;</span><span class="p">)</span>
     <span class="n">gc</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">attrs</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg</span><span class="p">}</span>
 
@@ -898,7 +922,7 @@
     <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lag</span><span class="p">,</span> <span class="n">ar</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">conn_covgc</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="n">lag</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span>
-                    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">conditional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ss</span><span class="o">.</span><span class="n">plot_covgc</span><span class="p">(</span><span class="n">gc</span><span class="o">=</span><span class="n">gc</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -927,7 +951,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-08.</p>
+        <p>&copy; Copyright Last updated on 2021-04-16.</p>
     </footer>
 
   </body>
