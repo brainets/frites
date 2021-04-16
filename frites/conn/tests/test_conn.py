@@ -69,4 +69,4 @@ class TestConn(object):
         assert gc.shape == (n_epochs, 3, len(t0), 3)
         assert isinstance(gc, xr.DataArray)
         gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc',
-                        conditional=True)
+                        conditional=True, norm=False)

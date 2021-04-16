@@ -43,12 +43,13 @@ def entr(xy):
     return h
 
 
-def _covgc(d_s, d_t, ind_tx, t0, norm=False):
+def _covgc(d_s, d_t, ind_tx, t0, norm=True):
     """Compute the covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
     at different time indices.
     """
+    kw = CONFIG["KW_GCMI"]
     n_trials, n_times = d_s.shape[0], len(t0)
     gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
     for n_ti, ti in enumerate(t0):
@@ -381,7 +382,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     if not conditional:
         parallel, p_fun = parallel_func(fcn, **kw_par)
         gc = parallel(p_fun(x[:, s, :], x[:, t, :], ind_tx,
-                            t0, norm=norm) for s, t in zip(x_s, x_t))
+                            t0) for s, t in zip(x_s, x_t))
     else:
         parallel, p_fun = parallel_func(_cond_gccovgc, **kw_par)
         gc = parallel(p_fun(x, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
