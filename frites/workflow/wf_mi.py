@@ -402,17 +402,17 @@ class WfMi(WfBase):
                 for n_r, r in enumerate(roi):
                     mi[r] = xr.DataArray(
                         self._mi[n_r], coords=(suj[n_r], times),
-                        dims=('subjects', 'times'))
+                        dims=('subject', 'times'))
                 da = xr.Dataset(mi).to_array('roi')
-                da = da.transpose('subjects', 'times', 'roi')
+                da = da.transpose('subject', 'times', 'roi')
             elif param == 'perm_ss':
                 mi = dict()
                 for n_r, r in enumerate(roi):
                     mi[r] = xr.DataArray(
-                        self._mi_p[n_r], dims=('perm', 'subjects', 'times'),
+                        self._mi_p[n_r], dims=('perm', 'subject', 'times'),
                         coords=(perm, suj[n_r], times))
                 da = xr.Dataset(mi).to_array('roi')
-                da = da.transpose('perm', 'subjects', 'times', 'roi')
+                da = da.transpose('perm', 'subject', 'times', 'roi')
             elif param == 'perm_':
                 mi_p = np.r_[tuple([k.ravel() for k in self._mi_p])]
                 mi_p.sort()
