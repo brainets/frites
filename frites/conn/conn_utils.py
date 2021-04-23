@@ -151,8 +151,8 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 
 def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
-                            fill_value=np.nan, to_dataframe=False,
-                            inplace=False, verbose=None):
+                            fill_value=np.nan, fill_diagonal=None,
+                            to_dataframe=False, inplace=False, verbose=None):
     """Reshape a raveled undirected array of connectivity.
 
     This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)
@@ -173,7 +173,10 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
         even if there's missing regions (rm_missing=False) or if missing
         regions should be removed (rm_missing=True)
     fill_value : float | np.nan
-        Value to use for filling missing pairs (e.g diagonal)
+        Value to use for filling missing pairs
+    fill_diagonal : float | None
+        Value to use in order to fill the diagonal. If None, the diagonal is
+        untouched
     to_dataframe : bool | False
         Dataframe conversion. Only possible if the da input does not contains
         a time axis.
@@ -203,18 +206,18 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
     s_, t_ = sources + targets, targets + sources
     # build the multiindex and unstack it
     da, order = _dataarray_unstack(da, s_, t_, roi_tot, fill_value,
-                                   order, rm_missing)
+                                   order, rm_missing, fill_diagonal)
 
     # dataframe conversion
     if to_dataframe:
-        da = _dataframe_conversion(da, order)
+        da = _dataframe_conversion(da, order, rm_missing)
 
     return da
 
 
 def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
-                          fill_value=np.nan, to_dataframe=False,
-                          inplace=False, verbose=None):
+                          fill_value=np.nan, fill_diagonal=None,
+                          to_dataframe=False, inplace=False, verbose=None):
     """Reshape a raveled directed array of connectivity.
 
     This function takes a DataArray of shape (n_pairs, n_directions) or
@@ -242,6 +245,9 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
         regions should be removed (rm_missing=True)
     fill_value : float | np.nan
         Value to use for filling missing pairs (e.g diagonal)
+    fill_diagonal : float | None
+        Value to use in order to fill the diagonal. If None, the diagonal is
+        untouched
     to_dataframe : bool | False
         Dataframe conversion. Only possible if the da input does not contains
         a time axis.
@@ -277,11 +283,11 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     else:
         s_, t_ = sources, targets
     da, order = _dataarray_unstack(da, s_, t_, roi_tot, fill_value,
-                                   order, rm_missing)
+                                   order, rm_missing, fill_diagonal)
 
     # dataframe conversion
     if to_dataframe:
-        da = _dataframe_conversion(da, order)
+        da = _dataframe_conversion(da, order, rm_missing)
 
     return da
 
@@ -301,7 +307,7 @@ def _untangle_roi(da, sep):
 
 
 def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order,
-                       rm_missing):
+                       rm_missing, fill_diagonal):
     """Unstack a 1d to 2d DataArray."""
     import pandas as pd
 
@@ -329,10 +335,15 @@ def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order,
             order = [k for k in order.copy() if k in roi_tot.tolist()]
         da = da.reindex(dict(sources=order, targets=order))
 
+    # fill diagonal (if needed)
+    if fill_diagonal is not None:
+        di = np.diag_indices(da.shape[0])
+        da.data[di[0], di[1], :] = fill_diagonal
+
     return da, order
 
 
-def _dataframe_conversion(da, order):
+def _dataframe_conversion(da, order, rm_missing):
     """Convert a DataArray to a DataFrame and be sure its sorted correctly."""
     assert da.data.squeeze().ndim == 2, (
         "Dataframe conversion only possible for connectivity arrays when "
@@ -341,5 +352,8 @@ def _dataframe_conversion(da, order):
     da = da.pivot('sources', 'targets', 'mi')
     if isinstance(order, (list, np.ndarray)):
         da = da.reindex(order, axis='index').reindex(order, axis='columns')
+    # drop empty lines
+    if rm_missing:
+        da = da.dropna(axis=0, how='all').dropna(axis=1, how='all')
 
     return da
