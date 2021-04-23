@@ -15,6 +15,7 @@ New Features
 Internal Changes
 ++++++++++++++++
 * Connectivity metric now use the :py:class:`frites.dataset.SubjectEphy` for internal conversion of the input data
+* :py:class:`frites.workflow.WfMi.get_params` returns single-subject MI and permutations with dimension name 'subject' (instead of subjects) (:commit:`85884f3a`)
 
 Bug fixes
 +++++++++
