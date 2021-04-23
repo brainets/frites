@@ -32,24 +32,24 @@ def entr(xy):
     out = np.empty((n_r, n_r), xy.dtype, order='C')
     np.dot(xy, xy.T, out=out)
     out /= (n_c - 1)
-    # compute determinant
-    det = np.linalg.det(out)
-    if not det > 0:
+    # compute entropy using the slogdet in numpy rather than np.linalg.det
+    # nb: the entropy is the logdet
+    (sign, h) = np.linalg.slogdet(out)
+    if not sign > 0:
         raise ValueError(f"Can't estimate the entropy properly of the input "
                          f"matrix of shape {xy.shape}. Try to increase the "
                          "step")
-    # Compute entropy
-    h = np.log(det)
 
     return h
 
 
-def _covgc(d_s, d_t, ind_tx, t0):
+def _covgc(d_s, d_t, ind_tx, t0, norm=True):
     """Compute the covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
     at different time indices.
     """
+    kw = CONFIG["KW_GCMI"]
     n_trials, n_times = d_s.shape[0], len(t0)
     gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
     for n_ti, ti in enumerate(t0):
@@ -64,12 +64,12 @@ def _covgc(d_s, d_t, ind_tx, t0):
             # -----------------------------------------------------------------
             # Conditional Entropies
             # -----------------------------------------------------------------
-            # H(Y_i+1|Y_i) = H(Y_i+1) - H(Y_i)
+            # H(Y_i+1|Y_i) = H(Y_i+1, Y_i) - H(Y_i)
             det_yi1 = entr(y)
             det_yi = entr(y[1:, :])
             hycy = det_yi1 - det_yi
 
-            # H(X_i+1|X_i) = H(X_i+1) - H(X_i)
+            # H(X_i+1|X_i) = H(X_i+1, X_i) - H(X_i)
             det_xi1 = entr(x)
             det_xi = entr(x[1:, :])
             hxcx = det_xi1 - det_xi
@@ -91,13 +91,34 @@ def _covgc(d_s, d_t, ind_tx, t0):
             # Granger Causality measures
             # -----------------------------------------------------------------
             # gc(pairs(:,1) -> pairs(:,2))
-            gc[n_tr, n_ti, 0] = hycy - hycx
+            gc[n_tr, n_ti, 0] = (hycy - hycx)
             # gc(pairs(:,2) -> pairs(:,1))
-            gc[n_tr, n_ti, 1] = hxcx - hxcy
+            gc[n_tr, n_ti, 1] = (hxcx - hxcy)
             # gc(pairs(:,2) . pairs(:,1))
             gc[n_tr, n_ti, 2] = hycx + hxcy - hxxcyy
+            # gc = gc / (2. * LOG2)
 
-    return gc / (2. * LOG2)
+            # -----------------------------------------------------------------
+            # Normalisation of GC (Deco et al, Nature Human Beh, 2021)
+            # -----------------------------------------------------------------
+            if norm:
+                # H(Y_i+1)
+                y0 = np.expand_dims(y[0], axis=0)
+                hy = entr(y0)
+                # H(X_i+1)
+                x0 = np.expand_dims(x[0], axis=0)
+                hx = entr(x0)
+                # I(Y_i+1; Y_i) internal predictability of Y
+                mi_yi1yi = hy - hycy
+                # I(X_i+1; X_i) internal predictability of X
+                mi_xi1xi = hx - hxcx
+                # gc(pairs(:,1) -> pairs(:,2))
+                gc[n_tr, n_ti, 0] = gc[n_tr, n_ti, 0] / (mi_yi1yi + gc[n_tr, n_ti, 0])
+                # gc(pairs(:,2) -> pairs(:,1))
+                gc[n_tr, n_ti, 1] = gc[n_tr, n_ti, 1] / (mi_xi1xi + gc[n_tr, n_ti, 1])
+
+
+    return gc
 
 
 ###############################################################################
@@ -219,7 +240,7 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
 
 
 def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
-               conditional=False, n_jobs=-1, verbose=None):
+               conditional=False, norm=False, n_jobs=-1, verbose=None):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
     This function computes the (conditional) covariance-based Granger Causality
@@ -277,6 +298,9 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     conditional : bool | False
         If True, the conditional Granger Causality is computed i.e the past is
         also conditioned by the past of other sources.
+    norm : bool | False
+        If True, the normalised Granger Causality is computed
+        See Deco et al 2021 Nature Human Beh.
     n_jobs : int | -1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
@@ -352,7 +376,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     # -------------------------------------------------------------------------
     ext = 'conditional' if conditional else ''
     # compute covgc and parallel over pairs
-    logger.info(f"Compute the {ext} covgc (method={method}, n_pairs={len(x_s)}"
+    logger.info(f"Compute the {ext} covgc (method={method}, normalised={norm}, n_pairs={len(x_s)}"
                 f"; n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
     kw_par = dict(n_jobs=n_jobs, total=len(x_s), verbose=False)
     if not conditional:
@@ -370,7 +394,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     gc = xr.DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
                       coords=(trials, roi_p, times_p, dire), name='covgc')
     # set attributes
-    cfg = dict(lag=lag, step=step, dt=dt, t0=t0,
+    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=norm,
                conditional=conditional, type='covgc')
     gc.attrs = {**attrs, **cfg}
 
@@ -390,6 +414,6 @@ if __name__ == '__main__':
     dt, lag, step = 50, 5, 2
     t0 = np.arange(lag, ar.shape[-1] - dt, step)
     gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                    n_jobs=-1, conditional=False)
+                    n_jobs=-1, conditional=False, norm=False)
     ss.plot_covgc(gc=gc)
     plt.show()
