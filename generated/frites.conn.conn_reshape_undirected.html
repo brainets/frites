@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>frites.conn.conn_reshape_undirected &#8212; frites 0.3.8 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -515,7 +515,7 @@
 <h1>frites.conn.conn_reshape_undirected<a class="headerlink" href="#frites-conn-conn-reshape-undirected" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="frites.conn.conn_reshape_undirected">
-<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_reshape_undirected</code><span class="sig-paren">(</span><em class="sig-param">da</em>, <em class="sig-param">sep='-'</em>, <em class="sig-param">order=None</em>, <em class="sig-param">rm_missing=False</em>, <em class="sig-param">fill_value=nan</em>, <em class="sig-param">to_dataframe=False</em>, <em class="sig-param">inplace=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_utils.html#conn_reshape_undirected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_reshape_undirected" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">frites.conn.</code><code class="sig-name descname">conn_reshape_undirected</code><span class="sig-paren">(</span><em class="sig-param">da</em>, <em class="sig-param">sep='-'</em>, <em class="sig-param">order=None</em>, <em class="sig-param">rm_missing=False</em>, <em class="sig-param">fill_value=nan</em>, <em class="sig-param">fill_diagonal=None</em>, <em class="sig-param">to_dataframe=False</em>, <em class="sig-param">inplace=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/conn/conn_utils.html#conn_reshape_undirected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.conn.conn_reshape_undirected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reshape a raveled undirected array of connectivity.</p>
 <p>This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)
 where n_pairs reflects pairs of roi (e.g ‘roi_1-roi_2’) and reshape it to
@@ -534,7 +534,10 @@ dimension contains the pairs (roi_1-roi_2, roi_1-roi_3 etc.)</p>
 even if there’s missing regions (rm_missing=False) or if missing
 regions should be removed (rm_missing=True)</p>
 </dd>
-<dt><strong>fill_value</strong><span class="classifier">float | np.nan</span></dt><dd><p>Value to use for filling missing pairs (e.g diagonal)</p>
+<dt><strong>fill_value</strong><span class="classifier">float | np.nan</span></dt><dd><p>Value to use for filling missing pairs</p>
+</dd>
+<dt><strong>fill_diagonal</strong><span class="classifier">float | None</span></dt><dd><p>Value to use in order to fill the diagonal. If None, the diagonal is
+untouched</p>
 </dd>
 <dt><strong>to_dataframe</strong><span class="classifier">bool | False</span></dt><dd><p>Dataframe conversion. Only possible if the da input does not contains
 a time axis.</p>
@@ -583,7 +586,7 @@ a time axis.</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-16.</p>
+        <p>&copy; Copyright Last updated on 2021-04-23.</p>
     </footer>
 
   </body>

@@ -659,8 +659,8 @@
 
 
 <div class="viewcode-block" id="conn_reshape_undirected"><a class="viewcode-back" href="../../../generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected">[docs]</a><span class="k">def</span> <span class="nf">conn_reshape_undirected</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rm_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                            <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">fill_diagonal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reshape a raveled undirected array of connectivity.</span>
 
 <span class="sd">    This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)</span>
@@ -681,7 +681,10 @@
 <span class="sd">        even if there&#39;s missing regions (rm_missing=False) or if missing</span>
 <span class="sd">        regions should be removed (rm_missing=True)</span>
 <span class="sd">    fill_value : float | np.nan</span>
-<span class="sd">        Value to use for filling missing pairs (e.g diagonal)</span>
+<span class="sd">        Value to use for filling missing pairs</span>
+<span class="sd">    fill_diagonal : float | None</span>
+<span class="sd">        Value to use in order to fill the diagonal. If None, the diagonal is</span>
+<span class="sd">        untouched</span>
 <span class="sd">    to_dataframe : bool | False</span>
 <span class="sd">        Dataframe conversion. Only possible if the da input does not contains</span>
 <span class="sd">        a time axis.</span>
@@ -711,18 +714,18 @@
     <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span> <span class="o">=</span> <span class="n">sources</span> <span class="o">+</span> <span class="n">targets</span><span class="p">,</span> <span class="n">targets</span> <span class="o">+</span> <span class="n">sources</span>
     <span class="c1"># build the multiindex and unstack it</span>
     <span class="n">da</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span>
-                                   <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">)</span>
+                                   <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">,</span> <span class="n">fill_diagonal</span><span class="p">)</span>
 
     <span class="c1"># dataframe conversion</span>
     <span class="k">if</span> <span class="n">to_dataframe</span><span class="p">:</span>
-        <span class="n">da</span> <span class="o">=</span> <span class="n">_dataframe_conversion</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">_dataframe_conversion</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">da</span></div>
 
 
 <div class="viewcode-block" id="conn_reshape_directed"><a class="viewcode-back" href="../../../generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed">[docs]</a><span class="k">def</span> <span class="nf">conn_reshape_directed</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rm_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                          <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                          <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                          <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">fill_diagonal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reshape a raveled directed array of connectivity.</span>
 
 <span class="sd">    This function takes a DataArray of shape (n_pairs, n_directions) or</span>
@@ -750,6 +753,9 @@
 <span class="sd">        regions should be removed (rm_missing=True)</span>
 <span class="sd">    fill_value : float | np.nan</span>
 <span class="sd">        Value to use for filling missing pairs (e.g diagonal)</span>
+<span class="sd">    fill_diagonal : float | None</span>
+<span class="sd">        Value to use in order to fill the diagonal. If None, the diagonal is</span>
+<span class="sd">        untouched</span>
 <span class="sd">    to_dataframe : bool | False</span>
 <span class="sd">        Dataframe conversion. Only possible if the da input does not contains</span>
 <span class="sd">        a time axis.</span>
@@ -785,11 +791,11 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span> <span class="o">=</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span>
     <span class="n">da</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">s_</span><span class="p">,</span> <span class="n">t_</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span>
-                                   <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">)</span>
+                                   <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">,</span> <span class="n">fill_diagonal</span><span class="p">)</span>
 
     <span class="c1"># dataframe conversion</span>
     <span class="k">if</span> <span class="n">to_dataframe</span><span class="p">:</span>
-        <span class="n">da</span> <span class="o">=</span> <span class="n">_dataframe_conversion</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">_dataframe_conversion</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">da</span></div>
 
@@ -809,7 +815,7 @@
 
 
 <span class="k">def</span> <span class="nf">_dataarray_unstack</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">roi_tot</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span>
-                       <span class="n">rm_missing</span><span class="p">):</span>
+                       <span class="n">rm_missing</span><span class="p">,</span> <span class="n">fill_diagonal</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unstack a 1d to 2d DataArray.&quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -837,10 +843,15 @@
             <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">order</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">roi_tot</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">order</span><span class="p">))</span>
 
+    <span class="c1"># fill diagonal (if needed)</span>
+    <span class="k">if</span> <span class="n">fill_diagonal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">di</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag_indices</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">da</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">di</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">di</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">fill_diagonal</span>
+
     <span class="k">return</span> <span class="n">da</span><span class="p">,</span> <span class="n">order</span>
 
 
-<span class="k">def</span> <span class="nf">_dataframe_conversion</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_dataframe_conversion</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">rm_missing</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a DataArray to a DataFrame and be sure its sorted correctly.&quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">da</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span>
         <span class="s2">&quot;Dataframe conversion only possible for connectivity arrays when &quot;</span>
@@ -849,6 +860,9 @@
     <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="s1">&#39;targets&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
         <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+    <span class="c1"># drop empty lines</span>
+    <span class="k">if</span> <span class="n">rm_missing</span><span class="p">:</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">da</span>
 </pre></div>
@@ -877,7 +891,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-16.</p>
+        <p>&copy; Copyright Last updated on 2021-04-23.</p>
     </footer>
 
   </body>
