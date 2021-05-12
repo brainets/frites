@@ -580,9 +580,9 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_perm</span>
         <span class="k">if</span> <span class="n">mcp</span> <span class="o">==</span> <span class="s1">&#39;fdr&#39;</span><span class="p">:</span>
-            <span class="n">pv</span> <span class="o">=</span> <span class="n">fdr_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">fdr_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">.05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">mcp</span> <span class="o">==</span> <span class="s1">&#39;bonferroni&#39;</span><span class="p">:</span>
-            <span class="n">pv</span> <span class="o">=</span> <span class="n">bonferroni_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">pv</span> <span class="o">=</span> <span class="n">bonferroni_correction</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">.05</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pv</span></div>
@@ -692,8 +692,8 @@
     <span class="k">return</span> <span class="n">pvalues</span>
 
 
-<div class="viewcode-block" id="cluster_threshold"><a class="viewcode-back" href="../../../generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold">[docs]</a><span class="k">def</span> <span class="nf">cluster_threshold</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                      <span class="n">h_power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">e_power</span><span class="o">=.</span><span class="mi">5</span><span class="p">):</span>
+<div class="viewcode-block" id="cluster_threshold"><a class="viewcode-back" href="../../../generated/frites.stats.cluster_threshold.html#frites.stats.cluster_threshold">[docs]</a><span class="k">def</span> <span class="nf">cluster_threshold</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tfce</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                      <span class="n">h_power</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">e_power</span><span class="o">=</span><span class="mf">.5</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Threshold detection for cluster-based inferencse.</span>
 
 <span class="sd">    Parameters</span>
@@ -796,7 +796,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-23.</p>
+        <p>&copy; Copyright Last updated on 2021-05-12.</p>
     </footer>
 
   </body>

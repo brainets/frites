@@ -619,7 +619,7 @@ information</p>
     <span class="n">mi_r</span><span class="p">,</span> <span class="n">pv_r</span> <span class="o">=</span> <span class="n">mi</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">),</span> <span class="n">pv</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">roi</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
     <span class="c1"># make a copy of the mi and set to nan everywhere it&#39;s not significant</span>
     <span class="n">mi_sr</span> <span class="o">=</span> <span class="n">mi_r</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">mi_sr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pv_r</span> <span class="o">&gt;=</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">mi_sr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pv_r</span> <span class="o">&gt;=</span> <span class="mf">.05</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="c1"># superimpose mi and significant mi</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_r</span><span class="p">)</span>
@@ -633,11 +633,11 @@ information</p>
 <img alt="../../_images/sphx_glr_plot_mi_conjunction_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_conjunction_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/4 [00:00&lt;?,       ?it/s]
- 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.29it/s]
- 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.30it/s]
- 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.31it/s]
-100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.33it/s]
-100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.58it/s]
+ 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.32it/s]
+ 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.32it/s]
+ 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.33it/s]
+100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.36it/s]
+100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.55it/s]
 </pre></div>
 </div>
 </section>
@@ -793,7 +793,7 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.480 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.795 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e5176703dd57920024668949c6139555/plot_mi_conjunction.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mi_conjunction.py</span></code></a></p>
@@ -831,7 +831,7 @@ Coordinates:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-23.</p>
+        <p>&copy; Copyright Last updated on 2021-05-12.</p>
     </footer>
 
   </body>

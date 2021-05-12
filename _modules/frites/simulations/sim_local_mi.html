@@ -548,7 +548,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># get the default cluster indices and covariance</span>
     <span class="n">cl_index</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_index&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
-    <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">.8</span><span class="p">])</span>
     <span class="n">cl_sgn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_sgn&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="c1"># repeat if not equal to subject length</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
@@ -578,7 +578,7 @@
 
 
 <div class="viewcode-block" id="sim_local_cc_ss"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cc_ss.html#frites.simulations.sim_local_cc_ss">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cc_ss</span><span class="p">(</span><span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
-                    <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">],</span> <span class="n">cl_sgn</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                    <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="mf">.8</span><span class="p">],</span> <span class="n">cl_sgn</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Single-subject simulations for computing local MI (CC).</span>
 
 <span class="sd">    This function can be used for simulating local representations of mutual</span>
@@ -694,7 +694,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># get the default cluster indices and covariance</span>
     <span class="n">cl_index</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_index&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
-    <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">cl_cov</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cl_cov&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">.8</span><span class="p">])</span>
     <span class="c1"># repeat if not equal to subject length</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cl_index</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subjects</span><span class="p">:</span>
         <span class="n">cl_index</span> <span class="o">=</span> <span class="p">[</span><span class="n">cl_index</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subjects</span>
@@ -717,7 +717,7 @@
 
 
 <div class="viewcode-block" id="sim_local_cd_ss"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_cd_ss.html#frites.simulations.sim_local_cd_ss">[docs]</a><span class="k">def</span> <span class="nf">sim_local_cd_ss</span><span class="p">(</span><span class="n">n_conditions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                    <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                    <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="mf">.8</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Single-subject simulations for computing local MI (CD).</span>
 
 <span class="sd">    This function can be used for simulating local representations of mutual</span>
@@ -850,7 +850,7 @@
 
 
 <div class="viewcode-block" id="sim_local_ccd_ss"><a class="viewcode-back" href="../../../generated/frites.simulations.sim_local_ccd_ss.html#frites.simulations.sim_local_ccd_ss">[docs]</a><span class="k">def</span> <span class="nf">sim_local_ccd_ss</span><span class="p">(</span><span class="n">n_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_conditions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                     <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                     <span class="n">cl_index</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">cl_cov</span><span class="o">=</span><span class="p">[</span><span class="mf">.8</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Single-subject simulations for computing local MI (CC).</span>
 
 <span class="sd">    This function can be used for simulating local representations of mutual</span>
@@ -920,7 +920,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-23.</p>
+        <p>&copy; Copyright Last updated on 2021-05-12.</p>
     </footer>
 
   </body>

@@ -579,10 +579,10 @@ each of the temporal window</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:01&lt;00:02,    1.19s/it]
- 67%|######6   |  : 2/3 [00:02&lt;00:01,    1.17s/it]
-100%|##########|  : 3/3 [00:03&lt;00:00,    1.17s/it]
-100%|##########|  : 3/3 [00:03&lt;00:00,    1.06s/it]
+ 33%|###3      |  : 1/3 [00:01&lt;00:02,    1.13s/it]
+ 67%|######6   |  : 2/3 [00:02&lt;00:01,    1.13s/it]
+100%|##########|  : 3/3 [00:03&lt;00:00,    1.13s/it]
+100%|##########|  : 3/3 [00:03&lt;00:00,    1.08s/it]
 </pre></div>
 </div>
 <p>Below we plot the mean time series of both directed and undirected covgc</p>
@@ -612,7 +612,7 @@ each of the temporal window</p>
 <img alt="../../_images/sphx_glr_plot_covgc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_covgc_001.png" />
 <p>Finally, you can also plot the 2D representation of the connectivity arrays</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># select instantaneous at -0.4 seconds</span>
-<span class="n">gc_inst</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">times</span><span class="o">=-.</span><span class="mi">4</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x.y&#39;</span><span class="p">)</span>
+<span class="n">gc_inst</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">times</span><span class="o">=-</span><span class="mf">.4</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;x.y&#39;</span><span class="p">)</span>
 <span class="n">gc_2d_inst</span> <span class="o">=</span> <a href="../../generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="View documentation for frites.conn.conn_reshape_undirected"><span class="n">conn_reshape_undirected</span></a><span class="p">(</span><span class="n">gc_inst</span><span class="p">,</span> <span class="n">to_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># select directed connectivity at 0. and 0.4 seconds</span>
@@ -642,7 +642,7 @@ each of the temporal window</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_covgc_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_covgc_002.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.181 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.094 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-covgc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ee1f0832532d03495816a5e28ca6bb6d/plot_covgc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_covgc.py</span></code></a></p>
@@ -680,7 +680,7 @@ each of the temporal window</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-23.</p>
+        <p>&copy; Copyright Last updated on 2021-05-12.</p>
     </footer>
 
   </body>

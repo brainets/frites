@@ -572,8 +572,8 @@ Corr 2 : L_VCs-L_VCl between [0.20120120120120122-0.6016016016016015]
 <p>Next, we define, and plot sliding windows in order to compute the DFC on
 consecutive time windows. In this example we used windows of length 100ms
 and 5ms between each consecutive windows</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slwin_len</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>    <span class="c1"># 100ms window length</span>
-<span class="n">slwin_step</span> <span class="o">=</span> <span class="o">.</span><span class="mi">08</span>  <span class="c1"># 80ms between consecutive windows</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slwin_len</span> <span class="o">=</span> <span class="mf">.1</span>    <span class="c1"># 100ms window length</span>
+<span class="n">slwin_step</span> <span class="o">=</span> <span class="mf">.08</span>  <span class="c1"># 80ms between consecutive windows</span>
 <span class="n">win_sample</span> <span class="o">=</span> <a href="../../generated/frites.conn.define_windows.html#frites.conn.define_windows" title="View documentation for frites.conn.define_windows"><span class="n">define_windows</span></a><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">slwin_len</span><span class="o">=</span><span class="n">slwin_len</span><span class="p">,</span>
                             <span class="n">slwin_step</span><span class="o">=</span><span class="n">slwin_step</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">times_p</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -603,13 +603,12 @@ each of the temporal window</p>
 <img alt="../../_images/sphx_glr_plot_dfc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/24 [00:00&lt;?,       ?it/s]
-  4%|4         | Estimating DFC : 1/24 [00:00&lt;00:01,   12.96it/s]
- 12%|#2        | Estimating DFC : 3/24 [00:00&lt;00:01,   13.54it/s]
- 25%|##5       | Estimating DFC : 6/24 [00:00&lt;00:01,   14.20it/s]
- 50%|#####     | Estimating DFC : 12/24 [00:00&lt;00:00,   14.91it/s]
- 75%|#######5  | Estimating DFC : 18/24 [00:00&lt;00:00,   15.66it/s]
- 92%|#########1| Estimating DFC : 22/24 [00:00&lt;00:00,   16.37it/s]
-100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,  119.21it/s]
+ 17%|#6        | Estimating DFC : 4/24 [00:00&lt;00:00,  189.99it/s]
+ 29%|##9       | Estimating DFC : 7/24 [00:00&lt;00:00,  189.73it/s]
+ 46%|####5     | Estimating DFC : 11/24 [00:00&lt;00:00,  190.90it/s]
+ 71%|#######   | Estimating DFC : 17/24 [00:00&lt;00:00,  195.05it/s]
+ 96%|#########5| Estimating DFC : 23/24 [00:00&lt;00:00,  199.40it/s]
+100%|##########| Estimating DFC : 24/24 [00:00&lt;00:00,  254.37it/s]
 &lt;xarray.DataArray &#39;dfc&#39; (trials: 50, roi: 3, times: 24)&gt;
 array([[[-1.50277568e-02,  8.54966555e-02,  5.86961907e-01, ...,
           1.15175133e-01,  1.38465044e-02,  1.15823294e-01],
@@ -663,7 +662,7 @@ Attributes:
     type:        dfc
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.709 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.762 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db13bd35cb06905f90dd5dbec6da8240/plot_dfc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc.py</span></code></a></p>
@@ -701,7 +700,7 @@ Attributes:
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-04-23.</p>
+        <p>&copy; Copyright Last updated on 2021-05-12.</p>
     </footer>
 
   </body>
