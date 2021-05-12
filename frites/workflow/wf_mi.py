@@ -247,10 +247,12 @@ class WfMi(WfBase):
         # ---------------------------------------------------------------------
         # compute statistics
         # ---------------------------------------------------------------------
+        # get additional stat arguments
+        kw_stats['tail'] = kw_stats.get('tail', 1)
         # infer p-values and t-values
         pvalues, tvalues = self._wf_stats.fit(
-            mi, mi_p, mcp=mcp, cluster_th=cluster_th, tail=1,
-            cluster_alpha=cluster_alpha, inference=self._inference, **kw_stats)
+            mi, mi_p, cluster_th=cluster_th, inference=self._inference,
+            mcp=mcp, cluster_alpha=cluster_alpha, **kw_stats)
         # update attributes
         self.attrs.update(self._wf_stats.attrs)
         self.attrs.update(dict(n_perm=n_perm, random_state=random_state))
