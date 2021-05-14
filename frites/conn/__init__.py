@@ -10,6 +10,9 @@ This submodule contains two types of functions :
 2. **Connectivity related utility functions :** small utility functions that
    work on connectivity arrays
 """
+# connectivity input conversion
+from .conn_io import conn_io  # noqa
+
 # connectivity metrics
 from .conn_covgc import conn_covgc  # noqa
 from .conn_dfc import conn_dfc  # noqa
