@@ -3,14 +3,14 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+from frites.conn import conn_io
 from frites.io import set_log_level, logger
 from frites.core import mi_nd_gg, copnorm_nd
 from frites.config import CONFIG
 from frites.utils import parallel_func
-from frites.dataset import SubjectEphy
 
 
-def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
+def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=False,
              agg_ch=False, verbose=None):
     """Single trial Dynamic Functional Connectivity.
 
@@ -42,7 +42,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
-    gcrn : bool | True
+    gcrn : bool | False
         Specify if the Gaussian Copula Rank Normalization should be applied.
         If the data are normalized (e.g z-score) this parameter can be set to
         False because the data can be considered as gaussian over time.
@@ -63,64 +63,40 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=True,
     --------
     define_windows, conn_covgc
     """
-    set_log_level(verbose)
-    # -------------------------------------------------------------------------
-    # inputs conversion and data checking
-    set_log_level(verbose)
-    if isinstance(data, xr.DataArray):
-        trials, attrs = data[data.dims[0]].data, data.attrs
-    else:
-        trials, attrs = np.arange(data.shape[0]), {}
-    # internal conversion
-    data = SubjectEphy(data, y=trials, roi=roi, times=times)
-    x, roi, times = data.data, data['roi'].data, data['times'].data
-    trials = data['y'].data
+    # ________________________________ INPUTS _________________________________
+    # inputs conversion
+    data, cfg = conn_io(
+        data, times=times, roi=roi, agg_ch=agg_ch, win_sample=win_sample,
+        pairs=None, name='DFC', verbose=verbose
+    )
+
+    # extract variables
+    x, trials, attrs = data.data, data['y'].data, cfg['attrs']
     n_trials = len(trials)
-    # deal with the win_sample array
-    if win_sample is None:
-        win_sample = np.array([[0, len(times) - 1]])
-    assert isinstance(win_sample, np.ndarray) and (win_sample.ndim == 2)
-    assert win_sample.dtype in CONFIG['INT_DTYPE']
+    win_sample, win_times = cfg['win_sample'], cfg['win_times']
     n_win = win_sample.shape[0]
-
-    # -------------------------------------------------------------------------
-    # find group of brain regions
-    if agg_ch:
-        logger.info('    Grouping pairs of brain regions')
-        gp = pd.DataFrame({'roi': roi}).groupby('roi').groups
-        roi_gp = np.array(list(gp.keys()))
-        roi_idx = np.array(list(gp.values()))
-    else:
-        roi_gp, roi_idx = roi, np.arange(len(roi)).reshape(-1, 1)
-    n_roi = len(roi_gp)
-    x_s, x_t = np.triu_indices(n_roi, k=1)
+    x_s, x_t = cfg['x_s'], cfg['x_t']
+    roi_p, roi_idx = cfg['roi_p'], cfg['roi_idx']
     n_pairs = len(x_s)
-    # build names of pairs of brain regions
-    roi_s, roi_t = roi_gp[x_s], roi_gp[x_t]
-    roi_s, roi_t = np.sort(np.c_[roi_s, roi_t], axis=1).T
-    roi_p = [f"{s}-{t}" for s, t in zip(roi_s, roi_t)]
 
-    # -------------------------------------------------------------------------
-    # prepare outputs and elements
+    # __________________________________ DFC __________________________________
+    # prepare parallel function
     n_jobs = 1 if n_win == 1 else n_jobs
     parallel, p_fun = parallel_func(_conn_dfc, n_jobs=n_jobs, verbose=verbose,
                                     total=n_win, mesg='Estimating DFC')
 
     logger.info(f'Computing DFC between {n_pairs} pairs (gcrn={gcrn})')
-    dfc = np.zeros((n_trials, n_pairs, n_win), dtype=np.float64)
 
-    # -------------------------------------------------------------------------
-    # compute distance correlation
-
+    # compute dfc
     dfc = parallel(p_fun(
         x[:, :, w[0]:w[1]], x_s, x_t, roi_idx, gcrn) for w in win_sample)
     dfc = np.stack(dfc, 2)
 
-    # -------------------------------------------------------------------------
+    # ________________________________ OUPUTS _________________________________
     # dataarray conversion
-    win_times = times[win_sample]
     dfc = xr.DataArray(dfc, dims=('trials', 'roi', 'times'), name='dfc',
-                       coords=(trials, roi_p, win_times.mean(1)))
+                       coords=(trials, roi_p, win_times))
+
     # add the windows used in the attributes
     cfg = dict(
         win_sample=np.r_[tuple(win_sample)], win_times=np.r_[tuple(win_times)],
