@@ -53,7 +53,7 @@ print(f'Corr 2 : {roi[2]}-{roi[1]} between [{times[600]}-{times[800]}]')
 # and 5ms between each consecutive windows
 
 slwin_len = .1    # 100ms window length
-slwin_step = .08  # 80ms between consecutive windows
+slwin_step = .02  # 20ms between consecutive windows
 win_sample = define_windows(times, slwin_len=slwin_len,
                             slwin_step=slwin_step)[0]
 times_p = times[win_sample].mean(1)
@@ -75,7 +75,8 @@ dfc = conn_dfc(x, win_sample, times=times, roi=roi, n_jobs=1)
 print(dfc)
 
 plt.figure(figsize=(10, 8))
-plt.plot(times_p, dfc.mean('trials').T)
+# plt.plot(times_p, dfc.mean('trials').T)
+dfc.mean('trials').plot.line(x='times', hue='roi')
 plt.xlabel('Time')
 plt.title("Mean DFC across trials between pairs of roi")
 plt.show()
