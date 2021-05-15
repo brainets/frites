@@ -44,13 +44,13 @@ jobs:
         with:
           python-version: '3.7'
 
-    - name: Install dependencies 🔧
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e .['doc']
-
-      - name: Build the Doc 🔧
+      - name: Install dependencies 🔧
         run: |
-          cd docs
-          make html
-          touch build/html/.nojekyll
+          python -m pip install --upgrade pip
+          pip install -e .['doc']
+
+        - name: Build the Doc 🔧
+          run: |
+            cd docs
+            make html
+            touch build/html/.nojekyll
