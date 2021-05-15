@@ -16,6 +16,7 @@ Internal Changes
 ++++++++++++++++
 * Connectivity metric now use the :py:class:`frites.dataset.SubjectEphy` for internal conversion of the input data
 * :py:class:`frites.workflow.WfMi.get_params` returns single-subject MI and permutations with dimension name 'subject' (instead of subjects) (:commit:`85884f3a`)
+* All connectivity metrics now use :py:`frites.conn.conn_io` to convert inputs into a similar format
 
 Bug fixes
 +++++++++
