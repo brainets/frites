@@ -61,12 +61,10 @@ setup(
     download_url=DOWNLOAD_URL,
     license="BSD 3-Clause License",
     keywords=KEYWORDS,
-    classifiers=["Development Status :: 3 - Alpha",
+    classifiers=["Development Status :: 5 - Production/Stable",
                  'Intended Audience :: Science/Research',
                  'Intended Audience :: Education',
                  'Intended Audience :: Developers',
-                 'Topic :: Scientific/Engineering :: Visualization',
                  "Programming Language :: Python :: 3.7",
                  "Programming Language :: Python :: 3.8"
-                 "Programming Language :: Python :: 3.9"
                  ])
