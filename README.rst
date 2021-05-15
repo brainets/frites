@@ -1,5 +1,8 @@
-.. image:: https://github.com/brainets/frites/workflows/test_doc.yml/badge.svg
+.. image:: https://github.com/brainets/frites/actions/workflows/test_doc.yml/badge.svg
     :target: https://github.com/brainets/frites/actions/workflows/test_doc.yml
+
+.. image:: https://github.com/brainets/frites/actions/workflows/flake.yml/badge.svg
+    :target: https://github.com/brainets/frites/actions/workflows/flake.yml
 
 .. image:: https://travis-ci.org/brainets/frites.svg?branch=master
     :target: https://travis-ci.org/brainets/frites
