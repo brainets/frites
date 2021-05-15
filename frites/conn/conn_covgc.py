@@ -2,12 +2,12 @@
 import numpy as np
 import xarray as xr
 
+from frites.conn import conn_io
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
 from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
 from frites.utils import parallel_func
-from frites.dataset import SubjectEphy
 
 
 
@@ -324,46 +324,51 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     conn_dfc
     """
     set_log_level(verbose)
-    # -------------------------------------------------------------------------
+
+    # ________________________________ INPUTS _________________________________
     # input checking
     if isinstance(t0, CONFIG['INT_DTYPE']) or isinstance(
         t0, CONFIG['FLOAT_DTYPE']):
         t0 = np.array([t0])
     t0 = np.asarray(t0).astype(int)
     dt, lag, step = int(dt), int(lag), int(step)
-    # handle dataarray input
-    if isinstance(data, xr.DataArray):
-        trials, attrs = data[data.dims[0]].data, data.attrs
-    else:
-        trials, attrs = np.arange(data.shape[0]), {}
-    # internal conversion
-    data = SubjectEphy(data, y=trials, roi=roi, times=times)
+
+    # inputs conversion
+    data, cfg = conn_io(
+        data, times=times, roi=roi, agg_ch=False, win_sample=None,
+        pairs=None, sort=False, name='COVGC', verbose=verbose,
+    )
+
+    # extract variables
     x, roi, times = data.data, data['roi'].data, data['times'].data
-    trials = data['y'].data
+    trials, attrs = data['y'].data, cfg['attrs']
     n_epochs, n_roi, n_pts = data.shape
+    x_s, x_t, roi_p = cfg['x_s'], cfg['x_t'], cfg['roi_p']
+
     # force C contiguous array because operations on row-major
     if not x.flags.c_contiguous:
         x = np.ascontiguousarray(x)
+
     # method checking
     assert method in ['gauss', 'gc']
     fcn = dict(gauss=_covgc, gc=_gccovgc)[method]
 
-    # -------------------------------------------------------------------------
+    # ______________________________ VARIABLES ________________________________
     # build generic time indices (just need to add t0 to it)
     rows, cols = np.mgrid[0:lag + 1, 0:dt]
+
     # step in the past lags
     rows = rows[::step, :]
     cols = cols[::step, :]
+
     # create index for all lags and timespoints
     ind_tx = cols - rows
+
     # build output time vector
     times_p = np.empty((len(t0)), dtype=times.dtype, order='C')
     for n_t, t in enumerate(t0):
         times_p[n_t] = times[ind_tx[0, :] + t].mean()
-    # get the non-directed pairs and build roi pairs names
-    x_s, x_t = np.triu_indices(n_roi, k=1)
-    pairs = np.c_[x_s, x_t]
-    roi_p = np.array([f"{roi[s]}-{roi[t]}" for s, t in zip(x_s, x_t)])
+
     # check the ratio between lag and dt
     ratio = 100 * (ind_tx.shape[0] / (step * ind_tx.shape[1]))
     if not ratio <= 15.:
@@ -373,11 +378,14 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                        f" Try with a step={_step}")
     logger.debug(f"Index shape : {ind_tx.shape}")
 
-    # -------------------------------------------------------------------------
+    # _________________________________ COVGC _________________________________
     ext = 'conditional' if conditional else ''
+
     # compute covgc and parallel over pairs
-    logger.info(f"Compute the {ext} covgc (method={method}, normalised={norm}, n_pairs={len(x_s)}"
-                f"; n_windows={len(t0)}, lag={lag}, dt={dt}, step={step})")
+    logger.info(f"Compute the {ext} covgc (method={method}, normalised={norm},"
+                f" n_pairs={len(x_s)}; n_windows={len(t0)}, lag={lag}, "
+                f"dt={dt}, step={step})")
+
     kw_par = dict(n_jobs=n_jobs, total=len(x_s), verbose=False)
     if not conditional:
         parallel, p_fun = parallel_func(fcn, **kw_par)
@@ -388,11 +396,12 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         gc = parallel(p_fun(x, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
-    # -------------------------------------------------------------------------
+    # ________________________________ OUPUTS _________________________________
     # change output type
     dire = np.array(['x->y', 'y->x', 'x.y'])
     gc = xr.DataArray(gc, dims=('trials', 'roi', 'times', 'direction'),
                       coords=(trials, roi_p, times_p, dire), name='covgc')
+
     # set attributes
     cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=norm,
                conditional=conditional, type='covgc')
@@ -408,12 +417,14 @@ if __name__ == '__main__':
     ss = StimSpecAR()
     ar = ss.fit(ar_type='ding_3_direct', n_stim=2, n_epochs=20)
     # plot the model
-    # plt.figure(figsize=(7, 8))
-    # ss.plot()
+    plt.figure(figsize=(7, 8))
+    # ss.plot()  # single trial plot
+    ss.plot_model()
     # compute covgc
     dt, lag, step = 50, 5, 2
     t0 = np.arange(lag, ar.shape[-1] - dt, step)
     gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                    n_jobs=-1, conditional=False, norm=False)
+                    n_jobs=-1, conditional=True, norm=False)
+    plt.figure()
     ss.plot_covgc(gc=gc)
     plt.show()
