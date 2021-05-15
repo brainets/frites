@@ -27,6 +27,12 @@ def read(fname):
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
+core_deps = ['matplotlib', 'networkx', 'numba', 'dcor']
+test_deps = ['pytest', 'pytest-sugar', 'pytest-cov']
+doc_deps = [
+    'sphinx==2.2.0', 'sphinx-gallery==0.4.0', 'sphinx_bootstrap_theme',
+    'sphinxcontrib-bibtex==1.0.0', 'numpydoc', 'xlrd', 'openpyxl'
+]
 
 setup(
     name=NAME,
@@ -40,6 +46,11 @@ setup(
     platforms='any',
     setup_requires=['numpy'],
     install_requires=requirements,
+    extras_require={
+        'all': core_deps,
+        'test': core_deps + test_deps,
+        'doc': core_deps + test_deps + doc_deps
+    },
     dependency_links=[],
     author=AUTHOR,
     maintainer=MAINTAINER,
@@ -53,7 +64,7 @@ setup(
                  'Intended Audience :: Education',
                  'Intended Audience :: Developers',
                  'Topic :: Scientific/Engineering :: Visualization',
-                 "Programming Language :: Python :: 3.6",
                  "Programming Language :: Python :: 3.7",
                  "Programming Language :: Python :: 3.8"
+                 "Programming Language :: Python :: 3.9"
                  ])
