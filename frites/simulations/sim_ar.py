@@ -403,34 +403,34 @@ class StimSpecAR(object):
         import networkx as nx
         import matplotlib.pyplot as plt
 
-        G = nx.DiGraph(directed=True)
+        gg = nx.DiGraph(directed=True)
         if self._ar_type in ['hga', 'osc_40', 'osc_20']:
-            G.add_edges_from([('X', 'Y')], weight=1)
+            gg.add_edges_from([('X', 'Y')], weight=1)
             lab = self._lab
             edge_labels = {
                 ('X', 'Y'): lab + f"\n(n_stim={self._n_stim}, "
                                   f"n_std={self._n_std})"}
         elif self._ar_type == 'osc_40_3':
-            G.add_edges_from([('X', 'Y')], weight=1)
-            G.add_edges_from([('X', 'Z')], weight=1)
+            gg.add_edges_from([('X', 'Y')], weight=1)
+            gg.add_edges_from([('X', 'Z')], weight=1)
             lab = self._lab
             edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}"
-                           for u, v, d in G.edges(data=True)}
+                           for u, v, d in gg.edges(data=True)}
         elif self._ar_type in ['ding_2', 'ding_3', 'ding_5']:
             if self._ar_type == 'ding_2':
-                G.add_edges_from([('X', 'Y')], weight=1)
+                gg.add_edges_from([('X', 'Y')], weight=1)
             elif self._ar_type == 'ding_3':
-                G.add_edges_from([('Y', 'X')], weight=5)
-                G.add_edges_from([('Y', 'Z')], weight=6)
-                G.add_edges_from([('Z', 'X')], weight=4)
+                gg.add_edges_from([('Y', 'X')], weight=5)
+                gg.add_edges_from([('Y', 'Z')], weight=6)
+                gg.add_edges_from([('Z', 'X')], weight=4)
             elif self._ar_type == 'ding_5':
-                G.add_edges_from([('X1', 'X2'), ('X1', 'X3'), ('X1', 'X4')],
+                gg.add_edges_from([('X1', 'X2'), ('X1', 'X3'), ('X1', 'X4')],
                                  weight=5)
-                G.add_edges_from([('X4', 'X5')], weight=2)
-                G.add_edges_from([('X5', 'X4')], weight=1)
+                gg.add_edges_from([('X4', 'X5')], weight=2)
+                gg.add_edges_from([('X5', 'X4')], weight=1)
             # build edges labels
             edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}"
-                           for u, v, d in G.edges(data=True)}
+                           for u, v, d in gg.edges(data=True)}
             # fix ding_5 for bidirectional connectivity between 4 <-> 5
             if self._ar_type == 'ding_3':
                 edge_labels[('Y', 'X')] = "indirect\n(mediated by Z)"
@@ -439,7 +439,7 @@ class StimSpecAR(object):
                                              r'X5$\rightarrow$X4=1')
 
         # color edges according to causal strength
-        colors = np.array([w['weight'] for _, _, w in G.edges(data=True)])
+        colors = np.array([w['weight'] for _, _, w in gg.edges(data=True)])
         # get edge labels in the form {('X', 'Y'): 1 etc.}
         pos = nx.planar_layout(G)
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
