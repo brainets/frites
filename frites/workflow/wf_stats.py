@@ -47,7 +47,7 @@ class WfStats(WfBase):
         mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
             problem. Use either :
-                
+
                 * 'cluster' : cluster-based statistics [default]
                 * 'maxstat' : test-wise maximum statistics correction
                 * 'fdr' : test-wise FDR correction

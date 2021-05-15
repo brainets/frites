@@ -92,7 +92,6 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
     # get the number of subjects per pair
     pattern = '->' if directed else '-'
     gp = df_ss.groupby(['sources', 'targets'])
-    fcn = lambda df : len(np.unique(df))
     df_conn = gp.subjects.aggregate([list]).reset_index()
     df_conn = df_conn.rename(columns={'list': 'subjects'})
     df_conn['#subjects'] = [len(k) for k in df_conn['subjects']]

@@ -51,7 +51,7 @@ setup(
         'all': core_deps,
         'test': core_deps + test_deps,
         'doc': core_deps + test_deps + doc_deps,
-        'flake': core_deps + flake_deps
+        'flake': core_deps + test_deps + flake_deps
     },
     dependency_links=[],
     author=AUTHOR,

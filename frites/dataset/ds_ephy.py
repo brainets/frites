@@ -1,6 +1,4 @@
 """Multi-subjects container of neurophysiological."""
-import logging
-
 import numpy as np
 import xarray as xr
 import pandas as pd
@@ -13,7 +11,6 @@ from frites.dataset.ds_utils import multi_to_uni_conditions
 from frites.core import copnorm_cat_nd, copnorm_nd
 from frites.conn.conn_utils import conn_get_pairs
 from frites.utils import savgol_filter, nonsorted_unique
-
 
 
 class DatasetEphy(object):
@@ -135,12 +132,11 @@ class DatasetEphy(object):
         self.attrs.update({
             'nb_min_suj': nb_min_suj,
             'n_subjects': len(self._x),
-            'agg_ch' : agg_ch,
-            'multivariate' : multivariate,
+            'agg_ch': agg_ch,
+            'multivariate': multivariate,
             'dtype': "DatasetEphy",
             '__version__': frites.__version__
         })
-
 
     ###########################################################################
     ###########################################################################
@@ -162,7 +158,6 @@ class DatasetEphy(object):
             dt += [collapsible_section(k.name, details=k._repr_html_(),
                                        n_items=1, collapsed=True)]
         return "".join(f"<li class='xr-section-item'>{s}</li>" for s in dt)
-
 
     def _update_internals(self):
         """Update internal variables."""
@@ -192,7 +187,6 @@ class DatasetEphy(object):
         self._n_subjects = len(self._x)
         self._roi_names = list(df_rs.index[df_rs['keep']])
         self._n_roi = len(self._roi_names)
-
 
     ###########################################################################
     ###########################################################################
@@ -256,10 +250,10 @@ class DatasetEphy(object):
                     ysub = np.c_[y, ch_id]
                     x_r_ms['y'].data = multi_to_uni_conditions(
                         [ysub], False)[0]
-                elif mi_type == 'ccd' and ('z' not in x_coords):
+                elif (mi_type == 'ccd') and ('z' not in x_coords):
                     # I(C; C; D) where D=ch_id. In that case z=D
                     x_r_ms = x_r_ms.assign_coords(z=('rtr', ch_id))
-                elif mi_type == 'ccd' and  ('z' in x_coords):
+                elif (mi_type == 'ccd') and ('z' in x_coords):
                     # I(C; C; D) where D=[z, ch_id]
                     zsub = np.c_[x_r_ms['z'].data, ch_id]
                     x_r_ms['z'].data = multi_to_uni_conditions(
@@ -283,7 +277,6 @@ class DatasetEphy(object):
                         x_r_ms['y'].data = copnorm_nd(x_r_ms['y'].data, axis=0)
 
             return x_r_ms
-
 
     def sel(self, **kwargs):
         """Coordinate-based data slicing.
@@ -312,7 +305,6 @@ class DatasetEphy(object):
         self._update_internals()
         return self
 
-
     def isel(self, **kwargs):
         """Index-based data slicing.
 
@@ -339,7 +331,6 @@ class DatasetEphy(object):
         self._x = [k.isel(**kwargs) for k in self._x]
         self._update_internals()
         return self
-
 
     def savgol_filter(self, h_freq, edges=None, verbose=None):
         """Filter the data using Savitzky-Golay polynomial method.
@@ -387,7 +378,6 @@ class DatasetEphy(object):
 
         return self
 
-
     def get_connectivity_pairs(self, as_blocks=False, directed=False,
                                verbose=None):
         """Get the connectivity pairs for this dataset.
@@ -429,7 +419,6 @@ class DatasetEphy(object):
 
         return df_conn, df_conn_suj
 
-
     ###########################################################################
     ###########################################################################
     #                               PROPERTIES
@@ -455,4 +444,3 @@ class DatasetEphy(object):
     def roi_names(self):
         """List of brain regions to keep across subjects."""
         return self._roi_names
-

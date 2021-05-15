@@ -1,12 +1,10 @@
 """Dynamic Functional Connectivity."""
 import numpy as np
-import pandas as pd
 import xarray as xr
 
 from frites.conn import conn_io
-from frites.io import set_log_level, logger
+from frites.io import logger
 from frites.core import mi_nd_gg, copnorm_nd
-from frites.config import CONFIG
 from frites.utils import parallel_func
 
 
@@ -72,7 +70,6 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=False,
 
     # extract variables
     x, trials, attrs = data.data, data['y'].data, cfg['attrs']
-    n_trials = len(trials)
     win_sample, win_times = cfg['win_sample'], cfg['win_times']
     n_win = win_sample.shape[0]
     x_s, x_t = cfg['x_s'], cfg['x_t']

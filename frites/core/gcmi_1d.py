@@ -143,7 +143,6 @@ def gcmi_1d_cc(x, y):
     if x.ndim > 2 or y.ndim > 2:
         raise ValueError("x and y must be at most 2d")
     nvarx, ntrl = x.shape
-    nvary = y.shape[0]
 
     if y.shape[1] != ntrl:
         raise ValueError("number of trials do not match")
@@ -538,8 +537,6 @@ def gccmi_1d_ccc(x, y, z, biascorrect=True):
         raise ValueError("x, y and z must be at most 2d")
 
     nvarx, ntrl = x.shape
-    nvary = y.shape[0]
-    nvarz = z.shape[0]
 
     if y.shape[1] != ntrl or z.shape[1] != ntrl:
         raise ValueError("number of trials do not match")
@@ -582,7 +579,6 @@ def cmi_1d_ggd(x, y, z, biascorrect=True, demeaned=False):
         raise ValueError("z should be an integer array")
 
     nvarx, ntrl = x.shape
-    nvary = y.shape[0]
     u_z = np.unique(z)
 
     if y.shape[1] != ntrl or z.size != ntrl:
@@ -596,7 +592,7 @@ def cmi_1d_ggd(x, y, z, biascorrect=True, demeaned=False):
         thsx, thsy = x[:, idx], y[:, idx]
         pz[n_z] = idx.sum()
         icond[n_z] = mi_1d_gg(thsx, thsy, biascorrect=biascorrect,
-                             demeaned=demeaned)
+                              demeaned=demeaned)
 
     pz /= float(ntrl)
 

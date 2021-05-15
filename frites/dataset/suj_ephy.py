@@ -3,7 +3,6 @@ from collections import OrderedDict
 
 import numpy as np
 import xarray as xr
-import mne
 
 import frites
 from frites.config import CONFIG
@@ -226,8 +225,8 @@ class SubjectEphy(Attributes):
             'mi_type': mi_type,
             'mi_repr': mi_repr,
             'sfreq': sfreq,
-            'agg_ch' : agg_ch,
-            'multivariate' : multivariate
+            'agg_ch': agg_ch,
+            'multivariate': multivariate
         })
 
         # _____________________________ DataArray _____________________________
@@ -238,7 +237,6 @@ class SubjectEphy(Attributes):
                           attrs=attrs)
 
         return da
-
 
     @staticmethod
     def _infer_dtypes(var, var_name):

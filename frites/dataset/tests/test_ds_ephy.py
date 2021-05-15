@@ -4,7 +4,6 @@ import xarray as xr
 import pandas as pd
 
 from frites.dataset import DatasetEphy
-from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
 from frites.core import copnorm_cat_nd, copnorm_nd
 
 np.random.seed(0)
@@ -177,7 +176,7 @@ class TestDatasetEphy(object):  # noqa
     def test_builtin(self):
         """Test function builtin."""
         d_3d = self._get_data(3)
-        ds = DatasetEphy(d_3d, y='y', z='z', **kw)
+        DatasetEphy(d_3d, y='y', z='z', **kw)
 
     def test_slicing(self):
         """Test spatio-temporal slicing."""

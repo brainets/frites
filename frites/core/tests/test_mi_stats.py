@@ -38,6 +38,3 @@ class TestMiStats(object):  # noqa
                 for k in y_p:
                     assert (k[0:3].min() == 0) and (k[0:3].max() == 2)
                     assert (k[3::].min() == 3) and (k[3::].max() == 5)
-
-if __name__ == '__main__':
-    TestMiFun().test_mi_fun()

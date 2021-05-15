@@ -10,7 +10,6 @@ from frites.core.copnorm import copnorm_nd
 from frites.utils import parallel_func
 
 
-
 ###############################################################################
 ###############################################################################
 #                                COVGC ENTROPY
@@ -49,7 +48,6 @@ def _covgc(d_s, d_t, ind_tx, t0, norm=True):
     This function computes the covGC for a single pair, across multiple trials,
     at different time indices.
     """
-    kw = CONFIG["KW_GCMI"]
     n_trials, n_times = d_s.shape[0], len(t0)
     gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
     for n_ti, ti in enumerate(t0):
@@ -113,10 +111,11 @@ def _covgc(d_s, d_t, ind_tx, t0, norm=True):
                 # I(X_i+1; X_i) internal predictability of X
                 mi_xi1xi = hx - hxcx
                 # gc(pairs(:,1) -> pairs(:,2))
-                gc[n_tr, n_ti, 0] = gc[n_tr, n_ti, 0] / (mi_yi1yi + gc[n_tr, n_ti, 0])
+                gc[n_tr, n_ti, 0] = gc[n_tr, n_ti, 0] / (
+                    mi_yi1yi + gc[n_tr, n_ti, 0])
                 # gc(pairs(:,2) -> pairs(:,1))
-                gc[n_tr, n_ti, 1] = gc[n_tr, n_ti, 1] / (mi_xi1xi + gc[n_tr, n_ti, 1])
-
+                gc[n_tr, n_ti, 1] = gc[n_tr, n_ti, 1] / (
+                    mi_xi1xi + gc[n_tr, n_ti, 1])
 
     return gc
 
@@ -164,7 +163,6 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
         gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw)
 
     return gc
-
 
 
 ###############################################################################
@@ -327,8 +325,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
 
     # ________________________________ INPUTS _________________________________
     # input checking
-    if isinstance(t0, CONFIG['INT_DTYPE']) or isinstance(
-        t0, CONFIG['FLOAT_DTYPE']):
+    if isinstance(t0, (CONFIG['INT_DTYPE'], CONFIG['FLOAT_DTYPE'])):
         t0 = np.array([t0])
     t0 = np.asarray(t0).astype(int)
     dt, lag, step = int(dt), int(lag), int(step)

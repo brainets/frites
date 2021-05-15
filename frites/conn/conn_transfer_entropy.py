@@ -1,6 +1,5 @@
 """Transfer entropy using the Gaussian-Copula."""
 import numpy as np
-import xarray as xr
 
 from frites.core import cmi_nd_ggg, copnorm_nd
 from frites.config import CONFIG

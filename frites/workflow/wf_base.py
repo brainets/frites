@@ -1,6 +1,7 @@
 """Base class for worflows."""
 from frites.io import Attributes
 
+
 class WfBase(object):
     """Base class for workflows."""
 

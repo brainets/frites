@@ -1,10 +1,5 @@
 """Test Auto-Regressive model."""
-import numpy as np
-
 from frites.simulations import StimSpecAR
-
-import matplotlib.pyplot as plt
-
 
 AR = ['hga', 'osc_20', 'osc_40', 'osc_40_3', 'ding_2', 'ding_3_indirect',
       'ding_3_direct', 'ding_5']
@@ -24,13 +19,13 @@ class TestStimSpecAR(object):
             # test plotting the model as a network
             model.plot_model()
             # test computing and plotting the covgc / mi
-            gc = model.compute_covgc(ar, step=30)
+            model.compute_covgc(ar, step=30)
             model.plot_covgc()
             model.plot_covgc(plot_mi=True)
             # test the properties
-            ar = model.ar
-            gc = model.gc
-            mi = model.mi
+            model.ar
+            model.gc
+            model.mi
 
 
 if __name__ == '__main__':

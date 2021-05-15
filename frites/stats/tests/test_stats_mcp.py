@@ -49,7 +49,6 @@ class TestMCP(object):
             pv_2 = fcn_correction_mcp(x, x_p, tail=0, mcp=mcp)
             self.assert_equals(0, mcp, pv_2, gt_bot, p=p)
 
-
     @staticmethod
     def _is_signi(pval, sl):
         """Cluster have to be significant in the desired window."""
@@ -105,7 +104,6 @@ class TestMCP(object):
         assert (th['h_power'] == 1.) and (th['e_power'] == .1)
         th = cluster_threshold(x, x_p, tfce={'e_power': .1})
         assert (th['h_power'] == 2.) and (th['e_power'] == .1)
-
 
 
 if __name__ == '__main__':

@@ -77,7 +77,6 @@ class GCMIEstimator(BaseMIEstimator):
                         copnorm=copnorm, core_fun=self._core_fun.__name__)
         self.settings.merge([self._kwargs, settings])
 
-
     def estimate(self, x, y, z=None, categories=None):
         """Estimate the (possibly conditional) mutual-information.
 
@@ -123,7 +122,6 @@ class GCMIEstimator(BaseMIEstimator):
         """
         fcn = self.get_function()
         return fcn(x, y, z=z, categories=categories)
-
 
     def get_function(self):
         """Get the function to execute according to the input parameters.
@@ -236,6 +234,7 @@ def mi_ggg_loop(x, y, z, **kw):
     for k in range(n_var):
         mi[k] = cmi_1d_ggg(x[k, ...], y[k, ...], z[k, ...], **kw)
     return mi
+
 
 if __name__ == '__main__':
     c = GCMIEstimator('ccc')

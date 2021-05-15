@@ -4,6 +4,7 @@ import xarray as xr
 
 from frites.utils import savgol_filter, kernel_smoothing, nonsorted_unique
 
+
 class TestPreproc(object):
 
     def test_savgol_filter(self):
@@ -39,6 +40,7 @@ class TestPreproc(object):
         """Test function nonsorted_unique."""
         a = ['r2', 'r0', 'r0', 'r1', 'r2']
         np.testing.assert_array_equal(nonsorted_unique(a), ['r2', 'r0', 'r1'])
+
 
 if __name__ == '__main__':
     TestPreproc().test_kernel_smoothing()

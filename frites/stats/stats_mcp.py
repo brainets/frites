@@ -170,7 +170,6 @@ def cluster_correction_mcp(x, x_p, th, tail=1, **kwargs):
     return pv
 
 
-
 def _clusters_to_pvalues(x_shape, n_perm, cl_loc, cl_mass, cl_p_mass):
     """Transform clusters into p-values."""
     pvalues = np.full(x_shape, 1.)

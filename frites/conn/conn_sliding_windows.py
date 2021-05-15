@@ -51,7 +51,7 @@ def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
     stamp = times[1] - times[0]
 
     # -------------------------------------------------------------------------
-    # build windows 
+    # build windows
     if (windows is None) and (slwin_len is None):
         logger.info("    No input detected. Full time window is used")
         win_time = np.array([[times[0], times[-1]]])
@@ -67,8 +67,8 @@ def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
                     f"start={slwin_start}, stop={slwin_stop}, "
                     f"step={slwin_step})")
         # build the sliding windows
-        sl_start = np.arange(slwin_start, slwin_stop - slwin_len,  slwin_step)
-        sl_stop = np.arange(slwin_start + slwin_len, slwin_stop,  slwin_step)
+        sl_start = np.arange(slwin_start, slwin_stop - slwin_len, slwin_step)
+        sl_stop = np.arange(slwin_start + slwin_len, slwin_stop, slwin_step)
         if len(sl_start) != len(sl_stop):
             min_len = min(len(sl_start), len(sl_stop))
             sl_start, sl_stop = sl_start[0:min_len], sl_stop[0:min_len]

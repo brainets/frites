@@ -113,5 +113,6 @@ class TestWfMi(object):  # noqa
         assert cj_ss.shape == (n_subjects, n_times, n_roi)
         assert cj.shape == (n_times, n_roi)
 
+
 if __name__ == '__main__':
     TestWfMi().test_mi_ccd()

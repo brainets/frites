@@ -156,5 +156,6 @@ class TestGCMIEstimator(object):
                 mi = c.estimate(x, y, z=z)
                 self._compare_effects(effect, mi)
 
+
 if __name__ == '__main__':
     TestGCMIEstimator().test_support_dim()

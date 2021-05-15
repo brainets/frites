@@ -1,6 +1,5 @@
 """Utility functions for organizing dataset's data."""
 import numpy as np
-import pandas as pd
 
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
@@ -68,6 +67,7 @@ def multi_to_uni_conditions(x, var_name=None, verbose=None):
         x_new += [x_cat]
 
     return x_new
+
 
 if __name__ == '__main__':
     y = [0, 0, 1, 1, 2, 1]

@@ -558,6 +558,7 @@ def cmi_nd_ggd(x, y, z, mvaxis=None, traxis=-1, shape_checking=True,
         x = nd_reshape(x, mvaxis=mvaxis, traxis=traxis)
         y = nd_reshape(y, mvaxis=mvaxis, traxis=traxis)
         nd_shape_checking(x, y, mvaxis, traxis)
+        ntrl = x.shape[-1]
         assert (z.ndim == 1) and (len(z) == ntrl)
     ntrl = x.shape[-1]
 

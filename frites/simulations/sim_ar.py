@@ -66,7 +66,6 @@ class StimSpecAR(object):
         """
         assert isinstance(n_std, (int, float))
         times = np.arange(n_times) / sf - 0.5
-        trials = np.arange(n_epochs)
         cval = np.arange(n_stim) + 1
         gval = np.arange(n_stim) + 1
         n_epochs_tot = int(n_epochs * n_stim)
@@ -330,7 +329,6 @@ class StimSpecAR(object):
 
         return gc
 
-
     ###########################################################################
     ###########################################################################
     #                              PLOTTING
@@ -359,10 +357,10 @@ class StimSpecAR(object):
         n_roi = len(self._ar.roi.data)
         # switch between raw / psd plot
         if not psd:
-            to_plt, xaxis, xlab, ext = self._ar, times, 'Times', ''
+            to_plt, xaxis, ext = self._ar, times, ''
         else:
             to_plt = self._compute_psd(self._ar)
-            xaxis, xlab, ext = to_plt['freqs'], 'Frequency', 'PSD of '
+            xaxis, ext = to_plt['freqs'], 'PSD of '
 
         kw_imshow = dict(extent=[xaxis[0], xaxis[-1], trials[0], trials[-1]],
                          aspect='auto', origin='lower', cmap=cmap, **kwargs)
@@ -409,14 +407,15 @@ class StimSpecAR(object):
         if self._ar_type in ['hga', 'osc_40', 'osc_20']:
             G.add_edges_from([('X', 'Y')], weight=1)
             lab = self._lab
-            edge_labels = {('X', 'Y'): lab + f"\n(n_stim={self._n_stim}, "
-                f"n_std={self._n_std})"}
+            edge_labels = {
+                ('X', 'Y'): lab + f"\n(n_stim={self._n_stim}, "
+                                  f"n_std={self._n_std})"}
         elif self._ar_type == 'osc_40_3':
             G.add_edges_from([('X', 'Y')], weight=1)
             G.add_edges_from([('X', 'Z')], weight=1)
             lab = self._lab
-            edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}" for
-                u, v, d in G.edges(data=True)}
+            edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}"
+                           for u, v, d in G.edges(data=True)}
         elif self._ar_type in ['ding_2', 'ding_3', 'ding_5']:
             if self._ar_type == 'ding_2':
                 G.add_edges_from([('X', 'Y')], weight=1)
@@ -430,8 +429,8 @@ class StimSpecAR(object):
                 G.add_edges_from([('X4', 'X5')], weight=2)
                 G.add_edges_from([('X5', 'X4')], weight=1)
             # build edges labels
-            edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}" for
-                u, v, d in G.edges(data=True)}
+            edge_labels = {(u, v): rf"{u}$\rightarrow${v}={d['weight']}"
+                           for u, v, d in G.edges(data=True)}
             # fix ding_5 for bidirectional connectivity between 4 <-> 5
             if self._ar_type == 'ding_3':
                 edge_labels[('Y', 'X')] = "indirect\n(mediated by Z)"
@@ -452,7 +451,6 @@ class StimSpecAR(object):
         plt.tight_layout()
 
         return plt.gca()
-
 
     def plot_covgc(self, gc=None, plot_mi=False):
         """Plot the Granger Causality.
@@ -535,11 +533,8 @@ class StimSpecAR(object):
         return self._mi
 
 
-
-
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
-    import networkx as nx
     ss = StimSpecAR()
     ar = ss.fit(ar_type='hga', random_state=1, n_std=1, n_stim=2,
                 n_epochs=20)

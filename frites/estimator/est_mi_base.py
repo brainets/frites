@@ -4,6 +4,7 @@ from frites.config import CONFIG
 
 from frites.io import set_log_level, logger
 
+
 class BaseMIEstimator(object):
 
     """Base class for mutual-information estimators.

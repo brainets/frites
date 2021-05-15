@@ -95,7 +95,7 @@ class WfMi(WfBase):
                              f"{self._mi_type}. Allowed mi is "
                              f"{dataset._mi_type}")
         # get data variables
-        n_roi, inf = len(self._roi), self._inference
+        n_roi = len(self._roi)
         # evaluate true mi
         logger.info(f"    Evaluate true and permuted mi (n_perm={n_perm}, "
                     f"n_jobs={n_jobs})")
@@ -139,7 +139,6 @@ class WfMi(WfBase):
         self._mi, self._mi_p = mi, mi_p
 
         return mi, mi_p
-
 
     def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
             cluster_alpha=0.05, n_jobs=-1, random_state=None, **kw_stats):
@@ -330,7 +329,6 @@ class WfMi(WfBase):
             "perform the conjunction analysis.")
 
         # retrieve the original number of subjects
-        n_roi = len(self._mi)
         pv_s = {}
         for s in range(self._n_subjects):
             # reconstruct the mi and mi_p of each subject

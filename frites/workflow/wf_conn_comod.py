@@ -78,7 +78,6 @@ class WfConnComod(WfBase):
         logger.info(f"Workflow for computing comodulations between distant "
                     f"brain areas ({inference})")
 
-
     def _node_compute_mi(self, dataset, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
 
@@ -232,7 +231,7 @@ class WfConnComod(WfBase):
         # ---------------------------------------------------------------------
         # post-processing
         # ---------------------------------------------------------------------
-        logger.info(f"    Formatting outputs")
+        logger.info("    Formatting outputs")
         if isinstance(tvalues, np.ndarray):
             self._tvalues = self._xr_conversion(tvalues, 'tvalues')
         pvalues = self._xr_conversion(pvalues, 'pvalues')
