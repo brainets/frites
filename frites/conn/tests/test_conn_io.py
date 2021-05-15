@@ -89,6 +89,14 @@ class TestConnIO(object):
         np.testing.assert_array_equal(cfg['x_t'], [2, 6])
         np.testing.assert_array_equal(cfg['roi_p'], ['r0-R1', 'R1-r2'])
 
+        # test roi sorting
+        pairs = np.array([[3, 0], [5, 2]])
+        kw = dict(pairs=pairs, roi='space', times='ti')
+        _, cfg = conn_io(data_xr, sort=False, **kw)
+        np.testing.assert_array_equal(cfg['roi_p'], ['R1-r0', 'r2-R1'])
+        _, cfg = conn_io(data_xr, sort=True, **kw)
+        np.testing.assert_array_equal(cfg['roi_p'], ['r0-R1', 'R1-r2'])
+
     def test_temporal_definition(self):
         """Test sliding window definition"""
         # no window

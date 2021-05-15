@@ -11,7 +11,7 @@ from frites.dataset import SubjectEphy
 
 def conn_io(data, times=None, roi=None, sfreq=None, agg_ch=False,
             win_sample=None, pairs=None, block_size=None, name=None,
-            verbose=None):
+            sort=True, verbose=None):
     """Prepare connectivity variables.
 
     Parameters
@@ -43,6 +43,9 @@ def conn_io(data, times=None, roi=None, sfreq=None, agg_ch=False,
         inside a brain region, specify how the data has to be aggregated.
     block_size : int | None
         Number of blocks of trials to process at once.
+    sort : bool | True
+        Specify whether roi names should be sorted (True for undirected
+        measures) or not (False for directed measures)
 
     Returns
     -------
@@ -93,8 +96,11 @@ def conn_io(data, times=None, roi=None, sfreq=None, agg_ch=False,
 
     # build names of pairs of brain regions (case insensitive)
     roi_c = np.c_[roi_gp[x_s], roi_gp[x_t]]
-    idx = np.argsort(np.char.lower(roi_c), axis=1)
-    roi_s, roi_t = np.c_[[r[i] for r, i in zip(roi_c, idx)]].T
+    if sort:
+        idx = np.argsort(np.char.lower(roi_c), axis=1)
+        roi_s, roi_t = np.c_[[r[i] for r, i in zip(roi_c, idx)]].T
+    else:
+        roi_s, roi_t = roi_c.T
     roi_p = [f"{s}-{t}" for s, t in zip(roi_s, roi_t)]
 
     logger.debug(f"    Spatial dimension (n_groups={len(roi_gp)}; "

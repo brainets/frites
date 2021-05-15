@@ -67,7 +67,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, n_jobs=1, gcrn=False,
     # inputs conversion
     data, cfg = conn_io(
         data, times=times, roi=roi, agg_ch=agg_ch, win_sample=win_sample,
-        pairs=None, name='DFC', verbose=verbose
+        pairs=None, sort=True, name='DFC', verbose=verbose,
     )
 
     # extract variables
