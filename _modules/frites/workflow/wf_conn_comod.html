@@ -586,7 +586,6 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow for computing comodulations between distant &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;brain areas (</span><span class="si">{</span><span class="n">inference</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="nf">_node_compute_mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute mi and permuted mi.</span>
 
@@ -740,7 +739,7 @@
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># post-processing</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Formatting outputs&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;    Formatting outputs&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xr_conversion</span><span class="p">(</span><span class="n">tvalues</span><span class="p">,</span> <span class="s1">&#39;tvalues&#39;</span><span class="p">)</span>
         <span class="n">pvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xr_conversion</span><span class="p">(</span><span class="n">pvalues</span><span class="p">,</span> <span class="s1">&#39;pvalues&#39;</span><span class="p">)</span>

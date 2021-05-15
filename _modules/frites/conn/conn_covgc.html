@@ -518,7 +518,6 @@
 <span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span>
 
 
-
 <span class="c1">###############################################################################</span>
 <span class="c1">###############################################################################</span>
 <span class="c1">#                                COVGC ENTROPY</span>
@@ -557,7 +556,6 @@
 <span class="sd">    This function computes the covGC for a single pair, across multiple trials,</span>
 <span class="sd">    at different time indices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">kw</span> <span class="o">=</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;KW_GCMI&quot;</span><span class="p">]</span>
     <span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">d_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span>
     <span class="n">gc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">d_s</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">n_ti</span><span class="p">,</span> <span class="n">ti</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t0</span><span class="p">):</span>
@@ -621,10 +619,11 @@
                 <span class="c1"># I(X_i+1; X_i) internal predictability of X</span>
                 <span class="n">mi_xi1xi</span> <span class="o">=</span> <span class="n">hx</span> <span class="o">-</span> <span class="n">hxcx</span>
                 <span class="c1"># gc(pairs(:,1) -&gt; pairs(:,2))</span>
-                <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">mi_yi1yi</span> <span class="o">+</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+                <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+                    <span class="n">mi_yi1yi</span> <span class="o">+</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
                 <span class="c1"># gc(pairs(:,2) -&gt; pairs(:,1))</span>
-                <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">mi_xi1xi</span> <span class="o">+</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-
+                <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+                    <span class="n">mi_xi1xi</span> <span class="o">+</span> <span class="n">gc</span><span class="p">[</span><span class="n">n_tr</span><span class="p">,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">gc</span>
 
@@ -672,7 +671,6 @@
         <span class="n">gc</span><span class="p">[:,</span> <span class="n">n_ti</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_nd_ggg</span><span class="p">(</span><span class="n">x_pres</span><span class="p">,</span> <span class="n">y_pres</span><span class="p">,</span> <span class="n">xy_past</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">gc</span>
-
 
 
 <span class="c1">###############################################################################</span>
@@ -835,8 +833,7 @@
 
     <span class="c1"># ________________________________ INPUTS _________________________________</span>
     <span class="c1"># input checking</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;INT_DTYPE&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
-        <span class="n">t0</span><span class="p">,</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;FLOAT_DTYPE&#39;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;INT_DTYPE&#39;</span><span class="p">],</span> <span class="n">CONFIG</span><span class="p">[</span><span class="s1">&#39;FLOAT_DTYPE&#39;</span><span class="p">])):</span>
         <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t0</span><span class="p">])</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lag</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>

@@ -507,8 +507,6 @@
       
   <h1>Source code for frites.dataset.ds_ephy</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Multi-subjects container of neurophysiological.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -521,7 +519,6 @@
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">copnorm_cat_nd</span><span class="p">,</span> <span class="n">copnorm_nd</span>
 <span class="kn">from</span> <span class="nn">frites.conn.conn_utils</span> <span class="kn">import</span> <span class="n">conn_get_pairs</span>
 <span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">savgol_filter</span><span class="p">,</span> <span class="n">nonsorted_unique</span>
-
 
 
 <div class="viewcode-block" id="DatasetEphy"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy">[docs]</a><span class="k">class</span> <span class="nc">DatasetEphy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -643,12 +640,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
             <span class="s1">&#39;nb_min_suj&#39;</span><span class="p">:</span> <span class="n">nb_min_suj</span><span class="p">,</span>
             <span class="s1">&#39;n_subjects&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">),</span>
-            <span class="s1">&#39;agg_ch&#39;</span> <span class="p">:</span> <span class="n">agg_ch</span><span class="p">,</span>
-            <span class="s1">&#39;multivariate&#39;</span> <span class="p">:</span> <span class="n">multivariate</span><span class="p">,</span>
+            <span class="s1">&#39;agg_ch&#39;</span><span class="p">:</span> <span class="n">agg_ch</span><span class="p">,</span>
+            <span class="s1">&#39;multivariate&#39;</span><span class="p">:</span> <span class="n">multivariate</span><span class="p">,</span>
             <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s2">&quot;DatasetEphy&quot;</span><span class="p">,</span>
             <span class="s1">&#39;__version__&#39;</span><span class="p">:</span> <span class="n">frites</span><span class="o">.</span><span class="n">__version__</span>
         <span class="p">})</span></div>
-
 
     <span class="c1">###########################################################################</span>
     <span class="c1">###########################################################################</span>
@@ -670,7 +666,6 @@
             <span class="n">dt</span> <span class="o">+=</span> <span class="p">[</span><span class="n">collapsible_section</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">k</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">(),</span>
                                        <span class="n">n_items</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">collapsed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;li class=&#39;xr-section-item&#39;&gt;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&lt;/li&gt;&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dt</span><span class="p">)</span>
-
 
     <span class="k">def</span> <span class="nf">_update_internals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update internal variables.&quot;&quot;&quot;</span>
@@ -700,7 +695,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_roi_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_rs</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df_rs</span><span class="p">[</span><span class="s1">&#39;keep&#39;</span><span class="p">]])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_roi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_roi_names</span><span class="p">)</span>
-
 
     <span class="c1">###########################################################################</span>
     <span class="c1">###########################################################################</span>
@@ -764,10 +758,10 @@
                     <span class="n">ysub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">ch_id</span><span class="p">]</span>
                     <span class="n">x_r_ms</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">multi_to_uni_conditions</span><span class="p">(</span>
                         <span class="p">[</span><span class="n">ysub</span><span class="p">],</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;ccd&#39;</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;z&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x_coords</span><span class="p">):</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;ccd&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;z&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x_coords</span><span class="p">):</span>
                     <span class="c1"># I(C; C; D) where D=ch_id. In that case z=D</span>
                     <span class="n">x_r_ms</span> <span class="o">=</span> <span class="n">x_r_ms</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;rtr&#39;</span><span class="p">,</span> <span class="n">ch_id</span><span class="p">))</span>
-                <span class="k">elif</span> <span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;ccd&#39;</span> <span class="ow">and</span>  <span class="p">(</span><span class="s1">&#39;z&#39;</span> <span class="ow">in</span> <span class="n">x_coords</span><span class="p">):</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">mi_type</span> <span class="o">==</span> <span class="s1">&#39;ccd&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;z&#39;</span> <span class="ow">in</span> <span class="n">x_coords</span><span class="p">):</span>
                     <span class="c1"># I(C; C; D) where D=[z, ch_id]</span>
                     <span class="n">zsub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x_r_ms</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">ch_id</span><span class="p">]</span>
                     <span class="n">x_r_ms</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">multi_to_uni_conditions</span><span class="p">(</span>
@@ -791,7 +785,6 @@
                         <span class="n">x_r_ms</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">copnorm_nd</span><span class="p">(</span><span class="n">x_r_ms</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">x_r_ms</span></div>
-
 
 <div class="viewcode-block" id="DatasetEphy.sel"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.sel">[docs]</a>    <span class="k">def</span> <span class="nf">sel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Coordinate-based data slicing.</span>
@@ -820,7 +813,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_internals</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-
 <div class="viewcode-block" id="DatasetEphy.isel"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.isel">[docs]</a>    <span class="k">def</span> <span class="nf">isel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Index-based data slicing.</span>
 
@@ -847,7 +839,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_internals</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div>
-
 
 <div class="viewcode-block" id="DatasetEphy.savgol_filter"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.savgol_filter">[docs]</a>    <span class="k">def</span> <span class="nf">savgol_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_freq</span><span class="p">,</span> <span class="n">edges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Filter the data using Savitzky-Golay polynomial method.</span>
@@ -895,7 +886,6 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-
 <div class="viewcode-block" id="DatasetEphy.get_connectivity_pairs"><a class="viewcode-back" href="../../../generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.get_connectivity_pairs">[docs]</a>    <span class="k">def</span> <span class="nf">get_connectivity_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">as_blocks</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                                <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the connectivity pairs for this dataset.</span>
@@ -937,7 +927,6 @@
 
         <span class="k">return</span> <span class="n">df_conn</span><span class="p">,</span> <span class="n">df_conn_suj</span></div>
 
-
     <span class="c1">###########################################################################</span>
     <span class="c1">###########################################################################</span>
     <span class="c1">#                               PROPERTIES</span>
@@ -963,7 +952,6 @@
     <span class="k">def</span> <span class="nf">roi_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;List of brain regions to keep across subjects.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi_names</span></div>
-
 </pre></div>
 
     </div>

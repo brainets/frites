@@ -511,7 +511,6 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">mne</span>
 
 <span class="kn">import</span> <span class="nn">frites</span>
 <span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
@@ -734,8 +733,8 @@
             <span class="s1">&#39;mi_type&#39;</span><span class="p">:</span> <span class="n">mi_type</span><span class="p">,</span>
             <span class="s1">&#39;mi_repr&#39;</span><span class="p">:</span> <span class="n">mi_repr</span><span class="p">,</span>
             <span class="s1">&#39;sfreq&#39;</span><span class="p">:</span> <span class="n">sfreq</span><span class="p">,</span>
-            <span class="s1">&#39;agg_ch&#39;</span> <span class="p">:</span> <span class="n">agg_ch</span><span class="p">,</span>
-            <span class="s1">&#39;multivariate&#39;</span> <span class="p">:</span> <span class="n">multivariate</span>
+            <span class="s1">&#39;agg_ch&#39;</span><span class="p">:</span> <span class="n">agg_ch</span><span class="p">,</span>
+            <span class="s1">&#39;multivariate&#39;</span><span class="p">:</span> <span class="n">multivariate</span>
         <span class="p">})</span>
 
         <span class="c1"># _____________________________ DataArray _____________________________</span>
@@ -746,7 +745,6 @@
                           <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">da</span>
-
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_infer_dtypes</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">var_name</span><span class="p">):</span>

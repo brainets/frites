@@ -651,7 +651,6 @@
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x and y must be at most 2d&quot;</span><span class="p">)</span>
     <span class="n">nvarx</span><span class="p">,</span> <span class="n">ntrl</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">nvary</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ntrl</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;number of trials do not match&quot;</span><span class="p">)</span>
@@ -1046,8 +1045,6 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x, y and z must be at most 2d&quot;</span><span class="p">)</span>
 
     <span class="n">nvarx</span><span class="p">,</span> <span class="n">ntrl</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">nvary</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">nvarz</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ntrl</span> <span class="ow">or</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ntrl</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;number of trials do not match&quot;</span><span class="p">)</span>
@@ -1090,7 +1087,6 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;z should be an integer array&quot;</span><span class="p">)</span>
 
     <span class="n">nvarx</span><span class="p">,</span> <span class="n">ntrl</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">nvary</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">u_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ntrl</span> <span class="ow">or</span> <span class="n">z</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">ntrl</span><span class="p">:</span>
@@ -1104,7 +1100,7 @@
         <span class="n">thsx</span><span class="p">,</span> <span class="n">thsy</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
         <span class="n">pz</span><span class="p">[</span><span class="n">n_z</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="n">icond</span><span class="p">[</span><span class="n">n_z</span><span class="p">]</span> <span class="o">=</span> <span class="n">mi_1d_gg</span><span class="p">(</span><span class="n">thsx</span><span class="p">,</span> <span class="n">thsy</span><span class="p">,</span> <span class="n">biascorrect</span><span class="o">=</span><span class="n">biascorrect</span><span class="p">,</span>
-                             <span class="n">demeaned</span><span class="o">=</span><span class="n">demeaned</span><span class="p">)</span>
+                              <span class="n">demeaned</span><span class="o">=</span><span class="n">demeaned</span><span class="p">)</span>
 
     <span class="n">pz</span> <span class="o">/=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ntrl</span><span class="p">)</span>
 

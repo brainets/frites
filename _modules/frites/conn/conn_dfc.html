@@ -508,13 +508,11 @@
   <h1>Source code for frites.conn.conn_dfc</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Dynamic Functional Connectivity.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 <span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <span class="n">conn_io</span>
-<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">set_log_level</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">frites.io</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">mi_nd_gg</span><span class="p">,</span> <span class="n">copnorm_nd</span>
-<span class="kn">from</span> <span class="nn">frites.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
 <span class="kn">from</span> <span class="nn">frites.utils</span> <span class="kn">import</span> <span class="n">parallel_func</span>
 
 
@@ -580,7 +578,6 @@
 
     <span class="c1"># extract variables</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">trials</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;attrs&#39;</span><span class="p">]</span>
-    <span class="n">n_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">trials</span><span class="p">)</span>
     <span class="n">win_sample</span><span class="p">,</span> <span class="n">win_times</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;win_sample&#39;</span><span class="p">],</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;win_times&#39;</span><span class="p">]</span>
     <span class="n">n_win</span> <span class="o">=</span> <span class="n">win_sample</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">x_s</span><span class="p">,</span> <span class="n">x_t</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;x_s&#39;</span><span class="p">],</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;x_t&#39;</span><span class="p">]</span>

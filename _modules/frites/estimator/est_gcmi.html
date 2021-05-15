@@ -585,7 +585,6 @@
                         <span class="n">copnorm</span><span class="o">=</span><span class="n">copnorm</span><span class="p">,</span> <span class="n">core_fun</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_core_fun</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">,</span> <span class="n">settings</span><span class="p">])</span></div>
 
-
 <div class="viewcode-block" id="GCMIEstimator.estimate"><a class="viewcode-back" href="../../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Estimate the (possibly conditional) mutual-information.</span>
 
@@ -631,7 +630,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fcn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GCMIEstimator.get_function"><a class="viewcode-back" href="../../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator.get_function">[docs]</a>    <span class="k">def</span> <span class="nf">get_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the function to execute according to the input parameters.</span>
@@ -744,6 +742,7 @@
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_var</span><span class="p">):</span>
         <span class="n">mi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmi_1d_ggg</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">mi</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">GCMIEstimator</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">)</span>
