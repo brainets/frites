@@ -31,8 +31,9 @@ core_deps = ['matplotlib', 'networkx', 'numba', 'dcor']
 test_deps = ['pytest', 'pytest-sugar', 'pytest-cov']
 doc_deps = [
     'sphinx==2.2.0', 'sphinx-gallery==0.4.0', 'sphinx_bootstrap_theme',
-    'sphinxcontrib-bibtex==1.0.0', 'numpydoc', 'xlrd', 'openpyxl'
+    'sphinxcontrib-bibtex==1.0.0', 'numpydoc', 'xlrd', 'openpyxl', 'seaborn'
 ]
+flake_deps = ['flake8', 'pep8-naming']
 
 setup(
     name=NAME,
@@ -49,7 +50,8 @@ setup(
     extras_require={
         'all': core_deps,
         'test': core_deps + test_deps,
-        'doc': core_deps + test_deps + doc_deps
+        'doc': core_deps + test_deps + doc_deps,
+        'flake': core_deps + flake_deps
     },
     dependency_links=[],
     author=AUTHOR,
