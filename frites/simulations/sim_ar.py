@@ -425,7 +425,7 @@ class StimSpecAR(object):
                 gg.add_edges_from([('Z', 'X')], weight=4)
             elif self._ar_type == 'ding_5':
                 gg.add_edges_from([('X1', 'X2'), ('X1', 'X3'), ('X1', 'X4')],
-                                 weight=5)
+                                  weight=5)
                 gg.add_edges_from([('X4', 'X5')], weight=2)
                 gg.add_edges_from([('X5', 'X4')], weight=1)
             # build edges labels
@@ -441,12 +441,13 @@ class StimSpecAR(object):
         # color edges according to causal strength
         colors = np.array([w['weight'] for _, _, w in gg.edges(data=True)])
         # get edge labels in the form {('X', 'Y'): 1 etc.}
-        pos = nx.planar_layout(G)
-        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-        nx.draw_networkx(G, pos, arrowstyle='-|>', arrowsize=25, node_size=800,
-                         arrows=True, font_color='w', node_color='k',
-                         edge_cmap=plt.cm.Greys, edge_color=colors, width=3,
-                         edge_vmin=colors.min() - 1)
+        pos = nx.planar_layout(gg)
+        nx.draw_networkx_edge_labels(gg, pos, edge_labels=edge_labels)
+        nx.draw_networkx(
+            gg, pos, arrowstyle='-|>', arrowsize=25, node_size=800,
+            arrows=True, font_color='w', node_color='k',
+            edge_cmap=plt.cm.Greys, edge_color=colors, width=3,
+            edge_vmin=colors.min() - 1)
         plt.axis('off')
         plt.tight_layout()
 
