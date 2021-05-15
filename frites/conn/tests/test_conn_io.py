@@ -113,6 +113,19 @@ class TestConnIO(object):
         np.testing.assert_array_equal(
             cfg['win_times'], times[cfg['win_sample']].mean(1))
 
+    def test_task_related(self):
+        """Test passing a y variable."""
+        # test default
+        x, _ = conn_io(data_xr, roi='space', times='ti')
+        np.testing.assert_array_equal(x['trials'].data, np.arange(n_trials))
+        np.testing.assert_array_equal(x['y'].data, trials)
+
+        # test passing a task-variable
+        y = np.random.rand(n_trials)
+        x, _ = conn_io(data_xr, roi='space', times='ti', y=y)
+        np.testing.assert_array_equal(x['trials'].data, np.arange(n_trials))
+        np.testing.assert_array_equal(x['y'].data, y)
+
     def test_block_size(self):
         """Test block size definition"""
         trials = np.arange(n_trials)
@@ -128,6 +141,4 @@ class TestConnIO(object):
 
 
 if __name__ == '__main__':
-    # TestConnIO().test_input_types()
-    TestConnIO().test_space_definition()
-    # TestConnIO().test_block_size()
+    TestConnIO().test_task_related()

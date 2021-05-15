@@ -9,7 +9,7 @@ from frites.config import CONFIG
 from frites.dataset import SubjectEphy
 
 
-def conn_io(data, times=None, roi=None, sfreq=None, agg_ch=False,
+def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
             win_sample=None, pairs=None, block_size=None, name=None,
             sort=True, verbose=None):
     """Prepare connectivity variables.
@@ -29,6 +29,8 @@ def conn_io(data, times=None, roi=None, sfreq=None, agg_ch=False,
     roi : array_like | None
         ROI names of a single subject. If the input is an xarray, the
         name of the ROI dimension can be provided
+    y : array_like | None
+        A variable to attach to the trials
     sfreq : float | None
         Sampling frequency
     win_sample : array_like | None
@@ -68,9 +70,11 @@ def conn_io(data, times=None, roi=None, sfreq=None, agg_ch=False,
         else:
             n_trials = data.shape[0]
         trials, attrs = np.arange(n_trials), {}
+    if y is None:
+        y = trials
 
     # main data conversion
-    data = SubjectEphy(data, y=trials, roi=roi, times=times, sfreq=sfreq,
+    data = SubjectEphy(data, y=y, roi=roi, times=times, sfreq=sfreq,
                        verbose=verbose)
     roi, times = data['roi'].data, data['times'].data
     trials = data['y'].data
