@@ -154,12 +154,13 @@ def get_distance_correlation(implementation='auto'):
 ###############################################################################
 ###############################################################################
 
+
 def dist_eucl(x):
     """Double centered euclidian distance."""
     if x.ndim == 1:
         x = x[:, np.newaxis]
     n = x.shape[0]
-    
+
     # compute the euclidian distance
     dist = - 2 * x.dot(x.T)
     x_square = (x * x).sum(axis=1)
@@ -167,7 +168,7 @@ def dist_eucl(x):
     np.add(dist, x_square.reshape(1, n), out=dist)
     np.fill_diagonal(dist, 0.)
     np.sqrt(dist, out=dist)
-    
+
     # double centering
     np.subtract(dist, dist.mean(axis=0, keepdims=True), out=dist)
     np.subtract(dist, dist.mean(axis=1, keepdims=True), out=dist)
