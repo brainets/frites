@@ -22,8 +22,8 @@ from matplotlib.patches import Rectangle
 #
 # Let's start by creating a simple sinusoide with a time vector. Then, to
 # define windows we are going to use the function
-# :func:`frites.utils.define_windows` and also
-# :func:`frites.utils.plot_windows` for plotting.
+# :func:`frites.conn.define_windows` and also
+# :func:`frites.conn.plot_windows` for plotting.
 
 n_pts = 1000
 period = .2  # 200ms period
