@@ -50,6 +50,12 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
 
         Note that feature is only available for measures of information
         supporting multivariate computations.
+    estimator : frites.estimator | None
+        Estimator in order to measure the amount of information shared between
+        two time-series coming from two distinct brain regions. Note that if
+        you want to privide an estimator, be sure that it is made for
+        continuous variables (mi_type='cc'). By default the Gaussian-Copula
+        mutual-information is used.
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.

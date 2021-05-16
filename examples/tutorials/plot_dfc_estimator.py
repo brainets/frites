@@ -26,8 +26,9 @@ np.random.seed(0)
 # Data simulation
 # ---------------
 #
-# ok
-# ok
+# In this first section, we generate simulated data. We first use random data
+# coming from several brain regions and then we introduce some correlations
+# between the first two brain regions.
 
 n_trials = 100
 n_roi = 3
