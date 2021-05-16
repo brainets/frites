@@ -20,9 +20,11 @@ class BaseMIEstimator(object):
               third discret one
             * 'ccc' : MI between two continuous variables conditioned by a
               third continuous one
+    add_str : string | ''
+        Additional string
     """
 
-    def __init__(self, mi_type='cc', verbose=None):
+    def __init__(self, mi_type='cc', add_str='', verbose=None):
         """Init."""
         set_log_level(verbose)
         desc = CONFIG['MI_REPR'][mi_type]
@@ -31,7 +33,7 @@ class BaseMIEstimator(object):
         self._kwargs = dict()
         assert hasattr(self, 'name')
 
-        logger.info(f"{self.name} ({mi_type})")
+        logger.info(f"{self.name} (mi_type={mi_type}{add_str})")
 
     def __repr__(self):
         """Overall representation."""

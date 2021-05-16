@@ -12,7 +12,7 @@ from frites.utils import nonsorted_unique
 
 class GCMIEstimator(BaseMIEstimator):
 
-    """Gaussian Copula Mutual Information estimator.
+    """Gaussian Copula Mutual-Information estimator.
 
     Parameters
     ----------
@@ -46,7 +46,10 @@ class GCMIEstimator(BaseMIEstimator):
     def __init__(self, mi_type='cc', copnorm=True, biascorrect=True,
                  demeaned=False, tensor=True, gpu=False, verbose=None):
         self.name = 'Gaussian Copula Mutual Information Estimator'
-        super(GCMIEstimator, self).__init__(mi_type=mi_type, verbose=verbose)
+        add_str = (f", copnorm={copnorm}, biascorrect={biascorrect}, "
+                   f"demeaned={demeaned}")
+        super(GCMIEstimator, self).__init__(
+            mi_type=mi_type, verbose=verbose, add_str=add_str)
 
         # =========================== Core function ===========================
 
@@ -234,8 +237,3 @@ def mi_ggg_loop(x, y, z, **kw):
     for k in range(n_var):
         mi[k] = cmi_1d_ggg(x[k, ...], y[k, ...], z[k, ...], **kw)
     return mi
-
-
-if __name__ == '__main__':
-    c = GCMIEstimator('ccc')
-    print(c)

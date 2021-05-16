@@ -111,15 +111,3 @@ def correlate(x, y, categories):
                 corr[n_c, t] = np.corrcoef(x_c[t, 0, :], y_c[t, 0, :])[0, 1]
 
     return corr
-
-
-if __name__ == '__main__':
-    est = CorrEstimator()
-    fcn = est.get_function()
-    x = np.random.rand(100).reshape(1, 1, -1)
-    y = np.random.rand(100).reshape(-1)
-    x[..., 0:50] -= y[..., 0:50]
-    x[..., 50:100] += y[..., 50:100]
-    cat = np.array([0] * 50 + [1] * 50)
-    corr = fcn(x, y, categories=cat)
-    print(corr)

@@ -29,11 +29,12 @@ class DcorrEstimator(BaseMIEstimator):
             implementation=implementation)
         self._core_fun = wrap_dcorr(fcn)
         # instantiate base class
+        add_str = f", implementation={implementation}"
         super(DcorrEstimator, self).__init__(
-            mi_type='cc', verbose=verbose,
-            add_str=f', implementation={implementation}')
+            mi_type='cc', add_str=add_str, verbose=verbose)
         # update internal settings
-        settings = dict(mi_type='cc', core_fun=self._core_fun.__name__)
+        settings = dict(mi_type='cc', core_fun=self._core_fun.__name__,
+                        implementation=implementation)
         self.settings.merge([settings])
 
     def estimate(self, x, y, z=None, categories=None):
@@ -216,17 +217,3 @@ def distance_correlation(x, y):
     dcov2_yy = (b * b).sum() / denom
     dcor = np.sqrt(dcov2_xy) / np.sqrt(np.sqrt(dcov2_xx) * np.sqrt(dcov2_yy))
     return dcor
-
-
-if __name__ == '__main__':
-    est = DcorrEstimator(implementation='auto', verbose='debug')
-    fcn = est.get_function()
-    x = np.random.rand(100).reshape(1, 1, -1)
-    y = np.random.rand(100).reshape(-1)
-    x[..., 0:50] -= y[..., 0:50]
-    # x[..., 50:100] += y[..., 50:100]
-    from dcor import distance_correlation
-    print(distance_correlation(x.squeeze(), y))
-    cat = np.array([0] * 50 + [1] * 50)
-    corr = fcn(x, y, categories=None)
-    print(corr)

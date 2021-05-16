@@ -8,7 +8,7 @@ from frites.utils import jit
 
 class BinMIEstimator(BaseMIEstimator):
 
-    """Binning-based Mutual Information estimator.
+    """Binning-based Mutual-Information estimator.
 
     .. note::
 
@@ -32,7 +32,9 @@ class BinMIEstimator(BaseMIEstimator):
 
     def __init__(self, mi_type='cc', n_bins=4, verbose=None):
         self.name = 'Binning-based Mutual Information Estimator'
-        super(BinMIEstimator, self).__init__(mi_type=mi_type, verbose=verbose)
+        add_str = f", n_bins={n_bins}"
+        super(BinMIEstimator, self).__init__(
+            mi_type=mi_type, add_str=add_str, verbose=verbose)
 
         # =========================== Core function ===========================
         fcn = {'cc': mi_bin_cc, 'cd': mi_bin_cd, 'ccd': mi_bin_ccd}[mi_type]
