@@ -6,6 +6,9 @@ What's new
 v0.4.0
 ------
 
+New Features
+++++++++++++
+* New estimators (:py:class:`frites.estimator.CorrEstimator`, :py:class:`frites.estimator.DcorrEstimator`) for continuous / continuous relationships (:commit:`73ed8bbb`, :commit:`bc370a93`, :commit:`cf7a3456f`)
 
 v0.3.9
 ------

@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Define an electrophysiological dataset using MNE-Python structures" href="../dataset/plot_dataset_mne.html" />
-    <link rel="prev" title="Examples" href="../index.html" />
+    <link rel="prev" title="Estimate the Dynamic Functional Connectivity" href="plot_dfc_estimator.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -109,6 +109,13 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#tutorials">Tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_dfc_estimator.html">Estimate the Dynamic Functional Connectivity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plot_dfc_estimator.html#data-simulation">Data simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dfc_estimator.html#computes-the-dfc-in-a-single-temporal-window">Computes the DFC in a single temporal window</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dfc_estimator.html#computes-the-dfc-on-sliding-windows">Computes the DFC on sliding windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_dfc_estimator.html#comparison-of-several-estimators">Comparison of several estimators</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Statistical analysis of a stimulus-specific network</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#simulate-a-stimulus-specific-network">Simulate a stimulus-specific network</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stimulus-specificity-of-the-nodes-of-the-network">Stimulus-specificity of the nodes of the network</a></li>
@@ -322,9 +329,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#mutual-information-estimators">Mutual-Information estimators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#information-based-estimators">Information-based estimators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#information-theoretic-estimators">Information-theoretic estimators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#distance-estimators">Distance estimators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.DcorrEstimator.html">frites.estimator.DcorrEstimator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#correlation-estimators">Correlation estimators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.CorrEstimator.html">frites.estimator.CorrEstimator</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
@@ -412,57 +430,60 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-0">v0.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-9">v0.3.9</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-0">v0.4.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-9">v0.3.9</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-8">v0.3.8</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id7">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id8">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id11">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id12">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id13">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id14">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id15">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id19">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id19">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id20">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id20">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id25">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id25">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id26">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id26">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id27">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id28">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id27">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id28">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id29">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id29">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id30">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id31">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id32">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id33">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id30">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id31">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id32">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id33">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id34">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -611,10 +632,10 @@ high-gamma and the stimulus variable.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:01&lt;00:02,    1.20s/it]
- 67%|######6   | Estimating MI : 2/3 [00:02&lt;00:01,    1.20s/it]
-100%|##########| Estimating MI : 3/3 [00:03&lt;00:00,    1.21s/it]
-100%|##########| Estimating MI : 3/3 [00:03&lt;00:00,    1.24s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.21it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.21it/s]
+100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.21it/s]
+100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.20it/s]
 </pre></div>
 </div>
 <p>define the MI plotting function</p>
@@ -697,10 +718,10 @@ workflow of mutual information</p>
 <img alt="../../_images/sphx_glr_plot_stim_spec_network_004.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_004.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.33it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.33it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.33it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.32it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:00,    2.31it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:00&lt;00:00,    2.31it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.30it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.28it/s]
 </pre></div>
 </div>
 </section>
@@ -750,34 +771,34 @@ sent from one region to another (which should be X-&gt;Y)</p>
 <img alt="../../_images/sphx_glr_plot_stim_spec_network_005.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_005.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.32s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.32s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.31s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.26s/it]
+ 33%|###3      |  : 1/3 [00:05&lt;00:11,    5.94s/it]
+ 67%|######6   |  : 2/3 [00:11&lt;00:05,    5.94s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.94s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.94s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.29s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.29s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.29s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.28s/it]
+ 33%|###3      |  : 1/3 [00:05&lt;00:11,    5.92s/it]
+ 67%|######6   |  : 2/3 [00:11&lt;00:05,    5.92s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.92s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.93s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.36s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.35s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.34s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.25s/it]
+ 33%|###3      |  : 1/3 [00:05&lt;00:11,    5.93s/it]
+ 67%|######6   |  : 2/3 [00:11&lt;00:05,    5.93s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.93s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.94s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.37s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.38s/it]
-100%|##########|  : 3/3 [00:25&lt;00:00,    8.37s/it]
-100%|##########|  : 3/3 [00:25&lt;00:00,    8.37s/it]
+ 33%|###3      |  : 1/3 [00:05&lt;00:11,    5.94s/it]
+ 67%|######6   |  : 2/3 [00:11&lt;00:05,    5.95s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.95s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.97s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.22s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.22s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.23s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.29s/it]
+ 33%|###3      |  : 1/3 [00:05&lt;00:11,    5.95s/it]
+ 67%|######6   |  : 2/3 [00:11&lt;00:05,    5.95s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.94s/it]
+100%|##########|  : 3/3 [00:17&lt;00:00,    5.94s/it]
 </pre></div>
 </div>
 <p>finally, we can can compute the MI between the covgc (i.e for each direction)
@@ -801,22 +822,22 @@ and the stimulus</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.30it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.29it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.29it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.25it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:00,    2.13it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:00&lt;00:00,    2.13it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.13it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.13it/s]
 
   0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.27it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.27it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.27it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.27it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:00,    2.12it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:00&lt;00:00,    2.12it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.12it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.12it/s]
 
   0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.24it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.24it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.24it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.24it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:00,    2.14it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:00&lt;00:00,    2.14it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.13it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    2.11it/s]
 </pre></div>
 </div>
 <p>plot the result</p>
@@ -849,7 +870,7 @@ and the stimulus</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_stim_spec_network_006.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_006.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  22.549 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  40.587 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tutorials-plot-stim-spec-network-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f4606f6ecad5df4ada1d6477aba97bb7/plot_stim_spec_network.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_stim_spec_network.py</span></code></a></p>
@@ -887,7 +908,7 @@ and the stimulus</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-05-15.</p>
+        <p>&copy; Copyright Last updated on 2021-05-16.</p>
     </footer>
 
   </body>
