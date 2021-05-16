@@ -115,8 +115,8 @@ Utility functions
 
 .. ----------------------------------------------------------------------------
 
-Mutual-Information estimators
------------------------------
+Information-based estimators
+----------------------------
 
 :py:mod:`frites.estimator`:
 
@@ -126,11 +126,30 @@ Mutual-Information estimators
    :no-members:
    :no-inherited-members:
 
+Information-theoretic estimators
+++++++++++++++++++++++++++++++++
+
 .. autosummary::
    :toctree: generated/
 
    GCMIEstimator
    BinMIEstimator
+
+Distance estimators
++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   DcorrEstimator
+
+Correlation estimators
+++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   CorrEstimator
 
 .. raw:: html
 
