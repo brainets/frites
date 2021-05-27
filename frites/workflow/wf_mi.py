@@ -424,7 +424,11 @@ class WfMi(WfBase):
             self.attrs.wrap_xr(da, name=param)
             outs += [da]
 
-        return tuple(outs)
+        # fix returning single output
+        if len(outs) == 1:
+            return outs[0]
+        else:
+            return tuple(outs)
 
     def clean(self):
         """Clean computations."""
