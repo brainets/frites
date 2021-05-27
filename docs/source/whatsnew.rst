@@ -11,6 +11,10 @@ New Features
 * New estimators (:py:class:`frites.estimator.CorrEstimator`, :py:class:`frites.estimator.DcorrEstimator`) for continuous / continuous relationships (:commit:`73ed8bbb`, :commit:`bc370a93`, :commit:`cf7a3456f`)
 * :py:`frites.conn.conn_dfc` supports passing other estimators (:commit:`a864a7b05b`)
 
+Bug fixes
++++++++++
+* Fix :py:class:`frites.workflow.WfMi.get_params` when returning a single output (:commit:`3bde82e6`)
+
 v0.3.9
 ------
 
