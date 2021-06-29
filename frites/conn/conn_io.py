@@ -101,7 +101,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
     # build names of pairs of brain regions (case insensitive)
     roi_c = np.c_[roi_gp[x_s], roi_gp[x_t]]
     if sort:
-        idx = np.argsort(np.char.lower(roi_c), axis=1)
+        idx = np.argsort(np.char.lower(roi_c.astype(str)), axis=1)
         roi_s, roi_t = np.c_[[r[i] for r, i in zip(roi_c, idx)]].T
     else:
         roi_s, roi_t = roi_c.T

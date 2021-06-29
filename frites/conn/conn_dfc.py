@@ -114,7 +114,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
     dfc = parallel(p_fun(i_s, i_t) for i_s, i_t in zip(x_s, x_t))
     dfc = np.concatenate(dfc, axis=1)
 
-    # ________________________________ OUPUTS _________________________________
+    # ________________________________ OUTPUTS ________________________________
     # dataarray conversion
     dfc = xr.DataArray(dfc, dims=('trials', 'roi', 'times'),
                        coords=(trials, roi_p, win_times),
