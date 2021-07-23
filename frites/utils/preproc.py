@@ -134,3 +134,79 @@ def nonsorted_unique(data, assert_unique=False):
             "Brain regions are not unique for inferring connectivity pairs")
     _, u_idx = np.unique(data, return_index=True)
     return data[np.sort(u_idx)]
+
+
+def time_to_sample(values, sf=None, times=None, round='closer', verbose=None):
+    """Convert values from time to sample space.
+
+    Parameters
+    ----------
+    values : array_like
+        Array of values to convert.
+    sf : float | None
+        Sampling frequency. If None, the time vector can also be supplied to
+        infer it.
+    times : array_like | None
+        Time vector used to infer the sampling frequency.
+    round : {'lower', 'closer', 'upper'}
+        Use either lower, closer or upper rounding. Default is closer
+
+    Returns
+    -------
+    values : array_like
+        Values converted to sample space.
+    """
+    set_log_level(verbose)
+    # get sampling frequency
+    if isinstance(times, (list, tuple, np.ndarray)):
+        sf = 1. / (times[1] - times[0])
+        logger.info(f"Inferring sampling rate : {sf}")
+    assert isinstance(sf, (int, float)), "Sampling rate is missing"
+
+    # array conversion
+    values = np.asarray(values)
+    fcn = {'lower': np.floor, 'closer': np.round, 'upper': np.ceil}[round]
+    values_i = fcn(values * sf).astype(int)
+
+    return values_i
+
+
+def get_closest_sample(ref, values, precision=None, return_precision=False):
+    """Get the sample of closest value in a reference time vector.
+
+    Parameters
+    ----------
+    ref : array_like
+        Reference vector
+    values : array_like
+        Values to seek in the reference vector
+    precision : float | None
+        Minimum precision to achieve.
+    return_precision : {True, False}
+        If true, the precision of length (n_values,) is also returned
+
+    Returns
+    -------
+    sample : array_like
+        Array of length (n_values,) containing the sample of closest values in
+        the reference vector
+    precisions : array_like
+        If return_precision, the vector of precisions of length (n_values,) is
+        also returned
+    """
+    # array conversion
+    ref, values = np.asarray(ref), np.asarray(values)
+
+    # find closest sample
+    diff = np.abs(ref.reshape(-1, 1) - values.reshape(1, -1)).argmin(0)
+    precisions = np.abs(values - ref[diff])
+
+    if isinstance(precision, (int, float)):
+
+        assert precision > 0, "Precision should be strictly positive"
+        assert np.all(precisions < precision), "Precision not sufficient"
+
+    if return_precision:
+        return (diff, precisions)
+    else:
+        return diff

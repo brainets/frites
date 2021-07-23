@@ -2,7 +2,8 @@
 import numpy as np
 import xarray as xr
 
-from frites.utils import savgol_filter, kernel_smoothing, nonsorted_unique
+from frites.utils import (savgol_filter, kernel_smoothing, nonsorted_unique,
+                          time_to_sample, get_closest_sample)
 
 
 class TestPreproc(object):
@@ -41,6 +42,39 @@ class TestPreproc(object):
         a = ['r2', 'r0', 'r0', 'r1', 'r2']
         np.testing.assert_array_equal(nonsorted_unique(a), ['r2', 'r0', 'r1'])
 
+    def test_time_to_sample(self):
+        """Test the time to sample conversion function."""
+        sf = 1024.
+        n_times = 1000
+        times = np.arange(n_times) / sf
+
+        # test straight conversion
+        values = [1., .5, .25]
+        val_i_1 = time_to_sample(values, times=times)
+        val_i_2 = time_to_sample(values, sf=sf)
+        np.testing.assert_equal(val_i_1, val_i_2)
+        np.testing.assert_equal(val_i_1, [1024, 512, 256])
+
+        # test rounding
+        np.testing.assert_equal(time_to_sample(.7, sf=sf, round='lower'), 716)
+        np.testing.assert_equal(time_to_sample(.7, sf=sf, round='upper'), 717)
+        np.testing.assert_equal(time_to_sample(.7, sf=sf, round='closer'), 717)
+
+    def test_get_closest_sample(self):
+        """Test function to get the closest sample in a reference vector."""
+        sf = 1024.
+        n_times = 1000
+        times = np.arange(n_times) / sf
+
+        # straight testing
+        closest, precisions = get_closest_sample(
+                times, [times[4], times[122]], return_precision=True)
+        np.testing.assert_equal(closest, [4, 122])
+        np.testing.assert_equal(precisions, [0, 0])
+
+        # test precision
+        closest = get_closest_sample(times, [0.1, 0.2, .4], precision=.1)
+
 
 if __name__ == '__main__':
-    TestPreproc().test_kernel_smoothing()
+    TestPreproc().test_get_closest_sample()
