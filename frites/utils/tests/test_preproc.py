@@ -68,7 +68,7 @@ class TestPreproc(object):
 
         # straight testing
         closest, precisions = get_closest_sample(
-                times, [times[4], times[122]], return_precision=True)
+            times, [times[4], times[122]], return_precision=True)
         np.testing.assert_equal(closest, [4, 122])
         np.testing.assert_equal(precisions, [0, 0])
 
