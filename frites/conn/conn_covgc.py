@@ -400,8 +400,8 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                       coords=(trials, roi_p, times_p, dire), name='covgc')
 
     # set attributes
-    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=norm,
-               conditional=conditional, type='covgc')
+    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=str(norm),
+               conditional=str(conditional), type='covgc')
     gc.attrs = {**attrs, **cfg}
 
     return gc
