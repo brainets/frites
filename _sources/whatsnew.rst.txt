@@ -10,6 +10,7 @@ New Features
 ++++++++++++
 * New estimators (:py:class:`frites.estimator.CorrEstimator`, :py:class:`frites.estimator.DcorrEstimator`) for continuous / continuous relationships (:commit:`73ed8bbb`, :commit:`bc370a93`, :commit:`cf7a3456f`)
 * :py:`frites.conn.conn_dfc` supports passing other estimators (:commit:`a864a7b05b`)
+* :py:`frites.utils.time_to_sample` and :py:`frites.utils.get_closest_sample` conversion functions (:commit:`7c44478e`)
 
 Bug fixes
 +++++++++
