@@ -255,6 +255,8 @@ Utils
 
    savgol_filter
    kernel_smoothing
+   time_to_sample
+   get_closest_sample
 
 .. raw:: html
 

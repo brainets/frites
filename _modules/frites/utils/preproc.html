@@ -375,6 +375,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.time_to_sample.html">frites.utils.time_to_sample</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/frites.utils.get_closest_sample.html">frites.utils.get_closest_sample</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#configuration">Configuration</a><ul>
@@ -667,7 +669,7 @@
     <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">u_idx</span><span class="p">)]</span>
 
 
-<span class="k">def</span> <span class="nf">time_to_sample</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">round</span><span class="o">=</span><span class="s1">&#39;closer&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="time_to_sample"><a class="viewcode-back" href="../../../generated/frites.utils.time_to_sample.html#frites.utils.time_to_sample">[docs]</a><span class="k">def</span> <span class="nf">time_to_sample</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">round</span><span class="o">=</span><span class="s1">&#39;closer&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert values from time to sample space.</span>
 
 <span class="sd">    Parameters</span>
@@ -699,10 +701,10 @@
     <span class="n">fcn</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="s1">&#39;closer&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">}[</span><span class="nb">round</span><span class="p">]</span>
     <span class="n">values_i</span> <span class="o">=</span> <span class="n">fcn</span><span class="p">(</span><span class="n">values</span> <span class="o">*</span> <span class="n">sf</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">values_i</span>
+    <span class="k">return</span> <span class="n">values_i</span></div>
 
 
-<span class="k">def</span> <span class="nf">get_closest_sample</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_precision</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="get_closest_sample"><a class="viewcode-back" href="../../../generated/frites.utils.get_closest_sample.html#frites.utils.get_closest_sample">[docs]</a><span class="k">def</span> <span class="nf">get_closest_sample</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_precision</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Get the sample of closest value in a reference time vector.</span>
 
 <span class="sd">    Parameters</span>
@@ -740,7 +742,7 @@
     <span class="k">if</span> <span class="n">return_precision</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">precisions</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">diff</span>
+        <span class="k">return</span> <span class="n">diff</span></div>
 </pre></div>
 
     </div>

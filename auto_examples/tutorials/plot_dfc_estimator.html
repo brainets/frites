@@ -378,6 +378,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.time_to_sample.html">frites.utils.time_to_sample</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.get_closest_sample.html">frites.utils.get_closest_sample</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
@@ -678,7 +680,7 @@ DFC is going to be computed across the entire time-series</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00, 1083.71it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00, 1365.63it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 100, roi: 3, times: 1)&gt;
 array([[[1.50026195e-02],
         [6.53586991e-04],
@@ -931,10 +933,10 @@ DFC inside each one of them.</p>
  [216 248]]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   27.84it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   27.93it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   27.94it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   28.39it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   42.15it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   42.17it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   42.20it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   42.34it/s]
 </pre></div>
 </div>
 </section>
@@ -973,22 +975,22 @@ and the distance correlation.</p>
 <img alt="../../_images/sphx_glr_plot_dfc_estimator_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_estimator_002.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:01,    1.68it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:01&lt;00:00,    1.68it/s]
-100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    1.68it/s]
-100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    1.68it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,    2.25it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,    2.25it/s]
+100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    2.25it/s]
+100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    2.24it/s]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   22.12it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   22.14it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   22.16it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   22.29it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   31.75it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   31.74it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   31.73it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   31.52it/s]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:04&lt;00:08,    4.46s/it]
- 67%|######6   | Estimating DFC : 2/3 [00:08&lt;00:04,    4.46s/it]
-100%|##########| Estimating DFC : 3/3 [00:13&lt;00:00,    4.46s/it]
-100%|##########| Estimating DFC : 3/3 [00:13&lt;00:00,    4.46s/it]
+ 33%|###3      | Estimating DFC : 1/3 [00:03&lt;00:06,    3.29s/it]
+ 67%|######6   | Estimating DFC : 2/3 [00:06&lt;00:03,    3.29s/it]
+100%|##########| Estimating DFC : 3/3 [00:09&lt;00:00,    3.29s/it]
+100%|##########| Estimating DFC : 3/3 [00:09&lt;00:00,    3.28s/it]
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1011,7 +1013,7 @@ also slower to compute.</p></li>
 </ol>
 </div></blockquote>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  44.799 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  31.101 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tutorials-plot-dfc-estimator-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/625b3ec47dd7486e87adc9ef3b3a2e75/plot_dfc_estimator.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc_estimator.py</span></code></a></p>
