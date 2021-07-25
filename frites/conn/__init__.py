@@ -21,4 +21,4 @@ from .conn_transfer_entropy import conn_transfer_entropy  # noqa
 # connectivity utility functions
 from .conn_sliding_windows import define_windows, plot_windows  # noqa
 from .conn_utils import (conn_get_pairs, conn_reshape_undirected,  # noqa
-                         conn_reshape_directed)
+                         conn_reshape_directed, conn_ravel_directed)

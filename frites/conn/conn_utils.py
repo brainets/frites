@@ -356,3 +356,51 @@ def _dataframe_conversion(da, order, rm_missing):
         da = da.dropna(axis=0, how='all').dropna(axis=1, how='all')
 
     return da
+
+
+def conn_ravel_directed(da, sep='-'):
+    """Ravel a directed array.
+    
+    This function reorganize a directed array that contains the coordinates
+    x->y and y->x to a single coordinate 'x->y'.
+    
+    Parameters
+    ----------
+    da : xarray.DataArray
+        Xarray DataArray that should at least contains the dimensions 'roi'
+        and 'direction'. The dimension 'direction' should also contains the
+        coordinates 'x->y' and 'y->x'
+    sep : string | '-'
+        Separator used to separate the pairs of roi names.
+
+    Returns
+    -------
+    da_r : xarray.DataArray
+        Raveled array of directed connectivity
+    """
+    # inputs testing
+    assert isinstance(da, xr.DataArray) and isinstance(sep, str)
+    assert 'direction' in da.dims, "Should be a directed array"
+    assert 'roi' in da.dims, "Missing roi dimension"
+    directions = da['direction'].data
+    assert ('x->y' in directions) and ('y->x' in directions)
+    
+    # build bidirected roi
+    roi_xy, roi_yx = [], []
+    for r in da['roi'].data:
+        r_s, r_t = r.split(sep)
+        roi_xy.append(f"{r_s}->{r_t}")
+        roi_yx.append(f"{r_t}->{r_s}")
+    
+    # select bidirected arrays
+    da_xy = da.sel(direction='x->y').drop('direction')
+    da_yx = da.sel(direction='y->x').drop('direction')
+    
+    # replace roi names
+    da_xy['roi'] = roi_xy
+    da_yx['roi'] = roi_yx
+    
+    # finally, concat both
+    da_ravel = xr.concat((da_xy, da_yx), 'roi')
+    
+    return da_ravel

@@ -1,9 +1,10 @@
 """Test window functions."""
 import numpy as np
+import xarray as xr
 
 from frites.conn import (conn_reshape_undirected, conn_reshape_directed,
-                         define_windows, plot_windows, conn_dfc, conn_covgc,
-                         conn_get_pairs)
+                         conn_ravel_directed, define_windows, plot_windows,
+                         conn_dfc, conn_covgc, conn_get_pairs)
 
 
 class TestConnUtils(object):
@@ -156,3 +157,33 @@ class TestConnUtils(object):
         np.testing.assert_array_equal(
             np.concatenate(list(df['subjects'])), [0, 1, 0, 1])
         np.testing.assert_array_equal(df['names'], ['r0->r1', 'r1->r0'])
+
+    def test_conn_ravel_directed(self):
+        """Test function conn_ravel_directed."""
+        n_trials = 100
+        n_times = 1000
+        n_roi = 3
+        x_s, x_t = np.triu_indices(n_roi, k=1)
+
+        # build coordinates
+        roi = [f'r{s}-r{t}' for s, t in zip(x_s, x_t)]
+        trials = np.random.randint(0, 2, (n_trials,))
+        times = np.arange(n_times) / 64.
+        direction = ['x->y', 'y->x']
+        roi_dir = ['r0->r1', 'r0->r2', 'r1->r2', 'r1->r0', 'r2->r0', 'r2->r1']
+
+        # create the connectivity arrays
+        conn_xy = np.random.rand(n_trials, n_roi, n_times)
+        conn_yx = np.random.rand(n_trials, n_roi, n_times)
+        conn_c = np.concatenate((conn_xy, conn_yx), axis=1)
+
+        # stack them and xarray conversion
+        conn = np.stack((conn_xy, conn_yx), axis=-1)
+        conn = xr.DataArray(conn, dims=('trials', 'roi', 'times', 'direction'),
+                            coords=(trials, roi, times, direction))
+        
+        # ravel the array
+        conn_r = conn_ravel_directed(conn)
+        assert len(conn_r.shape) == 3
+        np.testing.assert_array_equal(conn_r['roi'].data, roi_dir)
+        np.testing.assert_array_equal(conn_r.data, conn_c)
