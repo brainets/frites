@@ -6,6 +6,10 @@ from frites.io import set_log_level, logger
 
 class WfMiCombine(object):
 
+    def __init__(self, wf_1, wf_2, verbose=None):
+        """Init."""
+        pass
+
     def __new__(self, wf_1, wf_2, verbose=None):
         """Combine outputs of two WfMi workflows.
 
