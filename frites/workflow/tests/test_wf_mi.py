@@ -119,7 +119,7 @@ class TestWfMi(object):  # noqa
         dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
         wf = WfMi(mi_type='cc', inference='rfx')
         _, _ = wf.fit(dt, **kw_mi)
-        wf_2 = wf.copy()
+        _ = wf.copy()
 
 
 if __name__ == '__main__':
