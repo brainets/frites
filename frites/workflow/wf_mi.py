@@ -1,4 +1,6 @@
 """Workflow for computing MI and evaluate statistics."""
+from copy import deepcopy
+
 import numpy as np
 import xarray as xr
 
@@ -433,6 +435,30 @@ class WfMi(WfBase):
     def clean(self):
         """Clean computations."""
         self._mi, self._mi_p, self._tvalues = [], [], None
+
+    def copy(self):
+        """Return copy of WfMi instance.
+
+        Returns
+        -------
+        epochs : instance of WfMi
+            A copy of the object.
+        """
+        return deepcopy(self)
+
+    def __deepcopy__(self, memodict):
+        """Make a deepcopy."""
+        cls = self.__class__
+        result = cls.__new__(cls)
+        for k, v in self.__dict__.items():
+            # drop_log is immutable and _raw is private (and problematic to
+            # deepcopy)
+            if k in ('drop_log', '_raw', '_times_readonly'):
+                memodict[id(v)] = v
+            else:
+                v = deepcopy(v, memodict)
+            result.__dict__[k] = v
+        return result
 
     @property
     def mi(self):
