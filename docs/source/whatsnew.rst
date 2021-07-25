@@ -12,6 +12,8 @@ New Features
 * :py:`frites.conn.conn_dfc` supports passing other estimators (:commit:`a864a7b05b`)
 * :py:`frites.utils.time_to_sample` and :py:`frites.utils.get_closest_sample` conversion functions (:commit:`7c44478e`)
 * :py:`frites.conn.conn_ravel_directed` reshaping function (:commit:`f9b9d272`)
+* new :py:class:`frites.workflow.WfMi.copy` for internal workflow copy (:commit:`0c2228c7`, :commit:`860f3d45`)
+* new :py:class:`frites.workflow.WfMiCombine` and example class for combining workflows (:commit:`62072ee52`)
 
 Bug fixes
 +++++++++
@@ -50,7 +52,7 @@ New Features
 * new :py:class:`frites.dataset.SubjectEphy` single-subject container (:commit:`ac22cf4`)
 * new estimators of mutual-information, :py:class:`frites.estimator.GCMIEstimator` (:commit:`901b3cbf`, :commit:`65d1e08`, :commit:`0015bf58`, :commit:`beed6a09`), :py:class:`frites.estimator.BinMIEstimator` (:commit:`beed6a09`)
 * new kernel smoothing function :py:`frites.utils.kernel_smoothing`
- 
+
 Internal Changes
 ++++++++++++++++
 * Removed files (:commit:`cdff9b4`, :commit:`9e96f8e`, :commit:`14961aa0`)
