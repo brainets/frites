@@ -181,7 +181,7 @@ class TestConnUtils(object):
         conn = np.stack((conn_xy, conn_yx), axis=-1)
         conn = xr.DataArray(conn, dims=('trials', 'roi', 'times', 'direction'),
                             coords=(trials, roi, times, direction))
-        
+
         # ravel the array
         conn_r = conn_ravel_directed(conn)
         assert len(conn_r.shape) == 3
