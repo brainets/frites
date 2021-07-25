@@ -52,6 +52,7 @@ Task-related workflows
    :toctree: generated/
 
    WfMi
+   WfMiCombine
 
 Connectivity workflows
 ++++++++++++++++++++++

@@ -176,6 +176,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_combine.html">Investigate relation of order</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_combine.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_combine.html#compute-effect-size-in-both-conditions">Compute effect size in both conditions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_combine.html#id1">Investigate relation of order</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
@@ -300,6 +306,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMiCombine.html">frites.workflow.WfMiCombine</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
@@ -596,47 +603,47 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
-array([[0.2032012 , 0.98034683, 0.43863052, 0.80473428, 0.63248827,
-        0.72819015, 0.70704866],
-       [0.64615249, 0.38647962, 0.07441134, 0.48874836, 0.79285422,
-        0.13722301, 0.90521533],
-       [0.45756047, 0.93011804, 0.6974468 , 0.95246162, 0.72153266,
-        0.00580776, 0.40916478],
-       [0.49407238, 0.28777558, 0.33897083, 0.18385792, 0.71890899,
-        0.85481259, 0.73724402],
-       [0.19999192, 0.10085529, 0.30429538, 0.98318822, 0.78325691,
-        0.18979161, 0.8078531 ],
-       [0.0829835 , 0.24075302, 0.66250968, 0.79541089, 0.88701286,
-        0.97972964, 0.32865483],
-       [0.85552103, 0.75304779, 0.2730836 , 0.70561907, 0.60122402,
-        0.24206088, 0.66726238],
-       [0.47434615, 0.75645844, 0.94545378, 0.49593114, 0.95575967,
-        0.70000061, 0.48246982],
-       [0.08519121, 0.62835808, 0.68339176, 0.13734578, 0.1926303 ,
-        0.6847187 , 0.05908851],
-       [0.41067433, 0.35787922, 0.03511434, 0.22094199, 0.50349819,
-        0.65760633, 0.93182343],
+array([[0.15982653, 0.5754631 , 0.82791056, 0.4113898 , 0.81568279,
+        0.25149241, 0.47578665],
+       [0.17977631, 0.54223248, 0.96600975, 0.9300666 , 0.49389667,
+        0.90098351, 0.2286321 ],
+       [0.72764458, 0.41203543, 0.87511667, 0.7093539 , 0.08761002,
+        0.52354857, 0.53961013],
+       [0.80752298, 0.62492359, 0.74780098, 0.55119058, 0.50484615,
+        0.44308366, 0.75988672],
+       [0.76807157, 0.95474028, 0.33617414, 0.96702527, 0.14746203,
+        0.4537792 , 0.48347624],
+       [0.68093586, 0.23832658, 0.49675222, 0.10283124, 0.10353016,
+        0.84119831, 0.87063367],
+       [0.40119846, 0.99130819, 0.78886708, 0.9678234 , 0.25504056,
+        0.01605732, 0.86116306],
+       [0.81225684, 0.74938692, 0.87311014, 0.60926967, 0.08099347,
+        0.57831579, 0.87853172],
+       [0.31156153, 0.29001324, 0.80138038, 0.70238436, 0.68316256,
+        0.5597545 , 0.92521069],
+       [0.18299187, 0.00807766, 0.76930794, 0.90147133, 0.14532859,
+        0.47055484, 0.28027783],
 ...
-       [0.77732612, 0.50664761, 0.3920737 , 0.11429889, 0.1750111 ,
-        0.87671448, 0.59251442],
-       [0.98262327, 0.54958521, 0.11148916, 0.33499431, 0.26652168,
-        0.77946361, 0.59491689],
-       [0.87500506, 0.06068692, 0.29871142, 0.23796801, 0.46209594,
-        0.64359695, 0.1501723 ],
-       [0.2213467 , 0.30483774, 0.07428167, 0.83033908, 0.22616593,
-        0.31984929, 0.41830358],
-       [0.72562542, 0.84187609, 0.04473143, 0.26471314, 0.29293113,
-        0.14542279, 0.69541956],
-       [0.04909343, 0.05505327, 0.63653245, 0.80493088, 0.39155121,
-        0.12888152, 0.98801506],
-       [0.96292524, 0.19824472, 0.32890599, 0.82041155, 0.00708084,
-        0.78302727, 0.68126417],
-       [0.136266  , 0.93260603, 0.10570195, 0.80005526, 0.26770602,
-        0.30574464, 0.39422286],
-       [0.73001946, 0.52537846, 0.80217083, 0.39399765, 0.2979108 ,
-        0.0481505 , 0.67305554],
-       [0.97745615, 0.05984922, 0.58275867, 0.94211518, 0.97613587,
-        0.20365764, 0.79836548]])
+       [0.44845015, 0.36039683, 0.17294903, 0.06502653, 0.41469799,
+        0.5538204 , 0.94282384],
+       [0.07855612, 0.45039802, 0.1004898 , 0.21781207, 0.24807229,
+        0.75919234, 0.54424633],
+       [0.75070412, 0.23970918, 0.05135346, 0.28893851, 0.80654611,
+        0.05652282, 0.57953724],
+       [0.15759091, 0.89388756, 0.06860983, 0.45601225, 0.9451891 ,
+        0.17636708, 0.08282849],
+       [0.60873855, 0.83260481, 0.88980437, 0.39324111, 0.10517106,
+        0.58080064, 0.87034423],
+       [0.82323511, 0.50066824, 0.12546544, 0.80912471, 0.10238019,
+        0.076352  , 0.83776101],
+       [0.54614591, 0.98177807, 0.92022811, 0.17234721, 0.51430015,
+        0.13693766, 0.64613142],
+       [0.1621986 , 0.88548343, 0.59504595, 0.44007562, 0.57714631,
+        0.23028885, 0.95751744],
+       [0.38324888, 0.24022842, 0.67755819, 0.02122848, 0.83153294,
+        0.63986292, 0.34294884],
+       [0.53321483, 0.04643433, 0.0315087 , 0.81115085, 0.86331901,
+        0.76882022, 0.18106648]])
 Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
@@ -679,14 +686,14 @@ Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
 Data variables:
-    first    (times, roi) float64 0.2032 0.9803 0.4386 ... 0.9761 0.2037 0.7984
-    second   (times, roi) float64 0.3985 0.3745 0.8786 ... 0.5043 0.2232 0.5485
+    first    (times, roi) float64 0.1598 0.5755 0.8279 ... 0.8633 0.7688 0.1811
+    second   (times, roi) float64 0.9522 0.03814 0.2945 ... 0.6874 0.425 0.804
 Attributes:
     desc:     This is my dataset
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.162 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.173 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/627bcf09a570d93abafc523838ae8987/plot_xr_export.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_xr_export.py</span></code></a></p>

@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.workflow.WfConnComod" href="frites.workflow.WfConnComod.html" />
+    <link rel="next" title="frites.workflow.WfMiCombine" href="frites.workflow.WfMiCombine.html" />
     <link rel="prev" title="frites.dataset.DatasetEphy" href="frites.dataset.DatasetEphy.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -176,6 +176,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_combine.html">Investigate relation of order</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_combine.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_combine.html#compute-effect-size-in-both-conditions">Compute effect size in both conditions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_wf_mi_combine.html#id1">Investigate relation of order</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../auto_examples/mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
@@ -300,6 +306,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#workflow">Workflow</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../api.html#task-related-workflows">Task-related workflows</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">frites.workflow.WfMi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frites.workflow.WfMiCombine.html">frites.workflow.WfMiCombine</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api.html#connectivity-workflows">Connectivity workflows</a><ul>
@@ -606,10 +613,13 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjunction_analysis</span></code></a>([p, mcp, cluster_th, …])</p></td>
 <td><p>Perform a conjunction analysis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(dataset[, mcp, n_perm, cluster_th, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.copy" title="frites.workflow.WfMi.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Return copy of WfMi instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([dataset, mcp, n_perm, cluster_th, …])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params)</p></td>
 <td><p>Get formatted parameters.</p></td>
 </tr>
 </tbody>
@@ -679,8 +689,22 @@ subjects that have a significant MI</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="frites.workflow.WfMi.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return copy of WfMi instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>epochs</strong><span class="classifier">instance of WfMi</span></dt><dd><p>A copy of the object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="frites.workflow.WfMi.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">dataset=None</em>, <em class="sig-param">mcp='cluster'</em>, <em class="sig-param">n_perm=1000</em>, <em class="sig-param">cluster_th=None</em>, <em class="sig-param">cluster_alpha=0.05</em>, <em class="sig-param">n_jobs=-1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">**kw_stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi.html#WfMi.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMi.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the workflow on a dataset.</p>
 <p>In order to run the worflow, you must first provide a dataset instance
 (see <a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a>)</p>
@@ -695,7 +719,8 @@ precise about its spatio-temporal properties
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance</p>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance. If the workflow has already been fitted, then
+this parameter can remains to None.</p>
 </dd>
 <dt><strong>mcp</strong><span class="classifier">{‘cluster’, ‘maxstat’, ‘fdr’, ‘bonferroni’, ‘nostat’, None}</span></dt><dd><p>Method to use for correcting p-values for the multiple comparison
 problem. Use either :</p>

@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Mutual-information at the contact level" href="plot_wf_mi_contact_level.html" />
-    <link rel="prev" title="MI between two continuous variables" href="plot_wf_mi_cc.html" />
+    <link rel="prev" title="Investigate relation of order" href="plot_wf_mi_combine.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -176,6 +176,12 @@
 <li class="toctree-l4"><a class="reference internal" href="plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="plot_wf_mi_combine.html">Investigate relation of order</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plot_wf_mi_combine.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_wf_mi_combine.html#compute-effect-size-in-both-conditions">Compute effect size in both conditions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_wf_mi_combine.html#id1">Investigate relation of order</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Compute a conjunction analysis on mutual-information</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
@@ -300,6 +306,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMiCombine.html">frites.workflow.WfMiCombine</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
@@ -659,11 +666,11 @@ information</p>
 <img alt="../../_images/sphx_glr_plot_mi_conjunction_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_conjunction_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/4 [00:00&lt;?,       ?it/s]
- 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.43it/s]
- 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.43it/s]
- 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.43it/s]
-100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.45it/s]
-100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.55it/s]
+ 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.45it/s]
+ 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.45it/s]
+ 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.45it/s]
+100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.47it/s]
+100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.57it/s]
 </pre></div>
 </div>
 </section>
@@ -800,9 +807,9 @@ array([[0., 0., 0., 0.],
        [2., 0., 0., 1.],
        [2., 0., 0., 1.],
        [2., 0., 0., 1.],
-       [1., 0., 0., 0.],
-       [1., 0., 0., 0.],
-       [1., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.],
        [0., 0., 0., 0.],
        [0., 0., 0., 0.],
        [0., 0., 0., 0.],
@@ -819,7 +826,7 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.517 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.431 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e5176703dd57920024668949c6139555/plot_mi_conjunction.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mi_conjunction.py</span></code></a></p>

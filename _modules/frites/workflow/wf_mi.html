@@ -173,6 +173,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_combine.html">Investigate relation of order</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_combine.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_combine.html#compute-effect-size-in-both-conditions">Compute effect size in both conditions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_wf_mi_combine.html#id1">Investigate relation of order</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_examples/mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../auto_examples/mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
@@ -297,6 +303,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#task-related-workflows">Task-related workflows</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/frites.workflow.WfMiCombine.html">frites.workflow.WfMiCombine</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
@@ -533,6 +540,8 @@
       
   <h1>Source code for frites.workflow.wf_mi</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Workflow for computing MI and evaluate statistics.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
@@ -674,7 +683,7 @@
 
         <span class="k">return</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span>
 
-<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="WfMi.fit"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">cluster_th</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">cluster_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_stats</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run the workflow on a dataset.</span>
 
@@ -692,7 +701,8 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        dataset : :class:`frites.dataset.DatasetEphy`</span>
-<span class="sd">            A dataset instance</span>
+<span class="sd">            A dataset instance. If the workflow has already been fitted, then</span>
+<span class="sd">            this parameter can remains to None.</span>
 <span class="sd">        mcp : {&#39;cluster&#39;, &#39;maxstat&#39;, &#39;fdr&#39;, &#39;bonferroni&#39;, &#39;nostat&#39;, None}</span>
 <span class="sd">            Method to use for correcting p-values for the multiple comparison</span>
 <span class="sd">            problem. Use either :</span>
@@ -740,23 +750,6 @@
 <span class="sd">        Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># prepare variables</span>
-        <span class="c1"># ---------------------------------------------------------------------</span>
-        <span class="c1"># don&#39;t compute permutations if mcp is either nostat / None</span>
-        <span class="k">if</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-            <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="c1"># get needed dataset&#39;s informations</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_mi_dims</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;roi&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_df_rs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_subjects</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">df_rs</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_n_subjects</span>
-
-        <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># compute mutual information</span>
         <span class="c1"># ---------------------------------------------------------------------</span>
         <span class="c1"># if mi and mi_p have already been computed, reuse it instead</span>
@@ -766,6 +759,22 @@
                         <span class="s2">&quot;arguments&quot;</span><span class="p">)</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># don&#39;t compute permutations if mcp is either nostat / None</span>
+            <span class="k">if</span> <span class="n">mcp</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;noperm&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                <span class="n">n_perm</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># get needed dataset&#39;s informations</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">roi_names</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_mi_dims</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_dims</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;roi&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mi_coords</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_roi</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_df_rs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_subjects</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">df_rs</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_n_subjects</span>
+
+            <span class="c1"># compute mi and permutations</span>
             <span class="n">mi</span><span class="p">,</span> <span class="n">mi_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_compute_mi</span><span class="p">(</span>
                 <span class="n">dataset</span><span class="p">,</span> <span class="n">n_perm</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -967,6 +976,30 @@
 <div class="viewcode-block" id="WfMi.clean"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clean computations.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mi_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tvalues</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="WfMi.copy"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMi.html#frites.workflow.WfMi.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return copy of WfMi instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        epochs : instance of WfMi</span>
+<span class="sd">            A copy of the object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memodict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make a deepcopy.&quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># drop_log is immutable and _raw is private (and problematic to</span>
+            <span class="c1"># deepcopy)</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;drop_log&#39;</span><span class="p">,</span> <span class="s1">&#39;_raw&#39;</span><span class="p">,</span> <span class="s1">&#39;_times_readonly&#39;</span><span class="p">):</span>
+                <span class="n">memodict</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">memodict</span><span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">result</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
