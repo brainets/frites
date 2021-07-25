@@ -142,7 +142,7 @@ class WfMi(WfBase):
 
         return mi, mi_p
 
-    def fit(self, dataset, mcp='cluster', n_perm=1000, cluster_th=None,
+    def fit(self, dataset=None, mcp='cluster', n_perm=1000, cluster_th=None,
             cluster_alpha=0.05, n_jobs=-1, random_state=None, **kw_stats):
         """Run the workflow on a dataset.
 
@@ -160,7 +160,8 @@ class WfMi(WfBase):
         Parameters
         ----------
         dataset : :class:`frites.dataset.DatasetEphy`
-            A dataset instance
+            A dataset instance. If the workflow has already been fitted, then
+            this parameter can remains to None.
         mcp : {'cluster', 'maxstat', 'fdr', 'bonferroni', 'nostat', None}
             Method to use for correcting p-values for the multiple comparison
             problem. Use either :
@@ -208,23 +209,6 @@ class WfMi(WfBase):
         Maris and Oostenveld, 2007 :cite:`maris2007nonparametric`
         """
         # ---------------------------------------------------------------------
-        # prepare variables
-        # ---------------------------------------------------------------------
-        # don't compute permutations if mcp is either nostat / None
-        if mcp in ['noperm', None]:
-            n_perm = 0
-        # get needed dataset's informations
-        self._times, self._roi = dataset.times, dataset.roi_names
-        self._mi_dims = dataset._mi_dims
-        self._mi_coords = dict()
-        for k in self._mi_dims:
-            if k != 'roi':
-                self._mi_coords[k] = dataset.x[0].coords[k].data
-            else:
-                self._mi_coords['roi'] = self._roi
-        self._df_rs, self._n_subjects = dataset.df_rs, dataset._n_subjects
-
-        # ---------------------------------------------------------------------
         # compute mutual information
         # ---------------------------------------------------------------------
         # if mi and mi_p have already been computed, reuse it instead
@@ -234,6 +218,22 @@ class WfMi(WfBase):
                         "arguments")
             mi, mi_p = self._mi, self._mi_p
         else:
+            # don't compute permutations if mcp is either nostat / None
+            if mcp in ['noperm', None]:
+                n_perm = 0
+
+            # get needed dataset's informations
+            self._times, self._roi = dataset.times, dataset.roi_names
+            self._mi_dims = dataset._mi_dims
+            self._mi_coords = dict()
+            for k in self._mi_dims:
+                if k != 'roi':
+                    self._mi_coords[k] = dataset.x[0].coords[k].data
+                else:
+                    self._mi_coords['roi'] = self._roi
+            self._df_rs, self._n_subjects = dataset.df_rs, dataset._n_subjects
+
+            # compute mi and permutations
             mi, mi_p = self._node_compute_mi(
                 dataset, n_perm, n_jobs, random_state)
         """

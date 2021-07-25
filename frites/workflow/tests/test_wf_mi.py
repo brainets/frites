@@ -99,7 +99,7 @@ class TestWfMi(object):  # noqa
         wf.fit(dt, mcp='fdr', **kw_mi)
         t_end_1 = tst()
         t_start_2 = tst()
-        wf.fit(dt, mcp='maxstat', **kw_mi)
+        wf.fit(mcp='maxstat', **kw_mi)
         t_end_2 = tst()
         assert t_end_1 - t_start_1 > t_end_2 - t_start_2
 
@@ -113,6 +113,14 @@ class TestWfMi(object):  # noqa
         assert cj_ss.shape == (n_subjects, n_times, n_roi)
         assert cj.shape == (n_times, n_roi)
 
+    def test_copy(self):
+        """Test function copy."""
+        y, gt = sim_mi_cc(x.copy(), snr=1.)
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
+        wf = WfMi(mi_type='cc', inference='rfx')
+        _, _ = wf.fit(dt, **kw_mi)
+        wf_2 = wf.copy()
+
 
 if __name__ == '__main__':
-    TestWfMi().test_mi_ccd()
+    TestWfMi().test_no_stat()
