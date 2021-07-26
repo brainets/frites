@@ -138,7 +138,7 @@ def mi_nd_gg(x, y, mvaxis=None, traxis=-1, biascorrect=True, demeaned=False,
     ln2 = np.log(2)
     if biascorrect:
         vec = np.arange(1, nvarxy + 1)
-        psiterms = psi((ntrl - vec).astype(np.float) / 2.0) / 2.0
+        psiterms = psi((ntrl - vec).astype(float) / 2.0) / 2.0
         dterm = (ln2 - np.log(ntrl - 1.0)) / 2.0
         hx = hx - nvarx * dterm - psiterms[:nvarx].sum()
         hy = hy - nvary * dterm - psiterms[:nvary].sum()
@@ -233,7 +233,7 @@ def mi_model_nd_gd(x, y, mvaxis=None, traxis=-1, biascorrect=True,
         psiterms = np.zeros_like(ntrl_y, dtype=float)
         for vi in vars:
             idx = ntrl_y - vi
-            psiterms = psiterms + psi(idx.astype(np.float) / 2.)
+            psiterms = psiterms + psi(idx.astype(float) / 2.)
         hcond = hcond - nvarx * dterm - (psiterms / 2.)
 
     # MI in bits
@@ -327,7 +327,7 @@ def cmi_nd_ggg(x, y, z, mvaxis=None, traxis=-1, biascorrect=True,
     ln2 = np.log(2)
     if biascorrect:
         vec = np.arange(1, nvarxyz + 1)
-        psiterms = psi((ntrl - vec).astype(np.float) / 2.0) / 2.0
+        psiterms = psi((ntrl - vec).astype(float) / 2.0) / 2.0
         dterm = (ln2 - np.log(ntrl - 1.0)) / 2.0
         hz = hz - nvarz * dterm - psiterms[:nvarz].sum()
         hxz = hxz - nvarxz * dterm - psiterms[:nvarxz].sum()

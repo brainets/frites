@@ -12,9 +12,9 @@ CONFIG["MNE_EPOCHS_TYPE"] = MNE_EPOCHS_TYPE
 CONFIG["MNE_EPOCHSTFR_TYPE"] = (mne.time_frequency.EpochsTFR)
 
 # Int and Float types
-INT_DTYPE = (int, np.int, np.int8, np.int16, np.int32, np.int64)
-FLOAT_DTYPE = (float, np.float, np.float16, np.float32, np.float64)
-STR_DTYPE = (str, np.str, np.string_)
+INT_DTYPE = (int, np.int8, np.int16, np.int32, np.int64)
+FLOAT_DTYPE = (float, np.float16, np.float32, np.float64)
+STR_DTYPE = (str, np.string_)
 CONFIG['INT_DTYPE'] = INT_DTYPE
 CONFIG['FLOAT_DTYPE'] = FLOAT_DTYPE
 CONFIG['STR_DTYPE'] = STR_DTYPE

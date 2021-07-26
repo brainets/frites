@@ -54,8 +54,8 @@ def conn_transfer_entropy(x, max_delay=30, pairs=None, gcrn=True):
     x_all_s, x_all_t = pairs[:, 0], pairs[:, 1]
     n_pairs = len(x_all_s)
     # check max_delay
-    assert isinstance(max_delay, (int, np.int)), ("`max_delay` should be an "
-                                                  "integer")
+    assert isinstance(max_delay, (int, int)), ("`max_delay` should be an "
+                                               "integer")
     # check input data
     assert (x.ndim == 3), ("input data `x` should be a 3d array of shape "
                            "(n_roi, n_times, n_epochs)")
