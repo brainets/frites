@@ -180,49 +180,49 @@ DFC is going to be computed across the entire time-series
 
  .. code-block:: none
 
-      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00, 1334.21it/s]
+      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     67%|######6   | Estimating DFC : 2/3 [00:00<00:00,   84.13it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   85.27it/s]
     <xarray.DataArray 'DFC (Gaussian Copula Mutual Information Estimator)' (trials: 100, roi: 3, times: 1)>
-    array([[[1.50026195e-02],
-            [6.53586991e-04],
-            [3.04782181e-03]],
+    array([[[1.64412037e-02],
+            [9.23289976e-04],
+            [9.33408854e-04]],
 
-           [[2.55722110e-03],
-            [9.47777648e-04],
-            [9.54755058e-04]],
+           [[9.38150857e-04],
+            [6.57863566e-04],
+            [1.75338972e-03]],
 
-           [[1.91575743e-03],
-            [1.65526383e-03],
-            [3.67320934e-03]],
+           [[4.32476518e-04],
+            [2.07063253e-03],
+            [5.75639773e-03]],
 
-           [[9.54645657e-05],
-            [1.47084296e-02],
-            [1.35143287e-03]],
+           [[2.31906364e-04],
+            [1.28279924e-02],
+            [1.17516327e-04]],
 
-           [[5.49641764e-03],
-            [3.71751172e-04],
-            [2.98313168e-03]],
+           [[6.99577015e-03],
+            [1.15383060e-04],
+            [1.56907667e-03]],
 
     ...
 
-           [[7.03146361e-05],
-            [9.66168381e-03],
-            [1.17242755e-03]],
+           [[4.18042946e-05],
+            [5.72294882e-03],
+            [3.12205782e-04]],
 
-           [[1.41984574e-03],
-            [2.23128637e-03],
-            [5.71009004e-03]],
+           [[8.69499752e-04],
+            [2.00286927e-03],
+            [4.80654230e-03]],
 
-           [[1.88476965e-03],
-            [3.06461961e-03],
-            [7.38627603e-03]],
+           [[2.28960812e-03],
+            [3.59285297e-03],
+            [5.94200846e-03]],
 
-           [[1.62730534e-02],
-            [3.54107120e-03],
-            [3.26337272e-06]],
+           [[1.97329596e-02],
+            [1.49822515e-03],
+            [2.68427277e-04]],
 
-           [[4.45268088e-05],
-            [1.45566883e-03],
-            [3.73451796e-04]]])
+           [[4.59399052e-06],
+            [1.27179793e-03],
+            [2.44382466e-03]]])
     Coordinates:
       * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9 ... 91 92 93 94 95 96 97 98 99
       * roi      (roi) <U5 'r0-r1' 'r0-r2' 'r1-r2'
@@ -447,7 +447,7 @@ DFC inside each one of them.
      [214 246]
      [215 247]
      [216 248]]
-      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:00<00:00,   38.66it/s]     67%|######6   | Estimating DFC : 2/3 [00:00<00:00,   38.68it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   38.70it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   38.84it/s]
+      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:00<00:01,    1.28it/s]     67%|######6   | Estimating DFC : 2/3 [00:01<00:00,    1.28it/s]    100%|##########| Estimating DFC : 3/3 [00:02<00:00,    1.28it/s]    100%|##########| Estimating DFC : 3/3 [00:02<00:00,    1.29it/s]
 
 
 
@@ -501,9 +501,9 @@ and the distance correlation.
 
  .. code-block:: none
 
-      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:00<00:00,   38.02it/s]     67%|######6   | Estimating DFC : 2/3 [00:00<00:00,   38.04it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   38.03it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   37.91it/s]
-      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:00<00:00,   29.34it/s]     67%|######6   | Estimating DFC : 2/3 [00:00<00:00,   29.39it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   29.43it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   29.84it/s]
-      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:03<00:07,    3.57s/it]     67%|######6   | Estimating DFC : 2/3 [00:07<00:03,    3.57s/it]    100%|##########| Estimating DFC : 3/3 [00:10<00:00,    3.57s/it]    100%|##########| Estimating DFC : 3/3 [00:10<00:00,    3.57s/it]
+      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:00<00:01,    1.26it/s]     67%|######6   | Estimating DFC : 2/3 [00:01<00:00,    1.26it/s]    100%|##########| Estimating DFC : 3/3 [00:02<00:00,    1.26it/s]    100%|##########| Estimating DFC : 3/3 [00:02<00:00,    1.28it/s]
+      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:00<00:00,   19.35it/s]     67%|######6   | Estimating DFC : 2/3 [00:00<00:00,   19.32it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   19.31it/s]    100%|##########| Estimating DFC : 3/3 [00:00<00:00,   19.02it/s]
+      0%|          | Estimating DFC : 0/3 [00:00<?,       ?it/s]     33%|###3      | Estimating DFC : 1/3 [00:05<00:11,    5.62s/it]     67%|######6   | Estimating DFC : 2/3 [00:11<00:05,    5.63s/it]    100%|##########| Estimating DFC : 3/3 [00:16<00:00,    5.62s/it]    100%|##########| Estimating DFC : 3/3 [00:16<00:00,    5.64s/it]
 
 
 
@@ -526,7 +526,7 @@ and the distance correlation.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  32.135 seconds)
+   **Total running time of the script:** ( 0 minutes  49.068 seconds)
 
 
 .. _sphx_glr_download_auto_examples_tutorials_plot_dfc_estimator.py:
