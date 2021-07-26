@@ -358,7 +358,7 @@ def _dataframe_conversion(da, order, rm_missing):
     return da
 
 
-def conn_ravel_directed(da, sep='-'):
+def conn_ravel_directed(da, sep='-', drop_within=False):
     """Ravel a directed array.
 
     This function reorganize a directed array that contains the coordinates
@@ -372,6 +372,8 @@ def conn_ravel_directed(da, sep='-'):
         coordinates 'x->y' and 'y->x'
     sep : string | '-'
         Separator used to separate the pairs of roi names.
+    drop_within : bool | False
+        Drop within node connections
 
     Returns
     -------
@@ -402,5 +404,13 @@ def conn_ravel_directed(da, sep='-'):
 
     # finally, concat both
     da_ravel = xr.concat((da_xy, da_yx), 'roi')
+
+    # drop within node connections
+    if drop_within:
+        to_keep = []
+        for r in da_ravel['roi'].data:
+            r_s, r_t = r.split('->')
+            to_keep.append(r_s != r_t)
+        da_ravel = da_ravel.sel(roi=to_keep)
 
     return da_ravel
