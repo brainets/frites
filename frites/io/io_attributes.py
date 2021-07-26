@@ -38,10 +38,8 @@ class Attributes(UserDict):
         """Check attributes for netcdf compatibility."""
         keys, values = list(self.data.keys()), list(self.data.values())
         for k, v in zip(keys, values):
-            # None to string
-            self.data[k] = 'none' if v is None else v
-            # bool to string
-            self.data[k] = str(v) if isinstance(v, bool) is None else v
+            if v is None: self.data[k] = 'none'  # noqa
+            if isinstance(v, bool): self.data[k] = str(v)  # noqa
             # dict to strings
             if isinstance(v, dict):
                 for _k, _v in v.items():
