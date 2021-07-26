@@ -196,8 +196,8 @@ class TestSubjectEphy(object):  # noqa
         assert da.attrs['y_dtype'] == 'float'
         assert da.attrs['z_dtype'] == 'int'
         assert da.attrs['mi_type'] == 'ccd'
-        assert da.attrs['agg_ch'] is False
-        assert da.attrs['multivariate'] is True
+        assert da.attrs['agg_ch'] is 'False'
+        assert da.attrs['multivariate'] is 'True'
 
     def test_dtypes(self):
         """Test y, z dtypes and mi_type."""
@@ -219,4 +219,4 @@ class TestSubjectEphy(object):  # noqa
 
 
 if __name__ == '__main__':
-    TestSubjectEphy().test_dtypes()
+    TestSubjectEphy().test_attrs()
