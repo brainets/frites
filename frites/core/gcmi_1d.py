@@ -51,7 +51,7 @@ def ent_1d_g(x, biascorrect=True):
     ln2 = np.log(2)
     if biascorrect:
         psiterms = sp.special.psi((ntrl - np.arange(1, nvarx + 1).astype(
-            np.float)) / 2.) / 2.
+            float)) / 2.) / 2.
         dterm = (ln2 - np.log(ntrl - 1.)) / 2.
         hx = hx - nvarx * dterm - psiterms.sum()
 
@@ -112,7 +112,7 @@ def mi_1d_gg(x, y, biascorrect=True, demeaned=False):
     ln2 = np.log(2)
     if biascorrect:
         psiterms = sp.special.psi(
-            (ntrl - np.arange(1, nvarxy + 1)).astype(np.float) / 2.) / 2.
+            (ntrl - np.arange(1, nvarxy + 1)).astype(float) / 2.) / 2.
         dterm = (ln2 - np.log(ntrl - 1.)) / 2.
         hx = hx - nvarx * dterm - psiterms[:nvarx].sum()
         hy = hy - nvary * dterm - psiterms[:nvary].sum()
@@ -181,7 +181,7 @@ def mi_model_1d_gd(x, y, biascorrect=True, demeaned=False):
         raise ValueError("x must be at most 2d")
     if y.ndim > 1:
         raise ValueError("only univariate discrete variables supported")
-    if not np.issubdtype(y.dtype, np.integer):
+    if not np.issubdtype(y.dtype, int):
         raise ValueError("y should be an integer array")
 
     nvarx, ntrl = x.shape
@@ -217,15 +217,15 @@ def mi_model_1d_gd(x, y, biascorrect=True, demeaned=False):
     if biascorrect:
         vars = np.arange(1, nvarx + 1)
 
-        psiterms = sp.special.psi((ntrl - vars).astype(np.float) / 2.) / 2.
+        psiterms = sp.special.psi((ntrl - vars).astype(float) / 2.) / 2.
         dterm = (ln2 - np.log(float(ntrl - 1))) / 2.
         hunc = hunc - nvarx * dterm - psiterms.sum()
 
-        dterm = (ln2 - np.log((ntrl_y - 1).astype(np.float))) / 2.0
+        dterm = (ln2 - np.log((ntrl_y - 1).astype(float))) / 2.0
         psiterms = np.zeros(len(ym))
         for vi in vars:
             idx = ntrl_y - vi
-            psiterms = psiterms + sp.special.psi(idx.astype(np.float) / 2.)
+            psiterms = psiterms + sp.special.psi(idx.astype(float) / 2.)
         hcond = hcond - nvarx * dterm - (psiterms / 2.)
 
     # MI in bits
@@ -256,7 +256,7 @@ def gcmi_model_1d_cd(x, y):
         raise ValueError("x must be at most 2d")
     if y.ndim > 1:
         raise ValueError("only univariate discrete variables supported")
-    if not np.issubdtype(y.dtype, np.integer):
+    if not np.issubdtype(y.dtype, int):
         raise ValueError("y should be an integer array")
 
     nvarx, ntrl = x.shape
@@ -293,7 +293,7 @@ def mi_mixture_1d_gd(x, y):
         raise ValueError("x must be at most 2d")
     if y.ndim > 1:
         raise ValueError("only univariate discrete variables supported")
-    if not np.issubdtype(y.dtype, np.integer):
+    if not np.issubdtype(y.dtype, int):
         raise ValueError("y should be an integer array")
 
     nvarx, ntrl = x.shape
@@ -402,7 +402,7 @@ def gcmi_mixture_1d_cd(x, y):
         raise ValueError("x must be at most 2d")
     if y.ndim > 1:
         raise ValueError("only univariate discrete variables supported")
-    if not np.issubdtype(y.dtype, np.integer):
+    if not np.issubdtype(y.dtype, int):
         raise ValueError("y should be an integer array")
 
     nvarx, ntrl = x.shape
@@ -430,7 +430,7 @@ def gcmi_mixture_1d_cd(x, y):
         # robust measure of loc from median
         cxmscaled = cxmscaled + xmmed
         classdat.append(cxmscaled)
-        ydat.append(yi * np.ones(xm.shape[1], dtype=np.int))
+        ydat.append(yi * np.ones(xm.shape[1], dtype=int))
 
     cx = np.concatenate(classdat, axis=1)
     newy = np.concatenate(ydat)
@@ -503,7 +503,7 @@ def cmi_1d_ggg(x, y, z, biascorrect=True, demeaned=False):
     ln2 = np.log(2)
     if biascorrect:
         psiterms = sp.special.psi(
-            (ntrl - np.arange(1, nvarxyz + 1)).astype(np.float) / 2.) / 2.
+            (ntrl - np.arange(1, nvarxyz + 1)).astype(float) / 2.) / 2.
         dterm = (ln2 - np.log(ntrl - 1.)) / 2.
         hz = hz - nvarz * dterm - psiterms[:nvarz].sum()
         hxz = hxz - nvarxz * dterm - psiterms[:nvarxz].sum()
@@ -575,7 +575,7 @@ def cmi_1d_ggd(x, y, z, biascorrect=True, demeaned=False):
         raise ValueError("x and y must be at most 2d")
     if z.ndim > 1:
         raise ValueError("only univariate discrete variables supported")
-    if not np.issubdtype(z.dtype, np.integer):
+    if not np.issubdtype(z.dtype, int):
         raise ValueError("z should be an integer array")
 
     nvarx, ntrl = x.shape
