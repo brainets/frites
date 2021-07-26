@@ -549,7 +549,36 @@
 <dl class="class">
 <dt id="frites.workflow.WfMiCombine">
 <em class="property">class </em><code class="sig-prename descclassname">frites.workflow.</code><code class="sig-name descname">WfMiCombine</code><span class="sig-paren">(</span><em class="sig-param">wf_1</em>, <em class="sig-param">wf_2</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi_combine.html#WfMiCombine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMiCombine" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Combine outputs of two WfMi workflows.</p>
+<p>This class can be used to combine two workflows of WfMi into a single
+one. The combination is performed by taking the effect size and
+permutations of both workflows and substract them (i.e. wf_1 - wf_2)</p>
+<p>An typical usecase could be :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fit a first workflow wf_1 for the difference between two stimulus</p></li>
+<li><p>Fit a second workflow wf_2 for the difference between two other
+stimulus</p></li>
+<li><p>Combine the two workflows (wf_1 - wf_2)</p></li>
+<li><p>Perform the statistics to investigate whether mi_1 &gt; mi_2</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>wf_1, wf_2</strong><span class="classifier">frites.workflow.WfMi</span></dt><dd><p>Two workflows of WfMi. Important, but the two workflows have to be
+fitted individually first.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>wf</strong><span class="classifier">frites.workflow.WfMi</span></dt><dd><p>A new workflow with combined data</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
 <dt id="frites.workflow.WfMiCombine.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">wf_1</em>, <em class="sig-param">wf_2</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/workflow/wf_mi_combine.html#WfMiCombine.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.workflow.WfMiCombine.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init.</p>
@@ -596,7 +625,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-07-25.</p>
+        <p>&copy; Copyright Last updated on 2021-07-26.</p>
     </footer>
 
   </body>

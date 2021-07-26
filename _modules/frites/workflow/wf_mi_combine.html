@@ -546,32 +546,37 @@
 
 
 <div class="viewcode-block" id="WfMiCombine"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMiCombine.html#frites.workflow.WfMiCombine">[docs]</a><span class="k">class</span> <span class="nc">WfMiCombine</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Combine outputs of two WfMi workflows.</span>
+
+<span class="sd">    This class can be used to combine two workflows of WfMi into a single</span>
+<span class="sd">    one. The combination is performed by taking the effect size and</span>
+<span class="sd">    permutations of both workflows and substract them (i.e. wf_1 - wf_2)</span>
+
+<span class="sd">    An typical usecase could be :</span>
+
+<span class="sd">        * Fit a first workflow wf_1 for the difference between two stimulus</span>
+<span class="sd">        * Fit a second workflow wf_2 for the difference between two other</span>
+<span class="sd">          stimulus</span>
+<span class="sd">        * Combine the two workflows (wf_1 - wf_2)</span>
+<span class="sd">        * Perform the statistics to investigate whether mi_1 &gt; mi_2</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wf_1, wf_2 : frites.workflow.WfMi</span>
+<span class="sd">        Two workflows of WfMi. Important, but the two workflows have to be</span>
+<span class="sd">        fitted individually first.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    wf : frites.workflow.WfMi</span>
+<span class="sd">        A new workflow with combined data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WfMiCombine.__init__"><a class="viewcode-back" href="../../../generated/frites.workflow.WfMiCombine.html#frites.workflow.WfMiCombine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wf_1</span><span class="p">,</span> <span class="n">wf_2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wf_1</span><span class="p">,</span> <span class="n">wf_2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Combine outputs of two WfMi workflows.</span>
-
-<span class="sd">        This class can be used to combine two workflows of WfMi into a single</span>
-<span class="sd">        one. The combination is performed by taking the effect size and</span>
-<span class="sd">        permutations of both workflows and substract them (i.e. wf_1 - wf_2)</span>
-
-<span class="sd">        An typical usecase could be :</span>
-
-<span class="sd">            * Fit a first workflow wf_1 for the difference between two stimulus</span>
-<span class="sd">            * Fit a second workflow wf_2 for the difference between two other</span>
-<span class="sd">              stimulus</span>
-<span class="sd">            * Combine the two workflows (wf_1 - wf_2)</span>
-<span class="sd">            * Perform the statistics to investigate whether mi_1 &gt; mi_2</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        wf_1, wf_2 : frites.workflow.WfMi</span>
-<span class="sd">            Two workflows of WfMi. Important, but the two workflows have to be</span>
-<span class="sd">            fitted individually first.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Combining the data of two workflows&#39;</span><span class="p">)</span>
 
@@ -636,7 +641,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-07-25.</p>
+        <p>&copy; Copyright Last updated on 2021-07-26.</p>
     </footer>
 
   </body>
