@@ -36,8 +36,17 @@ class Attributes(UserDict):
 
     def _check_netcdf(self):
         """Check attributes for netcdf compatibility."""
-        for k, v in self.data.items():
+        keys, values = list(self.data.keys()), list(self.data.values())
+        for k, v in zip(keys, values):
+            # None to string
             self.data[k] = 'none' if v is None else v
+            # bool to string
+            self.data[k] = str(v) if isinstance(v, bool) is None else v
+            # dict to strings
+            if isinstance(v, dict):
+                for _k, _v in v.items():
+                    self.data[f"{k}_{_k}"] = _v
+                self.data.pop(k)
 
     def update(self, attrs, check=True):
         """Update internal with external attributes."""
