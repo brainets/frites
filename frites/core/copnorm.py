@@ -2,6 +2,8 @@
 import numpy as np
 from scipy.special import ndtri
 
+from frites.config import CONFIG
+
 
 def ctransform(x):
     """Copula transformation (empirical CDF).
@@ -59,7 +61,7 @@ def copnorm_cat_1d(x, y):
     """
     assert isinstance(x, np.ndarray) and (x.ndim == 1)
     assert isinstance(y, np.ndarray) and (x.ndim == 1)
-    assert y.dtype in [int, np.int]
+    assert y.dtype in CONFIG['INT_DTYPE']
     x_cop = np.zeros_like(x)
     y_u = np.unique(y)
     for yi in y_u:

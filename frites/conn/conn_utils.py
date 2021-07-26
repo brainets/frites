@@ -395,8 +395,8 @@ def conn_ravel_directed(da, sep='-', drop_within=False):
         roi_yx.append(f"{r_t}->{r_s}")
 
     # select bidirected arrays
-    da_xy = da.sel(direction='x->y').drop('direction')
-    da_yx = da.sel(direction='y->x').drop('direction')
+    da_xy = da.sel(direction='x->y').drop_vars('direction')
+    da_yx = da.sel(direction='y->x').drop_vars('direction')
 
     # replace roi names
     da_xy['roi'] = roi_xy
