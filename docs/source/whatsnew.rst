@@ -19,7 +19,7 @@ Bug fixes
 +++++++++
 * Fix :py:class:`frites.workflow.WfMi.get_params` when returning a single output (:commit:`3bde82e6`)
 * Improve attributes conversion for saving netcdf files (bool and dict) (:commit:`8e7dddb1`, :commit:`c6f7a4db`)
-* Fix Numpy `np.float` and `np.int` warnings related (:commit:`896a198a`, :commit:`7f2a1caef`)
+* Fix Numpy `np.float` and `np.int` warnings related (:commit:`896a198a`, :commit:`7f2a1caef`, :commit:`0d1a1223`)
 
 v0.3.9
 ------
