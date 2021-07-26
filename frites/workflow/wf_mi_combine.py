@@ -5,32 +5,37 @@ from frites.io import set_log_level, logger
 
 
 class WfMiCombine(object):
+    """Combine outputs of two WfMi workflows.
+
+    This class can be used to combine two workflows of WfMi into a single
+    one. The combination is performed by taking the effect size and
+    permutations of both workflows and substract them (i.e. wf_1 - wf_2)
+
+    An typical usecase could be :
+
+        * Fit a first workflow wf_1 for the difference between two stimulus
+        * Fit a second workflow wf_2 for the difference between two other
+          stimulus
+        * Combine the two workflows (wf_1 - wf_2)
+        * Perform the statistics to investigate whether mi_1 > mi_2
+
+    Parameters
+    ----------
+    wf_1, wf_2 : frites.workflow.WfMi
+        Two workflows of WfMi. Important, but the two workflows have to be
+        fitted individually first.
+
+    Returns
+    -------
+    wf : frites.workflow.WfMi
+        A new workflow with combined data
+    """
 
     def __init__(self, wf_1, wf_2, verbose=None):
         """Init."""
         pass
 
     def __new__(self, wf_1, wf_2, verbose=None):
-        """Combine outputs of two WfMi workflows.
-
-        This class can be used to combine two workflows of WfMi into a single
-        one. The combination is performed by taking the effect size and
-        permutations of both workflows and substract them (i.e. wf_1 - wf_2)
-
-        An typical usecase could be :
-
-            * Fit a first workflow wf_1 for the difference between two stimulus
-            * Fit a second workflow wf_2 for the difference between two other
-              stimulus
-            * Combine the two workflows (wf_1 - wf_2)
-            * Perform the statistics to investigate whether mi_1 > mi_2
-
-        Parameters
-        ----------
-        wf_1, wf_2 : frites.workflow.WfMi
-            Two workflows of WfMi. Important, but the two workflows have to be
-            fitted individually first.
-        """
         set_log_level(verbose)
         logger.info('Combining the data of two workflows')
 
