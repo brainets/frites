@@ -148,6 +148,7 @@ sphinx_gallery_conf = {
         '../../examples/tutorials',
         '../../examples/dataset',
         '../../examples/mi',
+        '../../examples/estimators',
         '../../examples/conn',
         '../../examples/armodel',
         '../../examples/utils',

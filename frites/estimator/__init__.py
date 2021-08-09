@@ -9,3 +9,6 @@ from .est_corr import CorrEstimator  # noqa
 
 # distance-based estimators
 from .est_dcorr import DcorrEstimator  # noqa
+
+# resampling estimator
+from .est_resampling import ResamplingEstimator  # noqa
