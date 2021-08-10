@@ -27,7 +27,7 @@ def read(fname):
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
-core_deps = ['matplotlib', 'networkx', 'numba', 'dcor']
+core_deps = ['matplotlib', 'networkx', 'numba', 'dcor', 'scikit-learn']
 test_deps = ['pytest', 'pytest-sugar', 'pytest-cov', 'codecov']
 doc_deps = [
     'sphinx==2.2.0', 'sphinx-gallery==0.4.0', 'sphinx_bootstrap_theme',
