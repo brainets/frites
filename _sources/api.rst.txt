@@ -153,6 +153,15 @@ Correlation estimators
 
    CorrEstimator
 
+Estimator utility functions
++++++++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   CustomEstimator
+   ResamplingEstimator
+
 .. raw:: html
 
   <hr>

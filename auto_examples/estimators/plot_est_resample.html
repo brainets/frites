@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Estimator comparison" href="plot_est_comparison.html" />
+    <link rel="next" title="Defining a custom estimator" href="plot_est_custom.html" />
     <link rel="prev" title="Mutual-information at the contact level" href="../mi/plot_wf_mi_contact_level.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -207,6 +207,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#information-shared-between-two-continuous-variables">Information shared between two continuous variables</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="plot_est_custom.html">Defining a custom estimator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plot_est_custom.html#custom-estimator-decoders">Custom estimator : decoders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plot_est_custom.html#custom-estimator-regression">Custom estimator : regression</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="plot_est_comparison.html">Estimator comparison</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plot_est_comparison.html#functions-for-data-simulation">Functions for data simulation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plot_est_comparison.html#plot-the-simulated-data">Plot the simulated data</a></li>
@@ -366,6 +371,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.CorrEstimator.html">frites.estimator.CorrEstimator</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#estimator-utility-functions">Estimator utility functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.CustomEstimator.html">frites.estimator.CustomEstimator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.ResamplingEstimator.html">frites.estimator.ResamplingEstimator</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
@@ -455,62 +465,65 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-1">v0.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-0">v0.4.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-1">v0.4.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-0">v0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-9">v0.3.9</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id9">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id16">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-8">v0.3.8</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id20">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">Internal Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id27">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id28">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id25">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id28">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id29">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id29">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id30">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id31">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id32">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id30">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id31">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id32">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id33">Internal Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id33">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id34">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id35">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id34">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id35">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id36">Bug fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id36">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id37">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id38">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id37">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id38">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id39">New Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id39">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id40">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id41">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id42">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id43">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id40">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id41">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id42">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id43">Internal Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id44">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -580,7 +593,7 @@ procedure for a more reliable estimation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">frites.estimator</span> <span class="kn">import</span> <a href="../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator" title="View documentation for frites.estimator.GCMIEstimator"><span class="n">GCMIEstimator</span></a><span class="p">,</span> <span class="n">ResamplingEstimator</span><span class="p">,</span> <a href="../../generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="View documentation for frites.estimator.DcorrEstimator"><span class="n">DcorrEstimator</span></a>
+<span class="kn">from</span> <span class="nn">frites.estimator</span> <span class="kn">import</span> <a href="../../generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator" title="View documentation for frites.estimator.GCMIEstimator"><span class="n">GCMIEstimator</span></a><span class="p">,</span> <a href="../../generated/frites.estimator.ResamplingEstimator.html#frites.estimator.ResamplingEstimator" title="View documentation for frites.estimator.ResamplingEstimator"><span class="n">ResamplingEstimator</span></a><span class="p">,</span> <a href="../../generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="View documentation for frites.estimator.DcorrEstimator"><span class="n">DcorrEstimator</span></a>
 
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -627,7 +640,7 @@ going to wrap this estimator with a trial-resampling estimator.</p>
 <span class="n">mi_1</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_d</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
 <span class="c1"># mutual information corrected estimator (with trial-resampling)</span>
-<span class="n">est_r</span> <span class="o">=</span> <span class="n">ResamplingEstimator</span><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">n_resampling</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">est_r</span> <span class="o">=</span> <a href="../../generated/frites.estimator.ResamplingEstimator.html#frites.estimator.ResamplingEstimator" title="View documentation for frites.estimator.ResamplingEstimator"><span class="n">ResamplingEstimator</span></a><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">n_resampling</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">mi_2</span> <span class="o">=</span> <span class="n">est_r</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_d</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
@@ -659,7 +672,7 @@ going to wrap this estimator with a trial-resampling estimator.</p>
 <span class="n">mi_1</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_c</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">y_d</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
 <span class="c1"># distance correlation corrected estimator (with trial-resampling)</span>
-<span class="n">est_r</span> <span class="o">=</span> <span class="n">ResamplingEstimator</span><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">n_resampling</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">est_r</span> <span class="o">=</span> <a href="../../generated/frites.estimator.ResamplingEstimator.html#frites.estimator.ResamplingEstimator" title="View documentation for frites.estimator.ResamplingEstimator"><span class="n">ResamplingEstimator</span></a><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">n_resampling</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">mi_2</span> <span class="o">=</span> <span class="n">est_r</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_c</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">y_d</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
@@ -680,7 +693,7 @@ over the non-corrected one.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_est_resample_002.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_est_resample_002.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.232 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.502 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-estimators-plot-est-resample-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a502fc60b27b62f0a96085329619933b/plot_est_resample.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_est_resample.py</span></code></a></p>

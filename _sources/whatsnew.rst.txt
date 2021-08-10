@@ -6,6 +6,10 @@ What's new
 v0.4.1
 ------
 
+New Features
+++++++++++++
+* New :py:class`frites.estimator.CustomEstimator` for defining custom estimators (:commit:`e473c713`)
+
 v0.4.0
 ------
 
@@ -15,9 +19,9 @@ New Features
 * :py:`frites.conn.conn_dfc` supports passing other estimators (:commit:`a864a7b05b`)
 * :py:`frites.utils.time_to_sample` and :py:`frites.utils.get_closest_sample` conversion functions (:commit:`7c44478e`)
 * :py:`frites.conn.conn_ravel_directed` reshaping function (:commit:`f9b9d272`)
-* new :py:class:`frites.workflow.WfMi.copy` for internal workflow copy (:commit:`0c2228c7`, :commit:`860f3d45`)
-* new :py:class:`frites.workflow.WfMiCombine` and example class for combining workflows (:commit:`62072ee52`)
-* new :py:class`frites.estimator.ResamplingEstimator` trial-resampling estimator (:commit:`13f6271e`)
+* New :py:class:`frites.workflow.WfMi.copy` for internal workflow copy (:commit:`0c2228c7`, :commit:`860f3d45`)
+* New :py:class:`frites.workflow.WfMiCombine` and example class for combining workflows (:commit:`62072ee52`)
+* New :py:class`frites.estimator.ResamplingEstimator` trial-resampling estimator (:commit:`13f6271e`)
 
 Bug fixes
 +++++++++
