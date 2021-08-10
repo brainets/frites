@@ -65,7 +65,7 @@ class DcorrEstimator(BaseMIEstimator):
     def get_function(self):
         """Get the function to execute according to the input parameters.
 
-        This can be particulary usefull when computing correlation in parallel
+        This can be particularly useful when computing correlation in parallel
         as it avoids to pickle the whole estimator and therefore, leading to
         faster computations.
 

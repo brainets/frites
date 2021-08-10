@@ -10,7 +10,7 @@ from frites.io import set_log_level, logger
 from frites.core import permute_mi_vector
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
-from frites.estimator import GCMIEstimator
+from frites.estimator import GCMIEstimator, ResamplingEstimator
 from frites.utils import parallel_func, kernel_smoothing
 
 
@@ -67,6 +67,9 @@ class WfMi(WfBase):
         if estimator is None:
             estimator = GCMIEstimator(mi_type=mi_type, copnorm=False,
                                       verbose=verbose)
+        elif isinstance(estimator, ResamplingEstimator):
+            raise NotImplementedError("Resampling estimators are not supported"
+                                      " in WfMi")
         assert estimator.settings['mi_type'] == self._mi_type
         self.estimator = estimator
         self._copnorm = isinstance(estimator, GCMIEstimator)
