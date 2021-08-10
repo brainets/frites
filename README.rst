@@ -77,3 +77,4 @@ In addition to the main dependencies, here's the list of additional packages tha
 
 * `Numba <http://numba.pydata.org/>`_ : speed up the computations of some functions
 * `Matplotlib <https://matplotlib.org/>`_, `Seaborn <https://seaborn.pydata.org/>`_ and `Networkx <https://networkx.github.io/>`_ for plotting the examples
+* `Dcor <https://dcor.readthedocs.io/en/latest/>`_ for fast implementation of distance correlation
