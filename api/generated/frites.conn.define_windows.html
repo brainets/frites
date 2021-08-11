@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frites.conn.define_windows &#8212; frites 0.4.0 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="frites.conn.plot_windows" href="frites.conn.plot_windows.html" />
+    <link rel="prev" title="frites.conn.conn_get_pairs" href="frites.conn.conn_get_pairs.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../index.html">
+  <img src="../../_static/frites_128x128.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../overview/index.html">
+  Overview
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../install.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../auto_examples/index.html">
+  Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kNearNeighbors" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_dataset.html">
+   Dataset
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.dataset.SubjectEphy.html">
+     frites.dataset.SubjectEphy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.dataset.DatasetEphy.html">
+     frites.dataset.DatasetEphy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_workflow.html">
+   Workflow
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfMi.html">
+     frites.workflow.WfMi
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfMiCombine.html">
+     frites.workflow.WfMiCombine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfConnComod.html">
+     frites.workflow.WfConnComod
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfStats.html">
+     frites.workflow.WfStats
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../api_connectivity.html">
+   Connectivity
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_dfc.html">
+     frites.conn.conn_dfc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_covgc.html">
+     frites.conn.conn_covgc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_transfer_entropy.html">
+     frites.conn.conn_transfer_entropy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_reshape_undirected.html">
+     frites.conn.conn_reshape_undirected
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_reshape_directed.html">
+     frites.conn.conn_reshape_directed
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_ravel_directed.html">
+     frites.conn.conn_ravel_directed
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_get_pairs.html">
+     frites.conn.conn_get_pairs
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     frites.conn.define_windows
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.plot_windows.html">
+     frites.conn.plot_windows
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_estimators.html">
+   Information-based estimators
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.GCMIEstimator.html">
+     frites.estimator.GCMIEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.BinMIEstimator.html">
+     frites.estimator.BinMIEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.DcorrEstimator.html">
+     frites.estimator.DcorrEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.CorrEstimator.html">
+     frites.estimator.CorrEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.CustomEstimator.html">
+     frites.estimator.CustomEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.ResamplingEstimator.html">
+     frites.estimator.ResamplingEstimator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_simulations.html">
+   Data simulations
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.StimSpecAR.html">
+     frites.simulations.StimSpecAR
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cc_ss.html">
+     frites.simulations.sim_local_cc_ss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cc_ms.html">
+     frites.simulations.sim_local_cc_ms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cd_ss.html">
+     frites.simulations.sim_local_cd_ss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cd_ms.html">
+     frites.simulations.sim_local_cd_ms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_ccd_ms.html">
+     frites.simulations.sim_local_ccd_ms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html">
+     frites.simulations.sim_local_ccd_ss
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_statistics.html">
+   Statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.ttest_1samp.html">
+     frites.stats.ttest_1samp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.rfx_ttest.html">
+     frites.stats.rfx_ttest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.cluster_correction_mcp.html">
+     frites.stats.cluster_correction_mcp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.testwise_correction_mcp.html">
+     frites.stats.testwise_correction_mcp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.cluster_threshold.html">
+     frites.stats.cluster_threshold
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_utils.html">
+   Utility functions
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.savgol_filter.html">
+     frites.utils.savgol_filter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.kernel_smoothing.html">
+     frites.utils.kernel_smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.time_to_sample.html">
+     frites.utils.time_to_sample
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.get_closest_sample.html">
+     frites.utils.get_closest_sample
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_core.html">
+   Low-level core functions
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_1d.html">
+     frites.core.copnorm_1d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_cat_1d.html">
+     frites.core.copnorm_cat_1d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.ent_1d_g.html">
+     frites.core.ent_1d_g
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_1d_gg.html">
+     frites.core.mi_1d_gg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_model_1d_gd.html">
+     frites.core.mi_model_1d_gd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_mixture_1d_gd.html">
+     frites.core.mi_mixture_1d_gd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.cmi_1d_ggg.html">
+     frites.core.cmi_1d_ggg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_1d_cc.html">
+     frites.core.gcmi_1d_cc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_model_1d_cd.html">
+     frites.core.gcmi_model_1d_cd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_mixture_1d_cd.html">
+     frites.core.gcmi_mixture_1d_cd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_1d_ccc.html">
+     frites.core.gccmi_1d_ccc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_1d_ccd.html">
+     frites.core.gccmi_1d_ccd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_nd.html">
+     frites.core.copnorm_nd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_cat_nd.html">
+     frites.core.copnorm_cat_nd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_nd_gg.html">
+     frites.core.mi_nd_gg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_model_nd_gd.html">
+     frites.core.mi_model_nd_gd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.cmi_nd_ggg.html">
+     frites.core.cmi_nd_ggg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_nd_cc.html">
+     frites.core.gcmi_nd_cc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_model_nd_cd.html">
+     frites.core.gcmi_model_nd_cd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">
+     frites.core.gccmi_nd_ccnd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">
+     frites.core.gccmi_model_nd_cdnd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_nd_ccc.html">
+     frites.core.gccmi_nd_ccc
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_conf.html">
+   Configuration
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.get_config.html">
+     frites.get_config
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.set_config.html">
+     frites.set_config
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples-using-frites-conn-define-windows">
+   Examples using
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     frites.conn.define_windows
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="frites-conn-define-windows">
+<h1>frites.conn.define_windows<a class="headerlink" href="#frites-conn-define-windows" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="frites.conn.define_windows">
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">define_windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/frites/conn/conn_sliding_windows.html#define_windows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.define_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define temporal windows.</p>
+<p>This function can be used to either manually define temporal windows either
+automatic sliding windows. Note that every input parameters should be in
+the time domain (e.g seconds or milliseconds).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Time vector</p>
+</dd>
+<dt><strong>windows</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Manual windows (e.g (.1, .2) or [(.1, .2), (.4, .5)]).</p>
+</dd>
+<dt><strong>slwin_len</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Length of each sliding (e.g .2 produces 200ms window length).</p>
+</dd>
+<dt><strong>slwin_start</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time point for starting sliding windows (e.g 0.1). If None, sliding
+windows will start from the first time point.</p>
+</dd>
+<dt><strong>slwin_stop</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time point for ending sliding windows (e.g 1.5). If None, sliding
+windows will finish at the last time point.</p>
+</dd>
+<dt><strong>slwin_step</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Temporal step between each temporal window (e.g .1 means that each
+consecutive windows are going to be separated by 100ms). This parameter
+can be used to define either overlapping or non-overlapping windows. If
+None, slwin_step is going to be set to slwin_step in order to produce
+consecutive non-overlapping windows.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>win_sample</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of shape (n_windows, 2) of temporal indexes defining where each
+window (start, finish)</p>
+</dd>
+<dt><strong>mean_time</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Mean time vector inside each defined window of shape (n_windows,)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.conn.plot_windows.html#frites.conn.plot_windows" title="frites.conn.plot_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_windows</span></code></a></dt><dd></dd>
+</dl>
+</div>
+</dd></dl>
+
+<div class="section" id="examples-using-frites-conn-define-windows">
+<span id="sphx-glr-backreferences-frites-conn-define-windows"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.conn.define_windows</span></code><a class="headerlink" href="#examples-using-frites-conn-define-windows" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This tutorial illustrates how to compute the Dynamic Functional Connectivity (DFC). In particul..."><div class="figure align-default" id="id1">
+<img alt="Estimate the Dynamic Functional Connectivity" src="../../_images/sphx_glr_plot_dfc_estimator_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_dfc_estimator.html#sphx-glr-auto-examples-tutorials-plot-dfc-estimator-py"><span class="std std-ref">Estimate the Dynamic Functional Connectivity</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><div class="figure align-default" id="id2">
+<img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the dynamic functional connectivity (DFC) using the mut..."><div class="figure align-default" id="id3">
+<img alt="Estimate dynamic functional connectivity" src="../../_images/sphx_glr_plot_dfc_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_dfc.html#sphx-glr-auto-examples-conn-plot-dfc-py"><span class="std std-ref">Estimate dynamic functional connectivity</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define temporal windows that can then be used to compute, for e..."><div class="figure align-default" id="id4">
+<img alt="Define temporal windows" src="../../_images/sphx_glr_plot_time_windows_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/utils/plot_time_windows.html#sphx-glr-auto-examples-utils-plot-time-windows-py"><span class="std std-ref">Define temporal windows</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-clear"></div></div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="frites.conn.conn_get_pairs.html" title="previous page">frites.conn.conn_get_pairs</a>
+    <a class='right-next' id="next-link" href="frites.conn.plot_windows.html" title="next page">frites.conn.plot_windows</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2021-08-11.</p>
+    </footer>
+
+  </body>
+</html>

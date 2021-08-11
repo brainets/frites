@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Methods &#8212; frites 0.4.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Start analyzing your data with Frites" href="ovw_frites.html" />
+    <link rel="prev" title="Goals of Frites" href="ovw_goals.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/frites_128x128.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Overview
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kNearNeighbors" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_goals.html">
+   Goals of Frites
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_frites.html">
+   Start analyzing your data with Frites
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_help.html">
+   Get help
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_community.html">
+   Community
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_refs.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_whatsnew.html">
+   What’s new
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-analysis-within-the-information-theoretical-framework">
+   Data analysis within the information theoretical framework
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gaussian-copula-mutual-information">
+     Gaussian Copula Mutual Information
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-different-types-of-mutual-information">
+     The different types of mutual information
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equivalence-with-other-statistical-measures">
+     Equivalence with other statistical measures
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#statistical-analyses">
+   Statistical analyses
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#subject-and-group-level-statistical-inferences">
+     Subject and group-level statistical inferences
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correction-for-multiple-comparisons">
+     Correction for multiple comparisons
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="methods">
+<h1>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h1>
+<p>In this section we are going to cover the basis of the methods used in Frites. In particular two main topics :</p>
+<ol class="arabic simple">
+<li><p>The use of information theoretical measures for brain data</p></li>
+<li><p>The implemented statistical approaches</p></li>
+</ol>
+<p>Note that this methodological overview has been written for scientists who are not necessarily familiar with information theory and statistics. Therefore, it is not going to contain the mathematics behind the implemented methods, but instead, the references to the papers in question.</p>
+<div class="section" id="data-analysis-within-the-information-theoretical-framework">
+<h2>Data analysis within the information theoretical framework<a class="headerlink" href="#data-analysis-within-the-information-theoretical-framework" title="Permalink to this headline">¶</a></h2>
+<p>The first question that could be asked is <em>Why using the information theory to analyze brain data?</em></p>
+<p>There are several advantages of using information theoretic measures. Here’s a non exhaustive list of the main advantages :</p>
+<ol class="arabic simple">
+<li><p><strong>No assumption about the distribution of the data :</strong> standard IT measures (based on binning) are model-free in the sense that there’s no assumptions about how the data are distributed</p></li>
+<li><p><strong>Information theory as a unified framework of analysis :</strong> most of the statistical measures we used to analyze data (e.g correlation, machine-learning etc.) have a equivalent using IT metrics. This means that in theory it is possible to analyze the data from A-Z within the IT framework</p></li>
+<li><p><strong>Support for any data type :</strong> by construction, IT measures support both continuous and discrete variables such as univariate and multivariate.</p></li>
+</ol>
+<p>On the other hand, IT measures also present some disadvantages :</p>
+<ol class="arabic simple">
+<li><p><strong>Standard approaches usually require large data :</strong> indeed, methods based on binning need to evaluate the probability distribution (e.g the probability that your data take values between [-1, 1]). And the larger the data, the better the estimation. In addition, binning based IT measures suffer from the curse of dimensionality.</p></li>
+<li><p><strong>Strictly positive measures :</strong> IT measures returned the amount of information that is shared between two variables (in bits). And this quantity is superior or equal to zero. As an example, two variables might either be correlated or anti-correlated however, in both cases the amount of information is going to be strictly positive.</p></li>
+<li><p><strong>Computationally expansive :</strong> depending on the implementation, the evaluation of the mutual information can be relatively slow</p></li>
+</ol>
+<div class="figure align-center" id="id16">
+<img alt="../_images/gcmi_corr.png" src="../_images/gcmi_corr.png" />
+<p class="caption"><span class="caption-text">Correlation (orange) vs. strictly positive Mutual information (purple). Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id1">[9]</a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="gaussian-copula-mutual-information">
+<h3>Gaussian Copula Mutual Information<a class="headerlink" href="#gaussian-copula-mutual-information" title="Permalink to this headline">¶</a></h3>
+<p>In Frites we use a special type of mutual information that has been carried recently to neuroscience (see Ince et al 2017 <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id2">[9]</a>) : the Gaussian Copula Mutual Information (GCMI).</p>
+<p>The GCMI provide an estimation of the mutual information <strong>without the necessity of binning the data</strong>. In addition to this point, the GCMI is really fast to compute which makes this method a good candidate when it comes to performing numerous permutations for the statistics. However, the GCMI make the assumption that there’s a <strong>monotonic relation between the two variables</strong> (i.e if one variable is increasing, the other should also increase or decrease but not both).</p>
+</div>
+<div class="section" id="the-different-types-of-mutual-information">
+<h3>The different types of mutual information<a class="headerlink" href="#the-different-types-of-mutual-information" title="Permalink to this headline">¶</a></h3>
+<p>In this section we are going to make the difference between two types of variables :</p>
+<ul class="simple">
+<li><p><strong>Discrete variables :</strong> discrete variables are composed with <strong>integers</strong> where each number can for example refer to an experimental condition (e.g 0={all the trials that belong to the “go” stimulus} and 1={all the trials that belong to the “nogo” stimulus})</p></li>
+<li><p><strong>Continuous variables :</strong> continuous variables are made of <strong>floating points</strong>. Therefore, the brain data are considered as a continuous variable.</p></li>
+</ul>
+<p>With this in mind, the figure bellow summarizes the different types of mutual information :</p>
+<div class="figure align-center" id="id17">
+<img alt="../_images/cc_cd_ccd.png" src="../_images/cc_cd_ccd.png" />
+<p class="caption"><span class="caption-text"><strong>Top left</strong> : continuous / discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">D);</span> <span class="pre">mi_type='cd'</span></code>) for contrasting two experimental conditions (e.g two visual stimulus); <strong>Top right</strong> continuous / continuous case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C);</span> <span class="pre">mi_type='cc'</span></code>) for correlating the brain data with, for example, a model of the behavior (e.g Prediction Error / Learning); <strong>Bottom</strong> continuous / continuous | discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C</span> <span class="pre">|</span> <span class="pre">D);</span> <span class="pre">mi_type='ccd'</span></code>) for correlating the brain data with a continuous while removing the influence of a discrete variable (e.g experimental conditions)</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="equivalence-with-other-statistical-measures">
+<h3>Equivalence with other statistical measures<a class="headerlink" href="#equivalence-with-other-statistical-measures" title="Permalink to this headline">¶</a></h3>
+<p>Find bellow the table showing the equivalence between information theoretic quantities and other statistical measures. Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id3">[9]</a></p>
+<table class="table">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Information theoretic quantity</p></th>
+<th class="head"><p>Other statistical approaches</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MI (discrete; discrete)</p></td>
+<td><ul class="simple">
+<li><p>Chi-square test of independence</p></li>
+<li><p>Fishers exact test</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>MI (univariate continuous; discrete)</p></td>
+<td><ul class="simple">
+<li><p>2 classes: t test, KS test, Mann–Whitney U test</p></li>
+<li><p>ANOVA</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>MI (multivariate continuous; discrete)</p></td>
+<td><ul class="simple">
+<li><p>2 classes: Hoteling T2 test</p></li>
+<li><p>Decoding (cross-validated classifier)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>MI (univariate continuous; univariate continuous)</p></td>
+<td><ul class="simple">
+<li><p>Pearson correlation</p></li>
+<li><p>Spearman rank correlation</p></li>
+<li><p>Kendall rank correlation</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>MI (multivariate continuous; univariate continuous)</p></td>
+<td><ul class="simple">
+<li><p>Generalized Linear Model framework</p></li>
+<li><p>Decoding (cross-validated regression)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>MI (multivariate continuous; multivariate continuous)</p></td>
+<td><ul class="simple">
+<li><p>Canonical correlation analysis</p></li>
+<li><p>Distance correlation</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Conditional mutual information</p></td>
+<td><ul class="simple">
+<li><p>Partial correlation (continuous variables and linear effects only)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Directed information (transfer entropy)</p></td>
+<td><ul class="simple">
+<li><p>Granger Causality</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Directed feature information</p></td>
+<td><ul class="simple">
+<li><p>Dynamic Causal Modeling</p></li>
+<li><p>Psychophysiological interactions</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Interaction information</p></td>
+<td><ul class="simple">
+<li><p>Representational similarity analysis (redundancy only)</p></li>
+<li><p>Cross-classification decoding (redundancy only)</p></li>
+<li><p>Mediation analysis</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Ince et al. 2017 <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id4">[9]</a></p></li>
+<li><p>Timme and Lapish 2018 <a class="bibtex reference internal" href="ovw_refs.html#timme-tutorial-2018" id="id5">[15]</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="statistical-analyses">
+<h2>Statistical analyses<a class="headerlink" href="#statistical-analyses" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the evaluation of the amount of information shared between the data and a feature (stimulus / behavior), Frites also contains a statistical pipeline to evaluate whether an effect can be considered as significant.</p>
+<div class="section" id="subject-and-group-level-statistical-inferences">
+<h3>Subject and group-level statistical inferences<a class="headerlink" href="#subject-and-group-level-statistical-inferences" title="Permalink to this headline">¶</a></h3>
+<p>From a statistical standpoint, Frites gives the possibility to draw inferences either at the <strong>subject-level</strong> either at the <strong>group-level</strong> :</p>
+<ul>
+<li><p><strong>Subject-level :</strong> the measures of informations and the p-values are computed per-subject. At the end, you can get the number (or proportion) of subjects that have the effect. This can be particularly useful when working with sEEG data where the number of subjects per brain regions might be different.</p></li>
+<li><p><strong>Group-level :</strong> draw conclusions about a population of subjects. This group-level section is subdivided into two group-level strategies :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Fixed Effect (FFX) :</strong> the mutual information is estimated <strong>across subjects</strong>. By concatenating the subjects, you make the hypothesis that the effect is quite reproducible and stable across your population of subjects. One advantage of the FFX is that it usually requires a lower number of subjects and provides a good sensibility as soon as the hypothesis of stable effect across subjects is verified. On the other hand, two disadvantages are that, first you don’t take into account the inter-subject variability and second, the inferences you are allow to make only concern <strong>your population</strong> of subjects. It can’t generalize to new subjects</p></li>
+<li><p><strong>Random Effect (RFX) :</strong> the mutual information is estimated <strong>per subject</strong> and then a model of how the effect is distributed across the subjects is made. To be more precise, we make the assumption that the effect is normally distributed across the subjects. Advantages and disadvantages are basically the opposite of the FFX. The RFX takes into consideration the inter-subject variability which make it more suitable to detect the effect if this effect is slightly different from subject to subject. Building a model based is like considering that our population is in fact a sub-group of a broader population which, in other terms, means that if new subjects are included in the analysis, the estimations of mutual information should still be included in the model. However, the main disadvantage of the RFX is that it requires more subjects to build a reliable model.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="figure align-center" id="id18">
+<img alt="../_images/group_level.png" src="../_images/group_level.png" />
+<p class="caption"><span class="caption-text">Subject and group-level statistics on information-based measures</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="correction-for-multiple-comparisons">
+<h3>Correction for multiple comparisons<a class="headerlink" href="#correction-for-multiple-comparisons" title="Permalink to this headline">¶</a></h3>
+<p>Internally, we used permutations in order to estimate the distribution of mutual-information values that could be obtained by chance and also, to correct the p-values for multiple comparisons. There’s three ways to correct the p-values, all using <a class="reference external" href="https://mne.tools/stable/index.html">MNE Python</a> : 1) cluster-based statistics (default), 2) maximum statistics and 3) FDR. About the cluster-based, since some electrophysiological recordings don’t have a spatial contiguity (like sEEG), the clusters are detected across time-points or across time-frequency maps. Note that you can also use the Threshold Free Cluster Enhancement (TFCE) still through MNE.</p>
+</div>
+<div class="section" id="id6">
+<h3>References<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Friston et al. 1999 <a class="bibtex reference internal" href="ovw_refs.html#friston1999many" id="id7">[6]</a>, 1996 <a class="bibtex reference internal" href="ovw_refs.html#friston-detecting-1996" id="id8">[7]</a></p></li>
+<li><p>Wilcox and Rousselet 2017, <a class="bibtex reference internal" href="ovw_refs.html#wilcox-guide-2017" id="id9">[17]</a></p></li>
+<li><p>Nicohls and Holmes 2001 <a class="bibtex reference internal" href="ovw_refs.html#nichols-nonparametric-2002" id="id10">[11]</a></p></li>
+<li><p>Maris and Oostenveld 2007 <a class="bibtex reference internal" href="ovw_refs.html#maris2007nonparametric" id="id11">[10]</a></p></li>
+<li><p>Smith and Nichols, 2009 <a class="bibtex reference internal" href="ovw_refs.html#smith2009threshold" id="id12">[14]</a></p></li>
+<li><p>Cao and Zhang 2014 <a class="bibtex reference internal" href="ovw_refs.html#cao-multiple-2014" id="id13">[2]</a></p></li>
+<li><p>Combrisson et al. 2015 <a class="bibtex reference internal" href="ovw_refs.html#combrisson-exceeding-2015" id="id14">[3]</a></p></li>
+<li><p>Giordano et al. 2017 <a class="bibtex reference internal" href="ovw_refs.html#giordano2017contributions" id="id15">[8]</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="ovw_goals.html" title="previous page">Goals of Frites</a>
+    <a class='right-next' id="next-link" href="ovw_frites.html" title="next page">Start analyzing your data with Frites</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2021-08-11.</p>
+    </footer>
+
+  </body>
+</html>

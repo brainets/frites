@@ -1,589 +1,405 @@
+
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Estimate dynamic functional connectivity &#8212; frites 0.4.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Estimate comodulations between brain areas" href="plot_conn.html" />
     <link rel="prev" title="Estimator comparison" href="../estimators/plot_est_comparison.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
-
-  </head><body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
 </style>
 </head>
 
+    
+    <div class="container-fluid" id="banner"></div>
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/frites_128x128.png"></span>
-          frites</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.0</b></span>
-      </div>
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="../../overview.html">Overview</a></li>
-                <li><a href="../../install.html">Install</a></li>
-                <li><a href="../../community.html">Community</a></li>
-                <li><a href="../../api.html">API</a></li>
-                <li><a href="../index.html">Examples</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../overview.html#goals-of-frites">1. Goals of Frites</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#task-related-and-feature-specificity">1.1 Task-related and feature-specificity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#it-framework-to-extract-task-related-cognitive-brain-networks">1.2 IT framework to extract task-related cognitive brain networks</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../overview.html#methods">2. Methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#data-analysis-within-the-information-theoretical-framework">2.1 Data analysis within the information theoretical framework</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#gaussian-copula-mutual-information">2.1.1 Gaussian Copula Mutual Information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#the-different-types-of-mutual-informations">2.1.2 The different types of mutual informations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#equivalence-with-other-statistical-measures">2.1.3 Equivalence with other statistical measures</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#references">2.1.4 References</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#statistical-analyses">2.2 Statistical analyses</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#subject-and-group-level-statistical-inferences">2.2.1 Subject and group-level statistical inferences</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#correction-for-multiple-comparisons">2.2.2 Correction for multiple comparisons</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../overview.html#id6">2.2.3 References</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../overview.html#what-you-need-to-know-to-start-analyzing-your-data-with-frites">3. What you need to know to start analyzing your data with Frites</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#package-organization">3.1 Package organization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#main-frites-workflows">3.2 Main Frites’ workflows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../overview.html#deep-integration-with-xarray">3.3 Deep integration with Xarray</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#installation-from-pip">Installation from pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#installation-from-github">Installation from Github</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../install.html#developer-installation">Developer installation</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#tutorials">Tutorials</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/plot_dfc_estimator.html">Estimate the Dynamic Functional Connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_dfc_estimator.html#data-simulation">Data simulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_dfc_estimator.html#computes-the-dfc-in-a-single-temporal-window">Computes the DFC in a single temporal window</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_dfc_estimator.html#computes-the-dfc-on-sliding-windows">Computes the DFC on sliding windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_dfc_estimator.html#comparison-of-several-estimators">Comparison of several estimators</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html">Statistical analysis of a stimulus-specific network</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#simulate-a-stimulus-specific-network">Simulate a stimulus-specific network</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-nodes-of-the-network">Stimulus-specificity of the nodes of the network</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-undirected-connectivity">Stimulus-specificity of the undirected connectivity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html#stimulus-specificity-of-the-directed-connectivity">Stimulus-specificity of the directed connectivity</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#multi-subjects-dataset">Multi-subjects dataset</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../dataset/plot_dataset_mne.html">Define an electrophysiological dataset using MNE-Python structures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_mne.html#create-artificial-data">Create artificial data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_mne.html#mne-conversion-to-epoch">MNE conversion to Epoch</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_mne.html#build-the-dataset">Build the dataset</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../dataset/plot_dataset_ephy.html">Build an electrophysiological dataset</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#create-artificial-data">Create artificial data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#create-the-dataset">Create the dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#data-smoothing">Data smoothing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_ephy.html#temporal-slicing">Temporal slicing</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_xarray.html#create-artificial-data">Create artificial data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_xarray.html#xarray-conversion-to-dataarray">Xarray conversion to DataArray</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_xarray.html#build-the-dataset">Build the dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../dataset/plot_dataset_xarray.html#multiindex-support">MultiIndex support</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#mutual-information">Mutual-Information</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html">MI between two continuous variables conditioned by a discret one</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#extract-the-continuous-and-the-discret-variable">Extract the continuous and the discret variable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html#compute-the-mutual-information">Compute the mutual information</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_cd.html">MI between a continuous and a discret variables</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#extract-the-discret-variable">Extract the discret variable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cd.html#compute-the-mutual-information">Compute the mutual information</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_mi_time_frequency.html">Compute MI across time and frequencies</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_time_frequency.html#simulate-data">Simulate data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_time_frequency.html#compute-the-mutual-information">Compute the mutual information</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_cc.html">MI between two continuous variables</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#extract-the-regressor-variable">Extract the regressor variable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_cc.html#evaluate-the-statistics">Evaluate the statistics</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_combine.html">Investigate relation of order</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_combine.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_combine.html#compute-effect-size-in-both-conditions">Compute effect size in both conditions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_combine.html#id1">Investigate relation of order</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#define-where-to-put-an-effect-for-each-subject">Define where to put an effect for each subject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#generate-the-electrophysiological-data">Generate the electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#compute-the-mutual-information">Compute the mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#perform-the-conjunction-analysis">Perform the conjunction analysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#plot-where-there-s-significant-effect-for-each-subject">Plot where there’s significant effect for each subject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_mi_conjunction.html#plot-the-number-of-subjects-that-have-an-effect">Plot the number of subjects that have an effect</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html">Mutual-information at the contact level</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#i-continuous-continuous-case">I(Continuous; Continuous) case</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#i-continuous-discret-case">I(Continuous; Discret) case</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#i-continuous-continuous-discret-case">I(Continuous ; Continuous | Discret) case</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html#xarray-definition-with-multi-indexing">Xarray definition with multi-indexing</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#information-based-estimators">Information-based estimators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../estimators/plot_est_resample.html">Trial-resampling: correcting for unbalanced designs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_resample.html#data-creation">Data creation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_resample.html#information-shared-between-a-continuous-and-a-discret-variable">Information shared between a continuous and a discret variable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_resample.html#information-shared-between-two-continuous-variables">Information shared between two continuous variables</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../estimators/plot_est_custom.html">Defining a custom estimator</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_custom.html#custom-estimator-decoders">Custom estimator : decoders</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_custom.html#custom-estimator-regression">Custom estimator : regression</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../estimators/plot_est_comparison.html">Estimator comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_comparison.html#functions-for-data-simulation">Functions for data simulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_comparison.html#plot-the-simulated-data">Plot the simulated data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../estimators/plot_est_comparison.html#computes-information-shared">Computes information shared</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#connectivity-and-information-transfer">Connectivity and Information Transfer</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Estimate dynamic functional connectivity</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#simulate-spatial-correlations">Simulate spatial correlations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#define-sliding-windows">Define sliding windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#compute-the-dfc">Compute the DFC</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plot_conn.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_conn.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_conn.html#define-the-electrophysiological-dataset">Define the electrophysiological dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_conn.html#compute-the-pairwise-connectivity">Compute the pairwise connectivity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_conn.html#plot-the-result-of-the-dataarray">Plot the result of the DataArray</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="plot_covgc.html">Estimate the covariance-based Granger Causality</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plot_covgc.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_covgc.html#simulate-spatial-correlations">Simulate spatial correlations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plot_covgc.html#compute-the-covgc">Compute the covgc</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#autoregressive-model">Autoregressive model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../armodel/plot_ar_pairwise.html">AR : pairwise illustration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_pairwise.html#simulate-40hz-oscillations">Simulate 40hz oscillations</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html">AR : simulate common driving input</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html">AR : conditional covariance based Granger Causality</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html#simulate-3-nodes-40hz-oscillations">Simulate 3 nodes 40hz oscillations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html#compute-the-granger-causality">Compute the Granger-Causality</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html#direct-comparison">Direct comparison</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#utility">Utility</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/plot_time_windows.html">Define temporal windows</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/plot_time_windows.html#simulate-data">Simulate data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/plot_time_windows.html#manually-define-windows">Manually define windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/plot_time_windows.html#define-sliding-windows">Define sliding windows</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#statistics">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">Compare between-subjects statistics when computing mutual information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#simulate-mutual-information">Simulate mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#define-the-workflow">Define the workflow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">Compare within-subjects statistics when computing mutual information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#simulate-mutual-information">Simulate mutual information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#create-an-electrophysiological-dataset">Create an electrophysiological dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#define-the-workflow">Define the workflow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html#compute-the-mutual-information-and-statistics">Compute the mutual information and statistics</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#simulations">Simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../simulations/plot_generate_random_data.html">Generate random electrophysiological data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../simulations/plot_generate_random_data.html#generate-electrophysiological-for-a-single-subject">Generate electrophysiological for a single subject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../simulations/plot_generate_random_data.html#generate-electrophysiological-for-multiple-subjects">Generate electrophysiological for multiple subjects</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray">Xarray</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../xarray/plot_xr_export.html">Xarray : Saving the results</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_export.html#simulate-data">Simulate data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_export.html#export-and-load-a-single-dataarray">Export and load a single DataArray</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_export.html#export-and-load-multiple-dataarrays">Export and load multiple DataArrays</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html">Xarray : Quick tour</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#simulate-data">Simulate data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-conversion-and-access-to-the-internal-components">Xarray conversion and access to the internal components</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-slicing-and-indexing">Xarray slicing and indexing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-attributes">Xarray attributes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html#xarray-to-an-other-format">Xarray to an other format</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#dataset">Dataset</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#workflow">Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#task-related-workflows">Task-related workflows</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMi.html">frites.workflow.WfMi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfMiCombine.html">frites.workflow.WfMiCombine</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-workflows">Connectivity workflows</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfConnComod.html">frites.workflow.WfConnComod</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#statistical-workflows">Statistical workflows</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.workflow.WfStats.html">frites.workflow.WfStats</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#connectivity">Connectivity</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#connectivity-metrics">Connectivity metrics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_transfer_entropy.html">frites.conn.conn_transfer_entropy</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#utility-functions">Utility functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_ravel_directed.html">frites.conn.conn_ravel_directed</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.conn_get_pairs.html">frites.conn.conn_get_pairs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.define_windows.html">frites.conn.define_windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.conn.plot_windows.html">frites.conn.plot_windows</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#information-based-estimators">Information-based estimators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#information-theoretic-estimators">Information-theoretic estimators</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.GCMIEstimator.html">frites.estimator.GCMIEstimator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.BinMIEstimator.html">frites.estimator.BinMIEstimator</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#distance-estimators">Distance estimators</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.DcorrEstimator.html">frites.estimator.DcorrEstimator</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#correlation-estimators">Correlation estimators</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.CorrEstimator.html">frites.estimator.CorrEstimator</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#estimator-utility-functions">Estimator utility functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.CustomEstimator.html">frites.estimator.CustomEstimator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.estimator.ResamplingEstimator.html">frites.estimator.ResamplingEstimator</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#simulations">Simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#stimulus-specific-autoregressive-model">Stimulus-specific autoregressive model</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.StimSpecAR.html">frites.simulations.StimSpecAR</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#single-and-multi-subjects-gaussian-based-simulations">Single and multi-subjects gaussian-based simulations</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ss.html">frites.simulations.sim_local_cc_ss</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cc_ms.html">frites.simulations.sim_local_cc_ms</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ss.html">frites.simulations.sim_local_cd_ss</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_cd_ms.html">frites.simulations.sim_local_cd_ms</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ms.html">frites.simulations.sim_local_ccd_ms</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#statistics">Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#random-effect-rfx">Random effect (rfx)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#correction-for-multiple-comparisons">Correction for multiple comparisons</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.testwise_correction_mcp.html">frites.stats.testwise_correction_mcp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.time_to_sample.html">frites.utils.time_to_sample</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.utils.get_closest_sample.html">frites.utils.get_closest_sample</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#configuration">Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.get_config.html">frites.get_config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/frites.set_config.html">frites.set_config</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../api.html#core">Core</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-1d">Gaussian-Copula (1d)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_mixture_1d_cd.html">frites.core.gcmi_mixture_1d_cd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_1d_ccc.html">frites.core.gccmi_1d_ccc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_1d_ccd.html">frites.core.gccmi_1d_ccd</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api.html#gaussian-copula-nd">Gaussian-copula (Nd)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_nd.html">frites.core.copnorm_nd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.copnorm_cat_nd.html">frites.core.copnorm_cat_nd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_nd_gg.html">frites.core.mi_nd_gg</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.mi_model_nd_gd.html">frites.core.mi_model_nd_gd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.cmi_nd_ggg.html">frites.core.cmi_nd_ggg</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_nd_cc.html">frites.core.gcmi_nd_cc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gcmi_model_nd_cd.html">frites.core.gcmi_model_nd_cd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccnd.html">frites.core.gccmi_nd_ccnd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_model_nd_cdnd.html">frites.core.gccmi_model_nd_cdnd</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../generated/frites.core.gccmi_nd_ccc.html">frites.core.gccmi_nd_ccc</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../community.html">Community</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../community.html#ask-your-questions-and-get-some-help">Ask your questions and get some help</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../community.html#events">Events</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../community.html#brainhack-marseille-2020">Brainhack Marseille 2020</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../community.html#software-presentations">Software presentations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../community.html#authors-and-contributors">Authors and contributors</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-1">v0.4.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#new-features">New Features</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-4-0">v0.4.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id1">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#bug-fixes">Bug fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-9">v0.3.9</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id10">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#internal-changes">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id17">Bug fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-8">v0.3.8</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id18">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id21">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#breaking-changes">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id22">Bug fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-6">v0.3.6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id23">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id24">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-5">v0.3.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id25">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id28">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id29">Bug fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-4">v0.3.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id30">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id31">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id32">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id33">Internal Changes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-3">v0.3.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id34">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id35">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id36">Bug fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-2">v0.3.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id37">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id38">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id39">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#documentation">Documentation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../whatsnew.html#v0-3-1">v0.3.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id40">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id41">New Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id42">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id43">Internal Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../whatsnew.html#id44">Documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Estimate dynamic functional connectivity</a><ul>
-<li><a class="reference internal" href="#simulate-electrophysiological-data">Simulate electrophysiological data</a></li>
-<li><a class="reference internal" href="#simulate-spatial-correlations">Simulate spatial correlations</a></li>
-<li><a class="reference internal" href="#define-sliding-windows">Define sliding windows</a></li>
-<li><a class="reference internal" href="#compute-the-dfc">Compute the DFC</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-            
-            
-            
-              <li class="hidden-sm"></li>
-            
-          </ul>
+  <div id="navbar-start">
+    
+    
 
-          
-            
-<form class="navbar-form navbar-right" action="../../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
+<a class="navbar-brand" href="../../index.html">
+  <img src="../../_static/frites_128x128.png" class="logo" alt="logo">
+</a>
+
+
+    
   </div>
 
-<div class="container">
-  <div class="row">
-    <div class="body col-md-12 content" role="main">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
       
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../overview/index.html">
+  Overview
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../install.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kNearNeighbors" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/plot_dfc_estimator.html">
+   Estimate the Dynamic Functional Connectivity
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/plot_stim_spec_network.html">
+   Statistical analysis of a stimulus-specific network
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset/plot_dataset_mne.html">
+   Define an electrophysiological dataset using MNE-Python structures
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset/plot_dataset_ephy.html">
+   Build an electrophysiological dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset/plot_dataset_xarray.html">
+   Define an electrophysiological dataset using Xarray
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_ccd.html">
+   MI between two continuous variables conditioned by a discret one
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_cd.html">
+   MI between a continuous and a discret variables
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_combine.html">
+   Investigate relation of order
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_mi_conjunction.html">
+   Compute a conjunction analysis on mutual-information
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_contact_level.html">
+   Mutual-information at the contact level
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../estimators/plot_est_resample.html">
+   Trial-resampling: correcting for unbalanced designs
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../estimators/plot_est_custom.html">
+   Defining a custom estimator
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../estimators/plot_est_comparison.html">
+   Estimator comparison
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Estimate dynamic functional connectivity
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_conn.html">
+   Estimate comodulations between brain areas
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_covgc.html">
+   Estimate the covariance-based Granger Causality
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../armodel/plot_ar_pairwise.html">
+   AR : pairwise illustration
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../armodel/plot_ar_instantaneous.html">
+   AR : simulate common driving input
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../armodel/plot_ar_condcovgc.html">
+   AR : conditional covariance based Granger Causality
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../utils/plot_time_windows.html">
+   Define temporal windows
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../simulations/plot_generate_random_data.html">
+   Generate random electrophysiological data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xarray/plot_xr_export.html">
+   Xarray : Saving the results
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xarray/plot_xr_quick_tour.html">
+   Xarray : Quick tour
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulate-electrophysiological-data">
+   Simulate electrophysiological data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulate-spatial-correlations">
+   Simulate spatial correlations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#define-sliding-windows">
+   Define sliding windows
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compute-the-dfc">
+   Compute the DFC
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-dfc-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-dfc-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="estimate-dynamic-functional-connectivity">
+<div class="sphx-glr-example-title section" id="estimate-dynamic-functional-connectivity">
 <span id="sphx-glr-auto-examples-conn-plot-dfc-py"></span><h1>Estimate dynamic functional connectivity<a class="headerlink" href="#estimate-dynamic-functional-connectivity" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the dynamic functional connectivity
 (DFC) using the mutual information (MI). This type of connectivity is computed
@@ -592,13 +408,13 @@ for each trial either inside a single window or across multiple windows.</p>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_single_suj_ephy</span>
-<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="View documentation for frites.conn.conn_dfc"><span class="n">conn_dfc</span></a><span class="p">,</span> <a href="../../generated/frites.conn.define_windows.html#frites.conn.define_windows" title="View documentation for frites.conn.define_windows"><span class="n">define_windows</span></a><span class="p">,</span> <span class="n">plot_windows</span>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_dfc</span></a><span class="p">,</span> <a href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">define_windows</span></a><span class="p">,</span> <span class="n">plot_windows</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="c1"># plt.style.use(&#39;seaborn-white&#39;)</span>
 </pre></div>
 </div>
-<section id="simulate-electrophysiological-data">
+<div class="section" id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 a single subject. The output data of this single subject has a shape of
@@ -612,8 +428,8 @@ a single subject. The output data of this single subject has a shape of
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="simulate-spatial-correlations">
+</div>
+<div class="section" id="simulate-spatial-correlations">
 <h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">¶</a></h2>
 <p>Bellow, we are simulating some distant correlations by injecting the
 activity of an ROI to another</p>
@@ -628,15 +444,15 @@ activity of an ROI to another</p>
 Corr 2 : L_VCs-L_VCl between [0.20120120120120122-0.6016016016016015]
 </pre></div>
 </div>
-</section>
-<section id="define-sliding-windows">
+</div>
+<div class="section" id="define-sliding-windows">
 <h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">¶</a></h2>
 <p>Next, we define, and plot sliding windows in order to compute the DFC on
 consecutive time windows. In this example we used windows of length 100ms
 and 5ms between each consecutive windows</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slwin_len</span> <span class="o">=</span> <span class="mf">.1</span>    <span class="c1"># 100ms window length</span>
 <span class="n">slwin_step</span> <span class="o">=</span> <span class="mf">.02</span>  <span class="c1"># 20ms between consecutive windows</span>
-<span class="n">win_sample</span> <span class="o">=</span> <a href="../../generated/frites.conn.define_windows.html#frites.conn.define_windows" title="View documentation for frites.conn.define_windows"><span class="n">define_windows</span></a><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">slwin_len</span><span class="o">=</span><span class="n">slwin_len</span><span class="p">,</span>
+<span class="n">win_sample</span> <span class="o">=</span> <a href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">define_windows</span></a><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">slwin_len</span><span class="o">=</span><span class="n">slwin_len</span><span class="p">,</span>
                             <span class="n">slwin_step</span><span class="o">=</span><span class="n">slwin_step</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">times_p</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">win_sample</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
@@ -646,13 +462,13 @@ and 5ms between each consecutive windows</p>
 <span class="c1"># plt.show()</span>
 </pre></div>
 </div>
-</section>
-<section id="compute-the-dfc">
+</div>
+<div class="section" id="compute-the-dfc">
 <h2>Compute the DFC<a class="headerlink" href="#compute-the-dfc" title="Permalink to this headline">¶</a></h2>
 <p>The DFC is going to be computed per trials, bewteen pairs of ROI and inside
 each of the temporal window</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute DFC</span>
-<span class="n">dfc</span> <span class="o">=</span> <a href="../../generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="View documentation for frites.conn.conn_dfc"><span class="n">conn_dfc</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dfc</span> <span class="o">=</span> <a href="../../api/generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_dfc</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">win_sample</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dfc</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -663,13 +479,13 @@ each of the temporal window</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_dfc_001.png" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_001.png" />
+<img alt="Mean DFC across trials between pairs of roi" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_001.png" />
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,    6.12it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,    6.12it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    6.12it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    6.12it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,    5.84it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,    5.84it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    5.85it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    5.90it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 50, roi: 3, times: 95)&gt;
 array([[[1.56825074e-04, 1.32626703e-03, 1.00975275e-01, ...,
          1.31007880e-01, 8.93054754e-02, 1.18752666e-01],
@@ -724,43 +540,46 @@ Attributes:
     estimator:   Gaussian Copula Mutual Information Estimator
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.966 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.565 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/db13bd35cb06905f90dd5dbec6da8240/plot_dfc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a39defb9e5ce844778e5c6d85a8941da/plot_dfc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dfc.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-</section>
-
-
-    </div>
-      
-  </div>
 </div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../estimators/plot_est_comparison.html" title="previous page">Estimator comparison</a>
+    <a class='right-next' id="next-link" href="plot_conn.html" title="next page">Estimate comodulations between brain areas</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
     <hr>
     <footer>
         <div class="container">
             <img src="../../_static/baniere.png" alt="Ban" height="80">
         </div>
         <br>
-        <div class="container">
-            <ul class="list-inline">
-                <li style="font-weight:bold"><a href="../../genindex.html">Index</a></li>
-                <li>·</li>
-                <li style="font-weight:bold"><a href="../../whatsnew.html">What's new</a></li>
-                <li>·</li>
-                <li style="font-weight:bold"><a href="https://github.com/brainets/frites">Github</a></li>
-                <li>·</li>
-                <li style="font-weight:bold"><a href="../../community.html">Community</a></li>
-                <li>·</li>
-                <li style="font-weight:bold"><a href="../../references.html">References</a></li>
-            </ul>
-         </div>
         <!-- <br> -->
         <p>&copy; Copyright Last updated on 2021-08-11.</p>
     </footer>

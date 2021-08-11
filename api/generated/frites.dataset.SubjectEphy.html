@@ -1,0 +1,854 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frites.dataset.SubjectEphy &#8212; frites 0.4.0 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="frites.dataset.DatasetEphy" href="frites.dataset.DatasetEphy.html" />
+    <link rel="prev" title="Dataset" href="../api_dataset.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../index.html">
+  <img src="../../_static/frites_128x128.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../overview/index.html">
+  Overview
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../install.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../auto_examples/index.html">
+  Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kNearNeighbors" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../api_dataset.html">
+   Dataset
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     frites.dataset.SubjectEphy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.dataset.DatasetEphy.html">
+     frites.dataset.DatasetEphy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_workflow.html">
+   Workflow
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfMi.html">
+     frites.workflow.WfMi
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfMiCombine.html">
+     frites.workflow.WfMiCombine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfConnComod.html">
+     frites.workflow.WfConnComod
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.workflow.WfStats.html">
+     frites.workflow.WfStats
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_connectivity.html">
+   Connectivity
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_dfc.html">
+     frites.conn.conn_dfc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_covgc.html">
+     frites.conn.conn_covgc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_transfer_entropy.html">
+     frites.conn.conn_transfer_entropy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_reshape_undirected.html">
+     frites.conn.conn_reshape_undirected
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_reshape_directed.html">
+     frites.conn.conn_reshape_directed
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_ravel_directed.html">
+     frites.conn.conn_ravel_directed
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_get_pairs.html">
+     frites.conn.conn_get_pairs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.define_windows.html">
+     frites.conn.define_windows
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.plot_windows.html">
+     frites.conn.plot_windows
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_estimators.html">
+   Information-based estimators
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.GCMIEstimator.html">
+     frites.estimator.GCMIEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.BinMIEstimator.html">
+     frites.estimator.BinMIEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.DcorrEstimator.html">
+     frites.estimator.DcorrEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.CorrEstimator.html">
+     frites.estimator.CorrEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.CustomEstimator.html">
+     frites.estimator.CustomEstimator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.ResamplingEstimator.html">
+     frites.estimator.ResamplingEstimator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_simulations.html">
+   Data simulations
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.StimSpecAR.html">
+     frites.simulations.StimSpecAR
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cc_ss.html">
+     frites.simulations.sim_local_cc_ss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cc_ms.html">
+     frites.simulations.sim_local_cc_ms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cd_ss.html">
+     frites.simulations.sim_local_cd_ss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_cd_ms.html">
+     frites.simulations.sim_local_cd_ms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_ccd_ms.html">
+     frites.simulations.sim_local_ccd_ms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html">
+     frites.simulations.sim_local_ccd_ss
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_statistics.html">
+   Statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.ttest_1samp.html">
+     frites.stats.ttest_1samp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.rfx_ttest.html">
+     frites.stats.rfx_ttest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.cluster_correction_mcp.html">
+     frites.stats.cluster_correction_mcp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.testwise_correction_mcp.html">
+     frites.stats.testwise_correction_mcp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.cluster_threshold.html">
+     frites.stats.cluster_threshold
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_utils.html">
+   Utility functions
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.savgol_filter.html">
+     frites.utils.savgol_filter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.kernel_smoothing.html">
+     frites.utils.kernel_smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.time_to_sample.html">
+     frites.utils.time_to_sample
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.get_closest_sample.html">
+     frites.utils.get_closest_sample
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_core.html">
+   Low-level core functions
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_1d.html">
+     frites.core.copnorm_1d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_cat_1d.html">
+     frites.core.copnorm_cat_1d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.ent_1d_g.html">
+     frites.core.ent_1d_g
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_1d_gg.html">
+     frites.core.mi_1d_gg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_model_1d_gd.html">
+     frites.core.mi_model_1d_gd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_mixture_1d_gd.html">
+     frites.core.mi_mixture_1d_gd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.cmi_1d_ggg.html">
+     frites.core.cmi_1d_ggg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_1d_cc.html">
+     frites.core.gcmi_1d_cc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_model_1d_cd.html">
+     frites.core.gcmi_model_1d_cd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_mixture_1d_cd.html">
+     frites.core.gcmi_mixture_1d_cd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_1d_ccc.html">
+     frites.core.gccmi_1d_ccc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_1d_ccd.html">
+     frites.core.gccmi_1d_ccd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_nd.html">
+     frites.core.copnorm_nd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.copnorm_cat_nd.html">
+     frites.core.copnorm_cat_nd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_nd_gg.html">
+     frites.core.mi_nd_gg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.mi_model_nd_gd.html">
+     frites.core.mi_model_nd_gd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.cmi_nd_ggg.html">
+     frites.core.cmi_nd_ggg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_nd_cc.html">
+     frites.core.gcmi_nd_cc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gcmi_model_nd_cd.html">
+     frites.core.gcmi_model_nd_cd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">
+     frites.core.gccmi_nd_ccnd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_model_nd_cdnd.html">
+     frites.core.gccmi_model_nd_cdnd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_nd_ccc.html">
+     frites.core.gccmi_nd_ccc
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_conf.html">
+   Configuration
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.get_config.html">
+     frites.get_config
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.set_config.html">
+     frites.set_config
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="frites-dataset-subjectephy">
+<h1>frites.dataset.SubjectEphy<a class="headerlink" href="#frites-dataset-subjectephy" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">frites.dataset.</span></span><span class="sig-name descname"><span class="pre">SubjectEphy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multivariate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/frites/dataset/suj_ephy.html#SubjectEphy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.SubjectEphy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single-subject electrophysiological data container.</p>
+<p>This class can be used to convert the data from different types (e.g
+NumPy, MNE-Python, Xarray) into a single format (xarray.DataArray).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>x</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The electrophysiological data of a single subject. Several data types
+are supported :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>3d NumPy array of shape (n_epochs, n_channels, n_times)</p></li>
+<li><p>4d NumPy array of shape (n_epochs, n_channels, n_freqs, n_times)</p></li>
+<li><p>4d NumPy array of shape (n_epochs, n_channels, mv, n_times)
+where ‘mv’ refers to an axis to consider as multi-variate</p></li>
+<li><p>mne.Epochs or mne.EpochsArray</p></li>
+<li><p>mne.EpochsTFR (i.e. non-averaged power)</p></li>
+<li><p>xarray.DataArray. In that case <cite>y</cite>, <cite>z</cite>, <cite>roi</cite> and <cite>times</cite> inputs
+can be strings that refer to the coordinate name to use in the
+DataArray</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>y, z</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">sting</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Task-related variables (e.g discret stimulus, learning rate etc.) The
+y and z variables must be vectors of shapes (n_epochs,). The MI is then
+going to be computed between the data (x) and those task related
+variables. The type of MI depends on the type of this two variables :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>y=continuous, z=None : I(x; y) and mi_type should be ‘cc’</p></li>
+<li><p>y=discrete, z=None : I(x; y) and mi_type should be ‘cd’</p></li>
+<li><p>y=continuous, z=discrete : I(x; y | z) and mi_type should
+be ‘ccd’</p></li>
+</ul>
+</div></blockquote>
+<p>Note that if y (or z) are multi-dimensional discrete variables, the
+categories inside are going to be automatically remapped to a single
+vector. Several input types are supported :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A NumPy array of shape (n_epochs,)</p></li>
+<li><p>If x is a DataArray, the dimension name to use to infer the
+task-related variable</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>roi</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Anatomical informations of each channel / electrodes. Several input
+types are supported :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A NumPy array of shape (n_channels). If None, unique ROI are
+defined (‘roi_0’, ‘roi_1’ etc.)</p></li>
+<li><p>If None, and if input type is coming from MNE, it’s using the
+<cite>ch_names</cite> (info[‘ch_names’])</p></li>
+<li><p>If x is a DataArray, the dimension name to use to infer the
+anatomical informations</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>The time vector to use. Several types are supported :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A NumPy array of length (n_times,)</p></li>
+<li><p>If MNE object are passed, the time vector is automatically
+inferred from it</p></li>
+<li><p>If x is a DataArray, the dimension name to use to infer to the
+time vector</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>agg_ch</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>If multiple channels belong to the same ROI, specify whether if the
+data should be aggregated across channels (True) or if the information
+per channel have to be take into account (False - conditional mutual
+information).</p>
+</dd>
+<dt><strong>multivariate</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>If 4d input is provided, this parameter specifies whether this axis
+should be considered as multi-variate (True) or uni-varariate (False)</p>
+</dd>
+<dt><strong>name</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Subject name</p>
+</dd>
+<dt><strong>attrs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Dictionary of additional attributes about the data</p>
+</dd>
+<dt><strong>sfreq</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>The sampling frequency. If None, it could be inferred if the time
+vector is provided or if the input x is an MNE object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>da</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></span></dt><dd><p>A formatted DataArray representing the subject with all the
+task-related variables inside</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.clear" title="frites.dataset.SubjectEphy.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.get" title="frites.dataset.SubjectEphy.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>(k[,d])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.items" title="frites.dataset.SubjectEphy.items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.keys" title="frites.dataset.SubjectEphy.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.merge" title="frites.dataset.SubjectEphy.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(list_attrs)</p></td>
+<td><p>Merge a list of multiple attributes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.pop" title="frites.dataset.SubjectEphy.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>(k[,d])</p></td>
+<td><p>If key is not found, d is returned if given, otherwise KeyError is raised.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.popitem" title="frites.dataset.SubjectEphy.popitem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">popitem</span></code></a>()</p></td>
+<td><p>as a 2-tuple; but raise KeyError if D is empty.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.setdefault" title="frites.dataset.SubjectEphy.setdefault"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setdefault</span></code></a>(k[,d])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.update" title="frites.dataset.SubjectEphy.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(attrs[, check])</p></td>
+<td><p>Update internal with external attributes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.values" title="frites.dataset.SubjectEphy.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.SubjectEphy.wrap_xr" title="frites.dataset.SubjectEphy.wrap_xr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap_xr</span></code></a>(da[, name])</p></td>
+<td><p>Wrap a data array / set with internal attributes.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>copy</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>fromkeys</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frites.dataset.SubjectEphy.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get attribute items.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None.</span>&#160; <span class="pre">Remove</span> <span class="pre">all</span> <span class="pre">items</span> <span class="pre">from</span> <span class="pre">D.</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">k</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">d</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">D[k]</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">in</span> <span class="pre">D,</span> <span class="pre">else</span> <span class="pre">d.</span>&#160; <span class="pre">d</span> <span class="pre">defaults</span> <span class="pre">to</span> <span class="pre">None.</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D’s</span> <span class="pre">items</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D’s</span> <span class="pre">keys</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frites.dataset.SubjectEphy.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a list of multiple attributes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">k</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">d</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">v,</span> <span class="pre">remove</span> <span class="pre">specified</span> <span class="pre">key</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">the</span> <span class="pre">corresponding</span> <span class="pre">value.</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>If key is not found, d is returned if given, otherwise KeyError is raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.popitem">
+<span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">(k,</span> <span class="pre">v),</span> <span class="pre">remove</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">some</span> <span class="pre">(key,</span> <span class="pre">value)</span> <span class="pre">pair</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.popitem" title="Permalink to this definition">¶</a></dt>
+<dd><p>as a 2-tuple; but raise KeyError if D is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.setdefault">
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">k</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">d</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">D.get(k,d),</span> <span class="pre">also</span> <span class="pre">set</span> <span class="pre">D[k]=d</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">D</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.setdefault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frites.dataset.SubjectEphy.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update internal with external attributes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">an</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D’s</span> <span class="pre">values</span></span></span><a class="headerlink" href="#frites.dataset.SubjectEphy.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.dataset.SubjectEphy.wrap_xr">
+<span class="sig-name descname"><span class="pre">wrap_xr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">da</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frites.dataset.SubjectEphy.wrap_xr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap a data array / set with internal attributes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="sphx-glr-backreferences-frites-dataset-subjectephy"></span></div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../api_dataset.html" title="previous page">Dataset</a>
+    <a class='right-next' id="next-link" href="frites.dataset.DatasetEphy.html" title="next page">frites.dataset.DatasetEphy</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2021-08-11.</p>
+    </footer>
+
+  </body>
+</html>

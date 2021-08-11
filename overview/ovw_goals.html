@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goals of Frites &#8212; frites 0.4.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Methods" href="ovw_methods.html" />
+    <link rel="prev" title="Overview" href="index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/frites_128x128.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Overview
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kNearNeighbors" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Goals of Frites
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_methods.html">
+   Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_frites.html">
+   Start analyzing your data with Frites
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_help.html">
+   Get help
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_community.html">
+   Community
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_refs.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ovw_whatsnew.html">
+   What’s new
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-related-and-feature-specificity">
+   Task-related and feature-specificity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#it-framework-to-extract-task-related-cognitive-brain-networks">
+   IT framework to extract task-related cognitive brain networks
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="goals-of-frites">
+<h1>Goals of Frites<a class="headerlink" href="#goals-of-frites" title="Permalink to this headline">¶</a></h1>
+<p>Frites is an open-source Python software started in 2019 to <strong>analyze neurophysiological data using information theoretical (IT) measures</strong>. Overall, the goals of Frites could be summarized as follow :</p>
+<ol class="arabic simple">
+<li><p><strong>Extract task-related cognitive brain networks :</strong> i.e brain regions and connectivity between brain regions that are modulated according to the task</p></li>
+<li><p><strong>Group-level statistical inferences :</strong> being able to draw conclusions on a population of subjects while taking into account the the richness of data at the single subject level</p></li>
+</ol>
+<div class="section" id="task-related-and-feature-specificity">
+<h2>Task-related and feature-specificity<a class="headerlink" href="#task-related-and-feature-specificity" title="Permalink to this headline">¶</a></h2>
+<p>The stimulus of the task (e.g visual stimulus like color circles) is first going to be processed by the brain, occurring some changes in the brain activity that are related to the stimulus. This is what we called <strong>stimulus-specific</strong> brain activity. Once processed, this stimulus is going to introduce some changes in the behavior of the subject (e.g decision making). Following the same reasoning as above we called <strong>behavior-specific</strong> the modulations in the activity of the brain that can explain a change in the behavior of the subject.</p>
+<div class="figure align-center">
+<img alt="../_images/feat_spec.png" src="../_images/feat_spec.png" />
+</div>
+<p>Now, with Frites we try to isolate the brain activity that is either related to the stimulus or to the behavior. In a more general way, this brain activity is called <strong>task-related</strong> or <strong>feature-specific</strong> where <em>feature</em> can either refer to the <em>stimulus</em> or to the <em>behavior</em>.</p>
+</div>
+<div class="section" id="it-framework-to-extract-task-related-cognitive-brain-networks">
+<h2>IT framework to extract task-related cognitive brain networks<a class="headerlink" href="#it-framework-to-extract-task-related-cognitive-brain-networks" title="Permalink to this headline">¶</a></h2>
+<p>A brain network is composed of two things :</p>
+<ol class="arabic simple">
+<li><p><strong>Nodes :</strong> the nodes of a network are the brain regions (e.g Insula / vmPFC / dlPFC form a three nodes network)</p></li>
+<li><p><strong>Edges :</strong> the connectivity links between the nodes (e.g comodulations or information flow)</p></li>
+</ol>
+<p>Frites contains a collection of statistical methods to test whether :</p>
+<ol class="arabic simple">
+<li><p>The <strong>local neural activity</strong> (i.e the activity of a particular node of the network) is modulated by the task</p></li>
+<li><p>The <strong>connectivity</strong> (which can be undirected or directed) between brain regions is also modulated by the task</p></li>
+</ol>
+<div class="figure align-center" id="id1">
+<img alt="../_images/network_framework.png" src="../_images/network_framework.png" />
+<p class="caption"><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">Overview</a>
+    <a class='right-next' id="next-link" href="ovw_methods.html" title="next page">Methods</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2021-08-11.</p>
+    </footer>
+
+  </body>
+</html>
