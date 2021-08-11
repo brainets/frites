@@ -116,10 +116,43 @@ class CustomEstimator(BaseMIEstimator):
         return x, y
 
     def estimate(self, x, y, z=None, categories=None):
+        """Estimate the amount of information shared with the custom estimator.
+
+        This method is made for estimating the amount of information shared
+        between on 3D variables (i.e (n_var, n_mv, n_samples)) where n_var is
+        an additional dimension (e.g times, times x freqs etc.)n_mv is a
+        multivariate axis and n_samples the number of samples.
+
+        Parameters
+        ----------
+        x, y : array_like
+            Array of shape (n_var, n_mv, n_samples).
+        categories : array_like | None
+            Row vector of categories. This vector should have a shape of
+            (n_samples,) and should contains integers describing the category
+            of each sample.
+
+        Returns
+        -------
+        info : array_like
+            Array of information of shape (n_categories, n_var).
+        """
         fcn = self.get_function()
         return fcn(x, y, z=z, categories=categories)
 
     def get_function(self):
+        """Get the function to execute according to the input parameters.
+
+        This can be particularly useful when computing information in parallel
+        as it avoids to pickle the whole estimator and therefore, leading to
+        faster computations.
+
+        The returned function has the following signature :
+
+            * fcn(x, y, *args, categories=None, **kwargs)
+
+        and return an array of shape (n_categories, n_var).
+        """
         core_fun = self._core_fun
 
         def estimator(x, y, z=None, categories=None):
