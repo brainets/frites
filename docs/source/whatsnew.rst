@@ -8,7 +8,7 @@ v0.4.1
 
 New Features
 ++++++++++++
-* New :py:class:`frites.estimator.CustomEstimator` for defining custom estimators (:commit:`e473c713`)
+* New :py:class:`frites.estimator.CustomEstimator` for defining custom estimators (:commit:`e473c713`, :commit:`5584654c`)
 
 v0.4.0
 ------
