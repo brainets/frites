@@ -686,10 +686,43 @@
         <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
 <div class="viewcode-block" id="CustomEstimator.estimate"><a class="viewcode-back" href="../../../generated/frites.estimator.CustomEstimator.html#frites.estimator.CustomEstimator.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Estimate the amount of information shared with the custom estimator.</span>
+
+<span class="sd">        This method is made for estimating the amount of information shared</span>
+<span class="sd">        between on 3D variables (i.e (n_var, n_mv, n_samples)) where n_var is</span>
+<span class="sd">        an additional dimension (e.g times, times x freqs etc.)n_mv is a</span>
+<span class="sd">        multivariate axis and n_samples the number of samples.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x, y : array_like</span>
+<span class="sd">            Array of shape (n_var, n_mv, n_samples).</span>
+<span class="sd">        categories : array_like | None</span>
+<span class="sd">            Row vector of categories. This vector should have a shape of</span>
+<span class="sd">            (n_samples,) and should contains integers describing the category</span>
+<span class="sd">            of each sample.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        info : array_like</span>
+<span class="sd">            Array of information of shape (n_categories, n_var).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fcn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fcn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CustomEstimator.get_function"><a class="viewcode-back" href="../../../generated/frites.estimator.CustomEstimator.html#frites.estimator.CustomEstimator.get_function">[docs]</a>    <span class="k">def</span> <span class="nf">get_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the function to execute according to the input parameters.</span>
+
+<span class="sd">        This can be particularly useful when computing information in parallel</span>
+<span class="sd">        as it avoids to pickle the whole estimator and therefore, leading to</span>
+<span class="sd">        faster computations.</span>
+
+<span class="sd">        The returned function has the following signature :</span>
+
+<span class="sd">            * fcn(x, y, *args, categories=None, **kwargs)</span>
+
+<span class="sd">        and return an array of shape (n_categories, n_var).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">core_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_fun</span>
 
         <span class="k">def</span> <span class="nf">estimator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -773,7 +806,7 @@
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-10.</p>
+        <p>&copy; Copyright Last updated on 2021-08-11.</p>
     </footer>
 
   </body>

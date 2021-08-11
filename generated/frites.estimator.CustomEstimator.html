@@ -621,30 +621,55 @@ or not (False)</p>
 <td><p>Init.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#frites.estimator.CustomEstimator.estimate" title="frites.estimator.CustomEstimator.estimate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">estimate</span></code></a>(x, y[, z, categories])</p></td>
-<td><p>Estimate the (possibly conditional) mutual-information.</p></td>
+<td><p>Estimate the amount of information shared with the custom estimator.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.estimator.CustomEstimator.get_function" title="frites.estimator.CustomEstimator.get_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_function</span></code></a>()</p></td>
-<td><p>Get the function to execute.</p></td>
+<td><p>Get the function to execute according to the input parameters.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="frites.estimator.CustomEstimator.estimate">
 <code class="sig-name descname">estimate</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">z=None</em>, <em class="sig-param">categories=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_custom.html#CustomEstimator.estimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.CustomEstimator.estimate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estimate the (possibly conditional) mutual-information.</p>
+<dd><p>Estimate the amount of information shared with the custom estimator.</p>
+<p>This method is made for estimating the amount of information shared
+between on 3D variables (i.e (n_var, n_mv, n_samples)) where n_var is
+an additional dimension (e.g times, times x freqs etc.)n_mv is a
+multivariate axis and n_samples the number of samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x, y</strong><span class="classifier">array_like</span></dt><dd><p>Array of shape (n_var, n_mv, n_samples).</p>
+</dd>
+<dt><strong>categories</strong><span class="classifier">array_like | None</span></dt><dd><p>Row vector of categories. This vector should have a shape of
+(n_samples,) and should contains integers describing the category
+of each sample.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>info</strong><span class="classifier">array_like</span></dt><dd><p>Array of information of shape (n_categories, n_var).</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="frites.estimator.CustomEstimator.get_function">
 <code class="sig-name descname">get_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/frites/estimator/est_custom.html#CustomEstimator.get_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#frites.estimator.CustomEstimator.get_function" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the function to execute.</p>
-<p>The returned function should have the following signature :</p>
+<dd><p>Get the function to execute according to the input parameters.</p>
+<p>This can be particularly useful when computing information in parallel
+as it avoids to pickle the whole estimator and therefore, leading to
+faster computations.</p>
+<p>The returned function has the following signature :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>fcn(x, y, z=None, categories=None)</p></li>
+<li><p>fcn(x, y, <a href="#id1"><span class="problematic" id="id2">*</span></a>args, categories=None, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)</p></li>
 </ul>
 </div></blockquote>
-<p>and should returned an array of shape (n_categories, n_var).</p>
+<p>and return an array of shape (n_categories, n_var).</p>
 </dd></dl>
 
 </dd></dl>
@@ -676,7 +701,7 @@ or not (False)</p>
             </ul>
          </div>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-10.</p>
+        <p>&copy; Copyright Last updated on 2021-08-11.</p>
     </footer>
 
   </body>
