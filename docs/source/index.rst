@@ -34,5 +34,5 @@ Frites
 
    Overview <overview/index>
    Installation <install>
-   API Reference <api>
+   API Reference <api/index>
    Examples <auto_examples/index>

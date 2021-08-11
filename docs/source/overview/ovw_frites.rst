@@ -26,8 +26,8 @@ Main Frites' workflows
 
 Frites contains two centrals workflows :
 
-1. `WfMi <https://brainets.github.io/frites/generated/frites.workflow.WfMi.html#frites.workflow.WfMi>`_ : the main workflow of mutual-information that is used to **extract feature-specific brain networks**
-2. `WfStats <https://brainets.github.io/frites/generated/frites.workflow.WfStats.html#frites.workflow.WfStats>`_ : the workflow of statistics we used to perform group-level inferences
+1. `WfMi <https://brainets.github.io/frites/api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi>`_ : the main workflow of mutual-information that is used to **extract feature-specific brain networks**
+2. `WfStats <https://brainets.github.io/frites/api/generated/frites.workflow.WfStats.html#frites.workflow.WfStats>`_ : the workflow of statistics we used to perform group-level inferences
 
 Actually, under the hood, the **WfMi** is also using the workflow of statistics so that it return the estimation of mutual-information between a feature and the data but also the corresponding p-values.
 
