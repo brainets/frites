@@ -1,5 +1,5 @@
 References
 ----------
 
-.. bibliography:: refs.bib
+.. bibliography:: ../refs.bib
     :style: plain

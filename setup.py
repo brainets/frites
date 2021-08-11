@@ -30,8 +30,9 @@ with open('requirements.txt') as f:
 core_deps = ['matplotlib', 'networkx', 'numba', 'dcor', 'scikit-learn']
 test_deps = ['pytest', 'pytest-sugar', 'pytest-cov', 'codecov']
 doc_deps = [
-    'sphinx==2.2.0', 'sphinx-gallery==0.4.0', 'sphinx_bootstrap_theme',
-    'sphinxcontrib-bibtex==1.0.0', 'numpydoc', 'xlrd', 'openpyxl', 'seaborn'
+    'sphinx!=4.1.0', 'sphinx-gallery', 'pydata-sphinx-theme>=0.6.3',
+    'sphinxcontrib-bibtex==1.0.0', 'numpydoc', 'xlrd', 'openpyxl', 'seaborn',
+    'memory-profiler'
 ]
 flake_deps = ['flake8', 'pep8-naming']
 

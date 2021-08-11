@@ -1,7 +1,7 @@
-Mutual-Information
-------------------
+Group-level statistics on measures of information
+-------------------------------------------------
 
-Compute the mutual-information (MI) between continuous and discret variables and performed statistics.
+This set of examples illustrate how to perform group-level statistics on measures of information (i.e. measures from the information-theory, machine-learning or measures of distances).
 
 .. contents:: Contents
    :local:

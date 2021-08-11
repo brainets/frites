@@ -15,7 +15,6 @@
 import os
 from datetime import date
 import sys
-import sphinx_bootstrap_theme
 import frites
 from sphinx_gallery.sorting import ExplicitOrder
 # sys.path.insert(0, os.path.abspath('.'))
@@ -65,8 +64,7 @@ extensions = [
 templates_path = ['_templates']
 
 autosummary_generate = True
-autodoc_member_order = 'groupwise'
-autodoc_default_flags = ['members', 'inherited-members', 'no-undoc-members']
+autodoc_default_options = {'inherited-members': None}
 
 extlinks = {
     "issue": ("https://github.com/brainets/frites/issues/%s", "IS"),
@@ -104,34 +102,27 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = 'alabaster'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-html_theme = 'bootstrap'
+html_theme = 'pydata_sphinx_theme'
 html_theme_options = {
-    'bootstrap_version': "3",
-    'navbar_site_name': "Site",
-    'navbar_sidebarrel': False,
-    'navbar_pagenav': True,
-    'navbar_pagenav_name': "Page",
-    'globaltoc_depth': -1,
-    'globaltoc_includehidden': "true",
-    'source_link_position': "nav",
-    'navbar_class': "navbar",
-    'bootswatch_theme': "readable",
-    'navbar_fixed_top': True,
-    'navbar_links': [
-        ("Overview", "overview"),
-        ("Install", "install"),
-        ("Community", "community"),
-        ("API", "api"),
-        ("Examples", "auto_examples/index"),
+    'show_toc_level': 1,
+    'use_edit_page_button': False,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/brainets/frites",
+            "icon": "fab fa-github-square",
+        },
+        {
+            "name": "Twitter",
+            "url": "https://twitter.com/kNearNeighbors",
+            "icon": "fab fa-twitter-square",
+        },
     ],
 }
 
 sphinx_gallery_conf = {
     # path to your examples scripts
     'examples_dirs': '../../examples',
-    'sphinx_gallery': None,
     'reference_url': {
         'frites': None,
         'matplotlib': 'https://matplotlib.org',
@@ -142,6 +133,7 @@ sphinx_gallery_conf = {
     },
     'gallery_dirs': 'auto_examples',
     'backreferences_dir': 'generated',
+    'show_memory': True,
     'filename_pattern': '/plot_|sim_',
     'default_thumb_file': 'source/_static/frites.png',
     'subsection_order': ExplicitOrder([
@@ -156,12 +148,13 @@ sphinx_gallery_conf = {
         '../../examples/simulations',
         '../../examples/xarray'
         ]),
+    'doc_module': ('frites',)
     # 'thumbnail_size': (100, 100),
 }
 
-numpydoc_show_class_members = False
-# numpydoc_class_members_toctree = False
-# numpydoc_use_blockquotes = False
+numpydoc_class_members_toctree = False
+numpydoc_attributes_as_param_list = True
+numpydoc_xref_param_type = True
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -174,6 +167,10 @@ numpydoc_show_class_members = False
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_css_files = [
+    'frites_style.css',
+]
+
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
@@ -182,7 +179,9 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+html_sidebars = {
+    'index': ['sidebar-quicklinks.html'],
+}
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -283,5 +282,22 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 todo_include_todos = True
 
 
-def setup(app):  # noqa
-    app.add_stylesheet("frites_style.css")
+def append_attr_meth_examples(app, what, name, obj, options, lines):
+    """Append SG examples backreferences to method and attr docstrings."""
+    # NumpyDoc nicely embeds method and attribute docstrings for us, but it
+    # does not respect the autodoc templates that would otherwise insert
+    # the .. include:: lines, so we need to do it.
+    # Eventually this could perhaps live in SG.
+    if what in ('attribute', 'method'):
+        size = os.path.getsize(os.path.join(
+            os.path.dirname(__file__), 'generated', '%s.examples' % (name,)))
+        if size > 0:
+            lines += """
+.. _sphx_glr_backreferences_{1}:
+.. rubric:: Examples using ``{0}``:
+.. minigallery:: {1}
+""".format(name.split('.')[-1], name).split('\n')
+
+def setup(app):
+    """Set up the Sphinx app."""
+    app.connect('autodoc-process-docstring', append_attr_meth_examples)
