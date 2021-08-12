@@ -24,11 +24,11 @@
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
@@ -39,6 +39,8 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -350,11 +352,45 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../api_statistics.html">
-   Statistics
+  <a class="reference internal" href="../api_utils.html">
+   Utility functions
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.savgol_filter.html">
+     frites.utils.savgol_filter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.kernel_smoothing.html">
+     frites.utils.kernel_smoothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.time_to_sample.html">
+     frites.utils.time_to_sample
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.utils.get_closest_sample.html">
+     frites.utils.get_closest_sample
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../api_statistics.html">
+   Statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -382,38 +418,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="frites.stats.cluster_threshold.html">
      frites.stats.cluster_threshold
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../api_utils.html">
-   Utility functions
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.utils.savgol_filter.html">
-     frites.utils.savgol_filter
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.utils.kernel_smoothing.html">
-     frites.utils.kernel_smoothing
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.utils.time_to_sample.html">
-     frites.utils.time_to_sample
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.utils.get_closest_sample.html">
-     frites.utils.get_closest_sample
     </a>
    </li>
   </ul>
@@ -602,7 +606,7 @@
 <h1>frites.simulations.sim_local_ccd_ms<a class="headerlink" href="#frites-simulations-sim-local-ccd-ms" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.simulations.sim_local_ccd_ms">
-<span class="sig-prename descclassname"><span class="pre">frites.simulations.</span></span><span class="sig-name descname"><span class="pre">sim_local_ccd_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_subjects</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/frites/simulations/sim_local_mi.html#sim_local_ccd_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.simulations.sim_local_ccd_ms" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.simulations.</span></span><span class="sig-name descname"><span class="pre">sim_local_ccd_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_subjects</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/simulations/sim_local_mi.py#L304-L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.simulations.sim_local_ccd_ms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multi-subjects simulations for computing local MI (CCD).</p>
 <p>This function can be used for simulating local representations of mutual
 information between two continuous variables conditioned by a third discret
