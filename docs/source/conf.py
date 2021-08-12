@@ -192,7 +192,7 @@ htmlhelp_basename = 'fritesdoc'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '_static/frites_128x128.png'
+html_logo = '_static/frites_top.png'
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or
