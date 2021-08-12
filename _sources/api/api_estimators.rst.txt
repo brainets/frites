@@ -25,13 +25,6 @@ Distance estimators
    :toctree: generated/
 
    DcorrEstimator
-
-Correlation estimators
-++++++++++++++++++++++
-
-.. autosummary::
-   :toctree: generated/
-
    CorrEstimator
 
 Estimator utility functions

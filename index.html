@@ -28,6 +28,9 @@
     <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="_static/frites_style.css" />
     
   <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
@@ -161,9 +164,24 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#description">
+   Description
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#highlights">
+   Highlights
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -194,8 +212,78 @@
 <div class="figure align-center">
 <img alt="_images/logo_desc.png" src="_images/logo_desc.png" />
 </div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p><strong>Frites</strong> is a Python toolbox for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial). The toolbox also includes directed and undirected connectivity metrics such as group-level statistics on measures of information (information-theory, machine-learning and measures of distance).</p>
+</div>
+<div class="section" id="highlights">
+<h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-bs container-lg pb-1 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-header text-center docutils">
+<p class="card-text">Measures of information</p>
+</div>
+<div class="card-body docutils">
+<p class="card-text">Extract cognitive brain networks by linking brain data to an external task
+variable by means of powerful, potentially multivariate, measures of
+information from fields like <a class="reference external" href="https://brainets.github.io/frites/api/api_estimators.html#information-theoretic-estimators">information theory</a>, machine-learning,
+<a class="reference external" href="https://brainets.github.io/frites/api/api_estimators.html#distance-estimators">measures of distances</a>
+or by defining your own <a class="reference external" href="https://brainets.github.io/frites/api/generated/frites.estimator.CustomEstimator.html#frites.estimator.CustomEstimator">custom estimator</a>.</p>
+</div>
+<div class="card-footer docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap btn-outline-primary btn-block reference external" href="https://brainets.github.io/frites/api/api_estimators.html"><span>List of estimators</span></a></p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-header text-center docutils">
+<p class="card-text">Group-level statistics</p>
+</div>
+<div class="card-body docutils">
+<p class="card-text">Combine measures of information with group-level statistics to extract
+robust effects across a population of subjects or sessions. Use either fully
+automatized non-parametric permutation-based <a class="reference external" href="https://brainets.github.io/frites/api/generated/frites.workflow.WfMi.html">workflows</a> or <a class="reference external" href="https://brainets.github.io/frites/api/generated/frites.workflow.WfStats.html">manual ones</a></p>
+</div>
+<div class="card-footer docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap btn-outline-primary btn-block reference external" href="https://brainets.github.io/frites/api/api_workflow.html"><span>List of workflows</span></a></p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-header text-center docutils">
+<p class="card-text">Measures of connectivity</p>
+</div>
+<div class="card-body docutils">
+<p class="card-text">Estimate whole-brain pairwise undirected and directed connectivity.</p>
+</div>
+<div class="card-footer docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap btn-outline-primary btn-block stretched-link reference external" href="https://brainets.github.io/frites/api/api_connectivity.html"><span>Connectivity metrics</span></a></p>
+</div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-header text-center docutils">
+<p class="card-text">Link with external toolboxes</p>
+</div>
+<div class="card-body docutils">
+<p class="card-text">Frites supports inputs from standard libraries like <a class="reference external" href="https://numpy.org/">Numpy</a>,
+<a class="reference external" href="https://mne.tools/stable/index.html">MNE Python</a> or more recent ones like
+labelled <a class="reference external" href="http://xarray.pydata.org/en/stable/">Xarray</a> objects.</p>
+</div>
+<div class="card-footer docutils">
+<p class="card-text"><a class="sphinx-bs btn text-wrap btn-outline-primary btn-block reference external" href="https://brainets.github.io/frites/auto_examples/index.html#xarray"><span>Xarray quick tour</span></a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 
@@ -225,7 +313,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-11.</p>
+        <p>&copy; Copyright Last updated on 2021-08-12.</p>
     </footer>
 
   </body>
