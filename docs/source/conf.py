@@ -57,6 +57,7 @@ extensions = [
     'sphinx_gallery.gen_gallery',
     'sphinxcontrib.bibtex',
     "sphinx.ext.extlinks",
+    'sphinx_panels',
     'numpydoc'
 ]
 
