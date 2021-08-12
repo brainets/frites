@@ -51,14 +51,15 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'sphinx.ext.autosummary',
+    'sphinx.ext.linkcode',
+    "sphinx.ext.extlinks",
     'sphinx_gallery.gen_gallery',
     'sphinxcontrib.bibtex',
-    "sphinx.ext.extlinks",
     'sphinx_panels',
-    'numpydoc'
+    'numpydoc',
+    'sphinx_copybutton'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -157,6 +158,9 @@ numpydoc_class_members_toctree = False
 numpydoc_attributes_as_param_list = True
 numpydoc_xref_param_type = True
 
+# don't includes panel bootstrap
+panels_add_bootstrap_css = False
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -199,7 +203,9 @@ html_logo = '_static/frites_top.png'
 # 32x32 pixels large.
 html_favicon = '_static/favicon.ico'
 
-html_show_sourcelink = False
+html_show_sourcelink = True
+html_copy_source = False
+html_show_sphinx = False
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -303,3 +309,73 @@ def append_attr_meth_examples(app, what, name, obj, options, lines):
 def setup(app):
     """Set up the Sphinx app."""
     app.connect('autodoc-process-docstring', append_attr_meth_examples)
+
+
+def linkcode_resolve(domain, info):
+    """Determine the URL corresponding to a Python object.
+    Parameters
+    ----------
+    domain : str
+        Only useful when 'py'.
+    info : dict
+        With keys "module" and "fullname".
+    Returns
+    -------
+    url : str
+        The code URL.
+    Notes
+    -----
+    This has been adapted to deal with our "verbose" decorator.
+    Adapted from SciPy (doc/source/conf.py).
+    """
+    import frites
+    import inspect
+    import sys
+    import os.path as op
+
+    if domain != 'py':
+        return None
+
+    modname = info['module']
+    fullname = info['fullname']
+
+    submod = sys.modules.get(modname)
+    if submod is None:
+        return None
+
+    obj = submod
+    for part in fullname.split('.'):
+        try:
+            obj = getattr(obj, part)
+        except Exception:
+            return None
+    # deal with our decorators properly
+    while hasattr(obj, '__wrapped__'):
+        obj = obj.__wrapped__
+
+    try:
+        fn = inspect.getsourcefile(obj)
+    except Exception:
+        fn = None
+    if not fn:
+        try:
+            fn = inspect.getsourcefile(sys.modules[obj.__module__])
+        except Exception:
+            fn = None
+    if not fn:
+        return None
+    fn = op.relpath(fn, start=op.dirname(frites.__file__))
+    fn = '/'.join(op.normpath(fn).split(os.sep))  # in case on Windows
+
+    try:
+        source, lineno = inspect.getsourcelines(obj)
+    except Exception:
+        lineno = None
+
+    if lineno:
+        linespec = "#L%d-L%d" % (lineno, lineno + len(source) - 1)
+    else:
+        linespec = ""
+
+    return "https://github.com/brainets/frites/tree/master/frites/%s%s" % (
+        fn, linespec)

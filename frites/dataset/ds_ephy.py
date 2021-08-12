@@ -296,10 +296,10 @@ class DatasetEphy(object):
 
         Examples
         --------
-        > # define the dataset
-        > ds = DatasetEphy(...)
-        > # temporal slicing of the data between (-100ms, 1500ms)
-        > ds.sel(times=slice(-0.1, 1.5))
+        >>> # define the dataset
+        >>> ds = DatasetEphy(...)
+        >>> # temporal slicing of the data between (-100ms, 1500ms)
+        >>> ds.sel(times=slice(-0.1, 1.5))
         """
         self._x = [k.sel(**kwargs) for k in self._x]
         self._update_internals()
@@ -323,10 +323,10 @@ class DatasetEphy(object):
 
         Examples
         --------
-        > # define the dataset
-        > ds = DatasetEphy(...)
-        > # temporal slicing of the data between time points (100, 2500)
-        > ds.sel(times=slice(100, 2500))
+        >>> # define the dataset
+        >>> ds = DatasetEphy(...)
+        >>> # temporal slicing of the data between time points (100, 2500)
+        >>> ds.sel(times=slice(100, 2500))
         """
         self._x = [k.isel(**kwargs) for k in self._x]
         self._update_internals()
