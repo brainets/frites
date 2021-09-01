@@ -63,15 +63,18 @@ dynamic, undirected and directed measures of functional connectivity.
 
 `Frites` has been written for the analysis of electrophysiological data, encompassing
 both recordings with uniform spatial sampling like M/EEG data and spatially sparse
-intracranial recordings. The package supports standard `NumPy` array inputs [@Harris:2020],
-objects from the MNE-Python software [@Gramfort:2013] but also multi-dimensional labelled
-`Xarray` objects [@Hoyer:2017]. By default, task-related activity are quantified using information-theoretic measures, using a `NumPy` tensor-based implementation of the
-Gaussian Copula Mutual-Information [@Ince:2017]. That being said, the definition of
-custom estimators like `scikit-learn` cross-validated classifiers [@Pedregosa:2011]
-are also supported. In addition, as some features like permutations are computationally
-demanding, `Frites` natively supports parallel processing using the `Joblib` Python
-package. Finally, and as an optional dependency, some functions can further be
-accelerated using the `Numba` compiler [@Lam:2015]. Programming optimizations
+intracranial recordings. The package supports standard [`NumPy`](https://numpy.org/)
+array inputs [@Harris:2020], objects from the [`MNE-Python`](https://mne.tools/stable/index.html) software [@Gramfort:2013] but also multi-dimensional labelled
+[`Xarray`](http://xarray.pydata.org/en/stable/) objects [@Hoyer:2017]. By default,
+task-related activity are quantified using information-theoretic measures, using a
+`NumPy` tensor-based implementation of the Gaussian Copula Mutual-Information
+[@Ince:2017]. That being said, the definition of custom estimators like
+[`scikit-learn`](https://scikit-learn.org/stable/) cross-validated classifiers
+[@Pedregosa:2011] are also supported. In addition, as some features like permutations
+are computationally demanding, `Frites` natively supports parallel processing using
+the [`Joblib`](https://joblib.readthedocs.io/en/latest/) Python package. Finally,
+and as an optional dependency, some functions can further be accelerated using the
+[`Numba`](http://numba.pydata.org/) compiler [@Lam:2015]. Programming optimizations
 and external dependencies allow to investigate large-scale datasets in a reasonable
 time.
 
