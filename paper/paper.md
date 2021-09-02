@@ -36,19 +36,23 @@ bibliography: paper.bib
 
 # Summary
 
-Brain activity is consistently changing but reproducible perturbations can be
-triggered either by external stimuli, repetitive behavior or can even be present
-in absence of any stimulation. The field of computational neuroscience aims to
-extract and quantify emerging patterns occurring during cognition, understand
-how information is locally processed such as how brain regions coordinate.
-That said, approaching the brain as a deeply connected network drastically
-increase the complexity of statistical analyses. Over and above, identifying
-task-related activity in the context of noisy measurements and therefore, a poor
-signal-to-noise ratio is a real challenge. This situation justify the use of
-powerful statistical approaches linking neurophysiological data to an external
-variable combined to sophisticated group-level statistics to extract brain activity
-modulated by the task and reproducible effects across a population or overall,
-repeated measurements.
+The field of cognitive computational neuroscience addresses open questions regarding
+the complex relation between cognitive functions and the dynamic coordination of neural
+activity over large-scale and hierarchical brain networks. State-of-the-art approaches
+involve the characterisation of brain regions and inter-areal interactions that participate
+in the cognitive process under investigation. More precisely, the study of cognitive
+brain networks underlies linking brain data to experimental variables, such as sensory
+stimuli or behavioral responses.
+
+Information-based measures, as developed with information theory and machine learning,
+currently provide ideal tools for quantifying the link between single neural population’s
+or network’s activity and task variables. Nevertheless, progress is limited by a drastically increased complexity of statistical analyses as the size and connectivity of brain
+networks increases. Furthermore, identifying task-related activity from brain signals
+with a poor signal-to-noise ratio represents a real challenge. 
+
+These facts justify the need for powerful statistical approaches combined with efficient
+coding strategies to quantify emerging patterns occurring during cognition from large and
+complex neurophysiological datasets.
 
 # Statement of need
 
@@ -56,21 +60,24 @@ repeated measurements.
 Theoretical analysis of Electrophysiological data and Statistics_) is a pure Python
 package to extract cognitive brain networks by means of information-based metrics
 from fields like information-theory, machine-learning or measures of distances. The
-package also contains statistical pipelines using permutation-based nonparametric
-approaches and allow defining fixed- and random-effect models accounting for random
-variations in the population. In addition, `Frites` further includes single-trial,
-dynamic, undirected and directed measures of functional connectivity.
+package contains statistical pipelines using permutation-based nonparametric approaches
+and allow defining fixed- and random-effect models accounting for random variations
+in the population. `Frites` includes a large and yet increasing set of information
+measures that allow the analysis of  single-trial, dynamic, undirected (e.g., mutual
+information) and directed (e.g., Granger causality) measures of functional connectivity.
 
-`Frites` has been written for the analysis of electrophysiological data, encompassing
-both recordings with uniform spatial sampling like M/EEG data and spatially sparse
-intracranial recordings. The package supports standard [`NumPy`](https://numpy.org/)
-array inputs [@Harris:2020], objects from the [`MNE-Python`](https://mne.tools/stable/index.html) software [@Gramfort:2013] but also multi-dimensional labelled
-[`Xarray`](http://xarray.pydata.org/en/stable/) objects [@Hoyer:2017]. By default,
+`Frites` has been written for the analysis of continuous neurophysiological data,
+encompassing recordings with either uniform spatial sampling (e.g., M/EEG data) and
+spatially sparse intracranial recordings, such as intracranial EEG or Local Field
+Potentials (LFPs). The package supports standard [`NumPy`](https://numpy.org/) array
+inputs [@Harris:2020], objects from the [`MNE-Python`](https://mne.tools/stable/index.html) 
+software [@Gramfort:2013], but also multi-dimensional labelled 
+[`Xarray`](http://xarray.pydata.org/en/stable/) objects [@Hoyer:2017]. By default, 
 task-related activity are quantified using information-theoretic measures, using a
 `NumPy` tensor-based implementation of the Gaussian Copula Mutual-Information
-[@Ince:2017]. That being said, the definition of custom estimators like
+[@Ince:2017]. The definition of custom estimators like
 [`scikit-learn`](https://scikit-learn.org/stable/) cross-validated classifiers
-[@Pedregosa:2011] are also supported. In addition, as some features like permutations
+[@Pedregosa:2011] is also supported. In addition, as some features like permutations
 are computationally demanding, `Frites` natively supports parallel processing using
 the [`Joblib`](https://joblib.readthedocs.io/en/latest/) Python package. Finally,
 and as an optional dependency, some functions can further be accelerated using the
@@ -83,6 +90,7 @@ links to an external variable (such as discrete stimulus types or continuous beh
 models) and extract reproducible effects across a population. `Frites` provides
 a set of high-level automated workflows that should adapt to neuroscientists with
 low or moderate programming skills.
+
 
 # Acknowledgements
 
