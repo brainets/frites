@@ -1,11 +1,16 @@
 ---
 title: 'Frites: A Python package combining measures of information and group-level statistics to extract cognitive brain networks'
 tags:
-  - Python
+  - python
   - neuroscience
   - information-based
   - statistics
   - functional connectivity
+  - fixed-effect ffx
+  - random-effect rfx
+  - cluster-based statistics
+  - MEG EEG sEEG
+  - Granger causality
 authors:
   - name: Etienne Combrisson
     orcid: 0000-0002-7362-3247
@@ -39,12 +44,12 @@ bibliography: paper.bib
 The field of cognitive computational neuroscience addresses open questions regarding
 the complex relation between cognitive functions and the dynamic coordination of neural
 activity over large-scale and hierarchical brain networks. State-of-the-art approaches
-involve the characterisation of brain regions and inter-areal interactions that participate
-in the cognitive process under investigation. More precisely, the study of cognitive
+involve the characterization of brain regions and inter-areal interactions that participate
+in the cognitive process under investigation [@Battaglia:2020]. More precisely, the study of cognitive
 brain networks underlies linking brain data to experimental variables, such as sensory
 stimuli or behavioral responses.
 
-Information-based measures, as developed with information theory and machine learning,
+Information-based measures, as developed within information theory and machine learning,
 currently provide ideal tools for quantifying the link between single neural population’s
 or network’s activity and task variables. Nevertheless, progress is limited by a drastically increased complexity of statistical analyses as the size and connectivity of brain
 networks increases. Furthermore, identifying task-related activity from brain signals
@@ -102,7 +107,11 @@ Call 2017" - HBP - Basic and Applied Research 2, Brainsynch-Hit (ANR-17-HBPR-000
 RB acknowledges support through a PhD Scholarship awarded by the Neuroschool. This
 work has received support from the French government under the Programme Investissements
 d’Avenir, Initiative d’Excellence d’Aix-Marseille Université via A\*Midex
-(AMX-19-IET-004) and ANR (ANR-17-EURE-0029) funding.
+(AMX-19-IET-004) and ANR (ANR-17-EURE-0029) funding. RAAI was supported by the Wellcome
+Trust [214120/Z/18/Z]. VLC is supported by a scholarship from the European Union's
+Horizon 2020 research and innovation programme under the Marie Sk lodowska-Curie
+grant agreement No 859937.
+
 
 # References
 
