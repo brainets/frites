@@ -1,5 +1,5 @@
 ---
-title:  'Frites: A Python package for functional connectivity analysis and group-level statistics of neurophysiological data.'
+title:  'Frites: A Python package for functional connectivity analysis and group-level statistics of neurophysiological data'
 tags:
   - python
   - cognitive neuroscience
