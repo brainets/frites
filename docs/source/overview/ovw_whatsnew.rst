@@ -9,6 +9,7 @@ v0.4.1
 New Features
 ++++++++++++
 * New :class:`frites.estimator.CustomEstimator` for defining custom estimators (:commit:`e473c713`, :commit:`5584654c`)
+* New function :func:`frites.conn.conn_fcd_corr` (:commit:`2001f0c0`)
 
 v0.4.0
 ------
@@ -16,12 +17,12 @@ v0.4.0
 New Features
 ++++++++++++
 * New estimators (:class:`frites.estimator.CorrEstimator`, :class:`frites.estimator.DcorrEstimator`) for continuous / continuous relationships (:commit:`73ed8bbb`, :commit:`bc370a93`, :commit:`cf7a3456f`)
-* :`frites.conn.conn_dfc` supports passing other estimators (:commit:`a864a7b05b`)
-* :`frites.utils.time_to_sample` and :`frites.utils.get_closest_sample` conversion functions (:commit:`7c44478e`)
-* :`frites.conn.conn_ravel_directed` reshaping function (:commit:`f9b9d272`)
+* :func:`frites.conn.conn_dfc` supports passing other estimators (:commit:`a864a7b05b`)
+* :func:`frites.utils.time_to_sample` and :func:`frites.utils.get_closest_sample` conversion functions (:commit:`7c44478e`)
+* :func:`frites.conn.conn_ravel_directed` reshaping function (:commit:`f9b9d272`)
 * New :class:`frites.workflow.WfMi.copy` for internal workflow copy (:commit:`0c2228c7`, :commit:`860f3d45`)
 * New :class:`frites.workflow.WfMiCombine` and example class for combining workflows (:commit:`62072ee52`)
-* New :class`frites.estimator.ResamplingEstimator` trial-resampling estimator (:commit:`13f6271e`)
+* New :class:`frites.estimator.ResamplingEstimator` trial-resampling estimator (:commit:`13f6271e`)
 
 Bug fixes
 +++++++++
@@ -34,21 +35,21 @@ v0.3.9
 
 New Features
 ++++++++++++
-* :`frites.conn.conn_dfc` supports multivariate data + improve computing efficiency (:commit:`1aed842`, :commit:`c4ac490`)
+* :func:`frites.conn.conn_dfc` supports multivariate data + improve computing efficiency (:commit:`1aed842`, :commit:`c4ac490`)
 * Reshaping connectivity arrays support elements on the diagonal + internal drop of duplicated elements (:commit:`daac241f`)
-* :`frites.conn.conn_dfc` supports better channel aggregation (:commit:`a66faa77`)
+* :func:`frites.conn.conn_dfc` supports better channel aggregation (:commit:`a66faa77`)
 
 Internal Changes
 ++++++++++++++++
 * Connectivity metric now use the :class:`frites.dataset.SubjectEphy` for internal conversion of the input data
 * :class:`frites.workflow.WfMi.get_params` returns single-subject MI and permutations with dimension name 'subject' (instead of subjects) (:commit:`85884f3a`)
-* All connectivity metrics now use :`frites.conn.conn_io` to convert inputs into a similar format
+* All connectivity metrics now use :func:`frites.conn.conn_io` to convert inputs into a similar format
 * Improve CI
 
 Bug fixes
 +++++++++
 * Fix :class:`frites.dataset.SubjectEphy` when the data contains a single time point (:commit:`a33d4437`)
-* Fix attributes of :class:`frites.conn.conn_covgc` (:commit:`c120626`)
+* Fix attributes of :func:`frites.conn.conn_covgc` (:commit:`c120626`)
 * Fix :class:`frites.dataset.DatasetEphy` representation without data copy + html representation (:commit:`b3ae7b8ea`, :issue:`16`)
 * Fix passing `tail` input to the :class:`frites.workflow.WfMi` (:commit:`6df86d1e`)
 
@@ -61,7 +62,7 @@ New Features
 * new :class:`frites.io.Attributes` class for managing and printing datasets' and workflow's attributes (:commit:`be046b1`)
 * new :class:`frites.dataset.SubjectEphy` single-subject container (:commit:`ac22cf4`)
 * new estimators of mutual-information, :class:`frites.estimator.GCMIEstimator` (:commit:`901b3cbf`, :commit:`65d1e08`, :commit:`0015bf58`, :commit:`beed6a09`), :class:`frites.estimator.BinMIEstimator` (:commit:`beed6a09`)
-* new kernel smoothing function :`frites.utils.kernel_smoothing`
+* new kernel smoothing function :func:`frites.utils.kernel_smoothing`
 
 Internal Changes
 ++++++++++++++++
@@ -97,7 +98,7 @@ v0.3.5
 New Features
 ++++++++++++
 * New function for reshaping undirected connectivity arrays (like DFC) :func:`frites.conn.conn_reshape_undirected` (:commit:`ffcae34`, :commit:`56515fe`)
-* New function :`frites.utils.savgol_filter` that works on DataArray (:commit:`3e0e256`)
+* New function :func:`frites.utils.savgol_filter` that works on DataArray (:commit:`3e0e256`)
 * New function for reshaping directed connectivity arrays (like COVGC) :func:`frites.conn.conn_reshape_directed` (:commit:`8c2bb63`)
 * New method :class:`frites.workflow.WfMi.get_params` in order to get the internal arrays formatted as DataArray (:commit:`03dd2f3`)
 * Integration of MNE's progress bar (:commit:`74dc66`, :commit:`8ec636d`, :commit:`2bb7e75`)
