@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>frites.workflow.WfConnComod &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="frites.workflow.WfStats" href="frites.workflow.WfStats.html" />
     <link rel="prev" title="frites.workflow.WfMiCombine" href="frites.workflow.WfMiCombine.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -248,6 +252,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_get_pairs.html">
      frites.conn.conn_get_pairs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_fcd_corr.html">
+     frites.conn.conn_fcd_corr
     </a>
    </li>
    <li class="toctree-l2">
@@ -617,7 +626,7 @@
               
               <div>
                 
-  <div class="section" id="frites-workflow-wfconncomod">
+  <section id="frites-workflow-wfconncomod">
 <h1>frites.workflow.WfConnComod<a class="headerlink" href="#frites-workflow-wfconncomod" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.workflow.WfConnComod">
@@ -687,7 +696,7 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfConnComod.clean" title="frites.workflow.WfConnComod.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>()</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfConnComod.fit" title="frites.workflow.WfConnComod.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(dataset[, mcp, n_perm, cluster_th, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfConnComod.fit" title="frites.workflow.WfConnComod.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(dataset[, mcp, n_perm, cluster_th, ...])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 </tbody>
@@ -767,10 +776,12 @@ selected using the <cite>stat_method</cite> input parameter</p>
 <p class="rubric">References</p>
 <p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../../overview/ovw_refs.html#maris2007nonparametric" id="id4">[10]</a></p>
 <p class="rubric" id="sphx-glr-backreferences-frites-workflow-wfconncomod-fit">Examples using <code class="docutils literal notranslate"><span class="pre">fit</span></code>:</p>
-<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual informati..."><div class="figure align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual informati..."><figure class="align-default" id="id5">
 <img alt="Estimate comodulations between brain areas" src="../../_images/sphx_glr_plot_conn_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py property">
@@ -804,25 +815,38 @@ is selected.</p>
 
 </dd></dl>
 
-<div class="section" id="examples-using-frites-workflow-wfconncomod">
+<section id="examples-using-frites-workflow-wfconncomod">
 <span id="sphx-glr-backreferences-frites-workflow-wfconncomod"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.workflow.WfConnComod</span></code><a class="headerlink" href="#examples-using-frites-workflow-wfconncomod" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual informati..."><div class="figure align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual informati..."><figure class="align-default" id="id6">
 <img alt="Estimate comodulations between brain areas" src="../../_images/sphx_glr_plot_conn_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-clear"></div></div>
-</div>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-clear"></div></section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="frites.workflow.WfMiCombine.html" title="previous page">frites.workflow.WfMiCombine</a>
-    <a class='right-next' id="next-link" href="frites.workflow.WfStats.html" title="next page">frites.workflow.WfStats</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="frites.workflow.WfMiCombine.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">frites.workflow.WfMiCombine</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="frites.workflow.WfStats.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">frites.workflow.WfStats</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -830,9 +854,8 @@ is selected.</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -840,7 +863,7 @@ is selected.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

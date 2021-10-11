@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Build an electrophysiological dataset &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Define an electrophysiological dataset using Xarray" href="plot_dataset_xarray.html" />
     <link rel="prev" title="Define an electrophysiological dataset using MNE-Python structures" href="plot_dataset_mne.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -404,7 +408,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="build-an-electrophysiological-dataset">
+<section class="sphx-glr-example-title" id="build-an-electrophysiological-dataset">
 <span id="sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"></span><h1>Build an electrophysiological dataset<a class="headerlink" href="#build-an-electrophysiological-dataset" title="Permalink to this headline">¶</a></h1>
 <p>In Frites, a dataset is a structure for grouping the electrophysiological data
 (e.g MEG / EEG / Intracranial) coming from multiple subjects. In addition,
@@ -417,7 +421,7 @@ this example we illutrate how to define a dataset using NumPy arrays.</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
-<div class="section" id="create-artificial-data">
+<section id="create-artificial-data">
 <h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">¶</a></h2>
 <p>We start by creating some random data for several subjects. To do that, each
 subject is going have a 3 dimensional array of shape
@@ -442,8 +446,8 @@ in a list of length (n_subjects,)</p>
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">/</span> <span class="n">sf</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-the-dataset">
+</section>
+<section id="create-the-dataset">
 <h2>Create the dataset<a class="headerlink" href="#create-the-dataset" title="Permalink to this headline">¶</a></h2>
 <p>The creation of the dataset is performed using the class
 <a class="reference internal" href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
@@ -457,8 +461,7 @@ in a list of length (n_subjects,)</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Electrophysiological data of the first subject, for the first channel" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dataset_ephy_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_dataset_ephy_001.png" srcset="../../_images/sphx_glr_plot_dataset_ephy_001.png" alt="Electrophysiological data of the first subject, for the first channel" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray &#39;subject_0&#39; (trials: 10, roi: 5, times: 1000)&gt;
 array([[[0.12328206, 0.77969075, 0.94802187, ..., 0.65136793,
          0.04117916, 0.42724104],
@@ -756,8 +759,8 @@ Attributes:
     multivariate:  False
 </pre></div>
 </div>
-</div>
-<div class="section" id="data-smoothing">
+</section>
+<section id="data-smoothing">
 <h2>Data smoothing<a class="headerlink" href="#data-smoothing" title="Permalink to this headline">¶</a></h2>
 <p>If you have MNE-Python installed, you can also smooth the data using
 <a class="reference internal" href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy.savgol_filter" title="frites.dataset.DatasetEphy.savgol_filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy.savgol_filter</span></code></a>. One important thing is
@@ -772,9 +775,8 @@ data are modified inside the dataset without copy</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Smoothed dataset" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dataset_ephy_002.png" />
-</div>
-<div class="section" id="temporal-slicing">
+<img src="../../_images/sphx_glr_plot_dataset_ephy_002.png" srcset="../../_images/sphx_glr_plot_dataset_ephy_002.png" alt="Smoothed dataset" class = "sphx-glr-single-img"/></section>
+<section id="temporal-slicing">
 <h2>Temporal slicing<a class="headerlink" href="#temporal-slicing" title="Permalink to this headline">¶</a></h2>
 <p>The dataset also supports some basic slicing operations through time. Slicing
 is still performed inplace</p>
@@ -788,8 +790,7 @@ is still performed inplace</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Temporal slicing" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dataset_ephy_003.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.481 seconds)</p>
+<img src="../../_images/sphx_glr_plot_dataset_ephy_003.png" srcset="../../_images/sphx_glr_plot_dataset_ephy_003.png" alt="Temporal slicing" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.436 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  10 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-ephy-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -800,19 +801,30 @@ is still performed inplace</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="plot_dataset_mne.html" title="previous page">Define an electrophysiological dataset using MNE-Python structures</a>
-    <a class='right-next' id="next-link" href="plot_dataset_xarray.html" title="next page">Define an electrophysiological dataset using Xarray</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_dataset_mne.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Define an electrophysiological dataset using MNE-Python structures</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot_dataset_xarray.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Define an electrophysiological dataset using Xarray</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -820,9 +832,8 @@ is still performed inplace</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -830,7 +841,7 @@ is still performed inplace</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

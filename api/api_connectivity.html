@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Connectivity &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="frites.conn.conn_dfc" href="generated/frites.conn.conn_dfc.html" />
     <link rel="prev" title="frites.workflow.WfStats" href="generated/frites.workflow.WfStats.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -248,6 +252,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="generated/frites.conn.conn_get_pairs.html">
      frites.conn.conn_get_pairs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/frites.conn.conn_fcd_corr.html">
+     frites.conn.conn_fcd_corr
     </a>
    </li>
    <li class="toctree-l2">
@@ -595,6 +604,23 @@
   <a class="reference internal nav-link" href="#utility-functions">
    Utility functions
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reshaping-connectivity-outputs">
+     Reshaping connectivity outputs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#metrics-to-apply-on-fc">
+     Metrics to apply on FC
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-sliding-windows">
+     Define sliding windows
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -617,7 +643,7 @@
               
               <div>
                 
-  <div class="section" id="connectivity">
+  <section id="connectivity">
 <h1>Connectivity<a class="headerlink" href="#connectivity" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="#module-frites.conn" title="frites.conn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.conn</span></code></a>:</p>
 <span class="target" id="module-frites.conn"></span><p>Information-based connectivity metrics and utility functions.</p>
@@ -631,7 +657,7 @@ connectivity arrays to <cite>frites.workflow.WfMi</cite></p></li>
 <li><p><strong>Connectivity related utility functions :</strong> small utility functions that
 work on connectivity arrays</p></li>
 </ol>
-<div class="section" id="connectivity-metrics">
+<section id="connectivity-metrics">
 <h2>Connectivity metrics<a class="headerlink" href="#connectivity-metrics" title="Permalink to this headline">¶</a></h2>
 <table class="longtable table autosummary">
 <colgroup>
@@ -639,59 +665,98 @@ work on connectivity arrays</p></li>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_dfc</span></code></a>(data[, win_sample, times, roi, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_dfc</span></code></a>(data[, win_sample, times, roi, ...])</p></td>
 <td><p>Single trial Dynamic Functional Connectivity.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a>(data, dt, lag, t0[, step, roi, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a>(data, dt, lag, t0[, step, roi, ...])</p></td>
 <td><p>Single-trial covariance-based Granger Causality for gaussian variables.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy" title="frites.conn.conn_transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_transfer_entropy</span></code></a>(x[, max_delay, pairs, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy" title="frites.conn.conn_transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_transfer_entropy</span></code></a>(x[, max_delay, pairs, ...])</p></td>
 <td><p>Across-trials transfer entropy.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="utility-functions">
+</section>
+<section id="utility-functions">
 <h2>Utility functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
+<section id="reshaping-connectivity-outputs">
+<h3>Reshaping connectivity outputs<a class="headerlink" href="#reshaping-connectivity-outputs" title="Permalink to this headline">¶</a></h3>
 <table class="longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="frites.conn.conn_reshape_undirected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_undirected</span></code></a>(da[, sep, order, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_undirected.html#frites.conn.conn_reshape_undirected" title="frites.conn.conn_reshape_undirected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_undirected</span></code></a>(da[, sep, order, ...])</p></td>
 <td><p>Reshape a raveled undirected array of connectivity.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed" title="frites.conn.conn_reshape_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_directed</span></code></a>(da[, net, sep, order, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_reshape_directed.html#frites.conn.conn_reshape_directed" title="frites.conn.conn_reshape_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_reshape_directed</span></code></a>(da[, net, sep, order, ...])</p></td>
 <td><p>Reshape a raveled directed array of connectivity.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_ravel_directed.html#frites.conn.conn_ravel_directed" title="frites.conn.conn_ravel_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_ravel_directed</span></code></a>(da[, sep, drop_within])</p></td>
 <td><p>Ravel a directed array.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_get_pairs.html#frites.conn.conn_get_pairs" title="frites.conn.conn_get_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_get_pairs</span></code></a>(roi[, directed, nb_min_suj, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_get_pairs.html#frites.conn.conn_get_pairs" title="frites.conn.conn_get_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_get_pairs</span></code></a>(roi[, directed, nb_min_suj, ...])</p></td>
 <td><p>Get possible connectivity pairs for multiple subjects.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code></a>(times[, windows, slwin_len, …])</p></td>
+</tbody>
+</table>
+</section>
+<section id="metrics-to-apply-on-fc">
+<h3>Metrics to apply on FC<a class="headerlink" href="#metrics-to-apply-on-fc" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_fcd_corr.html#frites.conn.conn_fcd_corr" title="frites.conn.conn_fcd_corr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_fcd_corr</span></code></a>(conn[, roi, times, tskip, ...])</p></td>
+<td><p>Compute the correlation on dynamic network.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="define-sliding-windows">
+<h3>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code></a>(times[, windows, slwin_len, ...])</p></td>
 <td><p>Define temporal windows.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.plot_windows.html#frites.conn.plot_windows" title="frites.conn.plot_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_windows</span></code></a>(times, win_sample[, x, title, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.plot_windows.html#frites.conn.plot_windows" title="frites.conn.plot_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_windows</span></code></a>(times, win_sample[, x, title, ...])</p></td>
 <td><p>Simple plotting function for representing windows.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="generated/frites.workflow.WfStats.html" title="previous page">frites.workflow.WfStats</a>
-    <a class='right-next' id="next-link" href="generated/frites.conn.conn_dfc.html" title="next page">frites.conn.conn_dfc</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="generated/frites.workflow.WfStats.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">frites.workflow.WfStats</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="generated/frites.conn.conn_dfc.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">frites.conn.conn_dfc</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -699,9 +764,8 @@ work on connectivity arrays</p></li>
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -709,7 +773,7 @@ work on connectivity arrays</p></li>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

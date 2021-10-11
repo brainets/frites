@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.estimator.GCMIEstimator &#8212; frites 0.4.0 documentation</title>
+    <title>frites.conn.conn_fcd_corr &#8212; frites 0.4.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -42,11 +42,12 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.estimator.BinMIEstimator" href="frites.estimator.BinMIEstimator.html" />
-    <link rel="prev" title="Information-based estimators" href="../api_estimators.html" />
+    <link rel="next" title="frites.conn.define_windows" href="frites.conn.define_windows.html" />
+    <link rel="prev" title="frites.conn.conn_get_pairs" href="frites.conn.conn_get_pairs.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -209,16 +210,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_connectivity.html">
    Connectivity
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_dfc.html">
      frites.conn.conn_dfc
@@ -254,8 +255,8 @@
      frites.conn.conn_get_pairs
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.conn.conn_fcd_corr.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.conn.conn_fcd_corr
     </a>
    </li>
@@ -271,18 +272,18 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_estimators.html">
    Information-based estimators
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.estimator.GCMIEstimator.html">
      frites.estimator.GCMIEstimator
     </a>
    </li>
@@ -589,24 +590,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#examples-using-frites-estimator-gcmiestimator">
-   Examples using
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     frites.estimator.GCMIEstimator
-    </span>
-   </code>
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -626,153 +612,49 @@
               
               <div>
                 
-  <section id="frites-estimator-gcmiestimator">
-<h1>frites.estimator.GCMIEstimator<a class="headerlink" href="#frites-estimator-gcmiestimator" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="frites.estimator.GCMIEstimator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">frites.estimator.</span></span><span class="sig-name descname"><span class="pre">GCMIEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demeaned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L13-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gaussian Copula Mutual-Information estimator.</p>
+  <section id="frites-conn-conn-fcd-corr">
+<h1>frites.conn.conn_fcd_corr<a class="headerlink" href="#frites-conn-conn-fcd-corr" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="frites.conn.conn_fcd_corr">
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_fcd_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'roi'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'times'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tskip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_diagonal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_fcd_corr.py#L8-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_fcd_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the correlation on dynamic network.</p>
+<p>This function can be used to compute the correlation between time points
+of a dynamic functional connectivity array, namely :</p>
+<div class="math notranslate nohighlight">
+\[corr(conn_{t_{i}}, conn_{t_{j}})\]</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’, ‘ccd’, ‘ccc’}</span></dt><dd><p>Mutual information type (default : ‘cc’) :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘cc’ : MI between two continuous variables</p></li>
-<li><p>‘cd’ : MI between a continuous and a discret variables</p></li>
-<li><p>‘ccd’ : MI between two continuous variables conditioned by a
-third discret one</p></li>
-<li><p>‘ccc’ : MI between two continuous variables conditioned by a
-third continuous one</p></li>
-</ul>
-</div></blockquote>
+<dt><strong>conn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>3D array of dynamic functional connectivity of shape
+(n_samples, n_pairs, n_times)</p>
 </dd>
-<dt><strong>copnorm</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Apply the gaussian-copula rank normalization (default : True)</p>
+<dt><strong>roi</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘roi’</span></dt><dd><p>Name of the spatial dimension describing the names of the pairs of
+brain regions</p>
 </dd>
-<dt><strong>biascorrect</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specifies whether bias correction should be applied to the estimated MI
-(default : True)</p>
+<dt><strong>times</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘times’</span></dt><dd><p>Name of the temporal dimension</p>
 </dd>
-<dt><strong>demeaned</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specifies whether the input data already has zero mean (true if it has
-been copula-normalized) (default : False)</p>
+<dt><strong>tskip</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of time point to skip (equivalent to conn[…, ::tskip])</p>
 </dd>
-<dt><strong>tensor</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specify the implementation of the GCMI, either tensor-based (Nd) or
-vector-based (1d). Usually, tensor-based implementation is faster but
-also requires more RAM (default : True)</p>
+<dt><strong>estimator</strong><span class="classifier"><a class="reference internal" href="../api_estimators.html#module-frites.estimator" title="frites.estimator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frites.estimator</span></code></a> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Estimator in order to measure the amount of information shared between
+two time-series coming from two distinct brain regions. Note that if
+you want to privide an estimator, be sure that it is made for
+continuous variables (mi_type=’cc’). By default the correlation is used</p>
 </dd>
-<dt><strong>gpu</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specify whether the mutual-information has to be computed on CPU
-(gpu=False) or on GPU (gpu=True) (default : False)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.estimator.GCMIEstimator.estimate" title="frites.estimator.GCMIEstimator.estimate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">estimate</span></code></a>(x, y[, z, categories])</p></td>
-<td><p>Estimate the (possibly conditional) mutual-information.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.estimator.GCMIEstimator.get_function" title="frites.estimator.GCMIEstimator.get_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_function</span></code></a>()</p></td>
-<td><p>Get the function to execute according to the input parameters.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt class="sig sig-object py" id="frites.estimator.GCMIEstimator.estimate">
-<span class="sig-name descname"><span class="pre">estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L83-L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.estimate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estimate the (possibly conditional) mutual-information.</p>
-<p>This method is made for computing the mutual-information on 3D
-variables (i.e (n_var, n_mv, n_samples)) where n_var is an additional
-dimension (e.g times, times x freqs etc.), n_mv is a multivariate
-axis and n_samples the number of samples. When computing MI, both the
-multivariate and samples axes are reduced.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>x</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of shape (n_var, n_mv, n_samples). If x has more than three
-dimensions, it’s going to be internally reshaped.</p>
-</dd>
-<dt><strong>y</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array with a shape that depends on the type of MI (mi_type) :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>If mi_type is ‘cc’ or ‘ccd’, y should be an array with the
-same shape as x</p></li>
-<li><p>If mi_type is ‘cd’, y should be a row vector of shape
-(n_samples,)</p></li>
-</ul>
-</div></blockquote>
-</dd>
-<dt><strong>z</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Array for conditional mutual-information. The shape is going to
-depend on the type of MI (mi_type) :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>If mi_type is ‘ccd’, z should be a row vector of shape
-(n_samples,)</p></li>
-<li><p>If mi_type is ‘ccc’, z should have the same shape as x and y</p></li>
-</ul>
-</div></blockquote>
-</dd>
-<dt><strong>categories</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Row vector of categories. This vector should have a shape of
-(n_samples,) and should contains integers describing the category
-of each sample. If categories are provided, the copnorm is going to
-be performed per categories.</p>
+<dt><strong>fill_diagonal</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Value to use in order to fill the diagonal. By default, the diagonal is
+filled with nans</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>mi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of (possibly conditional) mutual-information of shape
-(n_categories, n_var). If categories is None when computing MI,
-n_categories is going to be one.</p>
+<dt><strong>corr</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>The correlation array of shape (n_samples, n_times, n_times)</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="frites.estimator.GCMIEstimator.get_function">
-<span class="sig-name descname"><span class="pre">get_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L129-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.get_function" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the function to execute according to the input parameters.</p>
-<p>This can be particularly useful when computing MI in parallel as it
-avoids to pickle the whole estimator and therefore, leading to faster
-computations.</p>
-<p>The returned function has the following signature :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>fcn(x, y, z=None, categories=None)</p></li>
-</ul>
-</div></blockquote>
-<p>and return an array of shape (n_categories, n_var).</p>
-</dd></dl>
-
-</dd></dl>
-
-<section id="examples-using-frites-estimator-gcmiestimator">
-<span id="sphx-glr-backreferences-frites-estimator-gcmiestimator"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.estimator.GCMIEstimator</span></code><a class="headerlink" href="#examples-using-frites-estimator-gcmiestimator" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial illustrates how to compute the Dynamic Functional Connectivity (DFC). In particul..."><figure class="align-default" id="id1">
-<img alt="Estimate the Dynamic Functional Connectivity" src="../../_images/sphx_glr_plot_dfc_estimator_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_dfc_estimator.html#sphx-glr-auto-examples-tutorials-plot-dfc-estimator-py"><span class="std std-ref">Estimate the Dynamic Functional Connectivity</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to correct information estimation in case of unbalanced designs (i..."><figure class="align-default" id="id2">
-<img alt="Trial-resampling: correcting for unbalanced designs" src="../../_images/sphx_glr_plot_est_resample_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/estimators/plot_est_resample.html#sphx-glr-auto-examples-estimators-plot-est-resample-py"><span class="std std-ref">Trial-resampling: correcting for unbalanced designs</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example compares implemented estimators for continuous variables."><figure class="align-default" id="id3">
-<img alt="Estimator comparison" src="../../_images/sphx_glr_plot_est_comparison_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/estimators/plot_est_comparison.html#sphx-glr-auto-examples-estimators-plot-est-comparison-py"><span class="std std-ref">Estimator comparison</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-clear"></div></section>
-</section>
+<span class="target" id="sphx-glr-backreferences-frites-conn-conn-fcd-corr"></span></section>
 
 
               </div>
@@ -780,17 +662,17 @@ computations.</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../api_estimators.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="frites.conn.conn_get_pairs.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Information-based estimators</p>
+            <p class="prev-next-title">frites.conn.conn_get_pairs</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.estimator.BinMIEstimator.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.conn.define_windows.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.estimator.BinMIEstimator</p>
+        <p class="prev-next-title">frites.conn.define_windows</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

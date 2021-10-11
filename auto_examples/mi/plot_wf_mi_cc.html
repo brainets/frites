@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>MI between two continuous variables &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Investigate relation of order" href="plot_wf_mi_combine.html" />
     <link rel="prev" title="Compute MI across time and frequencies" href="plot_mi_time_frequency.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -409,7 +413,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="mi-between-two-continuous-variables">
+<section class="sphx-glr-example-title" id="mi-between-two-continuous-variables">
 <span id="sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"></span><h1>MI between two continuous variables<a class="headerlink" href="#mi-between-two-continuous-variables" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the mutual information between two
 continuous variables and also perform statistics. Usually, the first variable
@@ -428,7 +432,7 @@ Ince et al., 2017 <a class="bibtex reference internal" href="../../overview/ovw_
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-electrophysiological-data">
+<section id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 multiple subjects using the function
@@ -444,8 +448,8 @@ n_epochs, n_sites, n_times</p>
                                   <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="extract-the-regressor-variable">
+</section>
+<section id="extract-the-regressor-variable">
 <h2>Extract the regressor variable<a class="headerlink" href="#extract-the-regressor-variable" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the electrophysiological, we need to extract the second variable
 that is going to serves for computing the “correlation” at each time point
@@ -460,15 +464,15 @@ over time points and region of interest in a time window</p>
 <p>Taking the mean across time points and space is exactly the behavior of
 the function <code class="xref py py-func docutils literal notranslate"><span class="pre">frites.simulations.sim_mi_cc()</span></code></p>
 </div>
-</div>
-<div class="section" id="define-the-electrophysiological-dataset">
+</section>
+<section id="define-the-electrophysiological-dataset">
 <h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Now we define an instance of <a class="reference internal" href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-mutual-information">
+</section>
+<section id="compute-the-mutual-information">
 <h2>Compute the mutual information<a class="headerlink" href="#compute-the-mutual-information" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
 <a class="reference internal" href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. This instance is used to compute the mutual
@@ -488,15 +492,14 @@ information</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="I(C; C)" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cc_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_wf_mi_cc_001.png" srcset="../../_images/sphx_glr_plot_wf_mi_cc_001.png" alt="I(C; C)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    8.24it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    8.14it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    8.45it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    8.36it/s]
 </pre></div>
 </div>
-</div>
-<div class="section" id="evaluate-the-statistics">
+</section>
+<section id="evaluate-the-statistics">
 <h2>Evaluate the statistics<a class="headerlink" href="#evaluate-the-statistics" title="Permalink to this headline">¶</a></h2>
 <p>In the section above, the input parameter <cite>stat_method=None</cite> specifies that
 no statistics are going to be computed. Here, we show how to compute either
@@ -539,18 +542,17 @@ within (ffx) or between subject (rfx) statistics.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Fixed-effect vs. Random-effect, Mutual information (FFX / cluster / TFCE), Mutual information (RFX / cluster / TFCE)" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_wf_mi_cc_002.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_wf_mi_cc_002.png" srcset="../../_images/sphx_glr_plot_wf_mi_cc_002.png" alt="Fixed-effect vs. Random-effect, Mutual information (FFX / cluster / TFCE), Mutual information (RFX / cluster / TFCE)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:07&lt;00:00,    7.29s/it]
-100%|##########| Estimating MI : 1/1 [00:07&lt;00:00,    7.29s/it]
+100%|##########| Estimating MI : 1/1 [00:06&lt;00:00,    6.41s/it]
+100%|##########| Estimating MI : 1/1 [00:06&lt;00:00,    6.41s/it]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:09&lt;00:00,    9.40s/it]
-100%|##########| Estimating MI : 1/1 [00:09&lt;00:00,    9.40s/it]
+100%|##########| Estimating MI : 1/1 [00:08&lt;00:00,    8.97s/it]
+100%|##########| Estimating MI : 1/1 [00:08&lt;00:00,    8.97s/it]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  20.140 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  18.640 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  8 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-cc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -561,19 +563,30 @@ within (ffx) or between subject (rfx) statistics.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="plot_mi_time_frequency.html" title="previous page">Compute MI across time and frequencies</a>
-    <a class='right-next' id="next-link" href="plot_wf_mi_combine.html" title="next page">Investigate relation of order</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_mi_time_frequency.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Compute MI across time and frequencies</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot_wf_mi_combine.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Investigate relation of order</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -581,9 +594,8 @@ within (ffx) or between subject (rfx) statistics.</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -591,7 +603,7 @@ within (ffx) or between subject (rfx) statistics.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

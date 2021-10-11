@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Goals of Frites &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Methods" href="ovw_methods.html" />
     <link rel="prev" title="Overview" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -237,22 +241,22 @@
               
               <div>
                 
-  <div class="section" id="goals-of-frites">
+  <section id="goals-of-frites">
 <h1>Goals of Frites<a class="headerlink" href="#goals-of-frites" title="Permalink to this headline">¶</a></h1>
 <p>Frites is an open-source Python software started in 2019 to <strong>analyze neurophysiological data using information theoretical (IT) measures</strong>. Overall, the goals of Frites could be summarized as follow :</p>
 <ol class="arabic simple">
 <li><p><strong>Extract task-related cognitive brain networks :</strong> i.e brain regions and connectivity between brain regions that are modulated according to the task</p></li>
 <li><p><strong>Group-level statistical inferences :</strong> being able to draw conclusions on a population of subjects while taking into account the the richness of data at the single subject level</p></li>
 </ol>
-<div class="section" id="task-related-and-feature-specificity">
+<section id="task-related-and-feature-specificity">
 <h2>Task-related and feature-specificity<a class="headerlink" href="#task-related-and-feature-specificity" title="Permalink to this headline">¶</a></h2>
 <p>The stimulus of the task (e.g visual stimulus like color circles) is first going to be processed by the brain, occurring some changes in the brain activity that are related to the stimulus. This is what we called <strong>stimulus-specific</strong> brain activity. Once processed, this stimulus is going to introduce some changes in the behavior of the subject (e.g decision making). Following the same reasoning as above we called <strong>behavior-specific</strong> the modulations in the activity of the brain that can explain a change in the behavior of the subject.</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/feat_spec.png" src="../_images/feat_spec.png" />
-</div>
+</figure>
 <p>Now, with Frites we try to isolate the brain activity that is either related to the stimulus or to the behavior. In a more general way, this brain activity is called <strong>task-related</strong> or <strong>feature-specific</strong> where <em>feature</em> can either refer to the <em>stimulus</em> or to the <em>behavior</em>.</p>
-</div>
-<div class="section" id="it-framework-to-extract-task-related-cognitive-brain-networks">
+</section>
+<section id="it-framework-to-extract-task-related-cognitive-brain-networks">
 <h2>IT framework to extract task-related cognitive brain networks<a class="headerlink" href="#it-framework-to-extract-task-related-cognitive-brain-networks" title="Permalink to this headline">¶</a></h2>
 <p>A brain network is composed of two things :</p>
 <ol class="arabic simple">
@@ -264,23 +268,36 @@
 <li><p>The <strong>local neural activity</strong> (i.e the activity of a particular node of the network) is modulated by the task</p></li>
 <li><p>The <strong>connectivity</strong> (which can be undirected or directed) between brain regions is also modulated by the task</p></li>
 </ol>
-<div class="figure align-center" id="id1">
+<figure class="align-center" id="id1">
 <img alt="../_images/network_framework.png" src="../_images/network_framework.png" />
-<p class="caption"><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="index.html" title="previous page">Overview</a>
-    <a class='right-next' id="next-link" href="ovw_methods.html" title="next page">Methods</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Overview</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="ovw_methods.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Methods</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -288,9 +305,8 @@
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -298,7 +314,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

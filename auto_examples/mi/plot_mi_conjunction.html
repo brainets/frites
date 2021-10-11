@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Compute a conjunction analysis on mutual-information &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Mutual-information at the contact level" href="plot_wf_mi_contact_level.html" />
     <link rel="prev" title="Investigate relation of order" href="plot_wf_mi_combine.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -414,7 +418,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="compute-a-conjunction-analysis-on-mutual-information">
+<section class="sphx-glr-example-title" id="compute-a-conjunction-analysis-on-mutual-information">
 <span id="sphx-glr-auto-examples-mi-plot-mi-conjunction-py"></span><h1>Compute a conjunction analysis on mutual-information<a class="headerlink" href="#compute-a-conjunction-analysis-on-mutual-information" title="Permalink to this headline">¶</a></h1>
 <p>In this example, we show how to perform a conjunction analysis which consist in
 getting the number of subjects that present significant effect.</p>
@@ -428,7 +432,7 @@ getting the number of subjects that present significant effect.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="define-where-to-put-an-effect-for-each-subject">
+<section id="define-where-to-put-an-effect-for-each-subject">
 <h2>Define where to put an effect for each subject<a class="headerlink" href="#define-where-to-put-an-effect-for-each-subject" title="Permalink to this headline">¶</a></h2>
 <p>We start by organising where to set an affect for each subject. To this end,
 we define a dictionary where each key correspond to a subject. Then, for each
@@ -456,8 +460,8 @@ where to introduce effects ((<cite>roi_number</cite>, (<cite>effect_start</cite>
 <span class="n">n_subjects</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ephy</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="generate-the-electrophysiological-data">
+</section>
+<section id="generate-the-electrophysiological-data">
 <h2>Generate the electrophysiological data<a class="headerlink" href="#generate-the-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Now we have all the properties where effect have to be present, we generate
 the electrophysiological data using the function
@@ -487,8 +491,8 @@ the electrophysiological data using the function
 <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-mutual-information">
+</section>
+<section id="compute-the-mutual-information">
 <h2>Compute the mutual information<a class="headerlink" href="#compute-the-mutual-information" title="Permalink to this headline">¶</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
 <a class="reference internal" href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a>. This instance is used to compute the mutual
@@ -521,18 +525,17 @@ information</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="ROI=roi_0, ROI=roi_1, ROI=roi_2, ROI=roi_3" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_conjunction_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_mi_conjunction_001.png" srcset="../../_images/sphx_glr_plot_mi_conjunction_001.png" alt="ROI=roi_0, ROI=roi_1, ROI=roi_2, ROI=roi_3" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/4 [00:00&lt;?,       ?it/s]
- 25%|##5       | Estimating MI : 1/4 [00:03&lt;00:10,    3.57s/it]
- 50%|#####     | Estimating MI : 2/4 [00:07&lt;00:07,    3.57s/it]
- 75%|#######5  | Estimating MI : 3/4 [00:10&lt;00:03,    3.57s/it]
-100%|##########| Estimating MI : 4/4 [00:13&lt;00:00,    3.51s/it]
-100%|##########| Estimating MI : 4/4 [00:13&lt;00:00,    3.28s/it]
+ 25%|##5       | Estimating MI : 1/4 [00:03&lt;00:10,    3.37s/it]
+ 50%|#####     | Estimating MI : 2/4 [00:06&lt;00:06,    3.37s/it]
+ 75%|#######5  | Estimating MI : 3/4 [00:09&lt;00:03,    3.36s/it]
+100%|##########| Estimating MI : 4/4 [00:12&lt;00:00,    3.31s/it]
+100%|##########| Estimating MI : 4/4 [00:12&lt;00:00,    3.06s/it]
 </pre></div>
 </div>
-</div>
-<div class="section" id="perform-the-conjunction-analysis">
+</section>
+<section id="perform-the-conjunction-analysis">
 <h2>Perform the conjunction analysis<a class="headerlink" href="#perform-the-conjunction-analysis" title="Permalink to this headline">¶</a></h2>
 <p>Now we have the values of MI we can compute the conjunction analysis. The
 following method returns two DataArray :</p>
@@ -553,8 +556,8 @@ each roi</p>
 <span class="n">conj_ss</span><span class="p">,</span> <span class="n">conj</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">conjunction_analysis</span></a><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-where-there-s-significant-effect-for-each-subject">
+</section>
+<section id="plot-where-there-s-significant-effect-for-each-subject">
 <h2>Plot where there’s significant effect for each subject<a class="headerlink" href="#plot-where-there-s-significant-effect-for-each-subject" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># printing the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">conj_ss</span><span class="p">)</span>
@@ -577,8 +580,7 @@ each roi</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Subject=0; ROI=0, Subject=0; ROI=1, Subject=0; ROI=2, Subject=0; ROI=3, Subject=1; ROI=0, Subject=1; ROI=1, Subject=1; ROI=2, Subject=2; ROI=0, Subject=2; ROI=1, Subject=2; ROI=2, Subject=2; ROI=3" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_conjunction_002.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_mi_conjunction_002.png" srcset="../../_images/sphx_glr_plot_mi_conjunction_002.png" alt="Subject=0; ROI=0, Subject=0; ROI=1, Subject=0; ROI=2, Subject=0; ROI=3, Subject=1; ROI=0, Subject=1; ROI=1, Subject=1; ROI=2, Subject=2; ROI=0, Subject=2; ROI=1, Subject=2; ROI=2, Subject=2; ROI=3" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray &#39;Single subject conjunction&#39; (subject: 3, times: 100, roi: 4)&gt;
 array([[[ 0.,  0.,  0.,  0.],
         [ 0.,  0.,  0.,  0.],
@@ -613,8 +615,8 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-the-number-of-subjects-that-have-an-effect">
+</section>
+<section id="plot-the-number-of-subjects-that-have-an-effect">
 <h2>Plot the number of subjects that have an effect<a class="headerlink" href="#plot-the-number-of-subjects-that-have-an-effect" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># printing the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">conj</span><span class="p">)</span>
@@ -631,8 +633,7 @@ Coordinates:
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="ROI=roi_0, ROI=roi_1, ROI=roi_2, ROI=roi_3" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mi_conjunction_003.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_mi_conjunction_003.png" srcset="../../_images/sphx_glr_plot_mi_conjunction_003.png" alt="ROI=roi_0, ROI=roi_1, ROI=roi_2, ROI=roi_3" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray &#39;Across subjects conjunction&#39; (times: 100, roi: 4)&gt;
 array([[0., 0., 0., 0.],
        [0., 0., 0., 0.],
@@ -684,7 +685,7 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.149 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.117 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -695,19 +696,30 @@ Coordinates:
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="plot_wf_mi_combine.html" title="previous page">Investigate relation of order</a>
-    <a class='right-next' id="next-link" href="plot_wf_mi_contact_level.html" title="next page">Mutual-information at the contact level</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_wf_mi_combine.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Investigate relation of order</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot_wf_mi_contact_level.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mutual-information at the contact level</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -715,9 +727,8 @@ Coordinates:
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -725,7 +736,7 @@ Coordinates:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

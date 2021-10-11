@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Statistical analysis of a stimulus-specific network &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Define an electrophysiological dataset using MNE-Python structures" href="../dataset/plot_dataset_mne.html" />
     <link rel="prev" title="Estimate the Dynamic Functional Connectivity" href="plot_dfc_estimator.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -404,7 +408,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="statistical-analysis-of-a-stimulus-specific-network">
+<section class="sphx-glr-example-title" id="statistical-analysis-of-a-stimulus-specific-network">
 <span id="sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"></span><h1>Statistical analysis of a stimulus-specific network<a class="headerlink" href="#statistical-analysis-of-a-stimulus-specific-network" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial we illustrate how to analyze a stimulus-specific network i.e
 first if the nodes of the network present an activity that is modulated
@@ -422,7 +426,7 @@ the stimulus.</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-a-stimulus-specific-network">
+<section id="simulate-a-stimulus-specific-network">
 <h2>Simulate a stimulus-specific network<a class="headerlink" href="#simulate-a-stimulus-specific-network" title="Permalink to this headline">¶</a></h2>
 <p>First, lets simulate a three nodes network using an autoregressive model.
 In this three nodes network, the simulated high-gamma activity of nodes X and
@@ -476,9 +480,8 @@ concatenated across subjects.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="roi = x, roi = y, roi = z" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_001.png" />
-</div>
-<div class="section" id="stimulus-specificity-of-the-nodes-of-the-network">
+<img src="../../_images/sphx_glr_plot_stim_spec_network_001.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_001.png" alt="roi = x, roi = y, roi = z" class = "sphx-glr-single-img"/></section>
+<section id="stimulus-specificity-of-the-nodes-of-the-network">
 <h2>Stimulus-specificity of the nodes of the network<a class="headerlink" href="#stimulus-specificity-of-the-nodes-of-the-network" title="Permalink to this headline">¶</a></h2>
 <p>In order to determine if the activity of each node is modulated according
 to the stimulus, we then compute the mutual information between the
@@ -493,10 +496,10 @@ high-gamma and the stimulus variable.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:12&lt;00:25,   12.83s/it]
- 67%|######6   | Estimating MI : 2/3 [00:27&lt;00:12,   12.90s/it]
-100%|##########| Estimating MI : 3/3 [00:41&lt;00:00,   12.99s/it]
-100%|##########| Estimating MI : 3/3 [00:41&lt;00:00,   13.91s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:13&lt;00:27,   13.74s/it]
+ 67%|######6   | Estimating MI : 2/3 [00:27&lt;00:13,   13.74s/it]
+100%|##########| Estimating MI : 3/3 [00:40&lt;00:00,   13.72s/it]
+100%|##########| Estimating MI : 3/3 [00:40&lt;00:00,   13.61s/it]
 </pre></div>
 </div>
 <p>define the MI plotting function</p>
@@ -530,9 +533,8 @@ high-gamma and the stimulus variable.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="ROI=x, ROI=y, ROI=z" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_002.png" />
-</div>
-<div class="section" id="stimulus-specificity-of-the-undirected-connectivity">
+<img src="../../_images/sphx_glr_plot_stim_spec_network_002.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_002.png" alt="ROI=x, ROI=y, ROI=z" class = "sphx-glr-single-img"/></section>
+<section id="stimulus-specificity-of-the-undirected-connectivity">
 <h2>Stimulus-specificity of the undirected connectivity<a class="headerlink" href="#stimulus-specificity-of-the-undirected-connectivity" title="Permalink to this headline">¶</a></h2>
 <p>From the figure above, nodes X and Y present an activity that is modulated
 according to the stimulus, but not Z. The next question we can ask is
@@ -563,8 +565,7 @@ inside consecutive windows</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="roi = x-y, roi = x-z, roi = y-z" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_003.png" />
-<p>as shown in the figure above, the undirected connectivity between node X and
+<img src="../../_images/sphx_glr_plot_stim_spec_network_003.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_003.png" alt="roi = x-y, roi = x-z, roi = y-z" class = "sphx-glr-single-img"/><p>as shown in the figure above, the undirected connectivity between node X and
 Y is modulated according to the stimulus. But we can test still using the
 workflow of mutual information</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ds_dfc</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">dfc</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">)</span>
@@ -576,17 +577,16 @@ workflow of mutual information</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="ROI=x-y, ROI=x-z, ROI=y-z" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_004.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_stim_spec_network_004.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_004.png" alt="ROI=x-y, ROI=x-z, ROI=y-z" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:03&lt;00:06,    3.15s/it]
- 67%|######6   | Estimating MI : 2/3 [00:06&lt;00:03,    3.15s/it]
-100%|##########| Estimating MI : 3/3 [00:09&lt;00:00,    3.15s/it]
-100%|##########| Estimating MI : 3/3 [00:09&lt;00:00,    3.16s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:03&lt;00:06,    3.05s/it]
+ 67%|######6   | Estimating MI : 2/3 [00:06&lt;00:03,    3.04s/it]
+100%|##########| Estimating MI : 3/3 [00:09&lt;00:00,    3.04s/it]
+100%|##########| Estimating MI : 3/3 [00:09&lt;00:00,    3.03s/it]
 </pre></div>
 </div>
-</div>
-<div class="section" id="stimulus-specificity-of-the-directed-connectivity">
+</section>
+<section id="stimulus-specificity-of-the-directed-connectivity">
 <h2>Stimulus-specificity of the directed connectivity<a class="headerlink" href="#stimulus-specificity-of-the-directed-connectivity" title="Permalink to this headline">¶</a></h2>
 <p>The final point of this tutorial is to try to compute the directed
 connectivity and perform the stats on it to see whether the information is
@@ -629,37 +629,36 @@ sent from one region to another (which should be X-&gt;Y)</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="X-&gt;Y, X-&gt;Z, Y-&gt;Z, Y-&gt;X, Z-&gt;X, Z-&gt;Y, X.Y, X.Z, Y.Z" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_005.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_stim_spec_network_005.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_005.png" alt="X->Y, X->Z, Y->Z, Y->X, Z->X, Z->Y, X.Y, X.Z, Y.Z" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:07&lt;00:14,    7.03s/it]
- 67%|######6   |  : 2/3 [00:14&lt;00:07,    7.04s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.04s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.10s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:13,    6.74s/it]
+ 67%|######6   |  : 2/3 [00:13&lt;00:06,    6.73s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.73s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.67s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:07&lt;00:14,    7.01s/it]
- 67%|######6   |  : 2/3 [00:14&lt;00:07,    7.01s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.01s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.02s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:13,    6.63s/it]
+ 67%|######6   |  : 2/3 [00:13&lt;00:06,    6.64s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.68s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.93s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:07&lt;00:14,    7.10s/it]
- 67%|######6   |  : 2/3 [00:14&lt;00:07,    7.10s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.09s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.06s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:13,    6.79s/it]
+ 67%|######6   |  : 2/3 [00:13&lt;00:06,    6.80s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.80s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.82s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:07&lt;00:14,    7.03s/it]
- 67%|######6   |  : 2/3 [00:14&lt;00:07,    7.03s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.03s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.06s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:13,    6.82s/it]
+ 67%|######6   |  : 2/3 [00:13&lt;00:06,    6.82s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.81s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.75s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:07&lt;00:14,    7.12s/it]
- 67%|######6   |  : 2/3 [00:14&lt;00:07,    7.12s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.11s/it]
-100%|##########|  : 3/3 [00:21&lt;00:00,    7.03s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:13,    6.79s/it]
+ 67%|######6   |  : 2/3 [00:13&lt;00:06,    6.78s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.78s/it]
+100%|##########|  : 3/3 [00:20&lt;00:00,    6.75s/it]
 </pre></div>
 </div>
 <p>finally, we can can compute the MI between the covgc (i.e for each direction)
@@ -683,22 +682,22 @@ and the stimulus</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:04&lt;00:08,    4.10s/it]
- 67%|######6   | Estimating MI : 2/3 [00:08&lt;00:04,    4.10s/it]
-100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.10s/it]
-100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.09s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:03&lt;00:07,    3.92s/it]
+ 67%|######6   | Estimating MI : 2/3 [00:07&lt;00:03,    3.93s/it]
+100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    3.93s/it]
+100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.01s/it]
 
   0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:04&lt;00:08,    4.06s/it]
- 67%|######6   | Estimating MI : 2/3 [00:08&lt;00:04,    4.07s/it]
-100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.07s/it]
-100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.12s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:03&lt;00:07,    3.90s/it]
+ 67%|######6   | Estimating MI : 2/3 [00:07&lt;00:03,    3.90s/it]
+100%|##########| Estimating MI : 3/3 [00:11&lt;00:00,    3.90s/it]
+100%|##########| Estimating MI : 3/3 [00:11&lt;00:00,    3.93s/it]
 
   0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:04&lt;00:08,    4.05s/it]
- 67%|######6   | Estimating MI : 2/3 [00:08&lt;00:04,    4.05s/it]
-100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.06s/it]
-100%|##########| Estimating MI : 3/3 [00:12&lt;00:00,    4.13s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:03&lt;00:07,    3.91s/it]
+ 67%|######6   | Estimating MI : 2/3 [00:07&lt;00:03,    3.91s/it]
+100%|##########| Estimating MI : 3/3 [00:11&lt;00:00,    3.91s/it]
+100%|##########| Estimating MI : 3/3 [00:11&lt;00:00,    3.93s/it]
 </pre></div>
 </div>
 <p>plot the result</p>
@@ -730,8 +729,7 @@ and the stimulus</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="X-&gt;Y, X-&gt;Z, Y-&gt;Z, Y-&gt;X, Z-&gt;X, Z-&gt;Y, X.Y, X.Z, Y.Z" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_stim_spec_network_006.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  25.630 seconds)</p>
+<img src="../../_images/sphx_glr_plot_stim_spec_network_006.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_006.png" alt="X->Y, X->Z, Y->Z, Y->X, Z->X, Z->Y, X.Y, X.Z, Y.Z" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  18.609 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  47 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tutorials-plot-stim-spec-network-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -742,19 +740,30 @@ and the stimulus</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="plot_dfc_estimator.html" title="previous page">Estimate the Dynamic Functional Connectivity</a>
-    <a class='right-next' id="next-link" href="../dataset/plot_dataset_mne.html" title="next page">Define an electrophysiological dataset using MNE-Python structures</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_dfc_estimator.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Estimate the Dynamic Functional Connectivity</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../dataset/plot_dataset_mne.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Define an electrophysiological dataset using MNE-Python structures</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -762,9 +771,8 @@ and the stimulus</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -772,7 +780,7 @@ and the stimulus</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

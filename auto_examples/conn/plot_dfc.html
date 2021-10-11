@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Estimate dynamic functional connectivity &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Estimate comodulations between brain areas" href="plot_conn.html" />
     <link rel="prev" title="Estimator comparison" href="../estimators/plot_est_comparison.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -404,7 +408,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-dfc-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimate-dynamic-functional-connectivity">
+<section class="sphx-glr-example-title" id="estimate-dynamic-functional-connectivity">
 <span id="sphx-glr-auto-examples-conn-plot-dfc-py"></span><h1>Estimate dynamic functional connectivity<a class="headerlink" href="#estimate-dynamic-functional-connectivity" title="Permalink to this headline">¶</a></h1>
 <p>This example illustrates how to compute the dynamic functional connectivity
 (DFC) using the mutual information (MI). This type of connectivity is computed
@@ -419,7 +423,7 @@ for each trial either inside a single window or across multiple windows.</p>
 <span class="c1"># plt.style.use(&#39;seaborn-white&#39;)</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-electrophysiological-data">
+<section id="simulate-electrophysiological-data">
 <h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 a single subject. The output data of this single subject has a shape of
@@ -433,8 +437,8 @@ a single subject. The output data of this single subject has a shape of
 <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="simulate-spatial-correlations">
+</section>
+<section id="simulate-spatial-correlations">
 <h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">¶</a></h2>
 <p>Bellow, we are simulating some distant correlations by injecting the
 activity of an ROI to another</p>
@@ -449,8 +453,8 @@ activity of an ROI to another</p>
 Corr 2 : L_VCs-L_VCl between [0.20120120120120122-0.6016016016016015]
 </pre></div>
 </div>
-</div>
-<div class="section" id="define-sliding-windows">
+</section>
+<section id="define-sliding-windows">
 <h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">¶</a></h2>
 <p>Next, we define, and plot sliding windows in order to compute the DFC on
 consecutive time windows. In this example we used windows of length 100ms
@@ -467,8 +471,8 @@ and 5ms between each consecutive windows</p>
 <span class="c1"># plt.show()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-dfc">
+</section>
+<section id="compute-the-dfc">
 <h2>Compute the DFC<a class="headerlink" href="#compute-the-dfc" title="Permalink to this headline">¶</a></h2>
 <p>The DFC is going to be computed per trials, bewteen pairs of ROI and inside
 each of the temporal window</p>
@@ -484,13 +488,12 @@ each of the temporal window</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Mean DFC across trials between pairs of roi" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_dfc_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
+<img src="../../_images/sphx_glr_plot_dfc_001.png" srcset="../../_images/sphx_glr_plot_dfc_001.png" alt="Mean DFC across trials between pairs of roi" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,    5.33it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,    5.35it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    5.35it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    5.51it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,    5.41it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,    5.41it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    5.41it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,    5.43it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 50, roi: 3, times: 95)&gt;
 array([[[1.56825074e-04, 1.32626703e-03, 1.00975275e-01, ...,
          1.31007880e-01, 8.93054754e-02, 1.18752666e-01],
@@ -545,7 +548,7 @@ Attributes:
     estimator:   Gaussian Copula Mutual Information Estimator
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.512 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.536 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -556,19 +559,30 @@ Attributes:
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="../estimators/plot_est_comparison.html" title="previous page">Estimator comparison</a>
-    <a class='right-next' id="next-link" href="plot_conn.html" title="next page">Estimate comodulations between brain areas</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../estimators/plot_est_comparison.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Estimator comparison</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot_conn.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Estimate comodulations between brain areas</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -576,9 +590,8 @@ Attributes:
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -586,7 +599,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Xarray : Quick tour &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -46,7 +47,10 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Xarray : Saving the results" href="plot_xr_export.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -408,7 +412,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-xarray-plot-xr-quick-tour-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="xarray-quick-tour">
+<section class="sphx-glr-example-title" id="xarray-quick-tour">
 <span id="sphx-glr-auto-examples-xarray-plot-xr-quick-tour-py"></span><h1>Xarray : Quick tour<a class="headerlink" href="#xarray-quick-tour" title="Permalink to this headline">¶</a></h1>
 <p>Basically, this example gives a very small introduction to Xarray (very small).
 We illustrate how to define a DataArray container, access its components,
@@ -418,7 +422,7 @@ perform some of the basic operations and slicing / indexing.</p>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
-<div class="section" id="simulate-data">
+<section id="simulate-data">
 <h2>Simulate data<a class="headerlink" href="#simulate-data" title="Permalink to this headline">¶</a></h2>
 <p>lets start by creating a random spatio-temporal array</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_times</span> <span class="o">=</span> <span class="mi">30</span>
@@ -435,8 +439,8 @@ perform some of the basic operations and slicing / indexing.</p>
 *******************************************************************************
 </pre></div>
 </div>
-</div>
-<div class="section" id="xarray-conversion-and-access-to-the-internal-components">
+</section>
+<section id="xarray-conversion-and-access-to-the-internal-components">
 <h2>Xarray conversion and access to the internal components<a class="headerlink" href="#xarray-conversion-and-access-to-the-internal-components" title="Permalink to this headline">¶</a></h2>
 <p>A DataArray is a container (like a well known numpy array) except that you
 can add a label to each coordinate. To this end, the input <cite>dims</cite> is a tuple
@@ -569,8 +573,8 @@ Coordinates:
 *******************************************************************************
 </pre></div>
 </div>
-</div>
-<div class="section" id="xarray-slicing-and-indexing">
+</section>
+<section id="xarray-slicing-and-indexing">
 <h2>Xarray slicing and indexing<a class="headerlink" href="#xarray-slicing-and-indexing" title="Permalink to this headline">¶</a></h2>
 <p>Now we show how to slice the container</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># select a single specific ROI based on it&#39;s name</span>
@@ -618,8 +622,8 @@ Multi-items selection : Coordinates:
   * roi      (roi) &lt;U5 &#39;roi_0&#39; &#39;roi_2&#39; &#39;roi_0&#39; &#39;roi_2&#39; &#39;roi_0&#39;
 </pre></div>
 </div>
-</div>
-<div class="section" id="xarray-attributes">
+</section>
+<section id="xarray-attributes">
 <h2>Xarray attributes<a class="headerlink" href="#xarray-attributes" title="Permalink to this headline">¶</a></h2>
 <p>One of the nice features of DataArray is that it supporting setting
 attributes. Therefore you can add, for example, the parameters that describe
@@ -695,8 +699,8 @@ Attributes:
     none_problem:  None
 </pre></div>
 </div>
-</div>
-<div class="section" id="xarray-to-an-other-format">
+</section>
+<section id="xarray-to-an-other-format">
 <h2>Xarray to an other format<a class="headerlink" href="#xarray-to-an-other-format" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we quickly illustrate how to convert a DataArray into, for example,
 a pandas.DataFrame</p>
@@ -738,7 +742,7 @@ times
  1.000000  0.182570  0.602828  0.226960  0.611720  0.807165  0.288163  0.896419
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.515 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.700 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  8 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-quick-tour-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -749,18 +753,23 @@ times
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="plot_xr_export.html" title="previous page">Xarray : Saving the results</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_xr_export.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Xarray : Saving the results</p>
+        </div>
+    </a>
+</div>
               
           </main>
           
@@ -768,9 +777,8 @@ times
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -778,7 +786,7 @@ times
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

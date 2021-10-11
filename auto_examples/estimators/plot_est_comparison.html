@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Estimator comparison &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="Estimate dynamic functional connectivity" href="../conn/plot_dfc.html" />
     <link rel="prev" title="Defining a custom estimator" href="plot_est_custom.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -399,7 +403,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-estimators-plot-est-comparison-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="estimator-comparison">
+<section class="sphx-glr-example-title" id="estimator-comparison">
 <span id="sphx-glr-auto-examples-estimators-plot-est-comparison-py"></span><h1>Estimator comparison<a class="headerlink" href="#estimator-comparison" title="Permalink to this headline">¶</a></h1>
 <p>This example compares implemented estimators for continuous variables.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -412,7 +416,7 @@ to download the full example code</p>
 <span class="kn">from</span> <span class="nn">matplotlib.lines</span> <span class="kn">import</span> <span class="n">Line2D</span>
 </pre></div>
 </div>
-<div class="section" id="functions-for-data-simulation">
+<section id="functions-for-data-simulation">
 <h2>Functions for data simulation<a class="headerlink" href="#functions-for-data-simulation" title="Permalink to this headline">¶</a></h2>
 <p>This first part contains functions used for simulating data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_mv_normal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
@@ -493,8 +497,8 @@ to download the full example code</p>
     <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">ylim</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot-the-simulated-data">
+</section>
+<section id="plot-the-simulated-data">
 <h2>Plot the simulated data<a class="headerlink" href="#plot-the-simulated-data" title="Permalink to this headline">¶</a></h2>
 <p>In this section, we plot several scenarios of relation between a variable <cite>x</cite>
 and a variable <cite>y</cite>. The scenarios involve linear, non-linear, monotonic and
@@ -519,9 +523,8 @@ non-monotonic relations.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_est_comparison_001.png" />
-</div>
-<div class="section" id="computes-information-shared">
+<img src="../../_images/sphx_glr_plot_est_comparison_001.png" srcset="../../_images/sphx_glr_plot_est_comparison_001.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/></section>
+<section id="computes-information-shared">
 <h2>Computes information shared<a class="headerlink" href="#computes-information-shared" title="Permalink to this headline">¶</a></h2>
 <p>In this final section, we compute the amount of information shared between
 the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
@@ -563,8 +566,7 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_est_comparison_002.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.083 seconds)</p>
+<img src="../../_images/sphx_glr_plot_est_comparison_002.png" srcset="../../_images/sphx_glr_plot_est_comparison_002.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.967 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-estimators-plot-est-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -575,19 +577,30 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="plot_est_custom.html" title="previous page">Defining a custom estimator</a>
-    <a class='right-next' id="next-link" href="../conn/plot_dfc.html" title="next page">Estimate dynamic functional connectivity</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_est_custom.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Defining a custom estimator</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../conn/plot_dfc.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Estimate dynamic functional connectivity</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -595,9 +608,8 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -605,7 +617,7 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>

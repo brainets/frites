@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>frites.workflow.WfMi &#8212; frites 0.4.0 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -23,17 +24,17 @@
 
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -47,7 +48,10 @@
     <link rel="next" title="frites.workflow.WfMiCombine" href="frites.workflow.WfMiCombine.html" />
     <link rel="prev" title="Workflow" href="../api_workflow.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -248,6 +252,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_get_pairs.html">
      frites.conn.conn_get_pairs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_fcd_corr.html">
+     frites.conn.conn_fcd_corr
     </a>
    </li>
    <li class="toctree-l2">
@@ -617,7 +626,7 @@
               
               <div>
                 
-  <div class="section" id="frites-workflow-wfmi">
+  <section id="frites-workflow-wfmi">
 <h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.workflow.WfMi">
@@ -688,13 +697,13 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>()</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjunction_analysis</span></code></a>([p, mcp, cluster_th, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjunction_analysis</span></code></a>([p, mcp, cluster_th, ...])</p></td>
 <td><p>Perform a conjunction analysis.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.copy" title="frites.workflow.WfMi.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
 <td><p>Return copy of WfMi instance.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([dataset, mcp, n_perm, cluster_th, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([dataset, mcp, n_perm, cluster_th, ...])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params)</p></td>
@@ -744,10 +753,12 @@ subjects that have a significant MI</p>
 </dd>
 </dl>
 <p class="rubric" id="sphx-glr-backreferences-frites-workflow-wfmi-conjunction-analysis">Examples using <code class="docutils literal notranslate"><span class="pre">conjunction_analysis</span></code>:</p>
-<div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><div class="figure align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id5">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py method">
@@ -838,42 +849,60 @@ subjects.</p>
 <p class="rubric">References</p>
 <p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../../overview/ovw_refs.html#maris2007nonparametric" id="id4">[10]</a></p>
 <p class="rubric" id="sphx-glr-backreferences-frites-workflow-wfmi-fit">Examples using <code class="docutils literal notranslate"><span class="pre">fit</span></code>:</p>
-<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><div class="figure align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id6">
 <img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><div class="figure align-default" id="id7">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id7">
 <img alt="MI between two continuous variables conditioned by a discret one" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><div class="figure align-default" id="id8">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id8">
 <img alt="MI between a continuous and a discret variables" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><div class="figure align-default" id="id9">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id9">
 <img alt="Compute MI across time and frequencies" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><div class="figure align-default" id="id10">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id10">
 <img alt="MI between two continuous variables" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><div class="figure align-default" id="id11">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id11">
 <img alt="Investigate relation of order" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><div class="figure align-default" id="id12">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id12">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><div class="figure align-default" id="id13">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id13">
 <img alt="Compare between-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><div class="figure align-default" id="id14">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id14">
 <img alt="Compare within-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py method">
@@ -935,61 +964,92 @@ is selected.</p>
 
 </dd></dl>
 
-<div class="section" id="examples-using-frites-workflow-wfmi">
+<section id="examples-using-frites-workflow-wfmi">
 <span id="sphx-glr-backreferences-frites-workflow-wfmi"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code><a class="headerlink" href="#examples-using-frites-workflow-wfmi" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><div class="figure align-default" id="id15">
+<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id15">
 <img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><div class="figure align-default" id="id16">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id16">
 <img alt="MI between two continuous variables conditioned by a discret one" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><div class="figure align-default" id="id17">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id17">
 <img alt="MI between a continuous and a discret variables" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><div class="figure align-default" id="id18">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id18">
 <img alt="Compute MI across time and frequencies" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><div class="figure align-default" id="id19">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id19">
 <img alt="MI between two continuous variables" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><div class="figure align-default" id="id20">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id20">
 <img alt="Investigate relation of order" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><div class="figure align-default" id="id21">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id21">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and als..."><div class="figure align-default" id="id22">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and als..."><figure class="align-default" id="id22">
 <img alt="Mutual-information at the contact level" src="../../_images/sphx_glr_plot_wf_mi_contact_level_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><div class="figure align-default" id="id23">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id23">
 <img alt="Compare between-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><div class="figure align-default" id="id24">
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id24">
 <img alt="Compare within-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="sphx-glr-clear"></div></div>
-</div>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-clear"></div></section>
+</section>
 
 
               </div>
               
               
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="../api_workflow.html" title="previous page">Workflow</a>
-    <a class='right-next' id="next-link" href="frites.workflow.WfMiCombine.html" title="next page">frites.workflow.WfMiCombine</a>
-
-              </div>
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../api_workflow.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Workflow</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="frites.workflow.WfMiCombine.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">frites.workflow.WfMiCombine</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
               
           </main>
           
@@ -997,9 +1057,8 @@ is selected.</p>
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
     <hr>
     <footer>
         <div class="container">
@@ -1007,7 +1066,7 @@ is selected.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-08-31.</p>
+        <p>&copy; Copyright Last updated on 2021-10-11.</p>
     </footer>
 
   </body>
