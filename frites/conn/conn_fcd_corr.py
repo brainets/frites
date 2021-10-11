@@ -55,8 +55,7 @@ def conn_fcd_corr(conn, roi='roi', times='times', tskip=1, estimator=None,
     conn = conn.loc[:, ::tskip, :]
 
     # get coordinates
-    supp_c, roi_c = conn[supp_dim].data, conn[roi].data
-    times_c = conn[times].data
+    supp_c, times_c = conn[supp_dim].data, conn[times].data
 
     # _______________________________ ESTIMATOR _______________________________
     if estimator is None:
