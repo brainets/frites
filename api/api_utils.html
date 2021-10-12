@@ -45,7 +45,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.utils.savgol_filter" href="generated/frites.utils.savgol_filter.html" />
+    <link rel="next" title="frites.utils.acf" href="generated/frites.utils.acf.html" />
     <link rel="prev" title="frites.simulations.sim_local_ccd_ss" href="generated/frites.simulations.sim_local_ccd_ss.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -371,6 +371,11 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="generated/frites.utils.acf.html">
+     frites.utils.acf
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="generated/frites.utils.savgol_filter.html">
      frites.utils.savgol_filter
     </a>
@@ -589,9 +594,29 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#time-series-processing">
+   Time-series processing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-smoothing">
+   Data smoothing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-selection">
+   Data selection
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -615,6 +640,22 @@
 <h1>Utility functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="#module-frites.utils" title="frites.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.utils</span></code></a>:</p>
 <span class="target" id="module-frites.utils"></span><p>Global utility functions.</p>
+<section id="time-series-processing">
+<h2>Time-series processing<a class="headerlink" href="#time-series-processing" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.utils.acf.html#frites.utils.acf" title="frites.utils.acf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acf</span></code></a>(x[, axis, demean])</p></td>
+<td><p>Compute the autocorrelation function.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-smoothing">
+<h2>Data smoothing<a class="headerlink" href="#data-smoothing" title="Permalink to this headline">¶</a></h2>
 <table class="longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
@@ -627,6 +668,17 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.utils.kernel_smoothing.html#frites.utils.kernel_smoothing" title="frites.utils.kernel_smoothing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kernel_smoothing</span></code></a>(x, kernel[, axis])</p></td>
 <td><p>Apply a kernel smoothing using the fftconvolve.</p></td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="data-selection">
+<h2>Data selection<a class="headerlink" href="#data-selection" title="Permalink to this headline">¶</a></h2>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.utils.time_to_sample.html#frites.utils.time_to_sample" title="frites.utils.time_to_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">time_to_sample</span></code></a>(values[, sf, times, round, ...])</p></td>
 <td><p>Convert values from time to sample space.</p></td>
 </tr>
@@ -635,6 +687,7 @@
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 
 
@@ -650,10 +703,10 @@
             <p class="prev-next-title">frites.simulations.sim_local_ccd_ss</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="generated/frites.utils.savgol_filter.html" title="next page">
+    <a class='right-next' id="next-link" href="generated/frites.utils.acf.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.utils.savgol_filter</p>
+        <p class="prev-next-title">frites.utils.acf</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -674,7 +727,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-10-11.</p>
+        <p>&copy; Copyright Last updated on 2021-10-12.</p>
     </footer>
 
   </body>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.simulations.sim_local_ccd_ms &#8212; frites 0.4.0 documentation</title>
+    <title>frites.utils.acf &#8212; frites 0.4.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -45,8 +45,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.simulations.sim_local_ccd_ss" href="frites.simulations.sim_local_ccd_ss.html" />
-    <link rel="prev" title="frites.simulations.sim_local_cd_ms" href="frites.simulations.sim_local_cd_ms.html" />
+    <link rel="next" title="frites.utils.savgol_filter" href="frites.utils.savgol_filter.html" />
+    <link rel="prev" title="Utility functions" href="../api_utils.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -313,16 +313,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_simulations.html">
    Data simulations
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="frites.simulations.StimSpecAR.html">
      frites.simulations.StimSpecAR
@@ -348,8 +348,8 @@
      frites.simulations.sim_local_cd_ms
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.simulations.sim_local_ccd_ms.html">
      frites.simulations.sim_local_ccd_ms
     </a>
    </li>
@@ -360,18 +360,18 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_utils.html">
    Utility functions
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.utils.acf.html">
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.utils.acf
     </a>
    </li>
@@ -616,45 +616,35 @@
               
               <div>
                 
-  <section id="frites-simulations-sim-local-ccd-ms">
-<h1>frites.simulations.sim_local_ccd_ms<a class="headerlink" href="#frites-simulations-sim-local-ccd-ms" title="Permalink to this headline">¶</a></h1>
+  <section id="frites-utils-acf">
+<h1>frites.utils.acf<a class="headerlink" href="#frites-utils-acf" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.simulations.sim_local_ccd_ms">
-<span class="sig-prename descclassname"><span class="pre">frites.simulations.</span></span><span class="sig-name descname"><span class="pre">sim_local_ccd_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_subjects</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/simulations/sim_local_mi.py#L304-L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.simulations.sim_local_ccd_ms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multi-subjects simulations for computing local MI (CCD).</p>
-<p>This function can be used for simulating local representations of mutual
-information between two continuous variables conditioned by a third discret
-one (CCD) across multiple subjects.</p>
+<dt class="sig sig-object py" id="frites.utils.acf">
+<span class="sig-prename descclassname"><span class="pre">frites.utils.</span></span><span class="sig-name descname"><span class="pre">acf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/utils/preproc.py#L130-L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.utils.acf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the autocorrelation function.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>n_subjects</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code></span></dt><dd><p>Number of subjects</p>
+<dt><strong>x</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array to use to estimate the auto-correlation. It can also be an
+instance of xarray.DataArray.</p>
 </dd>
-<dt><strong>kwargs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments are send to the function <a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html#frites.simulations.sim_local_ccd_ss" title="frites.simulations.sim_local_ccd_ss"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_local_ccd_ss()</span></code></a></p>
+<dt><strong>axis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | -1</span></dt><dd><p>Location of the temporal dimension. If the x input is a DataArray,
+axis can be a string (e.g axis=’times’)</p>
+</dd>
+<dt><strong>demean</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specify whether the mean should be removed. Default is True.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>x</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List length n_subjects composed of data arrays each one with a shape of
-(n_epochs, n_channels, n_times)</p>
-</dd>
-<dt><strong>y</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of length n_subjects composed of regressor arrays each one with a
-shape of (n_epochs)</p>
-</dd>
-<dt><strong>z</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Condition array of shape (n_epochs,)</p>
-</dd>
-<dt><strong>roi</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of length n_subjects composed of roi arrays each one with a shape
-of (n_roi)</p>
-</dd>
-<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Time vector</p>
+<dt><strong>acf</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of auto-correlation with the same shape and type as the input x</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-simulations-sim-local-ccd-ms"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-utils-acf"></span></section>
 
 
               </div>
@@ -662,17 +652,17 @@ of (n_roi)</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="frites.simulations.sim_local_cd_ms.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../api_utils.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">frites.simulations.sim_local_cd_ms</p>
+            <p class="prev-next-title">Utility functions</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.simulations.sim_local_ccd_ss.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.utils.savgol_filter.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.simulations.sim_local_ccd_ss</p>
+        <p class="prev-next-title">frites.utils.savgol_filter</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
