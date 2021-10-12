@@ -9,10 +9,28 @@ Utility functions
    :no-members:
    :no-inherited-members:
 
+Time-series processing
+++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   acf
+
+Data smoothing
+++++++++++++++
+
 .. autosummary::
    :toctree: generated/
 
    savgol_filter
    kernel_smoothing
+
+Data selection
+++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
    time_to_sample
    get_closest_sample
