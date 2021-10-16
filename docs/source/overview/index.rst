@@ -10,6 +10,7 @@ This section introduces the basis for starting analyzing your data with Frites.
     ovw_methods
     ovw_frites
     ovw_help
+    ovw_cite
     ovw_community
     ovw_refs
     ovw_whatsnew
