@@ -90,9 +90,9 @@ class TestConn(object):
         x = xr.DataArray(x, dims=('trials', 'roi', 'times'),
                          coords=(trials, roi, times))
         # compute delayed dfc
-        conn_ccf(x, times='times', roi='roi', n_jobs=1, verbose=False,
-                 normalized=False)
-        ccf = conn_ccf(x, times='times', roi='roi', n_jobs=1, verbose=False)
+        kw_ccf = dict(times='times', roi='roi', n_jobs=1, verbose=False)
+        conn_ccf(x, normalized=False, times_as_sample=False, **kw_ccf)
+        ccf = conn_ccf(x, times_as_sample=True, **kw_ccf)
         # shape and dimension checking
         assert ccf.ndim == 3
         assert ccf.dims == ('trials', 'roi', 'times')
