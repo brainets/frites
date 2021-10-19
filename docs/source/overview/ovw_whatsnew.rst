@@ -11,6 +11,7 @@ New Features
 * New :class:`frites.estimator.CustomEstimator` for defining custom estimators (:commit:`e473c713`, :commit:`5584654c`)
 * New function :func:`frites.conn.conn_fcd_corr` for computing the temporal correlation across networks (:commit:`2001f0c0`)
 * New function :func:`frites.utils.acf` for computing the auto-correlation (:commit:`48ef0a03`)
+* New function :func:`frites.conn.conn_ccf` for computing the cross-correlation (:commit:`43fceb00`)
 
 v0.4.0
 ------
