@@ -14,6 +14,7 @@ This submodule contains two types of functions :
 from .conn_io import conn_io  # noqa
 
 # connectivity metrics
+from .conn_ccf import conn_ccf  # noqa
 from .conn_covgc import conn_covgc  # noqa
 from .conn_dfc import conn_dfc  # noqa
 from .conn_transfer_entropy import conn_transfer_entropy  # noqa

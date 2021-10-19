@@ -120,11 +120,15 @@ def kernel_smoothing(x, kernel, axis=-1):
     return x
 
 
-def _acf(xd):
-    """Auto-correlation on a single time-series."""
-    n = len(xd)
-    acov = np.correlate(xd, xd, "full")[n - 1:] / n
-    return acov[: n + 1] / acov[0]
+def _acf(xs, xt=None):
+    """Auto- or cross-correlation of time-series."""
+    n = len(xs)
+
+    if xt is None:  # auto-correlation
+        acov = np.correlate(xs, xs, "full")[n - 1:] / n
+        return acov[: n + 1] / acov[0]
+    else:           # cross-correlation
+        return np.correlate(xs, xt, mode="full") / len(xs)
 
 
 def acf(x, axis=-1, demean=True):

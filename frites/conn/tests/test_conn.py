@@ -2,7 +2,7 @@
 import numpy as np
 import xarray as xr
 
-from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc)
+from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc, conn_ccf)
 
 
 class TestConn(object):
@@ -70,3 +70,41 @@ class TestConn(object):
         assert isinstance(gc, xr.DataArray)
         gc = conn_covgc(x, dt, lag, t0, n_jobs=1, method='gc',
                         conditional=True, norm=False)
+
+    def test_conn_ccf(self):
+        """Test function conn_ccf."""
+        n_trials, n_roi, n_times = 20, 3, 1000
+        # create coordinates
+        trials = np.arange(n_trials)
+        roi = [f"roi_{k}" for k in range(n_roi)]
+        times = (np.arange(n_times) - 200) / 64.
+        # data creation
+        rnd = np.random.RandomState(0)
+        x = .1 * rnd.rand(n_trials, n_roi, n_times)
+        # inject relation
+        bump = np.hanning(200).reshape(1, -1)
+        x[:, 0, 200:400] += bump
+        x[:, 1, 220:420] += bump
+        x[:, 2, 150:350] += bump
+        # xarray conversion
+        x = xr.DataArray(x, dims=('trials', 'roi', 'times'),
+                         coords=(trials, roi, times))
+        # compute delayed dfc
+        conn_ccf(x, times='times', roi='roi', n_jobs=1, verbose=False,
+                 normalized=False)
+        ccf = conn_ccf(x, times='times', roi='roi', n_jobs=1, verbose=False)
+        # shape and dimension checking
+        assert ccf.ndim == 3
+        assert ccf.dims == ('trials', 'roi', 'times')
+        assert len(ccf['trials']) == len(trials)
+        np.testing.assert_array_equal(ccf['trials'].data, trials)
+        assert len(ccf['roi']) == 3
+        # peak detection
+        ccf_m = ccf.mean('trials')
+        is_peaks = np.where(ccf_m == ccf_m.max('times'))
+        peaks = ccf['times'].data[is_peaks[1]]
+        # peak checking
+        tol = 5
+        assert -20 - tol <= peaks[0] <= -20 + tol
+        assert 50 - tol <= peaks[1] <= 50 + tol
+        assert 70 - tol <= peaks[2] <= 70 + tol
