@@ -4,7 +4,6 @@ import xarray as xr
 
 from frites.conn import conn_io
 from frites.io import logger
-from frites.estimator import GCMIEstimator
 from frites.utils import parallel_func
 from frites.utils.preproc import _acf
 
@@ -71,8 +70,7 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
     # extract variables
     x, trials, attrs = data.data, data['y'].data, cfg['attrs']
     x_s, x_t = cfg['x_s'], cfg['x_t']
-    roi_p, roi_idx = cfg['roi_p'], cfg['roi_idx']
-    times = data['times'].data
+    roi_p, times = cfg['roi_p'], data['times'].data
     n_pairs = len(x_s)
 
     # data normalization
@@ -100,7 +98,7 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
     if not times_as_sample:
         times_n /= cfg['sfreq']
         unit = 'times'
-    ccf = xr.DataArray(ccf, dims=('trials', 'roi', 'times'), name=f'CCF',
+    ccf = xr.DataArray(ccf, dims=('trials', 'roi', 'times'), name='CCF',
                        coords=(trials, roi_p, times_n))
 
     # add the windows used in the attributes
@@ -109,9 +107,9 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
 
     return ccf
 
+
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
-    from frites.estimator import CorrEstimator
 
     n_trials = 20
     n_roi = 3
