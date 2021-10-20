@@ -79,8 +79,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
     roi, times = data['roi'].data, data['times'].data
     trials = data['y'].data
     n_trials = len(trials)
-
-    cfg['sfreq'], cfg['attrs'] = data.attrs['sfreq'], attrs
+    cfg['sfreq'] = data.attrs['sfreq']
 
     # _________________________________ SPACE _________________________________
     # get indices of pairs of (group) regions
@@ -97,6 +96,11 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         assert (pairs.ndim == 2) and (pairs.shape[1] == 2)
         x_s, x_t = pairs[:, 0], pairs[:, 1]
         roi_gp, roi_idx = roi, np.arange(len(roi)).reshape(-1, 1)
+
+    # put in the attribute the indices used
+    attrs['sources'] = x_s.tolist()
+    attrs['targets'] = x_t.tolist()
+    cfg['attrs'] = attrs
 
     # build names of pairs of brain regions (case insensitive)
     roi_c = np.c_[roi_gp[x_s], roi_gp[x_t]]
