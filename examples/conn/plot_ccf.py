@@ -80,7 +80,9 @@ lags = ccf['times'].data[np.where(ccf_m == ccf_m.max('times'))[1]]
 #
 # In this final part, we plot the cross-correlation between brain regions
 
+
 # plot the cross correlation
+# sphinx_gallery_thumbnail_number = 2
 plt.title('Delays between brain regions')
 ccf_m.plot(x='times', hue='roi')
 plt.axvline(0., color='k')
