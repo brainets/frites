@@ -179,7 +179,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
     # ______________________________ SMOOTHING ________________________________
     # convert kernel width in time to samples
     if isinstance(sm_times, (int, float)):
-        sm_times = int(np.round(sm_times * sfreq))
+        sm_times = int(np.round(sm_times * cfg['sfreq']))
     cfg['sm_times'] = sm_times
 
     # convert frequency smoothing from hz to samples
