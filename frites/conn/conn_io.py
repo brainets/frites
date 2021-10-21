@@ -10,8 +10,9 @@ from frites.dataset import SubjectEphy
 
 
 def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
-            win_sample=None, pairs=None, freqs=None, foi=None, directed=False,
-            block_size=None, name=None, sort=True, verbose=None):
+            win_sample=None, pairs=None, freqs=None, foi=None, sm_times=None,
+            sm_freqs=None, directed=False, block_size=None, name=None,
+            sort=True, verbose=None):
     """Prepare connectivity variables.
 
     Parameters
@@ -46,6 +47,10 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         Extract frequencies of interest. This parameters should be an array of
         shapes (n_freqs, 2) defining where each band of interest start and
         finish.
+    sm_times : float
+        Number of points to consider for the temporal smoothing in seconds
+    sm_freqs : float
+        Number of points to consider for the frequency smoothing in Hz
     directed : bool | False
         Get either the list of pairs of brain regions for undirected (upper
         triangle) or directed (off-diagonal elements)
@@ -149,6 +154,11 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
             freqs = [freqs]
         # array conversion
         freqs = np.asarray(freqs)
+        # check order for multiple frequencies
+        if len(freqs) >= 2:
+            delta_f = np.diff(freqs)
+            increase = np.all(delta_f > 0)
+            assert increase, "Frequencies should be in increasing order"
         cfg['freqs'] = freqs
 
         # frequency mean
@@ -165,6 +175,28 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
             f_vec = freqs
         cfg['f_vec'], cfg['need_foi'] = f_vec, need_foi
         cfg['foi_idx'], cfg['foi_s'], cfg['foi_e'] = foi_idx, foi_s, foi_e
+
+    # ______________________________ SMOOTHING ________________________________
+    # convert kernel width in time to samples
+    if isinstance(sm_times, (int, float)):
+        sm_times = int(np.round(sm_times * sfreq))
+    cfg['sm_times'] = sm_times
+
+    # convert frequency smoothing from hz to samples
+    if isinstance(sm_freqs, (int, float)):
+        # get delta between frequencies
+        delta_f = np.diff(freqs)
+        if not np.allclose(delta_f.min(), delta_f.max()):
+            logger.warning(
+                "Frequencies are not linearly spaced. Number of points for"
+                " the frequency smoothing is going to be inferred from the "
+                "mean of the difference between consecutive frequencies"
+            )
+        delta_f = int(np.round(np.abs(delta_f).mean()))
+
+        # infer the number of points to use
+        sm_freqs = int(np.round(sm_freqs / delta_f))
+    cfg['sm_freqs'] = sm_freqs
 
     # ______________________________ BLOCK-SIZE _______________________________
     # build block size indices
