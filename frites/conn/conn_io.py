@@ -10,8 +10,8 @@ from frites.dataset import SubjectEphy
 
 
 def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
-            win_sample=None, pairs=None, block_size=None, name=None,
-            sort=True, verbose=None):
+            win_sample=None, pairs=None, freqs=None, foi=None, directed=False,
+            block_size=None, name=None, sort=True, verbose=None):
     """Prepare connectivity variables.
 
     Parameters
@@ -40,6 +40,15 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         time window is used instead.
     pairs : array_like | None
         Pairs of contacts
+    freqs : array_like | None
+        Vector of frequencies
+    foi : array_like | None
+        Extract frequencies of interest. This parameters should be an array of
+        shapes (n_freqs, 2) defining where each band of interest start and
+        finish.
+    directed : bool | False
+        Get either the list of pairs of brain regions for undirected (upper
+        triangle) or directed (off-diagonal elements)
     agg_ch : bool | False
         In case there are multiple electrodes, channels, contacts or sources
         inside a brain region, specify how the data has to be aggregated.
@@ -84,13 +93,19 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
     # _________________________________ SPACE _________________________________
     # get indices of pairs of (group) regions
     if (pairs is None):
+        # deal with channel aggregation
         if agg_ch:  # for multi-variate computations
             gp = pd.DataFrame({'roi': roi}).groupby('roi', sort=False).groups
             roi_gp = np.array(list(gp.keys()))
             roi_idx = [list(k) for k in gp.values()]
         else:
             roi_gp, roi_idx = roi, np.arange(len(roi)).reshape(-1, 1)
-        x_s, x_t = np.triu_indices(len(roi_gp), k=1)
+
+        # get pairs for directed / undirected conn
+        if directed:
+            x_s, x_t = np.where(~np.eye(len(roi_gp), dtype=bool))
+        else:
+            x_s, x_t = np.triu_indices(len(roi_gp), k=1)
     else:
         assert isinstance(pairs, np.ndarray)
         assert (pairs.ndim == 2) and (pairs.shape[1] == 2)
@@ -127,6 +142,29 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
     cfg['win_times'] = times[win_sample].mean(1)
 
     # ______________________________ FREQUENCY ________________________________
+    # frequency checking
+    if freqs is not None:
+        # check for single frequency
+        if isinstance(freqs, (int, float)):
+            freqs = [freqs]
+        # array conversion
+        freqs = np.asarray(freqs)
+        cfg['freqs'] = freqs
+
+        # frequency mean
+        need_foi = isinstance(foi, np.ndarray) and (foi.shape[1] == 2)
+        if need_foi:
+            _f = xr.DataArray(np.arange(len(freqs)), dims=('freqs',),
+                              coords=(freqs,))
+            foi_s = _f.sel(freqs=foi[:, 0], method='nearest').data
+            foi_e = _f.sel(freqs=foi[:, 1], method='nearest').data
+            foi_idx = np.c_[foi_s, foi_e]
+            f_vec = freqs[foi_idx].mean(1)
+        else:
+            foi_idx = foi_s = foi_e = None
+            f_vec = freqs
+        cfg['f_vec'], cfg['need_foi'] = f_vec, need_foi
+        cfg['foi_idx'], cfg['foi_s'], cfg['foi_e'] = foi_idx, foi_s, foi_e
 
     # ______________________________ BLOCK-SIZE _______________________________
     # build block size indices
