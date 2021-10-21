@@ -184,18 +184,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
 
     # convert frequency smoothing from hz to samples
     if isinstance(sm_freqs, (int, float)):
-        # get delta between frequencies
-        delta_f = np.diff(freqs)
-        if not np.allclose(delta_f.min(), delta_f.max()):
-            logger.warning(
-                "Frequencies are not linearly spaced. Number of points for"
-                " the frequency smoothing is going to be inferred from the "
-                "mean of the difference between consecutive frequencies"
-            )
-        delta_f = int(np.round(np.abs(delta_f).mean()))
-
-        # infer the number of points to use
-        sm_freqs = int(np.round(sm_freqs / delta_f))
+        sm_freqs = int(np.round(max(sm_freqs, 1)))
     cfg['sm_freqs'] = sm_freqs
 
     # ______________________________ BLOCK-SIZE _______________________________
