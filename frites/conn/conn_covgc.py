@@ -3,7 +3,7 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import conn_io
-from frites.io import set_log_level, logger
+from frites.io import set_log_level, logger, check_attrs
 from frites.config import CONFIG
 from frites.core.gcmi_nd import cmi_nd_ggg
 from frites.core.copnorm import copnorm_nd
@@ -400,9 +400,9 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                       coords=(trials, roi_p, times_p, dire), name='covgc')
 
     # set attributes
-    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=str(norm),
-               conditional=str(conditional), type='covgc')
-    gc.attrs = {**attrs, **cfg}
+    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=norm,
+               conditional=conditional, type='covgc')
+    gc.attrs = check_attrs({**attrs, **cfg})
 
     return gc
 

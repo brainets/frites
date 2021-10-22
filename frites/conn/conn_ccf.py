@@ -3,7 +3,7 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import conn_io
-from frites.io import logger
+from frites.io import logger, check_attrs
 from frites.utils import parallel_func
 from frites.utils.preproc import _acf
 
@@ -102,8 +102,8 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
                        coords=(trials, roi_p, times_n))
 
     # add the windows used in the attributes
-    ccf.attrs = {**dict(type='ccf', normalized=int(normalized),
-                        times_unit=unit), **attrs}
+    ccf.attrs = check_attrs({**dict(type='ccf', normalized=normalized,
+                                    times_unit=unit), **attrs})
 
     return ccf
 

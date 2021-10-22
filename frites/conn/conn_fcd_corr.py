@@ -1,8 +1,10 @@
 import numpy as np
 import xarray as xr
 
-from frites.estimator import CorrEstimator
 from mne.utils import ProgressBar
+
+from frites.io import check_attrs
+from frites.estimator import CorrEstimator
 
 
 def conn_fcd_corr(conn, roi='roi', times='times', tskip=1, estimator=None,
@@ -88,7 +90,7 @@ def conn_fcd_corr(conn, roi='roi', times='times', tskip=1, estimator=None,
     # xarray transoformation
     corr = xr.DataArray(
         corr, dims=(supp_dim, 'times_source', 'times_target'),
-        coords=(supp_c, times_c, times_c), attrs=attrs,
+        coords=(supp_c, times_c, times_c), attrs=check_attrs(attrs),
         name=f'FCD Corr ({estimator.name})'
     )
 

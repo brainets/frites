@@ -3,7 +3,7 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import conn_io
-from frites.io import logger
+from frites.io import logger, check_attrs
 from frites.estimator import GCMIEstimator
 from frites.utils import parallel_func
 
@@ -123,7 +123,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
     # add the windows used in the attributes
     cfg = dict(
         win_sample=np.r_[tuple(win_sample)], win_times=np.r_[tuple(win_times)],
-        agg_ch=str(agg_ch), type='dfc', estimator=estimator.name)
-    dfc.attrs = {**cfg, **attrs}
+        agg_ch=agg_ch, type='dfc', estimator=estimator.name)
+    dfc.attrs = check_attrs({**cfg, **attrs})
 
     return dfc
