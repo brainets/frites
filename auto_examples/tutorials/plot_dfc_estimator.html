@@ -549,50 +549,49 @@ DFC is going to be computed across the entire time-series</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   87.95it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   89.20it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,  854.70it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 100, roi: 3, times: 1)&gt;
-array([[[1.64412037e-02],
-        [9.23289976e-04],
-        [9.33408854e-04]],
+array([[[1.50026195e-02],
+        [6.53586991e-04],
+        [3.04782181e-03]],
 
-       [[9.38150857e-04],
-        [6.57863566e-04],
-        [1.75338972e-03]],
+       [[2.55722110e-03],
+        [9.47777648e-04],
+        [9.54755058e-04]],
 
-       [[4.32476518e-04],
-        [2.07063253e-03],
-        [5.75639773e-03]],
+       [[1.91575743e-03],
+        [1.65526383e-03],
+        [3.67320934e-03]],
 
-       [[2.31906364e-04],
-        [1.28279924e-02],
-        [1.17516327e-04]],
+       [[9.54645657e-05],
+        [1.47084296e-02],
+        [1.35143287e-03]],
 
-       [[6.99577015e-03],
-        [1.15383060e-04],
-        [1.56907667e-03]],
+       [[5.49641764e-03],
+        [3.71751172e-04],
+        [2.98313168e-03]],
 
 ...
 
-       [[4.18042946e-05],
-        [5.72294882e-03],
-        [3.12205782e-04]],
+       [[7.03146361e-05],
+        [9.66168381e-03],
+        [1.17242755e-03]],
 
-       [[8.69499752e-04],
-        [2.00286927e-03],
-        [4.80654230e-03]],
+       [[1.41984574e-03],
+        [2.23128637e-03],
+        [5.71009004e-03]],
 
-       [[2.28960812e-03],
-        [3.59285297e-03],
-        [5.94200846e-03]],
+       [[1.88476965e-03],
+        [3.06461961e-03],
+        [7.38627603e-03]],
 
-       [[1.97329596e-02],
-        [1.49822515e-03],
-        [2.68427277e-04]],
+       [[1.62730534e-02],
+        [3.54107120e-03],
+        [3.26337272e-06]],
 
-       [[4.59399052e-06],
-        [1.27179793e-03],
-        [2.44382466e-03]]])
+       [[4.45268088e-05],
+        [1.45566883e-03],
+        [3.73451796e-04]]])
 Coordinates:
   * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9 ... 91 92 93 94 95 96 97 98 99
   * roi      (roi) &lt;U5 &#39;r0-r1&#39; &#39;r0-r2&#39; &#39;r1-r2&#39;
@@ -600,7 +599,7 @@ Coordinates:
 Attributes:
     win_sample:  [  0 249]
     win_times:   [1.9453125]
-    agg_ch:      False
+    agg_ch:      0
     type:        dfc
     estimator:   Gaussian Copula Mutual Information Estimator
     sources:     [0, 0, 1]
@@ -804,10 +803,10 @@ DFC inside each one of them.</p>
  [216 248]]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:01,    1.42it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:01&lt;00:00,    1.42it/s]
-100%|##########| Estimating DFC : 3/3 [00:02&lt;00:00,    1.42it/s]
-100%|##########| Estimating DFC : 3/3 [00:02&lt;00:00,    1.41it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   33.01it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   33.06it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   33.15it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   33.79it/s]
 </pre></div>
 </div>
 </section>
@@ -845,22 +844,22 @@ and the distance correlation.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_dfc_estimator_002.png" srcset="../../_images/sphx_glr_plot_dfc_estimator_002.png" alt="DFC (Gaussian Copula Mutual Information Estimator), DFC (Correlation-based Estimator), DFC (Distance correlation-based Estimator)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:01,    1.45it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:01&lt;00:00,    1.45it/s]
-100%|##########| Estimating DFC : 3/3 [00:02&lt;00:00,    1.45it/s]
-100%|##########| Estimating DFC : 3/3 [00:02&lt;00:00,    1.45it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:01,    1.82it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:01&lt;00:00,    1.82it/s]
+100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    1.82it/s]
+100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    1.82it/s]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   21.19it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   21.24it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   21.25it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   21.56it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   25.37it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   25.39it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   25.41it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   25.55it/s]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:05&lt;00:11,    5.87s/it]
- 67%|######6   | Estimating DFC : 2/3 [00:11&lt;00:05,    5.87s/it]
-100%|##########| Estimating DFC : 3/3 [00:17&lt;00:00,    5.87s/it]
-100%|##########| Estimating DFC : 3/3 [00:17&lt;00:00,    5.85s/it]
+ 33%|###3      | Estimating DFC : 1/3 [00:04&lt;00:08,    4.44s/it]
+ 67%|######6   | Estimating DFC : 2/3 [00:08&lt;00:04,    4.44s/it]
+100%|##########| Estimating DFC : 3/3 [00:13&lt;00:00,    4.44s/it]
+100%|##########| Estimating DFC : 3/3 [00:13&lt;00:00,    4.42s/it]
 </pre></div>
 </div>
 <div class="admonition note">
@@ -883,8 +882,8 @@ also slower to compute.</p></li>
 </ol>
 </div></blockquote>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  54.643 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  116 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  40.924 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  114 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tutorials-plot-dfc-estimator-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/625b3ec47dd7486e87adc9ef3b3a2e75/plot_dfc_estimator.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dfc_estimator.py</span></code></a></p>
@@ -934,7 +933,7 @@ also slower to compute.</p></li>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-10-21.</p>
+        <p>&copy; Copyright Last updated on 2021-10-22.</p>
     </footer>
 
   </body>
