@@ -13,6 +13,10 @@ New Features
 * New function :func:`frites.utils.acf` for computing the auto-correlation (:commit:`48ef0a03`)
 * New function :func:`frites.conn.conn_ccf` for computing the cross-correlation (:commit:`43fceb00`)
 
+Bug fixes
++++++++++
+* Fix attribute conversion in connectivity functions (:commit:`b990c76`)
+
 v0.4.0
 ------
 
