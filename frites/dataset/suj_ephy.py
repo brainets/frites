@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 import numpy as np
 import xarray as xr
+import neo
 
 import frites
 from frites.config import CONFIG
@@ -14,7 +15,7 @@ class SubjectEphy(Attributes):
     """Single-subject electrophysiological data container.
 
     This class can be used to convert the data from different types (e.g
-    NumPy, MNE-Python, Xarray) into a single format (xarray.DataArray).
+    NumPy, MNE-Python, Neo, Xarray) into a single format (xarray.DataArray).
 
     Parameters
     ----------
@@ -28,6 +29,7 @@ class SubjectEphy(Attributes):
               where 'mv' refers to an axis to consider as multi-variate
             * mne.Epochs or mne.EpochsArray
             * mne.EpochsTFR (i.e. non-averaged power)
+            * neo.Block where neo.Segments correspond to Epochs
             * xarray.DataArray. In that case `y`, `z`, `roi` and `times` inputs
               can be strings that refer to the coordinate name to use in the
               DataArray
@@ -142,6 +144,24 @@ class SubjectEphy(Attributes):
                     _supp_dim = ('mv', np.full((data.shape[2]), np.nan))
                 else:
                     _supp_dim = ('freqs', x.freqs)
+
+        if isinstance(x, neo.core.Block):
+            # data integrity checks
+            # assert common attributes across signals
+            assert len(np.unique([len(seg.analogsignals) for seg in x.segments]) == 1)
+            assert len(np.unique([len(seg.analogsignals) for seg in x.segments]) == 1)
+            assert len(np.unique([seg.analogsignals[0].sampling_rate for seg in x.segments]) == 1)
+            assert len(np.unique([seg.analogsignals[0].shape for seg in x.segments]) == 1)
+
+            times = x.segments[0].analogsignals[0].times.magnitude
+            sfreq = x.segments[0].analogsignals[0].sampling_rate.magnitude
+            # TODO: What to do with the units?
+
+            data = np.stack([seg.analogsignals[0].magnitude for seg in x.segments])
+            # swapping to have time as last dimension
+            data = data.swapaxes(1, -1)
+
+            # TODO: Do we need to generate supplementary dimensions?
 
         if isinstance(x, np.ndarray):    # numpy -> xr
             data = x

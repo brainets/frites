@@ -113,18 +113,6 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
         from mne import create_info, EpochsArray
         info = create_info(roi.tolist(), sf, ch_types='seeg')
         signal = EpochsArray(signal, info, tmin=float(time[0]), verbose=False)
-    elif as_neo:
-        if not HAS_NEO:
-            raise ImportError('`as_neo` requires neo to be installed.')
-        block = neo.Block()
-        for epoch_id in range(len(signal)):
-            seg = neo.Segment()
-            anasig = neo.AnalogSignal(signal[epoch_id].T*pq.dimensionless,
-                                      t_start=time[0, 0]*pq.s,
-                                      sampling_rate=sf*pq.Hz)
-            seg.analogsignals.append(anasig)
-            block.segments.append(seg)
-        signal = block
     return signal, roi, time.squeeze()
 
 
