@@ -113,6 +113,16 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
         from mne import create_info, EpochsArray
         info = create_info(roi.tolist(), sf, ch_types='seeg')
         signal = EpochsArray(signal, info, tmin=float(time[0]), verbose=False)
+    if as_neo:
+        # building a neo structure with one segment per frites 'epoch'
+        block = neo.Block()
+        for epoch_idx in range(signal.shape[0]):
+            sig = neo.AnalogSignal(signal[epoch_idx].swapaxes(0, -1)*pq.dimensionless,
+                                   t_start=time[0] * pq.s, sampling_rate=sf * pq.Hz)
+            seg = neo.Segment(trial_id=epoch_idx)
+            seg.analogsignals.append(sig)
+            block.segments.append(seg)
+        signal = block
     return signal, roi, time.squeeze()
 
 
