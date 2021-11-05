@@ -76,12 +76,15 @@ def sim_mi_cc(x, snr=.9):
     if isinstance(x[0], CONFIG["MNE_EPOCHS_TYPE"]):
         x = [x[k].get_data() for k in range(len(x))]
     elif 'neo.core' in str(type(x[0])):
-        subject_list = []
-        for block in x:
-            subject_data = np.stack([seg.analogsignals[0].magnitude for seg in block.segments])
-            # reorder dimensions to match (n_epochs, n_channels, n_times)
-            subject_list.append(subject_data.swapaxes(1, 2))
-        x = subject_list
+        pass
+        # TODO: To be discussed also for other functions in this module
+        # Why not use suj_ephy class here?
+        # subject_list = []
+        # for block in x:
+        #     subject_data = np.stack([seg.analogsignals[0].magnitude for seg in block.segments])
+        #     # reorder dimensions to match (n_epochs, n_channels, n_times)
+        #     subject_list.append(subject_data.swapaxes(1, 2))
+        # x = subject_list
 
     n_times = x[0].shape[-1]
 

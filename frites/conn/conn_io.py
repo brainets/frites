@@ -3,7 +3,11 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 import mne
-import neo
+try:
+    import neo
+    HAVE_NEO = True
+except ModuleNotFoundError:
+    HAVE_NEO = False
 
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
@@ -83,7 +87,10 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         trials, attrs = data[data.dims[0]].data, data.attrs
     elif isinstance(data, (mne.EpochsArray, mne.Epochs)):
         n_trials = data._data.shape[0]
-    elif isinstance(data, neo.Block):
+    elif 'neo.io' in type(data):
+        if not HAVE_NEO:
+            raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
+        assert isinstance(data, neo.Block)
         n_trials = len(data.segments)
         # use custom trial ids if provided
         if all(['trial_id' in seg.annotations for seg in data.segments]):

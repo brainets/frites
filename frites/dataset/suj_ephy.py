@@ -3,7 +3,11 @@ from collections import OrderedDict
 
 import numpy as np
 import xarray as xr
-import neo
+try:
+    import neo
+    HAVE_NEO = True
+except ModuleNotFoundError:
+    HAVE_NEO = False
 
 import frites
 from frites.config import CONFIG
@@ -132,7 +136,7 @@ class SubjectEphy(Attributes):
             # get the temporal vector
             times = x[times].data if isinstance(times, str) else times
 
-        if 'mne' in str(type(x)):       # mne -> xr
+        elif 'mne' in str(type(x)):       # mne -> xr
             times = x.times if times is None else times
             roi = x.info['ch_names'] if roi is None else roi
             sfreq = x.info['sfreq'] if sfreq is None else sfreq
@@ -145,7 +149,11 @@ class SubjectEphy(Attributes):
                 else:
                     _supp_dim = ('freqs', x.freqs)
 
-        if isinstance(x, neo.core.Block):
+        elif 'neo.io' in type(x):
+            if not HAVE_NEO:
+                raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
+            assert isinstance(x, neo.Block)
+
             # data integrity checks
             # assert common attributes across signals
             assert len(np.unique([len(seg.analogsignals) for seg in x.segments]) == 1)
@@ -165,7 +173,7 @@ class SubjectEphy(Attributes):
             # swapping to have time as last dimension
             data = data.swapaxes(1, -1)
 
-        if isinstance(x, np.ndarray):    # numpy -> xr
+        elif isinstance(x, np.ndarray):    # numpy -> xr
             data = x
             if data.ndim == 4:
                 if multivariate:

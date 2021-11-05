@@ -7,9 +7,9 @@ from itertools import product
 try:
     import neo
     import quantities as pq
-    HAS_NEO = True
+    HAVE_NEO = True
 except ModuleNotFoundError:
-    HAS_NEO = False
+    HAVE_NEO = False
 
 MA_NAMES = ['L_VCcm', 'L_VCl', 'L_VCs', 'L_Cu', 'L_VCrm', 'L_ITCm', 'L_ITCr',
             'L_MTCc', 'L_STCc', 'L_STCr', 'L_MTCr', 'L_ICC', 'L_IPCv',
@@ -114,6 +114,8 @@ def sim_single_suj_ephy(modality="meeg", sf=512., n_times=1000, n_roi=1,
         info = create_info(roi.tolist(), sf, ch_types='seeg')
         signal = EpochsArray(signal, info, tmin=float(time[0]), verbose=False)
     if as_neo:
+        if not HAVE_NEO:
+            raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
         # building a neo structure with one segment per frites 'epoch'
         block = neo.Block()
         for epoch_idx in range(signal.shape[0]):
