@@ -27,7 +27,7 @@ class TestGenerateData(object):
         assert isinstance(data, EpochsArray)
         # neo type
         data, _, _ = sim_single_suj_ephy(as_neo=True)
-        assert isinstance(data, neo.Block)
+        assert isinstance(data, neo.core.Block)
 
     def test_sim_multi_suj_ephy(self):
         """Test function sim_multi_suj_ephy."""

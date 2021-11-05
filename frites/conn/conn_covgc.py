@@ -273,6 +273,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
 
             * Standard NumPy arrays of shape (n_epochs, n_roi, n_times)
             * mne.Epochs
+            * neo.Block where neo.Segments correspond to epochs
             * xarray.DataArray of shape (n_epochs, n_roi, n_times)
 
     dt : int

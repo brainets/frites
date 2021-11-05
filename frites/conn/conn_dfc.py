@@ -27,6 +27,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
 
             * Standard NumPy arrays of shape (n_epochs, n_roi, n_times)
             * mne.Epochs
+            * neo.Block
             * xarray.DataArray of shape (n_epochs, n_roi, n_times)
 
     win_sample : array_like | None
