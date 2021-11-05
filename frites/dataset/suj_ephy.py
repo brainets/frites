@@ -149,19 +149,21 @@ class SubjectEphy(Attributes):
             # data integrity checks
             # assert common attributes across signals
             assert len(np.unique([len(seg.analogsignals) for seg in x.segments]) == 1)
-            assert len(np.unique([len(seg.analogsignals) for seg in x.segments]) == 1)
+            assert len(np.unique([seg.analogsignals[0].units for seg in x.segments]) == 1)
             assert len(np.unique([seg.analogsignals[0].sampling_rate for seg in x.segments]) == 1)
             assert len(np.unique([seg.analogsignals[0].shape for seg in x.segments]) == 1)
 
-            times = x.segments[0].analogsignals[0].times.magnitude
-            sfreq = x.segments[0].analogsignals[0].sampling_rate.magnitude
-            # TODO: What to do with the units?
+            seg0 = x.segments[0].analogsignals[0]
+            times = seg0.times.magnitude
+            sfreq = seg0.sampling_rate.magnitude
+
+            attrs['sfreq_units'] = seg0.sampling_rate.units
+            attrs['time_units'] = seg0.times.units
+            attrs['signal_units'] = seg0.units
 
             data = np.stack([seg.analogsignals[0].magnitude for seg in x.segments])
             # swapping to have time as last dimension
             data = data.swapaxes(1, -1)
-
-            # TODO: Do we need to generate supplementary dimensions?
 
         if isinstance(x, np.ndarray):    # numpy -> xr
             data = x
