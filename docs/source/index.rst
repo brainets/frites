@@ -88,8 +88,8 @@ Highlights
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     Frites supports inputs from standard libraries like `Numpy <https://numpy.org/>`_,
-    `MNE Python <https://mne.tools/stable/index.html>`_ or more recent ones like
-    labelled `Xarray <http://xarray.pydata.org/en/stable/>`_ objects.
+    `MNE Python <https://mne.tools/stable/index.html>`_, `Neo <https://pypi.org/project/neo/>`_ or
+    more recent ones like labelled `Xarray <http://xarray.pydata.org/en/stable/>`_ objects.
 
     +++
 
