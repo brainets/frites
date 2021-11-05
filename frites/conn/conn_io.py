@@ -87,7 +87,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         trials, attrs = data[data.dims[0]].data, data.attrs
     elif isinstance(data, (mne.EpochsArray, mne.Epochs)):
         n_trials = data._data.shape[0]
-    elif 'neo.io' in type(data):
+    elif 'neo.io' in str(type(data)):
         if not HAVE_NEO:
             raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
         assert isinstance(data, neo.Block)

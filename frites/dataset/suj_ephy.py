@@ -149,7 +149,7 @@ class SubjectEphy(Attributes):
                 else:
                     _supp_dim = ('freqs', x.freqs)
 
-        elif 'neo.io' in type(x):
+        elif 'neo.core' in str(type(x)):
             if not HAVE_NEO:
                 raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
             assert isinstance(x, neo.Block)
@@ -180,6 +180,11 @@ class SubjectEphy(Attributes):
                     _supp_dim = ('mv', np.full((data.shape[2]), np.nan))
                 else:
                     _supp_dim = ('supp', np.arange(data.shape[2]))
+
+        try:
+            data.ndim
+        except:
+            print('')
 
         assert data.ndim <= 4, "Data up to 4-dimensions are supported"
 
