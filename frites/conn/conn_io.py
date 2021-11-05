@@ -23,6 +23,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
 
             * Standard NumPy arrays of shape (n_epochs, n_roi, n_times)
             * mne.Epochs
+            * neo.Block where neo.Segments correspond to epochs
             * xarray.DataArray of shape (n_epochs, n_roi, n_times)
 
     times : array_like | None
