@@ -8,7 +8,7 @@ from frites.estimator import CorrEstimator
 
 
 def conn_fcd_corr(conn, roi='roi', times='times', tskip=1, estimator=None,
-                  fill_diagonal=np.nan, verbose=None):
+                  fill_diagonal=np.nan, dropna=False, verbose=None):
     """Compute the correlation on dynamic network.
 
     This function can be used to compute the correlation between time points
@@ -76,7 +76,16 @@ def conn_fcd_corr(conn, roi='roi', times='times', tskip=1, estimator=None,
         data_s = conn.data[:, [t_s], :]
         for t_t in range(t_s + 1, len(times_c)):
             data_t = conn.data[:, [t_t], :]
-            corr[:, t_s, t_t] = fcn(data_s, data_t)
+            if dropna:
+                # find nan in sources and targets
+                isna_s = np.isnan(data_s).any(axis=(0, 1))
+                isna_t = np.isnan(data_t).any(axis=(0, 1))
+                isna_st = ~np.logical_or(isna_s, isna_t)
+                # data sub-selection
+                _data_s, _data_t = data_s[..., isna_st], data_t[..., isna_st]
+            else:
+                _data_s, _data_t = data_s, data_t
+            corr[:, t_s, t_t] = fcn(_data_s, _data_t)
             corr[:, t_t, t_s] = corr[:, t_s, t_t]
         pbar.update_with_increment_value(1)
 

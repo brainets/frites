@@ -82,8 +82,9 @@ class WfMi(WfBase):
         self.attrs.update(dict(
             mi_type=mi_type, inference=inference, kernel=kernel))
 
-        logger.info(f"Workflow for computing mutual information ({inference} -"
-                    f" {mi_type})")
+        logger.info(
+            f"Workflow for computing mutual information (inference={inference}"
+            f", mi_type={mi_type}, copnorm={self._copnorm})")
 
     def _node_compute_mi(self, dataset, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
