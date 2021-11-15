@@ -640,7 +640,7 @@
 <h1>frites.workflow.WfConnComod<a class="headerlink" href="#frites-workflow-wfconncomod" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.workflow.WfConnComod">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">frites.workflow.</span></span><span class="sig-name descname"><span class="pre">WfConnComod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_conn_comod.py#L15-L284"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfConnComod" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.workflow.</span></span><span class="sig-name descname"><span class="pre">WfConnComod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_conn_comod.py#L15-L284"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfConnComod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of instantaneous pairwise comodulations and statistics.</p>
 <p>This class allows to define a workflow for computing the instantaneous
 pairwise connectivity using mutual information and then to evaluate the
@@ -796,7 +796,7 @@ selected using the <cite>stat_method</cite> input parameter</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.workflow.WfConnComod.mi">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">mi</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.mi" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mi</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.mi" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of length (n_roi) of true mutual information. Each element of
 this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘rfx’
 (1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
@@ -804,7 +804,7 @@ this list has a shape of (n_subjects, n_times) if <cite>inference</cite> is ‘r
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.workflow.WfConnComod.mi_p">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">mi_p</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.mi_p" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mi_p</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.mi_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of length (n_roi) of permuted mutual information. Each element
 of this list has a shape of (n_perm, n_subjects, n_times) if
 <cite>inference</cite> is ‘rfx’ (n_perm, 1, n_times) if <cite>inference</cite> is ‘ffx’.</p>
@@ -812,14 +812,14 @@ of this list has a shape of (n_perm, n_subjects, n_times) if
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.workflow.WfConnComod.tvalues">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">tvalues</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.tvalues" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tvalues</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.tvalues" title="Permalink to this definition">¶</a></dt>
 <dd><p>T-values array of shape (n_times, n_roi) when group level analysis
 is selected.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.workflow.WfConnComod.wf_stats">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">wf_stats</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.wf_stats" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wf_stats</span></span><a class="headerlink" href="#frites.workflow.WfConnComod.wf_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the workflow of statistics.</p>
 </dd></dl>
 
@@ -873,7 +873,7 @@ is selected.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-11-09.</p>
+        <p>&copy; Copyright Last updated on 2021-11-15.</p>
     </footer>
 
   </body>
