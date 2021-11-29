@@ -156,7 +156,7 @@ def acf(x, axis=-1, demean=True):
     if is_xarray:
         # get dimensions, coordinates and attributes
         xdims, xcoords, xattrs = x.dims, x.coords, x.attrs
-        xattrs['demnean'] = int(demean)
+        xattrs['demean'] = int(demean)
         # get axis number and name
         if isinstance(axis, str):
             axis_name = axis
