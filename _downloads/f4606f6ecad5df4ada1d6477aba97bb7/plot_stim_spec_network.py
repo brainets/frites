@@ -208,11 +208,11 @@ for n_d, direction in enumerate(['x->y', 'y->x', 'x.y']):
         plt.plot(gc_times, gc_dir_r.sel(trials=1), color='red')
         plt.plot(gc_times, gc_dir_r.sel(trials=2), color='green')
         plt.xlabel('Times'), plt.ylabel('MI (bits)')
-        if direction is 'x->y':
+        if direction == 'x->y':
             tit = f"{r[0].upper()}->{r[-1].upper()}"
-        elif direction is 'y->x':
+        elif direction == 'y->x':
             tit = f"{r[-1].upper()}->{r[0].upper()}"
-        elif direction is 'x.y':
+        elif direction == 'x.y':
             tit = f"{r[0].upper()}.{r[-1].upper()}"
         plt.title(tit)
         plt.axvline(0, lw=2, color='k')
@@ -257,11 +257,11 @@ for n_d, direction in enumerate(['x->y', 'y->x', 'x.y']):
         plt.plot(gc_times, mi_gc_dir_r, color='black', lw=1)
         plt.plot(gc_times, mi_gc_s, color='red', lw=3)
         plt.xlabel('Times'), plt.ylabel('MI (bits)')
-        if direction is 'x->y':
+        if direction == 'x->y':
             tit = f"{r[0].upper()}->{r[-1].upper()}"
-        elif direction is 'y->x':
+        elif direction == 'y->x':
             tit = f"{r[-1].upper()}->{r[0].upper()}"
-        elif direction is 'x.y':
+        elif direction == 'x.y':
             tit = f"{r[0].upper()}.{r[-1].upper()}"
         plt.title(tit)
         plt.axvline(0, lw=2, color='k')
