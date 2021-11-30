@@ -71,7 +71,10 @@ plt.show()
 #       Here, the ground-truth contains values of covariance at specific time
 #       and spatial bins. The covariance reflects where there's a relation
 #       between the brain data and the external continuous y variable and how
-#       strong is this relation.
+#       strong is this relation. High values of covariance indicate that the
+#       brain and the continuous y variable are strongly correlated.
+#       Conversely, small values of covariance indicate that the brain data and
+#       the continuous y variable are weakly correlated.
 
 
 ###############################################################################
@@ -173,14 +176,14 @@ plt.colorbar()
 plt.title(f"Effect-size at the group-level\n(t-values)", **kw_title)
 
 plt.sca(axs[1])
-plt.pcolormesh(df_pv.columns, df_pv.index, df_pv.values, cmap='RdBu_r',
+plt.pcolormesh(df_pv.columns, df_pv.index, df_pv.values, cmap='plasma',
                vmin=0, vmax=1, **kw_heatmap)
 plt.colorbar()
 plt.title(f"Effects detected as significant\nat the group-level (p<0.05)",
           **kw_title)
 
 plt.sca(axs[2])
-plt.pcolormesh(df_gt.columns, df_gt.index, df_gt.values, cmap='RdBu_r',
+plt.pcolormesh(df_gt.columns, df_gt.index, df_gt.values, cmap='plasma',
                vmin=0, vmax=1, **kw_heatmap)
 plt.colorbar()
 plt.title(f"Ground-truth\n(gtype={gtype})", **kw_title)

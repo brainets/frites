@@ -6,6 +6,10 @@ What's new
 v0.4.2
 ------
 
+New Features
+++++++++++++
+* New function :func:`frites.simulations.sim_ground_truth` for simulating spatio-temporal ground-truths (:commit:`ba44a424`)
+
 v0.4.1
 ------
 
