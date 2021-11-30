@@ -1,0 +1,859 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Generate spatio-temporal ground-truths &#8212; frites 0.4.1 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Xarray : Saving the results" href="../xarray/plot_xr_export.html" />
+    <link rel="prev" title="Generate random electrophysiological data" href="plot_generate_random_data.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../index.html">
+  <img src="../../_static/frites_top.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../overview/index.html">
+  Overview
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../install.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kNearNeighbors" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/plot_dfc_estimator.html">
+   Estimate the Dynamic Functional Connectivity
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/plot_stim_spec_network.html">
+   Statistical analysis of a stimulus-specific network
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset/plot_dataset_mne.html">
+   Define an electrophysiological dataset using MNE-Python structures
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset/plot_dataset_ephy.html">
+   Build an electrophysiological dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset/plot_dataset_xarray.html">
+   Define an electrophysiological dataset using Xarray
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_ccd.html">
+   MI between two continuous variables conditioned by a discret one
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_cd.html">
+   MI between a continuous and a discret variables
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_combine.html">
+   Investigate relation of order
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_mi_conjunction.html">
+   Compute a conjunction analysis on mutual-information
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mi/plot_wf_mi_contact_level.html">
+   Mutual-information at the contact level
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../estimators/plot_est_resample.html">
+   Trial-resampling: correcting for unbalanced designs
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../estimators/plot_est_custom.html">
+   Defining a custom estimator
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../estimators/plot_est_comparison.html">
+   Estimator comparison
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conn/plot_dfc.html">
+   Estimate dynamic functional connectivity
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conn/plot_conn.html">
+   Estimate comodulations between brain areas
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conn/plot_ccf.html">
+   Lag estimation between delayed times-series using the cross-correlation
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../conn/plot_covgc.html">
+   Estimate the covariance-based Granger Causality
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../armodel/plot_ar_pairwise.html">
+   AR : pairwise illustration
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../armodel/plot_ar_instantaneous.html">
+   AR : simulate common driving input
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../armodel/plot_ar_condcovgc.html">
+   AR : conditional covariance based Granger Causality
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../utils/plot_time_windows.html">
+   Define temporal windows
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_generate_random_data.html">
+   Generate random electrophysiological data
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Generate spatio-temporal ground-truths
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xarray/plot_xr_export.html">
+   Xarray : Saving the results
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xarray/plot_xr_quick_tour.html">
+   Xarray : Quick tour
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#comparison-of-the-implemented-ground-truth">
+   Comparison of the implemented ground truth
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-simulation">
+   Data simulation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compute-the-effect-size-and-group-level-statistics">
+   Compute the effect size and group-level statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#comparison-between-the-effect-detected-as-significant-and-the-ground-truth">
+   Comparison between the effect detected as significant and the ground-truth
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="generate-spatio-temporal-ground-truths">
+<span id="sphx-glr-auto-examples-simulations-plot-ground-truth-py"></span><h1>Generate spatio-temporal ground-truths<a class="headerlink" href="#generate-spatio-temporal-ground-truths" title="Permalink to this headline">¶</a></h1>
+<p>Frites provides some functions to generate spatio-temporal ground-truths (i.e.
+effects that are distributed across time and space with a predefined profile).
+Those ground-truths can be particularly interesting to simulate the data coming
+from multiple subjects, compare group-level strategies such as methods for
+multiple comparisons.</p>
+<p>This example illustrates :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>How the predefined ground-truth effects looks like</p></li>
+<li><p>How to generate the data coming from multiple subjects</p></li>
+<li><p>How to use the workflow of mutual-information to retrieve the effect</p></li>
+<li><p>How to use statistical measures to compare the effect detected as
+significant and the ground-truth</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../api/generated/frites.simulations.sim_ground_truth.html#frites.simulations.sim_ground_truth" title="frites.simulations.sim_ground_truth" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_ground_truth</span></a>
+<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
+<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="comparison-of-the-implemented-ground-truth">
+<h2>Comparison of the implemented ground truth<a class="headerlink" href="#comparison-of-the-implemented-ground-truth" title="Permalink to this headline">¶</a></h2>
+<p>In this first part we illustrate the implemented ground-truths profiles. This
+includes effects with varying covariance over time and space, weak and
+diffuse effects and strong and focal effect.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tri&#39;</span><span class="p">,</span> <span class="s1">&#39;tri_r&#39;</span><span class="p">,</span> <span class="s1">&#39;diffuse&#39;</span><span class="p">,</span> <span class="s1">&#39;focal&#39;</span><span class="p">]</span>
+<span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">gts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">gtype</span> <span class="ow">in</span> <span class="n">gtypes</span><span class="p">:</span>
+    <span class="n">gts</span><span class="p">[</span><span class="n">gtype</span><span class="p">]</span> <span class="o">=</span> <a href="../../api/generated/frites.simulations.sim_ground_truth.html#frites.simulations.sim_ground_truth" title="frites.simulations.sim_ground_truth" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_ground_truth</span></a><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">gtype</span><span class="o">=</span><span class="n">gtype</span><span class="p">,</span>
+                                  <span class="n">gt_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gt_as_cov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># plot the four ground-truths</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">gtypes</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span>
+    <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">axs</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n_g</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gtypes</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">n_g</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">gts</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral_r&#39;</span><span class="p">,</span>
+                   <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (bin)&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_g</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Spatial (bin)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_ground_truth_001.png" srcset="../../_images/sphx_glr_plot_ground_truth_001.png" alt="Tri, Tri_r, Diffuse, Focal" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:60: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=0., vmax=0.3)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:65: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:60: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=0., vmax=0.3)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:65: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:60: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=0., vmax=0.3)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:65: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:60: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=0., vmax=0.3)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:65: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here, the ground-truth contains values of covariance at specific time
+and spatial bins. The covariance reflects where there’s a relation
+between the brain data and the external continuous y variable and how
+strong is this relation. High values of covariance indicate that the
+brain and the continuous y variable are strongly correlated.
+Conversely, small values of covariance indicate that the brain data and
+the continuous y variable are weakly correlated.</p>
+</div>
+</section>
+<section id="data-simulation">
+<h2>Data simulation<a class="headerlink" href="#data-simulation" title="Permalink to this headline">¶</a></h2>
+<p>In this second part, we use the same function to simulate the data coming
+from multiple subjects. The returned data are a list of length n_subjects
+where each element of the list is an array (xarray.DataArray) of shape
+(n_epochs, n_roi, n_times). In addition to the simulated data, the external
+continuous variable is set as a coordinate of the trial dimension (‘y’)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gtype</span> <span class="o">=</span> <span class="s1">&#39;tri&#39;</span>    <span class="c1"># ground truth type</span>
+<span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># number of simulated subjects</span>
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># number of trials per subject</span>
+
+<span class="c1"># generate the data for all of the subjects</span>
+<span class="n">da</span><span class="p">,</span> <span class="n">gt</span> <span class="o">=</span> <a href="../../api/generated/frites.simulations.sim_ground_truth.html#frites.simulations.sim_ground_truth" title="frites.simulations.sim_ground_truth" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_ground_truth</span></a><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">gtype</span><span class="o">=</span><span class="n">gtype</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># get data (min, max) for plotting</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">da</span><span class="p">:</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">vmin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">vmax</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">95</span><span class="p">))</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">vmin</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span>
+
+<span class="c1"># plot the four ground-truths</span>
+<span class="n">nrows</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ncols</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">n_subjects</span> <span class="o">/</span> <span class="n">nrows</span><span class="p">))</span>
+<span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">))</span>
+<span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">nrows</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">axs</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
+    <span class="c1"># subject selection and mean across trials</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">da</span><span class="p">[</span><span class="n">n_s</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">n_s</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral_r&#39;</span><span class="p">,</span>
+                   <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subject #</span><span class="si">{</span><span class="n">n_s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (bin)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Spatial (bin)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_ground_truth_002.png" srcset="../../_images/sphx_glr_plot_ground_truth_002.png" alt="Subject #0, Subject #1, Subject #2, Subject #3, Subject #4, Subject #5, Subject #6, Subject #7, Subject #8, Subject #9" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:123: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  shading=&#39;nearest&#39;, vmin=vmin, vmax=vmax)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:128: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+</pre></div>
+</div>
+</section>
+<section id="compute-the-effect-size-and-group-level-statistics">
+<h2>Compute the effect size and group-level statistics<a class="headerlink" href="#compute-the-effect-size-and-group-level-statistics" title="Permalink to this headline">¶</a></h2>
+<p>In this third part, we compute the mutual-information and the statistics at
+the group-level using the data simulated above. To this end, we first define
+a dataset containing the electrophysiological. In the simulated data, the
+spatial dimension is called ‘roi’, the temporal dimension is called ‘times’
+and the external continuous y variable is attached along the trial dimension
+and is called ‘y’. After that, we use a random-effect model for the
+population with p-values corrected for multiple comparisons using a cluster-
+based approach.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a dataset hosting the data coming from multiple subjects</span>
+<a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">)</span>
+
+<span class="c1"># run the statistics at the group-level</span>
+<a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wf</span></a> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
+<span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">mcp</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+
+<span class="c1"># get the t-values</span>
+<span class="n">tv</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.tvalues" title="frites.workflow.WfMi.tvalues" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-property"><span class="n">wf</span><span class="o">.</span><span class="n">tvalues</span></a>
+
+<span class="c1"># xarray to dataframe conversion</span>
+<span class="n">df_tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="n">df_pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">pv</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="n">df_gt</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># sphinx_gallery_thumbnail_number = 3</span>
+<span class="c1"># plot the results</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">axs</span><span class="p">)</span>
+
+<span class="n">kw_title</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">kw_heatmap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">df_tv</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df_tv</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_tv</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+               <span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">df_tv</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="mi">99</span><span class="p">),</span> <span class="o">**</span><span class="n">kw_heatmap</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Effect-size at the group-level</span><span class="se">\n</span><span class="s2">(t-values)&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_title</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">df_pv</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df_pv</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_pv</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span>
+               <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_heatmap</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Effects detected as significant</span><span class="se">\n</span><span class="s2">at the group-level (p&lt;0.05)&quot;</span><span class="p">,</span>
+          <span class="o">**</span><span class="n">kw_title</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df_gt</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_gt</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span>
+               <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_heatmap</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ground-truth</span><span class="se">\n</span><span class="s2">(gtype=</span><span class="si">{</span><span class="n">gtype</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_title</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_ground_truth_003.png" srcset="../../_images/sphx_glr_plot_ground_truth_003.png" alt="Effect-size at the group-level (t-values), Effects detected as significant at the group-level (p<0.05), Ground-truth (gtype=tri)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/15 [00:00&lt;?,       ?it/s]
+  7%|6         | Estimating MI : 1/15 [00:01&lt;00:17,    1.28s/it]
+ 13%|#3        | Estimating MI : 2/15 [00:02&lt;00:16,    1.26s/it]
+ 20%|##        | Estimating MI : 3/15 [00:03&lt;00:14,    1.24s/it]
+ 27%|##6       | Estimating MI : 4/15 [00:03&lt;00:13,    1.22s/it]
+ 33%|###3      | Estimating MI : 5/15 [00:04&lt;00:12,    1.20s/it]
+ 40%|####      | Estimating MI : 6/15 [00:05&lt;00:10,    1.19s/it]
+ 47%|####6     | Estimating MI : 7/15 [00:06&lt;00:09,    1.17s/it]
+ 53%|#####3    | Estimating MI : 8/15 [00:07&lt;00:08,    1.15s/it]
+ 60%|######    | Estimating MI : 9/15 [00:08&lt;00:06,    1.13s/it]
+ 67%|######6   | Estimating MI : 10/15 [00:08&lt;00:05,    1.12s/it]
+ 73%|#######3  | Estimating MI : 11/15 [00:09&lt;00:04,    1.11s/it]
+ 80%|########  | Estimating MI : 12/15 [00:10&lt;00:03,    1.09s/it]
+ 87%|########6 | Estimating MI : 13/15 [00:11&lt;00:02,    1.08s/it]
+ 93%|#########3| Estimating MI : 14/15 [00:12&lt;00:01,    1.07s/it]
+100%|##########| Estimating MI : 15/15 [00:13&lt;00:00,    1.07s/it]
+100%|##########| Estimating MI : 15/15 [00:13&lt;00:00,    1.13it/s]
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:174: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  vmin=0., vmax=np.percentile(df_tv.values, 99), **kw_heatmap)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:175: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:180: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  vmin=0, vmax=1, **kw_heatmap)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:181: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:187: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  vmin=0, vmax=1, **kw_heatmap)
+/home/runner/work/frites/frites/examples/simulations/plot_ground_truth.py:188: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+</pre></div>
+</div>
+</section>
+<section id="comparison-between-the-effect-detected-as-significant-and-the-ground-truth">
+<h2>Comparison between the effect detected as significant and the ground-truth<a class="headerlink" href="#comparison-between-the-effect-detected-as-significant-and-the-ground-truth" title="Permalink to this headline">¶</a></h2>
+<p>This last section quantifies how well the statistical framework performed
+on this particular ground-truth. The overall idea is to use statistical
+measures (namely false / true positive / negative rates) to quantify how well
+the framework of group-level statistics is able to retrieve the ground-truth.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># bins with / without effect in the ground-truth</span>
+<span class="n">tp_gt</span><span class="p">,</span> <span class="n">tn_gt</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">dim_gt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Ground-Truth</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Total number of spatio-temporal bins : </span><span class="si">{</span><span class="n">dim_gt</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of bins with an effect : </span><span class="si">{</span><span class="n">tp_gt</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of bins without effect : </span><span class="si">{</span><span class="n">tn_gt</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># bins with / without in the retrieved effect</span>
+<span class="n">tp_pv</span><span class="p">,</span> <span class="n">tn_pv</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_pv</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">df_pv</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">dim_pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">df_pv</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Bins detected as significant</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;----------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Total number of spatio-temporal bins : </span><span class="si">{</span><span class="n">dim_pv</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of bins with an effect : </span><span class="si">{</span><span class="n">tp_pv</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of bins without effect : </span><span class="si">{</span><span class="n">tn_pv</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># comparison between the ground-truth</span>
+<span class="n">tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">tp_pv</span><span class="p">,</span> <span class="n">tp_gt</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">tn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">tn_pv</span><span class="p">,</span> <span class="n">tn_gt</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">tp_pv</span><span class="p">,</span> <span class="n">tn_gt</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">tn_pv</span><span class="p">,</span> <span class="n">tp_gt</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Comparison between the ground-truth and the retrieved effect</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of true positive : </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of true negative : </span><span class="si">{</span><span class="n">tn</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of false positive : </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Number of false negative : </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Type I error rate (false positive)</span>
+<span class="n">p_fp</span> <span class="o">=</span> <span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span> <span class="o">+</span> <span class="n">tn</span><span class="p">)</span>  <span class="c1"># == fp / n_false</span>
+<span class="c1"># Type II error rate (false negative)</span>
+<span class="n">p_fn</span> <span class="o">=</span> <span class="n">fn</span> <span class="o">/</span> <span class="p">(</span><span class="n">fn</span> <span class="o">+</span> <span class="n">tp</span><span class="p">)</span>  <span class="c1"># == fn / n_true</span>
+<span class="c1"># Sensitivity (true positive rate)</span>
+<span class="n">sen</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>  <span class="c1"># == 1. - p_fn  == tp / n_true</span>
+<span class="c1"># Specificity (true negative rate)</span>
+<span class="n">spe</span> <span class="o">=</span> <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>  <span class="c1"># == 1. - p_fp  == tn / n_false</span>
+<span class="c1"># Matthews Correlation Coefficient</span>
+<span class="n">numer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tp</span> <span class="o">*</span> <span class="n">tn</span> <span class="o">-</span> <span class="n">fp</span> <span class="o">*</span> <span class="n">fn</span><span class="p">)</span>
+<span class="n">denom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fn</span><span class="p">))</span>
+<span class="n">mcc</span> <span class="o">=</span> <span class="n">numer</span> <span class="o">/</span> <span class="n">denom</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Statistics</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;----------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Type I error (false positive rate): </span><span class="si">{</span><span class="n">p_fp</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Type II error (false negative rate): </span><span class="si">{</span><span class="n">p_fn</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Sensitivity (true positive rate): </span><span class="si">{</span><span class="n">sen</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Specificity (true negative rate): </span><span class="si">{</span><span class="n">spe</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;- Matthews Correlation Coefficient: </span><span class="si">{</span><span class="n">mcc</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ground-Truth
+------------
+- Total number of spatio-temporal bins : 750
+- Number of bins with an effect : 135
+- Number of bins without effect : 615
+
+Bins detected as significant
+----------------------------
+- Total number of spatio-temporal bins : 750
+- Number of bins with an effect : 105
+- Number of bins without effect : 645
+
+Comparison between the ground-truth and the retrieved effect
+------------------------------------------------------------
+- Number of true positive : 103
+- Number of true negative : 613
+- Number of false positive : 2
+- Number of false negative : 32
+
+Statistics
+----------
+- Type I error (false positive rate): 0.0032520325203252032
+- Type II error (false negative rate): 0.23703703703703705
+- Sensitivity (true positive rate): 0.762962962962963
+- Specificity (true negative rate): 0.9967479674796748
+- Matthews Correlation Coefficient: 0.8411594148150925
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  19.552 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  13 MB</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-simulations-plot-ground-truth-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/67c874a55fd51105be662ebc8ce0a485/plot_ground_truth.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ground_truth.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/4b66f62d558ab836b7423e3f50473b91/plot_ground_truth.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ground_truth.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="plot_generate_random_data.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Generate random electrophysiological data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../xarray/plot_xr_export.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Xarray : Saving the results</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2021-11-30.</p>
+    </footer>
+
+  </body>
+</html>
