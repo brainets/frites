@@ -44,7 +44,7 @@ class TestConnSpec:
             if mode == "morlet":
                 val, atol = 20, 2
             else:
-                val, atol = 5.8, 0.35
+                val, atol = 5.8, 0.40
             idx_f = self.__get_freqs_indexes(28, 32)
             actual = out.mean(axis=(0, -1))[:, idx_f].mean(1)
             np.testing.assert_allclose(
