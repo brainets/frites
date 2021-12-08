@@ -82,7 +82,7 @@ class TestConnSpec:
             assert out.name == method
             self.__assert_shape(out.shape)
             self.__assert_default_rois(out.roi.data)
-            self.__assert_dims(rt_default_roout.dims)
+            self.__assert_dims(out.dims)
             self.__assert_attrs(out.attrs)
             
             ##################################################################
