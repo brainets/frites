@@ -60,8 +60,8 @@ class TestConnSpec:
                 val, atol = 11, 1
             else:
                 val, atol = 3.2, 0.3
-            actual1 = out.mean(axis=(0,-1))[:, self.__get_freqs_indexes(8, 12)].mean(1)
-            actual2 = out.mean(axis=(0,-1))[:, self.__get_freqs_indexes(28, 32)].mean(1)
+            actual1 = out.mean(axis=(0, -1))[:, self.__get_freqs_indexes(8, 12)].mean(1)
+            actual2 = out.mean(axis=(0, -1))[:, self.__get_freqs_indexes(28, 32)].mean(1)
             np.testing.assert_allclose(actual1, val*np.ones_like(actual), atol=atol)            
             np.testing.assert_allclose(actual2, val*np.ones_like(actual), atol=atol)
 
