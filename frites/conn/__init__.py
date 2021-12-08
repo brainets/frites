@@ -18,6 +18,7 @@ from .conn_ccf import conn_ccf  # noqa
 from .conn_covgc import conn_covgc  # noqa
 from .conn_dfc import conn_dfc  # noqa
 from .conn_transfer_entropy import conn_transfer_entropy  # noqa
+from .conn_spec import conn_spec  # noqa
 
 # connectivity utility functions
 from .conn_fcd_corr import conn_fcd_corr  # noqa
