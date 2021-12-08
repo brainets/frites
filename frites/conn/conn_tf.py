@@ -14,14 +14,10 @@ This script contains the function:
 #
 # License : BSD (3-clause)
 
-import xarray as xr
 import numpy as np
 
 from mne.time_frequency import tfr_array_morlet, tfr_array_multitaper
 from scipy.signal import fftconvolve
-
-from frites.io import set_log_level, logger
-from frites.conn import conn_io
 
 
 def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
