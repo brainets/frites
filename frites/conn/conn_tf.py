@@ -26,6 +26,7 @@ from frites.io import logger
 def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
                decim=1, kw_cwt={}, kw_mt={}, n_jobs=1):
     """Time-frequency decomposition using MNE-Python.
+
     Parameters
     ----------
     data : array_like
@@ -52,6 +53,7 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
     kw_mt : dict | {}
         Additional arguments sent to the mne-function
         :py:`mne.time_frequency.tfr_array_multitaper`
+
     Returns
     -------
     out : array_like
@@ -94,6 +96,7 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
 
 def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
     """2D (freqs, time) smoothing kernel.
+
     Parameters
     ----------
     sm_times : int, array_like
@@ -104,6 +107,7 @@ def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
         Number of points to consider for the frequency smoothing
     kernel : {'square', 'hanning'}
         Kernel type to use. Choose either 'square' or 'hanning'
+
     Returns
     -------
     kernel : array_like
@@ -157,8 +161,10 @@ def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
 
 def _smooth_spectra(spectra, kernel, scale=False, decim=1):
     """Smoothing spectra.
+
     This function assumes that the frequency and time axis are respectively
     located at positions (..., freqs, times).
+
     Parameters
     ----------
     spectra : array_like
@@ -167,6 +173,7 @@ def _smooth_spectra(spectra, kernel, scale=False, decim=1):
         Smoothing kernel of shape (sm_freqs, sm_times)
     decim : int | 1
         Decimation factor to apply after the kernel smoothing
+
     Returns
     -------
     sm_spectra : array_like
