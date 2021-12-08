@@ -6,6 +6,8 @@ from frites.conn.conn_spec import conn_spec
 
 class TestConnSpec:
 
+    np.random.seed(0)
+
     n_roi, n_times, n_epochs = 4, 1000, 20
     n_edges = int(n_roi * (n_roi - 1) / 2)
     sfreq, freqs = 200, np.arange(1, 51, 1)
@@ -44,7 +46,7 @@ class TestConnSpec:
             if mode == "morlet":
                 val, atol = 20, 2
             else:
-                val, atol = 5.8, 0.40
+                val, atol = 5.8, 0.35
             idx_f = self.__get_freqs_indexes(28, 32)
             actual = out.mean(axis=(0, -1))[:, idx_f].mean(1)
             np.testing.assert_allclose(
