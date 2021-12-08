@@ -14,7 +14,7 @@ This script contains the function:
 #
 # License : BSD (3-clause)
 
-import xarray as xr
+
 import numpy as np
 
 from mne.time_frequency import tfr_array_morlet, tfr_array_multitaper
@@ -127,10 +127,10 @@ def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
         def __pad_kernel(s):
             for i in range(n_kernel):
                 #  print(f"{s[i]}")
-                pad_size = int(max_size-len(s[i]))
+                pad_size = int(max_size - len(s[i]))
                 # The len(s[i])%2 corrects in case the len is odd
                 s_pad[i, :] = np.pad(
-                    s[i], (pad_size//2, pad_size//2+pad_size % 2))
+                    s[i], (pad_size // 2, pad_size // 2 + pad_size % 2))
             return s_pad
 
     if kernel == 'square':
@@ -138,7 +138,7 @@ def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
             return np.full((sm_freqs, sm_times), 1. / (sm_times * sm_freqs))
         else:
             for i in range(n_kernel):
-                s += [np.ones(sm_times[i])/sm_times[i]]
+                s += [np.ones(sm_times[i]) / sm_times[i]]
             # Pad with zeros
             return __pad_kernel(s)
     elif kernel == 'hanning':
@@ -149,7 +149,7 @@ def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
         else:
             for i in range(n_kernel):
                 hann = np.hanning(sm_times[i])
-                s += [hann/np.sum(hann)]
+                s += [hann / np.sum(hann)]
             return __pad_kernel(s)
     else:
         raise ValueError(f"No kernel {kernel}")
