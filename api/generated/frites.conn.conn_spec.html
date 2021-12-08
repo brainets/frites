@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.core.gccmi_nd_ccnd &#8212; frites 0.4.1 documentation</title>
+    <title>frites.conn.conn_spec &#8212; frites 0.4.1 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -45,8 +45,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.core.gccmi_model_nd_cdnd" href="frites.core.gccmi_model_nd_cdnd.html" />
-    <link rel="prev" title="frites.core.gcmi_model_nd_cd" href="frites.core.gcmi_model_nd_cd.html" />
+    <link rel="next" title="frites.conn.conn_transfer_entropy" href="frites.conn.conn_transfer_entropy.html" />
+    <link rel="prev" title="frites.conn.conn_ccf" href="frites.conn.conn_ccf.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -154,7 +154,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_dataset.html">
    Dataset
@@ -209,16 +209,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_connectivity.html">
    Connectivity
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_dfc.html">
      frites.conn.conn_dfc
@@ -234,8 +234,8 @@
      frites.conn.conn_ccf
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.conn.conn_spec.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.conn.conn_spec
     </a>
    </li>
@@ -413,7 +413,7 @@
   </ul>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_statistics.html">
    Statistics
@@ -451,16 +451,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_core.html">
    Low-level core functions
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
   <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="frites.core.copnorm_1d.html">
      frites.core.copnorm_1d
@@ -556,8 +556,8 @@
      frites.core.gcmi_model_nd_cd
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.gccmi_nd_ccnd.html">
      frites.core.gccmi_nd_ccnd
     </a>
    </li>
@@ -631,52 +631,97 @@
               
               <div>
                 
-  <section id="frites-core-gccmi-nd-ccnd">
-<h1>frites.core.gccmi_nd_ccnd<a class="headerlink" href="#frites-core-gccmi-nd-ccnd" title="Permalink to this headline">¶</a></h1>
+  <section id="frites-conn-conn-spec">
+<h1>frites.conn.conn_spec<a class="headerlink" href="#frites-conn-conn-spec" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.core.gccmi_nd_ccnd">
-<span class="sig-prename descclassname"><span class="pre">frites.core.</span></span><span class="sig-name descname"><span class="pre">gccmi_nd_ccnd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mvaxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_checking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demeaned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/core/gcmi_nd.py#L447-L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.core.gccmi_nd_ccnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Conditional GCMI between two continuous variables.</p>
-<p>This function performs a GC-CMI between 2 continuous variables conditioned
-with multiple discrete variables.</p>
+<dt class="sig sig-object py" id="frites.conn.conn_spec">
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric='coh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_times=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_freqs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_kernel='hanning'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='morlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cycles=7.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mt_bandwidth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decim=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_cwt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_mt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_spec.py#L104-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wavelet-based single-trial time-resolved spectral connectivity.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>x, y</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Arrays to consider for computing the Mutual Information. The two input
-variables x and y should have the same shape except on the mvaxis
-(if needed).</p>
+<dt><strong>data</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Electrophysiological data. Several input types are supported :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Standard NumPy arrays of shape (n_epochs, n_roi, n_times)</p></li>
+<li><p>mne.Epochs</p></li>
+<li><p>xarray.DataArray of shape (n_epochs, n_roi, n_times)</p></li>
+</ul>
+</div></blockquote>
 </dd>
-<dt><strong>z</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | <span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array that describes the conditions across the trial axis. Should be a
-list of arrays of shape (n_trials,) of integers
-(e.g. [0, 0, …, 1, 1, 2, 2])</p>
+<dt><strong>metric</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | “coh”</span></dt><dd><p>Which connectivity metric. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘coh’ : Coherence</p></li>
+<li><p>‘plv’ : Phase-Locking Value (PLV)</p></li>
+<li><p>‘sxy’ : Cross-spectrum</p></li>
+</ul>
+</div></blockquote>
+<p>By default, the coherenc is used.</p>
 </dd>
-<dt><strong>mvaxis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Spatial location of the axis to consider if multi-variate analysis
-is needed</p>
+<dt><strong>freqs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of central frequencies of shape (n_freqs,).</p>
 </dd>
-<dt><strong>traxis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | -1</span></dt><dd><p>Spatial location of the trial axis. By default the last axis is
-considered</p>
+<dt><strong>roi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>ROI names of a single subject. If the input is an xarray, the
+name of the ROI dimension can be provided</p>
 </dd>
-<dt><strong>gcrn</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Apply a Gaussian Copula rank normalization. This operation is
-relatively slow for big arrays.</p>
+<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time vector array of shape (n_times,). If the input is an xarray, the
+name of the time dimension can be provided</p>
 </dd>
-<dt><strong>shape_checking</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Perform a reshape and check that x and y shapes are consistents. For
-high performances and to avoid extensive memory usage, it’s better to
-already have x and y with a shape of (…, mvaxis, traxis) and to set
-this parameter to False</p>
+<dt><strong>pairs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Pairs of links of shape (n_pairs, 2) to compute. If None, all pairs are
+computed</p>
+</dd>
+<dt><strong>sfreq</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Sampling frequency</p>
+</dd>
+<dt><strong>foi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Extract frequencies of interest. This parameters should be an array of
+shapes (n_foi, 2) defining where each band of interest start and
+finish.</p>
+</dd>
+<dt><strong>sm_times</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | .5</span></dt><dd><p>Number of points to consider for the temporal smoothing in seconds. By
+default, a 500ms smoothing is used.</p>
+</dd>
+<dt><strong>sm_freqs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of points for frequency smoothing. By default, 1 is used which
+is equivalent to no smoothing</p>
+</dd>
+<dt><strong>kernel</strong><span class="classifier">{‘square’, ‘hanning’}</span></dt><dd><p>Kernel type to use. Choose either ‘square’ or ‘hanning’</p>
+</dd>
+<dt><strong>mode</strong><span class="classifier">{‘morlet’, ‘multitaper’}</span></dt><dd><p>Spectrum estimation mode can be either: ‘multitaper’ or ‘morlet’.</p>
+</dd>
+<dt><strong>n_cycles</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | 7.</span></dt><dd><p>Number of cycles to use for each frequency. If a float or an integer is
+used, the same number of cycles is going to be used for all frequencies</p>
+</dd>
+<dt><strong>mt_bandwidth</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>The bandwidth of the multitaper windowing function in Hz. Only used in
+‘multitaper’ mode.</p>
+</dd>
+<dt><strong>decim</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>To reduce memory usage, decimation factor after time-frequency
+decomposition. default 1 If int, returns tfr[…, ::decim]. If slice,
+returns tfr[…, decim].</p>
+</dd>
+<dt><strong>kw_cwt</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments sent to the mne-function
+<a href="#id1"><span class="problematic" id="id2">:py:`mne.time_frequency.tfr_array_morlet`</span></a></p>
+</dd>
+<dt><strong>kw_mt</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments sent to the mne-function
+<a href="#id3"><span class="problematic" id="id4">:py:`mne.time_frequency.tfr_array_multitaper`</span></a></p>
+</dd>
+<dt><strong>block_size</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Number of blocks of trials to process at once. This parameter can be
+use in order to decrease memory load. If None, all trials are used. If
+for example block_size=2, the number of trials are subdivided into two
+groups and each group is process one after the other.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs). The parallel loop is set at the pair level.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>cmi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Conditional mutual-information with the same shape as x and y without
-the mvaxis and traxis</p>
+<dt><strong>conn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></span></dt><dd><p>DataArray of shape (n_trials, n_pairs, n_freqs, n_times)</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-core-gccmi-nd-ccnd"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-conn-conn-spec"></span></section>
 
 
               </div>
@@ -684,17 +729,17 @@ the mvaxis and traxis</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="frites.core.gcmi_model_nd_cd.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="frites.conn.conn_ccf.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">frites.core.gcmi_model_nd_cd</p>
+            <p class="prev-next-title">frites.conn.conn_ccf</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.core.gccmi_model_nd_cdnd.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.conn.conn_transfer_entropy.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.core.gccmi_model_nd_cdnd</p>
+        <p class="prev-next-title">frites.conn.conn_transfer_entropy</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
