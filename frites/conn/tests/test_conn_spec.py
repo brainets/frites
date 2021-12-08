@@ -164,7 +164,8 @@ class TestConnSpec:
         else:
             half = self.n_times / (2 * self.sfreq)
             return np.sin(2 * np.pi * self.times * 10) * (self.times < half)\
-                + np.sin(2 * np.pi * self.times * 30) * (self.times >= half) + self.eta
+                + np.sin(2 * np.pi * self.times * 30) * (self.times >= half)\
+                + self.eta
 
     def __get_freqs_indexes(self, f_low, f_high):
         """ Get the indexes of a range of frequencies in the freqs array """
