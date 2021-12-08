@@ -81,7 +81,7 @@ class TestConnSpec:
             # Test container attributes, dims and coords
             assert out.name == method
             self.__assert_shape(out.shape)
-            self.__asseis(out.roi.data)
+            self.__assert_default_rois(out.roi.data)
             self.__assert_dims(rt_default_roout.dims)
             self.__assert_attrs(out.attrs)
             
