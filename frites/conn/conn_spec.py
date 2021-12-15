@@ -11,8 +11,8 @@ import xarray as xr
 from frites.conn import conn_io
 from frites.io import set_log_level, logger, check_attrs
 from frites.utils import parallel_func
-from .conn_tf import (_tf_decomp, _create_kernel,
-                      _smooth_spectra, _foi_average)
+from frites.conn.conn_tf import (_tf_decomp, _create_kernel,
+                                 _smooth_spectra, _foi_average)
 
 
 ###############################################################################
