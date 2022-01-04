@@ -1,6 +1,9 @@
 """Utility functions for stat evaluation."""
 import numpy as np
 
+from frites.utils import nonsorted_unique
+from frites.dataset.ds_utils import multi_to_uni_conditions
+
 
 def permute_mi_vector(y, suj, mi_type='cc', inference='rfx', n_perm=1000,
                       random_state=None):
@@ -93,3 +96,56 @@ def permute_mi_trials(suj, inference='rfx', n_perm=1000, random_state=None):
     assert len(y_p) == n_perm
 
     return y_p
+
+
+def bootstrap_partitions(n_epochs, *groups, n_partitions=200,
+                         random_state=None):
+    """Generate partitions for bootstrap.
+
+    Parameters
+    ----------
+    n_epochs : int
+        Number of epochs
+    groups : array_like
+        Groups within which permutations are performed. Should be arrays of
+        shape (n_epochs,) and of type int
+    n_partitions : int | 200
+        Number of partitions to get
+    random_state : int | None
+        Fix the random state of the machine (use it for reproducibility). If
+        None, a random state is randomly assigned.
+
+    Returns
+    -------
+    partitions : list
+        List of arrays describing the partitions within groups or not
+    """
+    from sklearn.utils import resample
+
+    # define the random state
+    rnd = np.random.randint(1000) if not isinstance(
+        random_state, int) else random_state
+
+    # manage groups
+    if not len(groups):
+        groups = np.zeros((n_epochs), dtype=int)
+    else:
+        if len(groups) == 1:
+            groups = groups[0]
+        else:
+            groups = multi_to_uni_conditions(
+                [np.stack(groups, axis=1)], var_name='boot', verbose=False)[0]
+    u_groups = nonsorted_unique(groups)
+
+    # generate the partitions
+    partitions = []
+    for n_p in range(n_partitions):
+        _part = np.arange(n_epochs)
+        for n_g in u_groups:
+            is_group = groups == n_g
+            n_group = is_group.sum()
+            _part[is_group] = resample(
+                _part[is_group], n_samples=n_group, random_state=rnd + n_p)
+        partitions.append(_part)
+
+    return partitions

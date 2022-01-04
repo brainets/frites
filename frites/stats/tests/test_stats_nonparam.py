@@ -1,7 +1,7 @@
 """Test high-level mutual information functions."""
 import numpy as np
 
-from frites.core import permute_mi_vector, permute_mi_trials
+from frites.stats import permute_mi_vector, permute_mi_trials
 
 rnd = np.random.RandomState(0)
 
@@ -14,7 +14,7 @@ y = rnd.rand(n_epochs)
 suj = np.round(np.linspace(0, n_suj, n_epochs)).astype(int)
 
 
-class TestMiStats(object):  # noqa
+class TestNonParam(object):  # noqa
 
     def test_permute_mi_vector(self):
         """Test function permute_mi_vector."""
