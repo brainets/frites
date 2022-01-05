@@ -1,7 +1,8 @@
 """Test high-level mutual information functions."""
 import numpy as np
 
-from frites.stats import permute_mi_vector, permute_mi_trials
+from frites.stats import (permute_mi_vector, permute_mi_trials,
+                          bootstrap_partitions, dist_to_ci)
 
 rnd = np.random.RandomState(0)
 
@@ -38,3 +39,41 @@ class TestNonParam(object):  # noqa
                 for k in y_p:
                     assert (k[0:3].min() == 0) and (k[0:3].max() == 2)
                     assert (k[3::].min() == 3) and (k[3::].max() == 5)
+
+    def test_bootstrap_partitions(self):
+        """Test function bootstrap_partitions."""
+        # overall testing
+        part = bootstrap_partitions(10, n_partitions=5)
+        assert len(part) == 5
+        for k in part:
+            assert (0 <= k).all() and (k < 10).all()
+
+        # group testing
+        gp_1 = np.array([0, 0, 0, 1, 1, 1])
+        part = bootstrap_partitions(6, gp_1, n_partitions=5)
+        for k in part:
+            assert (0 <= k[0:3].min()) and (k[0:3].max() <= 2)
+            assert (3 <= k[3::].min()) and (k[3::].max() <= 5)
+
+        gp_1 = np.array([0, 0, 1, 1, 2, 2])
+        part = bootstrap_partitions(6, gp_1, n_partitions=5)
+        for k in part:
+            assert (0 <= k[0:2].min()) and (k[0:2].max() <= 1)
+            assert (2 <= k[2:4].min()) and (k[2:4].max() <= 3)
+            assert (4 <= k[4::].min()) and (k[4::].max() <= 5)
+
+    def test_dist_to_ci(self):
+        """Test function dist_to_ci."""
+        # standard definition
+        dist = np.random.rand(200, 1, 30)
+        assert dist_to_ci(dist, cis=[95]).shape == (1, 2, 30)
+        assert dist_to_ci(dist, cis=[95, 99, 99.9]).shape == (3, 2, 30)
+
+        # mean effect size
+        dist = np.random.rand(200, 10, 30)
+        assert dist_to_ci(dist, cis=[95], inference='rfx').shape == (1, 2, 30)
+        assert dist_to_ci(
+            dist, cis=[95, 99, 99.9], inference='rfx').shape == (3, 2, 30)
+
+if __name__ == '__main__':
+    TestNonParam().test_dist_to_ci()
