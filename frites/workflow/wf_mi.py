@@ -415,6 +415,9 @@ class WfMi(WfBase):
             "perform the conjunction analysis.")
         assert rfx_es in ['mi', 'tvalues']
 
+        logger.info("Estimation of the empirical confidence interval "
+                    f"(levels={ci}; n_boots={n_boots}")
+
         """
         For the RFX, the CI on t-values is estimated at the second level i.e.
         by bootstraping the subjects. I'm not sure why, but CI at the trial
@@ -424,6 +427,8 @@ class WfMi(WfBase):
         if (self._inference == 'rfx') and (rfx_es == 'tvalues'):
             from frites.config import CONFIG
             from frites.stats import ttest_1samp
+
+            logger.info("    Resampling at the second level t-test")
 
             # get whether the same partition should be used across roi or not
             n_suj_roi = np.array([k.shape[0] for k in self.mi])
@@ -486,6 +491,8 @@ class WfMi(WfBase):
                 coords=(ci, ['low', 'high'], self._mi_coords['times'],
                         self._mi_coords['roi']))
             return x_ci
+
+        logger.info("    Resampling at the first level")
 
         """
         For the FFX / RFX + rfx_es = 'mi', the resampling is performed at the
