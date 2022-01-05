@@ -76,6 +76,7 @@ ci = wf.confidence_interval(dt, n_boots=200, ci=[95, 99.9], n_jobs=1,
 print(ci)
 
 # plot the results
+# sphinx_gallery_thumbnail_number = 1
 plot(mi, pv, ci, title='CI - FFX model')
 plt.show()
 
