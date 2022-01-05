@@ -18,6 +18,7 @@ Connectivity metrics
    conn_dfc
    conn_covgc
    conn_ccf
+   conn_spec
    conn_transfer_entropy
 
 Utility functions
