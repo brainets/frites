@@ -10,7 +10,7 @@ from frites.io import set_log_level, logger
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator, ResamplingEstimator
-from frites.utils import parallel_func, kernel_smoothing, nonsorted_unique
+from frites.utils import parallel_func, kernel_smoothing
 from frites.stats import dist_to_ci, permute_mi_vector, bootstrap_partitions
 
 

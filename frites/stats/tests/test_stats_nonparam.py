@@ -75,5 +75,6 @@ class TestNonParam(object):  # noqa
         assert dist_to_ci(
             dist, cis=[95, 99, 99.9], inference='rfx').shape == (3, 2, 30)
 
+
 if __name__ == '__main__':
     TestNonParam().test_dist_to_ci()
