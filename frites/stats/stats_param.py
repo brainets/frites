@@ -114,10 +114,10 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     """
     from frites.config import CONFIG
     s_hat = CONFIG['TTEST_MNE_SIGMA']
-    mi_var = np.stack([np.var(k, axis=0, ddof=1) for k in mi])
-    sigma = s_hat * np.max(mi_var)      # sigma on true mi
-    mi_p_var = np.stack([np.var(k, axis=1, ddof=1) for k in mi_p])
-    sigma_p = s_hat * np.max(mi_p_var)  # sigma on permuted mi
+
+    # sigma on true mi and permuted mi
+    sigma = s_hat * max([np.var(k, axis=0, ddof=1).max() for k in mi])
+    sigma_p = s_hat * max([np.var(k, axis=1, ddof=1).max() for k in mi_p])
     logger.debug(f"sigma_true={sigma}; sigma_permuted={sigma_p}")
     kw = dict(implementation='mne', method='absolute', sigma=sigma)
     kw_p = dict(implementation='mne', method='absolute', sigma=sigma_p)
