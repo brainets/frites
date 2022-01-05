@@ -149,3 +149,55 @@ def bootstrap_partitions(n_epochs, *groups, n_partitions=200,
         partitions.append(_part)
 
     return partitions
+
+
+def dist_to_ci(dist, cis=[99], inference='ffx', rfx_es='mi', pop_mean=None):
+    """Extract confidence bounds of a distribution.
+
+    Parameters
+    ----------
+    dist : array_like
+        Distribution of shape (n_boots, 1, n_times)
+    cis : list | [99]
+        List of confidence levels
+    inference : {'ffx', 'rfx'}
+        Statistical model of the group
+    rfx_es : {'mi', 'tvalues'}
+        RFX effect size type. Use either 'mi' (for MI in bits) or 'tvalues' if
+        a t-test is required
+    pop_mean : float | None
+        Value to use for performing the t-test
+
+    Returns
+    -------
+    cis : array_like
+        Array describing the bounds of the confidence intervals. This array has
+        a shape of (n_cis, 2, n_times)
+    """
+    assert inference in ['ffx', 'rfx']
+    assert isinstance(cis, (list, tuple, np.ndarray))
+    assert rfx_es in ['mi', 'tvalues']
+    assert dist.ndim == 3
+
+    # group level effect for the rfx
+    if (inference == 'rfx') and (rfx_es == 'mi'):
+        dist = dist.mean(1, keepdims=True)
+    elif (inference == 'rfx') and (rfx_es == 'tvalues'):
+        raise NotImplementedError()
+        # assert isinstance(pop_mean, (int, float))
+        # from frites.config import CONFIG
+        # s_hat = CONFIG['TTEST_MNE_SIGMA']
+        # sigma = s_hat * np.var(dist, axis=1, ddof=1).max()
+        # dist = ttest_1samp(dist, pop_mean, axis=1, implementation='mne',
+        #                    method='absolute', sigma=sigma)[:, np.newaxis, :]
+    assert dist.shape[1] == 1  # (n_boots, 1, n_times)
+    _, _, n_times = dist.shape
+
+    # find bounds
+    x_ci = np.zeros((len(cis), 2, n_times))
+    for n_ci, ci in enumerate(cis):
+        half_alpha = (100. - ci) / 2.
+        x_ci[n_ci, 0, :] = np.percentile(dist, half_alpha, axis=0)
+        x_ci[n_ci, 1, :] = np.percentile(dist, (100. - half_alpha), axis=0)
+
+    return x_ci
