@@ -425,6 +425,21 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.permute_mi_vector.html">
+     frites.stats.permute_mi_vector
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.permute_mi_trials.html">
+     frites.stats.permute_mi_trials
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.bootstrap_partitions.html">
+     frites.stats.bootstrap_partitions
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="frites.stats.ttest_1samp.html">
      frites.stats.ttest_1samp
     </a>
@@ -650,7 +665,7 @@
 <h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.workflow.WfMi">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.workflow.</span></span><span class="sig-name descname"><span class="pre">WfMi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L17-L490"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.workflow.</span></span><span class="sig-name descname"><span class="pre">WfMi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L17-L695"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow of local mutual-information and statistics.</p>
 <p>This class allows to define a workflow for computing the mutual information
 and then to evaluate the significance using non-parametric statistics
@@ -717,25 +732,74 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.clean" title="frites.workflow.WfMi.clean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean</span></code></a>()</p></td>
 <td><p>Clean computations.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjunction_analysis</span></code></a>([p, mcp, cluster_th, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.confidence_interval" title="frites.workflow.WfMi.confidence_interval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">confidence_interval</span></code></a>(dataset[, ci, n_boots, ...])</p></td>
+<td><p>Estimate the empirical confidence interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.conjunction_analysis" title="frites.workflow.WfMi.conjunction_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjunction_analysis</span></code></a>([p, mcp, cluster_th, ...])</p></td>
 <td><p>Perform a conjunction analysis.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.copy" title="frites.workflow.WfMi.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.copy" title="frites.workflow.WfMi.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
 <td><p>Return copy of WfMi instance.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([dataset, mcp, n_perm, cluster_th, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([dataset, mcp, n_perm, cluster_th, ...])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params)</p></td>
 <td><p>Get formatted parameters.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L439-L441"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L644-L646"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean computations.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="frites.workflow.WfMi.confidence_interval">
+<span class="sig-name descname"><span class="pre">confidence_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_boots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfx_es</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mi'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L371-L574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the empirical confidence interval.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></span></dt><dd><p>A dataset instance. If the workflow has already been fitted, then
+this parameter can remains to None.</p>
+</dd>
+<dt><strong>ci</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | 95</span></dt><dd><p>Confidence level to use in percentage. Use either a single float
+(e.g. 95, 99 etc.) or a list of floats (e.g. [95, 99])</p>
+</dd>
+<dt><strong>n_boots</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 200</span></dt><dd><p>Number of resampling to perform</p>
+</dd>
+<dt><strong>rfx_es</strong><span class="classifier">{‘mi’, ‘tvalues’}</span></dt><dd><p>For the RFX model, specify whether the confidence interval has to
+be estimated on a measure of effect size in bits (‘mi’) or on
+second-level t-test (‘tvalues’)</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | -1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
+jobs)</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Fix the random state of the machine (use it for reproducibility).
+If None, a random state is randomly assigned.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>ci</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>Confidence interval array of shape (n_ci, 2, n_times, n_roi) where
+n_ci describe the number of confidence levels define with the
+input parameter <cite>ci</cite>, and 2 represents the lower and upper bounds
+of the confidence interval</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric" id="sphx-glr-backreferences-frites-workflow-wfmi-confidence-interval">Examples using <code class="docutils literal notranslate"><span class="pre">confidence_interval</span></code>:</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the confidence interval"><figure class="align-default" id="id5">
+<img alt="Estimate the empirical confidence interval" src="../../_images/sphx_glr_plot_ci_cc_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.conjunction_analysis">
@@ -773,17 +837,17 @@ subjects that have a significant MI</p>
 </dd>
 </dl>
 <p class="rubric" id="sphx-glr-backreferences-frites-workflow-wfmi-conjunction-analysis">Examples using <code class="docutils literal notranslate"><span class="pre">conjunction_analysis</span></code>:</p>
-<div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id5">
+<div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id6">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L443-L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L648-L656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return copy of WfMi instance.</p>
 <dl class="field-list">
 <dt class="field-odd">Returns</dt>
@@ -869,71 +933,77 @@ subjects.</p>
 <p class="rubric">References</p>
 <p>Maris and Oostenveld, 2007 <a class="bibtex reference internal" href="../../overview/ovw_refs.html#maris2007nonparametric" id="id4">[10]</a></p>
 <p class="rubric" id="sphx-glr-backreferences-frites-workflow-wfmi-fit">Examples using <code class="docutils literal notranslate"><span class="pre">fit</span></code>:</p>
-<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id6">
+<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id7">
 <img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id7">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id8">
 <img alt="MI between two continuous variables conditioned by a discret one" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id8">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id9">
 <img alt="MI between a continuous and a discret variables" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id9">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id10">
 <img alt="Compute MI across time and frequencies" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id10">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id11">
 <img alt="MI between two continuous variables" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id11">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id12">
 <img alt="Investigate relation of order" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id12">
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id13">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id13">
-<img alt="Compare between-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id14">
-<img alt="Compare within-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
+<img alt="Compare between-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are..."><figure class="align-default" id="id15">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id15">
+<img alt="Compare within-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the confidence interval"><figure class="align-default" id="id16">
+<img alt="Estimate the empirical confidence interval" src="../../_images/sphx_glr_plot_ci_cc_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are..."><figure class="align-default" id="id17">
 <img alt="Generate spatio-temporal ground-truths" src="../../_images/sphx_glr_plot_ground_truth_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L371-L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.get_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L576-L642"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get formatted parameters.</p>
 <p>This method can be used to get internal arrays formatted as xarray
 DataArray.</p>
@@ -949,7 +1019,7 @@ Only possible with RFX inferences</p></li>
 shape (n_subjects, n_times, n_roi)</p></li>
 <li><p>‘perm_ss’ : DataArray of computed permutations of shape
 (n_perm, n_subjects, n_times, n_roi)</p></li>
-<li><p>‘<a href="#id27"><span class="problematic" id="id28">perm_</span></a>’ : DataArray of maximum computed permutations of
+<li><p>‘<a href="#id30"><span class="problematic" id="id31">perm_</span></a>’ : DataArray of maximum computed permutations of
 shape (n_perm,)</p></li>
 </ul>
 </div></blockquote>
@@ -992,70 +1062,76 @@ is selected.</p>
 
 <section id="examples-using-frites-workflow-wfmi">
 <span id="sphx-glr-backreferences-frites-workflow-wfmi"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code><a class="headerlink" href="#examples-using-frites-workflow-wfmi" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id16">
+<div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id18">
 <img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id17">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id19">
 <img alt="MI between two continuous variables conditioned by a discret one" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id18">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id20">
 <img alt="MI between a continuous and a discret variables" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id19">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id21">
 <img alt="Compute MI across time and frequencies" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id20">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id22">
 <img alt="MI between two continuous variables" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id21">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id23">
 <img alt="Investigate relation of order" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id22">
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id24">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and als..."><figure class="align-default" id="id23">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and als..."><figure class="align-default" id="id25">
 <img alt="Mutual-information at the contact level" src="../../_images/sphx_glr_plot_wf_mi_contact_level_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id24">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id26">
 <img alt="Compare between-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id25">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id27">
 <img alt="Compare within-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are..."><figure class="align-default" id="id26">
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the confidence interval"><figure class="align-default" id="id28">
+<img alt="Estimate the empirical confidence interval" src="../../_images/sphx_glr_plot_ci_cc_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are..."><figure class="align-default" id="id29">
 <img alt="Generate spatio-temporal ground-truths" src="../../_images/sphx_glr_plot_ground_truth_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></section>
@@ -1098,7 +1174,7 @@ is selected.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2021-12-21.</p>
+        <p>&copy; Copyright Last updated on 2022-01-05.</p>
     </footer>
 
   </body>
