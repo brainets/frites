@@ -121,6 +121,26 @@ class TestWfMi(object):  # noqa
         _, _ = wf.fit(dt, **kw_mi)
         _ = wf.copy()
 
+    def test_confidence_interval(self):
+        """Test function confidence_interval."""
+        kw_ci = dict(random_state=0, n_jobs=1, n_boots=5, verbose=False)
+
+        # test the ci using the ffx model
+        y, gt = sim_mi_cc(x.copy(), snr=1.)
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
+        wf = WfMi(mi_type='cc', inference='ffx')
+        _, _ = wf.fit(dt, **kw_mi)
+        cis = wf.confidence_interval(dt, **kw_ci)
+        assert cis.shape == (1, 2, n_times, n_roi)
+        assert cis.dims == ('ci', 'bound', 'times', 'roi')
+        assert cis['ci'].data == 95
+
+        # test the ci using the ffx model
+        wf = WfMi(mi_type='cc', inference='rfx')
+        _, _ = wf.fit(dt, **kw_mi)
+        _ = wf.confidence_interval(dt, rfx_es='mi', **kw_ci)
+        _ = wf.confidence_interval(dt, rfx_es='tvalues', **kw_ci)
+
 
 if __name__ == '__main__':
-    TestWfMi().test_no_stat()
+    TestWfMi().test_confidence_interval()
