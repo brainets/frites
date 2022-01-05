@@ -72,6 +72,7 @@ extlinks = {
     "issue": ("https://github.com/brainets/frites/issues/%s", "IS"),
     "pull": ("https://github.com/brainets/frites/pull/%s", "PR"),
     "commit": ("https://github.com/brainets/frites/commit/%s", "CM"),
+    "author": ("https://github.com/%s", "by "),
 }
 
 # The suffix(es) of source filenames.

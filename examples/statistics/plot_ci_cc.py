@@ -97,7 +97,9 @@ ci = wf.confidence_interval(dt, n_boots=200, ci=[95, 99.9], n_jobs=1,
 plot(mi, pv, ci, title='CI - RFX model / MI')
 plt.show()
 
+###############################################################################
 # confidence interval on t-values
+
 wf = WfMi(mi_type='cc', inference='rfx')
 _, pv = wf.fit(dt, n_perm=200, n_jobs=1, random_state=0)
 tv = wf.tvalues
