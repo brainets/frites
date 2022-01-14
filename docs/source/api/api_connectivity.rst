@@ -33,6 +33,7 @@ Reshaping connectivity outputs
    conn_reshape_undirected
    conn_reshape_directed
    conn_ravel_directed
+   conn_net
    conn_get_pairs
 
 Metrics to apply on FC

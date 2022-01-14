@@ -414,3 +414,79 @@ def conn_ravel_directed(da, sep='-', drop_within=False):
         da_ravel = da_ravel.sel(roi=to_keep)
 
     return da_ravel
+
+
+def conn_net(da, roi='roi', order=None, sep='-', invert=False, verbose=None):
+    """Compute the net on directed connectivity.
+
+    This function can be used to compute the net difference on directed
+    connectivity (i.e. A - B = A->B - B->A).
+
+    Parameters
+    ----------
+    da : xr.DataArray
+        Xarray DataArray containing the connectivity array
+    roi : 'roi'
+        Name of the spatial dimension
+    order : list | None
+        List of names for specifying the final order
+    sep : string | '-'
+        Separator between brain region names (e.g. if 'Insula->Thalamus' then
+        sep is '->')
+    invert : bool | False
+        Specify whether the difference should be computed with A - B or B - A
+
+    Returns
+    -------
+    out : xr.DataArray
+        DataArray, with the same dimension names as the input, representing the
+        net difference of directed connexions.
+    """
+    set_log_level(verbose)
+    assert roi in da.dims
+    roi_names = da[roi].data
+
+    # get roi order from sources
+    if order is None:
+        roi_s, roi_t = [], []
+        for r in roi_names:
+            _rs, _rt = r.split(sep)
+            roi_s.append(_rs)
+            roi_t.append(_rt)
+        order = nonsorted_unique(roi_s + roi_t)
+    order = np.asarray(order)
+
+    # build names of the difference
+    x_s, x_t = np.triu_indices(len(order), k=1)
+    roi_s, roi_t = order[x_s], order[x_t]
+    if invert:
+        _roi_st = roi_s.copy()
+        roi_s = roi_t
+        roi_t = _roi_st
+
+    # build pairs names
+    roi_st, p_s, p_t, ignored = [], [], [], []
+    for s, t in zip(roi_s, roi_t):
+        name_s, name_t = f"{s}{sep}{t}", f"{t}{sep}{s}"
+        if (name_s in da[roi]) and (name_t in da[roi]):
+            roi_st.append(f"{s}-{t}")
+            p_s.append(name_s)
+            p_t.append(name_t)
+        else:
+            ignored.append(f"{s}-{t}")
+            # ignored.append(name_s)
+    if len(ignored):
+        logger.warning("The following pairs have been ignored in the "
+                       f"subtraction : {ignored}")
+
+    # prepare the output
+    out = da.isel(**{roi: slice(0, len(roi_st))}).copy()
+    out[roi] = roi_st
+    out.data = da.sel(**{roi: p_s}).data - da.sel(**{roi: p_t}).data
+
+    # update attributes to track operations
+    out.attrs['net_source'] = p_s
+    out.attrs['net_target'] = p_t
+    out.name = da.name + '_net' if da.name else 'Net conn'
+
+    return out

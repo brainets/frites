@@ -24,4 +24,4 @@ from .conn_spec import conn_spec  # noqa
 from .conn_fcd_corr import conn_fcd_corr  # noqa
 from .conn_sliding_windows import define_windows, plot_windows  # noqa
 from .conn_utils import (conn_get_pairs, conn_reshape_undirected,  # noqa
-                         conn_reshape_directed, conn_ravel_directed)
+                         conn_reshape_directed, conn_ravel_directed, conn_net)

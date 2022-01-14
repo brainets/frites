@@ -4,7 +4,7 @@ import xarray as xr
 
 from frites.conn import (conn_reshape_undirected, conn_reshape_directed,
                          conn_ravel_directed, define_windows, plot_windows,
-                         conn_dfc, conn_covgc, conn_get_pairs)
+                         conn_dfc, conn_covgc, conn_get_pairs, conn_net)
 
 
 class TestConnUtils(object):
@@ -187,3 +187,38 @@ class TestConnUtils(object):
         assert len(conn_r.shape) == 3
         np.testing.assert_array_equal(conn_r['roi'].data, roi_dir)
         np.testing.assert_array_equal(conn_r.data, conn_c)
+
+    def test_conn_net(self):
+        """Test function conn_net."""
+        conn_xy = np.full((10, 3, 12), 2)
+        conn_yx = np.ones((10, 4, 12))
+        conn = np.concatenate((conn_xy, conn_yx), axis=1)
+        roi = ['x->y', 'x->z', 'y->z', 'y->x', 'z->x', 'z->y', 'z->a']
+        trials, times = np.arange(10), np.arange(12)
+        conn = xr.DataArray(conn, dims=('trials', 'space', 'times'),
+                            coords=(trials, roi, times))
+
+        # test normal usage
+        net = conn_net(conn, roi='space', sep='->', invert=False)
+        np.testing.assert_array_equal(net.shape, (10, 3, 12))
+        np.testing.assert_array_equal(net['trials'], trials)
+        np.testing.assert_array_equal(net['times'], times)
+        np.testing.assert_array_equal(net['space'], ['x-y', 'x-z', 'y-z'])
+        np.testing.assert_array_equal(
+            net.attrs['net_source'], ['x->y', 'x->z', 'y->z'])
+        np.testing.assert_array_equal(
+            net.attrs['net_target'], ['y->x', 'z->x', 'z->y'])
+        np.testing.assert_array_equal(net.data, np.full((10, 3, 12), 1))
+
+        # test inverted
+        net = conn_net(conn, roi='space', sep='->', invert=True)
+        np.testing.assert_array_equal(net['space'], ['y-x', 'z-x', 'z-y'])
+        np.testing.assert_array_equal(
+            net.attrs['net_source'], ['y->x', 'z->x', 'z->y'])
+        np.testing.assert_array_equal(
+            net.attrs['net_target'], ['x->y', 'x->z', 'y->z'])
+        np.testing.assert_array_equal(net.data, np.full((10, 3, 12), -1))
+
+        # test order
+        net = conn_net(conn, roi='space', sep='->', order=['z', 'x', 'y'])
+        np.testing.assert_array_equal(net['space'], ['z-x', 'z-y', 'x-y'])
