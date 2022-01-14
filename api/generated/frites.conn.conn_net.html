@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.conn.conn_spec &#8212; frites 0.4.1 documentation</title>
+    <title>frites.conn.conn_net &#8212; frites 0.4.1 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -45,8 +45,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.conn.conn_transfer_entropy" href="frites.conn.conn_transfer_entropy.html" />
-    <link rel="prev" title="frites.conn.conn_ccf" href="frites.conn.conn_ccf.html" />
+    <link rel="next" title="frites.conn.conn_get_pairs" href="frites.conn.conn_get_pairs.html" />
+    <link rel="prev" title="frites.conn.conn_ravel_directed" href="frites.conn.conn_ravel_directed.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -234,8 +234,8 @@
      frites.conn.conn_ccf
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_spec.html">
      frites.conn.conn_spec
     </a>
    </li>
@@ -259,8 +259,8 @@
      frites.conn.conn_ravel_directed
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.conn.conn_net.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.conn.conn_net
     </a>
    </li>
@@ -651,97 +651,41 @@
               
               <div>
                 
-  <section id="frites-conn-conn-spec">
-<h1>frites.conn.conn_spec<a class="headerlink" href="#frites-conn-conn-spec" title="Permalink to this headline">¶</a></h1>
+  <section id="frites-conn-conn-net">
+<h1>frites.conn.conn_net<a class="headerlink" href="#frites-conn-conn-net" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.conn.conn_spec">
-<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric='coh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_times=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_freqs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_kernel='hanning'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='morlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cycles=7.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mt_bandwidth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decim=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_cwt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_mt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_spec.py#L104-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wavelet-based single-trial time-resolved spectral connectivity.</p>
+<dt class="sig sig-object py" id="frites.conn.conn_net">
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">da</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'roi'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_utils.py#L419-L492"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_net" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the net on directed connectivity.</p>
+<p>This function can be used to compute the net difference on directed
+connectivity (i.e. A - B = A-&gt;B - B-&gt;A).</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>data</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Electrophysiological data. Several input types are supported :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Standard NumPy arrays of shape (n_epochs, n_roi, n_times)</p></li>
-<li><p>mne.Epochs</p></li>
-<li><p>xarray.DataArray of shape (n_epochs, n_roi, n_times)</p></li>
-</ul>
-</div></blockquote>
+<dt><strong>da</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>Xarray DataArray containing the connectivity array</p>
 </dd>
-<dt><strong>metric</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | “coh”</span></dt><dd><p>Which connectivity metric. Use either :</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>‘coh’ : Coherence</p></li>
-<li><p>‘plv’ : Phase-Locking Value (PLV)</p></li>
-<li><p>‘sxy’ : Cross-spectrum</p></li>
-</ul>
-</div></blockquote>
-<p>By default, the coherenc is used.</p>
+<dt><strong>roi</strong><span class="classifier">‘roi’</span></dt><dd><p>Name of the spatial dimension</p>
 </dd>
-<dt><strong>freqs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of central frequencies of shape (n_freqs,).</p>
+<dt><strong>order</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>List of names for specifying the final order</p>
 </dd>
-<dt><strong>roi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>ROI names of a single subject. If the input is an xarray, the
-name of the ROI dimension can be provided</p>
+<dt><strong>sep</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘-’</span></dt><dd><p>Separator between brain region names (e.g. if ‘Insula-&gt;Thalamus’ then
+sep is ‘-&gt;’)</p>
 </dd>
-<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time vector array of shape (n_times,). If the input is an xarray, the
-name of the time dimension can be provided</p>
-</dd>
-<dt><strong>pairs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Pairs of links of shape (n_pairs, 2) to compute. If None, all pairs are
-computed</p>
-</dd>
-<dt><strong>sfreq</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Sampling frequency</p>
-</dd>
-<dt><strong>foi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Extract frequencies of interest. This parameters should be an array of
-shapes (n_foi, 2) defining where each band of interest start and
-finish.</p>
-</dd>
-<dt><strong>sm_times</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | .5</span></dt><dd><p>Number of points to consider for the temporal smoothing in seconds. By
-default, a 500ms smoothing is used.</p>
-</dd>
-<dt><strong>sm_freqs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of points for frequency smoothing. By default, 1 is used which
-is equivalent to no smoothing</p>
-</dd>
-<dt><strong>kernel</strong><span class="classifier">{‘square’, ‘hanning’}</span></dt><dd><p>Kernel type to use. Choose either ‘square’ or ‘hanning’</p>
-</dd>
-<dt><strong>mode</strong><span class="classifier">{‘morlet’, ‘multitaper’}</span></dt><dd><p>Spectrum estimation mode can be either: ‘multitaper’ or ‘morlet’.</p>
-</dd>
-<dt><strong>n_cycles</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | 7.</span></dt><dd><p>Number of cycles to use for each frequency. If a float or an integer is
-used, the same number of cycles is going to be used for all frequencies</p>
-</dd>
-<dt><strong>mt_bandwidth</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>The bandwidth of the multitaper windowing function in Hz. Only used in
-‘multitaper’ mode.</p>
-</dd>
-<dt><strong>decim</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>To reduce memory usage, decimation factor after time-frequency
-decomposition. default 1 If int, returns tfr[…, ::decim]. If slice,
-returns tfr[…, decim].</p>
-</dd>
-<dt><strong>kw_cwt</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments sent to the mne-function
-<a href="#id1"><span class="problematic" id="id2">:py:`mne.time_frequency.tfr_array_morlet`</span></a></p>
-</dd>
-<dt><strong>kw_mt</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments sent to the mne-function
-<a href="#id3"><span class="problematic" id="id4">:py:`mne.time_frequency.tfr_array_multitaper`</span></a></p>
-</dd>
-<dt><strong>block_size</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Number of blocks of trials to process at once. This parameter can be
-use in order to decrease memory load. If None, all trials are used. If
-for example block_size=2, the number of trials are subdivided into two
-groups and each group is process one after the other.</p>
-</dd>
-<dt><strong>n_jobs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
-jobs). The parallel loop is set at the pair level.</p>
+<dt><strong>invert</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specify whether the difference should be computed with A - B or B - A</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>conn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></span></dt><dd><p>DataArray of shape (n_trials, n_pairs, n_freqs, n_times)</p>
+<dt><strong>out</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>DataArray, with the same dimension names as the input, representing the
+net difference of directed connexions.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-conn-conn-spec"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-conn-conn-net"></span></section>
 
 
               </div>
@@ -749,17 +693,17 @@ jobs). The parallel loop is set at the pair level.</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="frites.conn.conn_ccf.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="frites.conn.conn_ravel_directed.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">frites.conn.conn_ccf</p>
+            <p class="prev-next-title">frites.conn.conn_ravel_directed</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.conn.conn_transfer_entropy.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.conn.conn_get_pairs.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.conn.conn_transfer_entropy</p>
+        <p class="prev-next-title">frites.conn.conn_get_pairs</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
