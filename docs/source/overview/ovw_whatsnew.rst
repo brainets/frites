@@ -11,6 +11,7 @@ New Features
 * New function :func:`frites.simulations.sim_ground_truth` for simulating spatio-temporal ground-truths (:commit:`ba44a424`)
 * New function :func:`frites.conn.conn_spec` for computing the single-trial spectral connectivity (:commit:`8151486`) - :author:`ViniciusLima94`
 * New method :class:`frites.workflow.WfMi.confidence_interval` method to estimate the confidence interval (:commit:`ad0391987`, :commit:`8189622b`, :commit:`fc584756`, :commit:`fc584756`)
+* New function :func:`frites.conn.conn_net` for computing the net connectivity (:commit:`c86b19f0`)
 
 v0.4.1
 ------
