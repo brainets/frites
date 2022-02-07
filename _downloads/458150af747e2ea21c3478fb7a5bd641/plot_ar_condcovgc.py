@@ -11,10 +11,12 @@ transfer.
 """
 import numpy as np
 
+from frites import set_mpl_style
 from frites.simulations import StimSpecAR
 from frites.conn import conn_covgc
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 
 ###############################################################################
