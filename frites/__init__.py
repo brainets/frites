@@ -43,3 +43,11 @@ def set_config(key, value, verbose=None):
     assert key in CONFIG.keys(), f"The key {key} doesn't exist."
     CONFIG[key] = value
     logger.info(f"The key {key} has been updated")
+
+
+def set_mpl_style(style='frites'):
+    """Set matplotlib style."""
+    from pkg_resources import resource_filename
+    import matplotlib.pyplot as plt
+    path_style = resource_filename('frites', f'data/{style}.mplstyle')
+    plt.style.use(path_style)
