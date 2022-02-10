@@ -24,12 +24,14 @@ Frites
 .. figure::  _static/logo_desc.png
     :align:  center
 
+.. _MNE-Python: https://mne.tools/stable
+.. _MNE-Connectivity: https://mne.tools/mne-connectivity/dev/
 
 Description
 +++++++++++
 
 **Frites** is a Python toolbox for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial). The toolbox also includes directed and undirected connectivity metrics such as group-level statistics on measures of information (information-theory, machine-learning and measures of distance).
-
+The toolbox builds off the popular `MNE-Python`_ and `MNE-Connectivity`_ packages to perform connectivity analyses.
 
 Highlights
 ++++++++++
