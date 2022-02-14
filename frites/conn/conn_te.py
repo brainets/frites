@@ -10,17 +10,17 @@ from frites.config import CONFIG
 from frites.utils import parallel_func
 
 
-def _para_te(x_s, x_t, max_delay, n_pts, return_delays):
+def _para_te(x_s, x_t, max_delay, n_pts, return_delays, delays):
     """Compute TE for a single pair of (source, target)."""
-    te = np.zeros((max_delay, n_pts - max_delay), dtype=float)
+    te = np.zeros((len(delays), n_pts - max_delay), dtype=float)
     for idx_pr, n_pr in enumerate(range(max_delay, n_pts)):
         # build pas indices
-        sl_past = np.arange(n_pr - max_delay, n_pr)[::-1]
+        sl_past = delays + n_pr
         # past selection [present - delay, present[
         xs_past = x_s[sl_past, ...]
         xt_past = x_t[sl_past, ...]
         # present selection [present]
-        xt_pres = np.tile(x_t[[n_pr], ...], (max_delay, 1, 1))
+        xt_pres = np.tile(x_t[[n_pr], ...], (len(delays), 1, 1))
         te[:, n_pr - max_delay] = cmi_nd_ggg(
             xs_past, xt_pres, xt_past, **CONFIG["KW_GCMI"])
 
@@ -30,8 +30,9 @@ def _para_te(x_s, x_t, max_delay, n_pts, return_delays):
         return te.mean(0)
 
 
-def conn_te(data, times=None, roi=None, max_delay=30, return_delays=False,
-            gcrn=True, sfreq=None, n_jobs=1, verbose=None, **kw_links):
+def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
+            step_delay=1, return_delays=False, gcrn=True, sfreq=None,
+            n_jobs=1, verbose=None, **kw_links):
     """Compute the across-trials transfer entropy (TE).
 
     Parameters
@@ -52,6 +53,8 @@ def conn_te(data, times=None, roi=None, max_delay=30, return_delays=False,
     max_delay : int | 30
         Number of time points defining where to stop looking at in the past.
         Increasing this maximum delay input can lead to slower computations
+    step_delay : int | 1
+        Step between delays to test. By default, test every delays
     return_delays : bool | False
         Specify whether the returned TE should be average across delays (False)
         or not (True).
@@ -94,6 +97,9 @@ def conn_te(data, times=None, roi=None, max_delay=30, return_delays=False,
     # transpose x to avoid shape checking (n_roi, n_times, 1, n_trials)
     x = x.transpose(1, 2, 0)[..., np.newaxis, :]
 
+    # define delay range
+    delays = np.arange(-max_delay, -min_delay, step_delay)[::-1]
+
     # apply copnorm across trials
     if gcrn:
         x = copnorm_nd(x, axis=-1)
@@ -105,11 +111,12 @@ def conn_te(data, times=None, roi=None, max_delay=30, return_delays=False,
     # compute the transfer entropy
     te = parallel(
         p_fun(x[n_s, ...], x[n_t, ...], max_delay, n_pts,
-              return_delays) for n_s, n_t in zip(x_s, x_t))
+              return_delays, delays) for n_s, n_t in zip(x_s, x_t))
     te = np.stack(te)
 
     # build coordinates and attributes
-    cdelays, ctimes = np.arange(max_delay).astype(int) + 1, times[max_delay::]
+    cdelays = np.arange(min_delay, max_delay, step_delay).astype(int) + 1
+    ctimes = times[max_delay::]
     attrs = check_attrs({**dict(type='TE', max_delay=max_delay), **attrs})
 
     # mean (or not) over delays
@@ -134,10 +141,10 @@ if __name__ == '__main__':
     set_mpl_style()
 
     ss = StimSpecAR()
-    ar = ss.fit(ar_type='ding_2', n_epochs=500, n_stim=2, n_std=3)
+    ar = ss.fit(ar_type='hga', n_epochs=500, n_stim=2, n_std=3)
 
-    te = conn_te(ar, times='times', roi='roi', max_delay=20,
-                 return_delays=True)
+    te = conn_te(ar, times='times', roi='roi', max_delay=100,
+                 return_delays=True, step_delay=3, min_delay=3)
 
     plt.figure(figsize=(28, 6))
     plt.subplot(141)
