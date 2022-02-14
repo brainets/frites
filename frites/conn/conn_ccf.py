@@ -18,7 +18,7 @@ def para_fun(xs, xt):
 
 
 def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
-             times_as_sample=True, verbose=None):
+             times_as_sample=True, sfreq=None, verbose=None, **kw_links):
     """Single trial Cross-Correlation Function.
 
     This function computes the pairwise Cross Correlation (CCF) at the single
@@ -50,6 +50,11 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
+    sfreq : float | None
+        The sampling frequency.
+    kw_links : dict | {}
+        Additional arguments for selecting links to compute are passed to the
+        function conn_links
 
     Returns
     -------
@@ -59,12 +64,17 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
         target has to be moved **toward** the source. On the contrary, if the
         peak occurs at positive time it means that the target is moved **away**
         of the source.
+
+    See also
+    --------
+    conn_links
     """
     # ________________________________ INPUTS _________________________________
     # inputs conversion
+    kw_links.update({'directed': False, 'net': False})
     data, cfg = conn_io(
-        data, times=times, roi=roi, agg_ch=False, win_sample=None, pairs=None,
-        sort=True, name='CCF', verbose=verbose,
+        data, times=times, roi=roi, agg_ch=False, win_sample=None,
+        name='CCF', verbose=verbose, kw_links=kw_links
     )
 
     # extract variables

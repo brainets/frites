@@ -238,7 +238,8 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
 
 
 def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
-               conditional=False, norm=False, n_jobs=-1, verbose=None):
+               conditional=False, norm=False, n_jobs=-1, verbose=None,
+               **kw_links):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
     This function computes the (conditional) covariance-based Granger Causality
@@ -302,6 +303,9 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     n_jobs : int | -1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
+    kw_links : dict | {}
+        Additional arguments for selecting links to compute are passed to the
+        function conn_links
 
     Returns
     -------
@@ -319,7 +323,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
 
     See also
     --------
-    conn_dfc
+    conn_links, conn_dfc
     """
     set_log_level(verbose)
 
@@ -331,9 +335,10 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     dt, lag, step = int(dt), int(lag), int(step)
 
     # inputs conversion
+    kw_links.update({'directed': False, 'net': False, 'sort': False})
     data, cfg = conn_io(
         data, times=times, roi=roi, agg_ch=False, win_sample=None,
-        pairs=None, sort=False, name='COVGC', verbose=verbose,
+        name='COVGC', verbose=verbose, kw_links=kw_links
     )
 
     # extract variables

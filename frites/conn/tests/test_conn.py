@@ -2,26 +2,27 @@
 import numpy as np
 import xarray as xr
 
-from frites.conn import (conn_covgc, conn_transfer_entropy, conn_dfc, conn_ccf)
+from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf)
 
 
 class TestConn(object):
 
-    def test_conn_transfer_entropy(self):
+    def test_conn_te(self):
         """Test function conn_transfer_entropy."""
         n_roi, n_times, n_epochs = 4, 100, 20
+        trials = np.arange(n_epochs)
+        roi = [f'roi_{r}' for r in range(n_roi)]
+        times = np.arange(n_times)
         max_delay = 30
-        x = np.random.uniform(0, 1, (n_roi, n_times, n_epochs))
+        x = np.random.uniform(0, 1, (n_epochs, n_roi, n_times))
+        x = xr.DataArray(x, dims=('trials', 'space', 'times'),
+                         coords=(trials, roi, times))
         # test across all pairs
-        te, pairs = conn_transfer_entropy(x, max_delay=max_delay)
-        assert te.shape == (pairs.shape[0], n_times - max_delay)
-        assert pairs.shape == (n_roi * (n_roi - 1), 2)
-        # test specific pairs
-        pairs = np.c_[np.array([0, 1]), np.array([2, 3])]
-        n_pairs = pairs.shape[0]
-        te, pairs = conn_transfer_entropy(x, max_delay=max_delay, pairs=pairs)
-        assert te.shape == (n_pairs, n_times - max_delay)
-        assert pairs.shape == (n_pairs, 2)
+        te = conn_te(x, roi='space', times='times', max_delay=max_delay)
+        assert te.ndim == 2
+        te = conn_te(x, roi='space', times='times', max_delay=max_delay,
+                     return_delays=True)
+        assert te.ndim == 3
 
     def test_conn_dfc(self):
         """Test function conn_dfc."""
@@ -108,3 +109,6 @@ class TestConn(object):
         assert -20 - tol <= peaks[0] <= -20 + tol
         assert 50 - tol <= peaks[1] <= 50 + tol
         assert 70 - tol <= peaks[2] <= 70 + tol
+
+if __name__ == '__main__':
+    TestConn().test_conn_te()

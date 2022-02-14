@@ -102,10 +102,11 @@ def _cs(w, kernel, foi_idx, x_s, x_t, kw_para):
 
 
 def conn_spec(
-        data, freqs=None, metric='coh', roi=None, times=None, pairs=None,
-        sfreq=None, foi=None, sm_times=.5, sm_freqs=1, sm_kernel='hanning',
-        mode='morlet', n_cycles=7., mt_bandwidth=None, decim=1, kw_cwt={},
-        kw_mt={}, block_size=None, n_jobs=-1, verbose=None, dtype=np.float32):
+        data, freqs=None, metric='coh', roi=None, times=None, sfreq=None,
+        foi=None, sm_times=.5, sm_freqs=1, sm_kernel='hanning', mode='morlet',
+        n_cycles=7., mt_bandwidth=None, decim=1, kw_cwt={}, kw_mt={},
+        block_size=None, n_jobs=-1, verbose=None, dtype=np.float32,
+        **kw_links):
     """Wavelet-based single-trial time-resolved spectral connectivity.
 
     Parameters
@@ -133,9 +134,6 @@ def conn_spec(
     times : array_like | None
         Time vector array of shape (n_times,). If the input is an xarray, the
         name of the time dimension can be provided
-    pairs : array_like | None
-        Pairs of links of shape (n_pairs, 2) to compute. If None, all pairs are
-        computed
     sfreq : float | None
         Sampling frequency
     foi : array_like | None
@@ -176,11 +174,18 @@ def conn_spec(
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
+    kw_links : dict | {}
+        Additional arguments for selecting links to compute are passed to the
+        function conn_links
 
     Returns
     -------
     conn : xarray.DataArray
         DataArray of shape (n_trials, n_pairs, n_freqs, n_times)
+
+    See also
+    --------
+    conn_links
     """
     set_log_level(verbose)
 
@@ -197,11 +202,13 @@ def conn_spec(
 
     # _________________________________ INPUTS ________________________________
     # inputs conversion
+    kw_links.update({'directed': False, 'net': False})
     data, cfg = conn_io(
-        data, times=times, roi=roi, agg_ch=False, win_sample=None, pairs=pairs,
-        sort=True, block_size=block_size, sfreq=sfreq, freqs=freqs, foi=foi,
+        data, times=times, roi=roi, agg_ch=False, win_sample=None,
+        block_size=block_size, sfreq=sfreq, freqs=freqs, foi=foi,
         sm_times=sm_times, sm_freqs=sm_freqs, verbose=verbose,
         name=f'Sepctral connectivity (metric = {f_name}, mode={mode})',
+        kw_links=kw_links
     )
 
     # extract variables
@@ -285,6 +292,10 @@ if __name__ == '__main__':
     times = np.arange(n_times) / sfreq
     s1, s2 = slice(0, 500), slice(500, 1000)
 
+    kw_links = dict(
+        pairs=np.c_[[0, 1], [1, 2]]
+    )
+
     """
     - 25hz coherence between samples [0, 500]
     - 40hz coherence between samples [500, 1000]
@@ -302,7 +313,8 @@ if __name__ == '__main__':
     coh = conn_spec(
         x, freqs, sfreq=sfreq, roi='roi', times='times', sm_times=2.,
         sm_freqs=1, mode='morlet', n_cycles=n_cycles,
-        decim=1, foi=None, block_size=4, n_jobs=1, metric='plv')
+        decim=1, foi=None, block_size=4, n_jobs=1, metric='plv', **kw_links
+    )
 
     coh.groupby('trials').mean('trials').plot.imshow(
         x='times', y='freqs', col='roi', row='trials')

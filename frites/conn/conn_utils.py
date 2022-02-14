@@ -143,7 +143,7 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 
 def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
-               nb_min_links=None, pairs=None, verbose=None):
+               nb_min_links=None, pairs=None, sort=True, verbose=None):
     """Construct pairwise links for functional connectivity.
 
     This function can be used for defining the pairwise links for computing
@@ -213,7 +213,7 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
         x_s, x_t = x_s[keep], x_t[keep]
 
     # change roi order for undirected and net directed
-    if (not directed) or (directed and net):
+    if sort and (not directed) or (directed and net):
         logger.info("    Sorting roi names")
         roi_low = np.asarray([np.char.lower(r.astype(str)) for r in roi])
         _xs, _xt = x_s.copy(), x_t.copy()
