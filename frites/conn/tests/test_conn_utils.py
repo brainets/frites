@@ -4,7 +4,8 @@ import xarray as xr
 
 from frites.conn import (conn_reshape_undirected, conn_reshape_directed,
                          conn_ravel_directed, define_windows, plot_windows,
-                         conn_dfc, conn_covgc, conn_get_pairs, conn_net)
+                         conn_dfc, conn_covgc, conn_get_pairs, conn_net,
+                         conn_links)
 
 
 class TestConnUtils(object):
@@ -222,3 +223,61 @@ class TestConnUtils(object):
         # test order
         net = conn_net(conn, roi='space', sep='->', order=['z', 'x', 'y'])
         np.testing.assert_array_equal(net['space'], ['z-x', 'z-y', 'x-y'])
+
+    def test_conn_links(self):
+        """Test function conn_links."""
+        roi = ['dlPFC', 'aINS', 'dlPFC', 'vmPFC']
+        # overall testing
+        (x_s, x_t), roi_st = conn_links(roi, verbose=False)
+        assert len(x_s) == len(x_t) == len(roi_st)
+        assert all([f"{roi_st[s]}-{roi_st[t]}" for s, t in zip(x_s, x_t)])
+
+        # test direction
+        _, roi_st = conn_links(roi)
+        np.testing.assert_array_equal(roi_st,
+            ['aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
+            'aINS-vmPFC', 'dlPFC-vmPFC'])
+        _, roi_st = conn_links(roi, directed=True, net=False)
+        np.testing.assert_array_equal(roi_st,
+            ['dlPFC->aINS', 'dlPFC->dlPFC', 'dlPFC->vmPFC', 'aINS->dlPFC',
+            'aINS->dlPFC', 'aINS->vmPFC', 'dlPFC->dlPFC', 'dlPFC->aINS',
+            'dlPFC->vmPFC', 'vmPFC->dlPFC', 'vmPFC->aINS', 'vmPFC->dlPFC'])
+        _, roi_st = conn_links(roi, directed=True, net=True)
+        np.testing.assert_array_equal(roi_st,
+            ['aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
+            'aINS-vmPFC', 'dlPFC-vmPFC'])
+
+        # testing removing within roi connections
+        _, roi_st = conn_links(roi, within_roi=False)
+        assert 'dlPFC-dlPFC' not in roi_st
+        _, roi_st = conn_links(roi, directed=True, net=False, within_roi=False)
+        assert 'dlPFC->dlPFC' not in roi_st
+        _, roi_st = conn_links(roi, directed=True, net=True, within_roi=False)
+        assert 'dlPFC-dlPFC' not in roi_st
+
+        # remove links without a minimum number of conections
+        _, roi_st = conn_links(roi, nb_min_links=2)
+        np.testing.assert_array_equal(roi_st,
+            ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])
+        _, roi_st = conn_links(roi, directed=True, nb_min_links=2)
+        np.testing.assert_array_equal(roi_st,
+            ['dlPFC->aINS', 'dlPFC->dlPFC', 'dlPFC->vmPFC', 'aINS->dlPFC',
+            'aINS->dlPFC', 'dlPFC->dlPFC', 'dlPFC->aINS', 'dlPFC->vmPFC',
+            'vmPFC->dlPFC', 'vmPFC->dlPFC'])
+        _, roi_st = conn_links(roi, directed=True, nb_min_links=2, net=True)
+        np.testing.assert_array_equal(roi_st,
+            ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])
+
+        # testing string separator
+        for direction in [True, False]:
+            _, roi_st = conn_links(roi, sep='/', directed=True)
+            assert all(['/' in r for r in roi_st])
+
+        # testing pairs
+        p_1, p_2 = np.array([0, 2]), np.array([1, 3])
+        _, roi_st = conn_links(roi, pairs=np.c_[p_1, p_2])
+        np.testing.assert_array_equal(roi_st,
+            ['aINS-dlPFC', 'dlPFC-vmPFC'])
+        _, roi_st = conn_links(roi, pairs=np.c_[p_1, p_2], directed=True)
+        np.testing.assert_array_equal(roi_st,
+            ['dlPFC->aINS', 'dlPFC->vmPFC'])

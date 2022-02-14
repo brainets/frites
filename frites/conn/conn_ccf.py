@@ -42,7 +42,7 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
         name of the ROI dimension can be provided
     normalized : bool | True
         Z-score normalization of the data. By default, it set to true.
-    times_as_sample : bool | False
+    times_as_sample : bool | True
         Specify whether the time dimension of the cross-correlation output
         should be described using the time unit of the input data or in
         samples. By default, samples are used to describe lags between

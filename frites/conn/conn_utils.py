@@ -142,6 +142,107 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
     return df_conn, df_suj
 
 
+def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
+               nb_min_links=None, pairs=None, verbose=None):
+    """Construct pairwise links for functional connectivity.
+
+    This function can be used for defining the pairwise links for computing
+    either undirected or directed FC on M/EEG or intracranial EEG.
+
+    Parameters
+    ----------
+    roi : array_like
+        List of roi (or contacts) names.
+    directed : bool | False
+        Specify whether the links should be for undirected (False) or directed
+        (True) FC
+    net : bool | False
+        Specify whether it is for net directed FC (True) or not (False)
+    within_roi : bool | True
+        Specify whether links within a brain region (e.g. V1-V1) should be
+        keept (True) or removed (False).
+    sep : string | 'auto'
+        If 'auto', '-' are used to linked brain region names for undirected FC
+        or '->' for directed FC. Alternatively, you can provide a custom
+        separator (e.g. sep='/')
+    nb_min_links : int | None
+        Threshold for defining a minimum number of links between two brain
+        regions (e.g. iEEG)
+    pairs : array_like | None
+        Force to use certain pairs of brain regions. Should be an array of
+        shape (n_pairs, 2) where the first column refer to sources and the
+        second to targets
+
+    Returns
+    -------
+    indices : tuple
+        Remaining indices for (sources, targets)
+    roi_st : list
+        Name of the pairs of brain regions
+    """
+    set_log_level(verbose)
+    assert isinstance(roi, (np.ndarray, list, tuple))
+    if not directed:
+        assert not net, ("Net computations not supported for undirected "
+                         "connectivity")
+    roi = np.asarray(roi)
+    n_roi = len(roi)
+    logger.info(f"Defining links (n_roi={n_roi}; directed={directed}; "
+                f"net={net}, nb_min_links={nb_min_links})")
+
+    # build separator name
+    if sep == 'auto':
+        sep = '->' if directed and not net else '-'
+    else:
+        assert isinstance(sep, str)
+
+    # get (un)directed pairs
+    if isinstance(pairs, np.ndarray) and (pairs.shape[1] == 2):
+        x_s, x_t = pairs[:, 0], pairs[:, 1]
+    else:
+        if directed and not net:
+            x_s, x_t = np.where(~np.eye(n_roi, dtype=bool))
+        elif (not directed) or (directed and net):
+            x_s, x_t = np.triu_indices(n_roi, k=1)
+
+    # drop within roi links
+    if not within_roi:
+        logger.info("    Dropping within-roi links")
+        roi_s, roi_t = roi[x_s], roi[x_t]
+        keep = [s != t for s, t in zip(roi_s, roi_t)]
+        x_s, x_t = x_s[keep], x_t[keep]
+
+    # change roi order for undirected and net directed
+    if (not directed) or (directed and net):
+        logger.info("    Sorting roi names")
+        roi_low = np.asarray([np.char.lower(r.astype(str)) for r in roi])
+        _xs, _xt = x_s.copy(), x_t.copy()
+        x_s, x_t = [], []
+        for s, t in zip(_xs, _xt):
+            _pair = np.array([roi_low[s], roi_low[t]])
+            if np.all(_pair == np.sort(_pair)):
+                x_s.append(s)
+                x_t.append(t)
+            else:
+                x_s.append(t)
+                x_t.append(s)
+    x_s, x_t = np.asarray(x_s), np.asarray(x_t)
+
+    # keep pairs with a minimum number of links inside
+    if isinstance(nb_min_links, int):
+        logger.info("    Thresholding number of links")
+        roi_st = [f"{s}{sep}{t}" for s, t in zip(roi[x_s], roi[x_t])]
+        df = pd.DataFrame({'pairs': roi_st})
+        df = df.groupby('pairs').size()
+        keep = [df.loc[r] >= nb_min_links for r in roi_st]
+        x_s, x_t = x_s[keep], x_t[keep]
+
+    # build pairs of brain region names
+    roi_st = np.asarray([f"{s}{sep}{t}" for s, t in zip(roi[x_s], roi[x_t])])
+
+    return (x_s, x_t), roi_st
+
+
 ###############################################################################
 ###############################################################################
 #                              CONN RESHAPING
