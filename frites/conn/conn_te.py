@@ -117,7 +117,11 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
     # build coordinates and attributes
     cdelays = np.arange(min_delay, max_delay, step_delay).astype(int) + 1
     ctimes = times[max_delay::]
-    attrs = check_attrs({**dict(type='TE', max_delay=max_delay), **attrs})
+    _attrs = {
+        'max_delay': max_delay, 'min_delay': min_delay,
+        'step_delay': step_delay, 'type': 'TE', 'gcrn': gcrn
+    }
+    attrs = check_attrs({**_attrs, **attrs})
 
     # mean (or not) over delays
     if return_delays:
@@ -127,7 +131,7 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
 
     # xarray conversion
     te = xr.DataArray(te, dims=dims, coords=coords, attrs=attrs,
-                      name=f'Transfert Entropy (max_delay={max_delay})')
+                      name=f'Transfert Entropy')
 
     return te
 
