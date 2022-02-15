@@ -150,6 +150,8 @@ if __name__ == '__main__':
     te = conn_te(ar, times='times', roi='roi', max_delay=100,
                  return_delays=True, step_delay=3, min_delay=3)
 
+    print(te)
+
     plt.figure(figsize=(28, 6))
     plt.subplot(141)
     ar.mean('trials').plot(x='times', hue='roi');

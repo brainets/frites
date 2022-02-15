@@ -87,6 +87,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
     trials = data['y'].data
     n_trials = len(trials)
     cfg['sfreq'] = data.attrs['sfreq']
+    attrs['sfreq'] = data.attrs['sfreq']
 
     # _________________________________ SPACE _________________________________
     # get indices of pairs of (group) regions
