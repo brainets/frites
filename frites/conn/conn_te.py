@@ -10,8 +10,9 @@ from frites.config import CONFIG
 from frites.utils import parallel_func
 
 
-def _para_te(x_s, x_t, max_delay, n_pts, return_delays, delays):
+def _para_te(x_s, x_t, max_delay, return_delays, delays):
     """Compute TE for a single pair of (source, target)."""
+    n_pts = x_s.shape[0]
     te = np.zeros((len(delays), n_pts - max_delay), dtype=float)
     for idx_pr, n_pr in enumerate(range(max_delay, n_pts)):
         # build pas indices
@@ -110,8 +111,8 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
 
     # compute the transfer entropy
     te = parallel(
-        p_fun(x[n_s, ...], x[n_t, ...], max_delay, n_pts,
-              return_delays, delays) for n_s, n_t in zip(x_s, x_t))
+        p_fun(x[n_s, ...], x[n_t, ...], max_delay, return_delays,
+              delays) for n_s, n_t in zip(x_s, x_t))
     te = np.stack(te)
 
     # build coordinates and attributes
