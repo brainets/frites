@@ -12,6 +12,7 @@ New Features
 * New function :func:`frites.conn.conn_spec` for computing the single-trial spectral connectivity (:commit:`8151486`) - :author:`ViniciusLima94`
 * New method :class:`frites.workflow.WfMi.confidence_interval` method to estimate the confidence interval (:commit:`ad0391987`, :commit:`8189622b`, :commit:`fc584756`, :commit:`fc584756`)
 * New function :func:`frites.conn.conn_net` for computing the net connectivity (:commit:`c86b19f0`)
+* New function :func:`frites.set_mpl_style` for example styles
 * New function :func:`frites.conn.conn_links` for generating connectivity links (:commit:`a0d0182d1`)
 
 v0.4.1
