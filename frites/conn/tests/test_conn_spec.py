@@ -149,9 +149,9 @@ class TestConnSpec:
 
     def __assert_attrs(self, attrs):
         """ Assert the name of the atributes of the connectivity container """
-        att = ['sources', 'targets', 'sfreq', 'sm_times',
-               'sm_freqs', 'sm_kernel', 'mode', 'n_cycles',
-               'mt_bandwidth', 'decim', 'type']
+        att = ['sfreq', 'sources', 'targets', 'sm_times', 'sm_freqs',
+               'sm_kernel', 'mode', 'n_cycles', 'mt_bandwidth', 'decim',
+               'type']
         np.testing.assert_array_equal(list(attrs.keys()), att)
 
     ##################################################################
