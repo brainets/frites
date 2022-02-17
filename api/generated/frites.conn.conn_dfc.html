@@ -237,8 +237,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="frites.conn.conn_transfer_entropy.html">
-     frites.conn.conn_transfer_entropy
+    <a class="reference internal" href="frites.conn.conn_te.html">
+     frites.conn.conn_te
     </a>
    </li>
    <li class="toctree-l2">
@@ -259,6 +259,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_net.html">
      frites.conn.conn_net
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_links.html">
+     frites.conn.conn_links
     </a>
    </li>
    <li class="toctree-l2">
@@ -670,7 +675,7 @@
 <h1>frites.conn.conn_dfc<a class="headerlink" href="#frites-conn-conn-dfc" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.conn.conn_dfc">
-<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_dfc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_dfc.py#L11-L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_dfc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw_links</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_dfc.py#L11-L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_dfc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single trial Dynamic Functional Connectivity.</p>
 <p>This function computes the pairwise Dynamic Functional Connectivity (DFC)
 by estimating the statistical dependencies between time-series (possibly on
@@ -723,6 +728,9 @@ mutual-information is used.</p>
 <dt><strong>n_jobs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs). The parallel loop is set at the pair level.</p>
 </dd>
+<dt><strong>kw_links</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments for selecting links to compute are passed to the
+function <a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.conn.conn_links()</span></code></a></p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -735,7 +743,7 @@ jobs). The parallel loop is set at the pair level.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code></a>, <a class="reference internal" href="frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_links</span></code></a>, <a class="reference internal" href="frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">define_windows</span></code></a>, <a class="reference internal" href="frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_covgc</span></code></a></dt><dd></dd>
 </dl>
 </div>
 </dd></dl>
@@ -800,7 +808,7 @@ jobs). The parallel loop is set at the pair level.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -443,8 +443,10 @@ the stimulus.</p>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
 <span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_dfc</span></a><span class="p">,</span> <a href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">define_windows</span></a><span class="p">,</span> <a href="../../api/generated/frites.conn.conn_covgc.html#frites.conn.conn_covgc" title="frites.conn.conn_covgc" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_covgc</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="simulate-a-stimulus-specific-network">
@@ -517,10 +519,10 @@ high-gamma and the stimulus variable.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:01&lt;00:02,    1.32s/it]
- 67%|######6   | Estimating MI : 2/3 [00:02&lt;00:01,    1.32s/it]
-100%|##########| Estimating MI : 3/3 [00:03&lt;00:00,    1.32s/it]
-100%|##########| Estimating MI : 3/3 [00:03&lt;00:00,    1.31s/it]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.03it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.04it/s]
+100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.04it/s]
+100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.05it/s]
 </pre></div>
 </div>
 <p>define the MI plotting function</p>
@@ -600,10 +602,10 @@ workflow of mutual information</p>
 </div>
 <img src="../../_images/sphx_glr_plot_stim_spec_network_004.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_004.png" alt="ROI=x-y, ROI=x-z, ROI=y-z" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.33it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.33it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.33it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.33it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.91it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.91it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.91it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.95it/s]
 </pre></div>
 </div>
 </section>
@@ -647,39 +649,40 @@ sent from one region to another (which should be X-&gt;Y)</p>
             <span class="n">tit</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">tit</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_stim_spec_network_005.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_005.png" alt="X->Y, X->Z, Y->Z, Y->X, Z->X, Z->Y, X.Y, X.Z, Y.Z" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.28s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.27s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.27s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.25s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:12,    6.30s/it]
+ 67%|######6   |  : 2/3 [00:12&lt;00:06,    6.30s/it]
+100%|##########|  : 3/3 [00:18&lt;00:00,    6.30s/it]
+100%|##########|  : 3/3 [00:18&lt;00:00,    6.28s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.32s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.32s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.32s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.30s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:12,    6.29s/it]
+ 67%|######6   |  : 2/3 [00:12&lt;00:06,    6.29s/it]
+100%|##########|  : 3/3 [00:18&lt;00:00,    6.29s/it]
+100%|##########|  : 3/3 [00:18&lt;00:00,    6.31s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.19s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.20s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.20s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.21s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:12,    6.19s/it]
+ 67%|######6   |  : 2/3 [00:12&lt;00:06,    6.20s/it]
+100%|##########|  : 3/3 [00:18&lt;00:00,    6.20s/it]
+100%|##########|  : 3/3 [00:18&lt;00:00,    6.27s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.19s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.20s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.20s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.23s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:12,    6.37s/it]
+ 67%|######6   |  : 2/3 [00:12&lt;00:06,    6.36s/it]
+100%|##########|  : 3/3 [00:19&lt;00:00,    6.36s/it]
+100%|##########|  : 3/3 [00:19&lt;00:00,    6.35s/it]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      |  : 1/3 [00:08&lt;00:16,    8.19s/it]
- 67%|######6   |  : 2/3 [00:16&lt;00:08,    8.19s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.19s/it]
-100%|##########|  : 3/3 [00:24&lt;00:00,    8.22s/it]
+ 33%|###3      |  : 1/3 [00:06&lt;00:12,    6.36s/it]
+ 67%|######6   |  : 2/3 [00:12&lt;00:06,    6.36s/it]
+100%|##########|  : 3/3 [00:19&lt;00:00,    6.36s/it]
+100%|##########|  : 3/3 [00:19&lt;00:00,    6.36s/it]
 </pre></div>
 </div>
 <p>finally, we can can compute the MI between the covgc (i.e for each direction)
@@ -703,22 +706,22 @@ and the stimulus</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.22it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.22it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.22it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.21it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.86it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.86it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.86it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.91it/s]
 
   0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.24it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.24it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.24it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.23it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.89it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.89it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.89it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.88it/s]
 
   0%|          | Estimating MI : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.25it/s]
- 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.25it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.25it/s]
-100%|##########| Estimating MI : 3/3 [00:02&lt;00:00,    1.24it/s]
+ 33%|###3      | Estimating MI : 1/3 [00:00&lt;00:01,    1.90it/s]
+ 67%|######6   | Estimating MI : 2/3 [00:01&lt;00:00,    1.90it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.90it/s]
+100%|##########| Estimating MI : 3/3 [00:01&lt;00:00,    1.92it/s]
 </pre></div>
 </div>
 <p>plot the result</p>
@@ -746,12 +749,12 @@ and the stimulus</p>
             <span class="n">tit</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">tit</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_stim_spec_network_006.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_006.png" alt="X->Y, X->Z, Y->Z, Y->X, Z->X, Z->Y, X.Y, X.Z, Y.Z" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  23.822 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  46 MB</p>
+<img src="../../_images/sphx_glr_plot_stim_spec_network_006.png" srcset="../../_images/sphx_glr_plot_stim_spec_network_006.png" alt="X->Y, X->Z, Y->Z, Y->X, Z->X, Z->Y, X.Y, X.Z, Y.Z" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  55.169 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  174 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tutorials-plot-stim-spec-network-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f4606f6ecad5df4ada1d6477aba97bb7/plot_stim_spec_network.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_stim_spec_network.py</span></code></a></p>
@@ -801,7 +804,7 @@ and the stimulus</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

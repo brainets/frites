@@ -45,7 +45,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Compare between-subjects statistics when computing mutual information" href="../statistics/plot_wf_mi_stats_compare_rfx.html" />
+    <link rel="next" title="Compare within-subjects statistics when computing mutual information" href="../statistics/plot_wf_mi_stats_compare_ffx.html" />
     <link rel="prev" title="AR : conditional covariance based Granger Causality" href="../armodel/plot_ar_condcovgc.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -433,10 +433,12 @@ sizes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">define_windows</span></a><span class="p">,</span> <a href="../../api/generated/frites.conn.plot_windows.html#frites.conn.plot_windows" title="frites.conn.plot_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">plot_windows</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="simulate-data">
@@ -523,8 +525,8 @@ parameters :</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_time_windows_002.png" srcset="../../_images/sphx_glr_plot_time_windows_002.png" alt="200ms consecutive windows, Start sliding windows from -.5s, Start sliding windows from -.5s and finish at .5s, Sliding windows from [-.75, 1]s with 25% overlap" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.094 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  8 MB</p>
+<img src="../../_images/sphx_glr_plot_time_windows_002.png" srcset="../../_images/sphx_glr_plot_time_windows_002.png" alt="200ms consecutive windows, Start sliding windows from -.5s, Start sliding windows from -.5s and finish at .5s, Sliding windows from [-.75, 1]s with 25% overlap" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.478 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  11 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-utils-plot-time-windows-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/722df066fc7f05f7b3268439ce82b4d4/plot_time_windows.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_time_windows.py</span></code></a></p>
@@ -550,10 +552,10 @@ parameters :</p>
             <p class="prev-next-title">AR : conditional covariance based Granger Causality</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../statistics/plot_wf_mi_stats_compare_rfx.html" title="next page">
+    <a class='right-next' id="next-link" href="../statistics/plot_wf_mi_stats_compare_ffx.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Compare between-subjects statistics when computing mutual information</p>
+        <p class="prev-next-title">Compare within-subjects statistics when computing mutual information</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -574,7 +576,7 @@ parameters :</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

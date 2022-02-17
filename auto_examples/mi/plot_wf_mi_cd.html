@@ -45,7 +45,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Compute MI across time and frequencies" href="plot_mi_time_frequency.html" />
+    <link rel="next" title="MI between two continuous variables" href="plot_wf_mi_cc.html" />
     <link rel="prev" title="MI between two continuous variables conditioned by a discret one" href="plot_wf_mi_ccd.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -440,9 +440,10 @@ details, see Ince et al., 2017 <a class="bibtex reference internal" href="../../
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_multi_suj_ephy</span><span class="p">,</span> <span class="n">sim_mi_cd</span>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="simulate-electrophysiological-data">
@@ -517,7 +518,7 @@ information</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_wf_mi_cd_001.png" srcset="../../_images/sphx_glr_plot_wf_mi_cd_001.png" alt="I(C; D)" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.644 seconds)</p>
+<img src="../../_images/sphx_glr_plot_wf_mi_cd_001.png" srcset="../../_images/sphx_glr_plot_wf_mi_cd_001.png" alt="I(C; D)" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.504 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  8 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-cd-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -544,10 +545,10 @@ information</p>
             <p class="prev-next-title">MI between two continuous variables conditioned by a discret one</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="plot_mi_time_frequency.html" title="next page">
+    <a class='right-next' id="next-link" href="plot_wf_mi_cc.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Compute MI across time and frequencies</p>
+        <p class="prev-next-title">MI between two continuous variables</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -568,7 +569,7 @@ information</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

@@ -13,9 +13,10 @@ import xarray as xr
 from frites.simulations import sim_local_cd_ms
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi, WfMiCombine
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################

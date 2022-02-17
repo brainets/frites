@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -440,8 +440,10 @@ for each trial either inside a single window or across multiple windows.</p>
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_single_suj_ephy</span>
 <span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_dfc</span></a><span class="p">,</span> <a href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">define_windows</span></a><span class="p">,</span> <span class="n">plot_windows</span>
 
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
+
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="c1"># plt.style.use(&#39;seaborn-white&#39;)</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="simulate-electrophysiological-data">
@@ -511,10 +513,9 @@ each of the temporal window</p>
 </div>
 <img src="../../_images/sphx_glr_plot_dfc_001.png" srcset="../../_images/sphx_glr_plot_dfc_001.png" alt="Mean DFC across trials between pairs of roi" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   41.57it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   41.82it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   42.24it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   45.98it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   60.20it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   60.56it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   64.53it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 50, roi: 3, times: 95)&gt;
 array([[[4.74126835e-04, 4.86970457e-05, 1.15753941e-01, ...,
          1.42405137e-01, 9.97611284e-02, 1.01901859e-01],
@@ -567,11 +568,12 @@ Attributes:
     agg_ch:      0
     type:        dfc
     estimator:   Gaussian Copula Mutual Information Estimator
+    sfreq:       499.50000000001125
     sources:     [0, 0, 1]
     targets:     [1, 2, 2]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.511 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.212 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -622,7 +624,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

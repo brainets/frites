@@ -45,7 +45,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.conn.conn_transfer_entropy" href="frites.conn.conn_transfer_entropy.html" />
+    <link rel="next" title="frites.conn.conn_te" href="frites.conn.conn_te.html" />
     <link rel="prev" title="frites.conn.conn_ccf" href="frites.conn.conn_ccf.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -237,8 +237,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="frites.conn.conn_transfer_entropy.html">
-     frites.conn.conn_transfer_entropy
+    <a class="reference internal" href="frites.conn.conn_te.html">
+     frites.conn.conn_te
     </a>
    </li>
    <li class="toctree-l2">
@@ -259,6 +259,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_net.html">
      frites.conn.conn_net
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.conn_links.html">
+     frites.conn.conn_links
     </a>
    </li>
    <li class="toctree-l2">
@@ -655,7 +660,7 @@
 <h1>frites.conn.conn_spec<a class="headerlink" href="#frites-conn-conn-spec" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.conn.conn_spec">
-<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric='coh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_times=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_freqs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_kernel='hanning'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='morlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cycles=7.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mt_bandwidth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decim=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_cwt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_mt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_spec.py#L104-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_spec" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric='coh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_times=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_freqs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_kernel='hanning'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='morlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cycles=7.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mt_bandwidth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decim=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_cwt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_mt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kw_links</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_spec.py#L104-L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wavelet-based single-trial time-resolved spectral connectivity.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -686,9 +691,6 @@ name of the ROI dimension can be provided</p>
 </dd>
 <dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time vector array of shape (n_times,). If the input is an xarray, the
 name of the time dimension can be provided</p>
-</dd>
-<dt><strong>pairs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Pairs of links of shape (n_pairs, 2) to compute. If None, all pairs are
-computed</p>
 </dd>
 <dt><strong>sfreq</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Sampling frequency</p>
 </dd>
@@ -730,6 +732,9 @@ groups and each group is process one after the other.</p>
 <dt><strong>n_jobs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs). The parallel loop is set at the pair level.</p>
 </dd>
+<dt><strong>kw_links</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments for selecting links to compute are passed to the
+function <a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.conn.conn_links()</span></code></a></p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -739,6 +744,12 @@ jobs). The parallel loop is set at the pair level.</p>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_links</span></code></a></dt><dd></dd>
+</dl>
+</div>
 </dd></dl>
 
 <span class="target" id="sphx-glr-backreferences-frites-conn-conn-spec"></span></section>
@@ -756,10 +767,10 @@ jobs). The parallel loop is set at the pair level.</p>
             <p class="prev-next-title">frites.conn.conn_ccf</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.conn.conn_transfer_entropy.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.conn.conn_te.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.conn.conn_transfer_entropy</p>
+        <p class="prev-next-title">frites.conn.conn_te</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -780,7 +791,7 @@ jobs). The parallel loop is set at the pair level.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

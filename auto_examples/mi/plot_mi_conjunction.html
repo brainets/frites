@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -448,9 +448,10 @@ getting the number of subjects that present significant effect.</p>
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_single_suj_ephy</span>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="define-where-to-put-an-effect-for-each-subject">
@@ -538,8 +539,8 @@ information</p>
     <span class="n">mi_sr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pv_r</span> <span class="o">&gt;=</span> <span class="mf">.05</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="c1"># superimpose mi and significant mi</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_r</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_sr</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_r</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C3&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mi_sr</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Times&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;MI (bits)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ROI=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -548,11 +549,11 @@ information</p>
 </div>
 <img src="../../_images/sphx_glr_plot_mi_conjunction_001.png" srcset="../../_images/sphx_glr_plot_mi_conjunction_001.png" alt="ROI=roi_0, ROI=roi_1, ROI=roi_2, ROI=roi_3" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/4 [00:00&lt;?,       ?it/s]
- 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.04it/s]
- 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.04it/s]
- 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.04it/s]
-100%|##########| Estimating MI : 4/4 [00:03&lt;00:00,    1.06it/s]
-100%|##########| Estimating MI : 4/4 [00:03&lt;00:00,    1.16it/s]
+ 25%|##5       | Estimating MI : 1/4 [00:00&lt;00:02,    1.28it/s]
+ 50%|#####     | Estimating MI : 2/4 [00:01&lt;00:01,    1.28it/s]
+ 75%|#######5  | Estimating MI : 3/4 [00:02&lt;00:00,    1.29it/s]
+100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.30it/s]
+100%|##########| Estimating MI : 4/4 [00:02&lt;00:00,    1.40it/s]
 </pre></div>
 </div>
 </section>
@@ -583,7 +584,7 @@ each roi</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># printing the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">conj_ss</span><span class="p">)</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 <span class="n">q</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">n_s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">ephy</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;subject_</span><span class="si">{</span><span class="n">n_s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="s1">&#39;color&#39;</span><span class="p">]</span>
@@ -665,7 +666,7 @@ array([[0., 0., 0., 0.],
        [0., 0., 0., 0.],
        [0., 0., 0., 0.],
        [0., 0., 0., 0.],
-       [0., 0., 0., 0.],
+       [1., 0., 0., 0.],
        [1., 0., 0., 0.],
        [1., 0., 0., 0.],
        [1., 0., 0., 0.],
@@ -677,14 +678,14 @@ array([[0., 0., 0., 0.],
        [1., 0., 0., 0.],
        [1., 0., 0., 0.],
 ...
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
-       [2., 0., 0., 2.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
+       [2., 0., 0., 1.],
        [2., 0., 0., 1.],
        [2., 0., 0., 1.],
        [0., 0., 0., 0.],
@@ -706,8 +707,8 @@ Coordinates:
     mcp            &lt;U7 &#39;cluster&#39;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.791 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  8 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.103 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  45 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-mi-conjunction-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e5176703dd57920024668949c6139555/plot_mi_conjunction.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mi_conjunction.py</span></code></a></p>
@@ -757,7 +758,7 @@ Coordinates:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

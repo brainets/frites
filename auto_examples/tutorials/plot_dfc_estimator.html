@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -445,8 +445,10 @@ correlation)</p></li>
 
 <span class="kn">from</span> <span class="nn">frites.estimator</span> <span class="kn">import</span> <span class="p">(</span><a href="../../api/generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator" title="frites.estimator.GCMIEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">GCMIEstimator</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.CorrEstimator.html#frites.estimator.CorrEstimator" title="frites.estimator.CorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">CorrEstimator</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">DcorrEstimator</span></a><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.conn_dfc.html#frites.conn.conn_dfc" title="frites.conn.conn_dfc" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_dfc</span></a><span class="p">,</span> <a href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">define_windows</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 
 <span class="c1"># for reproducibility</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -563,7 +565,7 @@ DFC is going to be computed across the entire time-series</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,  588.98it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,  582.76it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 100, roi: 3, times: 1)&gt;
 array([[[1.50026195e-02],
         [6.53586991e-04],
@@ -616,6 +618,7 @@ Attributes:
     agg_ch:      0
     type:        dfc
     estimator:   Gaussian Copula Mutual Information Estimator
+    sfreq:       64.0
     sources:     [0, 0, 1]
     targets:     [1, 2, 2]
 </pre></div>
@@ -817,10 +820,10 @@ DFC inside each one of them.</p>
  [216 248]]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   21.53it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   21.53it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   21.57it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   21.68it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   31.25it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   31.42it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   31.62it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   33.84it/s]
 </pre></div>
 </div>
 </section>
@@ -836,7 +839,7 @@ and the distance correlation.</p>
 <a href="../../api/generated/frites.estimator.CorrEstimator.html#frites.estimator.CorrEstimator" title="frites.estimator.CorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_corr</span></a> <span class="o">=</span> <a href="../../api/generated/frites.estimator.CorrEstimator.html#frites.estimator.CorrEstimator" title="frites.estimator.CorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">CorrEstimator</span></a><span class="p">()</span>
 <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_dcorr</span></a> <span class="o">=</span> <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">DcorrEstimator</span></a><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">n_e</span><span class="p">,</span> <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est</span></a> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><a href="../../api/generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator" title="frites.estimator.GCMIEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_mi</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.CorrEstimator.html#frites.estimator.CorrEstimator" title="frites.estimator.CorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_corr</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">est_dcorr</span></a><span class="p">]):</span>
     <span class="c1"># compute the dfc</span>
@@ -847,33 +850,34 @@ and the distance correlation.</p>
     <span class="n">dfc_m</span> <span class="o">=</span> <span class="n">dfc</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">)</span>
 
     <span class="c1"># plot the result</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_e</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">n_e</span><span class="p">])</span>
     <span class="n">dfc_m</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">dfc</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;DFC&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n_e</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_dfc_estimator_002.png" srcset="../../_images/sphx_glr_plot_dfc_estimator_002.png" alt="DFC (Gaussian Copula Mutual Information Estimator), DFC (Correlation-based Estimator), DFC (Distance correlation-based Estimator)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:01,    1.43it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:01&lt;00:00,    1.43it/s]
-100%|##########| Estimating DFC : 3/3 [00:02&lt;00:00,    1.43it/s]
-100%|##########| Estimating DFC : 3/3 [00:02&lt;00:00,    1.41it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:01,    1.86it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:01&lt;00:00,    1.86it/s]
+100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    1.86it/s]
+100%|##########| Estimating DFC : 3/3 [00:01&lt;00:00,    1.89it/s]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   18.30it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   18.32it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   18.33it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   18.45it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   23.07it/s]
+ 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   23.09it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   23.10it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   23.21it/s]
 
   0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:06&lt;00:12,    6.07s/it]
- 67%|######6   | Estimating DFC : 2/3 [00:12&lt;00:06,    6.07s/it]
-100%|##########| Estimating DFC : 3/3 [00:18&lt;00:00,    6.08s/it]
-100%|##########| Estimating DFC : 3/3 [00:18&lt;00:00,    6.11s/it]
+ 33%|###3      | Estimating DFC : 1/3 [00:04&lt;00:08,    4.39s/it]
+ 67%|######6   | Estimating DFC : 2/3 [00:08&lt;00:04,    4.39s/it]
+100%|##########| Estimating DFC : 3/3 [00:13&lt;00:00,    4.40s/it]
+100%|##########| Estimating DFC : 3/3 [00:13&lt;00:00,    4.42s/it]
 </pre></div>
 </div>
 <div class="admonition note">
@@ -896,7 +900,7 @@ also slower to compute.</p></li>
 </ol>
 </div></blockquote>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  51.969 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  44.698 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  105 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-tutorials-plot-dfc-estimator-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -947,7 +951,7 @@ also slower to compute.</p></li>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

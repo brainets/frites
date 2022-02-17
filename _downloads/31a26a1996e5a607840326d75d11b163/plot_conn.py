@@ -13,9 +13,10 @@ from itertools import product
 from frites.simulations import sim_multi_suj_ephy
 from frites.dataset import DatasetEphy
 from frites.workflow import WfConnComod
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################

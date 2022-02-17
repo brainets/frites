@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -432,11 +432,11 @@ to download the full example code</p>
 
 <span class="kn">from</span> <span class="nn">frites.estimator</span> <span class="kn">import</span> <span class="p">(</span><a href="../../api/generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator" title="frites.estimator.GCMIEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">GCMIEstimator</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.BinMIEstimator.html#frites.estimator.BinMIEstimator" title="frites.estimator.BinMIEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">BinMIEstimator</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.CorrEstimator.html#frites.estimator.CorrEstimator" title="frites.estimator.CorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">CorrEstimator</span></a><span class="p">,</span>
                               <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">DcorrEstimator</span></a><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.lines</span> <span class="kn">import</span> <span class="n">Line2D</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="functions-for-data-simulation">
@@ -530,7 +530,7 @@ non-monotonic relations.</p>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">10000</span>
 
 <span class="c1"># plot the data</span>
-<span class="n">fig_data</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">fig_data</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">):</span>
     <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">ylim</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
@@ -591,8 +591,8 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_est_comparison_002.png" srcset="../../_images/sphx_glr_plot_est_comparison_002.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.695 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  8 MB</p>
+<img src="../../_images/sphx_glr_plot_est_comparison_002.png" srcset="../../_images/sphx_glr_plot_est_comparison_002.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.513 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  34 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-estimators-plot-est-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6cf884272a7e46c8a2e92cf2cd3f2a31/plot_est_comparison.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_est_comparison.py</span></code></a></p>
@@ -642,7 +642,7 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

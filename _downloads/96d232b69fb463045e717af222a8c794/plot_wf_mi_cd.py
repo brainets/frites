@@ -12,9 +12,10 @@ details, see Ince et al., 2017 :cite:`ince2017statistical`
 from frites.simulations import sim_multi_suj_ephy, sim_mi_cd
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################

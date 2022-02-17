@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -441,8 +441,10 @@ anatomical level (e.g sEEG contact, MEG sensor etc.).</p>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
 <span class="kn">from</span> <span class="nn">frites.core</span> <span class="kn">import</span> <span class="n">mi_nd_gg</span>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="i-continuous-continuous-case">
@@ -498,12 +500,12 @@ contact</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_contact_level_001.png" srcset="../../_images/sphx_glr_plot_wf_mi_contact_level_001.png" alt="I(C; C)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   28.03it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   27.63it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.23it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   34.65it/s]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   36.09it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.48it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   44.58it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   44.00it/s]
 </pre></div>
 </div>
 </section>
@@ -551,12 +553,12 @@ data and a discret variable</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_contact_level_002.png" srcset="../../_images/sphx_glr_plot_wf_mi_contact_level_002.png" alt="I(C; D)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   29.16it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   28.72it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   38.36it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   37.61it/s]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   36.46it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.82it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   48.24it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   47.44it/s]
 </pre></div>
 </div>
 </section>
@@ -608,12 +610,12 @@ data and a discret variable</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_contact_level_003.png" srcset="../../_images/sphx_glr_plot_wf_mi_contact_level_003.png" alt="I(C; C | D)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   26.69it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   26.21it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.87it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.24it/s]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.52it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   34.84it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   45.32it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   44.65it/s]
 </pre></div>
 </div>
 </section>
@@ -653,40 +655,40 @@ multi-index to define an electrophysiological dataset</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray &#39;subject_0&#39; (trials: 20, roi: 2, times: 100)&gt;
-array([[[0.88657074, 0.85158307, 0.69939067, ..., 0.45787732,
-         0.22788335, 0.60414784],
-        [0.78351564, 0.72406811, 0.31021608, ..., 0.03343544,
-         0.13727505, 0.41033661]],
+array([[[0.00455516, 0.94852413, 0.2393992 , ..., 0.32611005,
+         0.74199701, 0.54039338],
+        [0.68890693, 0.07715353, 0.33672532, ..., 0.33394522,
+         0.51401883, 0.39854256]],
 
-       [[0.52923846, 0.24204719, 0.28626378, ..., 0.34776776,
-         0.90740096, 0.57064826],
-        [0.22467478, 0.81866111, 0.13741363, ..., 0.52769111,
-         0.33764112, 0.22670741]],
+       [[0.41221305, 0.23459726, 0.14331945, ..., 0.45278065,
+         0.32168382, 0.45486242],
+        [0.71334172, 0.80303755, 0.32836447, ..., 0.90152598,
+         0.11363   , 0.52909062]],
 
-       [[0.82038833, 0.15161256, 0.32262544, ..., 0.00389067,
-         0.00101004, 0.65128476],
-        [0.85270312, 0.17057159, 0.6513439 , ..., 0.81989579,
-         0.9405785 , 0.67944759]],
+       [[0.31516909, 0.3828247 , 0.18853238, ..., 0.22994122,
+         0.11938811, 0.6046114 ],
+        [0.98288932, 0.58699484, 0.56982895, ..., 0.85680067,
+         0.89165089, 0.53960028]],
 
        ...,
 
-       [[0.05313152, 0.23134388, 0.86181551, ..., 0.7448365 ,
-         0.57686375, 0.19434606],
-        [0.60892165, 0.29200742, 0.79686784, ..., 0.80939305,
-         0.34837526, 0.6433079 ]],
+       [[0.04433021, 0.438742  , 0.96139808, ..., 0.74105557,
+         0.00819495, 0.80058914],
+        [0.61086898, 0.25015646, 0.85871201, ..., 0.91644823,
+         0.53121693, 0.4403174 ]],
 
-       [[0.82285279, 0.17077771, 0.17467384, ..., 0.50039351,
-         0.79359224, 0.20943582],
-        [0.38929838, 0.09623963, 0.32049413, ..., 0.4296442 ,
-         0.93468723, 0.90599673]],
+       [[0.01744737, 0.37163282, 0.55412065, ..., 0.40153814,
+         0.48671057, 0.84453275],
+        [0.53069726, 0.59478368, 0.7768409 , ..., 0.57879633,
+         0.63498915, 0.99904895]],
 
-       [[0.98659086, 0.72349547, 0.83393597, ..., 0.95581384,
-         0.54017498, 0.72053968],
-        [0.15375538, 0.99566661, 0.59478917, ..., 0.91583989,
-         0.31735593, 0.5553974 ]]])
+       [[0.97391961, 0.07119266, 0.61401979, ..., 0.74933127,
+         0.14086322, 0.39859132],
+        [0.56808975, 0.68555012, 0.34294721, ..., 0.8605161 ,
+         0.88541893, 0.49344618]]])
 Coordinates:
   * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-    y        (trials) float64 -0.5485 0.1603 -1.033 ... -0.03222 -0.4546 -0.6293
+    y        (trials) float64 -0.2343 -0.2446 1.972 ... 1.5 -0.6363 0.4458
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_0&#39;
     agg_ch   (roi) int64 0 1
   * times    (times) int64 0 1 2 3 4 5 6 7 8 9 ... 90 91 92 93 94 95 96 97 98 99
@@ -703,40 +705,40 @@ Attributes:
     agg_ch:        1
     multivariate:  0
 &lt;xarray.DataArray &#39;subject_1&#39; (trials: 20, roi: 2, times: 100)&gt;
-array([[[0.48970762, 0.0823829 , 0.70521369, ..., 0.64283146,
-         0.77017191, 0.76810642],
-        [0.40108029, 0.18846308, 0.84535451, ..., 0.86745091,
-         0.85362644, 0.61579036]],
+array([[[0.75254331, 0.94448139, 0.7836623 , ..., 0.40290847,
+         0.8920036 , 0.07825748],
+        [0.92304191, 0.96428578, 0.90120441, ..., 0.33072252,
+         0.22646354, 0.35423776]],
 
-       [[0.1312522 , 0.73973272, 0.80937925, ..., 0.12357304,
-         0.56469333, 0.66693612],
-        [0.65409897, 0.48184362, 0.66769795, ..., 0.73662755,
-         0.64935238, 0.61596264]],
+       [[0.41584107, 0.1270108 , 0.20963116, ..., 0.23580962,
+         0.25788229, 0.88073155],
+        [0.4837078 , 0.31842705, 0.64138953, ..., 0.30682823,
+         0.23470558, 0.23171409]],
 
-       [[0.18205923, 0.58055381, 0.6291805 , ..., 0.68884513,
-         0.25301246, 0.01081085],
-        [0.5415539 , 0.7591236 , 0.37517269, ..., 0.39524038,
-         0.62148561, 0.51757063]],
+       [[0.45499737, 0.78959811, 0.2566181 , ..., 0.06514342,
+         0.1406113 , 0.00628772],
+        [0.01567695, 0.00249835, 0.17677989, ..., 0.35978295,
+         0.08901737, 0.41748631]],
 
        ...,
 
-       [[0.50194923, 0.27858845, 0.51858798, ..., 0.35375493,
-         0.32101478, 0.84663767],
-        [0.64246141, 0.05668838, 0.61846093, ..., 0.06621891,
-         0.58311203, 0.85989712]],
+       [[0.0229307 , 0.83170275, 0.33789489, ..., 0.7673393 ,
+         0.64383921, 0.54617278],
+        [0.83198284, 0.90379798, 0.83916216, ..., 0.0024689 ,
+         0.64126592, 0.40530142]],
 
-       [[0.31583265, 0.1351855 , 0.04152389, ..., 0.80821858,
-         0.16772388, 0.78553492],
-        [0.67527226, 0.17737843, 0.59569829, ..., 0.87141611,
-         0.93186198, 0.15311692]],
+       [[0.74974798, 0.57805845, 0.82808903, ..., 0.40480112,
+         0.51092976, 0.65277654],
+        [0.07874055, 0.8022599 , 0.04680956, ..., 0.49029667,
+         0.30914301, 0.31440657]],
 
-       [[0.60555909, 0.50740583, 0.07226526, ..., 0.54567263,
-         0.25478271, 0.38603412],
-        [0.19237003, 0.43460903, 0.9471321 , ..., 0.67010111,
-         0.92188562, 0.38157611]]])
+       [[0.9960752 , 0.73266625, 0.9100912 , ..., 0.18663427,
+         0.66761086, 0.77362883],
+        [0.26704984, 0.27712334, 0.18147509, ..., 0.06299537,
+         0.0606707 , 0.35621993]]])
 Coordinates:
   * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-    y        (trials) float64 -1.874 0.9716 -2.443 ... -0.6146 0.4846 0.6595
+    y        (trials) float64 -0.5229 -0.8766 0.5131 ... -0.6334 0.2951 -1.428
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_0&#39;
     agg_ch   (roi) int64 2 3
   * times    (times) int64 0 1 2 3 4 5 6 7 8 9 ... 90 91 92 93 94 95 96 97 98 99
@@ -753,40 +755,40 @@ Attributes:
     agg_ch:        1
     multivariate:  0
 &lt;xarray.DataArray &#39;subject_2&#39; (trials: 20, roi: 2, times: 100)&gt;
-array([[[0.86730925, 0.26597135, 0.03547128, ..., 0.74602267,
-         0.0303897 , 0.68113107],
-        [0.29277997, 0.8061264 , 0.6162335 , ..., 0.20485223,
-         0.6037117 , 0.41964372]],
+array([[[0.07637446, 0.31512736, 0.1361018 , ..., 0.93841735,
+         0.46165908, 0.28689323],
+        [0.27446166, 0.08917218, 0.07319985, ..., 0.86494566,
+         0.33628501, 0.39412234]],
 
-       [[0.92419029, 0.56571332, 0.1994762 , ..., 0.12460117,
-         0.98538763, 0.72354605],
-        [0.30603791, 0.16511855, 0.56709295, ..., 0.27124156,
-         0.46062733, 0.12891111]],
+       [[0.12752418, 0.31563866, 0.7502369 , ..., 0.25438976,
+         0.74096297, 0.94009343],
+        [0.15288324, 0.48821036, 0.4861151 , ..., 0.78300483,
+         0.84077416, 0.39785357]],
 
-       [[0.6180314 , 0.91707351, 0.03161789, ..., 0.3312298 ,
-         0.65755436, 0.30797544],
-        [0.77054039, 0.84162739, 0.39043073, ..., 0.74043567,
-         0.75571162, 0.95406253]],
+       [[0.95078528, 0.86422662, 0.09911166, ..., 0.09899895,
+         0.0603454 , 0.71395084],
+        [0.72643129, 0.68721272, 0.33295886, ..., 0.03095478,
+         0.21830595, 0.45350111]],
 
        ...,
 
-       [[0.71443569, 0.46178375, 0.10249082, ..., 0.2170061 ,
-         0.53765828, 0.87452282],
-        [0.67254829, 0.82557052, 0.56095829, ..., 0.2028024 ,
-         0.31954314, 0.75082352]],
+       [[0.08538269, 0.81197592, 0.88276791, ..., 0.56633448,
+         0.47548013, 0.46858542],
+        [0.82911535, 0.85595548, 0.62492712, ..., 0.50114452,
+         0.39961168, 0.22911126]],
 
-       [[0.31699848, 0.79943284, 0.82390813, ..., 0.78241776,
-         0.46861482, 0.0358811 ],
-        [0.59014185, 0.90989527, 0.78113462, ..., 0.65055847,
-         0.31600854, 0.11445852]],
+       [[0.52571825, 0.09026246, 0.24077878, ..., 0.2510148 ,
+         0.10443964, 0.76618318],
+        [0.9350457 , 0.63493993, 0.42346224, ..., 0.43840196,
+         0.92861261, 0.29625269]],
 
-       [[0.69563516, 0.02658577, 0.87367276, ..., 0.9961379 ,
-         0.4079968 , 0.44016886],
-        [0.44571917, 0.0515956 , 0.82214566, ..., 0.73993876,
-         0.22724991, 0.34375736]]])
+       [[0.78528951, 0.56524994, 0.99665529, ..., 0.1105493 ,
+         0.12716686, 0.30973205],
+        [0.13622762, 0.36106508, 0.21027092, ..., 0.82915665,
+         0.97102345, 0.16512813]]])
 Coordinates:
   * trials   (trials) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-    y        (trials) float64 -1.188 -1.333 -0.009397 ... 1.203 0.892 -1.805
+    y        (trials) float64 -1.141 0.9944 0.3918 ... 0.6279 -0.8445 0.5894
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_0&#39;
     agg_ch   (roi) int64 4 5
   * times    (times) int64 0 1 2 3 4 5 6 7 8 9 ... 90 91 92 93 94 95 96 97 98 99
@@ -804,8 +806,8 @@ Attributes:
     multivariate:  0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.148 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  8 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.008 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  17 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-contact-level-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/23497494d94c2d1ff4ef55c6e8ee1397/plot_wf_mi_contact_level.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_contact_level.py</span></code></a></p>
@@ -855,7 +857,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

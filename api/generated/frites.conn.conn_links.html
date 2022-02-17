@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.core.cmi_nd_ggg &#8212; frites 0.4.1 documentation</title>
+    <title>frites.conn.conn_links &#8212; frites 0.4.1 documentation</title>
     
     <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -45,8 +45,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.core.gcmi_nd_cc" href="frites.core.gcmi_nd_cc.html" />
-    <link rel="prev" title="frites.core.mi_model_nd_gd" href="frites.core.mi_model_nd_gd.html" />
+    <link rel="next" title="frites.conn.conn_get_pairs" href="frites.conn.conn_get_pairs.html" />
+    <link rel="prev" title="frites.conn.conn_net" href="frites.conn.conn_net.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -151,7 +151,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_dataset.html">
    Dataset
@@ -206,16 +206,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_connectivity.html">
    Connectivity
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_dfc.html">
      frites.conn.conn_dfc
@@ -261,8 +261,8 @@
      frites.conn.conn_net
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.conn.conn_links.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.conn.conn_links
     </a>
    </li>
@@ -420,7 +420,7 @@
   </ul>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_statistics.html">
    Statistics
@@ -473,16 +473,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_core.html">
    Low-level core functions
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
   <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="frites.core.copnorm_1d.html">
      frites.core.copnorm_1d
@@ -563,8 +563,8 @@
      frites.core.mi_model_nd_gd
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.core.cmi_nd_ggg.html">
      frites.core.cmi_nd_ggg
     </a>
    </li>
@@ -656,49 +656,55 @@
               
               <div>
                 
-  <section id="frites-core-cmi-nd-ggg">
-<h1>frites.core.cmi_nd_ggg<a class="headerlink" href="#frites-core-cmi-nd-ggg" title="Permalink to this headline">¶</a></h1>
+  <section id="frites-conn-conn-links">
+<h1>frites.conn.conn_links<a class="headerlink" href="#frites-conn-conn-links" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.core.cmi_nd_ggg">
-<span class="sig-prename descclassname"><span class="pre">frites.core.</span></span><span class="sig-name descname"><span class="pre">cmi_nd_ggg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mvaxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demeaned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_checking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/core/gcmi_nd.py#L244-L339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.core.cmi_nd_ggg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multi-dimentional MI between three Gaussian variables in bits.</p>
-<p>This function is based on ANOVA style model comparison.</p>
+<dt class="sig sig-object py" id="frites.conn.conn_links">
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_utils.py#L145-L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_links" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct pairwise links for functional connectivity.</p>
+<p>This function can be used for defining the pairwise links for computing
+either undirected or directed FC on M/EEG or intracranial EEG.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>x, y, z</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Arrays to consider for computing the Mutual Information. The three
-input variables x, y and z should have the same shape except on the
-mvaxis (if needed).</p>
+<dt><strong>roi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>List of roi (or contacts) names.</p>
 </dd>
-<dt><strong>mvaxis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Spatial location of the axis to consider if multi-variate analysis
-is needed</p>
+<dt><strong>directed</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specify whether the links should be for undirected (False) or directed
+(True) FC</p>
 </dd>
-<dt><strong>traxis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | -1</span></dt><dd><p>Spatial location of the trial axis. By default the last axis is
-considered</p>
+<dt><strong>net</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specify whether it is for net directed FC (True) or not (False)</p>
 </dd>
-<dt><strong>biascorrect</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specifies whether bias correction should be applied to the estimated MI</p>
+<dt><strong>within_roi</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specify whether links within a brain region (e.g. V1-V1) should be
+keept (True) or removed (False).</p>
 </dd>
-<dt><strong>demeaned</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specifies whether the input data already has zero mean (true if it has
-been copula-normalized)</p>
+<dt><strong>sep</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘auto’</span></dt><dd><p>If ‘auto’, ‘-’ are used to linked brain region names for undirected FC
+or ‘-&gt;’ for directed FC. Alternatively, you can provide a custom
+separator (e.g. sep=’/’)</p>
 </dd>
-<dt><strong>shape_checking</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Perform a reshape and check that x and y shapes are consistents. For
-high performances and to avoid extensive memory usage, it’s better to
-already have x and y with a shape of (…, mvaxis, traxis) and to set
-this parameter to False</p>
+<dt><strong>nb_min_links</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Threshold for defining a minimum number of links between two brain
+regions (e.g. iEEG)</p>
+</dd>
+<dt><strong>pairs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Force to use certain pairs of brain regions. Should be an array of
+shape (n_pairs, 2) where the first column refer to sources and the
+second to targets</p>
+</dd>
+<dt><strong>sort</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>For undirected and net directed FC, sort the names of the brain regions
+(e.g. ‘V1-M1’ -&gt; ‘M1-V1’)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>mi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The mutual information with the same shape as x, y and z without the
-mvaxis and traxis</p>
+<dt><strong>indices</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:tuple</span></code></span></dt><dd><p>Remaining indices for (sources, targets)</p>
+</dd>
+<dt><strong>roi_st</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>Name of the pairs of brain regions</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-core-cmi-nd-ggg"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-conn-conn-links"></span></section>
 
 
               </div>
@@ -706,17 +712,17 @@ mvaxis and traxis</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="frites.core.mi_model_nd_gd.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="frites.conn.conn_net.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">frites.core.mi_model_nd_gd</p>
+            <p class="prev-next-title">frites.conn.conn_net</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.core.gcmi_nd_cc.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.conn.conn_get_pairs.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.core.gcmi_nd_cc</p>
+        <p class="prev-next-title">frites.conn.conn_get_pairs</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../mi/plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="../mi/plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -436,9 +436,11 @@ procedure for a more reliable estimation.</p>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">frites.estimator</span> <span class="kn">import</span> <a href="../../api/generated/frites.estimator.GCMIEstimator.html#frites.estimator.GCMIEstimator" title="frites.estimator.GCMIEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">GCMIEstimator</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.ResamplingEstimator.html#frites.estimator.ResamplingEstimator" title="frites.estimator.ResamplingEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">ResamplingEstimator</span></a><span class="p">,</span> <a href="../../api/generated/frites.estimator.DcorrEstimator.html#frites.estimator.DcorrEstimator" title="frites.estimator.DcorrEstimator" class="sphx-glr-backref-module-frites-estimator sphx-glr-backref-type-py-class"><span class="n">DcorrEstimator</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="data-creation">
@@ -533,8 +535,8 @@ over the non-corrected one.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_est_resample_002.png" srcset="../../_images/sphx_glr_plot_est_resample_002.png" alt="Information shared between two continuous variables" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.767 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  9 MB</p>
+<img src="../../_images/sphx_glr_plot_est_resample_002.png" srcset="../../_images/sphx_glr_plot_est_resample_002.png" alt="Information shared between two continuous variables" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.135 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  39 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-estimators-plot-est-resample-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a502fc60b27b62f0a96085329619933b/plot_est_resample.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_est_resample.py</span></code></a></p>
@@ -584,7 +586,7 @@ over the non-corrected one.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

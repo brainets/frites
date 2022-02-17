@@ -237,8 +237,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html">
-     frites.conn.conn_transfer_entropy
+    <a class="reference internal" href="generated/frites.conn.conn_te.html">
+     frites.conn.conn_te
     </a>
    </li>
    <li class="toctree-l2">
@@ -259,6 +259,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="generated/frites.conn.conn_net.html">
      frites.conn.conn_net
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/frites.conn.conn_links.html">
+     frites.conn.conn_links
     </a>
    </li>
    <li class="toctree-l2">
@@ -717,8 +722,8 @@ work on connectivity arrays</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_spec.html#frites.conn.conn_spec" title="frites.conn.conn_spec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_spec</span></code></a>(data[, freqs, metric, roi, times, ...])</p></td>
 <td><p>Wavelet-based single-trial time-resolved spectral connectivity.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_transfer_entropy.html#frites.conn.conn_transfer_entropy" title="frites.conn.conn_transfer_entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_transfer_entropy</span></code></a>(x[, max_delay, pairs, ...])</p></td>
-<td><p>Across-trials transfer entropy.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_te.html#frites.conn.conn_te" title="frites.conn.conn_te"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_te</span></code></a>(data[, times, roi, min_delay, ...])</p></td>
+<td><p>Compute the across-trials transfer entropy (TE).</p></td>
 </tr>
 </tbody>
 </table>
@@ -745,7 +750,10 @@ work on connectivity arrays</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_net.html#frites.conn.conn_net" title="frites.conn.conn_net"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_net</span></code></a>(da[, roi, order, sep, invert, verbose])</p></td>
 <td><p>Compute the net on directed connectivity.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_get_pairs.html#frites.conn.conn_get_pairs" title="frites.conn.conn_get_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_get_pairs</span></code></a>(roi[, directed, nb_min_suj, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_links</span></code></a>(roi[, directed, net, within_roi, ...])</p></td>
+<td><p>Construct pairwise links for functional connectivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.conn.conn_get_pairs.html#frites.conn.conn_get_pairs" title="frites.conn.conn_get_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_get_pairs</span></code></a>(roi[, directed, nb_min_suj, ...])</p></td>
 <td><p>Get possible connectivity pairs for multiple subjects.</p></td>
 </tr>
 </tbody>
@@ -822,7 +830,7 @@ work on connectivity arrays</p></li>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>

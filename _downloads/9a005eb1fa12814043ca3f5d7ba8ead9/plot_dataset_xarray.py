@@ -14,8 +14,10 @@ import pandas as pd
 
 from xarray import DataArray
 from frites.dataset import DatasetEphy
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 ###############################################################################
 # Create artificial data

@@ -11,10 +11,11 @@ from itertools import product
 from frites.simulations import sim_single_suj_ephy
 from frites.conn import (conn_covgc, conn_reshape_directed,
                          conn_reshape_undirected)
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
 import seaborn as sns
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################

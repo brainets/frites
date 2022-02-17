@@ -9,9 +9,10 @@ import numpy as np
 from frites.simulations import sim_local_cc_ms
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('ggplot')
+set_mpl_style()
 
 
 ###############################################################################

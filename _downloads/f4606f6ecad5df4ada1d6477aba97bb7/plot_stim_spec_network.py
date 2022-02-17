@@ -15,8 +15,10 @@ from frites.simulations import StimSpecAR
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
 from frites.conn import conn_dfc, define_windows, conn_covgc
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 
 ###############################################################################
@@ -216,6 +218,7 @@ for n_d, direction in enumerate(['x->y', 'y->x', 'x.y']):
             tit = f"{r[0].upper()}.{r[-1].upper()}"
         plt.title(tit)
         plt.axvline(0, lw=2, color='k')
+plt.tight_layout()
 plt.show()
 
 ###############################################################################
@@ -265,5 +268,5 @@ for n_d, direction in enumerate(['x->y', 'y->x', 'x.y']):
             tit = f"{r[0].upper()}.{r[-1].upper()}"
         plt.title(tit)
         plt.axvline(0, lw=2, color='k')
-
+plt.tight_layout()
 plt.show()

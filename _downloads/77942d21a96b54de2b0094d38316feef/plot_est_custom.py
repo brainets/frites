@@ -14,8 +14,10 @@ from frites.estimator import CustomEstimator
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 
 ###############################################################################

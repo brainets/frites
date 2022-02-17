@@ -46,7 +46,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Compute a conjunction analysis on mutual-information" href="plot_mi_conjunction.html" />
-    <link rel="prev" title="MI between two continuous variables" href="plot_wf_mi_cc.html" />
+    <link rel="prev" title="Compute MI across time and frequencies" href="plot_mi_time_frequency.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -202,15 +202,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_mi_time_frequency.html">
-   Compute MI across time and frequencies
+  <a class="reference internal" href="plot_wf_mi_cc.html">
+   MI between two continuous variables
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="plot_wf_mi_cc.html">
-   MI between two continuous variables
+  <a class="reference internal" href="plot_mi_time_frequency.html">
+   Compute MI across time and frequencies
   </a>
  </li>
 </ul>
@@ -314,15 +314,15 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
-   Compare between-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
+   Compare within-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">
-   Compare within-subjects statistics when computing mutual information
+  <a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">
+   Compare between-subjects statistics when computing mutual information
   </a>
  </li>
 </ul>
@@ -436,9 +436,10 @@ combine the effects (subtraction).</p>
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../api/generated/frites.simulations.sim_local_cd_ms.html#frites.simulations.sim_local_cd_ms" title="frites.simulations.sim_local_cd_ms" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_local_cd_ms</span></a>
 <span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
 <span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a><span class="p">,</span> <a href="../../api/generated/frites.workflow.WfMiCombine.html#frites.workflow.WfMiCombine" title="frites.workflow.WfMiCombine" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMiCombine</span></a>
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-white&#39;</span><span class="p">)</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="simulate-electrophysiological-data">
@@ -517,12 +518,12 @@ between time samples [50, 70])</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_combine_002.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_002.png" alt="roi = roi_0" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.57s/it]
-100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.57s/it]
+100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.10s/it]
+100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.10s/it]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    2.48it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    2.47it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    3.04it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    3.03it/s]
 </pre></div>
 </div>
 </section>
@@ -549,8 +550,8 @@ workflows.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_wf_mi_combine_003.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_003.png" alt="roi = roi_0" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.784 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  12 MB</p>
+<img src="../../_images/sphx_glr_plot_wf_mi_combine_003.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_003.png" alt="roi = roi_0" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.047 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  10 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-combine-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/eb0def8ff17c49846bf519a0c946ac95/plot_wf_mi_combine.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_combine.py</span></code></a></p>
@@ -569,11 +570,11 @@ workflows.</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="plot_wf_mi_cc.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="plot_mi_time_frequency.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">MI between two continuous variables</p>
+            <p class="prev-next-title">Compute MI across time and frequencies</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="plot_mi_conjunction.html" title="next page">
@@ -600,7 +601,7 @@ workflows.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-02-07.</p>
+        <p>&copy; Copyright Last updated on 2022-02-17.</p>
     </footer>
 
   </body>
