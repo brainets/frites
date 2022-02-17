@@ -54,7 +54,7 @@ def conn_ccf(data, times=None, roi=None, normalized=True, n_jobs=1,
         The sampling frequency.
     kw_links : dict | {}
         Additional arguments for selecting links to compute are passed to the
-        function conn_links
+        function :func:`frites.conn.conn_links`
 
     Returns
     -------

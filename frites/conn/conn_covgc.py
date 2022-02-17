@@ -305,7 +305,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         jobs). The parallel loop is set at the pair level.
     kw_links : dict | {}
         Additional arguments for selecting links to compute are passed to the
-        function conn_links
+        function :func:`frites.conn.conn_links`
 
     Returns
     -------

@@ -176,7 +176,7 @@ def conn_spec(
         jobs). The parallel loop is set at the pair level.
     kw_links : dict | {}
         Additional arguments for selecting links to compute are passed to the
-        function conn_links
+        function :func:`frites.conn.conn_links`
 
     Returns
     -------

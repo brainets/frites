@@ -69,7 +69,7 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
         jobs). The parallel loop is set at the pair level.
     kw_links : dict | {}
         Additional arguments for selecting links to compute are passed to the
-        function conn_links
+        function :func:`frites.conn.conn_links`
 
     Returns
     -------
