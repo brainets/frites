@@ -10,9 +10,10 @@ import numpy as np
 from frites.simulations import sim_single_suj_ephy
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################
@@ -105,8 +106,8 @@ for n_r, r in enumerate(mi.roi.data):
     mi_sr.data[pv_r >= .05] = np.nan
     # superimpose mi and significant mi
     plt.subplot(1, n_roi, n_r + 1)
-    plt.plot(times, mi_r)
-    plt.plot(times, mi_sr, lw=4)
+    plt.plot(times, mi_r, color='C3')
+    plt.plot(times, mi_sr, lw=4, color='C0')
     plt.xlabel('Times'), plt.ylabel('MI (bits)')
     plt.title(f"ROI={r}", fontweight='bold')
 plt.tight_layout()
@@ -118,7 +119,7 @@ plt.show()
 #
 # Now we have the values of MI we can compute the conjunction analysis. The
 # following method returns two DataArray :
-# 
+#
 # - conj_ss : DataArray of shape (n_subjects, n_times, n_roi) that contains the
 #             significant MI of each subject
 # - conj : DataArray of shape (n_times, n_roi) that contains the number of
@@ -136,7 +137,7 @@ conj_ss, conj = wf.conjunction_analysis()
 # printing the results
 print(conj_ss)
 
-fig = plt.figure(figsize=(10, 8))
+fig = plt.figure(figsize=(12, 9))
 q = 0
 for n_s in range(n_subjects):
     color = ephy[f'subject_{n_s}']['color']

@@ -8,8 +8,10 @@ import numpy as np
 
 from mne import EpochsArray, create_info
 from frites.dataset import DatasetEphy
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 ###############################################################################
 # Create artificial data

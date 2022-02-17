@@ -22,11 +22,11 @@ import xarray as xr
 from frites.simulations import sim_ground_truth
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-
-plt.style.use('ggplot')
+set_mpl_style()
 
 
 ###############################################################################

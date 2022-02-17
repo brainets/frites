@@ -9,9 +9,10 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import conn_ccf
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-poster')
+set_mpl_style()
 
 
 ###############################################################################
@@ -83,6 +84,7 @@ lags = ccf['times'].data[np.where(ccf_m == ccf_m.max('times'))[1]]
 
 # plot the cross correlation
 # sphinx_gallery_thumbnail_number = 2
+plt.figure(figsize=(12, 8))
 plt.title('Delays between brain regions')
 ccf_m.plot(x='times', hue='roi')
 plt.axvline(0., color='k')
@@ -98,5 +100,6 @@ neg = ("Negative times = target\nneeds to be moved\nback in time")
 pos = ("Positive times = target\nneeds to be moved\nlater in time")
 plt.text(-500, .3, neg, ha='center', fontsize=15, fontweight='bold')
 plt.text(500, .3, pos, ha='center', fontsize=15, fontweight='bold')
+plt.tight_layout()
 
 plt.show()

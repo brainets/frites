@@ -13,8 +13,10 @@ import xarray as xr
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
 from frites.core import mi_nd_gg
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 ###############################################################################
 # I(Continuous; Continuous) case

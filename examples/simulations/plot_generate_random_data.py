@@ -8,9 +8,10 @@ either for a single subject or multiple subjects.
 import numpy as np
 
 from frites.simulations import sim_single_suj_ephy, sim_multi_suj_ephy
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 ###############################################################################
 # Generate electrophysiological for a single subject

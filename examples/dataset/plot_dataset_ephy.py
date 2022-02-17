@@ -10,8 +10,10 @@ this example we illutrate how to define a dataset using NumPy arrays.
 import numpy as np
 
 from frites.dataset import DatasetEphy
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 ###############################################################################
 # Create artificial data
@@ -52,8 +54,7 @@ print(dt)
 
 plt.plot(dt.times, dt.x[0][:, 0, :].T)
 plt.xlabel('Times')
-plt.title('Electrophysiological data of the first subject, for the first '
-          'channel')
+plt.title('Electrophysiological data of the channel of the first subject')
 plt.show()
 
 ###############################################################################

@@ -15,9 +15,10 @@ import numpy as np
 from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################
@@ -112,21 +113,20 @@ mi_rfx, pv_rfx = wf_rfx.fit(dt_rfx, mcp='cluster', cluster_th='tfce',
                             n_perm=n_perm, n_jobs=1)
 
 # plot the comparison
-fig = plt.figure(figsize=(10, 8))
+fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, sharey='row',
+                        figsize=(10, 8))
 fig.suptitle("Fixed-effect vs. Random-effect")
 
-plt.subplot(221)
+plt.sca(axs[0, 0])
 plt.plot(time, mi_ffx)
-plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-plt.title(f"Mutual information (FFX / cluster / TFCE)")
-plt.subplot(223)
+plt.title(f"Mutual information\n(FFX / cluster / TFCE)")
+plt.sca(axs[1, 0])
 plt.plot(time, pv_ffx)
 plt.xlabel("Time (s)"), plt.ylabel("P-value")
-plt.subplot(222)
+plt.sca(axs[0, 1])
 plt.plot(time, mi_rfx)
-plt.xlabel("Time (s)"), plt.ylabel("MI (bits)")
-plt.title(f"Mutual information (RFX / cluster / TFCE)")
-plt.subplot(224)
+plt.title(f"Mutual information\n(RFX / cluster / TFCE)")
+plt.sca(axs[1, 1])
 plt.plot(time, pv_rfx)
 plt.xlabel("Time (s)"), plt.ylabel("P-value")
 plt.show()

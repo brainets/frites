@@ -14,9 +14,11 @@ import numpy as np
 import pandas as pd
 
 from frites.estimator import GCMIEstimator, ResamplingEstimator, DcorrEstimator
+from frites import set_mpl_style
 
 import seaborn as sns
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 
 ###############################################################################

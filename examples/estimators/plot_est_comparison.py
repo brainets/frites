@@ -9,11 +9,11 @@ import pandas as pd
 
 from frites.estimator import (GCMIEstimator, BinMIEstimator, CorrEstimator,
                               DcorrEstimator)
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-
-plt.style.use('ggplot')
+set_mpl_style()
 
 
 ###############################################################################
@@ -113,7 +113,7 @@ def generate_data(n, idx):
 n = 10000
 
 # plot the data
-fig_data = plt.figure(figsize=(5, 9))
+fig_data = plt.figure(figsize=(7, 9))
 for i in range(14):
     name, x, y, xlim, ylim = generate_data(n, i)
 
@@ -127,7 +127,6 @@ for i in range(14):
 
 fig_data.tight_layout()
 plt.show()
-
 
 ###############################################################################
 # Computes information shared
