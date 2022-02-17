@@ -234,18 +234,20 @@ class TestConnUtils(object):
 
         # test direction
         _, roi_st = conn_links(roi)
-        np.testing.assert_array_equal(roi_st,
-            ['aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
-            'aINS-vmPFC', 'dlPFC-vmPFC'])
+        np.testing.assert_array_equal(
+            roi_st, [
+                'aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
+                'aINS-vmPFC', 'dlPFC-vmPFC'])
         _, roi_st = conn_links(roi, directed=True, net=False)
-        np.testing.assert_array_equal(roi_st,
-            ['dlPFC->aINS', 'dlPFC->dlPFC', 'dlPFC->vmPFC', 'aINS->dlPFC',
-            'aINS->dlPFC', 'aINS->vmPFC', 'dlPFC->dlPFC', 'dlPFC->aINS',
-            'dlPFC->vmPFC', 'vmPFC->dlPFC', 'vmPFC->aINS', 'vmPFC->dlPFC'])
+        np.testing.assert_array_equal(
+            roi_st, [
+                'dlPFC->aINS', 'dlPFC->dlPFC', 'dlPFC->vmPFC', 'aINS->dlPFC',
+                'aINS->dlPFC', 'aINS->vmPFC', 'dlPFC->dlPFC', 'dlPFC->aINS',
+                'dlPFC->vmPFC', 'vmPFC->dlPFC', 'vmPFC->aINS', 'vmPFC->dlPFC'])
         _, roi_st = conn_links(roi, directed=True, net=True)
-        np.testing.assert_array_equal(roi_st,
-            ['aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
-            'aINS-vmPFC', 'dlPFC-vmPFC'])
+        np.testing.assert_array_equal(
+            roi_st, ['aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
+                     'aINS-vmPFC', 'dlPFC-vmPFC'])
 
         # testing removing within roi connections
         _, roi_st = conn_links(roi, within_roi=False)
@@ -257,16 +259,17 @@ class TestConnUtils(object):
 
         # remove links without a minimum number of conections
         _, roi_st = conn_links(roi, nb_min_links=2)
-        np.testing.assert_array_equal(roi_st,
-            ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])
+        np.testing.assert_array_equal(
+            roi_st, ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])
         _, roi_st = conn_links(roi, directed=True, nb_min_links=2)
-        np.testing.assert_array_equal(roi_st,
-            ['dlPFC->aINS', 'dlPFC->dlPFC', 'dlPFC->vmPFC', 'aINS->dlPFC',
-            'aINS->dlPFC', 'dlPFC->dlPFC', 'dlPFC->aINS', 'dlPFC->vmPFC',
-            'vmPFC->dlPFC', 'vmPFC->dlPFC'])
+        np.testing.assert_array_equal(
+            roi_st, [
+                'dlPFC->aINS', 'dlPFC->dlPFC', 'dlPFC->vmPFC', 'aINS->dlPFC',
+                'aINS->dlPFC', 'dlPFC->dlPFC', 'dlPFC->aINS', 'dlPFC->vmPFC',
+                'vmPFC->dlPFC', 'vmPFC->dlPFC'])
         _, roi_st = conn_links(roi, directed=True, nb_min_links=2, net=True)
-        np.testing.assert_array_equal(roi_st,
-            ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])
+        np.testing.assert_array_equal(
+            roi_st, ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])
 
         # testing string separator
         for direction in [True, False]:
@@ -276,8 +279,8 @@ class TestConnUtils(object):
         # testing pairs
         p_1, p_2 = np.array([0, 2]), np.array([1, 3])
         _, roi_st = conn_links(roi, pairs=np.c_[p_1, p_2])
-        np.testing.assert_array_equal(roi_st,
-            ['aINS-dlPFC', 'dlPFC-vmPFC'])
+        np.testing.assert_array_equal(
+            roi_st, ['aINS-dlPFC', 'dlPFC-vmPFC'])
         _, roi_st = conn_links(roi, pairs=np.c_[p_1, p_2], directed=True)
-        np.testing.assert_array_equal(roi_st,
-            ['dlPFC->aINS', 'dlPFC->vmPFC'])
+        np.testing.assert_array_equal(
+            roi_st, ['dlPFC->aINS', 'dlPFC->vmPFC'])

@@ -5,7 +5,7 @@ import xarray as xr
 
 from frites.conn import conn_io
 from frites.io import set_log_level, logger, check_attrs
-from frites.core import cmi_nd_ggg, copnorm_nd, cmi_1d_ggg
+from frites.core import cmi_nd_ggg, copnorm_nd
 from frites.config import CONFIG
 from frites.utils import parallel_func
 
@@ -81,6 +81,7 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
     --------
     conn_links
     """
+    set_log_level(verbose)
     # inputs conversion
     kw_links.update({'directed': True, 'net': False})
     data, cfg = conn_io(
@@ -91,9 +92,8 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
 
     # extract variables
     x, roi, times = data.data, data['roi'].data, data['times'].data
-    trials, attrs = data['y'].data, cfg['attrs']
     n_epochs, n_roi, n_pts = data.shape
-    x_s, x_t, roi_p = cfg['x_s'], cfg['x_t'], cfg['roi_p']
+    x_s, x_t, roi_p, attrs = cfg['x_s'], cfg['x_t'], cfg['roi_p'], cfg['attrs']
 
     # transpose x to avoid shape checking (n_roi, n_times, 1, n_trials)
     x = x.transpose(1, 2, 0)[..., np.newaxis, :]
@@ -110,6 +110,8 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
                                     total=len(x_s), mesg='Estimating TE')
 
     # compute the transfer entropy
+    logger.info(f"Compute Transfer Entropy (n_pairs={len(x_s)}, "
+                f"delays=[{min_delay}:{step_delay}:{max_delay}])")
     te = parallel(
         p_fun(x[n_s, ...], x[n_t, ...], max_delay, return_delays,
               delays) for n_s, n_t in zip(x_s, x_t))
@@ -132,7 +134,7 @@ def conn_te(data, times=None, roi=None, min_delay=0, max_delay=30,
 
     # xarray conversion
     te = xr.DataArray(te, dims=dims, coords=coords, attrs=attrs,
-                      name=f'Transfert Entropy')
+                      name='Transfert Entropy')
 
     return te
 
@@ -151,13 +153,11 @@ if __name__ == '__main__':
     te = conn_te(ar, times='times', roi='roi', max_delay=100,
                  return_delays=True, step_delay=3, min_delay=3)
 
-    print(te)
-
     plt.figure(figsize=(28, 6))
     plt.subplot(141)
-    ar.mean('trials').plot(x='times', hue='roi');
+    ar.mean('trials').plot(x='times', hue='roi')
     plt.subplot(142)
-    te.mean('delays').plot(x='times', hue='roi');
+    te.mean('delays').plot(x='times', hue='roi')
     plt.subplot(143)
     te.sel(roi='x->y').plot()
     plt.subplot(144)

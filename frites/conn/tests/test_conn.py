@@ -110,5 +110,6 @@ class TestConn(object):
         assert 50 - tol <= peaks[1] <= 50 + tol
         assert 70 - tol <= peaks[2] <= 70 + tol
 
+
 if __name__ == '__main__':
     TestConn().test_conn_te()
