@@ -172,6 +172,9 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
         Force to use certain pairs of brain regions. Should be an array of
         shape (n_pairs, 2) where the first column refer to sources and the
         second to targets
+    sort : bool | True
+        For undirected and net directed FC, sort the names of the brain regions
+        (e.g. 'V1-M1' -> 'M1-V1')
 
     Returns
     -------
