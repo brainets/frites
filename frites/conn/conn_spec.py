@@ -207,7 +207,7 @@ def conn_spec(
         data, times=times, roi=roi, agg_ch=False, win_sample=None,
         block_size=block_size, sfreq=sfreq, freqs=freqs, foi=foi,
         sm_times=sm_times, sm_freqs=sm_freqs, verbose=verbose,
-        name=f'Sepctral connectivity (metric = {f_name}, mode={mode})',
+        name=f'Spectral connectivity (metric = {f_name}, mode={mode})',
         kw_links=kw_links
     )
 

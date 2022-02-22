@@ -99,6 +99,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         roi_gp, roi_idx = roi, np.arange(len(roi)).reshape(-1, 1)
 
     # get connectivity links
+    kw_links['verbose'] = verbose
     (x_s, x_t), roi_p = conn_links(roi_gp, **kw_links)
 
     # put in the attribute the indices used
@@ -150,6 +151,8 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
             f_vec = freqs
         cfg['f_vec'], cfg['need_foi'] = f_vec, need_foi
         cfg['foi_idx'], cfg['foi_s'], cfg['foi_e'] = foi_idx, foi_s, foi_e
+    else:
+        cfg['freqs'] = None
 
     # ______________________________ SMOOTHING ________________________________
     # convert kernel width in time to samples

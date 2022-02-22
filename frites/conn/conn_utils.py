@@ -143,7 +143,8 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 
 def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
-               nb_min_links=None, pairs=None, sort=True, verbose=None):
+               nb_min_links=None, pairs=None, sort=True, triu_k=1,
+               verbose=None):
     """Construct pairwise links for functional connectivity.
 
     This function can be used for defining the pairwise links for computing
@@ -175,6 +176,9 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
     sort : bool | True
         For undirected and net directed FC, sort the names of the brain regions
         (e.g. 'V1-M1' -> 'M1-V1')
+    triu_k : int | 1
+        Diagonal offset when estimating the undirected links to use. By
+        default, triu_k=1 means that we skip auto-connections
 
     Returns
     -------
@@ -206,7 +210,7 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
         if directed and not net:
             x_s, x_t = np.where(~np.eye(n_roi, dtype=bool))
         elif (not directed) or (directed and net):
-            x_s, x_t = np.triu_indices(n_roi, k=1)
+            x_s, x_t = np.triu_indices(n_roi, k=triu_k)
 
     # drop within roi links
     if not within_roi:
