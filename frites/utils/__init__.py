@@ -1,7 +1,7 @@
 """Global utility functions."""
 from .parallel import parallel_func  # noqa
 from .preproc import (  # noqa
-    savgol_filter, kernel_smoothing, acf, nonsorted_unique, time_to_sample,
-    get_closest_sample
+    savgol_filter, kernel_smoothing, downsample, acf, nonsorted_unique,
+    time_to_sample, get_closest_sample
 )
 from .wrapper import jit  # noqa

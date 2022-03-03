@@ -15,6 +15,7 @@ Time-series processing
 .. autosummary::
    :toctree: generated/
 
+   downsample
    acf
 
 Data smoothing

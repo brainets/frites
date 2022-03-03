@@ -4,6 +4,8 @@ import xarray as xr
 from scipy.signal import savgol_filter as savgol
 from scipy.signal import fftconvolve
 
+from mne.filter import resample
+
 from frites.io import set_log_level, logger
 
 
@@ -187,6 +189,53 @@ def acf(x, axis=-1, demean=True):
         corr[axis_name] = np.arange(len(times)) * dt
 
     return corr
+
+
+def downsample(x, sfreq, down, axis='times'):
+    """Data downsampling for DataArray.
+
+    Parameters
+    ----------
+    x : xr.DataArray
+        DataArray to down-sample.
+    sfreq : float
+        The sampling frequency
+    down : float
+        Down-sampling factor
+    axis : int, string | -1
+        Dimension name describing the temporal dimension.
+
+    Returns
+    -------
+    x : xr.DataArray
+        The down-sampled DataArray
+    """
+    # xarray to numpy conversion
+    assert isinstance(x, xr.DataArray)
+    data, dims, attrs = x.data, x.dims, x.attrs
+    coords = [x[a].data for a in dims]
+    if isinstance(axis, int):
+        axis = x.dims[axis]
+    axis_num = x.get_axis_num(axis)
+    times = x[axis].data
+
+    # get starting point of the time vector
+    t0 = times[0]
+
+    # perform the downsampling
+    _data = resample(data, down=down, axis=axis_num)
+    sfreq = sfreq / down
+
+    # rebuild the time vector
+    times = t0 + (np.arange(_data.shape[axis_num]) / sfreq)
+
+    # rebuild the dataarray
+    coords[axis_num] = times
+    attrs['down'] = down
+    attrs['sfreq'] = sfreq
+    _data = xr.DataArray(_data, coords=coords, dims=dims, attrs=attrs)
+
+    return _data
 
 
 ###############################################################################
