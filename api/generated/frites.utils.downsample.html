@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.conn.define_windows &#8212; frites 0.4.1 documentation</title>
+    <title>frites.utils.downsample &#8212; frites 0.4.1 documentation</title>
     
     <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -45,8 +45,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.conn.plot_windows" href="frites.conn.plot_windows.html" />
-    <link rel="prev" title="frites.conn.conn_fcd_corr" href="frites.conn.conn_fcd_corr.html" />
+    <link rel="next" title="frites.utils.acf" href="frites.utils.acf.html" />
+    <link rel="prev" title="Utility functions" href="../api_utils.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -206,16 +206,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_connectivity.html">
    Connectivity
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="frites.conn.conn_dfc.html">
      frites.conn.conn_dfc
@@ -276,8 +276,8 @@
      frites.conn.conn_fcd_corr
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.conn.define_windows.html">
      frites.conn.define_windows
     </a>
    </li>
@@ -382,18 +382,18 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_utils.html">
    Utility functions
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.utils.downsample.html">
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.utils.downsample
     </a>
    </li>
@@ -639,24 +639,9 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#examples-using-frites-conn-define-windows">
-   Examples using
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     frites.conn.define_windows
-    </span>
-   </code>
-  </a>
- </li>
-</ul>
-
+    
 </nav>
               </div>
               
@@ -676,84 +661,35 @@
               
               <div>
                 
-  <section id="frites-conn-define-windows">
-<h1>frites.conn.define_windows<a class="headerlink" href="#frites-conn-define-windows" title="Permalink to this headline">¶</a></h1>
+  <section id="frites-utils-downsample">
+<h1>frites.utils.downsample<a class="headerlink" href="#frites-utils-downsample" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.conn.define_windows">
-<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">define_windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slwin_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_sliding_windows.py#L7-L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.define_windows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define temporal windows.</p>
-<p>This function can be used to either manually define temporal windows either
-automatic sliding windows. Note that every input parameters should be in
-the time domain (e.g seconds or milliseconds).</p>
+<dt class="sig sig-object py" id="frites.utils.downsample">
+<span class="sig-prename descclassname"><span class="pre">frites.utils.</span></span><span class="sig-name descname"><span class="pre">downsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">down</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'times'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/utils/preproc.py#L194-L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.utils.downsample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data downsampling for DataArray.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Time vector</p>
+<dt><strong>x</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>DataArray to down-sample.</p>
 </dd>
-<dt><strong>windows</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Manual windows (e.g (.1, .2) or [(.1, .2), (.4, .5)]).</p>
+<dt><strong>sfreq</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></span></dt><dd><p>The sampling frequency</p>
 </dd>
-<dt><strong>slwin_len</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Length of each sliding (e.g .2 produces 200ms window length).</p>
+<dt><strong>down</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></span></dt><dd><p>Down-sampling factor</p>
 </dd>
-<dt><strong>slwin_start</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time point for starting sliding windows (e.g 0.1). If None, sliding
-windows will start from the first time point.</p>
-</dd>
-<dt><strong>slwin_stop</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Time point for ending sliding windows (e.g 1.5). If None, sliding
-windows will finish at the last time point.</p>
-</dd>
-<dt><strong>slwin_step</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Temporal step between each temporal window (e.g .1 means that each
-consecutive windows are going to be separated by 100ms). This parameter
-can be used to define either overlapping or non-overlapping windows. If
-None, slwin_step is going to be set to slwin_step in order to produce
-consecutive non-overlapping windows.</p>
+<dt><strong>axis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | -1</span></dt><dd><p>Dimension name describing the temporal dimension.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>win_sample</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of shape (n_windows, 2) of temporal indexes defining where each
-window (start, finish)</p>
-</dd>
-<dt><strong>mean_time</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Mean time vector inside each defined window of shape (n_windows,)</p>
+<dt><strong>x</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>The down-sampled DataArray</p>
 </dd>
 </dl>
 </dd>
 </dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="frites.conn.plot_windows.html#frites.conn.plot_windows" title="frites.conn.plot_windows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_windows</span></code></a></dt><dd></dd>
-</dl>
-</div>
 </dd></dl>
 
-<section id="examples-using-frites-conn-define-windows">
-<span id="sphx-glr-backreferences-frites-conn-define-windows"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.conn.define_windows</span></code><a class="headerlink" href="#examples-using-frites-conn-define-windows" title="Permalink to this headline">¶</a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial illustrates how to compute the Dynamic Functional Connectivity (DFC). In particul..."><figure class="align-default" id="id1">
-<img alt="Estimate the Dynamic Functional Connectivity" src="../../_images/sphx_glr_plot_dfc_estimator_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_dfc_estimator.html#sphx-glr-auto-examples-tutorials-plot-dfc-estimator-py"><span class="std std-ref">Estimate the Dynamic Functional Connectivity</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id2">
-<img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the dynamic functional connectivity (DFC) using the mut..."><figure class="align-default" id="id3">
-<img alt="Estimate dynamic functional connectivity" src="../../_images/sphx_glr_plot_dfc_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_dfc.html#sphx-glr-auto-examples-conn-plot-dfc-py"><span class="std std-ref">Estimate dynamic functional connectivity</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define temporal windows that can then be used to compute, for e..."><figure class="align-default" id="id4">
-<img alt="Define temporal windows" src="../../_images/sphx_glr_plot_time_windows_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/utils/plot_time_windows.html#sphx-glr-auto-examples-utils-plot-time-windows-py"><span class="std std-ref">Define temporal windows</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-clear"></div></section>
-</section>
+<span class="target" id="sphx-glr-backreferences-frites-utils-downsample"></span></section>
 
 
               </div>
@@ -761,17 +697,17 @@ window (start, finish)</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="frites.conn.conn_fcd_corr.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../api_utils.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">frites.conn.conn_fcd_corr</p>
+            <p class="prev-next-title">Utility functions</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.conn.plot_windows.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.utils.acf.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.conn.plot_windows</p>
+        <p class="prev-next-title">frites.utils.acf</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
