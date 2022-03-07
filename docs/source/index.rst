@@ -30,6 +30,15 @@ Description
 
 **Frites** is a Python toolbox for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial). The toolbox also includes directed and undirected connectivity metrics such as group-level statistics on measures of information (information-theory, machine-learning and measures of distance).
 
+What can you do with Frites?
+++++++++++++++++++++++++++++
+
+1. Frites can extract task-related cognitive brain networks, that is brain regions and connectivity between brain regions that are modulated according to the task (`overview <https://brainets.github.io/frites/overview/ovw_goals.html#>`_)
+2. Frites can assess information-based measures on neurophysiological data (`overview <https://brainets.github.io/frites/overview/ovw_methods.html#data-analysis-within-the-information-theoretical-framework>`_) using a large panel of estimators (`examples <https://brainets.github.io/frites/auto_examples/index.html#group-level-statistics-on-measures-of-information>`_)
+3. Frites can be used to assess Dynamic Functional Connectivity using mutual information and directional measures using Granger causality (`examples <https://brainets.github.io/frites/auto_examples/index.html#connectivity-and-information-transfer>`_)
+4. Frites can perform statistical inference on measures of information, such as measures from information-theory, machine-learning or measures of distances, using permutation-based tests (`overview <https://brainets.github.io/frites/overview/ovw_methods.html#statistical-analyses>`_ and `examples <https://brainets.github.io/frites/auto_examples/index.html#group-level-statistics-on-measures-of-information>`_) and controlling for multiple comparisons (`overview <https://brainets.github.io/frites/overview/ovw_methods.html#correction-for-multiple-comparisons>`_)
+5. Frites provides simples WorkFlows to analyse and organise your datasets (`overview <https://brainets.github.io/frites/overview/ovw_frites.html#start-analyzing-your-data-with-frites>`_ and `examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_) and simple tutorials (`examples <https://brainets.github.io/frites/auto_examples/index.html#tutorials>`_)
+
 
 Highlights
 ++++++++++
