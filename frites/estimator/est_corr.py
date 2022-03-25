@@ -3,7 +3,7 @@ import numpy as np
 from scipy.stats import spearmanr
 
 from frites.estimator.est_mi_base import BaseMIEstimator
-from frites.utils import jit
+# from frites.utils import jit
 
 
 class CorrEstimator(BaseMIEstimator):
@@ -107,8 +107,7 @@ class CorrEstimator(BaseMIEstimator):
                 y = np.tile(y, (n_var, 1, 1))
 
             # numba related changes
-            if (self._implementation == 'numba') and (
-                self._method == 'pearson'):
+            if self._implementation == 'numba':
                 if x.dtype != np.float32:
                     x = x.astype(np.float32, copy=False)
                 if y.dtype != np.float32:

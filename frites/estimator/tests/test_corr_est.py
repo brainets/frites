@@ -62,7 +62,6 @@ class TestCorrEstimator(object):
             corr_ten = spear_ten.estimate(x, y, categories=cate)
             np.testing.assert_array_almost_equal(corr_vec, corr_ten)
 
-
     def test_corr_functional(self):
         """Functional test of the correlation."""
         fcn = CorrEstimator().get_function()
