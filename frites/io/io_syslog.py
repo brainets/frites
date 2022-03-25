@@ -8,7 +8,7 @@ import sys
 import re
 
 from mne.fixes import _get_args
-from mne.externals.decorator import FunctionMaker
+from decorator import FunctionMaker
 
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 RESET_SEQ = "\033[0m"
