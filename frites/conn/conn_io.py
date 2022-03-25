@@ -153,6 +153,8 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         cfg['foi_idx'], cfg['foi_s'], cfg['foi_e'] = foi_idx, foi_s, foi_e
     else:
         cfg['freqs'] = None
+        cfg['need_foi'] = False
+        cfg['foi_idx'] = None
 
     # ______________________________ SMOOTHING ________________________________
     # convert kernel width in time to samples
