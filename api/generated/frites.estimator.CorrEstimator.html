@@ -680,10 +680,22 @@
 <h1>frites.estimator.CorrEstimator<a class="headerlink" href="#frites-estimator-correstimator" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.estimator.CorrEstimator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.estimator.</span></span><span class="sig-name descname"><span class="pre">CorrEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_corr.py#L8-L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.CorrEstimator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.estimator.</span></span><span class="sig-name descname"><span class="pre">CorrEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implementation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vector'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_corr.py#L9-L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.CorrEstimator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Correlation-based estimator.</p>
 <p>This estimator can be used to estimate the correlation between two
 continuous variables (mi_type=’cc’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>method</strong><span class="classifier">{‘pearson’, ‘spearman’}</span></dt><dd><p>Use either the Pearson correlation or the rank-based Spearman
+correlation</p>
+</dd>
+<dt><strong>implementation</strong><span class="classifier">{‘vector’, ‘tensor’}</span></dt><dd><p>Specify whether to use the traditional vector-based implementation or
+the tensor-based implementation (usually faster)</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="longtable table autosummary">
 <colgroup>
@@ -701,7 +713,7 @@ continuous variables (mi_type=’cc’).</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.estimator.CorrEstimator.estimate">
-<span class="sig-name descname"><span class="pre">estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_corr.py#L25-L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.CorrEstimator.estimate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_corr.py#L55-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.CorrEstimator.estimate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the correlation between two variables.</p>
 <p>This method is made for computing the correlation on 3D variables
 (i.e (n_var, 1, n_samples)) where n_var is an additional dimension
@@ -728,7 +740,7 @@ of each sample.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.estimator.CorrEstimator.get_function">
-<span class="sig-name descname"><span class="pre">get_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_corr.py#L49-L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.CorrEstimator.get_function" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_corr.py#L79-L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.CorrEstimator.get_function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the function to execute according to the input parameters.</p>
 <p>This can be particularly useful when computing correlation in parallel
 as it avoids to pickle the whole estimator and therefore, leading to
@@ -798,7 +810,7 @@ faster computations.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-07.</p>
+        <p>&copy; Copyright Last updated on 2022-03-25.</p>
     </footer>
 
   </body>
