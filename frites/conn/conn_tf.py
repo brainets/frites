@@ -80,7 +80,9 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
                 # recent version of mne allows to return the TF decomposition
                 # with the additional n_tapers dimension. This patch takes the
                 # mean over the tapers
-                if _out.ndim == 5: _out = _out.mean(2)
+                if _out.ndim == 5:
+                    _out = _out.mean(2)
+
                 out.append(_out)
 
             # stack everything
@@ -94,7 +96,8 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
             # recent version of mne allows to return the TF decomposition
             # with the additional n_tapers dimension. This patch takes the
             # mean over the tapers
-            if out.ndim == 5: out = out.mean(2)
+            if out.ndim == 5:
+                out = out.mean(2)
 
     else:
         raise ValueError('Method should be either "morlet" or "multitaper"')
