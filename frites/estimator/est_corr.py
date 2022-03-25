@@ -1,5 +1,6 @@
 """Correlation based estimators."""
 import numpy as np
+from scipy.stats import spearmanr
 
 from frites.estimator.est_mi_base import BaseMIEstimator
 from frites.utils import jit
@@ -11,13 +12,42 @@ class CorrEstimator(BaseMIEstimator):
 
     This estimator can be used to estimate the correlation between two
     continuous variables (mi_type='cc').
+
+    Parameters
+    ----------
+    method : {'pearson', 'spearman'}
+        Use either the Pearson correlation or the rank-based Spearman
+        correlation
+    implementation : {'vector', 'tensor'}
+        Specify whether to use the traditional vector-based implementation or
+        the tensor-based implementation (usually faster)
     """
 
-    def __init__(self, verbose=None):
+    def __init__(self, method='pearson', implementation='vector',
+                 verbose=None):
         """Init."""
         self.name = 'Correlation-based Estimator'
-        super(CorrEstimator, self).__init__(mi_type='cc', verbose=verbose)
-        self._core_fun = correlate
+
+        # implementation selection
+        _methods = {
+            'pearson': {
+                'tensor': ten_pearson,
+                'vector': vec_pearson,
+                # 'numba': nb_pearson
+            },
+            'spearman': {
+                'tensor': ten_spearman,
+                'vector': vec_spearman,
+                # 'numba': vec_spearman
+            }
+        }
+        self._method = method
+        self._implementation = implementation
+        self._core_fun = _methods[method][implementation]
+        # additional string for the description
+        add_str = f", method={method}, implementation={implementation}"
+        super(CorrEstimator, self).__init__(mi_type='cc', verbose=verbose,
+                                            add_str=add_str)
         # update internal settings
         settings = dict(mi_type='cc', core_fun=self._core_fun.__name__)
         self.settings.merge([settings])
@@ -76,22 +106,49 @@ class CorrEstimator(BaseMIEstimator):
                 n_var, n_mv, _ = x.shape
                 y = np.tile(y, (n_var, 1, 1))
 
-            # types checking
-            if x.dtype != np.float32:
-                x = x.astype(np.float32, copy=False)
-            if y.dtype != np.float32:
-                y = y.astype(np.float32, copy=False)
-            if categories.dtype != np.int32:
-                categories = categories.astype(np.int32, copy=False)
+            # numba related changes
+            if (self._implementation == 'numba') and (
+                self._method == 'pearson'):
+                if x.dtype != np.float32:
+                    x = x.astype(np.float32, copy=False)
+                if y.dtype != np.float32:
+                    y = y.astype(np.float32, copy=False)
+                if categories.dtype != np.int32:
+                    categories = categories.astype(np.int32, copy=False)
+
+            # change flags (compatibility with multi-core processing)
+                x.flags.writeable = True
+                y.flags.writeable = True
+                categories.flags.writeable = True
+                x = np.ascontiguousarray(x)
+                y = np.ascontiguousarray(y)
+                categories = np.ascontiguousarray(categories)
 
             return core_fun(x, y, categories)
 
         return estimator
 
 
-@jit("f4[:, :](f4[:,:,:], f4[:,:,:], i4[:])")
-def correlate(x, y, categories):
-    """3D correlation."""
+###############################################################################
+###############################################################################
+#                                 PEARSON
+###############################################################################
+###############################################################################
+
+
+def tpearson(x, y, axis=0):
+    """Tensor-based pearson correlation."""
+    n = x.shape[axis]
+    xc = x - x.mean(axis=axis, keepdims=True)
+    yc = y - y.mean(axis=axis, keepdims=True)
+    xystd = x.std(axis=axis) * y.std(axis=axis)
+    cov = (xc * yc).sum(axis=axis) / n
+    corr = cov / xystd
+    return corr
+
+
+def vec_pearson(x, y, categories):
+    """Numpy-based pearson correlation."""
     # proper shape of the regressor
     n_times, _, n_trials = x.shape
     if len(categories) != n_trials:
@@ -109,5 +166,112 @@ def correlate(x, y, categories):
             x_c, y_c = x[:, :, is_cat], y[:, :, is_cat]
             for t in range(n_times):
                 corr[n_c, t] = np.corrcoef(x_c[t, 0, :], y_c[t, 0, :])[0, 1]
+
+    return corr
+
+
+def ten_pearson(x, y, categories):
+    """Numpy-based pearson correlation."""
+    # proper shape of the regressor
+    n_times, _, n_trials = x.shape
+    if len(categories) != n_trials:
+        corr = tpearson(x, y, axis=2).T
+    else:
+        # get categories informations
+        u_cat = np.unique(categories)
+        n_cats = len(u_cat)
+        # compute mi per subject
+        corr = np.zeros((n_cats, n_times), dtype=np.float32)
+        for n_c, c in enumerate(u_cat):
+            is_cat = categories == c
+            x_c, y_c = x[:, :, is_cat], y[:, :, is_cat]
+            corr[n_c, :] = tpearson(x_c, y_c, axis=2).T
+
+    return corr
+
+
+# @jit("f4[:, :](f4[:,:,:], f4[:,:,:], i4[:])")
+# def nb_pearson(x, y, categories):
+#     """Numba-based pearson correlation."""
+#     # proper shape of the regressor
+#     n_times, _, n_trials = x.shape
+#     if len(categories) != n_trials:
+#         corr = np.zeros((1, n_times), dtype=np.float32)
+#         for t in range(n_times):
+#             corr[0, t] = np.corrcoef(x[t, 0, :], y[t, 0, :])[0, 1]
+#     else:
+#         # get categories informations
+#         u_cat = np.unique(categories)
+#         n_cats = len(u_cat)
+#         # compute mi per subject
+#         corr = np.zeros((n_cats, n_times), dtype=np.float32)
+#         for n_c, c in enumerate(u_cat):
+#             is_cat = categories == c
+#             x_c, y_c = x[:, :, is_cat], y[:, :, is_cat]
+#             for t in range(n_times):
+#                 corr[n_c, t] = np.corrcoef(x_c[t, 0, :], y_c[t, 0, :])[0, 1]
+
+#     return corr
+
+
+###############################################################################
+###############################################################################
+#                                 SPEARMAN
+###############################################################################
+###############################################################################
+
+
+def tspearman(x, y, axis=0):
+    """Tensor-based spearman correlation."""
+    n = x.shape[axis]
+    x = np.argsort(x.argsort(axis=axis))
+    y = np.argsort(y.argsort(axis=axis))
+    xc = x - x.mean(axis=axis, keepdims=True)
+    yc = y - y.mean(axis=axis, keepdims=True)
+    xystd = x.std(axis=axis) * y.std(axis=axis)
+    cov = (xc * yc).sum(axis=axis) / n
+    corr = cov / xystd
+    return corr
+
+
+def vec_spearman(x, y, categories):
+    """Numpy-based spearman correlation."""
+    # proper shape of the regressor
+    n_times, _, n_trials = x.shape
+    if len(categories) != n_trials:
+        corr = np.zeros((1, n_times), dtype=np.float32)
+        for t in range(n_times):
+            corr[0, t] = spearmanr(x[t, 0, :], y[t, 0, :])[0]
+    else:
+        # get categories informations
+        u_cat = np.unique(categories)
+        n_cats = len(u_cat)
+        # compute mi per subject
+        corr = np.zeros((n_cats, n_times), dtype=np.float32)
+        for n_c, c in enumerate(u_cat):
+            is_cat = categories == c
+            x_c, y_c = x[:, :, is_cat], y[:, :, is_cat]
+            for t in range(n_times):
+                corr[n_c, t] = spearmanr(x_c[t, 0, :], y_c[t, 0, :])[0]
+
+    return corr
+
+
+def ten_spearman(x, y, categories):
+    """Numpy-based pearson correlation."""
+    # proper shape of the regressor
+    n_times, _, n_trials = x.shape
+    if len(categories) != n_trials:
+        corr = tspearman(x, y, axis=2).T
+    else:
+        # get categories informations
+        u_cat = np.unique(categories)
+        n_cats = len(u_cat)
+        # compute mi per subject
+        corr = np.zeros((n_cats, n_times), dtype=np.float32)
+        for n_c, c in enumerate(u_cat):
+            is_cat = categories == c
+            x_c, y_c = x[:, :, is_cat], y[:, :, is_cat]
+            corr[n_c, :] = tspearman(x_c, y_c, axis=2).T
 
     return corr
