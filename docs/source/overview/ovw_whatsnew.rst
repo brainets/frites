@@ -15,6 +15,7 @@ New Features
 * New function :func:`frites.set_mpl_style` for example styles
 * New function :func:`frites.conn.conn_links` for generating connectivity links (:commit:`a0d0182d1`)
 * New function :func:`frites.utils.downsample` for down-sampling DataArray (:commit:`59e15e67`)
+* :class:`frites.estimator.CorrEstimator` can no be defined with Pearson or Spearman correlation with both vector or tensor-based implementations (:commit:`f6e80e921`)
 
 v0.4.1
 ------
