@@ -8,23 +8,19 @@
 
     <title>Estimate comodulations between brain areas &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -435,7 +432,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="estimate-comodulations-between-brain-areas">
-<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate comodulations between brain areas<a class="headerlink" href="#estimate-comodulations-between-brain-areas" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-conn-plot-conn-py"></span><h1>Estimate comodulations between brain areas<a class="headerlink" href="#estimate-comodulations-between-brain-areas" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to estimate the instantaneous comodulations using
 mutual information between pairwise ROI and also perform statistics.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -453,7 +450,7 @@ mutual information between pairwise ROI and also perform statistics.</p>
 </pre></div>
 </div>
 <section id="simulate-electrophysiological-data">
-<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 multiple subjects using the function
 <code class="xref py py-func docutils literal notranslate"><span class="pre">frites.simulations.sim_multi_suj_ephy()</span></code>. As a result, the <cite>x</cite> output
@@ -471,7 +468,7 @@ n_epochs, n_sites, n_times</p>
 </div>
 </section>
 <section id="simulate-spatial-correlations">
-<h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">#</a></h2>
 <p>Bellow, we start by simulating some distant correlations by injecting the
 activity of an ROI to another</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
@@ -488,14 +485,14 @@ Corr 2 : L_VCs-L_Cu between [0.21212121212121215-0.6161616161616164]
 </div>
 </section>
 <section id="define-the-electrophysiological-dataset">
-<h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">¶</a></h2>
+<h2>Define the electrophysiological dataset<a class="headerlink" href="#define-the-electrophysiological-dataset" title="Permalink to this headline">#</a></h2>
 <p>Now we define an instance of <a class="reference internal" href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="compute-the-pairwise-connectivity">
-<h2>Compute the pairwise connectivity<a class="headerlink" href="#compute-the-pairwise-connectivity" title="Permalink to this headline">¶</a></h2>
+<h2>Compute the pairwise connectivity<a class="headerlink" href="#compute-the-pairwise-connectivity" title="Permalink to this headline">#</a></h2>
 <p>Once we have the dataset instance, we can then define an instance of workflow
 <a class="reference internal" href="../../api/generated/frites.workflow.WfConnComod.html#frites.workflow.WfConnComod" title="frites.workflow.WfConnComod"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfConnComod</span></code></a>. This instance is then used to compute
 the pairwise connectivity</p>
@@ -509,13 +506,13 @@ the pairwise connectivity</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/6 [00:00&lt;?,       ?it/s]
- 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:01,    2.95it/s]
- 33%|###3      | Estimating MI : 2/6 [00:00&lt;00:01,    3.13it/s]
- 50%|#####     | Estimating MI : 3/6 [00:00&lt;00:00,    3.17it/s]
- 67%|######6   | Estimating MI : 4/6 [00:01&lt;00:00,    3.13it/s]
- 83%|########3 | Estimating MI : 5/6 [00:01&lt;00:00,    3.16it/s]
-100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.13it/s]
-100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.13it/s]
+ 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:01,    3.05it/s]
+ 33%|###3      | Estimating MI : 2/6 [00:00&lt;00:01,    3.25it/s]
+ 50%|#####     | Estimating MI : 3/6 [00:00&lt;00:00,    3.32it/s]
+ 67%|######6   | Estimating MI : 4/6 [00:01&lt;00:00,    3.27it/s]
+ 83%|########3 | Estimating MI : 5/6 [00:01&lt;00:00,    3.30it/s]
+100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.27it/s]
+100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.27it/s]
 &lt;xarray.DataArray &#39;mi&#39; (times: 100, roi: 6)&gt;
 array([[ 3.81100170e-02,  9.93129635e-03,  3.08063622e-02,
         -1.57432552e-02, -6.46413969e-03, -1.42072425e-02],
@@ -569,6 +566,7 @@ Attributes:
     random_state:    None
     ttest_pop_mean:  -0.00029773929533177086
     ttest_sigma:     0.001
+    ttest_center:    0
     th:              1.2684515513760057
     tfce:            None
     mcp:             cluster
@@ -581,7 +579,7 @@ Attributes:
 </div>
 </section>
 <section id="plot-the-result-of-the-dataarray">
-<h2>Plot the result of the DataArray<a class="headerlink" href="#plot-the-result-of-the-dataarray" title="Permalink to this headline">¶</a></h2>
+<h2>Plot the result of the DataArray<a class="headerlink" href="#plot-the-result-of-the-dataarray" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># set to NaN everywhere it&#39;s not significant</span>
 <span class="n">is_signi</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="mf">.05</span>
 <span class="n">pv</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">is_signi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -605,7 +603,7 @@ Attributes:
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_conn_001.png" srcset="../../_images/sphx_glr_plot_conn_001.png" alt="Pairwise connectivity" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.613 seconds)</p>
+<img src="../../_images/sphx_glr_plot_conn_001.png" srcset="../../_images/sphx_glr_plot_conn_001.png" alt="Pairwise connectivity" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.397 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -647,8 +645,9 @@ Attributes:
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -656,7 +655,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

@@ -8,23 +8,19 @@
 
     <title>Define an electrophysiological dataset using MNE-Python structures &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="define-an-electrophysiological-dataset-using-mne-python-structures">
-<span id="sphx-glr-auto-examples-dataset-plot-dataset-mne-py"></span><h1>Define an electrophysiological dataset using MNE-Python structures<a class="headerlink" href="#define-an-electrophysiological-dataset-using-mne-python-structures" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-dataset-plot-dataset-mne-py"></span><h1>Define an electrophysiological dataset using MNE-Python structures<a class="headerlink" href="#define-an-electrophysiological-dataset-using-mne-python-structures" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to define a dataset using MNE-Python Epochs.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -438,7 +435,7 @@ to download the full example code</p>
 </pre></div>
 </div>
 <section id="create-artificial-data">
-<h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">¶</a></h2>
+<h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">#</a></h2>
 <p>We start by creating some random data for several subjects. To do that, each
 subject is going have a 3 dimensional array of shape
 (n_epochs, n_channels, n_times). Then, all of the arrays are grouped together
@@ -464,7 +461,7 @@ in a list of length (n_subjects,)</p>
 </div>
 </section>
 <section id="mne-conversion-to-epoch">
-<h2>MNE conversion to Epoch<a class="headerlink" href="#mne-conversion-to-epoch" title="Permalink to this headline">¶</a></h2>
+<h2>MNE conversion to Epoch<a class="headerlink" href="#mne-conversion-to-epoch" title="Permalink to this headline">#</a></h2>
 <p>Here, we convert our illustrative data into EpochsArray. With real data, you
 are probbaly going to have mne.Epochs objects which also going to work just
 the same</p>
@@ -486,7 +483,7 @@ the same</p>
 </div>
 </section>
 <section id="build-the-dataset">
-<h2>Build the dataset<a class="headerlink" href="#build-the-dataset" title="Permalink to this headline">¶</a></h2>
+<h2>Build the dataset<a class="headerlink" href="#build-the-dataset" title="Permalink to this headline">#</a></h2>
 <p>Finally, we pass the data to the <a class="reference internal" href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> class
 in order to create the dataset</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x_mne</span><span class="p">)</span>
@@ -819,8 +816,8 @@ ch_3          5  [0, 1, 2, 3, 4]  True
 ch_4          5  [0, 1, 2, 3, 4]  True
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.912 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  9 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.778 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  8 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-mne-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/29b7aa24e13d30ea8de625b0818f5c26/plot_dataset_mne.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dataset_mne.py</span></code></a></p>
@@ -861,8 +858,9 @@ ch_4          5  [0, 1, 2, 3, 4]  True
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -870,7 +868,7 @@ ch_4          5  [0, 1, 2, 3, 4]  True
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

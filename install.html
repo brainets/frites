@@ -8,23 +8,19 @@
 
     <title>Installation &#8212; frites 0.4.1 documentation</title>
     
-    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -167,7 +164,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -215,7 +212,7 @@
               <div>
                 
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#dependencies" id="id1">Dependencies</a></p></li>
@@ -225,7 +222,7 @@
 </ul>
 </div>
 <section id="dependencies">
-<h2><a class="toc-backref" href="#id1">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id1">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline">#</a></h2>
 <p>The main dependencies of Frites are :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/">Numpy</a></p></li>
@@ -241,7 +238,7 @@
 </ul>
 </section>
 <section id="installation-from-pip">
-<h2><a class="toc-backref" href="#id2">Installation from pip</a><a class="headerlink" href="#installation-from-pip" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Installation from pip</a><a class="headerlink" href="#installation-from-pip" title="Permalink to this headline">#</a></h2>
 <p>Frites can be installed (and/or updated) via pip with the following command :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -U frites
 </pre></div>
@@ -249,14 +246,14 @@
 <p>If you choose this installation method, you’ll get stable Frites’ release. If you want the latest features and patches, you can directly install from Github (see bellow)</p>
 </section>
 <section id="installation-from-github">
-<h2><a class="toc-backref" href="#id3">Installation from Github</a><a class="headerlink" href="#installation-from-github" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Installation from Github</a><a class="headerlink" href="#installation-from-github" title="Permalink to this headline">#</a></h2>
 <p>Run the following line in your terminal to install the latest version of Frites hosted on Github :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/brainets/frites.git
 </pre></div>
 </div>
 </section>
 <section id="developer-installation">
-<h2><a class="toc-backref" href="#id4">Developer installation</a><a class="headerlink" href="#developer-installation" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Developer installation</a><a class="headerlink" href="#developer-installation" title="Permalink to this headline">#</a></h2>
 <p>For developers, you can install frites in develop mode with the following commands :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/brainets/frites.git
 <span class="nb">cd</span> frites
@@ -295,8 +292,9 @@ python setup.py develop
       </div>
     </div>
   
-    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -304,7 +302,7 @@ python setup.py develop
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

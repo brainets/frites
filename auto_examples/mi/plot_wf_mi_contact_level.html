@@ -8,23 +8,19 @@
 
     <title>Mutual-information at the contact level &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -430,7 +427,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="mutual-information-at-the-contact-level">
-<span id="sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"></span><h1>Mutual-information at the contact level<a class="headerlink" href="#mutual-information-at-the-contact-level" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"></span><h1>Mutual-information at the contact level<a class="headerlink" href="#mutual-information-at-the-contact-level" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to compute the mutual information inside each
 brain region and also by taking into consideration the information at a lower
 anatomical level (e.g sEEG contact, MEG sensor etc.).</p>
@@ -448,7 +445,7 @@ anatomical level (e.g sEEG contact, MEG sensor etc.).</p>
 </pre></div>
 </div>
 <section id="i-continuous-continuous-case">
-<h2>I(Continuous; Continuous) case<a class="headerlink" href="#i-continuous-continuous-case" title="Permalink to this headline">¶</a></h2>
+<h2>I(Continuous; Continuous) case<a class="headerlink" href="#i-continuous-continuous-case" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by simulating by using random data in combination with normal
 distributions. To explain why it could be interesting to consider the
 information at the single contact level, we generate the data coming from one
@@ -500,17 +497,17 @@ contact</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_contact_level_001.png" srcset="../../_images/sphx_glr_plot_wf_mi_contact_level_001.png" alt="I(C; C)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   36.81it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   36.32it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   38.09it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   37.55it/s]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   40.21it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   39.69it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   42.97it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   42.37it/s]
 </pre></div>
 </div>
 </section>
 <section id="i-continuous-discret-case">
-<h2>I(Continuous; Discret) case<a class="headerlink" href="#i-continuous-discret-case" title="Permalink to this headline">¶</a></h2>
+<h2>I(Continuous; Discret) case<a class="headerlink" href="#i-continuous-discret-case" title="Permalink to this headline">#</a></h2>
 <p>Same example as above except that this time the MI is compute between the
 data and a discret variable</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -553,17 +550,17 @@ data and a discret variable</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_contact_level_002.png" srcset="../../_images/sphx_glr_plot_wf_mi_contact_level_002.png" alt="I(C; D)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   37.13it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   36.58it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   38.43it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   37.95it/s]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   45.63it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   44.84it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   48.50it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   47.80it/s]
 </pre></div>
 </div>
 </section>
 <section id="i-continuous-continuous-discret-case">
-<h2>I(Continuous ; Continuous | Discret) case<a class="headerlink" href="#i-continuous-continuous-discret-case" title="Permalink to this headline">¶</a></h2>
+<h2>I(Continuous ; Continuous | Discret) case<a class="headerlink" href="#i-continuous-continuous-discret-case" title="Permalink to this headline">#</a></h2>
 <p>Same example as above except that this time the MI is compute between the
 data and a discret variable</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">roi</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -610,17 +607,17 @@ data and a discret variable</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_contact_level_003.png" srcset="../../_images/sphx_glr_plot_wf_mi_contact_level_003.png" alt="I(C; C | D)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   34.48it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   34.02it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   35.36it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   34.89it/s]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   40.90it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   40.39it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   41.69it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,   41.26it/s]
 </pre></div>
 </div>
 </section>
 <section id="xarray-definition-with-multi-indexing">
-<h2>Xarray definition with multi-indexing<a class="headerlink" href="#xarray-definition-with-multi-indexing" title="Permalink to this headline">¶</a></h2>
+<h2>Xarray definition with multi-indexing<a class="headerlink" href="#xarray-definition-with-multi-indexing" title="Permalink to this headline">#</a></h2>
 <p>Finally, we show below how to use Xarray in combination with pandas
 multi-index to define an electrophysiological dataset</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
@@ -806,7 +803,7 @@ Attributes:
     multivariate:  0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.977 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.859 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  33 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-contact-level-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -848,8 +845,9 @@ Attributes:
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -857,7 +855,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

@@ -8,23 +8,19 @@
 
     <title>Estimator comparison &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="estimator-comparison">
-<span id="sphx-glr-auto-examples-estimators-plot-est-comparison-py"></span><h1>Estimator comparison<a class="headerlink" href="#estimator-comparison" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-estimators-plot-est-comparison-py"></span><h1>Estimator comparison<a class="headerlink" href="#estimator-comparison" title="Permalink to this headline">#</a></h1>
 <p>This example compares implemented estimators for continuous variables.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -440,7 +437,7 @@ to download the full example code</p>
 </pre></div>
 </div>
 <section id="functions-for-data-simulation">
-<h2>Functions for data simulation<a class="headerlink" href="#functions-for-data-simulation" title="Permalink to this headline">¶</a></h2>
+<h2>Functions for data simulation<a class="headerlink" href="#functions-for-data-simulation" title="Permalink to this headline">#</a></h2>
 <p>This first part contains functions used for simulating data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_mv_normal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate multi-variate normals.&quot;&quot;&quot;</span>
@@ -522,7 +519,7 @@ to download the full example code</p>
 </div>
 </section>
 <section id="plot-the-simulated-data">
-<h2>Plot the simulated data<a class="headerlink" href="#plot-the-simulated-data" title="Permalink to this headline">¶</a></h2>
+<h2>Plot the simulated data<a class="headerlink" href="#plot-the-simulated-data" title="Permalink to this headline">#</a></h2>
 <p>In this section, we plot several scenarios of relation between a variable <cite>x</cite>
 and a variable <cite>y</cite>. The scenarios involve linear, non-linear, monotonic and
 non-monotonic relations.</p>
@@ -548,7 +545,7 @@ non-monotonic relations.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_est_comparison_001.png" srcset="../../_images/sphx_glr_plot_est_comparison_001.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/></section>
 <section id="computes-information-shared">
-<h2>Computes information shared<a class="headerlink" href="#computes-information-shared" title="Permalink to this headline">¶</a></h2>
+<h2>Computes information shared<a class="headerlink" href="#computes-information-shared" title="Permalink to this headline">#</a></h2>
 <p>In this final section, we compute the amount of information shared between
 the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define estimators</span>
@@ -591,7 +588,7 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_est_comparison_002.png" srcset="../../_images/sphx_glr_plot_est_comparison_002.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.011 seconds)</p>
+<img src="../../_images/sphx_glr_plot_est_comparison_002.png" srcset="../../_images/sphx_glr_plot_est_comparison_002.png" alt="Multivariate (cov=1.0), Multivariate (cov=0.8), Multivariate (cov=0.4), Multivariate (cov=0.0), Multivariate (cov=-0.4), Multivariate (cov=-0.8), Multivariate (cov=-1.0), Curvy, Rotated uniform (1), Rotated uniform (2), Smile, Mirrored smile, Circle, 4 clusters" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.785 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  67 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-estimators-plot-est-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -633,8 +630,9 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -642,7 +640,7 @@ the <cite>x</cite> and <cite>y</cite> variables using different estimators.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

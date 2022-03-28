@@ -8,23 +8,19 @@
 
     <title>Define an electrophysiological dataset using Xarray &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -430,7 +427,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="define-an-electrophysiological-dataset-using-xarray">
-<span id="sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"></span><h1>Define an electrophysiological dataset using Xarray<a class="headerlink" href="#define-an-electrophysiological-dataset-using-xarray" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"></span><h1>Define an electrophysiological dataset using Xarray<a class="headerlink" href="#define-an-electrophysiological-dataset-using-xarray" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to define a dataset using Xarray. If you don’t
 know this library, we can simplify by saying that it provides containers that
 accept arrays but you can also labelize your dimensions. Another way of seeing
@@ -448,7 +445,7 @@ almost the same functionalities but for multi-dimensional arrays.</p>
 </pre></div>
 </div>
 <section id="create-artificial-data">
-<h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">¶</a></h2>
+<h2>Create artificial data<a class="headerlink" href="#create-artificial-data" title="Permalink to this headline">#</a></h2>
 <p>We start by creating some random data for several subjects. To do that, each
 subject is going have a 3 dimensional array of shape
 (n_epochs, n_channels, n_times). Then, all of the arrays are grouped together
@@ -475,7 +472,7 @@ in a list of length (n_subjects,)</p>
 </div>
 </section>
 <section id="xarray-conversion-to-dataarray">
-<h2>Xarray conversion to DataArray<a class="headerlink" href="#xarray-conversion-to-dataarray" title="Permalink to this headline">¶</a></h2>
+<h2>Xarray conversion to DataArray<a class="headerlink" href="#xarray-conversion-to-dataarray" title="Permalink to this headline">#</a></h2>
 <p>Here, we convert the NumPy arrays to xarray.DataArray</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_xr</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subjects</span><span class="p">):</span>
@@ -538,7 +535,7 @@ Coordinates:
 </div>
 </section>
 <section id="build-the-dataset">
-<h2>Build the dataset<a class="headerlink" href="#build-the-dataset" title="Permalink to this headline">¶</a></h2>
+<h2>Build the dataset<a class="headerlink" href="#build-the-dataset" title="Permalink to this headline">#</a></h2>
 <p>Finally, we pass the data to the <a class="reference internal" href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a> class
 in order to create the dataset</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># here, we specify to the DatasetEphy class that the roi dimension is actually</span>
@@ -875,7 +872,7 @@ ch_4          5  [0, 1, 2, 3, 4]  True
 </div>
 </section>
 <section id="multiindex-support">
-<h2>MultiIndex support<a class="headerlink" href="#multiindex-support" title="Permalink to this headline">¶</a></h2>
+<h2>MultiIndex support<a class="headerlink" href="#multiindex-support" title="Permalink to this headline">#</a></h2>
 <p>DataArray also supports multi-indexing of a single dimension.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a continuous regressor (prediction error, delta P etc.)</span>
 <span class="n">dp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_epochs</span><span class="p">,))</span>
@@ -1258,7 +1255,7 @@ Attributes:
     multivariate:  0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.201 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.063 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  8 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dataset-plot-dataset-xarray-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -1300,8 +1297,9 @@ Attributes:
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -1309,7 +1307,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

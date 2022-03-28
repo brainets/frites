@@ -8,23 +8,19 @@
 
     <title>AR : simulate common driving input &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -420,7 +417,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="ar-simulate-common-driving-input">
-<span id="sphx-glr-auto-examples-armodel-plot-ar-instantaneous-py"></span><h1>AR : simulate common driving input<a class="headerlink" href="#ar-simulate-common-driving-input" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-armodel-plot-ar-instantaneous-py"></span><h1>AR : simulate common driving input<a class="headerlink" href="#ar-simulate-common-driving-input" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates an autoregressive model that simulates a common
 driving input (i.e X-&gt;Y and X-&gt;Z) and how it is measured using the covariance
 based Granger Causality</p>
@@ -433,7 +430,7 @@ based Granger Causality</p>
 </pre></div>
 </div>
 <section id="simulate-3-nodes-40hz-oscillations">
-<h2>Simulate 3 nodes 40hz oscillations<a class="headerlink" href="#simulate-3-nodes-40hz-oscillations" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate 3 nodes 40hz oscillations<a class="headerlink" href="#simulate-3-nodes-40hz-oscillations" title="Permalink to this headline">#</a></h2>
 <p>Here, we use the class <a class="reference internal" href="../../api/generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR" title="frites.simulations.StimSpecAR"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.simulations.StimSpecAR</span></code></a> to simulate an
 stimulus-specific autoregressive model made of three nodes (X, Y and Z). This
 network simulates a transfer X-&gt;Y and X-&gt;Z. X is then called a common driving
@@ -523,7 +520,7 @@ Attributes:
 </div>
 <img src="../../_images/sphx_glr_plot_ar_instantaneous_003.png" srcset="../../_images/sphx_glr_plot_ar_instantaneous_003.png" alt="Causal coupling from X $\rightarrow$ Y for different stims, Single trial PSD of X, Single trial PSD of Y, Single trial PSD of Z" class = "sphx-glr-single-img"/></section>
 <section id="compute-the-granger-causality">
-<h2>Compute the Granger-Causality<a class="headerlink" href="#compute-the-granger-causality" title="Permalink to this headline">¶</a></h2>
+<h2>Compute the Granger-Causality<a class="headerlink" href="#compute-the-granger-causality" title="Permalink to this headline">#</a></h2>
 <p>We then compute and plot the Granger Causality. From the plot you can see
 that there’s indeed an information transfer from X-&gt;Y and X-&gt;Z and, in
 addition, an instantaneous connectivity between Y.Z</p>
@@ -543,10 +540,10 @@ addition, an instantaneous connectivity between Y.Z</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ar_instantaneous_004.png" srcset="../../_images/sphx_glr_plot_ar_instantaneous_004.png" alt="x$\rightarrow$y, x$\rightarrow$z, y$\rightarrow$z, y$\rightarrow$x, z$\rightarrow$x, z$\rightarrow$y, x . y, x . z, y . z" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
-100%|##########|  : 3/3 [00:00&lt;00:00, 1124.28it/s]
+100%|##########|  : 3/3 [00:00&lt;00:00, 1040.94it/s]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  18.954 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  18.228 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  12 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-armodel-plot-ar-instantaneous-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -588,8 +585,9 @@ addition, an instantaneous connectivity between Y.Z</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -597,7 +595,7 @@ addition, an instantaneous connectivity between Y.Z</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

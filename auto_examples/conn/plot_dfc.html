@@ -8,23 +8,19 @@
 
     <title>Estimate dynamic functional connectivity &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -430,7 +427,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="estimate-dynamic-functional-connectivity">
-<span id="sphx-glr-auto-examples-conn-plot-dfc-py"></span><h1>Estimate dynamic functional connectivity<a class="headerlink" href="#estimate-dynamic-functional-connectivity" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-conn-plot-dfc-py"></span><h1>Estimate dynamic functional connectivity<a class="headerlink" href="#estimate-dynamic-functional-connectivity" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to compute the dynamic functional connectivity
 (DFC) using the mutual information (MI). This type of connectivity is computed
 for each trial either inside a single window or across multiple windows.</p>
@@ -447,7 +444,7 @@ for each trial either inside a single window or across multiple windows.</p>
 </pre></div>
 </div>
 <section id="simulate-electrophysiological-data">
-<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 a single subject. The output data of this single subject has a shape of
 (n_epochs, n_roi, n_times)</p>
@@ -462,7 +459,7 @@ a single subject. The output data of this single subject has a shape of
 </div>
 </section>
 <section id="simulate-spatial-correlations">
-<h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate spatial correlations<a class="headerlink" href="#simulate-spatial-correlations" title="Permalink to this headline">#</a></h2>
 <p>Bellow, we are simulating some distant correlations by injecting the
 activity of an ROI to another</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">)]</span>
@@ -478,7 +475,7 @@ Corr 2 : L_VCs-L_VCl between [0.20120120120120122-0.6016016016016015]
 </div>
 </section>
 <section id="define-sliding-windows">
-<h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">¶</a></h2>
+<h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">#</a></h2>
 <p>Next, we define, and plot sliding windows in order to compute the DFC on
 consecutive time windows. In this example we used windows of length 100ms
 and 5ms between each consecutive windows</p>
@@ -496,7 +493,7 @@ and 5ms between each consecutive windows</p>
 </div>
 </section>
 <section id="compute-the-dfc">
-<h2>Compute the DFC<a class="headerlink" href="#compute-the-dfc" title="Permalink to this headline">¶</a></h2>
+<h2>Compute the DFC<a class="headerlink" href="#compute-the-dfc" title="Permalink to this headline">#</a></h2>
 <p>The DFC is going to be computed per trials, bewteen pairs of ROI and inside
 each of the temporal window</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute DFC</span>
@@ -513,10 +510,9 @@ each of the temporal window</p>
 </div>
 <img src="../../_images/sphx_glr_plot_dfc_001.png" srcset="../../_images/sphx_glr_plot_dfc_001.png" alt="Mean DFC across trials between pairs of roi" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   52.19it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   55.94it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   57.17it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   56.55it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   55.86it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   62.33it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   61.72it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (trials: 50, roi: 3, times: 95)&gt;
 array([[[4.74126835e-04, 4.86970457e-05, 1.15753941e-01, ...,
          1.42405137e-01, 9.97611284e-02, 1.01901859e-01],
@@ -574,7 +570,7 @@ Attributes:
     targets:     [1, 2, 2]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.253 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.087 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -616,8 +612,9 @@ Attributes:
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -625,7 +622,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

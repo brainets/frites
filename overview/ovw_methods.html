@@ -8,23 +8,19 @@
 
     <title>Methods &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -209,7 +206,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -286,7 +283,7 @@
               <div>
                 
   <section id="methods">
-<h1>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h1>
+<h1>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">#</a></h1>
 <p>In this section we are going to cover the basis of the methods used in Frites. In particular two main topics :</p>
 <ol class="arabic simple">
 <li><p>The use of information theoretical measures for brain data</p></li>
@@ -294,7 +291,7 @@
 </ol>
 <p>Note that this methodological overview has been written for scientists who are not necessarily familiar with information theory and statistics. Therefore, it is not going to contain the mathematics behind the implemented methods, but instead, the references to the papers in question.</p>
 <section id="data-analysis-within-the-information-theoretical-framework">
-<h2>Data analysis within the information theoretical framework<a class="headerlink" href="#data-analysis-within-the-information-theoretical-framework" title="Permalink to this headline">¶</a></h2>
+<h2>Data analysis within the information theoretical framework<a class="headerlink" href="#data-analysis-within-the-information-theoretical-framework" title="Permalink to this headline">#</a></h2>
 <p>The first question that could be asked is <em>Why using the information theory to analyze brain data?</em></p>
 <p>There are several advantages of using information theoretic measures. Here’s a non exhaustive list of the main advantages :</p>
 <ol class="arabic simple">
@@ -311,16 +308,16 @@
 <figure class="align-center" id="id16">
 <img alt="../_images/gcmi_corr.png" src="../_images/gcmi_corr.png" />
 <figcaption>
-<p><span class="caption-text">Correlation (orange) vs. strictly positive Mutual information (purple). Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id1">[9]</a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Correlation (orange) vs. strictly positive Mutual information (purple). Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id1">[9]</a></span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="gaussian-copula-mutual-information">
-<h3>Gaussian Copula Mutual Information<a class="headerlink" href="#gaussian-copula-mutual-information" title="Permalink to this headline">¶</a></h3>
+<h3>Gaussian Copula Mutual Information<a class="headerlink" href="#gaussian-copula-mutual-information" title="Permalink to this headline">#</a></h3>
 <p>In Frites we use a special type of mutual information that has been carried recently to neuroscience (see Ince et al 2017 <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id2">[9]</a>) : the Gaussian Copula Mutual Information (GCMI).</p>
 <p>The GCMI provide an estimation of the mutual information <strong>without the necessity of binning the data</strong>. In addition to this point, the GCMI is really fast to compute which makes this method a good candidate when it comes to performing numerous permutations for the statistics. However, the GCMI make the assumption that there’s a <strong>monotonic relation between the two variables</strong> (i.e if one variable is increasing, the other should also increase or decrease but not both).</p>
 </section>
 <section id="the-different-types-of-mutual-information">
-<h3>The different types of mutual information<a class="headerlink" href="#the-different-types-of-mutual-information" title="Permalink to this headline">¶</a></h3>
+<h3>The different types of mutual information<a class="headerlink" href="#the-different-types-of-mutual-information" title="Permalink to this headline">#</a></h3>
 <p>In this section we are going to make the difference between two types of variables :</p>
 <ul class="simple">
 <li><p><strong>Discrete variables :</strong> discrete variables are composed with <strong>integers</strong> where each number can for example refer to an experimental condition (e.g 0={all the trials that belong to the “go” stimulus} and 1={all the trials that belong to the “nogo” stimulus})</p></li>
@@ -330,12 +327,12 @@
 <figure class="align-center" id="id17">
 <img alt="../_images/cc_cd_ccd.png" src="../_images/cc_cd_ccd.png" />
 <figcaption>
-<p><span class="caption-text"><strong>Top left</strong> : continuous / discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">D);</span> <span class="pre">mi_type='cd'</span></code>) for contrasting two experimental conditions (e.g two visual stimulus); <strong>Top right</strong> continuous / continuous case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C);</span> <span class="pre">mi_type='cc'</span></code>) for correlating the brain data with, for example, a model of the behavior (e.g Prediction Error / Learning); <strong>Bottom</strong> continuous / continuous | discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C</span> <span class="pre">|</span> <span class="pre">D);</span> <span class="pre">mi_type='ccd'</span></code>) for correlating the brain data with a continuous while removing the influence of a discrete variable (e.g experimental conditions)</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><strong>Top left</strong> : continuous / discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">D);</span> <span class="pre">mi_type='cd'</span></code>) for contrasting two experimental conditions (e.g two visual stimulus); <strong>Top right</strong> continuous / continuous case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C);</span> <span class="pre">mi_type='cc'</span></code>) for correlating the brain data with, for example, a model of the behavior (e.g Prediction Error / Learning); <strong>Bottom</strong> continuous / continuous | discrete case (<code class="docutils literal notranslate"><span class="pre">I(C;</span> <span class="pre">C</span> <span class="pre">|</span> <span class="pre">D);</span> <span class="pre">mi_type='ccd'</span></code>) for correlating the brain data with a continuous while removing the influence of a discrete variable (e.g experimental conditions)</span><a class="headerlink" href="#id17" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="equivalence-with-other-statistical-measures">
-<h3>Equivalence with other statistical measures<a class="headerlink" href="#equivalence-with-other-statistical-measures" title="Permalink to this headline">¶</a></h3>
+<h3>Equivalence with other statistical measures<a class="headerlink" href="#equivalence-with-other-statistical-measures" title="Permalink to this headline">#</a></h3>
 <p>Find bellow the table showing the equivalence between information theoretic quantities and other statistical measures. Extracted from <strong>Ince et al. 2017</strong> <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id3">[9]</a></p>
 <table class="table">
 <colgroup>
@@ -422,7 +419,7 @@
 </table>
 </section>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Ince et al. 2017 <a class="bibtex reference internal" href="ovw_refs.html#ince2017statistical" id="id4">[9]</a></p></li>
 <li><p>Timme and Lapish 2018 <a class="bibtex reference internal" href="ovw_refs.html#timme-tutorial-2018" id="id5">[15]</a></p></li>
@@ -430,10 +427,10 @@
 </section>
 </section>
 <section id="statistical-analyses">
-<h2>Statistical analyses<a class="headerlink" href="#statistical-analyses" title="Permalink to this headline">¶</a></h2>
+<h2>Statistical analyses<a class="headerlink" href="#statistical-analyses" title="Permalink to this headline">#</a></h2>
 <p>In addition to the evaluation of the amount of information shared between the data and a feature (stimulus / behavior), Frites also contains a statistical pipeline to evaluate whether an effect can be considered as significant.</p>
 <section id="subject-and-group-level-statistical-inferences">
-<h3>Subject and group-level statistical inferences<a class="headerlink" href="#subject-and-group-level-statistical-inferences" title="Permalink to this headline">¶</a></h3>
+<h3>Subject and group-level statistical inferences<a class="headerlink" href="#subject-and-group-level-statistical-inferences" title="Permalink to this headline">#</a></h3>
 <p>From a statistical standpoint, Frites gives the possibility to draw inferences either at the <strong>subject-level</strong> either at the <strong>group-level</strong> :</p>
 <ul>
 <li><p><strong>Subject-level :</strong> the measures of informations and the p-values are computed per-subject. At the end, you can get the number (or proportion) of subjects that have the effect. This can be particularly useful when working with sEEG data where the number of subjects per brain regions might be different.</p></li>
@@ -449,19 +446,19 @@
 <figure class="align-center" id="id18">
 <img alt="../_images/group_level.png" src="../_images/group_level.png" />
 <figcaption>
-<p><span class="caption-text">Subject and group-level statistics on information-based measures</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Subject and group-level statistics on information-based measures</span><a class="headerlink" href="#id18" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="correction-for-multiple-comparisons">
-<h3>Correction for multiple comparisons<a class="headerlink" href="#correction-for-multiple-comparisons" title="Permalink to this headline">¶</a></h3>
+<h3>Correction for multiple comparisons<a class="headerlink" href="#correction-for-multiple-comparisons" title="Permalink to this headline">#</a></h3>
 <p>Internally, we used permutations in order to estimate the distribution of mutual-information values that could be obtained by chance and also, to correct the p-values for multiple comparisons. There’s three ways to correct the p-values, all using <a class="reference external" href="https://mne.tools/stable/index.html">MNE Python</a> : 1) cluster-based statistics (default), 2) maximum statistics and 3) FDR. About the cluster-based, since some electrophysiological recordings don’t have a spatial contiguity (like sEEG), the clusters are detected across time-points or across time-frequency maps. Note that you can also use the Threshold Free Cluster Enhancement (TFCE) still through MNE.</p>
 </section>
 <section id="id6">
-<h3>References<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>References<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Friston et al. 1999 <a class="bibtex reference internal" href="ovw_refs.html#friston1999many" id="id7">[6]</a>, 1996 <a class="bibtex reference internal" href="ovw_refs.html#friston-detecting-1996" id="id8">[7]</a></p></li>
-<li><p>Wilcox and Rousselet 2017, <a class="bibtex reference internal" href="ovw_refs.html#wilcox-guide-2017" id="id9">[17]</a></p></li>
+<li><p>Wilcox and Rousselet 2017, <a class="bibtex reference internal" href="ovw_refs.html#wilcox-guide-2017" id="id9">[16]</a></p></li>
 <li><p>Nicohls and Holmes 2001 <a class="bibtex reference internal" href="ovw_refs.html#nichols-nonparametric-2002" id="id10">[11]</a></p></li>
 <li><p>Maris and Oostenveld 2007 <a class="bibtex reference internal" href="ovw_refs.html#maris2007nonparametric" id="id11">[10]</a></p></li>
 <li><p>Smith and Nichols, 2009 <a class="bibtex reference internal" href="ovw_refs.html#smith2009threshold" id="id12">[14]</a></p></li>
@@ -501,8 +498,9 @@
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -510,7 +508,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

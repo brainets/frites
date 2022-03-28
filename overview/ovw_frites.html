@@ -8,23 +8,19 @@
 
     <title>Start analyzing your data with Frites &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -209,7 +206,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -252,14 +249,14 @@
               <div>
                 
   <section id="start-analyzing-your-data-with-frites">
-<h1>Start analyzing your data with Frites<a class="headerlink" href="#start-analyzing-your-data-with-frites" title="Permalink to this headline">¶</a></h1>
+<h1>Start analyzing your data with Frites<a class="headerlink" href="#start-analyzing-your-data-with-frites" title="Permalink to this headline">#</a></h1>
 <p>In this section we are going to cover the basics knowledges if you want to start analyzing your data with Frites.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The gallery of examples contains a <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#tutorials">tutorial</a> section that explain and illustrate the main usages and features of Frites, in a notebook fashion.</p>
 </div>
 <section id="package-organization">
-<h2>Package organization<a class="headerlink" href="#package-organization" title="Permalink to this headline">¶</a></h2>
+<h2>Package organization<a class="headerlink" href="#package-organization" title="Permalink to this headline">#</a></h2>
 <p>As other Python packages, Frites contains subject-specific submodules. Here’s a short description of the main submodules for new users :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.dataset">frites.dataset</a> : container for the electrophysiological data coming from multiple subjects (see also <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset">those examples</a> that explain how to define a container depending on your data type)</p></li>
@@ -270,7 +267,7 @@
 <p>Finally, for the developers here the <a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.core">frites.core</a> module include the very low level functions to estimate the mutual information (vector and tensor based implementations).</p>
 </section>
 <section id="main-frites-workflows">
-<h2>Main Frites’ workflows<a class="headerlink" href="#main-frites-workflows" title="Permalink to this headline">¶</a></h2>
+<h2>Main Frites’ workflows<a class="headerlink" href="#main-frites-workflows" title="Permalink to this headline">#</a></h2>
 <p>Frites contains two centrals workflows :</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://brainets.github.io/frites/api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi">WfMi</a> : the main workflow of mutual-information that is used to <strong>extract feature-specific brain networks</strong></p></li>
@@ -294,7 +291,7 @@
 </div>
 </section>
 <section id="deep-integration-with-xarray">
-<h2>Deep integration with Xarray<a class="headerlink" href="#deep-integration-with-xarray" title="Permalink to this headline">¶</a></h2>
+<h2>Deep integration with Xarray<a class="headerlink" href="#deep-integration-with-xarray" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="http://xarray.pydata.org/en/stable/">Xarray</a> is a recent python package to handle of multi-dimensional arrays using labels. For those who are familiar with <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>, you can see Xarray as a generalization of Pandas for multi-dimensional arrays.</p>
 <p>Xarray provide a container for the data called <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray">DataArray</a>. This structure comes with two important inputs : 1) <cite>dims</cite> which describe the name of each dimension of the array and 2) <cite>coords</cite> the values taken by each dimension. For example you can define a DataArray with the dimensions <code class="docutils literal notranslate"><span class="pre">('roi',</span> <span class="pre">'times')</span></code> where <code class="docutils literal notranslate"><span class="pre">roi</span> <span class="pre">=</span> <span class="pre">['insula',</span> <span class="pre">'vmPFC',</span> <span class="pre">'dlPFC']</span></code> and <code class="docutils literal notranslate"><span class="pre">times</span> <span class="pre">=</span> <span class="pre">np.linspace(-3,</span> <span class="pre">3,</span> <span class="pre">1000)</span></code>. After that, the manipulation of the data happen using the values of the coordinates. Bellow, a minimal slicing example :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -341,8 +338,9 @@
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -350,7 +348,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

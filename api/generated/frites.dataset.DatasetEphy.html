@@ -8,23 +8,19 @@
 
     <title>frites.dataset.DatasetEphy &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -639,7 +636,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -677,10 +674,10 @@
               <div>
                 
   <section id="frites-dataset-datasetephy">
-<h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">¶</a></h1>
+<h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.dataset.</span></span><span class="sig-name descname"><span class="pre">DatasetEphy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multivariate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_suj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L16-L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.dataset.</span></span><span class="sig-name descname"><span class="pre">DatasetEphy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multivariate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_suj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L16-L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">#</a></dt>
 <dd><p>Multi-subjects electrophysiological data container.</p>
 <p>This class is a container used to represent the neurophysiological data
 coming from multiple subjects. In addition to passing the data, this
@@ -736,7 +733,7 @@ subjects</p>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable table autosummary">
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -761,13 +758,13 @@ subjects</p>
 </table>
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.df_rs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">df_rs</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.df_rs" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">df_rs</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.df_rs" title="Permalink to this definition">#</a></dt>
 <dd><p>Pandas DataFrame of cross-subjects anatomical repartition.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.get_connectivity_pairs">
-<span class="sig-name descname"><span class="pre">get_connectivity_pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L381-L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_connectivity_pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L381-L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the connectivity pairs for this dataset.</p>
 <p>This method can be used to get the possible connectivity pairs i.e
 (sources, targets) for directed connectivity (or not). In addition,
@@ -794,7 +791,7 @@ brain regions</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.get_roi_data">
-<span class="sig-name descname"><span class="pre">get_roi_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'subjects'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn_per_suj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L197-L279"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_roi_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_roi_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'subjects'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn_per_suj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L197-L279"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_roi_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the data of a single brain region.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -825,7 +822,7 @@ applied per subject (True - RFX) or across subjects (False - FFX)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.isel">
-<span class="sig-name descname"><span class="pre">isel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L308-L333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.isel" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L308-L333"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.isel" title="Permalink to this definition">#</a></dt>
 <dd><p>Index-based data slicing.</p>
 <p>Slice the entire dataset based on indexes.</p>
 <dl class="field-list">
@@ -854,13 +851,13 @@ the data of each subject.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.roi_names">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">roi_names</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.roi_names" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">roi_names</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.roi_names" title="Permalink to this definition">#</a></dt>
 <dd><p>List of brain regions to keep across subjects.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.savgol_filter">
-<span class="sig-name descname"><span class="pre">savgol_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L335-L379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">savgol_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L335-L379"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.savgol_filter" title="Permalink to this definition">#</a></dt>
 <dd><p>Filter the data using Savitzky-Golay polynomial method.</p>
 <p>This method is an adaptation of the mne-python one. Note that this
 smoothing operation is performed inplace to avoid data copy.</p>
@@ -896,14 +893,14 @@ edges=0.2 drop 200ms at the begining and at the end)</p>
 <div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG /..."><figure class="align-default" id="id1">
 <img alt="Build an electrophysiological dataset" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.sel">
-<span class="sig-name descname"><span class="pre">sel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L281-L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.sel" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L281-L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.sel" title="Permalink to this definition">#</a></dt>
 <dd><p>Coordinate-based data slicing.</p>
 <p>Slice the entire dataset based on the coordinates values.</p>
 <dl class="field-list">
@@ -932,121 +929,121 @@ the data of each subject.</p>
 <div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG /..."><figure class="align-default" id="id2">
 <img alt="Build an electrophysiological dataset" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.times">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">times</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.times" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">times</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.times" title="Permalink to this definition">#</a></dt>
 <dd><p>Time vector.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy.x">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.x" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#frites.dataset.DatasetEphy.x" title="Permalink to this definition">#</a></dt>
 <dd><p>Multi-subjects electrophysiological data (DataArray).</p>
 </dd></dl>
 
 </dd></dl>
 
 <section id="examples-using-frites-dataset-datasetephy">
-<span id="sphx-glr-backreferences-frites-dataset-datasetephy"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code><a class="headerlink" href="#examples-using-frites-dataset-datasetephy" title="Permalink to this headline">¶</a></h2>
+<span id="sphx-glr-backreferences-frites-dataset-datasetephy"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code><a class="headerlink" href="#examples-using-frites-dataset-datasetephy" title="Permalink to this headline">#</a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><figure class="align-default" id="id3">
 <img alt="Statistical analysis of a stimulus-specific network" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define a dataset using MNE-Python Epochs."><figure class="align-default" id="id4">
 <img alt="Define an electrophysiological dataset using MNE-Python structures" src="../../_images/sphx_glr_plot_dataset_mne_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_mne.html#sphx-glr-auto-examples-dataset-plot-dataset-mne-py"><span class="std std-ref">Define an electrophysiological dataset using MNE-Python structures</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_mne.html#sphx-glr-auto-examples-dataset-plot-dataset-mne-py"><span class="std std-ref">Define an electrophysiological dataset using MNE-Python structures</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG /..."><figure class="align-default" id="id5">
 <img alt="Build an electrophysiological dataset" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define a dataset using Xarray. If you don&#x27;t know this library, ..."><figure class="align-default" id="id6">
 <img alt="Define an electrophysiological dataset using Xarray" src="../../_images/sphx_glr_plot_dataset_xarray_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_xarray.html#sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"><span class="std std-ref">Define an electrophysiological dataset using Xarray</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_xarray.html#sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"><span class="std std-ref">Define an electrophysiological dataset using Xarray</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id7">
 <img alt="MI between two continuous variables conditioned by a discret one" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><figure class="align-default" id="id8">
 <img alt="MI between a continuous and a discret variables" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><figure class="align-default" id="id9">
 <img alt="MI between two continuous variables" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><figure class="align-default" id="id10">
 <img alt="Compute MI across time and frequencies" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><figure class="align-default" id="id11">
 <img alt="Investigate relation of order" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><figure class="align-default" id="id12">
 <img alt="Compute a conjunction analysis on mutual-information" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and als..."><figure class="align-default" id="id13">
 <img alt="Mutual-information at the contact level" src="../../_images/sphx_glr_plot_wf_mi_contact_level_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual informati..."><figure class="align-default" id="id14">
 <img alt="Estimate comodulations between brain areas" src="../../_images/sphx_glr_plot_conn_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id15">
 <img alt="Compare within-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><figure class="align-default" id="id16">
 <img alt="Compare between-subjects statistics when computing mutual information" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the confidence interval"><figure class="align-default" id="id17">
 <img alt="Estimate the empirical confidence interval" src="../../_images/sphx_glr_plot_ci_cc_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are..."><figure class="align-default" id="id18">
 <img alt="Generate spatio-temporal ground-truths" src="../../_images/sphx_glr_plot_ground_truth_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></section>
@@ -1080,8 +1077,9 @@ the data of each subject.</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -1089,7 +1087,7 @@ the data of each subject.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

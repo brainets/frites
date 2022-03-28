@@ -8,23 +8,19 @@
 
     <title>Define temporal windows &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="define-temporal-windows">
-<span id="sphx-glr-auto-examples-utils-plot-time-windows-py"></span><h1>Define temporal windows<a class="headerlink" href="#define-temporal-windows" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-utils-plot-time-windows-py"></span><h1>Define temporal windows<a class="headerlink" href="#define-temporal-windows" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to define temporal windows that can then be used
 to compute, for example, the dynamic functional connectivity. In this example,
 we show how to define either custom windows or sliding windows with different
@@ -442,7 +439,7 @@ sizes.</p>
 </pre></div>
 </div>
 <section id="simulate-data">
-<h2>Simulate data<a class="headerlink" href="#simulate-data" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate data<a class="headerlink" href="#simulate-data" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by creating a simple sinusoide with a time vector. Then, to
 define windows we are going to use the function
 <a class="reference internal" href="../../api/generated/frites.conn.define_windows.html#frites.conn.define_windows" title="frites.conn.define_windows"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.conn.define_windows()</span></code></a> and also
@@ -455,7 +452,7 @@ define windows we are going to use the function
 </div>
 </section>
 <section id="manually-define-windows">
-<h2>Manually define windows<a class="headerlink" href="#manually-define-windows" title="Permalink to this headline">¶</a></h2>
+<h2>Manually define windows<a class="headerlink" href="#manually-define-windows" title="Permalink to this headline">#</a></h2>
 <p>The first feature we illustrate here, is to define windows manually which
 means, based on the time vector, where each window should start and finish.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -482,7 +479,7 @@ means, based on the time vector, where each window should start and finish.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_time_windows_001.png" srcset="../../_images/sphx_glr_plot_time_windows_001.png" alt="No input = full time window, Unique window [-.5, .5], Multiple windows manually defined" class = "sphx-glr-single-img"/></section>
 <section id="define-sliding-windows">
-<h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">¶</a></h2>
+<h2>Define sliding windows<a class="headerlink" href="#define-sliding-windows" title="Permalink to this headline">#</a></h2>
 <p>You can also define sliding windows which can be controlled through four
 parameters :</p>
 <ul class="simple">
@@ -525,7 +522,7 @@ parameters :</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_time_windows_002.png" srcset="../../_images/sphx_glr_plot_time_windows_002.png" alt="200ms consecutive windows, Start sliding windows from -.5s, Start sliding windows from -.5s and finish at .5s, Sliding windows from [-.75, 1]s with 25% overlap" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.348 seconds)</p>
+<img src="../../_images/sphx_glr_plot_time_windows_002.png" srcset="../../_images/sphx_glr_plot_time_windows_002.png" alt="200ms consecutive windows, Start sliding windows from -.5s, Start sliding windows from -.5s and finish at .5s, Sliding windows from [-.75, 1]s with 25% overlap" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.252 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  28 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-utils-plot-time-windows-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -567,8 +564,9 @@ parameters :</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -576,7 +574,7 @@ parameters :</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

@@ -8,23 +8,19 @@
 
     <title>Goals of Frites &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -209,7 +206,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -247,14 +244,14 @@
               <div>
                 
   <section id="goals-of-frites">
-<h1>Goals of Frites<a class="headerlink" href="#goals-of-frites" title="Permalink to this headline">¶</a></h1>
+<h1>Goals of Frites<a class="headerlink" href="#goals-of-frites" title="Permalink to this headline">#</a></h1>
 <p>Frites is an open-source Python software started in 2019 to <strong>analyze neurophysiological data using information theoretical (IT) measures</strong>. Overall, the goals of Frites could be summarized as follow :</p>
 <ol class="arabic simple">
 <li><p><strong>Extract task-related cognitive brain networks :</strong> i.e brain regions and connectivity between brain regions that are modulated according to the task</p></li>
 <li><p><strong>Group-level statistical inferences :</strong> being able to draw conclusions on a population of subjects while taking into account the the richness of data at the single subject level</p></li>
 </ol>
 <section id="task-related-and-feature-specificity">
-<h2>Task-related and feature-specificity<a class="headerlink" href="#task-related-and-feature-specificity" title="Permalink to this headline">¶</a></h2>
+<h2>Task-related and feature-specificity<a class="headerlink" href="#task-related-and-feature-specificity" title="Permalink to this headline">#</a></h2>
 <p>The stimulus of the task (e.g visual stimulus like color circles) is first going to be processed by the brain, occurring some changes in the brain activity that are related to the stimulus. This is what we called <strong>stimulus-specific</strong> brain activity. Once processed, this stimulus is going to introduce some changes in the behavior of the subject (e.g decision making). Following the same reasoning as above we called <strong>behavior-specific</strong> the modulations in the activity of the brain that can explain a change in the behavior of the subject.</p>
 <figure class="align-center">
 <img alt="../_images/feat_spec.png" src="../_images/feat_spec.png" />
@@ -262,7 +259,7 @@
 <p>Now, with Frites we try to isolate the brain activity that is either related to the stimulus or to the behavior. In a more general way, this brain activity is called <strong>task-related</strong> or <strong>feature-specific</strong> where <em>feature</em> can either refer to the <em>stimulus</em> or to the <em>behavior</em>.</p>
 </section>
 <section id="it-framework-to-extract-task-related-cognitive-brain-networks">
-<h2>IT framework to extract task-related cognitive brain networks<a class="headerlink" href="#it-framework-to-extract-task-related-cognitive-brain-networks" title="Permalink to this headline">¶</a></h2>
+<h2>IT framework to extract task-related cognitive brain networks<a class="headerlink" href="#it-framework-to-extract-task-related-cognitive-brain-networks" title="Permalink to this headline">#</a></h2>
 <p>A brain network is composed of two things :</p>
 <ol class="arabic simple">
 <li><p><strong>Nodes :</strong> the nodes of a network are the brain regions (e.g Insula / vmPFC / dlPFC form a three nodes network)</p></li>
@@ -276,7 +273,7 @@
 <figure class="align-center" id="id1">
 <img alt="../_images/network_framework.png" src="../_images/network_framework.png" />
 <figcaption>
-<p><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Framework using information theoretical measures on neurophysiological data to extract task-related local neural activity and connectivity</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -310,8 +307,9 @@
       </div>
     </div>
   
-    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -319,7 +317,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

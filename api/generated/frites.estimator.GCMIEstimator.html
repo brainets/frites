@@ -8,23 +8,19 @@
 
     <title>frites.estimator.GCMIEstimator &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -639,7 +636,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -677,10 +674,10 @@
               <div>
                 
   <section id="frites-estimator-gcmiestimator">
-<h1>frites.estimator.GCMIEstimator<a class="headerlink" href="#frites-estimator-gcmiestimator" title="Permalink to this headline">¶</a></h1>
+<h1>frites.estimator.GCMIEstimator<a class="headerlink" href="#frites-estimator-gcmiestimator" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.estimator.GCMIEstimator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.estimator.</span></span><span class="sig-name descname"><span class="pre">GCMIEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demeaned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L13-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.estimator.</span></span><span class="sig-name descname"><span class="pre">GCMIEstimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demeaned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L13-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator" title="Permalink to this definition">#</a></dt>
 <dd><p>Gaussian Copula Mutual-Information estimator.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
@@ -716,7 +713,7 @@ also requires more RAM (default : True)</p>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable table autosummary">
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -732,7 +729,7 @@ also requires more RAM (default : True)</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.estimator.GCMIEstimator.estimate">
-<span class="sig-name descname"><span class="pre">estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L83-L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.estimate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L83-L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.estimate" title="Permalink to this definition">#</a></dt>
 <dd><p>Estimate the (possibly conditional) mutual-information.</p>
 <p>This method is made for computing the mutual-information on 3D
 variables (i.e (n_var, n_mv, n_samples)) where n_var is an additional
@@ -785,7 +782,7 @@ n_categories is going to be one.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.estimator.GCMIEstimator.get_function">
-<span class="sig-name descname"><span class="pre">get_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L129-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.get_function" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/estimator/est_gcmi.py#L129-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.estimator.GCMIEstimator.get_function" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the function to execute according to the input parameters.</p>
 <p>This can be particularly useful when computing MI in parallel as it
 avoids to pickle the whole estimator and therefore, leading to faster
@@ -802,23 +799,23 @@ computations.</p>
 </dd></dl>
 
 <section id="examples-using-frites-estimator-gcmiestimator">
-<span id="sphx-glr-backreferences-frites-estimator-gcmiestimator"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.estimator.GCMIEstimator</span></code><a class="headerlink" href="#examples-using-frites-estimator-gcmiestimator" title="Permalink to this headline">¶</a></h2>
+<span id="sphx-glr-backreferences-frites-estimator-gcmiestimator"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.estimator.GCMIEstimator</span></code><a class="headerlink" href="#examples-using-frites-estimator-gcmiestimator" title="Permalink to this headline">#</a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="This tutorial illustrates how to compute the Dynamic Functional Connectivity (DFC). In particul..."><figure class="align-default" id="id1">
 <img alt="Estimate the Dynamic Functional Connectivity" src="../../_images/sphx_glr_plot_dfc_estimator_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_dfc_estimator.html#sphx-glr-auto-examples-tutorials-plot-dfc-estimator-py"><span class="std std-ref">Estimate the Dynamic Functional Connectivity</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/tutorials/plot_dfc_estimator.html#sphx-glr-auto-examples-tutorials-plot-dfc-estimator-py"><span class="std std-ref">Estimate the Dynamic Functional Connectivity</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to correct information estimation in case of unbalanced designs (i..."><figure class="align-default" id="id2">
 <img alt="Trial-resampling: correcting for unbalanced designs" src="../../_images/sphx_glr_plot_est_resample_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/estimators/plot_est_resample.html#sphx-glr-auto-examples-estimators-plot-est-resample-py"><span class="std std-ref">Trial-resampling: correcting for unbalanced designs</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/estimators/plot_est_resample.html#sphx-glr-auto-examples-estimators-plot-est-resample-py"><span class="std std-ref">Trial-resampling: correcting for unbalanced designs</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example compares implemented estimators for continuous variables."><figure class="align-default" id="id3">
 <img alt="Estimator comparison" src="../../_images/sphx_glr_plot_est_comparison_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/estimators/plot_est_comparison.html#sphx-glr-auto-examples-estimators-plot-est-comparison-py"><span class="std std-ref">Estimator comparison</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/estimators/plot_est_comparison.html#sphx-glr-auto-examples-estimators-plot-est-comparison-py"><span class="std std-ref">Estimator comparison</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-clear"></div></section>
@@ -852,8 +849,9 @@ computations.</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -861,7 +859,7 @@ computations.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

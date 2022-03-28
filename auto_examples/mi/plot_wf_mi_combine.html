@@ -8,23 +8,19 @@
 
     <title>Investigate relation of order &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="investigate-relation-of-order">
-<span id="sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"></span><h1>Investigate relation of order<a class="headerlink" href="#investigate-relation-of-order" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"></span><h1>Investigate relation of order<a class="headerlink" href="#investigate-relation-of-order" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to investigate whether the effect size between
 two conditions exceed the effect between two other conditions. To this end, we
 are first going to going the effect sizes inside the two conditions and then
@@ -443,7 +440,7 @@ combine the effects (subtraction).</p>
 </pre></div>
 </div>
 <section id="simulate-electrophysiological-data">
-<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate electrophysiological data<a class="headerlink" href="#simulate-electrophysiological-data" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by simulating MEG / EEG electrophysiological data coming from
 multiple subjects. We are going to be simulate two conditions : (i) in a
 first condition, we introduce some differences between two stimulus early in
@@ -488,7 +485,7 @@ between time samples [50, 70])</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_combine_001.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_001.png" alt="conditions = Condition 1, conditions = Condition 2" class = "sphx-glr-single-img"/></section>
 <section id="compute-effect-size-in-both-conditions">
-<h2>Compute effect size in both conditions<a class="headerlink" href="#compute-effect-size-in-both-conditions" title="Permalink to this headline">¶</a></h2>
+<h2>Compute effect size in both conditions<a class="headerlink" href="#compute-effect-size-in-both-conditions" title="Permalink to this headline">#</a></h2>
 <p>Now we can compute the effect size by means of mi in both conditions</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define additional arguments</span>
 <span class="n">kw_ds</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">)</span>
@@ -518,17 +515,17 @@ between time samples [50, 70])</p>
 </div>
 <img src="../../_images/sphx_glr_plot_wf_mi_combine_002.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_002.png" alt="roi = roi_0" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.20s/it]
-100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.20s/it]
+100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.16s/it]
+100%|##########| Estimating MI : 1/1 [00:03&lt;00:00,    3.16s/it]
 
   0%|          | Estimating MI : 0/1 [00:00&lt;?,       ?it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    2.97it/s]
-100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    2.96it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    3.08it/s]
+100%|##########| Estimating MI : 1/1 [00:00&lt;00:00,    3.08it/s]
 </pre></div>
 </div>
 </section>
 <section id="id1">
-<h2>Investigate relation of order<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Investigate relation of order<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>Now we can investigate relations of order i.e. find everywhere the effect
 size in the first condition exceed the effect size of the second condition
 and conversely. To this end, we are going to combine the results of both
@@ -550,8 +547,8 @@ workflows.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_wf_mi_combine_003.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_003.png" alt="roi = roi_0" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.291 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  19 MB</p>
+<img src="../../_images/sphx_glr_plot_wf_mi_combine_003.png" srcset="../../_images/sphx_glr_plot_wf_mi_combine_003.png" alt="roi = roi_0" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.082 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  29 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-mi-plot-wf-mi-combine-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/eb0def8ff17c49846bf519a0c946ac95/plot_wf_mi_combine.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_wf_mi_combine.py</span></code></a></p>
@@ -592,8 +589,9 @@ workflows.</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -601,7 +599,7 @@ workflows.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

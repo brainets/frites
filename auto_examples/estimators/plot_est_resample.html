@@ -8,23 +8,19 @@
 
     <title>Trial-resampling: correcting for unbalanced designs &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="trial-resampling-correcting-for-unbalanced-designs">
-<span id="sphx-glr-auto-examples-estimators-plot-est-resample-py"></span><h1>Trial-resampling: correcting for unbalanced designs<a class="headerlink" href="#trial-resampling-correcting-for-unbalanced-designs" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-estimators-plot-est-resample-py"></span><h1>Trial-resampling: correcting for unbalanced designs<a class="headerlink" href="#trial-resampling-correcting-for-unbalanced-designs" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to correct information estimation in case of
 unbalanced designs (i.e. when the number of epochs or trials is very different
 between conditions).</p>
@@ -444,7 +441,7 @@ procedure for a more reliable estimation.</p>
 </pre></div>
 </div>
 <section id="data-creation">
-<h2>Data creation<a class="headerlink" href="#data-creation" title="Permalink to this headline">¶</a></h2>
+<h2>Data creation<a class="headerlink" href="#data-creation" title="Permalink to this headline">#</a></h2>
 <p>This first section creates the data using random points drawn from gaussian
 distributions</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_variables</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># number of random variables</span>
@@ -475,7 +472,7 @@ Larger dataset : (1000, 1, 475)
 </div>
 </section>
 <section id="information-shared-between-a-continuous-and-a-discret-variable">
-<h2>Information shared between a continuous and a discret variable<a class="headerlink" href="#information-shared-between-a-continuous-and-a-discret-variable" title="Permalink to this headline">¶</a></h2>
+<h2>Information shared between a continuous and a discret variable<a class="headerlink" href="#information-shared-between-a-continuous-and-a-discret-variable" title="Permalink to this headline">#</a></h2>
 <p>In this second section, we define an estimator for computing the information
 shared between a continuous and a discret variable. In a second step, we are
 going to wrap this estimator with a trial-resampling estimator.</p>
@@ -506,7 +503,7 @@ over the non-corrected one.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_est_resample_001.png" srcset="../../_images/sphx_glr_plot_est_resample_001.png" alt="Information shared between a continuous and a discrete variable" class = "sphx-glr-single-img"/></section>
 <section id="information-shared-between-two-continuous-variables">
-<h2>Information shared between two continuous variables<a class="headerlink" href="#information-shared-between-two-continuous-variables" title="Permalink to this headline">¶</a></h2>
+<h2>Information shared between two continuous variables<a class="headerlink" href="#information-shared-between-two-continuous-variables" title="Permalink to this headline">#</a></h2>
 <p>In this last section, we define an estimator for computing the information
 shared between two continuous variables. Similarly to above, we are then
 going to wrap this estimator with a trial-resampling estimator.</p>
@@ -535,7 +532,7 @@ over the non-corrected one.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_est_resample_002.png" srcset="../../_images/sphx_glr_plot_est_resample_002.png" alt="Information shared between two continuous variables" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.558 seconds)</p>
+<img src="../../_images/sphx_glr_plot_est_resample_002.png" srcset="../../_images/sphx_glr_plot_est_resample_002.png" alt="Information shared between two continuous variables" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.829 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  45 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-estimators-plot-est-resample-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -577,8 +574,9 @@ over the non-corrected one.</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -586,7 +584,7 @@ over the non-corrected one.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

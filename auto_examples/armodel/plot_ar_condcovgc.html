@@ -8,23 +8,19 @@
 
     <title>AR : conditional covariance based Granger Causality &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="ar-conditional-covariance-based-granger-causality">
-<span id="sphx-glr-auto-examples-armodel-plot-ar-condcovgc-py"></span><h1>AR : conditional covariance based Granger Causality<a class="headerlink" href="#ar-conditional-covariance-based-granger-causality" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-armodel-plot-ar-condcovgc-py"></span><h1>AR : conditional covariance based Granger Causality<a class="headerlink" href="#ar-conditional-covariance-based-granger-causality" title="Permalink to this headline">#</a></h1>
 <p>This example reproduces the results of Ding et al. 2006 <a class="bibtex reference internal" href="../../overview/ovw_refs.html#ding2006granger" id="id1">[4]</a>
 where in Fig3 there’s an indirect transfer of information from Y-&gt;X that is
 mediated by Z. The problem is that if the Granger Causality is used, there’s
@@ -443,7 +440,7 @@ transfer.</p>
 </pre></div>
 </div>
 <section id="simulate-3-nodes-40hz-oscillations">
-<h2>Simulate 3 nodes 40hz oscillations<a class="headerlink" href="#simulate-3-nodes-40hz-oscillations" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate 3 nodes 40hz oscillations<a class="headerlink" href="#simulate-3-nodes-40hz-oscillations" title="Permalink to this headline">#</a></h2>
 <p>Here, we use the class <a class="reference internal" href="../../api/generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR" title="frites.simulations.StimSpecAR"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.simulations.StimSpecAR</span></code></a> to simulate an
 stimulus-specific autoregressive model made of three nodes (X, Y and Z). This
 network simulates a transfer Y-&gt;Z and Z-&gt;X such as an indirect transfer from
@@ -464,7 +461,7 @@ Y-&gt;X mediated by Z</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ar_condcovgc_001.png" srcset="../../_images/sphx_glr_plot_ar_condcovgc_001.png" alt="plot ar condcovgc" class = "sphx-glr-single-img"/></section>
 <section id="compute-the-granger-causality">
-<h2>Compute the Granger-Causality<a class="headerlink" href="#compute-the-granger-causality" title="Permalink to this headline">¶</a></h2>
+<h2>Compute the Granger-Causality<a class="headerlink" href="#compute-the-granger-causality" title="Permalink to this headline">#</a></h2>
 <p>We first compute the Granger Causality and then the conditional Granger
 causality (i.e conditioning by the past coming from other sources)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="p">,</span> <span class="n">lag</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span>
@@ -480,10 +477,10 @@ causality (i.e conditioning by the past coming from other sources)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
-100%|##########|  : 3/3 [00:00&lt;00:00, 1210.71it/s]
+100%|##########|  : 3/3 [00:00&lt;00:00, 1184.61it/s]
 
   0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
-100%|##########|  : 3/3 [00:00&lt;00:00, 2998.07it/s]
+100%|##########|  : 3/3 [00:00&lt;00:00, 3024.01it/s]
 </pre></div>
 </div>
 <p>Plot the Granger causality</p>
@@ -502,7 +499,7 @@ causality (i.e conditioning by the past coming from other sources)</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ar_condcovgc_003.png" srcset="../../_images/sphx_glr_plot_ar_condcovgc_003.png" alt="x$\rightarrow$y|others, x$\rightarrow$z|others, y$\rightarrow$z|others, y$\rightarrow$x|others, z$\rightarrow$x|others, z$\rightarrow$y|others, x . y|others, x . z|others, y . z|others" class = "sphx-glr-single-img"/></section>
 <section id="direct-comparison">
-<h2>Direct comparison<a class="headerlink" href="#direct-comparison" title="Permalink to this headline">¶</a></h2>
+<h2>Direct comparison<a class="headerlink" href="#direct-comparison" title="Permalink to this headline">#</a></h2>
 <p>In this plot, we only select the transfer of information from Y-&gt;X for both
 granger and conditional granger causality</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># select Y-&gt;X and mean per stimulus for the granger causality</span>
@@ -538,8 +535,8 @@ granger and conditional granger causality</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_ar_condcovgc_004.png" srcset="../../_images/sphx_glr_plot_ar_condcovgc_004.png" alt="Granger causality Y$\rightarrow$X, Conditional Granger causality Y$\rightarrow$X|others" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  40.021 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  163 MB</p>
+<img src="../../_images/sphx_glr_plot_ar_condcovgc_004.png" srcset="../../_images/sphx_glr_plot_ar_condcovgc_004.png" alt="Granger causality Y$\rightarrow$X, Conditional Granger causality Y$\rightarrow$X|others" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  38.599 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  171 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-armodel-plot-ar-condcovgc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/458150af747e2ea21c3478fb7a5bd641/plot_ar_condcovgc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ar_condcovgc.py</span></code></a></p>
@@ -580,8 +577,9 @@ granger and conditional granger causality</p>
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -589,7 +587,7 @@ granger and conditional granger causality</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>

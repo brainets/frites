@@ -8,23 +8,19 @@
 
     <title>Xarray : Saving the results &#8212; frites 0.4.1 documentation</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
@@ -34,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -54,7 +51,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
@@ -377,7 +374,7 @@
               
               <div class="toc-item">
                 
-<div class="tocsection onthispage pt-5 pb-3">
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -425,7 +422,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="xarray-saving-the-results">
-<span id="sphx-glr-auto-examples-xarray-plot-xr-export-py"></span><h1>Xarray : Saving the results<a class="headerlink" href="#xarray-saving-the-results" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-xarray-plot-xr-export-py"></span><h1>Xarray : Saving the results<a class="headerlink" href="#xarray-saving-the-results" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to export and load your results. In details, we
 are going to show how to save and reload a single DataArray such as a Dataset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -434,7 +431,7 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </pre></div>
 </div>
 <section id="simulate-data">
-<h2>Simulate data<a class="headerlink" href="#simulate-data" title="Permalink to this headline">¶</a></h2>
+<h2>Simulate data<a class="headerlink" href="#simulate-data" title="Permalink to this headline">#</a></h2>
 <p>lets start by creating two random spatio-temporal arrays</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_times</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">7</span>
@@ -459,7 +456,7 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 </section>
 <section id="export-and-load-a-single-dataarray">
-<h2>Export and load a single DataArray<a class="headerlink" href="#export-and-load-a-single-dataarray" title="Permalink to this headline">¶</a></h2>
+<h2>Export and load a single DataArray<a class="headerlink" href="#export-and-load-a-single-dataarray" title="Permalink to this headline">#</a></h2>
 <p>now we’re going to save a single array and then reload it</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># export a single array</span>
 <span class="n">arr_1</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;first_array.nc&quot;</span><span class="p">)</span>
@@ -525,7 +522,7 @@ Attributes:
 </div>
 </section>
 <section id="export-and-load-multiple-dataarrays">
-<h2>Export and load multiple DataArrays<a class="headerlink" href="#export-and-load-multiple-dataarrays" title="Permalink to this headline">¶</a></h2>
+<h2>Export and load multiple DataArrays<a class="headerlink" href="#export-and-load-multiple-dataarrays" title="Permalink to this headline">#</a></h2>
 <p>it’s also possible to export and reload multiple DataArrays at once. To do
 it, you can use a Dataset which is a container of DataArrays</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a dataset</span>
@@ -564,7 +561,7 @@ Attributes:
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.012 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.927 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  13 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -606,8 +603,9 @@ Attributes:
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
     <hr>
     <footer>
         <div class="container">
@@ -615,7 +613,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-25.</p>
+        <p>&copy; Copyright Last updated on 2022-03-28.</p>
     </footer>
 
   </body>
