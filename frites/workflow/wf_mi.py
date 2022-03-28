@@ -451,7 +451,7 @@ class WfMi(WfBase):
             pbar = ProgressBar(range(n_boots), mesg='Estimating CI')
 
             # get t-test related variables
-            s_hat = CONFIG['TTEST_MNE_SIGMA']
+            s_hat = self._wf_stats.attrs['ttest_sigma']
 
             tt = []
             for n_p in range(n_boots):

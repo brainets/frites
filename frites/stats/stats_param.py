@@ -8,8 +8,25 @@ from scipy.stats import trim_mean
 logger = logging.getLogger("frites")
 
 
-RECENTER = dict(mean=np.mean, median=np.median,
-                trimmed=lambda x, axis=0: trim_mean(x, .2, axis=axis))
+def _trimmed(x, prop=.2, axis=0, keepdims=False):
+    trm = trim_mean(x, prop, axis=axis)
+    if keepdims:
+        ax = [slice(None)] * x.ndim
+        ax[axis] = np.newaxis
+        trm = trm[tuple(ax)]
+    return trm
+
+
+RECENTER = {
+    'mean': np.mean, 'median': np.median, 'zscore': np.mean,
+    'trimmed': _trimmed
+}
+
+
+def _recenter(x, fcn_mean, zscore, axis=-1):
+    """Recentering function."""
+    _std = x.std(axis=axis, keepdims=True) if zscore else 1.
+    return (x - fcn_mean(x, axis=axis, keepdims=True)) / _std
 
 
 def ttest_1samp(x, pop_mean, axis=0, implementation='mne', sigma=0.001, **kw):
@@ -50,7 +67,7 @@ def ttest_1samp(x, pop_mean, axis=0, implementation='mne', sigma=0.001, **kw):
     return fcn(x, pop_mean, axis)
 
 
-def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
+def rfx_ttest(mi, mi_p, center=False, sigma=0.001, ttested=False):
     """Perform the t-test across subjects.
 
     Parameters
@@ -61,12 +78,12 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     mi_p : array_like
         A list of array of permuted mutual information of shape
         (n_perm, n_suj, n_times). If `ttested` is True, n_suj shoud be 1.
-    center : {'mean', 'median', 'trimmed'} | False
-        If True, substract the mean of the surrogates to the true and permuted
-        mi. The median or the 20% trimmed mean can also be removed
-        :cite:`wilcox2018guide`
-    zscore : bool | False
-        Apply z-score normalization to the true and permuted mutual information
+    sigma : float | 0.001
+        Hat adjustment method, a value of 1e-3 may be a reasonable choice
+    center : {False, 'mean', 'median', 'trimmed', 'zscore'}
+        Re-center the time-series of effect arround 0 before computing the
+        t-test. This parameters can be useful in case of a different number
+        of data per brain region.
     ttested : bool | False
         Specify if the inputs have already been t-tested
 
@@ -93,14 +110,17 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     n_roi = len(mi_p)
 
     # remove the mean / median / trimmed
+    zscore = center == 'zscore'
     if center in RECENTER.keys():
-        logger.info(f"    RFX recenter distributions (center={center}, "
-                    f"z-score={zscore})")
-        for k in range(len(mi)):
-            _med = RECENTER[center](mi_p[k], axis=0)
-            _std = mi_p[k].std(axis=0) if zscore else 1.
-            mi[k] = (mi[k] - _med) / _std
-            mi_p[k] = (mi_p[k] - _med) / _std
+        # get the centering function
+        fcn_mean = RECENTER[center]
+
+        # here, we need to make a copy of the effect sizes to avoid changing
+        # the ouputs
+        mi, mi_p = mi.copy(), mi_p.copy()
+        for k in range(n_roi):
+            mi[k] = _recenter(mi[k], fcn_mean, zscore, axis=-1).copy()
+            mi_p[k] = _recenter(mi_p[k], fcn_mean, zscore, axis=-1).copy()
 
     # get the mean of surrogates (low ram method)
     n_element = np.sum([np.prod(k.shape) for k in mi_p])
@@ -112,12 +132,14 @@ def rfx_ttest(mi, mi_p, center=False, zscore=False, ttested=False):
     that the MNE t-test is going to evaluate one sigma per roi. To fix that,
     we estimate this sigma using the variance of all of the data
     """
-    from frites.config import CONFIG
-    s_hat = CONFIG['TTEST_MNE_SIGMA']
+    s_hat = sigma
 
     # sigma on true mi and permuted mi
-    sigma = s_hat * max([np.var(k, axis=0, ddof=1).max() for k in mi])
-    sigma_p = s_hat * max([np.var(k, axis=1, ddof=1).max() for k in mi_p])
+    if s_hat > 0:
+        sigma = s_hat * max([np.var(k, axis=0, ddof=1).max() for k in mi])
+        sigma_p = s_hat * max([np.var(k, axis=1, ddof=1).max() for k in mi_p])
+    else:
+        sigma = sigma_p = 0.
     logger.debug(f"sigma_true={sigma}; sigma_permuted={sigma_p}")
     kw = dict(implementation='mne', method='absolute', sigma=sigma)
     kw_p = dict(implementation='mne', method='absolute', sigma=sigma_p)

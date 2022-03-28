@@ -28,7 +28,8 @@ class WfStats(WfBase):
         logger.info("Definition of a non-parametric statistical workflow")
 
     def fit(self, effect, perms, inference='rfx', mcp='cluster', tail=1,
-            cluster_th=None, cluster_alpha=0.05, ttested=False):
+            cluster_th=None, cluster_alpha=0.05, ttested=False,
+            rfx_sigma=0.001, rfx_center=False):
         """Fit the workflow on true data.
 
         Parameters
@@ -71,6 +72,12 @@ class WfStats(WfBase):
             the 95th percentile of the permutations is used.
         ttested : bool | False
             Specify if the inputs have already been t-tested
+        rfx_sigma : float | 0.001
+            Hat adjustment method, a value of 1e-3 may be a reasonable choice
+        rfx_center : {False, 'mean', 'median', 'trimmed', 'zscore'}
+            Re-center the time-series of effect arround 0 before computing the
+            t-test. This parameters can be useful in case of a different number
+            of data per brain region.
 
         Returns
         -------
@@ -123,11 +130,15 @@ class WfStats(WfBase):
                 rfx_suj = np.min(nb_suj_roi) > 1
                 assert rfx_suj, "For RFX, `n_subjects` should be > 1"
                 # modelise how subjects are distributed
-                es, es_p, pop_mean = rfx_ttest(effect, perms)
-                from frites.config import CONFIG
-                sigma = CONFIG['TTEST_MNE_SIGMA']
-                self.attrs.update(dict(ttest_pop_mean=pop_mean,
-                                       ttest_sigma=sigma))
+                rfx_center = 'mean' if isinstance(
+                    rfx_center, bool) and rfx_center else rfx_center
+                es, es_p, pop_mean = rfx_ttest(
+                    effect, perms, sigma=rfx_sigma, center=rfx_center
+                )
+                self.attrs.update(dict(
+                    ttest_pop_mean=pop_mean, ttest_sigma=rfx_sigma,
+                    ttest_center=rfx_center
+                ))
             tvalues = es
 
         # ---------------------------------------------------------------------
