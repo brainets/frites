@@ -93,6 +93,8 @@ CONFIG['MA_NAMES'] = [
 Convert the CONFIG dict to disable for the user to add new keys but still
 allow to change values.
 """
+
+
 class FixedDict(dict):
     """Dictionary with fixed keys."""
 
@@ -105,5 +107,6 @@ class FixedDict(dict):
         if key not in self:
             raise IOError("New CONFIG keys are not allowed.")
         dict.__setitem__(self, key, item)
+
 
 CONFIG = FixedDict(CONFIG)

@@ -425,7 +425,6 @@ class WfMi(WfBase):
         the real effect size.
         """
         if (self._inference == 'rfx') and (rfx_es == 'tvalues'):
-            from frites.config import CONFIG
             from frites.stats import ttest_1samp
 
             logger.info("    Resampling at the second level t-test")
