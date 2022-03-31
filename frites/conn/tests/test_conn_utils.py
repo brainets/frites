@@ -284,3 +284,15 @@ class TestConnUtils(object):
         _, roi_st = conn_links(roi, pairs=np.c_[p_1, p_2], directed=True)
         np.testing.assert_array_equal(
             roi_st, ['dlPFC->aINS', 'dlPFC->vmPFC'])
+
+        # test hemispheric selection
+        hemi = ['R', 'R', 'L', 'L']
+        roi_2 = ['r0', 'r1', 'r2', 'r3']
+        _, roi_st = conn_links(roi_2, hemisphere=hemi, hemi_links='both')
+        np.testing.assert_array_equal(
+            roi_st, ['r0-r1', 'r0-r2', 'r0-r3', 'r1-r2', 'r1-r3', 'r2-r3'])
+        _, roi_st = conn_links(roi_2, hemisphere=hemi, hemi_links='intra')
+        np.testing.assert_array_equal(roi_st, ['r0-r1', 'r2-r3'])
+        _, roi_st = conn_links(roi_2, hemisphere=hemi, hemi_links='inter')
+        np.testing.assert_array_equal(
+            roi_st, ['r0-r2', 'r0-r3', 'r1-r2', 'r1-r3'])

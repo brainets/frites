@@ -144,7 +144,7 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
                nb_min_links=None, pairs=None, sort=True, triu_k=1,
-               verbose=None):
+               hemisphere=None, hemi_links='both', verbose=None):
     """Construct pairwise links for functional connectivity.
 
     This function can be used for defining the pairwise links for computing
@@ -179,6 +179,17 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
     triu_k : int | 1
         Diagonal offset when estimating the undirected links to use. By
         default, triu_k=1 means that we skip auto-connections
+    hemisphere : array_like | None
+        List of hemisphere names
+    hemi_links : {'both', 'intra', 'inter'}
+        Specify whether connectivity links should be :
+
+            * 'both': intra-hemispheric and inter-hemispheric (default)
+            * 'intra': intra-hemispheric
+            * 'inter': inter-hemispheric
+
+        In order to work, you should provide the hemisphere name using the
+        input `hemisphere`
 
     Returns
     -------
@@ -243,6 +254,19 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
         df = df.groupby('pairs').size()
         keep = [df.loc[r] >= nb_min_links for r in roi_st]
         x_s, x_t = x_s[keep], x_t[keep]
+
+    # hemisphere selection
+    if isinstance(hemisphere, (list, np.ndarray)):
+        assert hemi_links in ['both', 'intra', 'inter']
+        hemisphere = np.asarray(hemisphere)
+        h_s, h_t = hemisphere[x_s], hemisphere[x_t]
+        if hemi_links in ['intra', 'inter']:
+            keep = h_s == h_t if hemi_links == 'intra' else h_s != h_t
+            x_s, x_t = x_s[keep], x_t[keep]
+        else:
+            keep = np.array([True] * len(x_s))
+        logger.info(f"    Hemispheric selection (hemi_links={hemi_links}, "
+                    f"dropped={(~keep).sum()} links)")
 
     # build pairs of brain region names
     roi_st = np.asarray([f"{s}{sep}{t}" for s, t in zip(roi[x_s], roi[x_t])])
