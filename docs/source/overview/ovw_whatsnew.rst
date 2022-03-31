@@ -16,7 +16,8 @@ New Features
 * New function :func:`frites.conn.conn_links` for generating connectivity links (:commit:`a0d0182d1`)
 * New function :func:`frites.utils.downsample` for down-sampling DataArray (:commit:`59e15e67`)
 * :class:`frites.estimator.CorrEstimator` can no be defined with Pearson or Spearman correlation with both vector or tensor-based implementations (:commit:`f6e80e921`)
-* :class:`frites.workflow.WfStatsEphy` now allows to pass `rfx_center` parameter for controlling whether effect-sizes should be centered and `rfx_sigma` for the hat correction (:commit:`aab68e14`)
+* :class:`frites.workflow.WfStats` now allows to pass `rfx_center` parameter for controlling whether effect-sizes should be centered and `rfx_sigma` for the hat correction (:commit:`aab68e14`)
+* :func:`frites.conn.conn_links` can now be used for selecting intra and / or inter-hemispheric connections (:commit:`87c762c7`)
 
 Internal changes
 ++++++++++++++++
