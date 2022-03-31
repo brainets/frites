@@ -662,7 +662,7 @@
 <h1>frites.conn.conn_links<a class="headerlink" href="#frites-conn-conn-links" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.conn.conn_links">
-<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">triu_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_utils.py#L145-L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_links" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pairs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">triu_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemisphere</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemi_links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_utils.py#L145-L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_links" title="Permalink to this definition">#</a></dt>
 <dd><p>Construct pairwise links for functional connectivity.</p>
 <p>This function can be used for defining the pairwise links for computing
 either undirected or directed FC on M/EEG or intracranial EEG.</p>
@@ -695,6 +695,19 @@ second to targets</p>
 </dd>
 <dt><strong>triu_k</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Diagonal offset when estimating the undirected links to use. By
 default, triu_k=1 means that we skip auto-connections</p>
+</dd>
+<dt><strong>hemisphere</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>List of hemisphere names</p>
+</dd>
+<dt><strong>hemi_links</strong><span class="classifier">{‘both’, ‘intra’, ‘inter’}</span></dt><dd><p>Specify whether connectivity links should be :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘both’: intra-hemispheric and inter-hemispheric (default)</p></li>
+<li><p>‘intra’: intra-hemispheric</p></li>
+<li><p>‘inter’: inter-hemispheric</p></li>
+</ul>
+</div></blockquote>
+<p>In order to work, you should provide the hemisphere name using the
+input <cite>hemisphere</cite></p>
 </dd>
 </dl>
 </dd>
@@ -749,7 +762,7 @@ default, triu_k=1 means that we skip auto-connections</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-03-28.</p>
+        <p>&copy; Copyright Last updated on 2022-03-31.</p>
     </footer>
 
   </body>
