@@ -191,7 +191,7 @@ def acf(x, axis=-1, demean=True):
     return corr
 
 
-def downsample(x, sfreq, down, axis='times'):
+def downsample(x, sfreq, down, axis='times', verbose=None):
     """Data downsampling for DataArray.
 
     Parameters
@@ -210,6 +210,8 @@ def downsample(x, sfreq, down, axis='times'):
     x : xr.DataArray
         The down-sampled DataArray
     """
+    set_log_level(verbose)
+    logger.info(f"    Perform data down-sampling (down={down}, sfreq={sfreq})")
     # xarray to numpy conversion
     assert isinstance(x, xr.DataArray)
     data, dims, attrs = x.data, x.dims, x.attrs
