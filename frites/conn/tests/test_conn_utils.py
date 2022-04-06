@@ -249,15 +249,24 @@ class TestConnUtils(object):
             roi_st, ['aINS-dlPFC', 'dlPFC-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC',
                      'aINS-vmPFC', 'dlPFC-vmPFC'])
 
-        # testing removing within roi connections
-        _, roi_st = conn_links(roi, within_roi=False)
-        assert 'dlPFC-dlPFC' not in roi_st
-        _, roi_st = conn_links(roi, directed=True, net=False, within_roi=False)
-        assert 'dlPFC->dlPFC' not in roi_st
-        _, roi_st = conn_links(roi, directed=True, net=True, within_roi=False)
-        assert 'dlPFC-dlPFC' not in roi_st
+        # testing removing intra / inter roi connections
+        _, roi_st = conn_links(roi, roi_relation='intra')
+        np.testing.assert_array_equal(roi_st, ['dlPFC-dlPFC'])
+        _, roi_st = conn_links(roi, roi_relation='inter')
+        np.testing.assert_array_equal(roi_st, [
+            'aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'aINS-vmPFC',
+            'dlPFC-vmPFC'])
+        _, roi_st = conn_links(roi, directed=True, net=False,
+                               roi_relation='intra')
+        np.testing.assert_array_equal(roi_st, ['dlPFC->dlPFC', 'dlPFC->dlPFC'])
+        _, roi_st = conn_links(roi, directed=True, net=False,
+                               roi_relation='inter')
+        np.testing.assert_array_equal(roi_st, [
+            'dlPFC->aINS', 'dlPFC->vmPFC', 'aINS->dlPFC', 'aINS->dlPFC',
+            'aINS->vmPFC', 'dlPFC->aINS', 'dlPFC->vmPFC', 'vmPFC->dlPFC',
+            'vmPFC->aINS', 'vmPFC->dlPFC'])
 
-        # remove links without a minimum number of conections
+        # remove links without a minimum number of connections
         _, roi_st = conn_links(roi, nb_min_links=2)
         np.testing.assert_array_equal(
             roi_st, ['aINS-dlPFC', 'dlPFC-vmPFC', 'aINS-dlPFC', 'dlPFC-vmPFC'])

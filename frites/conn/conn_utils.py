@@ -142,7 +142,7 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
     return df_conn, df_suj
 
 
-def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
+def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
                nb_min_links=None, pairs=None, sort=True, triu_k=1,
                hemisphere=None, hemi_links='both', verbose=None):
     """Construct pairwise links for functional connectivity.
@@ -159,6 +159,13 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
         (True) FC
     net : bool | False
         Specify whether it is for net directed FC (True) or not (False)
+    roi_relation : {'both', 'inter', 'intra'}
+        Specify the roi relation between pairs of brain regions. Use either :
+
+            * 'intra' : to select only links within a brain region
+              (e.g. V1-V1)
+            * 'inter' : to select only links across brain region (e.g. V1-V2)
+            * 'both' : to select links both within and across brain regions
     within_roi : bool | True
         Specify whether links within a brain region (e.g. V1-V1) should be
         keept (True) or removed (False).
@@ -223,11 +230,14 @@ def conn_links(roi, directed=False, net=False, within_roi=True, sep='auto',
         elif (not directed) or (directed and net):
             x_s, x_t = np.triu_indices(n_roi, k=triu_k)
 
-    # drop within roi links
-    if not within_roi:
-        logger.info("    Dropping within-roi links")
+    # manage roi relation
+    if roi_relation in ['inter', 'intra']:
+        logger.info(f"    Keeping only {roi_relation}-roi links")
         roi_s, roi_t = roi[x_s], roi[x_t]
-        keep = [s != t for s, t in zip(roi_s, roi_t)]
+        if roi_relation == 'intra':
+            keep = [s == t for s, t in zip(roi_s, roi_t)]
+        elif roi_relation == 'inter':
+            keep = [s != t for s, t in zip(roi_s, roi_t)]
         x_s, x_t = x_s[keep], x_t[keep]
 
     # change roi order for undirected and net directed
