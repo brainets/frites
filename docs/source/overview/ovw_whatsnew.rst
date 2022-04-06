@@ -18,6 +18,7 @@ New Features
 * :class:`frites.estimator.CorrEstimator` can no be defined with Pearson or Spearman correlation with both vector or tensor-based implementations (:commit:`f6e80e921`)
 * :class:`frites.workflow.WfStats` now allows to pass `rfx_center` parameter for controlling whether effect-sizes should be centered and `rfx_sigma` for the hat correction (:commit:`aab68e14`)
 * :func:`frites.conn.conn_links` can now be used for selecting intra and / or inter-hemispheric connections (:commit:`87c762c7`)
+* :func:`frites.conn.conn_links` allows selecting links with inter / intra / both roi connections (:commit:`74d2cc1b`)
 
 Internal changes
 ++++++++++++++++
