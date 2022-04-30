@@ -10,11 +10,12 @@ n_times = 50
 n_roi = 10
 n_sites_per_roi = 1
 as_mne = False
+as_neo = False
 x, roi, time = sim_multi_suj_ephy(n_subjects=n_subjects, n_epochs=n_epochs,
                                   n_times=n_times, n_roi=n_roi,
                                   n_sites_per_roi=n_sites_per_roi,
-                                  as_mne=as_mne, modality=modality,
-                                  random_state=1)
+                                  as_mne=as_mne, as_neo=as_neo,
+                                  modality=modality, random_state=1)
 
 
 class TestSimMi(object):  # noqa

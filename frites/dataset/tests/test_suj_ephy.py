@@ -1,8 +1,15 @@
 """Test SubjectEphy and internal conversions."""
+import pytest
 import numpy as np
 import xarray as xr
 import pandas as pd
 import mne
+try:
+    import neo
+    import quantities as pq
+    HAVE_NEO = True
+except ModuleNotFoundError:
+    HAVE_NEO = False
 
 from frites.dataset import SubjectEphy
 from frites.utils.perf import id as id_arr
@@ -47,6 +54,18 @@ class TestSubjectEphy(object):  # noqa
         elif (dtype == 'mne') and (ndim == 4):
             info = mne.create_info(ch_names, sfreq, ch_types='seeg')
             x_out = mne.time_frequency.EpochsTFR(info, x_4d, times, freqs)
+        elif dtype == 'neo':
+            assert HAVE_NEO, 'Requires Neo to be installed'
+            data = x_3d if ndim == 3 else x_4d
+            block = neo.Block()
+            for epoch_id in range(len(x_3d)):
+                seg = neo.Segment()
+                anasig = neo.AnalogSignal(data[epoch_id].T * pq.dimensionless,
+                                          t_start=times[0] * pq.s,
+                                          sampling_rate=sfreq * pq.Hz)
+                seg.analogsignals.append(anasig)
+                block.segments.append(seg)
+            x_out = block
 
         return x_out
 
@@ -116,6 +135,31 @@ class TestSubjectEphy(object):  # noqa
         SubjectEphy(mne_4d, y=y_int, z=z, roi=roi, **kw)
         da_4d = SubjectEphy(mne_4d, y=y_int, z=z, roi=roi, times=times, **kw)
         self._test_memory(x_4d, da_4d.data)
+
+    @pytest.mark.skipif(not HAVE_NEO, reason="requires Neo")
+    def test_neo_inputs(self):
+        """Test function neo_inputs."""
+        # ___________________________ test 3d inputs __________________________
+        # test inputs
+        neo_3d = self._get_data('neo', 3)
+        SubjectEphy(neo_3d, **kw)
+        SubjectEphy(neo_3d, y=y_int, **kw)
+        SubjectEphy(neo_3d, z=z, **kw)
+        SubjectEphy(neo_3d, y=y_int, z=z, roi=roi, **kw)
+        da_3d = SubjectEphy(neo_3d, y=y_int, z=z, roi=roi, times=times, **kw)
+        # hstacking neo objects creates a new array instance, data is copied
+        # self._test_memory(x_3d, da_3d.data)
+
+        # ___________________________ test 4d inputs __________________________
+        # test inputs
+        neo_4d = self._get_data('mne', 4)
+        SubjectEphy(neo_4d, **kw)
+        SubjectEphy(neo_4d, y=y_int, **kw)
+        SubjectEphy(neo_4d, z=z, **kw)
+        SubjectEphy(neo_4d, y=y_int, z=z, roi=roi, **kw)
+        da_4d = SubjectEphy(neo_4d, y=y_int, z=z, roi=roi, times=times, **kw)
+        # hstacking neo objects creates a new array instance, data is copied
+        # self._test_memory(x_4d, da_4d.data)
 
     def test_coordinates(self):
         """Test if coordinates and dims are properly set"""

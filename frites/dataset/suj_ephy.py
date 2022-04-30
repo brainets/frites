@@ -3,6 +3,11 @@ from collections import OrderedDict
 
 import numpy as np
 import xarray as xr
+try:
+    import neo
+    HAVE_NEO = True
+except ModuleNotFoundError:
+    HAVE_NEO = False
 
 import frites
 from frites.config import CONFIG
@@ -14,7 +19,7 @@ class SubjectEphy(Attributes):
     """Single-subject electrophysiological data container.
 
     This class can be used to convert the data from different types (e.g
-    NumPy, MNE-Python, Xarray) into a single format (xarray.DataArray).
+    NumPy, MNE-Python, Neo, Xarray) into a single format (xarray.DataArray).
 
     Parameters
     ----------
@@ -28,6 +33,7 @@ class SubjectEphy(Attributes):
               where 'mv' refers to an axis to consider as multi-variate
             * mne.Epochs or mne.EpochsArray
             * mne.EpochsTFR (i.e. non-averaged power)
+            * neo.Block where neo.Segments correspond to Epochs
             * xarray.DataArray. In that case `y`, `z`, `roi` and `times` inputs
               can be strings that refer to the coordinate name to use in the
               DataArray
@@ -130,7 +136,7 @@ class SubjectEphy(Attributes):
             # get the temporal vector
             times = x[times].data if isinstance(times, str) else times
 
-        if 'mne' in str(type(x)):       # mne -> xr
+        elif 'mne' in str(type(x)):       # mne -> xr
             times = x.times if times is None else times
             roi = x.info['ch_names'] if roi is None else roi
             sfreq = x.info['sfreq'] if sfreq is None else sfreq
@@ -143,13 +149,42 @@ class SubjectEphy(Attributes):
                 else:
                     _supp_dim = ('freqs', x.freqs)
 
-        if isinstance(x, np.ndarray):    # numpy -> xr
+        elif 'neo.core' in str(type(x)):
+            if not HAVE_NEO:
+                raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
+            assert isinstance(x, neo.Block)
+
+            # data integrity checks
+            # assert common attributes across signals
+            assert len(np.unique([len(seg.analogsignals) for seg in x.segments]) == 1)
+            assert len(np.unique([seg.analogsignals[0].units for seg in x.segments]) == 1)
+            assert len(np.unique([seg.analogsignals[0].sampling_rate for seg in x.segments]) == 1)
+            assert len(np.unique([seg.analogsignals[0].shape for seg in x.segments]) == 1)
+
+            seg0 = x.segments[0].analogsignals[0]
+            times = seg0.times.magnitude
+            sfreq = seg0.sampling_rate.magnitude
+
+            attrs['sfreq_units'] = seg0.sampling_rate.units
+            attrs['time_units'] = seg0.times.units
+            attrs['signal_units'] = seg0.units
+
+            data = np.stack([seg.analogsignals[0].magnitude for seg in x.segments])
+            # swapping to have time as last dimension
+            data = data.swapaxes(1, -1)
+
+        elif isinstance(x, np.ndarray):    # numpy -> xr
             data = x
             if data.ndim == 4:
                 if multivariate:
                     _supp_dim = ('mv', np.full((data.shape[2]), np.nan))
                 else:
                     _supp_dim = ('supp', np.arange(data.shape[2]))
+
+        try:
+            data.ndim
+        except:
+            print('')
 
         assert data.ndim <= 4, "Data up to 4-dimensions are supported"
 

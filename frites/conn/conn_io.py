@@ -3,6 +3,11 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 import mne
+try:
+    import neo
+    HAVE_NEO = True
+except ModuleNotFoundError:
+    HAVE_NEO = False
 
 from frites.io import set_log_level, logger
 from frites.config import CONFIG
@@ -23,6 +28,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
 
             * Standard NumPy arrays of shape (n_epochs, n_roi, n_times)
             * mne.Epochs
+            * neo.Block where neo.Segments correspond to epochs
             * xarray.DataArray of shape (n_epochs, n_roi, n_times)
 
     times : array_like | None
@@ -69,14 +75,26 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
 
     # ____________________________ DATA CONVERSION ____________________________
     # keep xarray attributes and trials
+    trials, attrs = None, {}
     if isinstance(data, xr.DataArray):
         trials, attrs = data[data.dims[0]].data, data.attrs
+    elif isinstance(data, (mne.EpochsArray, mne.Epochs)):
+        n_trials = data._data.shape[0]
+    elif 'neo.io' in str(type(data)):
+        if not HAVE_NEO:
+            raise ModuleNotFoundError('Loading Neo objects requires Neo to be installed')
+        assert isinstance(data, neo.Block)
+        n_trials = len(data.segments)
+        # use custom trial ids if provided
+        if all(['trial_id' in seg.annotations for seg in data.segments]):
+            trial_ids = ['trial_id' in seg.annotations for seg in data.segments]
+            trials = np.array(trial_ids, dtype=int)
     else:
-        if isinstance(data, (mne.EpochsArray, mne.Epochs)):
-            n_trials = data._data.shape[0]
-        else:
-            n_trials = data.shape[0]
-        trials, attrs = np.arange(n_trials), {}
+        n_trials = data.shape[0]
+
+    if trials is None:
+        trials = np.arange(n_trials)
+
     if y is None:
         y = trials
 

@@ -70,6 +70,7 @@ The main dependencies of Frites are :
 * `Numpy <https://numpy.org/>`_
 * `Scipy <https://www.scipy.org/>`_
 * `MNE Python <https://mne.tools/stable/index.html>`_
+* `Neo <https://pypi.org/project/neo/>`_
 * `Xarray <http://xarray.pydata.org/en/stable/>`_
 * `Joblib <https://joblib.readthedocs.io/en/latest/>`_
 
