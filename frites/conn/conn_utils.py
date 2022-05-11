@@ -144,7 +144,8 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
                nb_min_links=None, pairs=None, sort=True, triu_k=1,
-               hemisphere=None, hemi_links='both', verbose=None):
+               hemisphere=None, hemi_links='both', source_seed=None,
+               target_seed=None, verbose=None):
     """Construct pairwise links for functional connectivity.
 
     This function can be used for defining the pairwise links for computing
@@ -166,9 +167,6 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
               (e.g. V1-V1)
             * 'inter' : to select only links across brain region (e.g. V1-V2)
             * 'both' : to select links both within and across brain regions
-    within_roi : bool | True
-        Specify whether links within a brain region (e.g. V1-V1) should be
-        keept (True) or removed (False).
     sep : string | 'auto'
         If 'auto', '-' are used to linked brain region names for undirected FC
         or '->' for directed FC. Alternatively, you can provide a custom
@@ -197,6 +195,12 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
 
         In order to work, you should provide the hemisphere name using the
         input `hemisphere`
+    source_seed : str, list | None
+        Brain region name(s) to use as source seed. Can either be the name of a
+        single brain region or a list of brain regions.
+    target_seed : str, list | None
+        Brain region name(s) to use as target seed. Can either be the name of a
+        single brain region or a list of brain regions.
 
     Returns
     -------
@@ -212,6 +216,8 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
                          "connectivity")
     roi = np.asarray(roi)
     n_roi = len(roi)
+    if isinstance(source_seed, str): source_seed = [source_seed]  # noqa
+    if isinstance(target_seed, str): target_seed = [target_seed]  # noqa
     logger.info(f"Defining links (n_roi={n_roi}; directed={directed}; "
                 f"net={net}, nb_min_links={nb_min_links})")
 
@@ -278,11 +284,31 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
         logger.info(f"    Hemispheric selection (hemi_links={hemi_links}, "
                     f"dropped={(~keep).sum()} links)")
 
+    # seed / target selection
+    if isinstance(source_seed, (list, tuple, np.ndarray)):
+        keep = _seed_selection(source_seed, roi, x_s, x_t, directed, 'source')
+        x_s, x_t = x_s[keep], x_t[keep]
+    if isinstance(target_seed, (list, tuple, np.ndarray)):
+        keep = _seed_selection(target_seed, roi, x_s, x_t, directed, 'target')
+        x_s, x_t = x_s[keep], x_t[keep]
+
     # build pairs of brain region names
     roi_st = np.asarray([f"{s}{sep}{t}" for s, t in zip(roi[x_s], roi[x_t])])
 
     return (x_s, x_t), roi_st
 
+
+def _seed_selection(seed, roi, x_s, x_t, directed, origin):
+    if directed:
+        if origin == 'source':
+            keep = [s in seed for s in roi[x_s]]
+        elif origin == 'target':
+            keep = [s in seed for s in roi[x_t]]
+    else:
+        keep_s = [s in seed for s in roi[x_s]]
+        keep_t = [t in seed for t in roi[x_t]]
+        keep = np.c_[keep_s, keep_t].any(1)
+    return keep
 
 ###############################################################################
 ###############################################################################
