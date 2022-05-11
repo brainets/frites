@@ -324,17 +324,16 @@ class TestConnUtils(object):
         np.testing.assert_array_equal(
             roi_st, [
                 'r2->r0', 'r2->r0', 'r2->r1', 'r2->r3', 'r3->r0', 'r3->r0',
-                'r3->r1', 'r3->r2'
-        ])
+                'r3->r1', 'r3->r2'])
         _, roi_st = conn_links(roi_3, target_seed=['r2', 'r3'], directed=True)
         np.testing.assert_array_equal(
             roi_st, [
                 'r0->r2', 'r0->r3', 'r0->r2', 'r0->r3', 'r1->r2', 'r1->r3',
-                'r2->r3', 'r3->r2'
-        ])
+                'r2->r3', 'r3->r2'])
         _, roi_st = conn_links(roi_3, source_seed='r2', target_seed='r3',
                                directed=True)
         np.testing.assert_array_equal(roi_st, ['r2->r3'])
+
 
 if __name__ == '__main__':
     TestConnUtils().test_conn_links()
