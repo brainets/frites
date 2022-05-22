@@ -18,6 +18,7 @@ from frites.utils import parallel_func
 
 
 LOG2 = np.log(2)
+kw_gc = {k: v for k, v in CONFIG['KW_GCMI'].items()}  # patch for parallel computing
 
 
 def entr(xy):
@@ -133,7 +134,6 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
     This function computes the covGC for a single pair, across multiple trials,
     at different time indices.
     """
-    kw = CONFIG["KW_GCMI"]
     n_trials, n_times = d_s.shape[0], len(t0)
     gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
     for n_ti, ti in enumerate(t0):
@@ -156,11 +156,11 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
         # Granger Causality measures
         # -----------------------------------------------------------------
         # gc(pairs(:,1) -> pairs(:,2))
-        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, y_past, **kw)
+        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, y_past, **kw_gc)
         # gc(pairs(:,2) -> pairs(:,1))
-        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, x_past, **kw)
+        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, x_past, **kw_gc)
         # gc(pairs(:,2) . pairs(:,1))
-        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw)
+        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw_gc)
 
     return gc
 
@@ -179,7 +179,6 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
     at different time indices.
     """
     conditional = conditional if data.shape[1] > 2 else False
-    kw = CONFIG["KW_GCMI"]
     d_s, d_t = data[:, s, :], data[:, t, :]
     n_lags, n_dt = ind_tx.shape
     n_trials, n_times = d_s.shape[0], len(t0)
@@ -221,11 +220,11 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
         # Granger Causality measures
         # -----------------------------------------------------------------
         # gc(pairs(:,1) -> pairs(:,2))
-        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, yz_past, **kw)
+        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, yz_past, **kw_gc)
         # gc(pairs(:,2) -> pairs(:,1))
-        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, xz_past, **kw)
+        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, xz_past, **kw_gc)
         # gc(pairs(:,2) . pairs(:,1))
-        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xyz_past, **kw)
+        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xyz_past, **kw_gc)
 
     return gc
 
