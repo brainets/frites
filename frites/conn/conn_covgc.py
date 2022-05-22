@@ -43,7 +43,7 @@ def entr(xy):
     return h
 
 
-def _covgc(d_s, d_t, ind_tx, t0, norm=True):
+def _covgc(d_s, d_t, ind_tx, t0, norm=False):
     """Compute the covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
@@ -100,23 +100,23 @@ def _covgc(d_s, d_t, ind_tx, t0, norm=True):
             # -----------------------------------------------------------------
             # Normalisation of GC (Deco et al, Nature Human Beh, 2021)
             # -----------------------------------------------------------------
-            if norm:
-                # H(Y_i+1)
-                y0 = np.expand_dims(y[0], axis=0)
-                hy = entr(y0)
-                # H(X_i+1)
-                x0 = np.expand_dims(x[0], axis=0)
-                hx = entr(x0)
-                # I(Y_i+1; Y_i) internal predictability of Y
-                mi_yi1yi = hy - hycy
-                # I(X_i+1; X_i) internal predictability of X
-                mi_xi1xi = hx - hxcx
-                # gc(pairs(:,1) -> pairs(:,2))
-                gc[n_tr, n_ti, 0] = gc[n_tr, n_ti, 0] / (
-                    mi_yi1yi + gc[n_tr, n_ti, 0])
-                # gc(pairs(:,2) -> pairs(:,1))
-                gc[n_tr, n_ti, 1] = gc[n_tr, n_ti, 1] / (
-                    mi_xi1xi + gc[n_tr, n_ti, 1])
+            # if norm:  # this part requires more work
+            #     # H(Y_i+1)
+            #     y0 = np.expand_dims(y[0], axis=0)
+            #     hy = entr(y0)
+            #     # H(X_i+1)
+            #     x0 = np.expand_dims(x[0], axis=0)
+            #     hx = entr(x0)
+            #     # I(Y_i+1; Y_i) internal predictability of Y
+            #     mi_yi1yi = hy - hycy
+            #     # I(X_i+1; X_i) internal predictability of X
+            #     mi_xi1xi = hx - hxcx
+            #     # gc(pairs(:,1) -> pairs(:,2))
+            #     gc[n_tr, n_ti, 0] = gc[n_tr, n_ti, 0] / (
+            #         mi_yi1yi + gc[n_tr, n_ti, 0])
+            #     # gc(pairs(:,2) -> pairs(:,1))
+            #     gc[n_tr, n_ti, 1] = gc[n_tr, n_ti, 1] / (
+            #         mi_xi1xi + gc[n_tr, n_ti, 1])
 
     return gc
 
@@ -425,7 +425,7 @@ if __name__ == '__main__':
     dt, lag, step = 50, 5, 2
     t0 = np.arange(lag, ar.shape[-1] - dt, step)
     gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                    n_jobs=-1, conditional=True, norm=False)
+                    n_jobs=-1, conditional=False, norm=False)
     plt.figure()
     ss.plot_covgc(gc=gc)
     plt.show()

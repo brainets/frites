@@ -10,6 +10,10 @@ New Features
 ++++++++++++
 * :func:`frites.conn.conn_links` now accepts to use brain region names as source or target seeds (:commit:`8d7e1fb6`)
 
+Bug fixes
++++++++++
+* Fix parallel computing of :func:`frites.conn.conn_covgc` (:commit:`f2ff5f67`)
+
 v0.4.2
 ------
 
