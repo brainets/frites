@@ -677,7 +677,7 @@
 <h1>frites.workflow.WfMi<a class="headerlink" href="#frites-workflow-wfmi" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.workflow.WfMi">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.workflow.</span></span><span class="sig-name descname"><span class="pre">WfMi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L17-L694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.workflow.</span></span><span class="sig-name descname"><span class="pre">WfMi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L17-L728"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi" title="Permalink to this definition">#</a></dt>
 <dd><p>Workflow of local mutual-information and statistics.</p>
 <p>This class allows to define a workflow for computing the mutual information
 and then to evaluate the significance using non-parametric statistics
@@ -756,14 +756,14 @@ moving average</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>([dataset, mcp, n_perm, cluster_th, ...])</p></td>
 <td><p>Run the workflow on a dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#frites.workflow.WfMi.get_params" title="frites.workflow.WfMi.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>(*params[, cis, n_boots, random_state])</p></td>
 <td><p>Get formatted parameters.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L643-L645"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L677-L679"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.clean" title="Permalink to this definition">#</a></dt>
 <dd><p>Clean computations.</p>
 </dd></dl>
 
@@ -859,7 +859,7 @@ subjects that have a significant MI</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L647-L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.copy" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L681-L689"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.copy" title="Permalink to this definition">#</a></dt>
 <dd><p>Return copy of WfMi instance.</p>
 <dl class="field-list">
 <dt class="field-odd">Returns</dt>
@@ -1015,7 +1015,7 @@ subjects.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="frites.workflow.WfMi.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L575-L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.get_params" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_boots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/workflow/wf_mi.py#L575-L675"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.workflow.WfMi.get_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Get formatted parameters.</p>
 <p>This method can be used to get internal arrays formatted as xarray
 DataArray.</p>
