@@ -572,7 +572,7 @@ class WfMi(WfBase):
 
         return x_ci
 
-    def get_params(self, *params):
+    def get_params(self, *params, cis=95, n_boots=200, random_state=None):
         """Get formatted parameters.
 
         This method can be used to get internal arrays formatted as xarray
@@ -592,6 +592,10 @@ class WfMi(WfBase):
                 * 'perm_' : DataArray of maximum computed permutations of
                   shape (n_perm,)
         """
+        # input checking
+        if isinstance(cis, (int, float)): cis = [cis]
+        assert isinstance(cis, (list, tuple, np.ndarray))
+        assert isinstance(n_boots, int)
         # get coordinates
         times, roi, df_rs = self._times, self._roi, self._df_rs
         if self._inference == 'ffx':
@@ -615,6 +619,36 @@ class WfMi(WfBase):
                         dims=('subject', 'times'))
                 da = xr.Dataset(mi).to_array('roi')
                 da = da.transpose('subject', 'times', 'roi')
+            elif param == 'mi_ci':
+                mi_ci = {}
+                for n_r, r in enumerate(roi):
+                    # get mi in this brain region (n_suj, n_times)
+                    _mi_r = self._mi[n_r]
+
+                    # get bootstrap partition
+                    part = bootstrap_partitions(
+                        _mi_r.shape[0], n_partitions=n_boots,
+                        random_state=random_state)
+
+                    # mean for each partition (n_boots, n_times)
+                    _mi_mean = np.stack([_mi_r[k].mean(0) for k in part])
+
+                    # compute ci for each cis
+                    _mi_ci = {}
+                    for n_ci, ci in enumerate(cis):
+                        # compute ci (2, n_times)
+                        half_alpha = (100. - ci) / 2.
+                        __ci = np.percentile(
+                            _mi_mean, [half_alpha, 100. - half_alpha], axis=0)
+                        # xarray transformation
+                        _mi_ci[ci] = xr.DataArray(
+                            __ci, dims=('bound', 'times'),
+                            coords=(['low', 'high'], times))
+                    mi_ci[r] = xr.Dataset(_mi_ci).to_array('ci')
+                da = xr.Dataset(mi_ci).to_array('roi').transpose(
+                    'ci', 'bound', 'times', 'roi'
+                )
+
             elif param == 'perm_ss':
                 mi = dict()
                 for n_r, r in enumerate(roi):
