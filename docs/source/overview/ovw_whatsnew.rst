@@ -9,6 +9,7 @@ v0.4.3
 New Features
 ++++++++++++
 * :func:`frites.conn.conn_links` now accepts to use brain region names as source or target seeds (:commit:`8d7e1fb6`)
+* new function :func:`frites.stats.confidence_interval` for computing confidence intervals, standard deviation (sd) and standard error on the mean (sem) on numpy arrays and xarray DataArray (:commit:`3a512537`)
 
 Bug fixes
 +++++++++
