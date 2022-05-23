@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.stats.cluster_correction_mcp &#8212; frites 0.4.2 documentation</title>
+    <title>frites.stats.confidence_interval &#8212; frites 0.4.2 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -42,8 +42,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.stats.testwise_correction_mcp" href="frites.stats.testwise_correction_mcp.html" />
-    <link rel="prev" title="frites.stats.rfx_ttest" href="frites.stats.rfx_ttest.html" />
+    <link rel="next" title="frites.stats.ttest_1samp" href="frites.stats.ttest_1samp.html" />
+    <link rel="prev" title="frites.stats.bootstrap_partitions" href="frites.stats.bootstrap_partitions.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -448,8 +448,8 @@
      frites.stats.bootstrap_partitions
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.stats.confidence_interval.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.stats.confidence_interval
     </a>
    </li>
@@ -463,8 +463,8 @@
      frites.stats.rfx_ttest
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.cluster_correction_mcp.html">
      frites.stats.cluster_correction_mcp
     </a>
    </li>
@@ -663,43 +663,44 @@
               
               <div>
                 
-  <section id="frites-stats-cluster-correction-mcp">
-<h1>frites.stats.cluster_correction_mcp<a class="headerlink" href="#frites-stats-cluster-correction-mcp" title="Permalink to this headline">#</a></h1>
+  <section id="frites-stats-confidence-interval">
+<h1>frites.stats.confidence_interval<a class="headerlink" href="#frites-stats-confidence-interval" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.stats.cluster_correction_mcp">
-<span class="sig-prename descclassname"><span class="pre">frites.stats.</span></span><span class="sig-name descname"><span class="pre">cluster_correction_mcp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/stats/stats_mcp.py#L90-L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.stats.cluster_correction_mcp" title="Permalink to this definition">#</a></dt>
-<dd><p>Cluster-based correction for MCP using non-parametric statistics.</p>
-<p>This function can be used to compute the p-values, corrected for multiple
-comparisons using cluster-based. Note that this function detect clusters
-for each ROI but can be performed across multiple other dimensions (e.g
-frequencies, times etc.).</p>
+<dt class="sig sig-object py" id="frites.stats.confidence_interval">
+<span class="sig-prename descclassname"><span class="pre">frites.stats.</span></span><span class="sig-name descname"><span class="pre">confidence_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cis=95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_boots=200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fcn=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/stats/stats_nonparam.py#L209-L299"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.stats.confidence_interval" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the confidence interval of repeated measurements.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>x</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of true effect size of shape (n_roi, …)</p>
+<dt><strong>data</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Numpy array (or xarray.DataArray) of data</p>
 </dd>
-<dt><strong>x_p</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of permutations of shape (n_perm, n_roi, …)</p>
+<dt><strong>axis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 0</span></dt><dd><p>Axis along which to compute the confidence interval</p>
 </dd>
-<dt><strong>th</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></span></dt><dd><p>The threshold to use</p>
+<dt><strong>cis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | 95</span></dt><dd><p>Integer or list of confidence levels to extract. This input also
+supports computing standard deviation (‘sd’) and / or standard error on
+the mean (‘sem’)</p>
 </dd>
-<dt><strong>tail</strong><span class="classifier">{-1, 0, 1}</span></dt><dd><p>Type of comparison. Use -1 for the lower part of the distribution,
-1 for the higher part and 0 for both</p>
+<dt><strong>n_boots</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 200</span></dt><dd><p>Number of bootstraps to perform</p>
 </dd>
-<dt><strong>kwargs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments are send to the
-<code class="xref py py-func docutils literal notranslate"><span class="pre">mne.stats.cluster_level._find_clusters()</span></code></p>
+<dt><strong>random_state</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Fix the random state of the machine (use it for reproducibility). If
+None, a random state is randomly assigned.</p>
+</dd>
+<dt><strong>fcn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">np.mean</span></code></span></dt><dd><p>Summary statistics function. By default, the mean is used.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>pvalues</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of p-values of shape (n_roi, n_times)</p>
+<dt><strong>ci</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of confidence intervals of shape (n_ci, 2, …) where n_ci
+refers to the number of desired confidence intervals (see input <cite>cis</cite>)
+and 2 refers to the lower and upper bounds.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-stats-cluster-correction-mcp"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-stats-confidence-interval"></span></section>
 
 
               </div>
@@ -707,17 +708,17 @@ frequencies, times etc.).</p>
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="frites.stats.rfx_ttest.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="frites.stats.bootstrap_partitions.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">frites.stats.rfx_ttest</p>
+            <p class="prev-next-title">frites.stats.bootstrap_partitions</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="frites.stats.testwise_correction_mcp.html" title="next page">
+    <a class='right-next' id="next-link" href="frites.stats.ttest_1samp.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.stats.testwise_correction_mcp</p>
+        <p class="prev-next-title">frites.stats.ttest_1samp</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
