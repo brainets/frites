@@ -13,5 +13,6 @@ Most of those stastical functions are using
 from .stats_mcp import (testwise_correction_mcp, cluster_correction_mcp,  # noqa
                         cluster_threshold)
 from .stats_nonparam import (permute_mi_vector, permute_mi_trials,  # noqa
-                             bootstrap_partitions, dist_to_ci)
+                             bootstrap_partitions, dist_to_ci,
+                             confidence_interval)
 from .stats_param import (ttest_1samp, rfx_ttest)  # noqa

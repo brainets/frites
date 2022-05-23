@@ -18,6 +18,7 @@ Non-parametric statistics
    permute_mi_vector
    permute_mi_trials
    bootstrap_partitions
+   confidence_interval
 
 Random-effect (rfx)
 +++++++++++++++++++

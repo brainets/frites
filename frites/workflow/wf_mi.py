@@ -11,7 +11,8 @@ from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator, ResamplingEstimator
 from frites.utils import parallel_func, kernel_smoothing
-from frites.stats import dist_to_ci, permute_mi_vector, bootstrap_partitions
+from frites.stats import (dist_to_ci, permute_mi_vector, bootstrap_partitions,
+                          confidence_interval)
 
 
 class WfMi(WfBase):
@@ -591,9 +592,25 @@ class WfMi(WfBase):
                   (n_perm, n_subjects, n_times, n_roi)
                 * 'perm_' : DataArray of maximum computed permutations of
                   shape (n_perm,)
+                * 'mi_ci' : DataArray of confidence interval computed when
+                  taking the mean of MI across subjects (or sessions). The
+                  output shape is (n_ci, 2, n_times, n_roi) where
+                  n_ci describe the number of confidence levels define with the
+                  input parameter `ci`, and 2 represents the lower and upper
+                  bounds of the confidence interval
+
+        ci : float, list | 95
+            Confidence level to use in percentage. Use either a single float
+            (e.g. 95, 99 etc.) or a list of floats (e.g. [95, 99])
+        n_boots : int | 200
+            Number of resampling to perform
+        random_state : int | None
+            Fix the random state of the machine (use it for reproducibility).
+            If None, a random state is randomly assigned.
+
         """
         # input checking
-        if isinstance(cis, (int, float)): cis = [cis]
+        if isinstance(cis, (int, float)): cis = [cis]  # noqa
         assert isinstance(cis, (list, tuple, np.ndarray))
         assert isinstance(n_boots, int)
         # get coordinates
@@ -622,29 +639,16 @@ class WfMi(WfBase):
             elif param == 'mi_ci':
                 mi_ci = {}
                 for n_r, r in enumerate(roi):
-                    # get mi in this brain region (n_suj, n_times)
-                    _mi_r = self._mi[n_r]
-
-                    # get bootstrap partition
-                    part = bootstrap_partitions(
-                        _mi_r.shape[0], n_partitions=n_boots,
+                    # compute ci
+                    _ci = confidence_interval(
+                        self._mi[n_r], axis=0, cis=cis, n_boots=n_boots,
                         random_state=random_state)
 
-                    # mean for each partition (n_boots, n_times)
-                    _mi_mean = np.stack([_mi_r[k].mean(0) for k in part])
+                    # xarray
+                    mi_ci[r] = xr.DataArray(
+                        _ci, dims=('ci', 'bound', 'times'),
+                        coords=(cis, ['low', 'high'], times))
 
-                    # compute ci for each cis
-                    _mi_ci = {}
-                    for n_ci, ci in enumerate(cis):
-                        # compute ci (2, n_times)
-                        half_alpha = (100. - ci) / 2.
-                        __ci = np.percentile(
-                            _mi_mean, [half_alpha, 100. - half_alpha], axis=0)
-                        # xarray transformation
-                        _mi_ci[ci] = xr.DataArray(
-                            __ci, dims=('bound', 'times'),
-                            coords=(['low', 'high'], times))
-                    mi_ci[r] = xr.Dataset(_mi_ci).to_array('ci')
                 da = xr.Dataset(mi_ci).to_array('roi').transpose(
                     'ci', 'bound', 'times', 'roi'
                 )

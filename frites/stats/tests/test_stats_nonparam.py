@@ -1,8 +1,10 @@
 """Test high-level mutual information functions."""
 import numpy as np
+import xarray as xr
 
 from frites.stats import (permute_mi_vector, permute_mi_trials,
-                          bootstrap_partitions, dist_to_ci)
+                          bootstrap_partitions, dist_to_ci,
+                          confidence_interval)
 
 rnd = np.random.RandomState(0)
 
@@ -75,6 +77,47 @@ class TestNonParam(object):  # noqa
         assert dist_to_ci(
             dist, cis=[95, 99, 99.9], inference='rfx').shape == (3, 2, 30)
 
+    def test_confidence_interval(self):
+        """Test function confidence_interval."""
+        # parameters
+        ci_a = [90, 90.5, 'sd', 'sem']
+
+        # define a dataset
+        dist = np.random.rand(10, 100, 30)
+        coords = [np.arange(k) for k in dist.shape]
+        dims = [str(k) for k in range(dist.ndim)]
+        dist_xr = xr.DataArray(
+            dist, dims=dims, coords=coords, attrs={'arg': 'test'}, name='Test'
+        )
+
+        for d in [dist, dist_xr]:
+            # shape testing
+            ci = confidence_interval(d, axis=0)
+            assert ci.shape == (1, 2, 100, 30)
+            ci = confidence_interval(d, axis=1)
+            assert ci.shape == (1, 2, 10, 30)
+            ci = confidence_interval(d, axis=2)
+            assert ci.shape == (1, 2, 10, 100)
+            if isinstance(d, xr.DataArray):
+                ci = confidence_interval(d, axis='2')
+                assert ci.shape == (1, 2, 10, 100)
+
+            # testing individual supported cis
+            for cis in ci_a:
+                ci = confidence_interval(d, axis=2, cis=cis)
+                assert ci.shape == (1, 2, 10, 100)
+
+            # test multiple ci at once
+            ci = confidence_interval(d, axis=2, cis=ci_a)
+            assert ci.shape == (4, 2, 10, 100)
+
+            # test random state
+            ci_1 = confidence_interval(d, axis=2, cis=ci_a, random_state=0)
+            ci_2 = confidence_interval(d, axis=2, cis=ci_a, random_state=0)
+            ci_3 = confidence_interval(d, axis=2, cis=ci_a, random_state=1)
+            np.testing.assert_array_equal(ci_1, ci_2)
+            assert ~np.all(ci_1 == ci_3)
+
 
 if __name__ == '__main__':
-    TestNonParam().test_dist_to_ci()
+    TestNonParam().test_confidence_interval()
