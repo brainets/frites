@@ -207,7 +207,7 @@ def dist_to_ci(dist, cis=[99], inference='ffx', rfx_es='mi', pop_mean=None):
 
 
 def confidence_interval(data, axis=0, cis=95, n_boots=200, random_state=None,
-                        fcn=np.mean, verbose=None):
+                        fcn=None, skipna=True, verbose=None):
     """Compute the confidence interval of repeated measurements.
 
     Parameters
@@ -225,8 +225,10 @@ def confidence_interval(data, axis=0, cis=95, n_boots=200, random_state=None,
     random_state : int | None
         Fix the random state of the machine (use it for reproducibility). If
         None, a random state is randomly assigned.
-    fcn : function | np.mean
+    fcn : function | None
         Summary statistics function. By default, the mean is used.
+    skipna : bool | True
+        Skip NaN when computing CI. By default NaN are skipped.
 
     Returns
     -------
@@ -243,7 +245,13 @@ def confidence_interval(data, axis=0, cis=95, n_boots=200, random_state=None,
     assert isinstance(n_boots, int)
     need_ci = np.any([isinstance(k, (int, float)) for k in cis])
     logger.info(f"    Estimating CI (cis={cis}, axis={axis}, "
-                f"n_boots={n_boots}, random_state={random_state})")
+                f"n_boots={n_boots}, skipna=True, "
+                f"random_state={random_state})")
+
+    # default functions
+    if fcn is None:
+        fcn = np.nanmean if skipna else np.mean
+    fcn_std = np.nanstd if skipna else np.std
 
     # ------------------------------- DATAARRAY -------------------------------
     if isinstance(data, xr.DataArray):
@@ -253,7 +261,7 @@ def confidence_interval(data, axis=0, cis=95, n_boots=200, random_state=None,
         coords = [data[d].data for d in dims]
         attrs = data.attrs
         attrs.update(n_boots=n_boots, random_state=random_state,
-                     fcn=fcn.__name__)
+                     skipna=skipna, fcn=fcn.__name__)
         attrs = check_attrs(attrs)
         name = 'CI' if data.name is None else data.name + '_CI'
         x = data.data
@@ -280,9 +288,9 @@ def confidence_interval(data, axis=0, cis=95, n_boots=200, random_state=None,
             halpha = (100. - ci) / 2.
             _ci = np.percentile(x_ci, [halpha, 100. - halpha], axis=0)
         elif ci in ['sd', 'sem']:
-            x_sd, x_m = x.std(axis=axis), fcn(x, axis=axis)
+            x_sd, x_m = fcn_std(x, axis=axis), fcn(x, axis=axis)
             if ci == 'sem':
-                x_sd /= np.sqrt(x.shape[0])
+                x_sd /= np.sqrt(x.shape[axis])
             _ci = np.stack([x_m - x_sd, x_m + x_sd])
         cib.append(_ci)
     cib = np.stack(cib)
