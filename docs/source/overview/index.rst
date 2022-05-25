@@ -12,5 +12,6 @@ This section introduces the basis for starting analyzing your data with Frites.
     ovw_help
     ovw_cite
     ovw_community
+    ovw_acknowledgments
     ovw_refs
     ovw_whatsnew
