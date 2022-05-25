@@ -81,6 +81,6 @@ In addition to the main dependencies, here's the list of additional packages tha
 * Some example are using `scikit learn <https://scikit-learn.org/stable/index.html>`_ estimators
 
 Acknowledgments
-----------------
+---------------
 
 See `acknowledgments <https://brainets.github.io/frites/overview/ovw_acknowledgments.html>`_
