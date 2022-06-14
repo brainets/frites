@@ -7,12 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Estimate the empirical confidence interval &#8212; frites 0.4.2 documentation</title>
-    
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
 
-    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
   <link rel="stylesheet"
     href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
@@ -29,9 +33,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
-    
+
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -44,40 +48,47 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Generate random electrophysiological data" href="../simulations/plot_generate_random_data.html" />
     <link rel="prev" title="Compare between-subjects statistics when computing mutual information" href="plot_wf_mi_stats_compare_rfx.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="None">
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
 <head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
 </style>
 </head>
 
-    
-    <div class="container-fluid" id="banner"></div>
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
 
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
 
   <div id="navbar-start">
     
     
+  
 
-<a class="navbar-brand" href="../../index.html">
-  <img src="../../_static/frites_top.png" class="logo" alt="logo">
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/frites_top.png" class="logo__image only-dark" alt="Logo image">
+  
+  
 </a>
-
-
     
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <span class="fas fa-bars"></span>
   </button>
 
   
@@ -119,6 +130,14 @@
     <div id="navbar-end">
       
       <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
           <a class="nav-link" href="https://github.com/brainets/frites" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
@@ -137,13 +156,13 @@
     </nav>
     
 
-    <div class="container-xl">
-      <div class="row">
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -361,19 +380,20 @@
 
   </div>
 </nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
-            </div>
-            
-          
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
 
           
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-              
-              <div class="toc-item">
-                
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
@@ -403,23 +423,21 @@
 </ul>
 
 </nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
-              
-            
-          </div>
-          
+    </div>
+    
+    <div class="toc-item">
+      
+    </div>
+    
+  
+</div>
+
 
           
           
-            
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+          <div class="bd-content col-12 col-md-9 col-xl-7">
               
-              <div>
+              <article class="bd-article" role="main">
                 
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
@@ -504,14 +522,14 @@ data coming from the 10 subjects and y, the task-related variable.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_001.png" srcset="../../_images/sphx_glr_plot_ci_cc_001.png" alt="CI - FFX model, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating MI : 1/2 [00:00&lt;00:00,    3.49it/s]
-100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    3.56it/s]
-100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    3.55it/s]
+ 50%|#####     | Estimating MI : 1/2 [00:00&lt;00:00,    3.68it/s]
+100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    3.77it/s]
+100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    3.77it/s]
 
   0%|          | Estimating CI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating CI : 1/2 [00:00&lt;00:00,    3.05it/s]
-100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    3.01it/s]
-100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    3.01it/s]
+ 50%|#####     | Estimating CI : 1/2 [00:00&lt;00:00,    3.24it/s]
+100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    3.24it/s]
+100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    3.23it/s]
 &lt;xarray.DataArray (ci: 2, bound: 2, times: 100, roi: 2)&gt;
 array([[[[-7.23073406e-04, -7.16491298e-04],
          [-7.22913892e-04, -7.21564212e-04],
@@ -579,14 +597,14 @@ or ‘tvalues’</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_002.png" srcset="../../_images/sphx_glr_plot_ci_cc_002.png" alt="CI - RFX model / MI, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.23s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.22s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.22s/it]
+ 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.18s/it]
+100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.18s/it]
+100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.18s/it]
 
   0%|          | Estimating CI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating CI : 1/2 [00:01&lt;00:01,    1.62s/it]
-100%|##########| Estimating CI : 2/2 [00:03&lt;00:00,    1.63s/it]
-100%|##########| Estimating CI : 2/2 [00:03&lt;00:00,    1.63s/it]
+ 50%|#####     | Estimating CI : 1/2 [00:01&lt;00:01,    1.55s/it]
+100%|##########| Estimating CI : 2/2 [00:03&lt;00:00,    1.55s/it]
+100%|##########| Estimating CI : 2/2 [00:03&lt;00:00,    1.55s/it]
 </pre></div>
 </div>
 <p>confidence interval on t-values</p>
@@ -601,21 +619,21 @@ or ‘tvalues’</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_003.png" srcset="../../_images/sphx_glr_plot_ci_cc_003.png" alt="CI - RFX model / T-values, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.25s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.25s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.25s/it]
+ 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.19s/it]
+100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.18s/it]
+100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.18s/it]
 
   0%|          | Estimating CI : 0/200 [00:00&lt;?,       ?it/s]
- 14%|#4        | Estimating CI : 28/200 [00:00&lt;00:00, 1735.00it/s]
- 28%|##8       | Estimating CI : 56/200 [00:00&lt;00:00, 1737.75it/s]
- 42%|####2     | Estimating CI : 85/200 [00:00&lt;00:00, 1746.75it/s]
- 57%|#####6    | Estimating CI : 114/200 [00:00&lt;00:00, 1751.82it/s]
- 72%|#######1  | Estimating CI : 143/200 [00:00&lt;00:00, 1753.25it/s]
- 86%|########6 | Estimating CI : 172/200 [00:00&lt;00:00, 1750.60it/s]
-100%|##########| Estimating CI : 200/200 [00:00&lt;00:00, 1689.12it/s]
+ 15%|#5        | Estimating CI : 30/200 [00:00&lt;00:00, 1844.00it/s]
+ 30%|###       | Estimating CI : 60/200 [00:00&lt;00:00, 1849.66it/s]
+ 45%|####5     | Estimating CI : 90/200 [00:00&lt;00:00, 1854.53it/s]
+ 60%|######    | Estimating CI : 120/200 [00:00&lt;00:00, 1856.85it/s]
+ 75%|#######5  | Estimating CI : 150/200 [00:00&lt;00:00, 1856.33it/s]
+ 90%|######### | Estimating CI : 180/200 [00:00&lt;00:00, 1853.45it/s]
+100%|##########| Estimating CI : 200/200 [00:00&lt;00:00, 1779.21it/s]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.886 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.253 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  82 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-ci-cc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -630,35 +648,39 @@ or ‘tvalues’</p>
 </section>
 
 
-              </div>
+              </article>
               
-              
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="plot_wf_mi_stats_compare_rfx.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Compare between-subjects statistics when computing mutual information</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../simulations/plot_generate_random_data.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Generate random electrophysiological data</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-              
-          </main>
-          
 
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="plot_wf_mi_stats_compare_rfx.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Compare between-subjects statistics when computing mutual information</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../simulations/plot_generate_random_data.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Generate random electrophysiological data</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
       </div>
     </div>
+
+  
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
 
     <hr>
     <footer>
@@ -667,7 +689,7 @@ or ‘tvalues’</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-05-25.</p>
+        <p>&copy; Copyright Last updated on 2022-06-14.</p>
     </footer>
 
   </body>
