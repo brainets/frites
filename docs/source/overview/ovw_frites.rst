@@ -12,13 +12,13 @@ Package organization
 
 As other Python packages, Frites contains subject-specific submodules. Here's a short description of the main submodules for new users :
 
-* `frites.dataset <https://brainets.github.io/frites/api.html#module-frites.dataset>`_ : container for the electrophysiological data coming from multiple subjects (see also `those examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_ that explain how to define a container depending on your data type)
-* `frites.workflow <https://brainets.github.io/frites/api.html#module-frites.workflow>`_ : the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)
-* `frites.conn <https://brainets.github.io/frites/api.html#module-frites.conn>`_ : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level
+* `frites.dataset <https://brainets.github.io/frites/api/api_dataset.html#module-frites.dataset>`_ : container for the electrophysiological data coming from multiple subjects (see also `those examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_ that explain how to define a container depending on your data type)
+* `frites.workflow <https://brainets.github.io/frites/api/api_workflow.html#module-frites.workflow>`_ : the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)
+* `frites.conn <https://brainets.github.io/frites/api/api_connectivity.html#module-frites.conn>`_ : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level
 
-In addition to the main modules above, the  `gallery of examples <https://brainets.github.io/frites/auto_examples/index.html>`_ illustrate the main functionalities of Frites using simulated data. Those functions can be imported from `frites.simulations <https://brainets.github.io/frites/api.html#module-frites.simulations>`_ and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using `autoregressive models <https://brainets.github.io/frites/api.html#autoregressive-model>`_.
+In addition to the main modules above, the  `gallery of examples <https://brainets.github.io/frites/auto_examples/index.html>`_ illustrate the main functionalities of Frites using simulated data. Those functions can be imported from `frites.simulations <https://brainets.github.io/frites/api/api_simulations.html#module-frites.simulations>`_ and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using `autoregressive models <https://brainets.github.io/frites/api/api_simulations.html#stimulus-specific-autoregressive-model>`_.
 
-Finally, for the developers here the `frites.core <https://brainets.github.io/frites/api.html#module-frites.core>`_ module include the very low level functions to estimate the mutual information (vector and tensor based implementations).
+Finally, for the developers here the `frites.core <https://brainets.github.io/frites/api/api_core.html>`_ module include the very low level functions to estimate the mutual information (vector and tensor based implementations).
 
 
 Main Frites' workflows
