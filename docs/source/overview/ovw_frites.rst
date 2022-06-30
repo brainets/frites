@@ -45,6 +45,22 @@ Actually, under the hood, the **WfMi** is also using the workflow of statistics 
 
     To see this workflow in action, checkout `those examples <https://brainets.github.io/frites/auto_examples/index.html#mutual-information>`_
 
+Step by step presentation of the workflow
++++++++++++++++++++++++++++++++++++++++++
+
+Here is a step by step presentation of the **WfMi** and **WfStats** workflows :
+
+1. **WfMi : effect size and permutations estimation :** the first step consist in estimating the amount of information shared between the brain data and the external variable. For the FFX, the information is computed **across subjects** while for the RFX the information is computed **per subject** (See :ref:`meth_stats_gp` for a more detailed description of the FFX and RFX). See the section about how the amount of information is computed (:ref:`meth_gcmi`) and which type of information you can use (:ref:`meth_gcmi_types`). For computing the permutations, we randomly shuffle the y variable and then recompute the MI between x and the permuted version of y. For the RFX specifically, a t-test across participants and against the permutation mean is used to form the effect at the group-level.
+2. **WfStats : correction for multiple comparisons and significant testing :** we are using the 95th percentile of the permutations to form the clusters, both on the true effect size and on the permutations. Finally, for correcting for multiple comparisons and to infer the p-value, we compare the mass of the cluster with the distribution of maximums cluster mass obtained across space.
+
+Those steps are summarized in the figure below.
+
+.. figure::  ../_static/stat_pipeline.png
+    :align:  center
+
+    Algorithmic presentation of the statistical pipeline. Extracted from Combrisson et al., 2022 :cite:`combrisson_group-level_2022`.
+
+For a more detailed discussion on group-level analysis, on non-parametric statistics and on corrections for multiple comparisons, see the section :ref:`meth_stats_gp`, see Combrisson et al., 2022 :cite:`combrisson_group-level_2022`.
 
 Deep integration with Xarray
 ++++++++++++++++++++++++++++
