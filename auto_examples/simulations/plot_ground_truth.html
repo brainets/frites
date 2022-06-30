@@ -46,7 +46,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Xarray : Saving the results" href="../xarray/plot_xr_export.html" />
+    <link rel="next" title="Comparison between tensor and vector based computations" href="../performance/plot_vector_vs_tensor.html" />
     <link rel="prev" title="Generate random electrophysiological data" href="plot_generate_random_data.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="None">
@@ -365,6 +365,13 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../performance/plot_vector_vs_tensor.html">
+   Comparison between tensor and vector based computations
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
   <a class="reference internal" href="../xarray/plot_xr_export.html">
    Xarray : Saving the results
   </a>
@@ -631,22 +638,22 @@ based approach.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ground_truth_003.png" srcset="../../_images/sphx_glr_plot_ground_truth_003.png" alt="Effect-size at the group-level (t-values), Effects detected as significant at the group-level (p<0.05), Ground-truth (gtype=tri)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/15 [00:00&lt;?,       ?it/s]
-  7%|6         | Estimating MI : 1/15 [00:00&lt;00:10,    1.29it/s]
- 13%|#3        | Estimating MI : 2/15 [00:01&lt;00:08,    1.56it/s]
- 20%|##        | Estimating MI : 3/15 [00:01&lt;00:07,    1.68it/s]
- 27%|##6       | Estimating MI : 4/15 [00:02&lt;00:06,    1.74it/s]
- 33%|###3      | Estimating MI : 5/15 [00:02&lt;00:05,    1.79it/s]
- 40%|####      | Estimating MI : 6/15 [00:03&lt;00:04,    1.82it/s]
- 47%|####6     | Estimating MI : 7/15 [00:03&lt;00:04,    1.84it/s]
- 53%|#####3    | Estimating MI : 8/15 [00:04&lt;00:03,    1.86it/s]
- 60%|######    | Estimating MI : 9/15 [00:04&lt;00:03,    1.87it/s]
- 67%|######6   | Estimating MI : 10/15 [00:05&lt;00:02,    1.89it/s]
- 73%|#######3  | Estimating MI : 11/15 [00:05&lt;00:02,    1.89it/s]
- 80%|########  | Estimating MI : 12/15 [00:06&lt;00:01,    1.90it/s]
- 87%|########6 | Estimating MI : 13/15 [00:06&lt;00:01,    1.91it/s]
- 93%|#########3| Estimating MI : 14/15 [00:07&lt;00:00,    1.87it/s]
-100%|##########| Estimating MI : 15/15 [00:08&lt;00:00,    1.88it/s]
-100%|##########| Estimating MI : 15/15 [00:08&lt;00:00,    1.87it/s]
+  7%|6         | Estimating MI : 1/15 [00:00&lt;00:11,    1.23it/s]
+ 13%|#3        | Estimating MI : 2/15 [00:01&lt;00:08,    1.49it/s]
+ 20%|##        | Estimating MI : 3/15 [00:01&lt;00:07,    1.62it/s]
+ 27%|##6       | Estimating MI : 4/15 [00:02&lt;00:06,    1.69it/s]
+ 33%|###3      | Estimating MI : 5/15 [00:02&lt;00:05,    1.73it/s]
+ 40%|####      | Estimating MI : 6/15 [00:03&lt;00:05,    1.76it/s]
+ 47%|####6     | Estimating MI : 7/15 [00:03&lt;00:04,    1.78it/s]
+ 53%|#####3    | Estimating MI : 8/15 [00:04&lt;00:03,    1.79it/s]
+ 60%|######    | Estimating MI : 9/15 [00:05&lt;00:03,    1.80it/s]
+ 67%|######6   | Estimating MI : 10/15 [00:05&lt;00:02,    1.81it/s]
+ 73%|#######3  | Estimating MI : 11/15 [00:06&lt;00:02,    1.82it/s]
+ 80%|########  | Estimating MI : 12/15 [00:06&lt;00:01,    1.83it/s]
+ 87%|########6 | Estimating MI : 13/15 [00:07&lt;00:01,    1.84it/s]
+ 93%|#########3| Estimating MI : 14/15 [00:07&lt;00:00,    1.80it/s]
+100%|##########| Estimating MI : 15/15 [00:08&lt;00:00,    1.81it/s]
+100%|##########| Estimating MI : 15/15 [00:08&lt;00:00,    1.80it/s]
 </pre></div>
 </div>
 </section>
@@ -749,8 +756,8 @@ Statistics
 - Matthews Correlation Coefficient: 0.8411594148150925
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.552 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  94 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.088 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  104 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-simulations-plot-ground-truth-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/67c874a55fd51105be662ebc8ce0a485/plot_ground_truth.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ground_truth.py</span></code></a></p>
@@ -778,10 +785,10 @@ Statistics
           <p class="prev-next-title">Generate random electrophysiological data</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../xarray/plot_xr_export.html" title="next page">
+  <a class='right-next' id="next-link" href="../performance/plot_vector_vs_tensor.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Xarray : Saving the results</p>
+      <p class="prev-next-title">Comparison between tensor and vector based computations</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>
@@ -805,7 +812,7 @@ Statistics
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-06-14.</p>
+        <p>&copy; Copyright Last updated on 2022-06-30.</p>
     </footer>
 
   </body>

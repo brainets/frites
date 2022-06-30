@@ -46,7 +46,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Get help" href="ovw_help.html" />
+    <link rel="next" title="Performance" href="ovw_perf.html" />
     <link rel="prev" title="Methods" href="ovw_methods.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="None">
@@ -184,6 +184,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="ovw_perf.html">
+   Performance
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="ovw_help.html">
    Get help
   </a>
@@ -248,6 +253,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-by-step-presentation-of-the-workflow">
+   Step by step presentation of the workflow
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#deep-integration-with-xarray">
    Deep integration with Xarray
   </a>
@@ -273,7 +283,7 @@
                 
   <section id="start-analyzing-your-data-with-frites">
 <h1>Start analyzing your data with Frites<a class="headerlink" href="#start-analyzing-your-data-with-frites" title="Permalink to this headline">#</a></h1>
-<p>In this section we are going to cover the basics knowledges if you want to start analyzing your data with Frites.</p>
+<p>In this section we are going to cover the basics knowledge if you want to start analyzing your data with Frites.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The gallery of examples contains a <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#tutorials">tutorial</a> section that explain and illustrate the main usages and features of Frites, in a notebook fashion.</p>
@@ -282,19 +292,19 @@
 <h2>Package organization<a class="headerlink" href="#package-organization" title="Permalink to this headline">#</a></h2>
 <p>As other Python packages, Frites contains subject-specific submodules. Here’s a short description of the main submodules for new users :</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.dataset">frites.dataset</a> : container for the electrophysiological data coming from multiple subjects (see also <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset">those examples</a> that explain how to define a container depending on your data type)</p></li>
-<li><p><a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.workflow">frites.workflow</a> : the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)</p></li>
-<li><p><a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.conn">frites.conn</a> : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level</p></li>
+<li><p><a class="reference internal" href="../api/api_dataset.html#module-frites.dataset" title="frites.dataset"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.dataset</span></code></a>: : container for the electrophysiological data coming from multiple subjects (see also <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset">those examples</a> that explain how to define a container depending on your data type)</p></li>
+<li><p><a class="reference internal" href="../api/api_workflow.html#module-frites.workflow" title="frites.workflow"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.workflow</span></code></a>: the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)</p></li>
+<li><p><a class="reference internal" href="../api/api_connectivity.html#module-frites.conn" title="frites.conn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.conn</span></code></a>: : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level</p></li>
 </ul>
-<p>In addition to the main modules above, the  <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html">gallery of examples</a> illustrate the main functionalities of Frites using simulated data. Those functions can be imported from <a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.simulations">frites.simulations</a> and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using <a class="reference external" href="https://brainets.github.io/frites/api.html#autoregressive-model">autoregressive models</a>.</p>
-<p>Finally, for the developers here the <a class="reference external" href="https://brainets.github.io/frites/api.html#module-frites.core">frites.core</a> module include the very low level functions to estimate the mutual information (vector and tensor based implementations).</p>
+<p>In addition to the main modules above, the  <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html">gallery of examples</a> illustrate the main functionalities of Frites using simulated data. Those functions can be imported from <a class="reference internal" href="../api/api_simulations.html#module-frites.simulations" title="frites.simulations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.simulations</span></code></a>: and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using <a class="reference external" href="https://brainets.github.io/frites/api/api_simulations.html#stimulus-specific-autoregressive-model">autoregressive models</a>.</p>
+<p>Finally, for the developers here the <a class="reference internal" href="../api/api_core.html#module-frites.core" title="frites.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.core</span></code></a>: module include the very low level functions to estimate the mutual information (vector and tensor based implementations).</p>
 </section>
 <section id="main-frites-workflows">
 <h2>Main Frites’ workflows<a class="headerlink" href="#main-frites-workflows" title="Permalink to this headline">#</a></h2>
 <p>Frites contains two centrals workflows :</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://brainets.github.io/frites/api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi">WfMi</a> : the main workflow of mutual-information that is used to <strong>extract feature-specific brain networks</strong></p></li>
-<li><p><a class="reference external" href="https://brainets.github.io/frites/api/generated/frites.workflow.WfStats.html#frites.workflow.WfStats">WfStats</a> : the workflow of statistics we used to perform group-level inferences</p></li>
+<li><p><a class="reference internal" href="../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfMi</span></code></a> : the main workflow of mutual-information that is used to <strong>extract feature-specific brain networks</strong></p></li>
+<li><p><a class="reference internal" href="../api/generated/frites.workflow.WfStats.html#frites.workflow.WfStats" title="frites.workflow.WfStats"><code class="xref py py-class docutils literal notranslate"><span class="pre">frites.workflow.WfStats</span></code></a> : the workflow of statistics we used to perform group-level inferences</p></li>
 </ol>
 <p>Actually, under the hood, the <strong>WfMi</strong> is also using the workflow of statistics so that it return the estimation of mutual-information between a feature and the data but also the corresponding p-values.</p>
 <div class="admonition warning">
@@ -312,6 +322,22 @@
 <p>In a nutshell, the <strong>WfMi</strong> is the core workflow to find task-related activity. In addition, this workflow can either be used to quantify the amount of information between local neural activity and a feature <strong>(i.e for each brain region)</strong> but also on <strong>connectivity links (i.e on pairs of brain regions)</strong> to see whether there’s some differences in term of connectivity between experimental conditions or ultimately, if the connectivity correlates with a behavioral model.</p>
 <p>To see this workflow in action, checkout <a class="reference external" href="https://brainets.github.io/frites/auto_examples/index.html#mutual-information">those examples</a></p>
 </div>
+</section>
+<section id="step-by-step-presentation-of-the-workflow">
+<h2>Step by step presentation of the workflow<a class="headerlink" href="#step-by-step-presentation-of-the-workflow" title="Permalink to this headline">#</a></h2>
+<p>Here is a step by step presentation of the <strong>WfMi</strong> and <strong>WfStats</strong> workflows :</p>
+<ol class="arabic simple">
+<li><p><strong>WfMi : effect size and permutations estimation :</strong> the first step consist in estimating the amount of information shared between the brain data and the external variable. For the FFX, the information is computed <strong>across subjects</strong> while for the RFX the information is computed <strong>per subject</strong> (See <a class="reference internal" href="ovw_methods.html#meth-stats-gp"><span class="std std-ref">Subject and group-level statistical inferences</span></a> for a more detailed description of the FFX and RFX). See the section about how the amount of information is computed (<a class="reference internal" href="ovw_methods.html#meth-gcmi"><span class="std std-ref">Gaussian Copula Mutual Information</span></a>) and which type of information you can use (<a class="reference internal" href="ovw_methods.html#meth-gcmi-types"><span class="std std-ref">The different types of mutual information</span></a>). For computing the permutations, we randomly shuffle the y variable and then recompute the MI between x and the permuted version of y. For the RFX specifically, a t-test across participants and against the permutation mean is used to form the effect at the group-level.</p></li>
+<li><p><strong>WfStats : correction for multiple comparisons and significant testing :</strong> we are using the 95th percentile of the permutations to form the clusters, both on the true effect size and on the permutations. Finally, for correcting for multiple comparisons and to infer the p-value, we compare the mass of the cluster with the distribution of maximums cluster mass obtained across space.</p></li>
+</ol>
+<p>Those steps are summarized in the figure below.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/stat_pipeline.png" src="../_images/stat_pipeline.png" />
+<figcaption>
+<p><span class="caption-text">Algorithmic presentation of the statistical pipeline. Extracted from Combrisson et al., 2022 <a class="bibtex reference internal" href="ovw_refs.html#combrisson-group-level-2022" id="id2">[3]</a>.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For a more detailed discussion on group-level analysis, on non-parametric statistics and on corrections for multiple comparisons, see the section <a class="reference internal" href="ovw_methods.html#meth-stats-gp"><span class="std std-ref">Subject and group-level statistical inferences</span></a>, see Combrisson et al., 2022 <a class="bibtex reference internal" href="ovw_refs.html#combrisson-group-level-2022" id="id3">[3]</a>.</p>
 </section>
 <section id="deep-integration-with-xarray">
 <h2>Deep integration with Xarray<a class="headerlink" href="#deep-integration-with-xarray" title="Permalink to this headline">#</a></h2>
@@ -348,10 +374,10 @@
           <p class="prev-next-title">Methods</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="ovw_help.html" title="next page">
+  <a class='right-next' id="next-link" href="ovw_perf.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Get help</p>
+      <p class="prev-next-title">Performance</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>
@@ -375,7 +401,7 @@
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-06-14.</p>
+        <p>&copy; Copyright Last updated on 2022-06-30.</p>
     </footer>
 
   </body>

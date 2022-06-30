@@ -47,7 +47,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Xarray : Quick tour" href="plot_xr_quick_tour.html" />
-    <link rel="prev" title="Generate spatio-temporal ground-truths" href="../simulations/plot_ground_truth.html" />
+    <link rel="prev" title="Comparison between tensor and vector based computations" href="../performance/plot_vector_vs_tensor.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="None">
   </head>
@@ -363,6 +363,13 @@
   </a>
  </li>
 </ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../performance/plot_vector_vs_tensor.html">
+   Comparison between tensor and vector based computations
+  </a>
+ </li>
+</ul>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
@@ -489,47 +496,47 @@ are going to show how to save and reload a single DataArray such as a Dataset.</
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (times: 30, roi: 7)&gt;
-array([[0.21466992, 0.96102896, 0.30382646, 0.06938243, 0.68003689,
-        0.16744694, 0.83240265],
-       [0.78506446, 0.93261915, 0.6441523 , 0.88017262, 0.15902972,
-        0.23348123, 0.81564297],
-       [0.06892737, 0.89129222, 0.89319539, 0.80190208, 0.57372043,
-        0.80374606, 0.15382755],
-       [0.01216953, 0.70541927, 0.62905027, 0.47087284, 0.0499818 ,
-        0.66005458, 0.28001436],
-       [0.15308164, 0.94654036, 0.28588353, 0.62116372, 0.69372329,
-        0.68805774, 0.83760031],
-       [0.16360647, 0.82963144, 0.74659003, 0.38820812, 0.17677679,
-        0.69823718, 0.91643882],
-       [0.22271421, 0.34472043, 0.66102058, 0.31544416, 0.97200265,
-        0.6351765 , 0.87918446],
-       [0.92438616, 0.40599452, 0.07127638, 0.3093153 , 0.58552326,
-        0.09725208, 0.32254369],
-       [0.96871792, 0.94498658, 0.05057981, 0.92727311, 0.42832822,
-        0.40441249, 0.97955796],
-       [0.77552224, 0.60025199, 0.01055612, 0.80553312, 0.86869867,
-        0.2339356 , 0.19647464],
+array([[0.12788358, 0.15005576, 0.34761285, 0.4356678 , 0.59267372,
+        0.26944639, 0.70746957],
+       [0.33607293, 0.49769484, 0.08281073, 0.65177236, 0.06482476,
+        0.42522007, 0.01658968],
+       [0.15407741, 0.71793056, 0.39753309, 0.08071168, 0.44186911,
+        0.82856769, 0.88876785],
+       [0.70368859, 0.28905292, 0.2256492 , 0.85615289, 0.51389134,
+        0.15661139, 0.11972054],
+       [0.64456832, 0.36634605, 0.89381262, 0.05890436, 0.39916128,
+        0.97485796, 0.19912238],
+       [0.63934075, 0.95780385, 0.31533273, 0.46329383, 0.09212818,
+        0.04901637, 0.25663976],
+       [0.16677841, 0.36801843, 0.6475594 , 0.06608158, 0.97669506,
+        0.06709806, 0.73432312],
+       [0.72487437, 0.80227404, 0.400203  , 0.95687636, 0.97132344,
+        0.51789807, 0.02175138],
+       [0.83638798, 0.54489201, 0.96655572, 0.52332542, 0.49800547,
+        0.55042069, 0.57333266],
+       [0.71866019, 0.06972793, 0.56983548, 0.23675839, 0.19785718,
+        0.3023727 , 0.5860226 ],
 ...
-       [0.98939528, 0.80411032, 0.99451693, 0.08549036, 0.09732959,
-        0.31338565, 0.01821639],
-       [0.22528384, 0.74783217, 0.5360606 , 0.15347594, 0.20378069,
-        0.72999151, 0.7038111 ],
-       [0.4711169 , 0.38630709, 0.39961365, 0.57654824, 0.16620312,
-        0.12838708, 0.31612182],
-       [0.92774667, 0.78060983, 0.35377417, 0.76192895, 0.68372982,
-        0.55671204, 0.42701846],
-       [0.4461902 , 0.49186976, 0.92757691, 0.14792999, 0.28938198,
-        0.5534364 , 0.50369603],
-       [0.5899492 , 0.53959962, 0.56822072, 0.47954933, 0.99319223,
-        0.08768346, 0.5998175 ],
-       [0.14217147, 0.38970612, 0.36005639, 0.02987765, 0.6842555 ,
-        0.81769281, 0.04298046],
-       [0.02971595, 0.33852032, 0.09517617, 0.48799046, 0.22370301,
-        0.32683949, 0.99666627],
-       [0.28399542, 0.74598618, 0.75552593, 0.93050328, 0.72040477,
-        0.97458203, 0.17755585],
-       [0.29705137, 0.44461125, 0.26012368, 0.89369405, 0.57292964,
-        0.26355688, 0.44834402]])
+       [0.72430858, 0.87155429, 0.21120261, 0.56064064, 0.85819486,
+        0.58582309, 0.48135334],
+       [0.16990916, 0.55267359, 0.26607245, 0.9627815 , 0.97985423,
+        0.17434943, 0.91728532],
+       [0.57599211, 0.62330873, 0.06031112, 0.36620186, 0.60618411,
+        0.66816824, 0.07896698],
+       [0.02435977, 0.98470025, 0.17808626, 0.0820477 , 0.55909591,
+        0.61375743, 0.38573683],
+       [0.35378966, 0.76693159, 0.27500933, 0.73916325, 0.41063649,
+        0.36645222, 0.20900504],
+       [0.22568693, 0.03939512, 0.70955438, 0.54578825, 0.30225952,
+        0.91814339, 0.34490173],
+       [0.02397786, 0.63336036, 0.80541446, 0.2966872 , 0.21818491,
+        0.55568801, 0.97188557],
+       [0.75340988, 0.45517737, 0.97374878, 0.17000428, 0.98059072,
+        0.63073871, 0.5294803 ],
+       [0.41463517, 0.40960593, 0.42918659, 0.68543611, 0.46736036,
+        0.68658886, 0.42298119],
+       [0.15378375, 0.36888649, 0.406851  , 0.79963383, 0.33648049,
+        0.46605497, 0.31588821]])
 Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
@@ -572,14 +579,14 @@ Coordinates:
   * times    (times) float64 -1.0 -0.931 -0.8621 -0.7931 ... 0.8621 0.931 1.0
   * roi      (roi) object &#39;roi_0&#39; &#39;roi_1&#39; &#39;roi_2&#39; ... &#39;roi_4&#39; &#39;roi_5&#39; &#39;roi_6&#39;
 Data variables:
-    first    (times, roi) float64 0.2147 0.961 0.3038 ... 0.5729 0.2636 0.4483
-    second   (times, roi) float64 0.9846 0.9475 0.4948 ... 0.203 0.9254 0.8953
+    first    (times, roi) float64 0.1279 0.1501 0.3476 ... 0.3365 0.4661 0.3159
+    second   (times, roi) float64 0.5693 0.8222 0.4575 ... 0.4862 0.03635 0.5415
 Attributes:
     desc:     This is my dataset
     sf:       256.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.673 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.778 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  12 MB</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-xarray-plot-xr-export-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -601,11 +608,11 @@ Attributes:
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="../simulations/plot_ground_truth.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="../performance/plot_vector_vs_tensor.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">Generate spatio-temporal ground-truths</p>
+          <p class="prev-next-title">Comparison between tensor and vector based computations</p>
       </div>
   </a>
   <a class='right-next' id="next-link" href="plot_xr_quick_tour.html" title="next page">
@@ -635,7 +642,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2022-06-14.</p>
+        <p>&copy; Copyright Last updated on 2022-06-30.</p>
     </footer>
 
   </body>
