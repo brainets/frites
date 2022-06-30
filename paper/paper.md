@@ -67,7 +67,7 @@ The package integrates a non-parametric permutation-based statistical framework 
 
 `Frites` is suitable for the analysis of continuous and multi-channel neurophysiological data, encompassing recordings with either uniform spatial sampling (e.g., M/EEG data) and spatially sparse intracranial recordings, such as intracranial EEG or Local Field Potentials (LFPs). The package supports standard [`NumPy`](https://numpy.org/) array inputs [@Harris:2020], objects from the [`MNE-Python`](https://mne.tools/stable/index.html)  software [@Gramfort:2013], but also multi-dimensional labelled  [`Xarray`](http://xarray.pydata.org/en/stable/) objects [@Hoyer:2017].
 
-In order to facilitate automated and efficient usage, `Frites` provides a set of high-level workflows that integrate several analysis steps from information-based estimation to network-level statistical inference.
+`Frites` provides a set of high-level workflows that integrate several analysis steps from information-based estimation to network-level statistical inference.
 
 Since several computations implemented in the workflows, such as permutation tests, are computationally demanding, `Frites` natively supports parallel processing using the [`Joblib`](https://joblib.readthedocs.io/en/latest/) package. In addition, some functions can further be accelerated using the [`Numba`](http://numba.pydata.org/) compiler [@Lam:2015] as an optional dependency. Programming optimizations
 and external dependencies allow to investigate large-scale datasets in a reasonable
