@@ -1,7 +1,7 @@
 Start analyzing your data with Frites
 -------------------------------------
 
-In this section we are going to cover the basics knowledges if you want to start analyzing your data with Frites.
+In this section we are going to cover the basics knowledge if you want to start analyzing your data with Frites.
 
 .. note::
 
@@ -12,13 +12,13 @@ Package organization
 
 As other Python packages, Frites contains subject-specific submodules. Here's a short description of the main submodules for new users :
 
-* `frites.dataset <https://brainets.github.io/frites/api/api_dataset.html#module-frites.dataset>`_ : container for the electrophysiological data coming from multiple subjects (see also `those examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_ that explain how to define a container depending on your data type)
-* `frites.workflow <https://brainets.github.io/frites/api/api_workflow.html#module-frites.workflow>`_ : the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)
-* `frites.conn <https://brainets.github.io/frites/api/api_connectivity.html#module-frites.conn>`_ : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level
+* :py:mod:`frites.dataset`: : container for the electrophysiological data coming from multiple subjects (see also `those examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_ that explain how to define a container depending on your data type)
+* :py:mod:`frites.workflow`: the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)
+* :py:mod:`frites.conn`: : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level
 
-In addition to the main modules above, the  `gallery of examples <https://brainets.github.io/frites/auto_examples/index.html>`_ illustrate the main functionalities of Frites using simulated data. Those functions can be imported from `frites.simulations <https://brainets.github.io/frites/api/api_simulations.html#module-frites.simulations>`_ and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using `autoregressive models <https://brainets.github.io/frites/api/api_simulations.html#stimulus-specific-autoregressive-model>`_.
+In addition to the main modules above, the  `gallery of examples <https://brainets.github.io/frites/auto_examples/index.html>`_ illustrate the main functionalities of Frites using simulated data. Those functions can be imported from :py:mod:`frites.simulations`: and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using `autoregressive models <https://brainets.github.io/frites/api/api_simulations.html#stimulus-specific-autoregressive-model>`_.
 
-Finally, for the developers here the `frites.core <https://brainets.github.io/frites/api/api_core.html>`_ module include the very low level functions to estimate the mutual information (vector and tensor based implementations).
+Finally, for the developers here the :py:mod:`frites.core`: module include the very low level functions to estimate the mutual information (vector and tensor based implementations).
 
 
 Main Frites' workflows
@@ -26,8 +26,8 @@ Main Frites' workflows
 
 Frites contains two centrals workflows :
 
-1. `WfMi <https://brainets.github.io/frites/api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi>`_ : the main workflow of mutual-information that is used to **extract feature-specific brain networks**
-2. `WfStats <https://brainets.github.io/frites/api/generated/frites.workflow.WfStats.html#frites.workflow.WfStats>`_ : the workflow of statistics we used to perform group-level inferences
+1. :class:`frites.workflow.WfMi` : the main workflow of mutual-information that is used to **extract feature-specific brain networks**
+2. :class:`frites.workflow.WfStats` : the workflow of statistics we used to perform group-level inferences
 
 Actually, under the hood, the **WfMi** is also using the workflow of statistics so that it return the estimation of mutual-information between a feature and the data but also the corresponding p-values.
 

@@ -281,7 +281,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     n_trials = 100
-    n_roi = 3
+    n_roi = 15
     n_times = 1000
     sfreq = 128.
     nt = int(np.round(n_trials / 2))
@@ -312,9 +312,10 @@ if __name__ == '__main__':
     foi = np.array([[2, 4], [5, 7], [8, 13], [13, 30], [30, 60]])
     coh = conn_spec(
         x, sfreq=sfreq, roi='roi', times='times', sm_times=2.,
-        sm_freqs=1, mode='morlet', n_cycles=n_cycles,
-        decim=1, foi=None, block_size=4, n_jobs=1, metric='plv', **kw_links
+        sm_freqs=1, mode='morlet', n_cycles=n_cycles, freqs=freqs,
+        decim=1, foi=None, n_jobs=1, metric='coh', **kw_links
     )
+    exit()
 
     coh.groupby('trials').mean('trials').plot.imshow(
         x='times', y='freqs', col='roi', row='trials')

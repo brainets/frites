@@ -1,7 +1,7 @@
 Xarray
 ------
 
-As Frites is entirely written arround Xarray ouput format, this set of examples illustrates how to work with xarray.
+As Frites relies entirely on Xarray format, this set of examples illustrates how to work with Xarray.
 
 .. contents:: Contents
    :local:

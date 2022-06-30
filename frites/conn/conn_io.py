@@ -155,6 +155,7 @@ def conn_io(data, times=None, roi=None, y=None, sfreq=None, agg_ch=False,
         cfg['freqs'] = None
         cfg['need_foi'] = False
         cfg['foi_idx'] = None
+        cfg['f_vec'] = None
 
     # ______________________________ SMOOTHING ________________________________
     # convert kernel width in time to samples

@@ -149,6 +149,7 @@ sphinx_gallery_conf = {
         '../../examples/utils',
         '../../examples/statistics',
         '../../examples/simulations',
+        '../../examples/performance',
         '../../examples/xarray'
         ]),
     'doc_module': ('frites',)
