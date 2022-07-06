@@ -223,13 +223,14 @@ def ten_pearson(x, y, categories):
 def tspearman(x, y, axis=0):
     """Tensor-based spearman correlation."""
     n = x.shape[axis]
-    x = np.argsort(x.argsort(axis=axis))
-    y = np.argsort(y.argsort(axis=axis))
+    x = np.argsort(x.argsort(axis=axis), axis=axis)
+    y = np.argsort(y.argsort(axis=axis), axis=axis)
     xc = x - x.mean(axis=axis, keepdims=True)
     yc = y - y.mean(axis=axis, keepdims=True)
     xystd = x.std(axis=axis) * y.std(axis=axis)
     cov = (xc * yc).sum(axis=axis) / n
-    corr = cov / xystd
+    with np.errstate(divide='ignore', invalid='ignore'):
+        corr = cov / xystd
     return corr
 
 
