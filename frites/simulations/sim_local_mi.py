@@ -468,9 +468,9 @@ def sim_ground_truth(n_subjects, n_epochs, gtype='tri', perc=100, p_pos=1.,
         n_roi = 15
         n_times = 50
         cl_width = np.linspace(3, 15, n_roi, endpoint=True)
-        if gtype is 'tri':
+        if gtype == 'tri':
             cl_cov = np.linspace(.01, .3, n_roi, endpoint=True)
-        elif gtype is 'tri_r':
+        elif gtype == 'tri_r':
             cl_cov = np.linspace(.3, .01, n_roi, endpoint=True)
         # ---------------------------------------------------------------------
         # build cluster indices
