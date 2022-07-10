@@ -2,6 +2,8 @@
 import numpy as np
 import xarray as xr
 
+from mne.utils import ProgressBar
+
 from frites.utils import nonsorted_unique
 from frites.dataset.ds_utils import multi_to_uni_conditions
 from frites.io.io_attributes import check_attrs
@@ -305,6 +307,55 @@ def confidence_interval(data, axis=0, cis=95, n_boots=200, random_state=None,
         )
 
     return cib
+
+
+def trial_swap_surrogates(x, random_state=0, verbose=False):
+    """Given the data, randomly swap the trials of the channels.
+
+    Parameters
+    ----------
+    x: array_like
+        Data array with dimensions ("trials", "roi", "time").
+    random_state: int
+        Seed used for the trial swapping
+
+    Returns
+    -------
+    x_surr: array_like
+        Data with randomized trials ("trials","roi","time").
+    """
+    set_log_level(verbose)
+
+    # define the random state
+    rnd = np.random.randint(1000) if not isinstance(
+        random_state, int) else random_state
+    rnd = np.random.RandomState(rnd)
+
+    assert isinstance(x, (np.ndarray, xr.DataArray))
+
+    # Get number of nodes and time points
+    n_trials, n_nodes = x.shape[0], x.shape[1]
+
+    # Surrogate data
+    x_surr = np.zeros_like(x)
+    # Array with trial indexes
+    trials = np.arange(n_trials, dtype=int)
+
+    # define progress bar
+    pbar = ProgressBar(range(n_nodes), mesg='Trial shuffling')
+
+    for c in range(n_nodes):
+        # destroy roi-roi trial relation
+        np.random.shuffle(trials)
+        x_surr[:, c, :] = x[trials, c, :]
+        pbar.update_with_increment_value(1)
+
+    if isinstance(x, xr.DataArray):
+        x_surr = xr.DataArray(
+            x_surr, dims=x.dims, coords=x.coords, name=x.name, attrs=x.attrs
+        )
+
+    return x_surr
 
 
 if __name__ == '__main__':

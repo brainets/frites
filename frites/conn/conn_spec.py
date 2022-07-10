@@ -189,10 +189,6 @@ def conn_spec(
     """
     set_log_level(verbose)
 
-    if isinstance(sm_times, np.ndarray):
-        raise NotImplementedError("Frequency dependent kernel in development"
-                                  f"only first {sm_times[0]} will be used")
-
     # _________________________________ METHODS _______________________________
     conn_f, f_name = {
         'coh': (_coh, 'Coherence'),
@@ -221,10 +217,17 @@ def conn_spec(
     n_pairs, n_freqs = len(x_s), len(freqs)
 
     # temporal decimation
-    if isinstance(decim, int):
-        times = times[::decim]
+    times = times[::decim]
+    if isinstance(sm_times, (int, float)):
         sm_times = int(np.round(sm_times / decim))
         sm_times = max(sm_times, 1)
+    elif isinstance(sm_times, (np.ndarray, list, tuple)):
+        assert len(sm_times) == len(freqs), (
+            "For frequency-dependent smoothing, sm_times must have the "
+            "same length as freqs")
+        sm_times = np.round(sm_times / decim)
+        sm_times = np.maximum(sm_times, np.ones((len(sm_times),)))
+        sm_times = sm_times.astype(int).tolist()
 
     # Create smoothing kernel
     kernel = _create_kernel(sm_times, sm_freqs, kernel=sm_kernel)
