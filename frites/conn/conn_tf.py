@@ -20,8 +20,6 @@ import numpy as np
 from mne.time_frequency import tfr_array_morlet, tfr_array_multitaper
 from scipy.signal import fftconvolve
 
-from frites.io import logger
-
 
 def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
                decim=1, kw_cwt={}, kw_mt={}, n_jobs=1):
