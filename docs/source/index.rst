@@ -28,7 +28,7 @@ Frites
 Description
 +++++++++++
 
-**Frites** is a Python toolbox for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial). The toolbox also includes directed and undirected connectivity metrics such as group-level statistics on measures of information (information-theory, machine-learning and measures of distance).
+**Frites** is a Python toolbox designed for students and researchers for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks. The toolbox also includes directed and undirected connectivity metrics such as group-level statistics on measures of information (information-theory, machine-learning and measures of distance). **Frites** also contains workflows accessible to users with little programming knowledge.
 
 What can you do with Frites?
 ++++++++++++++++++++++++++++
