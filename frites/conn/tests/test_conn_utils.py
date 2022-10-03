@@ -336,4 +336,4 @@ class TestConnUtils(object):
 
 
 if __name__ == '__main__':
-    TestConnUtils().test_conn_links()
+    TestConnUtils().test_define_windows()

@@ -214,7 +214,7 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
     if not directed:
         assert not net, ("Net computations not supported for undirected "
                          "connectivity")
-    roi = np.asarray(roi)
+    roi = np.asarray(roi).astype(str)
     n_roi = len(roi)
     if isinstance(source_seed, str): source_seed = [source_seed]  # noqa
     if isinstance(target_seed, str): target_seed = [target_seed]  # noqa

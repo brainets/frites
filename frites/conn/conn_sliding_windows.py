@@ -5,7 +5,7 @@ import numpy as np
 
 
 def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
-                   slwin_stop=None, slwin_step=None, verbose=None):
+                   slwin_stop=None, slwin_step=None, sfreq=None, verbose=None):
     """Define temporal windows.
 
     This function can be used to either manually define temporal windows either
@@ -32,6 +32,8 @@ def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
         can be used to define either overlapping or non-overlapping windows. If
         None, slwin_step is going to be set to slwin_step in order to produce
         consecutive non-overlapping windows.
+    sfreq : float | None
+        The sampling frequency
 
     Returns
     -------
@@ -47,17 +49,25 @@ def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
     """
     set_log_level(verbose)
     assert isinstance(times, np.ndarray)
-    logger.info("Defining temporal windows")
     stamp = times[1] - times[0]
+    if not isinstance(sfreq, (int, float)):
+        sfreq = 1. / stamp
+    n_times = len(times)
+    logger.info(f"Defining temporal windows (sfreq={sfreq})")
 
     # -------------------------------------------------------------------------
     # build windows
     if (windows is None) and (slwin_len is None):
         logger.info("    No input detected. Full time window is used")
-        win_time = np.array([[times[0], times[-1]]])
+        win_sample = np.array([[0, n_times - 1]])
     elif windows is not None:
         logger.info("    Manual definition of windows")
-        win_time = np.atleast_2d(windows)
+        win_sample = []
+        for s, t in np.atleast_2d(windows):
+            win_sample.append(
+                [np.abs(times - s).argmin(), np.abs(times - t).argmin()]
+            )
+        win_sample = np.atleast_2d(win_sample)
     elif slwin_len is not None:
         # manage empty inputs
         if slwin_start is None: slwin_start = times[0]          # noqa
@@ -66,24 +76,27 @@ def define_windows(times, windows=None, slwin_len=None, slwin_start=None,
         logger.info(f"    Definition of sliding windows (len={slwin_len}, "
                     f"start={slwin_start}, stop={slwin_stop}, "
                     f"step={slwin_step})")
+
+        # time to sample conversion
+        slwin_start = np.abs(times - slwin_start).argmin()
+        slwin_stop = np.abs(times - slwin_stop).argmin()
+        slwin_len = int(np.round(slwin_len * sfreq))
+        slwin_step = int(np.round(slwin_step * sfreq))
+        slwin_step = max(slwin_step, 1)
+
         # build the sliding windows
         sl_start = np.arange(slwin_start, slwin_stop - slwin_len, slwin_step)
         sl_stop = np.arange(slwin_start + slwin_len, slwin_stop, slwin_step)
         if len(sl_start) != len(sl_stop):
             min_len = min(len(sl_start), len(sl_stop))
             sl_start, sl_stop = sl_start[0:min_len], sl_stop[0:min_len]
-        win_time = np.c_[sl_start, sl_stop]
-    assert (win_time.ndim == 2) and (win_time.shape[1] == 2)
+        win_sample = np.c_[sl_start, sl_stop]
 
-    # -------------------------------------------------------------------------
-    # time to sample conversion
-    win_sample = np.zeros_like(win_time, dtype=int)
-    times = times.reshape(-1, 1)
-    for n_k, k in enumerate(win_time):
-        win_sample[n_k, :] = np.argmin(np.abs(times - k), axis=0)
-    logger.info(f"    {win_sample.shape[0]} windows defined")
+    # compute mean time
+    assert (win_sample.ndim == 2) and (win_sample.shape[1] == 2)
+    times_m = times[win_sample].mean(1)
 
-    return win_sample, win_time.mean(1)
+    return win_sample, times_m
 
 
 def plot_windows(times, win_sample, x=None, title='', r_min=-.75, r_max=.75):
