@@ -8,7 +8,7 @@ from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf)
 class TestConn(object):
 
     def test_conn_te(self):
-        """Test function conn_transfer_entropy."""
+        """Test function conn_te."""
         n_roi, n_times, n_epochs = 4, 100, 20
         trials = np.arange(n_epochs)
         roi = [f'roi_{r}' for r in range(n_roi)]
