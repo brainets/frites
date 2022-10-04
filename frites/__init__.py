@@ -6,8 +6,9 @@ Framework of Information Theory for Electrophysiological data and Statistics
 """
 import logging
 
-from frites import (io, core, conn, stats, utils, workflow, simulations,  # noqa
-                    estimator)
+from frites import (
+    io, core, conn, plot, stats, utils, workflow, simulations,  estimator  # noqa
+)
 
 __version__ = "0.4.2"
 
