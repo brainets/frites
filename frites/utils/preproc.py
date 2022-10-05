@@ -343,3 +343,41 @@ def get_closest_sample(ref, values, precision=None, return_precision=False):
         return (diff, precisions)
     else:
         return diff
+
+
+def normalize(x, to_min=0., to_max=1.):
+    """Normalize the array x between to_min and to_max.
+
+    Parameters
+    ----------
+    x : array_like
+        The array to normalize
+    to_min : int/float | 0.
+        Minimum of returned array
+    to_max : int/float | 1.
+        Maximum of returned array
+
+    Returns
+    -------
+    xn : array_like
+        The normalized array
+    """
+    # find minimum and maximum
+    if to_min is None: to_min = np.nanmin(x)  # noqa
+    if to_max is None: to_max = np.nanmax(x)  # noqa
+
+    # normalize
+    if x.size:
+        xm, xh = np.nanmin(x), np.nanmax(x)
+        if xm != xh:
+            x_n = to_max - (((to_max - to_min) * (xh - x)) / (xh - xm))
+        else:
+            x_n = x * to_max / xh
+    else:
+        x_n = x
+
+    # add normalizatoin information to xarray
+    if isinstance(x_n, (xr.DataArray, xr.Dataset)):
+        x_n.attrs['to_min'], x_n.attrs['to_max'] = to_min, to_max
+
+    return x_n
