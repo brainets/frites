@@ -1,5 +1,5 @@
-Information-based estimators
-----------------------------
+Plotting
+--------
 
 :py:mod:`frites.plot`:
 
