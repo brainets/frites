@@ -22,11 +22,13 @@ def _prepare_plot_conn(
     if isinstance(conn, np.ndarray):
         assert conn.ndim == 2
         n_rows, n_cols = conn.shape
-        conn = pd.DataFrame(conn, index=np.arange(n_rows),
+        conn = pd.DataFrame(conn.copy(), index=np.arange(n_rows),
                             columns=np.arange(n_cols))
     elif isinstance(conn, xr.DataArray):
         assert conn.ndim == 2
-        conn = conn.to_pandas()
+        conn = conn.to_pandas().copy()
+    else:
+        conn = conn.copy()
     assert isinstance(conn, pd.DataFrame)
     np.testing.assert_array_equal(conn.index, conn.columns)
     conn.index = conn.columns = [str(k) for k in conn.index]
@@ -123,7 +125,7 @@ def _prepare_plot_conn(
         cfg['ax'] = plt.gca()
     else:
         cfg['fig'] = plt.gcf()
-        cfg['ax'] = plt.gca()
+        cfg['ax'] = ax
     plt.sca(cfg['ax'])
 
     # check for existing polar axis
@@ -253,7 +255,8 @@ def plot_conn_circle(
         edges_vmax=None, edges_lw=3., edges_alpha=1., nodes_data='degree',
         nodes_cmap='hot_r', nodes_bad=None, nodes_fz=8, categories=None,
         categories_sep=3, cbar=True, cbar_title=None, cbar_kw={}, cbar_size=.8,
-        cbar_pos=(.8, .4), prop=None, angle_start=90, angle_span=360, ax=None):
+        cbar_pos=(.8, .4), prop=None, angle_start=90, angle_span=360,
+        padding=0., ax=None):
     """Plot the connectivity matrix in a circle.
 
     .. note::
@@ -326,6 +329,8 @@ def plot_conn_circle(
     angle_span : float | 360
         Angle spanning (in degree). By default, a full circle is used (360°).
         For half a circle, use 180°.
+    padding : float | 0.
+        Add some space arround plot.
     ax : matplotlib Axes | None
         Matplotlib axis (to add to a subplot for example). The axis must have
         a polar projection (e.g. fig.add_subplot(1, 2, 2, polar=True))
@@ -359,7 +364,7 @@ def plot_conn_circle(
     ax = _draw_conn_circle(
         conn.values, nodes_names, angles, cfg['nodes_color'], nodes_fz,
         cfg['cmap'], cfg['vmin'], cfg['vmax'], edges_lw, edges_alpha, directed,
-        cbar, cbar_title, cbar_kw, cbar_size, cbar_pos, cfg['ax']
+        cbar, cbar_title, cbar_kw, cbar_size, cbar_pos, cfg['ax'], padding
     )
 
     return ax
@@ -446,7 +451,7 @@ def _circular_layout(
 def _draw_conn_circle(
         con, node_names, node_angles, node_colors, nodes_fz, edges_cmap,
         edges_vmin, edges_vmax, edges_lw, edges_alpha, directed, cbar,
-        cbar_title, cbar_kw, cbar_size, cbar_pos, ax, padding=0.,
+        cbar_title, cbar_kw, cbar_size, cbar_pos, ax, padding,
         node_linewidth=2.):
     """Visualize connectivity as a circular graph."""
     import matplotlib.pyplot as plt
