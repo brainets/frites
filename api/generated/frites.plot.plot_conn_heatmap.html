@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.stats.bootstrap_partitions &#8212; frites 0.4.2 documentation</title>
+    <title>frites.plot.plot_conn_heatmap &#8212; frites 0.4.2 documentation</title>
   <script>
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -43,12 +43,12 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.stats.bootstrap_partitions';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.plot.plot_conn_heatmap';</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.stats.confidence_interval" href="frites.stats.confidence_interval.html" />
-    <link rel="prev" title="frites.stats.permute_mi_trials" href="frites.stats.permute_mi_trials.html" />
+    <link rel="next" title="frites.plot.plot_conn_circle" href="frites.plot.plot_conn_circle.html" />
+    <link rel="prev" title="Information-based estimators" href="../api_plot.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="None">
   </head>
@@ -319,7 +319,7 @@
     Section Navigation
   </p>
   <div class="bd-toc-item navbar-nav">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_dataset.html">
    Dataset
@@ -498,18 +498,18 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_plot.html">
    Information-based estimators
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label class="toctree-toggle" for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.plot.plot_conn_heatmap.html">
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.plot.plot_conn_heatmap
     </a>
    </li>
@@ -615,17 +615,17 @@
   </ul>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_statistics.html">
    Statistics
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
   <label class="toctree-toggle" for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="frites.stats.permute_mi_vector.html">
      frites.stats.permute_mi_vector
@@ -636,8 +636,8 @@
      frites.stats.permute_mi_trials
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.bootstrap_partitions.html">
      frites.stats.bootstrap_partitions
     </a>
    </li>
@@ -845,37 +845,62 @@
             
             <article class="bd-article" role="main">
               
-  <section id="frites-stats-bootstrap-partitions">
-<h1>frites.stats.bootstrap_partitions<a class="headerlink" href="#frites-stats-bootstrap-partitions" title="Permalink to this headline">#</a></h1>
+  <section id="frites-plot-plot-conn-heatmap">
+<h1>frites.plot.plot_conn_heatmap<a class="headerlink" href="#frites-plot-plot-conn-heatmap" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.stats.bootstrap_partitions">
-<span class="sig-prename descclassname"><span class="pre">frites.stats.</span></span><span class="sig-name descname"><span class="pre">bootstrap_partitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_epochs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_partitions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/stats/stats_nonparam.py#L106-L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.stats.bootstrap_partitions" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate partitions for bootstrap.</p>
+<dt class="sig sig-object py" id="frites.plot.plot_conn_heatmap">
+<span class="sig-prename descclassname"><span class="pre">frites.plot.</span></span><span class="sig-name descname"><span class="pre">plot_conn_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'plasma'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yticklabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">square</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/plot/plot_conn.py#L148-L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.plot.plot_conn_heatmap" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the connectivity matrix as a heatmap.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>n_epochs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code></span></dt><dd><p>Number of epochs</p>
+<dt><strong>conn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></span></dt><dd><p>Either a 2D xarray.DataArray or a pandas DataFrame or a 2D NumPy array</p>
 </dd>
-<dt><strong>groups</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Groups within which permutations are performed. Should be arrays of
-shape (n_epochs,) and of type int</p>
+<dt><strong>cmap</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘plasma’</span></dt><dd><p>Colormap name</p>
 </dd>
-<dt><strong>n_partitions</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 200</span></dt><dd><p>Number of partitions to get</p>
+<dt><strong>vmin, vmax</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Minimum and maximum of colorbar limits</p>
 </dd>
-<dt><strong>random_state</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Fix the random state of the machine (use it for reproducibility). If
-None, a random state is randomly assigned.</p>
+<dt><strong>categories</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Category associated to each region name. Can be hemisphere name,
+lobe name or indices describing group of regions. By default, an
+horizontal and a vertical lines are going to be plotted as a separation
+between categories (see argument below for controlling the aesthetic)</p>
+</dd>
+<dt><strong>categories_kw</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments to control the aesthetic of the categorical lines
+(e.g. categories_kw={‘color’: ‘orange’, ‘lw’: 4})</p>
+</dd>
+<dt><strong>cbar</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Add the colorbar</p>
+</dd>
+<dt><strong>cbar_title</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Colorbar title</p>
+</dd>
+<dt><strong>cbar_kw</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments for controlling the colorbar title (e.g.
+cbar_kw={‘fontweight’: ‘bold’, ‘fontsize’: 20})</p>
+</dd>
+<dt><strong>prop</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Proportion of edges to keep. For example, prop=5 means that 95th
+percentile will be used for thresholding the connections.</p>
+</dd>
+<dt><strong>bad</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Color of bad values in the connectivity matrix (nan or non-finite
+values). By default, pad pixels are transparent.</p>
+</dd>
+<dt><strong>xticklabels, yticklabels</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Use ‘auto’ for the automatic settings of the x and y tick labels. Use
+an integer to decrease the number of ticks displayed. You can also
+disable the tick labels using False</p>
+</dd>
+<dt><strong>square</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Make the axis square</p>
+</dd>
+<dt><strong>ax</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Axes</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Matplotlib axis (to add to a subplot for example)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>partitions</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of arrays describing the partitions within groups or not</p>
+<dt><strong>ax</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Axes</span></code></span></dt><dd><p>Axes object with the heatmap</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-stats-bootstrap-partitions"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-plot-plot-conn-heatmap"></span></section>
 
 
             </article>
@@ -885,17 +910,17 @@ None, a random state is randomly assigned.</p>
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="frites.stats.permute_mi_trials.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="../api_plot.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">frites.stats.permute_mi_trials</p>
+          <p class="prev-next-title">Information-based estimators</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="frites.stats.confidence_interval.html" title="next page">
+  <a class='right-next' id="next-link" href="frites.plot.plot_conn_circle.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">frites.stats.confidence_interval</p>
+      <p class="prev-next-title">frites.plot.plot_conn_circle</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

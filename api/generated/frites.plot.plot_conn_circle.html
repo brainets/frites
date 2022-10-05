@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.stats.bootstrap_partitions &#8212; frites 0.4.2 documentation</title>
+    <title>frites.plot.plot_conn_circle &#8212; frites 0.4.2 documentation</title>
   <script>
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -43,12 +43,12 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.stats.bootstrap_partitions';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.plot.plot_conn_circle';</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.stats.confidence_interval" href="frites.stats.confidence_interval.html" />
-    <link rel="prev" title="frites.stats.permute_mi_trials" href="frites.stats.permute_mi_trials.html" />
+    <link rel="next" title="Data simulations" href="../api_simulations.html" />
+    <link rel="prev" title="frites.plot.plot_conn_heatmap" href="frites.plot.plot_conn_heatmap.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="None">
   </head>
@@ -319,7 +319,7 @@
     Section Navigation
   </p>
   <div class="bd-toc-item navbar-nav">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_dataset.html">
    Dataset
@@ -498,23 +498,23 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_plot.html">
    Information-based estimators
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label class="toctree-toggle" for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="frites.plot.plot_conn_heatmap.html">
      frites.plot.plot_conn_heatmap
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="frites.plot.plot_conn_circle.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      frites.plot.plot_conn_circle
     </a>
    </li>
@@ -615,17 +615,17 @@
   </ul>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_statistics.html">
    Statistics
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
   <label class="toctree-toggle" for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="frites.stats.permute_mi_vector.html">
      frites.stats.permute_mi_vector
@@ -636,8 +636,8 @@
      frites.stats.permute_mi_trials
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="frites.stats.bootstrap_partitions.html">
      frites.stats.bootstrap_partitions
     </a>
    </li>
@@ -845,37 +845,101 @@
             
             <article class="bd-article" role="main">
               
-  <section id="frites-stats-bootstrap-partitions">
-<h1>frites.stats.bootstrap_partitions<a class="headerlink" href="#frites-stats-bootstrap-partitions" title="Permalink to this headline">#</a></h1>
+  <section id="frites-plot-plot-conn-circle">
+<h1>frites.plot.plot_conn_circle<a class="headerlink" href="#frites-plot-plot-conn-circle" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.stats.bootstrap_partitions">
-<span class="sig-prename descclassname"><span class="pre">frites.stats.</span></span><span class="sig-name descname"><span class="pre">bootstrap_partitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_epochs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_partitions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/stats/stats_nonparam.py#L106-L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.stats.bootstrap_partitions" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate partitions for bootstrap.</p>
+<dt class="sig sig-object py" id="frites.plot.plot_conn_circle">
+<span class="sig-prename descclassname"><span class="pre">frites.plot.</span></span><span class="sig-name descname"><span class="pre">plot_conn_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges_cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot_r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges_vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges_vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges_lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'degree'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hot_r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_bad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_fz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories_sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.8,</span> <span class="pre">0.4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">90</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/plot/plot_conn.py#L251-L365"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.plot.plot_conn_circle" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the connectivity matrix in a circle.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: This code is based on the circle graph example by Nicolas P.
+Rougier <a class="reference external" href="http://www.labri.fr/perso/nrougier/coding/">http://www.labri.fr/perso/nrougier/coding/</a> and has then be
+modified within MNE-Python (v0.14)</p>
+</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>n_epochs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code></span></dt><dd><p>Number of epochs</p>
+<dt><strong>conn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></span></dt><dd><p>Either a 2D xarray.DataArray or a pandas DataFrame or a 2D NumPy array</p>
 </dd>
-<dt><strong>groups</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Groups within which permutations are performed. Should be arrays of
-shape (n_epochs,) and of type int</p>
+<dt><strong>directed</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specify whether it is directed connectivity (True) or undirected
+connectivity (False, default)</p>
 </dd>
-<dt><strong>n_partitions</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 200</span></dt><dd><p>Number of partitions to get</p>
+<dt><strong>edges_cmap</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘hot_r’</span></dt><dd><p>Colormap to use for coloring the connections.</p>
 </dd>
-<dt><strong>random_state</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Fix the random state of the machine (use it for reproducibility). If
-None, a random state is randomly assigned.</p>
+<dt><strong>edges_vmin</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Minimum value for colormap of edges. If None, the minimum among finite
+values will be used instead.</p>
+</dd>
+<dt><strong>edges_vmax</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Maximum value for colormap of edges. If None, the maximum among finite
+values will be used instead.</p>
+</dd>
+<dt><strong>edges_lw</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | 3.</span></dt><dd><p>Line width of the strongest edges.</p>
+</dd>
+<dt><strong>edges_alpha</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | 1.</span></dt><dd><p>Minimum transparency level for plotting edges. If 1 (default), all of
+the edges are going to be opaque while if 0 weakest edges are going to
+be transparent</p>
+</dd>
+<dt><strong>nodes_data</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">srt</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Data to use for coloring the boxes of each node. Use either :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A array like of length (n_nodes,)</p></li>
+<li><p>‘degree’ for the degree (i.e. the number of connections) of each
+node</p></li>
+<li><p>‘mean’ for the mean connectivity of this node</p></li>
+<li><p>‘diagonal’ use the values on the diagonal of the connectivity
+matrix</p></li>
+<li><p>‘number’ for coloring according to the node number</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>nodes_cmap</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘hot_r’</span></dt><dd><p>Colormap to use for coloring the nodes.</p>
+</dd>
+<dt><strong>nodes_bad</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Color to use for bad nodes (i.e. nodes with non finite values in
+nodes_data). By default, those nodes are transparent.</p>
+</dd>
+<dt><strong>nodes_fz</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | 8</span></dt><dd><p>Font size of nodes’ labels.</p>
+</dd>
+<dt><strong>categories</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Category associated to each region name. Can be hemisphere name,
+lobe name or indices describing group of regions. By default, a space
+is introduced between categories (see categories_sep below for
+controlling the amount of space to use)</p>
+</dd>
+<dt><strong>categories_sep</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | 3</span></dt><dd><p>Space size between categories.</p>
+</dd>
+<dt><strong>cbar</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Add the colorbar</p>
+</dd>
+<dt><strong>cbar_title</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Colorbar title</p>
+</dd>
+<dt><strong>cbar_kw</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments for controlling the colorbar title (e.g.
+cbar_kw={‘fontweight’: ‘bold’, ‘fontsize’: 20})</p>
+</dd>
+<dt><strong>cbar_size</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | .8</span></dt><dd><p>Size of the colorbar</p>
+</dd>
+<dt><strong>cbar_pos</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:tuple</span></code> | (.8, .4)</span></dt><dd><p>(x, y) position of the colorbar.</p>
+</dd>
+<dt><strong>prop</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Proportion of edges to keep. For example, prop=5 means that 95th
+percentile will be used for thresholding the connections.</p>
+</dd>
+<dt><strong>angle_start</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | 90</span></dt><dd><p>Angle at which to start the first node (in degree)</p>
+</dd>
+<dt><strong>angle_span</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | 360</span></dt><dd><p>Angle spanning (in degree). By default, a full circle is used (360°).
+For half a circle, use 180°.</p>
+</dd>
+<dt><strong>ax</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Axes</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Matplotlib axis (to add to a subplot for example). The axis must have
+a polar projection (e.g. fig.add_subplot(1, 2, 2, polar=True))</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>partitions</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of arrays describing the partitions within groups or not</p>
+<dt><strong>ax</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">Axes</span></code></span></dt><dd><p>Axes object with the circular plot</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-stats-bootstrap-partitions"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-plot-plot-conn-circle"></span></section>
 
 
             </article>
@@ -885,17 +949,17 @@ None, a random state is randomly assigned.</p>
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="frites.stats.permute_mi_trials.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="frites.plot.plot_conn_heatmap.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">frites.stats.permute_mi_trials</p>
+          <p class="prev-next-title">frites.plot.plot_conn_heatmap</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="frites.stats.confidence_interval.html" title="next page">
+  <a class='right-next' id="next-link" href="../api_simulations.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">frites.stats.confidence_interval</p>
+      <p class="prev-next-title">Data simulations</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

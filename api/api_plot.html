@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Configuration &#8212; frites 0.4.2 documentation</title>
+    <title>Information-based estimators &#8212; frites 0.4.2 documentation</title>
   <script>
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -43,12 +43,12 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/api_conf';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/api_plot';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="frites.get_config" href="generated/frites.get_config.html" />
-    <link rel="prev" title="frites.core.gccmi_nd_ccc" href="generated/frites.core.gccmi_nd_ccc.html" />
+    <link rel="next" title="frites.plot.plot_conn_heatmap" href="generated/frites.plot.plot_conn_heatmap.html" />
+    <link rel="prev" title="frites.estimator.ResamplingEstimator" href="generated/frites.estimator.ResamplingEstimator.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="None">
   </head>
@@ -319,7 +319,7 @@
     Section Navigation
   </p>
   <div class="bd-toc-item navbar-nav">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="api_dataset.html">
    Dataset
@@ -498,11 +498,11 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="api_plot.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    Information-based estimators
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label class="toctree-toggle" for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
@@ -615,7 +615,7 @@
   </ul>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="api_statistics.html">
    Statistics
@@ -795,11 +795,11 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="api_conf.html">
    Configuration
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
   <label class="toctree-toggle" for="toctree-checkbox-10">
    <i class="fas fa-chevron-down">
    </i>
@@ -845,23 +845,27 @@
             
             <article class="bd-article" role="main">
               
-  <section id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">#</a></h1>
-<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.config</span></code>:</p>
+  <section id="information-based-estimators">
+<h1>Information-based estimators<a class="headerlink" href="#information-based-estimators" title="Permalink to this headline">#</a></h1>
+<p><a class="reference internal" href="#module-frites.plot" title="frites.plot"><code class="xref py py-mod docutils literal notranslate"><span class="pre">frites.plot</span></code></a>:</p>
+<span class="target" id="module-frites.plot"></span><p>Plotting functions.</p>
+<section id="plotting-functions-for-connectivity-estimations">
+<h2>Plotting functions for connectivity estimations<a class="headerlink" href="#plotting-functions-for-connectivity-estimations" title="Permalink to this headline">#</a></h2>
 <table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.get_config.html#frites.get_config" title="frites.get_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_config</span></code></a>()</p></td>
-<td><p>Get the global configuration of frites.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/frites.plot.plot_conn_heatmap.html#frites.plot.plot_conn_heatmap" title="frites.plot.plot_conn_heatmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_conn_heatmap</span></code></a>(conn[, cmap, vmin, vmax, ...])</p></td>
+<td><p>Plot the connectivity matrix as a heatmap.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.set_config.html#frites.set_config" title="frites.set_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_config</span></code></a>(key, value[, verbose])</p></td>
-<td><p>Change the global config of frites.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/frites.plot.plot_conn_circle.html#frites.plot.plot_conn_circle" title="frites.plot.plot_conn_circle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_conn_circle</span></code></a>(conn[, directed, ...])</p></td>
+<td><p>Plot the connectivity matrix in a circle.</p></td>
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 
 
@@ -872,17 +876,17 @@
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="generated/frites.core.gccmi_nd_ccc.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="generated/frites.estimator.ResamplingEstimator.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">frites.core.gccmi_nd_ccc</p>
+          <p class="prev-next-title">frites.estimator.ResamplingEstimator</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="generated/frites.get_config.html" title="next page">
+  <a class='right-next' id="next-link" href="generated/frites.plot.plot_conn_heatmap.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">frites.get_config</p>
+      <p class="prev-next-title">frites.plot.plot_conn_heatmap</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>
@@ -895,6 +899,23 @@
           
             <div class="bd-sidebar-secondary bd-toc">
               
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fas fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-functions-for-connectivity-estimations">
+   Plotting functions for connectivity estimations
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
 <div class="toc-item">
   
 </div>
