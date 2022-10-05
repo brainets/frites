@@ -54,24 +54,28 @@ def _prepare_plot_conn(
         nodes_data = (np.isfinite(conn.values)).sum(axis=0).astype(int)
     elif nodes_data == 'mean':
         nodes_data = np.nanmean(conn.values, axis=0)
+    elif nodes_data == 'diagonal':
+        nodes_data = np.diag(conn.values)
     elif nodes_data == 'number':
         nodes_data = np.arange(n_nodes)
     else:
-        nodes_data = np.full((n_nodes,), np.nan)
+        nodes_data = np.full((n_nodes,), 1.)
     nodes_data = normalize(nodes_data, to_min=0., to_max=1.)
     cfg['nodes_data'] = np.ma.masked_array(
         nodes_data, mask=~np.isfinite(nodes_data)
     )
 
     # nodes color
-    nodes_cmap = plt.get_cmap(nodes_cmap).copy()
+    if (nodes_cmap is None) or isinstance(nodes_cmap, str):
+        nodes_cmap = plt.get_cmap(nodes_cmap).copy()
     if nodes_bad:
         nodes_cmap.set_bad(color=nodes_bad)
     cfg['nodes_color'] = [nodes_cmap(k) for k in cfg['nodes_data']]
 
     # _________________________________ COLOR _________________________________
     # colormap
-    cmap = plt.get_cmap(cmap).copy()
+    if (cmap is None) or isinstance(cmap, str):
+        cmap = plt.get_cmap(cmap).copy()
     if bad:
         cmap.set_bad(color=bad)
     cfg['cmap'] = cmap
@@ -245,9 +249,9 @@ def plot_conn_heatmap(
 
 
 def plot_conn_circle(
-        conn, directed=False, edges_cmap='hot', edges_vmin=None,
+        conn, directed=False, edges_cmap='hot_r', edges_vmin=None,
         edges_vmax=None, edges_lw=3., edges_alpha=1., nodes_data='degree',
-        nodes_cmap='hot', nodes_bad=None, nodes_fz=8, categories=None,
+        nodes_cmap='hot_r', nodes_bad=None, nodes_fz=8, categories=None,
         categories_sep=3, cbar=True, cbar_title=None, cbar_kw={}, cbar_size=.8,
         cbar_pos=(.8, .4), prop=None, angle_start=90, angle_span=360, ax=None):
     """Plot the connectivity matrix in a circle.
@@ -265,7 +269,7 @@ def plot_conn_circle(
     directed : bool | False
         Specify whether it is directed connectivity (True) or undirected
         connectivity (False, default)
-    edges_cmap : str | 'hot'
+    edges_cmap : str | 'hot_r'
         Colormap to use for coloring the connections.
     edges_vmin : float | None
         Minimum value for colormap of edges. If None, the minimum among finite
@@ -286,8 +290,10 @@ def plot_conn_circle(
             * 'degree' for the degree (i.e. the number of connections) of each
               node
             * 'mean' for the mean connectivity of this node
+            * 'diagonal' use the values on the diagonal of the connectivity
+              matrix
             * 'number' for coloring according to the node number
-    nodes_cmap : str | 'hot'
+    nodes_cmap : str | 'hot_r'
         Colormap to use for coloring the nodes.
     nodes_bad : str | None
         Color to use for bad nodes (i.e. nodes with non finite values in
@@ -618,7 +624,8 @@ if __name__ == '__main__':
 
     # plot_conn_heatmap(conn, categories=cat, cmap='plasma', cbar_title='Test')
     plot_conn_circle(
-        conn, categories=cat, cmap='hot_r', cbar_title='Test', angle_span=180,
-        categories_sep=20, nodes_data='mean', nodes_cmap='Spectral_r'
+        conn, categories=cat, edges_cmap='hot_r', cbar_title='Test',
+        angle_span=180, categories_sep=20, nodes_data='diagonal',
+        nodes_cmap='Spectral_r'
     )
     plt.show()
