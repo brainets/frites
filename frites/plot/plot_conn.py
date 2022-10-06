@@ -63,7 +63,6 @@ def _prepare_plot_conn(
     assert isinstance(conn, pd.DataFrame)
     np.testing.assert_array_equal(conn.index, conn.columns)
     conn.index = conn.columns = [str(k) for k in conn.index]
-    n_nodes = len(conn.index)
 
     # proportion of edges to keep
     if isinstance(prop, (int, float)):
@@ -81,7 +80,7 @@ def _prepare_plot_conn(
         conn, nodes_data, to_min=0., to_max=1.)
 
     # nodes_size
-    cfg['nodes_size'] =  _compute_nodes_data(
+    cfg['nodes_size'] = _compute_nodes_data(
         conn, nodes_size, to_min=nodes_size_min, to_max=nodes_size_max)
 
     # nodes color
