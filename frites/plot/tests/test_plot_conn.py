@@ -56,23 +56,31 @@ class TestPlotConn(object):
         np.testing.assert_array_equal(out['categories'], [0, 0, 1])
         plt.close()
 
-        # test nodes data
+        # test nodes data / size
         conn = self._get_conn(astype='pandas')
-        out = _prepare_plot_conn(conn, nodes_data=None)[1]
-        np.testing.assert_array_equal(out['nodes_data'], [1.] * 3)
-        out = _prepare_plot_conn(conn, nodes_data='degree')[1]
-        np.testing.assert_array_equal(out['nodes_data'], [0, 0, 1])
-        out = _prepare_plot_conn(conn, nodes_data='mean')[1]
-        np.testing.assert_array_equal(out['nodes_data'], [0, 1, 1])
-        out = _prepare_plot_conn(conn, nodes_data='diagonal')[1]
-        np.testing.assert_array_equal(out['nodes_data'], [np.nan, 1, 0])
-        out = _prepare_plot_conn(conn, nodes_data='number')[1]
-        np.testing.assert_array_equal(out['nodes_data'], [0, .5, 1.])
-        out = _prepare_plot_conn(conn, nodes_data='oups')[1]
-        np.testing.assert_array_equal(out['nodes_data'], [1] * 3)
-        out = _prepare_plot_conn(conn, nodes_data=[3, 2, 1])[1]
-        np.testing.assert_array_equal(out['nodes_data'], [1, .5, 0])
-        plt.close()
+        values = [
+            (None, [1.] * 3),
+            ('degree', [0, 0, 1]),
+            ('mean', [0, 1, 1]),
+            ('diagonal', [np.nan, 1, 0]),
+            ('number', [0, .5, 1.]),
+            ('oops', [1] * 3),
+            ([3, 2, 1], [1, .5, 0])
+        ]
+        for test in ['data', 'size']:
+            # switch between testing data / size
+            if test == 'data':
+                var, kw = 'nodes_data', dict()
+            elif test == 'size':
+                var, kw = 'nodes_size', dict(
+                    nodes_size_min=0., nodes_size_max=1.)
+
+            # test all possibilities
+            for (value, gt) in values:
+                kw[var] = value
+                out = _prepare_plot_conn(conn, **kw)[1]
+                np.testing.assert_array_equal(out[var], gt)
+                plt.close()
 
         # test nodes coloring
         conn = self._get_conn(astype='pandas')
@@ -134,4 +142,4 @@ class TestPlotConn(object):
 
 
 if __name__ == '__main__':
-    TestPlotConn().test_plot_circular()
+    TestPlotConn().test_prepare_inputs()

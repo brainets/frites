@@ -7,10 +7,41 @@ import pandas as pd
 from frites.utils import normalize
 
 
+def _compute_nodes_data(conn, nodes_data, to_min=0., to_max=1.):
+    """Compute data to attach to each node."""
+    n_nodes = conn.values.shape[0]
+
+    if isinstance(nodes_data, (list, np.ndarray, tuple)):
+        if len(nodes_data) != n_nodes:
+            raise ValueError(
+                "When passing custom data to the nodes, the `nodes_data` must "
+                "have the same length as the number of nodes")
+        nodes_data = np.asarray(nodes_data)
+    elif nodes_data == 'degree':
+        nodes_data = (np.isfinite(conn.values)).sum(axis=0).astype(int)
+    elif nodes_data == 'mean':
+        nodes_data = np.nanmean(conn.values, axis=0)
+    elif nodes_data == 'diagonal':
+        nodes_data = np.diag(conn.values)
+    elif nodes_data == 'number':
+        nodes_data = np.arange(n_nodes)
+    else:
+        nodes_data = np.full((n_nodes,), 1.)
+
+    # normalize the data
+    nodes_data = normalize(nodes_data, to_min=to_min, to_max=to_max)
+
+    # mask non-finite values
+    nodes_data = np.ma.masked_array(nodes_data, mask=~np.isfinite(nodes_data))
+
+    return nodes_data
+
+
 def _prepare_plot_conn(
         conn, cmap=None, bad=None, vmin=None, vmax=None, categories=None,
-        nodes_data=None, nodes_cmap=None, nodes_bad=None, ax=None,
-        square=False, prop=None, polar=False):
+        nodes_data=None, nodes_size=None, nodes_size_min=None,
+        nodes_size_max=None, nodes_cmap=None, nodes_bad=None,
+        ax=None, square=False, prop=None, polar=False):
     """Prepare inputs."""
     import matplotlib as mpl
     import matplotlib.pyplot as plt
@@ -46,26 +77,12 @@ def _prepare_plot_conn(
     cfg['nodes_order'] = conn.index.tolist()
 
     # nodes data
-    if isinstance(nodes_data, (list, np.ndarray, tuple)):
-        if len(nodes_data) != n_nodes:
-            raise ValueError(
-                "When passing custom data to the nodes, the `nodes_data` must "
-                "have the same length as the number of nodes")
-        nodes_data = np.asarray(nodes_data)
-    elif nodes_data == 'degree':
-        nodes_data = (np.isfinite(conn.values)).sum(axis=0).astype(int)
-    elif nodes_data == 'mean':
-        nodes_data = np.nanmean(conn.values, axis=0)
-    elif nodes_data == 'diagonal':
-        nodes_data = np.diag(conn.values)
-    elif nodes_data == 'number':
-        nodes_data = np.arange(n_nodes)
-    else:
-        nodes_data = np.full((n_nodes,), 1.)
-    nodes_data = normalize(nodes_data, to_min=0., to_max=1.)
-    cfg['nodes_data'] = np.ma.masked_array(
-        nodes_data, mask=~np.isfinite(nodes_data)
-    )
+    cfg['nodes_data'] = _compute_nodes_data(
+        conn, nodes_data, to_min=0., to_max=1.)
+
+    # nodes_size
+    cfg['nodes_size'] =  _compute_nodes_data(
+        conn, nodes_size, to_min=nodes_size_min, to_max=nodes_size_max)
 
     # nodes color
     if (nodes_cmap is None) or isinstance(nodes_cmap, str):
@@ -253,10 +270,11 @@ def plot_conn_heatmap(
 def plot_conn_circle(
         conn, directed=False, edges_cmap='hot_r', edges_vmin=None,
         edges_vmax=None, edges_lw=3., edges_alpha=1., nodes_data='degree',
-        nodes_cmap='hot_r', nodes_bad=None, nodes_fz=8, categories=None,
-        categories_sep=3, cbar=True, cbar_title=None, cbar_kw={}, cbar_size=.8,
-        cbar_pos=(.8, .4), prop=None, angle_start=90, angle_span=360,
-        padding=0., ax=None):
+        nodes_cmap='hot_r', nodes_size=None, nodes_size_min=1.,
+        nodes_size_max=50., nodes_bad=None, nodes_fz=8, nodes_shift=0.,
+        categories=None, categories_sep=3, cbar=True, cbar_title=None,
+        cbar_kw={}, cbar_size=.8, cbar_pos=(.8, .4), prop=None, angle_start=90,
+        angle_span=360, padding=0., ax=None):
     """Plot the connectivity matrix in a circle.
 
     .. note::
@@ -296,6 +314,12 @@ def plot_conn_circle(
             * 'diagonal' use the values on the diagonal of the connectivity
               matrix
             * 'number' for coloring according to the node number
+    nodes_size : array_like, str | None
+        Data to use for controlling the size of the nodes. This parameter is
+        similar to the nodes_data above as array can be provided or string
+        values like 'degree', 'mean', 'diagonal' etc.
+    nodes_size_min, nodes_size_max : float | 1., 50.
+        Minimum and maximum sizes of the nodes
     nodes_cmap : str | 'hot_r'
         Colormap to use for coloring the nodes.
     nodes_bad : str | None
@@ -303,6 +327,8 @@ def plot_conn_circle(
         nodes_data). By default, those nodes are transparent.
     nodes_fz : float | 8
         Font size of nodes' labels.
+    nodes_shift : float | 0.
+        Shift to apply to the labels (i.e. the nodes names)
     categories : array_like | None
         Category associated to each region name. Can be hemisphere name,
         lobe name or indices describing group of regions. By default, a space
@@ -344,9 +370,10 @@ def plot_conn_circle(
     # prepare inputs
     conn, cfg = _prepare_plot_conn(
         conn, categories=categories, ax=ax, vmin=edges_vmin, vmax=edges_vmax,
-        cmap=edges_cmap, bad=None, nodes_data=nodes_data,
-        nodes_cmap=nodes_cmap, nodes_bad=nodes_bad, prop=prop, square=True,
-        polar=True
+        cmap=edges_cmap, bad=None, nodes_data=nodes_data, nodes_bad=nodes_bad,
+        nodes_size=nodes_size, nodes_size_min=nodes_size_min,
+        nodes_size_max=nodes_size_max, nodes_cmap=nodes_cmap, prop=prop,
+        square=True, polar=True
     )
 
     # ________________________________ ANGLES _________________________________
@@ -362,9 +389,10 @@ def plot_conn_circle(
 
     # plot the connectivity
     ax = _draw_conn_circle(
-        conn.values, nodes_names, angles, cfg['nodes_color'], nodes_fz,
-        cfg['cmap'], cfg['vmin'], cfg['vmax'], edges_lw, edges_alpha, directed,
-        cbar, cbar_title, cbar_kw, cbar_size, cbar_pos, cfg['ax'], padding
+        conn.values, nodes_names, angles, cfg['nodes_color'],
+        cfg['nodes_size'], nodes_fz, nodes_shift, cfg['cmap'], cfg['vmin'],
+        cfg['vmax'], edges_lw, edges_alpha, directed, cbar, cbar_title,
+        cbar_kw, cbar_size, cbar_pos, cfg['ax'], padding
     )
 
     return ax
@@ -449,9 +477,9 @@ def _circular_layout(
 
 
 def _draw_conn_circle(
-        con, node_names, node_angles, node_colors, nodes_fz, edges_cmap,
-        edges_vmin, edges_vmax, edges_lw, edges_alpha, directed, cbar,
-        cbar_title, cbar_kw, cbar_size, cbar_pos, ax, padding,
+        con, node_names, node_angles, node_colors, nodes_size, nodes_fz,
+        nodes_shift, edges_cmap, edges_vmin, edges_vmax, edges_lw, edges_alpha,
+        directed, cbar, cbar_title, cbar_kw, cbar_size, cbar_pos, ax, padding,
         node_linewidth=2.):
     """Visualize connectivity as a circular graph."""
     import matplotlib.pyplot as plt
@@ -495,6 +523,11 @@ def _draw_conn_circle(
     alphas = normalize(con_val_scaled, edges_alpha, 1.)
 
     # ________________________________ STYLE __________________________________
+    # use circles or bars for nodes
+    use_circles = isinstance(nodes_size, (list, np.ndarray, tuple))
+    if use_circles:
+        padding = max(padding, 1.)  # extra padding when using circles
+
     # No ticks, we'll put our own
     plt.xticks([])
     plt.yticks([])
@@ -579,14 +612,19 @@ def _draw_conn_circle(
         ax.add_patch(patch)
 
     # ________________________________ BOXES __________________________________
-    # Draw ring with colored nodes
-    height = np.ones(n_nodes) * 1.
-    bars = ax.bar(
-        node_angles, height, width=node_width, bottom=9, edgecolor='w',
-        lw=node_linewidth, facecolor='.9', align='center'
-    )
-    for bar, color in zip(bars, node_colors):
-        bar.set_facecolor(color)
+    if use_circles:
+        ax.scatter(
+            node_angles, np.full((n_nodes,), 10), s=nodes_size,
+            c=node_colors
+        )
+    else:
+        height = np.ones(n_nodes) * 1.
+        bars = ax.bar(
+            node_angles, height, width=node_width, bottom=9, edgecolor='w',
+            lw=node_linewidth, facecolor='.9', align='center'
+        )
+        for bar, color in zip(bars, node_colors):
+            bar.set_facecolor(color)
 
     # ________________________________ LABELS _______________________________
     angles_deg = 180 * node_angles / np.pi
@@ -599,8 +637,8 @@ def _draw_conn_circle(
             ha = 'right'
 
         ax.text(
-            angle_rad, 10.2, name, size=nodes_fz, rotation=angle_deg,
-            rotation_mode='anchor', horizontalalignment=ha,
+            angle_rad, 10.2 + nodes_shift, name, size=nodes_fz,
+            rotation=angle_deg, rotation_mode='anchor', horizontalalignment=ha,
             verticalalignment='center'
         )
 
@@ -626,11 +664,12 @@ if __name__ == '__main__':
     # conn = np.random.rand(10, 10)
     conn = np.arange(100).reshape(10, 10)
     cat = [0] * 3 + [1] * 7
+    nodes_size = np.random.rand(10)
 
     # plot_conn_heatmap(conn, categories=cat, cmap='plasma', cbar_title='Test')
     plot_conn_circle(
         conn, categories=cat, edges_cmap='hot_r', cbar_title='Test',
         angle_span=180, categories_sep=20, nodes_data='diagonal',
-        nodes_cmap='Spectral_r'
+        nodes_cmap='Spectral_r', nodes_size=nodes_size
     )
     plt.show()
