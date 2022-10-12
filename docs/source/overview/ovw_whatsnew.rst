@@ -12,6 +12,7 @@ New Features
 * New function :func:`frites.stats.confidence_interval` for computing confidence intervals, standard deviation (sd) and standard error on the mean (sem) on numpy arrays and xarray DataArray (:commit:`3a512537`)
 * New plotting module with two functions for plotting connectivity matrices,  :func:`frites.plot.plot_conn_heatmap` and :func:`frites.plot.plot_conn_circle` (:commit:`7a107d100e`, :commit:`a480371a74`, :commit:`33930cc33a1`, :commit:`24029c4cf6b`)
 * Add the possibility to control the node's size in :func:`frites.plot.plot_conn_circle` (:commit:`7454376b`)
+* Add support for signed connectivity and improve node control of :func:`frites.plot.plot_conn_circle` (:commit:`78bbb91c`)
 
 Bug fixes
 +++++++++
