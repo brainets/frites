@@ -4,7 +4,7 @@
 import os
 from setuptools import setup, find_packages
 
-__version__ = "0.4.0"
+__version__ = "0.4.2"
 NAME = 'frites'
 AUTHOR = "BraiNets"
 MAINTAINER = "Etienne Combrisson"
@@ -27,7 +27,7 @@ def read(fname):
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
-core_deps = ['matplotlib', 'networkx', 'numba', 'dcor', 'scikit-learn']
+core_deps = ['matplotlib', 'networkx', 'numba', 'dcor']
 test_deps = ['pytest', 'pytest-sugar', 'pytest-cov', 'codecov']
 doc_deps = [
     'sphinx!=4.1.0', 'sphinx-gallery', 'pydata-sphinx-theme>=0.6.3',

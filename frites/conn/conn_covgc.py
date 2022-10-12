@@ -3,9 +3,9 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import conn_io
-from frites.io import set_log_level, logger
+from frites.io import set_log_level, logger, check_attrs
 from frites.config import CONFIG
-from frites.core.gcmi_nd import cmi_nd_ggg
+from frites.core.gcmi_nd import cmi_nd_ggg, mi_nd_gg
 from frites.core.copnorm import copnorm_nd
 from frites.utils import parallel_func
 
@@ -42,7 +42,7 @@ def entr(xy):
     return h
 
 
-def _covgc(d_s, d_t, ind_tx, t0, norm=True):
+def _covgc(d_s, d_t, ind_tx, t0, norm, **kw_gc):
     """Compute the covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
@@ -127,13 +127,12 @@ def _covgc(d_s, d_t, ind_tx, t0, norm=True):
 ###############################################################################
 
 
-def _gccovgc(d_s, d_t, ind_tx, t0):
+def _gccovgc(d_s, d_t, ind_tx, t0, norm, **kw_gc):
     """Compute the Gaussian-Copula based covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
     at different time indices.
     """
-    kw = CONFIG["KW_GCMI"]
     n_trials, n_times = d_s.shape[0], len(t0)
     gc = np.empty((n_trials, n_times, 3), dtype=d_s.dtype, order='C')
     for n_ti, ti in enumerate(t0):
@@ -156,11 +155,17 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
         # Granger Causality measures
         # -----------------------------------------------------------------
         # gc(pairs(:,1) -> pairs(:,2))
-        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, y_past, **kw)
+        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, y_past, **kw_gc)
         # gc(pairs(:,2) -> pairs(:,1))
-        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, x_past, **kw)
+        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, x_past, **kw_gc)
         # gc(pairs(:,2) . pairs(:,1))
-        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw)
+        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xy_past, **kw_gc)
+
+        if norm:
+            y_internal = mi_nd_gg(y_pres, y_past, **kw_gc)  # I(Yi+1; Yi)
+            x_internal = mi_nd_gg(x_pres, x_past, **kw_gc)  # I(Xi+1; Xi)
+            gc[:, n_ti, 0] /= (y_internal + gc[:, n_ti, 0])
+            gc[:, n_ti, 1] /= (x_internal + gc[:, n_ti, 1])
 
     return gc
 
@@ -172,14 +177,13 @@ def _gccovgc(d_s, d_t, ind_tx, t0):
 ###############################################################################
 
 
-def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
+def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True, **kw_gc):
     """Compute the Gaussian-Copula based covGC for a single pair.
 
     This function computes the covGC for a single pair, across multiple trials,
     at different time indices.
     """
     conditional = conditional if data.shape[1] > 2 else False
-    kw = CONFIG["KW_GCMI"]
     d_s, d_t = data[:, s, :], data[:, t, :]
     n_lags, n_dt = ind_tx.shape
     n_trials, n_times = d_s.shape[0], len(t0)
@@ -221,11 +225,11 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
         # Granger Causality measures
         # -----------------------------------------------------------------
         # gc(pairs(:,1) -> pairs(:,2))
-        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, yz_past, **kw)
+        gc[:, n_ti, 0] = cmi_nd_ggg(y_pres, x_past, yz_past, **kw_gc)
         # gc(pairs(:,2) -> pairs(:,1))
-        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, xz_past, **kw)
+        gc[:, n_ti, 1] = cmi_nd_ggg(x_pres, y_past, xz_past, **kw_gc)
         # gc(pairs(:,2) . pairs(:,1))
-        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xyz_past, **kw)
+        gc[:, n_ti, 2] = cmi_nd_ggg(x_pres, y_pres, xyz_past, **kw_gc)
 
     return gc
 
@@ -238,7 +242,8 @@ def _cond_gccovgc(data, s, t, ind_tx, t0, conditional=True):
 
 
 def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
-               conditional=False, norm=False, n_jobs=-1, verbose=None):
+               conditional=False, norm=False, gcrn=False, n_jobs=-1,
+               verbose=None, **kw_links):
     r"""Single-trial covariance-based Granger Causality for gaussian variables.
 
     This function computes the (conditional) covariance-based Granger Causality
@@ -298,10 +303,13 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
         also conditioned by the past of other sources.
     norm : bool | False
         If True, the normalised Granger Causality is computed
-        See Deco et al 2021 Nature Human Beh.
+        See :cite:`deco2021revisiting`.
     n_jobs : int | -1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
+    kw_links : dict | {}
+        Additional arguments for selecting links to compute are passed to the
+        function :func:`frites.conn.conn_links`
 
     Returns
     -------
@@ -319,7 +327,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
 
     See also
     --------
-    conn_dfc
+    conn_links, conn_dfc
     """
     set_log_level(verbose)
 
@@ -331,9 +339,10 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
     dt, lag, step = int(dt), int(lag), int(step)
 
     # inputs conversion
+    kw_links.update({'directed': False, 'net': False, 'sort': False})
     data, cfg = conn_io(
         data, times=times, roi=roi, agg_ch=False, win_sample=None,
-        pairs=None, sort=False, name='COVGC', verbose=verbose,
+        name='COVGC', verbose=verbose, kw_links=kw_links
     )
 
     # extract variables
@@ -383,14 +392,19 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                 f" n_pairs={len(x_s)}; n_windows={len(t0)}, lag={lag}, "
                 f"dt={dt}, step={step})")
 
+    # additional arguments for gcmi
+    kw_gc = {k: v for k, v in CONFIG['KW_GCMI'].items()}
+    kw_gc['biascorrect'] = gcrn
+
     kw_par = dict(n_jobs=n_jobs, total=len(x_s), verbose=False)
     if not conditional:
         parallel, p_fun = parallel_func(fcn, **kw_par)
         gc = parallel(p_fun(x[:, s, :], x[:, t, :], ind_tx,
-                            t0) for s, t in zip(x_s, x_t))
+                            t0, norm, **kw_gc) for s, t in zip(x_s, x_t))
     else:
         parallel, p_fun = parallel_func(_cond_gccovgc, **kw_par)
-        gc = parallel(p_fun(x, s, t, ind_tx, t0) for s, t in zip(x_s, x_t))
+        gc = parallel(p_fun(x, s, t, ind_tx, t0,
+                            **kw_gc) for s, t in zip(x_s, x_t))
     gc = np.stack(gc, axis=1)
 
     # ________________________________ OUPUTS _________________________________
@@ -400,9 +414,9 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
                       coords=(trials, roi_p, times_p, dire), name='covgc')
 
     # set attributes
-    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=str(norm),
-               conditional=str(conditional), type='covgc')
-    gc.attrs = {**attrs, **cfg}
+    cfg = dict(lag=lag, step=step, dt=dt, t0=t0, norm=norm,
+               conditional=conditional, type='covgc')
+    gc.attrs = check_attrs({**attrs, **cfg})
 
     return gc
 
@@ -410,6 +424,7 @@ def conn_covgc(data, dt, lag, t0, step=1, roi=None, times=None, method='gc',
 if __name__ == '__main__':
     from frites.simulations import StimSpecAR
     import matplotlib.pyplot as plt
+    from frites.conn import conn_ravel_directed
 
     ss = StimSpecAR()
     ar = ss.fit(ar_type='ding_3_direct', n_stim=2, n_epochs=20)
@@ -421,7 +436,11 @@ if __name__ == '__main__':
     dt, lag, step = 50, 5, 2
     t0 = np.arange(lag, ar.shape[-1] - dt, step)
     gc = conn_covgc(ar, roi='roi', times='times', dt=dt, lag=lag, t0=t0,
-                    n_jobs=-1, conditional=True, norm=False)
-    plt.figure()
-    ss.plot_covgc(gc=gc)
+                    n_jobs=1, conditional=False, norm=False, method='gc')
+    # plt.figure()
+    # ss.plot_covgc(gc=gc)
+    print(gc)
+    conn_ravel_directed(gc).groupby('trials').mean().plot(
+        x='times', col='roi', hue='trials', col_wrap=3
+    )
     plt.show()

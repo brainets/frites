@@ -5,7 +5,7 @@ import xarray as xr
 from mne.utils import ProgressBar
 
 from frites.io import (set_log_level, logger)
-from frites.core import permute_mi_trials
+from frites.stats import permute_mi_trials
 from frites.utils import parallel_func, kernel_smoothing
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase

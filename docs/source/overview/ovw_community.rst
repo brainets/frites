@@ -17,6 +17,7 @@ Frites was one of the proposed projects during the `Brainhack Marseille 2020 <ht
 Software presentations
 ----------------------
 
+* Award for the best poster during the Human Brain Project summit 2021 (`link for downloading the poster <https://amubox.univ-amu.fr/s/xf2AjeDXMCiWZEz>`_)
 * `Live MEEG 2020 <https://www.crowdcast.io/e/live-meeg-2020/7>`_
 * Neuromatch 3.0
 

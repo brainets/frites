@@ -5,9 +5,11 @@ AR : pairwise illustration
 This example illustrates a simple autoregressive model simulating a
 stimulus-specific information transfer from a source X to a target Y.
 """
+from frites import set_mpl_style
 from frites.simulations import StimSpecAR
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 
 ###############################################################################
@@ -17,7 +19,7 @@ import matplotlib.pyplot as plt
 # Here, we use the class :class:`frites.simulations.StimSpecAR` to simulate an
 # stimulus-specific autoregressive model. For the pairwise models, you can
 # choose :
-# 
+#
 #     * 'hga' : high-gamma burst
 #     * 'osc_40' / 'osc_20' : respectivelly 20hz and 40hz oscillations
 #     * 'ding_2' : pairwise Ding's model :cite:`ding2006granger`

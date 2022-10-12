@@ -24,18 +24,10 @@ class TestParam(object):  # noqa
         assert tv.shape == (n_roi, n_times)
         assert tv_p.shape == (n_perm, n_roi, n_times)
         # center
-        for center in [False, 'mean', 'median', 'trimmed']:
+        for center in [False, True, 'mean', 'median', 'trimmed', 'zscore']:
             tv, tv_p, _ = rfx_ttest(x, x_p, center=center)
             assert tv.shape == (n_roi, n_times)
             assert tv_p.shape == (n_perm, n_roi, n_times)
-        # zscore
-        tv, tv_p, _ = rfx_ttest(x, x_p, zscore=True)
-        assert tv.shape == (n_roi, n_times)
-        assert tv_p.shape == (n_perm, n_roi, n_times)
-        # center + zscore
-        tv, tv_p, _ = rfx_ttest(x, x_p, zscore=True, center=True)
-        assert tv.shape == (n_roi, n_times)
-        assert tv_p.shape == (n_perm, n_roi, n_times)
         # t-tested
         tv, tv_p, _ = rfx_ttest(x, x_p, ttested=True)
         assert tv.shape == (n_roi * n_suj, n_times)

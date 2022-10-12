@@ -89,9 +89,24 @@ CONFIG['MA_NAMES'] = [
     'R_Insula', 'L_Thal', 'L_Cd', 'L_Put', 'L_GP', 'L_Hipp', 'L_Amyg', 'L_NAc',
     'R_Thal', 'R_Cd', 'R_Put', 'R_GP', 'R_Hipp', 'R_Amyg', 'R_NAc']
 
+"""
+Convert the CONFIG dict to disable for the user to add new keys but still
+allow to change values.
+"""
 
-"""
-Default sigma for the hat correction when performing the t-test using
-MNE-Python
-"""
-CONFIG['TTEST_MNE_SIGMA'] = 0.001
+
+class FixedDict(dict):
+    """Dictionary with fixed keys."""
+
+    def __init__(self, dictionary):
+        dict.__init__(self)
+        for key in dictionary.keys():
+            dict.__setitem__(self, key, dictionary[key])
+
+    def __setitem__(self, key, item):
+        if key not in self:
+            raise IOError("New CONFIG keys are not allowed.")
+        dict.__setitem__(self, key, item)
+
+
+CONFIG = FixedDict(CONFIG)

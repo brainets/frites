@@ -4,16 +4,17 @@ Compare within-subjects statistics when computing mutual information
 
 This example illustrates how to define and run a workflow for computing
 mutual information and evaluate stastitics. Inference are made within-subjects
-(fixed effect = ffx). 
+(fixed effect = ffx).
 """
 import numpy as np
 
 from frites.simulations import sim_multi_suj_ephy, sim_mi_cc
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
+set_mpl_style()
 
 
 ###############################################################################
@@ -85,6 +86,7 @@ Use either :
 """
 cluster_th = 'tfce'  # {float, None, 'tfce'}
 
+plt.figure(figsize=(10, 8))
 for mcp in mcps:
     print(f'-> FFX / MCP={mcp}')
     mi, pvalues = wf.fit(dt, mcp=mcp, cluster_th=cluster_th, **kw)
@@ -95,13 +97,11 @@ for mcp in mcps:
     plt.plot(time, pvalues.squeeze(), label=f'ffx-{mcp}')
     plt.xlabel('Time (s)'), plt.ylabel("P-values")
     plt.title("P-values (ffx)")
-    plt.autoscale(tight=True)
 plt.legend()
 
 plt.subplot(211)
 plt.plot(time, mi.squeeze())
-plt.xlabel('Time (s)'), plt.ylabel("Bits")
+plt.ylabel("Bits")
 plt.title("Mutual information I(C; C)")
-plt.autoscale(tight=True)
 
 plt.show()

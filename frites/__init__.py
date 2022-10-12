@@ -6,10 +6,11 @@ Framework of Information Theory for Electrophysiological data and Statistics
 """
 import logging
 
-from frites import (io, core, conn, stats, utils, workflow, simulations,  # noqa
-                    estimator)
+from frites import (
+    io, core, conn, plot, stats, utils, workflow, simulations,  estimator  # noqa
+)
 
-__version__ = "0.4.0"
+__version__ = "0.4.2"
 
 # -----------------------------------------------------------------------------
 # Set 'info' as the default logging level
@@ -43,3 +44,11 @@ def set_config(key, value, verbose=None):
     assert key in CONFIG.keys(), f"The key {key} doesn't exist."
     CONFIG[key] = value
     logger.info(f"The key {key} has been updated")
+
+
+def set_mpl_style(style='frites'):
+    """Set matplotlib style."""
+    from pkg_resources import resource_filename
+    import matplotlib.pyplot as plt
+    path_style = resource_filename('frites', f'data/{style}.mplstyle')
+    plt.style.use(path_style)

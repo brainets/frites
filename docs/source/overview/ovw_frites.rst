@@ -1,7 +1,7 @@
 Start analyzing your data with Frites
 -------------------------------------
 
-In this section we are going to cover the basics knowledges if you want to start analyzing your data with Frites.
+In this section we are going to cover the basics knowledge if you want to start analyzing your data with Frites.
 
 .. note::
 
@@ -12,13 +12,13 @@ Package organization
 
 As other Python packages, Frites contains subject-specific submodules. Here's a short description of the main submodules for new users :
 
-* `frites.dataset <https://brainets.github.io/frites/api.html#module-frites.dataset>`_ : container for the electrophysiological data coming from multiple subjects (see also `those examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_ that explain how to define a container depending on your data type)
-* `frites.workflow <https://brainets.github.io/frites/api.html#module-frites.workflow>`_ : the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)
-* `frites.conn <https://brainets.github.io/frites/api.html#module-frites.conn>`_ : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level
+* :py:mod:`frites.dataset`: : container for the electrophysiological data coming from multiple subjects (see also `those examples <https://brainets.github.io/frites/auto_examples/index.html#multi-subjects-dataset>`_ that explain how to define a container depending on your data type)
+* :py:mod:`frites.workflow`: the workflows perform a series of analyzes (usually a first analysis to extract information using IT measures follow by a second statistical analysis)
+* :py:mod:`frites.conn`: : directed and undirected connectivity metrics that can either be computed across trials or at the single trial level
 
-In addition to the main modules above, the  `gallery of examples <https://brainets.github.io/frites/auto_examples/index.html>`_ illustrate the main functionalities of Frites using simulated data. Those functions can be imported from `frites.simulations <https://brainets.github.io/frites/api.html#module-frites.simulations>`_ and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using `autoregressive models <https://brainets.github.io/frites/api.html#autoregressive-model>`_.
+In addition to the main modules above, the  `gallery of examples <https://brainets.github.io/frites/auto_examples/index.html>`_ illustrate the main functionalities of Frites using simulated data. Those functions can be imported from :py:mod:`frites.simulations`: and can be used to simulate local neural activity modulated by the task such as stimulus-specific brain networks using `autoregressive models <https://brainets.github.io/frites/api/api_simulations.html#stimulus-specific-autoregressive-model>`_.
 
-Finally, for the developers here the `frites.core <https://brainets.github.io/frites/api.html#module-frites.core>`_ module include the very low level functions to estimate the mutual information (vector and tensor based implementations).
+Finally, for the developers here the :py:mod:`frites.core`: module include the very low level functions to estimate the mutual information (vector and tensor based implementations).
 
 
 Main Frites' workflows
@@ -26,8 +26,8 @@ Main Frites' workflows
 
 Frites contains two centrals workflows :
 
-1. `WfMi <https://brainets.github.io/frites/api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi>`_ : the main workflow of mutual-information that is used to **extract feature-specific brain networks**
-2. `WfStats <https://brainets.github.io/frites/api/generated/frites.workflow.WfStats.html#frites.workflow.WfStats>`_ : the workflow of statistics we used to perform group-level inferences
+1. :class:`frites.workflow.WfMi` : the main workflow of mutual-information that is used to **extract feature-specific brain networks**
+2. :class:`frites.workflow.WfStats` : the workflow of statistics we used to perform group-level inferences
 
 Actually, under the hood, the **WfMi** is also using the workflow of statistics so that it return the estimation of mutual-information between a feature and the data but also the corresponding p-values.
 
@@ -45,6 +45,22 @@ Actually, under the hood, the **WfMi** is also using the workflow of statistics 
 
     To see this workflow in action, checkout `those examples <https://brainets.github.io/frites/auto_examples/index.html#mutual-information>`_
 
+Step by step presentation of the workflow
++++++++++++++++++++++++++++++++++++++++++
+
+Here is a step by step presentation of the **WfMi** and **WfStats** workflows :
+
+1. **WfMi : effect size and permutations estimation :** the first step consist in estimating the amount of information shared between the brain data and the external variable. For the FFX, the information is computed **across subjects** while for the RFX the information is computed **per subject** (See :ref:`meth_stats_gp` for a more detailed description of the FFX and RFX). See the section about how the amount of information is computed (:ref:`meth_gcmi`) and which type of information you can use (:ref:`meth_gcmi_types`). For computing the permutations, we randomly shuffle the y variable and then recompute the MI between x and the permuted version of y. For the RFX specifically, a t-test across participants and against the permutation mean is used to form the effect at the group-level.
+2. **WfStats : correction for multiple comparisons and significant testing :** we are using the 95th percentile of the permutations to form the clusters, both on the true effect size and on the permutations. Finally, for correcting for multiple comparisons and to infer the p-value, we compare the mass of the cluster with the distribution of maximums cluster mass obtained across space.
+
+Those steps are summarized in the figure below.
+
+.. figure::  ../_static/stat_pipeline.png
+    :align:  center
+
+    Algorithmic presentation of the statistical pipeline. Extracted from Combrisson et al., 2022 :cite:`combrisson_group-level_2022`.
+
+For a more detailed discussion on group-level analysis, on non-parametric statistics and on corrections for multiple comparisons, see the section :ref:`meth_stats_gp`, see Combrisson et al., 2022 :cite:`combrisson_group-level_2022`.
 
 Deep integration with Xarray
 ++++++++++++++++++++++++++++

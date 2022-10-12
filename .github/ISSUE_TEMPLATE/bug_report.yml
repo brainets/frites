@@ -1,0 +1,53 @@
+name: 🐛 Bug report
+
+# See the json schema to help you create / update this form
+# https://json.schemastore.org/github-issue-forms.json
+
+description: Tell us about errors in our computations or plots.
+
+labels: ["BUG"]
+
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        Please use the [Discussion tab](https://github.com/brainets/frites/discussions) to ask (and answer)
+        concrete technical questions or about usage of Frites.
+        Use this form *only* if you think there is a bug in Frites code.
+
+  - type: textarea
+    attributes:
+      label: Description of the problem
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Paste here a code snippet or minimal working example
+        to replicate your problem.
+      render: Python
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected results
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual results
+      description: |
+        Please provide the actual output, traceback, screenshot, or another description of the results.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional information
+    validations:
+      required: true

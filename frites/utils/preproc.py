@@ -4,7 +4,16 @@ import xarray as xr
 from scipy.signal import savgol_filter as savgol
 from scipy.signal import fftconvolve
 
+from mne.filter import resample
+
 from frites.io import set_log_level, logger
+
+
+###############################################################################
+###############################################################################
+#                          TIME-SERIES PROCESSING
+###############################################################################
+###############################################################################
 
 
 def savgol_filter(x, h_freq, axis=None, sfreq=None, polyorder=5, verbose=None):
@@ -113,6 +122,130 @@ def kernel_smoothing(x, kernel, axis=-1):
     return x
 
 
+def _acf(xs, xt=None):
+    """Auto- or cross-correlation of time-series."""
+    n = len(xs)
+
+    if xt is None:  # auto-correlation
+        acov = np.correlate(xs, xs, "full")[n - 1:] / n
+        return acov[: n + 1] / acov[0]
+    else:           # cross-correlation
+        return np.correlate(xs, xt, mode="full") / len(xs)
+
+
+def acf(x, axis=-1, demean=True):
+    """Compute the autocorrelation function.
+
+    Parameters
+    ----------
+    x : array_like
+        Array to use to estimate the auto-correlation. It can also be an
+        instance of xarray.DataArray.
+    axis : int, string | -1
+        Location of the temporal dimension. If the x input is a DataArray,
+        axis can be a string (e.g axis='times')
+    demean : bool | True
+        Specify whether the mean should be removed. Default is True.
+
+    Returns
+    -------
+    acf : array_like
+        Array of auto-correlation with the same shape and type as the input x
+    """
+    logger.info(f'Computing the auto-correlation function (demean={demean})')
+    # deal with xarray inputs
+    is_xarray = isinstance(x, xr.DataArray)
+    if is_xarray:
+        # get dimensions, coordinates and attributes
+        xdims, xcoords, xattrs = x.dims, x.coords, x.attrs
+        xattrs['demean'] = int(demean)
+        # get axis number and name
+        if isinstance(axis, str):
+            axis_name = axis
+            axis = x.get_axis_num(axis)
+        elif isinstance(axis, int):
+            axis_name = x.dims[axis]
+        # drop labelling
+        x = x.data
+
+    # data demeaning
+    if demean:
+        xd = x - x.mean(axis=axis, keepdims=True)
+    else:
+        xd = x
+
+    # compute the auto-correlation
+    corr = np.apply_along_axis(_acf, axis, xd)
+
+    # xarray wrapping
+    if is_xarray:
+        # xarray transormation
+        corr = xr.DataArray(
+            corr, dims=xdims, coords=xcoords, attrs=xattrs, name='ACF'
+        )
+        # time axis should reflect auto-corr
+        times = corr[axis_name].data
+        dt = (times[1] - times[0])
+        corr[axis_name] = np.arange(len(times)) * dt
+
+    return corr
+
+
+def downsample(x, sfreq, down, axis='times', verbose=None):
+    """Data downsampling for DataArray.
+
+    Parameters
+    ----------
+    x : xr.DataArray
+        DataArray to down-sample.
+    sfreq : float
+        The sampling frequency
+    down : float
+        Down-sampling factor
+    axis : int, string | -1
+        Dimension name describing the temporal dimension.
+
+    Returns
+    -------
+    x : xr.DataArray
+        The down-sampled DataArray
+    """
+    set_log_level(verbose)
+    logger.info(f"    Perform data down-sampling (down={down}, sfreq={sfreq})")
+    # xarray to numpy conversion
+    assert isinstance(x, xr.DataArray)
+    data, dims, attrs = x.data, x.dims, x.attrs
+    coords = [x[a].data for a in dims]
+    if isinstance(axis, int):
+        axis = x.dims[axis]
+    axis_num = x.get_axis_num(axis)
+    times = x[axis].data
+
+    # get starting point of the time vector
+    t0 = times[0]
+
+    # perform the downsampling
+    _data = resample(data, down=down, axis=axis_num)
+    sfreq = sfreq / down
+
+    # rebuild the time vector
+    times = t0 + (np.arange(_data.shape[axis_num]) / sfreq)
+
+    # rebuild the dataarray
+    coords[axis_num] = times
+    attrs['down'] = down
+    attrs['sfreq'] = sfreq
+    _data = xr.DataArray(_data, coords=coords, dims=dims, attrs=attrs)
+
+    return _data
+
+
+###############################################################################
+###############################################################################
+#                                DATA SELECTION
+###############################################################################
+###############################################################################
+
 def nonsorted_unique(data, assert_unique=False):
     """Get an unsorted version of a element.
 
@@ -210,3 +343,41 @@ def get_closest_sample(ref, values, precision=None, return_precision=False):
         return (diff, precisions)
     else:
         return diff
+
+
+def normalize(x, to_min=0., to_max=1.):
+    """Normalize the array x between to_min and to_max.
+
+    Parameters
+    ----------
+    x : array_like
+        The array to normalize
+    to_min : int/float | 0.
+        Minimum of returned array
+    to_max : int/float | 1.
+        Maximum of returned array
+
+    Returns
+    -------
+    xn : array_like
+        The normalized array
+    """
+    # find minimum and maximum
+    if to_min is None: to_min = np.nanmin(x)  # noqa
+    if to_max is None: to_max = np.nanmax(x)  # noqa
+
+    # normalize
+    if x.size:
+        xm, xh = np.nanmin(x), np.nanmax(x)
+        if xm != xh:
+            x_n = to_max - (((to_max - to_min) * (xh - x)) / (xh - xm))
+        else:
+            x_n = x * to_max / xh
+    else:
+        x_n = x
+
+    # add normalizatoin information to xarray
+    if isinstance(x_n, (xr.DataArray, xr.Dataset)):
+        x_n.attrs['to_min'], x_n.attrs['to_max'] = to_min, to_max
+
+    return x_n

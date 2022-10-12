@@ -1,6 +1,7 @@
 """Base class for managing Xarray attributes."""
 from collections import UserDict
 
+import numpy as np
 import xarray as xr
 from xarray.core import formatting, formatting_html
 
@@ -36,15 +37,7 @@ class Attributes(UserDict):
 
     def _check_netcdf(self):
         """Check attributes for netcdf compatibility."""
-        keys, values = list(self.data.keys()), list(self.data.values())
-        for k, v in zip(keys, values):
-            if v is None: self.data[k] = 'none'  # noqa
-            if isinstance(v, bool): self.data[k] = str(v)  # noqa
-            # dict to strings
-            if isinstance(v, dict):
-                for _k, _v in v.items():
-                    self.data[f"{k}_{_k}"] = _v
-                self.data.pop(k)
+        self.data = check_attrs(self.data)
 
     def update(self, attrs, check=True):
         """Update internal with external attributes."""
@@ -71,3 +64,47 @@ class Attributes(UserDict):
             da.name = name
             da.attrs['type'] = name
         return da
+
+
+def check_attrs(kwargs):
+    """Check Xarray attributes for loading / saving files.
+
+    Saving Xarray as netcdf can sometimes fail due to bad attribute types. This
+    function convert those problematic attributes.
+
+    Parameters
+    ----------
+    kwargs : dict
+        Attributes to convert
+
+    Returns
+    -------
+    attrs : dict
+        Converted attributes
+    """
+    assert isinstance(kwargs, dict)
+    attrs = {}
+    for k, v in kwargs.items():
+        # None to 'none'
+        if v is None:
+            v = 'None'
+
+        # bool to int
+        if isinstance(v, bool):
+            v = int(v)
+
+        # array to list
+        if isinstance(v, np.ndarray):
+            attrs[k] = np.ravel(v).tolist()
+
+        # dict to strings
+        v_c = {}
+        if isinstance(v, dict):
+            for _k, _v in v.items():
+                v_c[f"{k}_{_k}"] = _v
+            v = v_c
+
+        # finally set the converted attribute
+        attrs[k] = v
+
+    return attrs

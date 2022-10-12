@@ -7,11 +7,12 @@ import xarray as xr
 from mne.utils import ProgressBar
 
 from frites.io import set_log_level, logger
-from frites.core import permute_mi_vector
 from frites.workflow.wf_stats import WfStats
 from frites.workflow.wf_base import WfBase
 from frites.estimator import GCMIEstimator, ResamplingEstimator
 from frites.utils import parallel_func, kernel_smoothing
+from frites.stats import (dist_to_ci, permute_mi_vector, bootstrap_partitions,
+                          confidence_interval)
 
 
 class WfMi(WfBase):
@@ -82,8 +83,9 @@ class WfMi(WfBase):
         self.attrs.update(dict(
             mi_type=mi_type, inference=inference, kernel=kernel))
 
-        logger.info(f"Workflow for computing mutual information ({inference} -"
-                    f" {mi_type})")
+        logger.info(
+            f"Workflow for computing mutual information (inference={inference}"
+            f", mi_type={mi_type}, copnorm={self._copnorm})")
 
     def _node_compute_mi(self, dataset, n_perm, n_jobs, random_state):
         """Compute mi and permuted mi.
@@ -127,7 +129,7 @@ class WfMi(WfBase):
             # get the randomize version of y
             y_p = permute_mi_vector(
                 y, suj, mi_type=self._mi_type, inference=self._inference,
-                n_perm=n_perm)
+                n_perm=n_perm, random_state=random_state)
             # run permutations using the randomize regressor
             _mi_p = parallel(p_fun(x, y_p[p], **kw_mi) for p in range(n_perm))
             _mi_p = np.asarray(_mi_p)
@@ -367,7 +369,211 @@ class WfMi(WfBase):
 
         return conj_ss, conj
 
-    def get_params(self, *params):
+    def confidence_interval(self, dataset, ci=95, n_boots=200, rfx_es='mi',
+                            n_jobs=-1, random_state=None, verbose=None):
+        """Estimate the empirical confidence interval.
+
+        Parameters
+        ----------
+        dataset : :class:`frites.dataset.DatasetEphy`
+            A dataset instance. If the workflow has already been fitted, then
+            this parameter can remains to None.
+        ci : float, list | 95
+            Confidence level to use in percentage. Use either a single float
+            (e.g. 95, 99 etc.) or a list of floats (e.g. [95, 99])
+        n_boots : int | 200
+            Number of resampling to perform
+        rfx_es : {'mi', 'tvalues'}
+            For the RFX model, specify whether the confidence interval has to
+            be estimated on a measure of effect size in bits ('mi') or on
+            second-level t-test ('tvalues')
+        n_jobs : int | -1
+            Number of jobs to use for parallel computing (use -1 to use all
+            jobs)
+        random_state : int | None
+            Fix the random state of the machine (use it for reproducibility).
+            If None, a random state is randomly assigned.
+
+        Returns
+        -------
+        ci : xr.DataArray
+            Confidence interval array of shape (n_ci, 2, n_times, n_roi) where
+            n_ci describe the number of confidence levels define with the
+            input parameter `ci`, and 2 represents the lower and upper bounds
+            of the confidence interval
+        """
+        set_log_level(verbose)
+
+        # check inputs
+        if isinstance(ci, (int, float)):
+            ci = [ci]
+        assert isinstance(ci, (list, tuple, np.ndarray))
+        assert isinstance(n_boots, int)
+        for k in ci:
+            assert isinstance(k, (int, float)) and (0 < k < 100)
+        assert len(self._mi) and len(self._mi_p), (
+            "You've to lauched the workflow (`fit()`) before being able to "
+            "perform the conjunction analysis.")
+        assert rfx_es in ['mi', 'tvalues']
+
+        logger.info("Estimation of the empirical confidence interval "
+                    f"(levels={ci}; n_boots={n_boots}")
+
+        """
+        For the RFX, the CI on t-values is estimated at the second level i.e.
+        by bootstraping the subjects. I'm not sure why, but CI at the trial
+        level (i.e. resampling trials per subjects) leads to t-values bellow
+        the real effect size.
+        """
+        if (self._inference == 'rfx') and (rfx_es == 'tvalues'):
+            from frites.stats import ttest_1samp
+
+            logger.info("    Resampling at the second level t-test")
+
+            # get whether the same partition should be used across roi or not
+            n_suj_roi = np.array([k.shape[0] for k in self.mi])
+            part_fix = np.all(n_suj_roi == n_suj_roi[0])
+
+            # create the resampling partitions for each roi (seeg)
+            if part_fix:  # fix partitions
+                partitions = bootstrap_partitions(
+                    max(n_suj_roi), n_partitions=n_boots,
+                    random_state=random_state)
+            else:         # flexible partitions
+                partitions = []
+                for k in range(len(self.mi)):
+                    _part = bootstrap_partitions(
+                        self.mi[k].shape[0], n_partitions=n_boots,
+                        random_state=random_state)
+                    partitions.append(_part)
+
+            # create the progress bar
+            pbar = ProgressBar(range(n_boots), mesg='Estimating CI')
+
+            # get t-test related variables
+            s_hat = self._wf_stats.attrs['ttest_sigma']
+
+            tt = []
+            for n_p in range(n_boots):
+                # resample the mi
+                mi_rsh, mi_p_rsh, n_elements = [], 0., 0.
+                for n_r, (mi, mi_p) in enumerate(zip(self.mi, self.mi_p)):
+                    # get the partition
+                    p = partitions[n_p] if part_fix else partitions[n_r][n_p]
+                    # reshape mi and mi_p
+                    mi_rsh.append(mi[p, :])
+                    _mi_p_rsh = mi_p[:, p, :]
+                    mi_p_rsh += _mi_p_rsh.sum()
+                    n_elements += np.prod(_mi_p_rsh.shape)
+
+                # computes pop_mean on resampled t-values
+                pop_mean = mi_p_rsh / n_elements
+
+                # compute the t-test on this partition
+                mi_var = max([np.var(k, axis=0, ddof=1).max() for k in mi_rsh])
+                sigma = s_hat * mi_var
+                _tt = np.stack([ttest_1samp(
+                    k, pop_mean, axis=0, implementation='mne',
+                    method='absolute', sigma=sigma) for k in mi_rsh], axis=0)
+                tt.append(_tt)
+
+                pbar.update_with_increment_value(1)
+
+            # compute ci
+            tt = np.stack(tt, axis=0)
+            ci_all = [dist_to_ci(tt[:, [r], :], cis=ci) for r in range(
+                tt.shape[1])]
+            ci_all = np.stack(ci_all, axis=-1)
+
+            # xarray formatting
+            x_ci = xr.DataArray(
+                ci_all, dims=('ci', 'bound', 'times', 'roi'),
+                coords=(ci, ['low', 'high'], self._mi_coords['times'],
+                        self._mi_coords['roi']))
+            return x_ci
+
+        logger.info("    Resampling at the first level")
+
+        """
+        For the FFX / RFX + rfx_es = 'mi', the resampling is performed at the
+        single trial level.
+        """
+
+        # get the function for computing mi
+        mi_fun = self.estimator.get_function()
+        n_roi = len(self._roi)
+        if self._inference == 'rfx':
+            pop_mean = self.attrs['ttest_pop_mean']
+        else:
+            pop_mean = None
+
+        # get x, y, z and subject names per roi
+        if dataset._mi_type != self._mi_type:
+            assert TypeError(f"Your dataset doesn't allow to compute the mi "
+                             f"{self._mi_type}. Allowed mi is "
+                             f"{dataset._mi_type}")
+
+        # evaluate true mi
+        logger.info(f"    Evaluate the confidence interval (ci={ci}%, "
+                    f"n_boots={n_boots}, n_jobs={n_jobs})")
+
+        # define the bootstraping function
+        def boot_fcn(x, y, part, **kw_mi):
+            # resample the subject labels and z variable (cmi)
+            kw = {k: v[part] for k, v in kw_mi.items()}
+
+            return mi_fun(x[..., part], y[part], **kw)
+
+        # parallel function for computing bootstrap
+        parallel, p_fun = parallel_func(boot_fcn, n_jobs=n_jobs, verbose=False)
+        pbar = ProgressBar(range(n_roi), mesg='Estimating CI')
+
+        # evaluate permuted mi
+        x_ci = []
+        for r in range(n_roi):
+            # get the data of selected roi
+            da = dataset.get_roi_data(
+                self._roi[r], copnorm=self._copnorm, mi_type=self._mi_type,
+                gcrn_per_suj=self._gcrn)
+            x, y, suj = da.data, da['y'].data, da['subject'].data
+            kw_mi = dict()
+
+            # cmi and categorical MI
+            if 'z' in list(da.coords):
+                kw_mi['z'] = da['z'].data
+            if self._inference == 'rfx':
+                kw_mi['categories'] = suj
+
+            # build the group variable
+            groups = tuple(v for v in kw_mi.values())
+
+            # define the bootstrap partitions
+            partitions = bootstrap_partitions(
+                len(y), *groups, n_partitions=n_boots,
+                random_state=random_state)
+
+            # compute the true mi
+            _mi_b = parallel(p_fun(
+                x, y, p, **kw_mi) for p in partitions)
+
+            # compute ci
+            _x_ci = dist_to_ci(
+                np.asarray(_mi_b), cis=ci, inference=self._inference,
+                pop_mean=pop_mean, rfx_es='mi'
+            )
+            x_ci.append(_x_ci)
+            pbar.update_with_increment_value(1)
+        x_ci = np.stack(x_ci, axis=-1)
+
+        # xarray conversion
+        x_ci = xr.DataArray(
+            x_ci, dims=('ci', 'bound', 'times', 'roi'),
+            coords=(ci, ['low', 'high'], self._mi_coords['times'],
+                    self._mi_coords['roi']))
+
+        return x_ci
+
+    def get_params(self, *params, cis=95, n_boots=200, random_state=None):
         """Get formatted parameters.
 
         This method can be used to get internal arrays formatted as xarray
@@ -386,7 +592,27 @@ class WfMi(WfBase):
                   (n_perm, n_subjects, n_times, n_roi)
                 * 'perm_' : DataArray of maximum computed permutations of
                   shape (n_perm,)
+                * 'mi_ci' : DataArray of confidence interval computed when
+                  taking the mean of MI across subjects (or sessions). The
+                  output shape is (n_ci, 2, n_times, n_roi) where
+                  n_ci describe the number of confidence levels define with the
+                  input parameter `ci`, and 2 represents the lower and upper
+                  bounds of the confidence interval
+
+        ci : float, list | 95
+            Confidence level to use in percentage. Use either a single float
+            (e.g. 95, 99 etc.) or a list of floats (e.g. [95, 99])
+        n_boots : int | 200
+            Number of resampling to perform
+        random_state : int | None
+            Fix the random state of the machine (use it for reproducibility).
+            If None, a random state is randomly assigned.
+
         """
+        # input checking
+        if isinstance(cis, (int, float)): cis = [cis]  # noqa
+        assert isinstance(cis, (list, tuple, np.ndarray))
+        assert isinstance(n_boots, int)
         # get coordinates
         times, roi, df_rs = self._times, self._roi, self._df_rs
         if self._inference == 'ffx':
@@ -410,6 +636,23 @@ class WfMi(WfBase):
                         dims=('subject', 'times'))
                 da = xr.Dataset(mi).to_array('roi')
                 da = da.transpose('subject', 'times', 'roi')
+            elif param == 'mi_ci':
+                mi_ci = {}
+                for n_r, r in enumerate(roi):
+                    # compute ci
+                    _ci = confidence_interval(
+                        self._mi[n_r], axis=0, cis=cis, n_boots=n_boots,
+                        random_state=random_state)
+
+                    # xarray
+                    mi_ci[r] = xr.DataArray(
+                        _ci, dims=('ci', 'bound', 'times'),
+                        coords=(cis, ['low', 'high'], times))
+
+                da = xr.Dataset(mi_ci).to_array('roi').transpose(
+                    'ci', 'bound', 'times', 'roi'
+                )
+
             elif param == 'perm_ss':
                 mi = dict()
                 for n_r, r in enumerate(roi):

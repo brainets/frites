@@ -24,6 +24,7 @@ Single and multi-subjects gaussian-based simulations
 .. autosummary::
    :toctree: generated/
 
+   sim_ground_truth
    sim_local_cc_ss
    sim_local_cc_ms
    sim_local_cd_ss

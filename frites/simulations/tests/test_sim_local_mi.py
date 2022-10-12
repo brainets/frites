@@ -1,9 +1,11 @@
 """Test functions for simulating local mutual information."""
 import numpy as np
+import xarray as xr
 
-from frites.simulations import (sim_local_cc_ss, sim_local_cc_ms,
-                                sim_local_cd_ss, sim_local_cd_ms,
-                                sim_local_ccd_ms, sim_local_ccd_ss)
+from frites.simulations import (
+    sim_local_cc_ss, sim_local_cc_ms, sim_local_cd_ss, sim_local_cd_ms,
+    sim_local_ccd_ms, sim_local_ccd_ss, sim_ground_truth
+)
 
 
 n_subjects = 4
@@ -83,3 +85,28 @@ class TestSimLocalMi(object):  # noqa
             np.testing.assert_array_equal(np.unique(z[k]),
                                           np.arange(n_conditions))
             assert roi[k].shape == (n_roi,)
+
+    def test_sim_ground_truth(self):
+        """Test function sim_ground_truth."""
+        n_subjects = 5
+        n_epochs = 10
+        kw = dict(verbose=False, random_state=0)
+
+        for gtype in ['tri', 'tri_r', 'diffuse', 'focal']:
+            # test ground truth output
+            gt = sim_ground_truth(
+                n_subjects, n_epochs, gtype=gtype, gt_as_cov=False,
+                gt_only=True, **kw)
+            assert gt.data.dtype == bool
+            gt = sim_ground_truth(
+                n_subjects, n_epochs, gtype=gtype, gt_as_cov=True,
+                gt_only=True, **kw)
+            assert gt.data.dtype == float
+
+            # test data
+            da, _ = sim_ground_truth(
+                n_subjects, n_epochs, gtype=gtype, gt_as_cov=False,
+                gt_only=False, **kw)
+            assert len(da) == n_subjects
+            assert all([isinstance(k, xr.DataArray) for k in da])
+            assert all([da[0].dims == k.dims for k in da])

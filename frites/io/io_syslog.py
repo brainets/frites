@@ -7,8 +7,8 @@ import logging
 import sys
 import re
 
-from mne.fixes import _get_args
-from mne.externals.decorator import FunctionMaker
+from inspect import signature
+from decorator import FunctionMaker
 
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 RESET_SEQ = "\033[0m"
@@ -193,7 +193,7 @@ def verbose(function):
     dec : callable
         The decorated function.
     """
-    arg_names = _get_args(function)
+    arg_names = signature(function).parameters
 
     def wrapper(*args, **kwargs):
         default_level = verbose_level = None

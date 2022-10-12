@@ -11,8 +11,10 @@ import xarray as xr
 
 from frites.dataset import DatasetEphy
 from frites.workflow import WfMi
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 np.random.seed(0)
 
@@ -87,7 +89,7 @@ mi, pv = wf.fit(ds, n_perm=200, mcp='cluster', random_state=0, n_jobs=1)
 ###############################################################################
 # plot the mutual information and p-values
 
-plt.figure(figsize=(10, 4))
+plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
 mi.squeeze().plot.pcolormesh(vmin=0, cmap='inferno')
 plt.title('Mutual information')

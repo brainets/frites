@@ -3,13 +3,13 @@ import numpy as np
 import xarray as xr
 
 from frites.conn import conn_io
-from frites.io import logger
+from frites.io import logger, check_attrs
 from frites.estimator import GCMIEstimator
 from frites.utils import parallel_func
 
 
 def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
-             estimator=None, gcrn=False, n_jobs=1, verbose=None):
+             estimator=None, gcrn=False, n_jobs=1, verbose=None, **kw_links):
     """Single trial Dynamic Functional Connectivity.
 
     This function computes the pairwise Dynamic Functional Connectivity (DFC)
@@ -59,6 +59,9 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
+    kw_links : dict | {}
+        Additional arguments for selecting links to compute are passed to the
+        function :func:`frites.conn.conn_links`
 
     Returns
     -------
@@ -67,13 +70,14 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
 
     See also
     --------
-    define_windows, conn_covgc
+    conn_links, define_windows, conn_covgc
     """
     # ________________________________ INPUTS _________________________________
     # inputs conversion
+    kw_links.update({'directed': False, 'net': False})
     data, cfg = conn_io(
         data, times=times, roi=roi, agg_ch=agg_ch, win_sample=win_sample,
-        pairs=None, sort=True, name='DFC', verbose=verbose,
+        name='DFC', verbose=verbose, kw_links=kw_links
     )
 
     # extract variables
@@ -123,7 +127,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
     # add the windows used in the attributes
     cfg = dict(
         win_sample=np.r_[tuple(win_sample)], win_times=np.r_[tuple(win_times)],
-        agg_ch=str(agg_ch), type='dfc', estimator=estimator.name)
-    dfc.attrs = {**cfg, **attrs}
+        agg_ch=agg_ch, type='dfc', estimator=estimator.name)
+    dfc.attrs = check_attrs({**cfg, **attrs})
 
     return dfc

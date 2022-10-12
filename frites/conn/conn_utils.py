@@ -142,6 +142,199 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
     return df_conn, df_suj
 
 
+def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
+               nb_min_links=None, pairs=None, sort=True, triu_k=1,
+               hemisphere=None, hemi_links='both', categories=None,
+               source_seed=None, target_seed=None, verbose=None):
+    """Construct pairwise links for functional connectivity.
+
+    This function can be used for defining the pairwise links for computing
+    either undirected or directed FC on M/EEG or intracranial EEG.
+
+    Parameters
+    ----------
+    roi : array_like
+        List of roi (or contacts) names.
+    directed : bool | False
+        Specify whether the links should be for undirected (False) or directed
+        (True) FC
+    net : bool | False
+        Specify whether it is for net directed FC (True) or not (False)
+    roi_relation : {'both', 'inter', 'intra'}
+        Specify the roi relation between pairs of brain regions. Use either :
+
+            * 'intra' : to select only links within a brain region
+              (e.g. V1-V1)
+            * 'inter' : to select only links across brain region (e.g. V1-V2)
+            * 'both' : to select links both within and across brain regions
+    sep : string | 'auto'
+        If 'auto', '-' are used to linked brain region names for undirected FC
+        or '->' for directed FC. Alternatively, you can provide a custom
+        separator (e.g. sep='/')
+    nb_min_links : int | None
+        Threshold for defining a minimum number of links between two brain
+        regions (e.g. iEEG)
+    pairs : array_like | None
+        Force to use certain pairs of brain regions. Should be an array of
+        shape (n_pairs, 2) where the first column refer to sources and the
+        second to targets
+    sort : bool | True
+        For undirected and net directed FC, sort the names of the brain regions
+        (e.g. 'V1-M1' -> 'M1-V1')
+    triu_k : int | 1
+        Diagonal offset when estimating the undirected links to use. By
+        default, triu_k=1 means that we skip auto-connections
+    hemisphere : array_like | None
+        List of hemisphere names
+    hemi_links : {'both', 'intra', 'inter'}
+        Specify whether connectivity links should be :
+
+            * 'both': intra-hemispheric and inter-hemispheric (default)
+            * 'intra': intra-hemispheric
+            * 'inter': inter-hemispheric
+
+        In order to work, you should provide the hemisphere name using the
+        input `hemisphere`
+    categories : array_like | list | None
+        Specify categorical information associated to each region to then
+        get links only across categories.
+    source_seed : str, list | None
+        Brain region name(s) to use as source seed. Can either be the name of a
+        single brain region or a list of brain regions.
+    target_seed : str, list | None
+        Brain region name(s) to use as target seed. Can either be the name of a
+        single brain region or a list of brain regions.
+
+    Returns
+    -------
+    indices : tuple
+        Remaining indices for (sources, targets)
+    roi_st : list
+        Name of the pairs of brain regions
+    """
+    set_log_level(verbose)
+    assert isinstance(roi, (np.ndarray, list, tuple))
+    if not directed:
+        assert not net, ("Net computations not supported for undirected "
+                         "connectivity")
+    roi = np.asarray(roi).astype(str)
+    n_roi = len(roi)
+    if isinstance(source_seed, str): source_seed = [source_seed]  # noqa
+    if isinstance(target_seed, str): target_seed = [target_seed]  # noqa
+    logger.info(f"Defining links (n_roi={n_roi}; directed={directed}; "
+                f"net={net}, nb_min_links={nb_min_links})")
+
+    # build separator name
+    if sep == 'auto':
+        sep = '->' if directed and not net else '-'
+    else:
+        assert isinstance(sep, str)
+
+    # get (un)directed pairs
+    if isinstance(pairs, np.ndarray) and (pairs.shape[1] == 2):
+        x_s, x_t = pairs[:, 0], pairs[:, 1]
+    else:
+        if directed and not net:
+            x_s, x_t = np.where(~np.eye(n_roi, dtype=bool))
+        elif (not directed) or (directed and net):
+            x_s, x_t = np.triu_indices(n_roi, k=triu_k)
+
+    # manage roi relation
+    if roi_relation in ['inter', 'intra']:
+        logger.info(f"    Keeping only {roi_relation}-roi links")
+        roi_s, roi_t = roi[x_s], roi[x_t]
+        if roi_relation == 'intra':
+            keep = [s == t for s, t in zip(roi_s, roi_t)]
+        elif roi_relation == 'inter':
+            keep = [s != t for s, t in zip(roi_s, roi_t)]
+        keep = np.asarray(keep)
+
+        logger.info(f"    ROI relation selection (dropped={(~keep).sum()} "
+                    "links)")
+        x_s, x_t = x_s[keep], x_t[keep]
+
+    # change roi order for undirected and net directed
+    if sort and (not directed) or (directed and net):
+        logger.info("    Sorting roi names")
+        roi_low = np.asarray([np.char.lower(r.astype(str)) for r in roi])
+        _xs, _xt = x_s.copy(), x_t.copy()
+        x_s, x_t = [], []
+        for s, t in zip(_xs, _xt):
+            _pair = np.array([roi_low[s], roi_low[t]])
+            if np.all(_pair == np.sort(_pair)):
+                x_s.append(s)
+                x_t.append(t)
+            else:
+                x_s.append(t)
+                x_t.append(s)
+    x_s, x_t = np.asarray(x_s), np.asarray(x_t)
+
+    # keep pairs with a minimum number of links inside
+    if isinstance(nb_min_links, int):
+        logger.info("    Thresholding number of links")
+        roi_st = [f"{s}{sep}{t}" for s, t in zip(roi[x_s], roi[x_t])]
+        df = pd.DataFrame({'pairs': roi_st})
+        df = df.groupby('pairs').size()
+        keep = [df.loc[r] >= nb_min_links for r in roi_st]
+        x_s, x_t = x_s[keep], x_t[keep]
+
+    # hemisphere selection
+    if isinstance(hemisphere, (list, np.ndarray)):
+        assert hemi_links in ['both', 'intra', 'inter']
+        hemisphere = np.asarray(hemisphere)
+        h_s, h_t = hemisphere[x_s], hemisphere[x_t]
+        if hemi_links in ['intra', 'inter']:
+            keep = h_s == h_t if hemi_links == 'intra' else h_s != h_t
+            x_s, x_t = x_s[keep], x_t[keep]
+        else:
+            keep = np.array([True] * len(x_s))
+        logger.info(f"    Hemispheric selection (hemi_links={hemi_links}, "
+                    f"dropped={(~keep).sum()} links)")
+
+    # categorical selection
+    if isinstance(categories, (list, np.ndarray, tuple)):
+        # reshape categories
+        categories = np.asarray(categories)
+        if categories.ndim == 1:
+            categories = categories[:, np.newaxis]
+        assert categories.shape[0] == n_roi
+
+        # categorical selection
+        keep = []
+        for s, t in zip(x_s, x_t):
+            keep.append(np.all(categories[s, :] != categories[t, :]))
+        keep = np.asarray(keep)
+        x_s, x_t = x_s[keep], x_t[keep]
+
+        logger.info(f"    Categorical selection (dropped={(~keep).sum()} "
+                    "links)")
+
+    # seed / target selection
+    if isinstance(source_seed, (list, tuple, np.ndarray)):
+        keep = _seed_selection(source_seed, roi, x_s, x_t, directed, 'source')
+        x_s, x_t = x_s[keep], x_t[keep]
+    if isinstance(target_seed, (list, tuple, np.ndarray)):
+        keep = _seed_selection(target_seed, roi, x_s, x_t, directed, 'target')
+        x_s, x_t = x_s[keep], x_t[keep]
+
+    # build pairs of brain region names
+    roi_st = np.asarray([f"{s}{sep}{t}" for s, t in zip(roi[x_s], roi[x_t])])
+
+    return (x_s, x_t), roi_st
+
+
+def _seed_selection(seed, roi, x_s, x_t, directed, origin):
+    if directed:
+        if origin == 'source':
+            keep = [s in seed for s in roi[x_s]]
+        elif origin == 'target':
+            keep = [s in seed for s in roi[x_t]]
+    else:
+        keep_s = [s in seed for s in roi[x_s]]
+        keep_t = [t in seed for t in roi[x_t]]
+        keep = np.c_[keep_s, keep_t].any(1)
+    return keep
+
 ###############################################################################
 ###############################################################################
 #                              CONN RESHAPING
@@ -414,3 +607,79 @@ def conn_ravel_directed(da, sep='-', drop_within=False):
         da_ravel = da_ravel.sel(roi=to_keep)
 
     return da_ravel
+
+
+def conn_net(da, roi='roi', order=None, sep='-', invert=False, verbose=None):
+    """Compute the net on directed connectivity.
+
+    This function can be used to compute the net difference on directed
+    connectivity (i.e. A - B = A->B - B->A).
+
+    Parameters
+    ----------
+    da : xr.DataArray
+        Xarray DataArray containing the connectivity array
+    roi : 'roi'
+        Name of the spatial dimension
+    order : list | None
+        List of names for specifying the final order
+    sep : string | '-'
+        Separator between brain region names (e.g. if 'Insula->Thalamus' then
+        sep is '->')
+    invert : bool | False
+        Specify whether the difference should be computed with A - B or B - A
+
+    Returns
+    -------
+    out : xr.DataArray
+        DataArray, with the same dimension names as the input, representing the
+        net difference of directed connexions.
+    """
+    set_log_level(verbose)
+    assert roi in da.dims
+    roi_names = da[roi].data
+
+    # get roi order from sources
+    if order is None:
+        roi_s, roi_t = [], []
+        for r in roi_names:
+            _rs, _rt = r.split(sep)
+            roi_s.append(_rs)
+            roi_t.append(_rt)
+        order = nonsorted_unique(roi_s + roi_t)
+    order = np.asarray(order)
+
+    # build names of the difference
+    x_s, x_t = np.triu_indices(len(order), k=1)
+    roi_s, roi_t = order[x_s], order[x_t]
+    if invert:
+        _roi_st = roi_s.copy()
+        roi_s = roi_t
+        roi_t = _roi_st
+
+    # build pairs names
+    roi_st, p_s, p_t, ignored = [], [], [], []
+    for s, t in zip(roi_s, roi_t):
+        name_s, name_t = f"{s}{sep}{t}", f"{t}{sep}{s}"
+        if (name_s in da[roi]) and (name_t in da[roi]):
+            roi_st.append(f"{s}-{t}")
+            p_s.append(name_s)
+            p_t.append(name_t)
+        else:
+            ignored.append(f"{s}-{t}")
+            # ignored.append(name_s)
+    if len(ignored):
+        logger.warning("The following pairs have been ignored in the "
+                       f"subtraction : {ignored}")
+
+    # prepare the output
+    out = da.isel(**{roi: slice(0, len(roi_st))}).copy()
+    out[roi] = roi_st
+    out.data = da.sel(**{roi: p_s}).data - da.sel(**{roi: p_t}).data
+
+    # update attributes to track operations
+    out.attrs['net_source'] = p_s
+    out.attrs['net_target'] = p_t
+    out.name = da.name + '_net' if da.name else 'Net conn'
+
+    return out

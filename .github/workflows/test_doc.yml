@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v3.0.2
 
     - name: Set up Python ${{ matrix.python-version }} 🔧
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -35,12 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3.0.2
 
       - name: Set up Python 🔧
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.9'
 
       - name: Install dependencies 🔧
         run: |
@@ -50,11 +50,12 @@ jobs:
       - name: Build the Doc 🔧
         run: |
           cd docs
+          make clean
           make html
           touch build/html/.nojekyll
 
       - name: Deploy Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+        uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: gh-pages
           folder: docs/build/html/

@@ -72,6 +72,7 @@ extlinks = {
     "issue": ("https://github.com/brainets/frites/issues/%s", "IS"),
     "pull": ("https://github.com/brainets/frites/pull/%s", "PR"),
     "commit": ("https://github.com/brainets/frites/commit/%s", "CM"),
+    "author": ("https://github.com/%s", "by "),
 }
 
 # The suffix(es) of source filenames.
@@ -148,6 +149,7 @@ sphinx_gallery_conf = {
         '../../examples/utils',
         '../../examples/statistics',
         '../../examples/simulations',
+        '../../examples/performance',
         '../../examples/xarray'
         ]),
     'doc_module': ('frites',)

@@ -10,6 +10,9 @@ into two categories :
 Most of those stastical functions are using
 `MNE Python <https://mne.tools/stable/index.html>`_
 """
-from .stats_param import (ttest_1samp, rfx_ttest)  # noqa
 from .stats_mcp import (testwise_correction_mcp, cluster_correction_mcp,  # noqa
                         cluster_threshold)
+from .stats_nonparam import (permute_mi_vector, permute_mi_trials,  # noqa
+                             bootstrap_partitions, dist_to_ci,
+                             confidence_interval, trial_swap_surrogates)
+from .stats_param import (ttest_1samp, rfx_ttest)  # noqa

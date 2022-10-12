@@ -84,17 +84,21 @@ class TestConnIO(object):
 
         # custom pairs of roi
         pairs = np.array([[0, 2], [4, 6]])
-        _, cfg = conn_io(data_xr, roi='space', times='ti', pairs=pairs)
+        _, cfg = conn_io(data_xr, roi='space', times='ti',
+                         kw_links=dict(pairs=pairs))
         np.testing.assert_array_equal(cfg['x_s'], [0, 4])
         np.testing.assert_array_equal(cfg['x_t'], [2, 6])
         np.testing.assert_array_equal(cfg['roi_p'], ['r0-R1', 'R1-r2'])
 
         # test roi sorting
         pairs = np.array([[3, 0], [5, 2]])
-        kw = dict(pairs=pairs, roi='space', times='ti')
-        _, cfg = conn_io(data_xr, sort=False, **kw)
+        kw = dict(kw_links=dict(pairs=pairs, sort=False), roi='space',
+                  times='ti')
+        _, cfg = conn_io(data_xr, **kw)
         np.testing.assert_array_equal(cfg['roi_p'], ['R1-r0', 'r2-R1'])
-        _, cfg = conn_io(data_xr, sort=True, **kw)
+        kw = dict(kw_links=dict(pairs=pairs, sort=True), roi='space',
+                  times='ti')
+        _, cfg = conn_io(data_xr, **kw)
         np.testing.assert_array_equal(cfg['roi_p'], ['r0-R1', 'R1-r2'])
 
     def test_temporal_definition(self):
@@ -141,4 +145,4 @@ class TestConnIO(object):
 
 
 if __name__ == '__main__':
-    TestConnIO().test_task_related()
+    TestConnIO().test_space_definition()

@@ -15,9 +15,10 @@ test Frites functions and workflows. There are several ways to simulate data :
 # task-related brain network
 from .sim_ar import StimSpecAR  # noqa
 # gaussian-based task-related functions
-from .sim_local_mi import (sim_local_cc_ss, sim_local_cc_ms,  # noqa
-                           sim_local_cd_ss, sim_local_cd_ms,
-                           sim_local_ccd_ms, sim_local_ccd_ss)
+from .sim_local_mi import (
+   sim_local_cc_ss, sim_local_cc_ms, sim_local_cd_ss, sim_local_cd_ms, # noqa
+   sim_local_ccd_ms, sim_local_ccd_ss, sim_ground_truth
+)
 
 # Undocumented functions
 # ----------------------

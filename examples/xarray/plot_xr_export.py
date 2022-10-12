@@ -8,6 +8,7 @@ are going to show how to save and reload a single DataArray such as a Dataset.
 import numpy as np
 import xarray as xr
 import pandas as pd
+from time import sleep
 
 ###############################################################################
 # Simulate data
@@ -46,6 +47,7 @@ arr_1.to_netcdf("first_array.nc")
 
 # delete it
 del arr_1
+sleep(3)
 
 # reload it
 arr_1 = xr.load_dataarray("first_array.nc")
@@ -70,6 +72,7 @@ dat.to_netcdf('full_dataset.nc')
 
 # delete it
 del dat
+sleep(3)
 
 # reload it
 dat = xr.load_dataset("full_dataset.nc")

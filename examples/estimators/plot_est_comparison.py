@@ -9,9 +9,11 @@ import pandas as pd
 
 from frites.estimator import (GCMIEstimator, BinMIEstimator, CorrEstimator,
                               DcorrEstimator)
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+set_mpl_style()
 
 
 ###############################################################################
@@ -111,11 +113,11 @@ def generate_data(n, idx):
 n = 10000
 
 # plot the data
-fig_data = plt.figure(figsize=(16, 5))
+fig_data = plt.figure(figsize=(7, 9))
 for i in range(14):
     name, x, y, xlim, ylim = generate_data(n, i)
 
-    plt.subplot(2, 7, i + 1)
+    plt.subplot(7, 2, i + 1)
     ax = plt.gca()
     ax.scatter(x, y, s=5, edgecolors='none', alpha=.5)
     plt.xlim(xlim)
@@ -126,7 +128,6 @@ for i in range(14):
 fig_data.tight_layout()
 plt.show()
 
-
 ###############################################################################
 # Computes information shared
 # ---------------------------
@@ -136,37 +137,39 @@ plt.show()
 
 # define estimators
 estimators = {
-    'GCMI': GCMIEstimator(mi_type='cc', biascorrect=False),
+    'GCMI': GCMIEstimator(mi_type='cc', biascorrect=True),
     'Binning MI': BinMIEstimator(mi_type='cc'),
     'Correlation': CorrEstimator(),
     'Distance correlation': DcorrEstimator()
 }
 
-fig_info = plt.figure(figsize=(16, 5))
+
+fig_info, axs = plt.subplots(
+    nrows=7, ncols=2, sharex=True, sharey=True, figsize=(5, 9),
+    gridspec_kw=dict(wspace=.4, hspace=.3, bottom=.05, top=.95, ))
+axs = np.ravel(axs)
+
 for i in range(14):
     name, x, y, _, _ = generate_data(n, i)
 
-    plt.subplot(2, 7, i + 1)
+    ax = axs[i]
+    plt.sca(ax)
 
     # computes information shared
     for n_e, (est_name, est) in enumerate(estimators.items()):
         info = float(est.estimate(x, y).squeeze())
         plt.bar(n_e, info, color=f"C{n_e}")
 
-    # bar plot the results
-    ax = plt.gca()
-    for border in ['right', 'bottom', 'top']:
-        ax.spines[border].set_visible(False)
     ax.tick_params(axis='x', which='both', bottom=False, labelbottom=False)
-    plt.title(name)
+    plt.title(name, fontsize=12)
 
 # add the legend
+plt.sca(axs[-2])
 lines, names = [], []
 for n_i, n in enumerate(estimators.keys()):
     lines.append(Line2D([0], [0], color=f"C{n_i}", lw=3))
     names.append(n)
-plt.legend(lines, names, ncol=len(names), bbox_to_anchor=(.7, .1),
-           fontsize=12, bbox_transform=fig_info.transFigure)
+plt.legend(lines, names, ncol=2, bbox_to_anchor=(.8, .05),
+           fontsize=9, bbox_transform=fig_info.transFigure)
 
-fig_info.subplots_adjust(left=0.03, right=.99)
 plt.show()

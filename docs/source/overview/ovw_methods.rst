@@ -30,6 +30,8 @@ On the other hand, IT measures also present some disadvantages :
 
     Correlation (orange) vs. strictly positive Mutual information (purple). Extracted from **Ince et al. 2017** :cite:`ince2017statistical`
 
+.. _meth_gcmi:
+
 Gaussian Copula Mutual Information
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -37,6 +39,8 @@ In Frites we use a special type of mutual information that has been carried rece
 
 The GCMI provide an estimation of the mutual information **without the necessity of binning the data**. In addition to this point, the GCMI is really fast to compute which makes this method a good candidate when it comes to performing numerous permutations for the statistics. However, the GCMI make the assumption that there's a **monotonic relation between the two variables** (i.e if one variable is increasing, the other should also increase or decrease but not both).
 
+
+.. _meth_gcmi_types:
 
 The different types of mutual information
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -106,6 +110,8 @@ Statistical analyses
 
 In addition to the evaluation of the amount of information shared between the data and a feature (stimulus / behavior), Frites also contains a statistical pipeline to evaluate whether an effect can be considered as significant.
 
+.. _meth_stats_gp:
+
 Subject and group-level statistical inferences
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -131,6 +137,7 @@ Internally, we used permutations in order to estimate the distribution of mutual
 References
 ~~~~~~~~~~
 
+* Combrisson et al., 2022 :cite:`combrisson_group-level_2022`
 * Friston et al. 1999 :cite:`friston1999many`, 1996 :cite:`friston_detecting_1996`
 * Wilcox and Rousselet 2017, :cite:`wilcox_guide_2017`
 * Nicohls and Holmes 2001 :cite:`nichols_nonparametric_2002`

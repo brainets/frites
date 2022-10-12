@@ -10,10 +10,12 @@ sizes.
 import numpy as np
 
 from frites.conn import define_windows, plot_windows
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Rectangle
+set_mpl_style()
 
 
 ###############################################################################
@@ -66,7 +68,7 @@ plt.show()
 #
 # You can also define sliding windows which can be controlled through four
 # parameters :
-# 
+#
 # * `slwin_len` = window length
 # * `slwin_start` = starting time point
 # * `slwin_stop` = stopping time point

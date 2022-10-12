@@ -11,7 +11,9 @@ class TestCorrEstimator(object):
 
     def test_corr_definition(self):
         """Test definition of correlation estimator."""
-        CorrEstimator()
+        for method in ['pearson', 'spearman']:
+            for implementation in ['vector', 'tensor']:
+                CorrEstimator(method=method, implementation=implementation)
 
     def test_corr_estimate(self):
         """Test getting the core function."""
@@ -36,6 +38,29 @@ class TestCorrEstimator(object):
             array_equal(fcn(x[0, :, :], y[0, 0, :],
                             categories=cat).shape, (2, 1))
             array_equal(fcn(x, y, categories=cat).shape, (2, 10))
+
+    def test_corr_implementation(self):
+        """Compare the results of the implementations"""
+        # generate random data
+        x, y = np.random.rand(10, 1, 100), np.random.rand(10, 1, 100)
+        cat = np.array([0] * 50 + [1] * 50)
+
+        # define estimators
+        pear_vec = CorrEstimator(method='pearson', implementation='vector')
+        pear_ten = CorrEstimator(method='pearson', implementation='tensor')
+        spear_vec = CorrEstimator(method='spearman', implementation='vector')
+        spear_ten = CorrEstimator(method='spearman', implementation='tensor')
+
+        for cate in [None, cat]:
+            # pearson correlation
+            corr_vec = pear_vec.estimate(x, y, categories=cate)
+            corr_ten = pear_ten.estimate(x, y, categories=cate)
+            np.testing.assert_array_almost_equal(corr_vec, corr_ten)
+
+            # spearman correlation
+            corr_vec = spear_vec.estimate(x, y, categories=cate)
+            corr_ten = spear_ten.estimate(x, y, categories=cate)
+            np.testing.assert_array_almost_equal(corr_vec, corr_ten)
 
     def test_corr_functional(self):
         """Functional test of the correlation."""
@@ -112,4 +137,4 @@ class TestCorrEstimator(object):
 
 
 if __name__ == '__main__':
-    TestCorrEstimator().test_dcorr_functional()
+    TestCorrEstimator().test_corr_implementation()

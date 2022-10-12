@@ -50,6 +50,13 @@ Overview
     machine-learning or measures of distances
 
     ---
+    :column: col-lg-12 p-2
+
+    Plot
+    ^^^^
+
+    The :mod:`frites.plot` module contains plotting functions
+    ---
 
     Simulated data
     ^^^^^^^^^^^^^^
@@ -79,6 +86,7 @@ High-level API for users
     api_workflow
     api_connectivity
     api_estimators
+    api_plot
     api_simulations
     api_utils
 

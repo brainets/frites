@@ -9,7 +9,18 @@ Statistics
    :no-members:
    :no-inherited-members:
 
-Random effect (rfx)
+Non-parametric statistics
++++++++++++++++++++++++++
+
+.. autosummary::
+   :toctree: generated/
+
+   permute_mi_vector
+   permute_mi_trials
+   bootstrap_partitions
+   confidence_interval
+
+Random-effect (rfx)
 +++++++++++++++++++
 
 .. autosummary::

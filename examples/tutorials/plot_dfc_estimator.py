@@ -16,8 +16,10 @@ import xarray as xr
 
 from frites.estimator import (GCMIEstimator, CorrEstimator, DcorrEstimator)
 from frites.conn import conn_dfc, define_windows
+from frites import set_mpl_style
 
 import matplotlib.pyplot as plt
+set_mpl_style()
 
 # for reproducibility
 np.random.seed(0)
@@ -119,7 +121,7 @@ est_mi = GCMIEstimator('cc', copnorm=None, biascorrect=False)
 est_corr = CorrEstimator()
 est_dcorr = DcorrEstimator()
 
-plt.figure(figsize=(4, 12))
+fig, axs = plt.subplots(nrows=3, ncols=1, sharex=True, figsize=(6, 12))
 
 for n_e, est in enumerate([est_mi, est_corr, est_dcorr]):
     # compute the dfc
@@ -130,12 +132,13 @@ for n_e, est in enumerate([est_mi, est_corr, est_dcorr]):
     dfc_m = dfc.mean('trials')
 
     # plot the result
-    plt.subplot(3, 1, n_e + 1)
+    plt.sca(axs[n_e])
     dfc_m.plot.line(x='times', hue='roi', ax=plt.gca())
     plt.title(dfc.name)
     plt.ylabel('DFC')
     if n_e != 2: plt.xlabel('')
 
+plt.tight_layout()
 plt.show()
 
 ###############################################################################

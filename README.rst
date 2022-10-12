@@ -79,3 +79,8 @@ In addition to the main dependencies, here's the list of additional packages tha
 * `Dcor <https://dcor.readthedocs.io/en/latest/>`_ for fast implementation of distance correlation
 * `Matplotlib <https://matplotlib.org/>`_, `Seaborn <https://seaborn.pydata.org/>`_ and `Networkx <https://networkx.github.io/>`_ for plotting the examples
 * Some example are using `scikit learn <https://scikit-learn.org/stable/index.html>`_ estimators
+
+Acknowledgments
+---------------
+
+See `acknowledgments <https://brainets.github.io/frites/overview/ovw_acknowledgments.html>`_
