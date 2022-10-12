@@ -144,8 +144,8 @@ def conn_get_pairs(roi, directed=False, nb_min_suj=-np.inf, verbose=None):
 
 def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
                nb_min_links=None, pairs=None, sort=True, triu_k=1,
-               hemisphere=None, hemi_links='both', source_seed=None,
-               target_seed=None, verbose=None):
+               hemisphere=None, hemi_links='both', categories=None,
+               source_seed=None, target_seed=None, verbose=None):
     """Construct pairwise links for functional connectivity.
 
     This function can be used for defining the pairwise links for computing
@@ -195,6 +195,9 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
 
         In order to work, you should provide the hemisphere name using the
         input `hemisphere`
+    categories : array_like | list | None
+        Specify categorical information associated to each region to then
+        get links only across categories.
     source_seed : str, list | None
         Brain region name(s) to use as source seed. Can either be the name of a
         single brain region or a list of brain regions.
@@ -244,6 +247,10 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
             keep = [s == t for s, t in zip(roi_s, roi_t)]
         elif roi_relation == 'inter':
             keep = [s != t for s, t in zip(roi_s, roi_t)]
+        keep = np.asarray(keep)
+
+        logger.info(f"    ROI relation selection (dropped={(~keep).sum()} "
+                    "links)")
         x_s, x_t = x_s[keep], x_t[keep]
 
     # change roi order for undirected and net directed
@@ -283,6 +290,24 @@ def conn_links(roi, directed=False, net=False, roi_relation='both', sep='auto',
             keep = np.array([True] * len(x_s))
         logger.info(f"    Hemispheric selection (hemi_links={hemi_links}, "
                     f"dropped={(~keep).sum()} links)")
+
+    # categorical selection
+    if isinstance(categories, (list, np.ndarray, tuple)):
+        # reshape categories
+        categories = np.asarray(categories)
+        if categories.ndim == 1:
+            categories = categories[:, np.newaxis]
+        assert categories.shape[0] == n_roi
+
+        # categorical selection
+        keep = []
+        for s, t in zip(x_s, x_t):
+            keep.append(np.all(categories[s, :] != categories[t, :]))
+        keep = np.asarray(keep)
+        x_s, x_t = x_s[keep], x_t[keep]
+
+        logger.info(f"    Categorical selection (dropped={(~keep).sum()} "
+                    "links)")
 
     # seed / target selection
     if isinstance(source_seed, (list, tuple, np.ndarray)):
