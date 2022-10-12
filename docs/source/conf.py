@@ -107,8 +107,8 @@ pygments_style = None
 #
 html_theme = 'pydata_sphinx_theme'
 html_theme_options = {
-    'show_toc_level': 1,
-    'use_edit_page_button': False,
+    "show_toc_level": 1,
+    "use_edit_page_button": False,
     "icon_links": [
         {
             "name": "GitHub",
@@ -125,35 +125,28 @@ html_theme_options = {
 
 sphinx_gallery_conf = {
     # path to your examples scripts
-    'examples_dirs': '../../examples',
-    'reference_url': {
-        'frites': None,
-        'matplotlib': 'https://matplotlib.org',
-        'numpy': 'http://docs.scipy.org/doc/numpy',
-        'scipy': 'http://docs.scipy.org/doc/scipy/reference',
-        'pandas': 'https://pandas.pydata.org/pandas-docs/stable',
-        'statsmodels': 'http://www.statsmodels.org/stable/',
-    },
-    'gallery_dirs': 'auto_examples',
-    'backreferences_dir': 'api/generated',
-    'show_memory': True,
-    'filename_pattern': '/plot_|sim_',
-    'default_thumb_file': 'source/_static/frites.png',
-    'subsection_order': ExplicitOrder([
-        '../../examples/tutorials',
-        '../../examples/dataset',
-        '../../examples/mi',
-        '../../examples/estimators',
-        '../../examples/conn',
-        '../../examples/armodel',
-        '../../examples/utils',
-        '../../examples/statistics',
-        '../../examples/simulations',
-        '../../examples/performance',
-        '../../examples/xarray'
+    "examples_dirs": "../../examples",
+    "reference_url": dict(frites=None),
+    "gallery_dirs": "auto_examples",
+    "backreferences_dir": "api/generated",
+    "show_memory": True,
+    "filename_pattern": "/plot_|sim_",
+    "default_thumb_file": "source/_static/frites.png",
+    "subsection_order": ExplicitOrder([
+        "../../examples/tutorials",
+        "../../examples/dataset",
+        "../../examples/mi",
+        "../../examples/estimators",
+        "../../examples/conn",
+        "../../examples/armodel",
+        "../../examples/utils",
+        "../../examples/statistics",
+        "../../examples/simulations",
+        "../../examples/performance",
+        "../../examples/xarray"
         ]),
-    'doc_module': ('frites',)
-    # 'thumbnail_size': (100, 100),
+    "doc_module": ("frites",)
+    # "thumbnail_size": (100, 100),
 }
 
 numpydoc_class_members_toctree = False
@@ -283,7 +276,7 @@ epub_exclude_files = ['search.html']
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {"https://docs.python.org/": None}
 
 # -- Options for todo extension ----------------------------------------------
 
