@@ -134,6 +134,8 @@ class TestPlotConn(object):
         """Test circular representation of connectivity."""
         import matplotlib.pyplot as plt
         conn = self._get_conn(astype='pandas')
+        plot_conn_circle(conn, signed=False)
+        plot_conn_circle(-conn, signed=True)
         plot_conn_circle(conn, directed=False, edges_cmap='turbo')
         plot_conn_circle(conn, directed=True, edges_cmap='turbo')
         plot_conn_circle(conn, cbar=False)

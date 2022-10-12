@@ -67,8 +67,8 @@ def _prepare_plot_conn(
     # proportion of edges to keep
     if isinstance(prop, (int, float)):
         assert 0 < prop < 100
-        th = np.nanpercentile(conn.values, 100. - prop)
-        conn[conn < th] = np.nan
+        th = np.nanpercentile(np.abs(conn.values), 100. - prop)
+        conn[np.abs(conn) < th] = np.nan
 
     # _________________________________ NODES _________________________________
     # nodes name and order
@@ -132,7 +132,7 @@ def _prepare_plot_conn(
         ax = tuple(ax)
 
         if all([k == 1 for k in ax]):
-            cfg['fig'] = plt.figure(figsize=(14, 10))
+            cfg['fig'] = plt.figure(figsize=(16, 12))
         else:
             cfg['fig'] = plt.gcf()
 
@@ -267,10 +267,11 @@ def plot_conn_heatmap(
 
 
 def plot_conn_circle(
-        conn, directed=False, edges_cmap='hot_r', edges_vmin=None,
-        edges_vmax=None, edges_lw=3., edges_alpha=1., nodes_data='degree',
-        nodes_cmap='hot_r', nodes_size=None, nodes_size_min=1.,
-        nodes_size_max=50., nodes_bad=None, nodes_fz=8, nodes_shift=0.,
+        conn, signed=False, directed=False, edges_cmap='hot_r',
+        edges_vmin=None, edges_vmax=None, edges_lw=3., edges_alpha=1.,
+        nodes_data='degree', nodes_cmap='hot_r', nodes_size=None,
+        nodes_size_min=1., nodes_size_max=50., nodes_bad=None,
+        nodes_label_fz=8, nodes_label_color=None, nodes_label_shift=0.,
         categories=None, categories_sep=3, cbar=True, cbar_title=None,
         cbar_kw={}, cbar_size=.8, cbar_pos=(.8, .4), prop=None, angle_start=90,
         angle_span=360, padding=0., ax=None):
@@ -286,6 +287,9 @@ def plot_conn_circle(
     ----------
     conn : xarray.DataArray | pandas.DataFrame | numpy.ndarray
         Either a 2D xarray.DataArray or a pandas DataFrame or a 2D NumPy array
+    signed : bool | False
+        Specifiy whether the connectivity metric is signed (e.g. pearson or
+        spearman correlation) or unsigned (e.g. mutual information, distance)
     directed : bool | False
         Specify whether it is directed connectivity (True) or undirected
         connectivity (False, default)
@@ -324,10 +328,12 @@ def plot_conn_circle(
     nodes_bad : str | None
         Color to use for bad nodes (i.e. nodes with non finite values in
         nodes_data). By default, those nodes are transparent.
-    nodes_fz : float | 8
+    nodes_label_fz : float | 8
         Font size of nodes' labels.
-    nodes_shift : float | 0.
+    nodes_label_shift : float | 0.
         Shift to apply to the labels (i.e. the nodes names)
+    nodes_label_color : array_like | list | None
+        Color to apply to each node label
     categories : array_like | None
         Category associated to each region name. Can be hemisphere name,
         lobe name or indices describing group of regions. By default, a space
@@ -389,9 +395,10 @@ def plot_conn_circle(
     # plot the connectivity
     ax = _draw_conn_circle(
         conn.values, nodes_names, angles, cfg['nodes_color'],
-        cfg['nodes_size'], nodes_fz, nodes_shift, cfg['cmap'], cfg['vmin'],
-        cfg['vmax'], edges_lw, edges_alpha, directed, cbar, cbar_title,
-        cbar_kw, cbar_size, cbar_pos, cfg['ax'], padding
+        cfg['nodes_size'], nodes_label_fz, nodes_label_shift,
+        nodes_label_color, cfg['cmap'], cfg['vmin'], cfg['vmax'], edges_lw,
+        edges_alpha, directed, signed, cbar, cbar_title, cbar_kw, cbar_size,
+        cbar_pos, cfg['ax'], padding
     )
 
     return ax
@@ -477,9 +484,9 @@ def _circular_layout(
 
 def _draw_conn_circle(
         con, node_names, node_angles, node_colors, nodes_size, nodes_fz,
-        nodes_shift, edges_cmap, edges_vmin, edges_vmax, edges_lw, edges_alpha,
-        directed, cbar, cbar_title, cbar_kw, cbar_size, cbar_pos, ax, padding,
-        node_linewidth=2.):
+        nodes_shift, nodes_label_color, edges_cmap, edges_vmin, edges_vmax,
+        edges_lw, edges_alpha, directed, signed, cbar, cbar_title, cbar_kw,
+        cbar_size, cbar_pos, ax, padding, node_linewidth=2.):
     """Visualize connectivity as a circular graph."""
     import matplotlib.pyplot as plt
     import matplotlib.path as m_path
@@ -505,7 +512,10 @@ def _draw_conn_circle(
     con = con[indices]
 
     # sort connections
-    sort_idx = np.argsort(con)
+    if signed:
+        sort_idx = np.argsort(np.abs(con))
+    else:
+        sort_idx = np.argsort(con)
     con = con[sort_idx]
     indices = [ind[sort_idx] for ind in indices]
 
@@ -515,15 +525,18 @@ def _draw_conn_circle(
     # scale connectivity for colormap (vmin<=>0, vmax<=>1)
     con_val_scaled = (con - edges_vmin) / vrange
 
-    # scale linewidth
-    lw = normalize(con_val_scaled, 1., edges_lw)
-
-    # scale transparency
-    alphas = normalize(con_val_scaled, edges_alpha, 1.)
+    # scale linewidth and transparency
+    if signed:
+        lw = normalize(np.abs(con_val_scaled), 1., edges_lw)
+        alphas = normalize(np.abs(con_val_scaled), edges_alpha, 1.)
+    else:
+        lw = normalize(con_val_scaled, 1., edges_lw)
+        alphas = normalize(con_val_scaled, edges_alpha, 1.)
 
     # ________________________________ STYLE __________________________________
     # use circles or bars for nodes
-    use_circles = isinstance(nodes_size, (list, np.ndarray, tuple))
+    use_circles = isinstance(nodes_size, (list, np.ndarray, tuple)) and (
+        len(np.unique(nodes_size)) != 1)
     if use_circles:
         padding = max(padding, 1.)  # extra padding when using circles
 
@@ -539,6 +552,10 @@ def _draw_conn_circle(
 
     # information for directed connectivity
     arrowstyle = '->,head_length=.6,head_width=.4'
+
+    # nodes name color
+    if not isinstance(nodes_label_color, (list, tuple, np.ndarray)):
+        nodes_label_color = [None] * n_nodes
 
     # ________________________________ NOISE __________________________________
     # widths correspond to the minimum angle between two nodes
@@ -627,18 +644,19 @@ def _draw_conn_circle(
 
     # ________________________________ LABELS _______________________________
     angles_deg = 180 * node_angles / np.pi
-    for name, angle_rad, angle_deg in zip(node_names, node_angles, angles_deg):
-        if angle_deg >= 270:
+    for n in range(n_nodes):
+        if angles_deg[n] >= 270:
             ha = 'left'
         else:
             # Flip the label, so text is always upright
-            angle_deg += 180
+            angles_deg[n] += 180
             ha = 'right'
 
         ax.text(
-            angle_rad, 10.2 + nodes_shift, name, size=nodes_fz,
-            rotation=angle_deg, rotation_mode='anchor', horizontalalignment=ha,
-            verticalalignment='center'
+            node_angles[n], 10.2 + nodes_shift, node_names[n], size=nodes_fz,
+            rotation=angles_deg[n], rotation_mode='anchor',
+            horizontalalignment=ha, verticalalignment='center',
+            color=nodes_label_color[n]
         )
 
     # ________________________________ COLORBAR _______________________________
