@@ -486,7 +486,7 @@ def _draw_conn_circle(
         con, node_names, node_angles, node_colors, nodes_size, nodes_fz,
         nodes_shift, nodes_label_color, edges_cmap, edges_vmin, edges_vmax,
         edges_lw, edges_alpha, directed, signed, cbar, cbar_title, cbar_kw,
-        cbar_size, cbar_pos, ax, padding, node_linewidth=2.):
+        cbar_size, cbar_pos, ax, padding, node_linewidth=1.):
     """Visualize connectivity as a circular graph."""
     import matplotlib.pyplot as plt
     import matplotlib.path as m_path
@@ -631,13 +631,14 @@ def _draw_conn_circle(
     if use_circles:
         ax.scatter(
             node_angles, np.full((n_nodes,), 10), s=nodes_size,
-            c=node_colors
+            c=node_colors, edgecolor='lightgray'
         )
     else:
         height = np.ones(n_nodes) * 1.
         bars = ax.bar(
-            node_angles, height, width=node_width, bottom=9, edgecolor='w',
-            lw=node_linewidth, facecolor='.9', align='center'
+            node_angles, height, width=node_width, bottom=9,
+            edgecolor='lightgray', lw=node_linewidth, facecolor='.9',
+            align='center'
         )
         for bar, color in zip(bars, node_colors):
             bar.set_facecolor(color)
