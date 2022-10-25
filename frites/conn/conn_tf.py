@@ -81,7 +81,7 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
                 if _out.ndim == 5:
                     _out = _out.mean(2)
 
-                out.append(_out)
+                out.append(_out)  #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
             # stack everything
             out = np.stack(out, axis=2).squeeze()
@@ -90,13 +90,6 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
                 data, sf, freqs, n_cycles=n_cycles,
                 time_bandwidth=mt_bandwidth, output='complex', decim=decim,
                 n_jobs=n_jobs, **kw_mt)
-
-            # recent version of mne allows to return the TF decomposition
-            # with the additional n_tapers dimension. This patch takes the
-            # mean over the tapers
-            if out.ndim == 5:
-                out = out.mean(2)
-
     else:
         raise ValueError('Method should be either "morlet" or "multitaper"')
 

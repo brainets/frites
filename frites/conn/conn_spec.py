@@ -21,7 +21,7 @@ from frites.conn.conn_tf import (_tf_decomp, _create_kernel,
 ###############################################################################
 ###############################################################################
 
-def _coh(w, kernel, foi_idx, x_s, x_t, kw_para):
+def _coh(w, kernel, foi_idx, x_s, x_t, kw_para, average):
     """Pairwise coherence."""
     # auto spectra (faster that w * w.conj())
     s_auto = w.real ** 2 + w.imag ** 2
@@ -36,7 +36,10 @@ def _coh(w, kernel, foi_idx, x_s, x_t, kw_para):
         s_xy = _smooth_spectra(s_xy, kernel)
         s_xx = s_auto[:, w_x, :, :]
         s_yy = s_auto[:, w_y, :, :]
+        # average over tapers
         out = np.abs(s_xy) ** 2 / (s_xx * s_yy)
+        if average:
+            out = np.mean(out, axis=1)
         # mean inside frequency sliding window (if needed)
         if isinstance(foi_idx, np.ndarray):
             return _foi_average(out, foi_idx)
@@ -50,7 +53,7 @@ def _coh(w, kernel, foi_idx, x_s, x_t, kw_para):
     return parallel(p_fun(s, t) for s, t in zip(x_s, x_t))
 
 
-def _plv(w, kernel, foi_idx, x_s, x_t, kw_para):
+def _plv(w, kernel, foi_idx, x_s, x_t, kw_para, average):
     """Pairwise phase-locking value."""
     # define the pairwise plv
     def pairwise_plv(w_x, w_y):
@@ -62,6 +65,9 @@ def _plv(w, kernel, foi_idx, x_s, x_t, kw_para):
         exp_dphi = _smooth_spectra(exp_dphi, kernel)
         # computes plv
         out = np.abs(exp_dphi)
+        # average over tapers
+        if average:
+            out = np.mean(out, axis=1)
         # mean inside frequency sliding window (if needed)
         if isinstance(foi_idx, np.ndarray):
             return _foi_average(out, foi_idx)
@@ -75,13 +81,16 @@ def _plv(w, kernel, foi_idx, x_s, x_t, kw_para):
     return parallel(p_fun(s, t) for s, t in zip(x_s, x_t))
 
 
-def _cs(w, kernel, foi_idx, x_s, x_t, kw_para):
+def _cs(w, kernel, foi_idx, x_s, x_t, kw_para, average):
     """Pairwise cross-spectra."""
     # define the pairwise cross-spectra
     def pairwise_cs(w_x, w_y):
         #  computes the cross-spectra
         out = w[:, w_x, :, :] * np.conj(w[:, w_y, :, :])
         out = _smooth_spectra(out, kernel)
+        # average over tapers
+        if average:
+            out = np.mean(out, axis=1)
         if foi_idx is not None:
             return _foi_average(out, foi_idx)
         else:
@@ -232,6 +241,9 @@ def conn_spec(
     # Create smoothing kernel
     kernel = _create_kernel(sm_times, sm_freqs, kernel=sm_kernel)
 
+    # average over tapers
+    tapers_average = mode == 'multitaper'
+
     # define arguments for parallel computing
     mesg = f'Estimating pairwise {f_name} for trials %s'
     kw_para = dict(n_jobs=n_jobs, verbose=verbose, total=n_pairs)
@@ -267,7 +279,7 @@ def conn_spec(
         kw_para['mesg'] = mesg % f"{tr[0]}...{tr[-1]}"
 
         # computes conn across trials
-        conn_tr = conn_f(w, kernel, foi_idx, x_s, x_t, kw_para)
+        conn_tr = conn_f(w, kernel, foi_idx, x_s, x_t, kw_para, tapers_average)
 
         # merge results
         if mean_trials:
@@ -331,13 +343,11 @@ if __name__ == '__main__':
     foi = np.array([[2, 4], [5, 7], [8, 13], [13, 30], [30, 60]])
     coh = conn_spec(
         x, sfreq=sfreq, roi='roi', times='times', sm_times=2.,
-        sm_freqs=1, mode='morlet', n_cycles=n_cycles, freqs=freqs,
-        decim=1, foi=None, n_jobs=1, metric='coh', mean_trials=True,
+        sm_freqs=1, mode='multitaper', n_cycles=n_cycles, freqs=freqs,
+        decim=1, foi=None, n_jobs=1, metric='coh', mean_trials=False,
         **kw_links
     )
-    print(coh)
-    exit()
 
-    coh.groupby('trials').mean('trials').plot.imshow(
+    coh.groupby('trials').mean().plot.imshow(
         x='times', y='freqs', col='roi', row='trials')
     plt.show()
