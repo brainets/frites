@@ -337,7 +337,7 @@ if __name__ == '__main__':
 
     x = xr.DataArray(x, dims=('trials', 'roi', 'times'),
                      coords=(trials, roi, times))
-    freqs = np.linspace(2, 60, 10)
+    freqs = np.linspace(2, 60, 20)
     n_cycles = freqs / 2.
 
     foi = np.array([[2, 4], [5, 7], [8, 13], [13, 30], [30, 60]])
@@ -347,6 +347,8 @@ if __name__ == '__main__':
         decim=1, foi=None, n_jobs=1, metric='coh', mean_trials=False,
         **kw_links
     )
+
+    # coh.mean(('trials', 'roi')).plot()
 
     coh.groupby('trials').mean().plot.imshow(
         x='times', y='freqs', col='roi', row='trials')
