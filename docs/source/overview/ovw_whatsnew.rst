@@ -18,6 +18,7 @@ Bug fixes
 +++++++++
 * Fix parallel computing of :func:`frites.conn.conn_covgc` (:commit:`f2ff5f67`)
 * Use linearly spaced indices instead of closest time points in :func:`frites.conn.define_windows` (:commit:`b5443ac2`)
+* :func:`frites.conn.conn_spec` average over tapers after computing connectivity metric (:commit:`10966a1be3`).Thanks to :author:`adam2392` and :author:`ruuskas` from the mne-connectivity package.
 
 v0.4.2
 ------
