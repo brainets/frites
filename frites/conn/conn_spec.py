@@ -337,7 +337,7 @@ if __name__ == '__main__':
 
     x = xr.DataArray(x, dims=('trials', 'roi', 'times'),
                      coords=(trials, roi, times))
-    freqs = np.linspace(2, 60, 20)
+    freqs = np.linspace(2, 60, 40)
     n_cycles = freqs / 2.
 
     foi = np.array([[2, 4], [5, 7], [8, 13], [13, 30], [30, 60]])
@@ -345,7 +345,7 @@ if __name__ == '__main__':
         x, sfreq=sfreq, roi='roi', times='times', sm_times=2.,
         sm_freqs=1, mode='multitaper', n_cycles=n_cycles, freqs=freqs,
         decim=1, foi=None, n_jobs=1, metric='coh', mean_trials=False,
-        **kw_links
+        block_size=2, **kw_links
     )
 
     # coh.mean(('trials', 'roi')).plot()
