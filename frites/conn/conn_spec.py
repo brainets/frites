@@ -242,7 +242,8 @@ def conn_spec(
     kernel = _create_kernel(sm_times, sm_freqs, kernel=sm_kernel)
 
     # average over tapers
-    tapers_average = mode == 'multitaper'
+    tapers_average = False
+    # tapers_average = mode == 'multitaper'
 
     # define arguments for parallel computing
     mesg = f'Estimating pairwise {f_name} for trials %s'
@@ -339,13 +340,14 @@ if __name__ == '__main__':
                      coords=(trials, roi, times))
     freqs = np.linspace(2, 60, 40)
     n_cycles = freqs / 2.
+    mt_bandwidth = np.linspace(4, 10, len(freqs))
 
     foi = np.array([[2, 4], [5, 7], [8, 13], [13, 30], [30, 60]])
     coh = conn_spec(
         x, sfreq=sfreq, roi='roi', times='times', sm_times=2.,
         sm_freqs=1, mode='multitaper', n_cycles=n_cycles, freqs=freqs,
         decim=1, foi=None, n_jobs=1, metric='coh', mean_trials=False,
-        block_size=2, **kw_links
+        block_size=2, mt_bandwidth=None, **kw_links
     )
 
     # coh.mean(('trials', 'roi')).plot()

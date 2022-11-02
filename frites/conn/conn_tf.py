@@ -66,24 +66,23 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
         # the MT decomposition is done separatedly for each
         # Frequency center
         if isinstance(mt_bandwidth, (list, tuple, np.ndarray)):
-            raise NotImplementedError("Not compatible with multiple bandwidth")
-            # # Arrays freqs, n_cycles, mt_bandwidth should have the same size
-            # assert len(freqs) == len(n_cycles) == len(mt_bandwidth)
-            # out = []
-            # for f_c, n_c, mt in zip(freqs, n_cycles, mt_bandwidth):
-            #     _out = tfr_array_multitaper(
-            #         data, sf, [f_c], n_cycles=float(n_c), time_bandwidth=mt,
-            #         output='complex', decim=decim, n_jobs=n_jobs, **kw_mt
-            #     )
-            #     out.append(_out)
-
-            # # stack everything
-            # out = np.concatenate(out, axis=2)
+            # Arrays freqs, n_cycles, mt_bandwidth should have the same size
+            assert len(freqs) == len(n_cycles) == len(mt_bandwidth)
+            out = []
+            for f_c, n_c, mt in zip(freqs, n_cycles, mt_bandwidth):
+                _out = tfr_array_multitaper(
+                    data, sf, [f_c], n_cycles=float(n_c), time_bandwidth=mt,
+                    output='complex', decim=decim, n_jobs=n_jobs, **kw_mt
+                )
+                out.append(_out.mean(2))
+            out = np.concatenate(out, axis=2)
         elif isinstance(mt_bandwidth, (type(None), int, float)):
             out = tfr_array_multitaper(
                 data, sf, freqs, n_cycles=n_cycles,
                 time_bandwidth=mt_bandwidth, output='complex', decim=decim,
                 n_jobs=n_jobs, **kw_mt)
+            # mean across tapers
+            out = out.mean(axis=2)
     else:
         raise ValueError('Method should be either "morlet" or "multitaper"')
 
