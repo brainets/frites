@@ -10,7 +10,7 @@ from frites import (
     io, core, conn, plot, stats, utils, workflow, simulations,  estimator  # noqa
 )
 
-__version__ = "0.4.2"
+__version__ = "0.4.3"
 
 # -----------------------------------------------------------------------------
 # Set 'info' as the default logging level
