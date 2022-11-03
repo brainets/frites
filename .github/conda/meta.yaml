@@ -2,7 +2,7 @@
 
 package:
   name: frites
-  version: {{ data['version'] }}
+  version: {{ version }}
 
 source:
   path: ..
@@ -15,6 +15,7 @@ requirements:
   build:
     - python>=3.8
     - numpy
+    - pip
     - scipy
     - mne
     - joblib
@@ -39,6 +40,7 @@ test:
     - frites
 
 about:
-  home: {{ data['url'] }}
-  license: {{ data['license'] }}
-summary: {{ data['description'] }}
+  home: https://github.com/brainets/frites
+  license: BSD
+  license_file: LICENSE
+  summary: 'Framework for Information Theoretical analyses of Electrophysiological data and Statistics'

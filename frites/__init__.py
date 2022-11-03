@@ -2,7 +2,7 @@
 Frites
 ======
 
-Framework of Information Theory for Electrophysiological data and Statistics
+Framework for Information Theoretical analyses of Electrophysiological data and Statistics
 """
 import logging
 
