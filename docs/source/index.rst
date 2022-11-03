@@ -19,6 +19,11 @@ Frites
 .. image:: https://pepy.tech/badge/frites
     :target: https://pepy.tech/project/frites
 
+.. image:: https://zenodo.org/badge/213869364.svg
+    :target: https://zenodo.org/badge/latestdoi/213869364
+
+.. image:: https://joss.theoj.org/papers/437a7362501b2ea984e1d4fed4646076/status.svg
+    :target: https://joss.theoj.org/papers/437a7362501b2ea984e1d4fed4646076
 
 
 .. figure::  _static/logo_desc.png
