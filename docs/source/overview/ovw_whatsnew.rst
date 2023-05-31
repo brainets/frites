@@ -13,6 +13,7 @@ New Features
 * New plotting module with two functions for plotting connectivity matrices,  :func:`frites.plot.plot_conn_heatmap` and :func:`frites.plot.plot_conn_circle` (:commit:`7a107d100e`, :commit:`a480371a74`, :commit:`33930cc33a1`, :commit:`24029c4cf6b`)
 * Add the possibility to control the node's size in :func:`frites.plot.plot_conn_circle` (:commit:`7454376b`)
 * Add support for signed connectivity and improve node control of :func:`frites.plot.plot_conn_circle` (:commit:`78bbb91c`)
+* Functions :func:`frites.conn.conn_reshape_undirected` and :func:`frites.conn.conn_reshape_directed` now supports multidimensional arrays (:commit:`21ba7e05`)
 
 Bug fixes
 +++++++++
