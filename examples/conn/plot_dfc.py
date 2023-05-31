@@ -33,8 +33,6 @@ n_times = 1000
 x, roi, _ = sim_single_suj_ephy(n_epochs=n_epochs, n_times=n_times,
                                 modality=modality, n_roi=n_roi, random_state=0)
 times = np.linspace(-1, 1, n_times)
-print(roi)
-0/0
 
 ###############################################################################
 # Simulate spatial correlations
