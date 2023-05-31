@@ -345,8 +345,7 @@ def _seed_selection(seed, roi, x_s, x_t, directed, origin):
 def conn_reshape_undirected(
         da, sep='-', order=None, axis='roi', rm_missing=False,
         fill_value=np.nan, fill_diagonal=None, to_dataframe=False,
-        inplace=False, verbose=None
-    ):
+        inplace=False, verbose=None):
     """Reshape a raveled undirected array of connectivity.
 
     This function reshapes a DataArray of connectivity values into a symmetric
@@ -416,8 +415,7 @@ def conn_reshape_undirected(
 def conn_reshape_directed(
         da, net=False, sep='-', order=None, axis='roi', rm_missing=False,
         fill_value=np.nan, fill_diagonal=None, to_dataframe=False,
-        inplace=False, verbose=None
-    ):
+        inplace=False, verbose=None):
     """Reshape a raveled directed array of connectivity.
 
     This function takes a DataArray of shape (n_pairs, n_directions) or
@@ -509,14 +507,13 @@ def _get_roi_names(da, sep, axis):
 
 def _dataarray_unstack(
         da, sources, targets, roi_tot, fill_value, order, rm_missing,
-        fill_diagonal, axis
-    ):
+        fill_diagonal, axis):
     """Unstack a 1d to 2d DataArray."""
     # replace axis by sources and targets
     dim_names = list(da.dims)
     cut_at = dim_names.index(axis)
     dim_names = dim_names[:cut_at] + ['sources', 'targets'] + dim_names[
-        cut_at+1:]
+        cut_at + 1:]
 
     # build the multi-index
     da[axis] = pd.MultiIndex.from_arrays(
