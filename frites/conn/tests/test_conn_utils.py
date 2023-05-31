@@ -23,7 +23,7 @@ class TestConnUtils(object):
         dfc = conn_dfc(x, win_sample, times=times, roi=roi).mean('trials')
         # reshape it without the time dimension
         dfc_mean = conn_reshape_undirected(dfc.mean('times'))
-        assert dfc_mean.shape == (n_roi, n_roi, 1)
+        assert dfc_mean.shape == (n_roi, n_roi)
         df = conn_reshape_undirected(dfc.mean('times'), order=order,
                                      to_dataframe=True)
         assert isinstance(df, pd.DataFrame)
@@ -47,7 +47,7 @@ class TestConnUtils(object):
         gc = gc.mean('trials')
         # reshape it without the time dimension
         gc_mean = conn_reshape_directed(gc.copy().mean('times'))
-        assert gc_mean.shape == (n_roi, n_roi, 1)
+        assert gc_mean.shape == (n_roi, n_roi)
         # reshape it with the time dimension
         gc_times = conn_reshape_directed(gc.copy())
         assert gc_times.shape == (n_roi, n_roi, len(gc['times']))
@@ -336,4 +336,4 @@ class TestConnUtils(object):
 
 
 if __name__ == '__main__':
-    TestConnUtils().test_define_windows()
+    TestConnUtils().test_conn_reshape_directed()

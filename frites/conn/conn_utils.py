@@ -342,24 +342,30 @@ def _seed_selection(seed, roi, x_s, x_t, directed, origin):
 ###############################################################################
 
 
-def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
-                            fill_value=np.nan, fill_diagonal=None,
-                            to_dataframe=False, inplace=False, verbose=None):
+def conn_reshape_undirected(
+        da, sep='-', order=None, axis='roi', rm_missing=False,
+        fill_value=np.nan, fill_diagonal=None, to_dataframe=False,
+        inplace=False, verbose=None
+    ):
     """Reshape a raveled undirected array of connectivity.
 
-    This function takes a DataArray of shape (n_pairs,) or (n_pairs, n_times)
-    where n_pairs reflects pairs of roi (e.g 'roi_1-roi_2') and reshape it to
-    be a symmetric DataArray of shape (n_roi, n_roi, n_times).
+    This function reshapes a DataArray of connectivity values into a symmetric
+    matrix. For example, a DataArray of shape (n_pairs,) where n_pairs reflects
+    pairs of roi (e.g 'roi_1-roi_2') is going to be reshaped into a symmetric
+    DataArray of shape (n_roi, n_roi). Similarly, a DataArray of shape
+    (n_pairs, n_times) is going to be reshaped into a symmetric DataArray of
+    shape (n_roi, n_roi, n_times).
 
     Parameters
     ----------
     da : xarray.DataArray
-        Xarray DataArray of shape (n_pairs, n_times) where actually the roi
-        dimension contains the pairs (roi_1-roi_2, roi_1-roi_3 etc.)
+        Flatten DataArray of connectivity values to be reshaped
     sep : string | '-'
         Separator used to separate the pairs of roi names.
     order : list | None
         List of roi names to reorder the output.
+    axis : string | 'roi'
+        Name of the spatial dimension to use for reshaping
     rm_missing : bool | False
         When reordering the connectivity array, choose if you prefer to reindex
         even if there's missing regions (rm_missing=False) or if missing
@@ -386,19 +392,19 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
     assert isinstance(da, xr.DataArray)
     if not inplace:
         da = da.copy()
-    assert 'roi' in list(da.dims)
-    if 'times' not in list(da.dims):
-        da = da.expand_dims("times")
+    assert axis in list(da.dims)
 
     # get sources, targets names and sorted full list
-    sources, targets, roi_tot = _untangle_roi(da, sep)
+    sources, targets, roi_tot = _get_roi_names(da, sep, axis)
 
     # duplicates to make it symmetrical
-    da = xr.concat((da, da), 'roi')
+    da = xr.concat((da, da), axis)
     s_, t_ = sources + targets, targets + sources
+
     # build the multiindex and unstack it
-    da, order = _dataarray_unstack(da, s_, t_, roi_tot, fill_value,
-                                   order, rm_missing, fill_diagonal)
+    da, order = _dataarray_unstack(
+        da, s_, t_, roi_tot, fill_value, order, rm_missing, fill_diagonal, axis
+    )
 
     # dataframe conversion
     if to_dataframe:
@@ -407,23 +413,25 @@ def conn_reshape_undirected(da, sep='-', order=None, rm_missing=False,
     return da
 
 
-def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
-                          fill_value=np.nan, fill_diagonal=None,
-                          to_dataframe=False, inplace=False, verbose=None):
+def conn_reshape_directed(
+        da, net=False, sep='-', order=None, axis='roi', rm_missing=False,
+        fill_value=np.nan, fill_diagonal=None, to_dataframe=False,
+        inplace=False, verbose=None
+    ):
     """Reshape a raveled directed array of connectivity.
 
     This function takes a DataArray of shape (n_pairs, n_directions) or
-    (n_pairs, n_times, n_direction) where n_pairs reflects pairs of roi
-    (e.g 'roi_1-roi_2') and n_direction usually contains bidirected 'x->y' and
-    'y->x'. At the end, this function reshape the input array so that rows
-    contains the sources and columns the targets leading to a non-symmetric
-    DataArray of shape (n_roi, n_roi, n_times). A typical use case for this
-    function would be after computing the covariance based granger causality.
+    where n_pairs reflects pairs of roi (e.g 'roi_1-roi_2') and n_direction
+    usually contains bidirected 'x->y' and 'y->x'. At the end, this function
+    reshape the input array so that rows contains the sources and columns the
+    targets leading to a non-symmetric DataArray of shape (n_roi, n_roi). A
+    typical use case for this function would be after computing the covariance
+    based granger causality.
 
     Parameters
     ----------
     da : xarray.DataArray
-        Xarray DataArray of shape (n_pairs, n_times, n_directions) where
+        Xarray DataArray of shape (n_pairs, n_directions) where
         actually the roi dimension contains the pairs (roi_1-roi_2, roi_1-roi_3
         etc.). The dimension n_directions should contains the dimensions 'x->y'
         and 'y->x'
@@ -431,6 +439,8 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
         Separator used to separate the pairs of roi names.
     order : list | None
         List of roi names to reorder the output.
+    axis : string | 'roi'
+        Name of the spatial dimension to use for reshaping
     rm_missing : bool | False
         When reordering the connectivity array, choose if you prefer to reindex
         even if there's missing regions (rm_missing=False) or if missing
@@ -447,7 +457,7 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     Returns
     -------
     da_out : xarray.DataArray
-        DataArray of shape (n_roi, n_roi, n_times)
+        DataArray of shape (n_roi, n_roi)
 
     See also
     --------
@@ -457,25 +467,24 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     assert isinstance(da, xr.DataArray)
     if not inplace:
         da = da.copy()
-    assert 'roi' in list(da.dims)
-    if 'times' not in list(da.dims):
-        da = da.expand_dims("times")
+    assert axis in list(da.dims)
 
     # get sources, targets names and sorted full list
-    sources, targets, roi_tot = _untangle_roi(da, sep)
+    sources, targets, roi_tot = _get_roi_names(da, sep, axis)
 
     # transpose, reindex and reorder (if needed)
     if 'direction' in list(da.dims):
         da_xy, da_yx = da.sel(direction='x->y'), da.sel(direction='y->x')
         if net:
-            da = xr.concat((da_xy - da_yx, da_xy - da_yx), 'roi')
+            da = xr.concat((da_xy - da_yx, da_xy - da_yx), axis)
         else:
-            da = xr.concat((da_xy, da_yx), 'roi')
+            da = xr.concat((da_xy, da_yx), axis)
         s_, t_ = sources + targets, targets + sources
     else:
         s_, t_ = sources, targets
-    da, order = _dataarray_unstack(da, s_, t_, roi_tot, fill_value,
-                                   order, rm_missing, fill_diagonal)
+    da, order = _dataarray_unstack(
+        da, s_, t_, roi_tot, fill_value, order, rm_missing, fill_diagonal, axis
+    )
 
     # dataframe conversion
     if to_dataframe:
@@ -484,11 +493,11 @@ def conn_reshape_directed(da, net=False, sep='-', order=None, rm_missing=False,
     return da
 
 
-def _untangle_roi(da, sep):
-    """Get details about the roi."""
+def _get_roi_names(da, sep, axis):
+    """Get the roi names from a DataArray."""
     # start by extrating sources / targets names
     sources, targets = [], []
-    for k in da['roi'].data:
+    for k in da[axis].data:
         sources += [k.split(sep)[0]]
         targets += [k.split(sep)[1]]
 
@@ -498,26 +507,34 @@ def _untangle_roi(da, sep):
     return sources, targets, roi_tot
 
 
-def _dataarray_unstack(da, sources, targets, roi_tot, fill_value, order,
-                       rm_missing, fill_diagonal):
+def _dataarray_unstack(
+        da, sources, targets, roi_tot, fill_value, order, rm_missing,
+        fill_diagonal, axis
+    ):
     """Unstack a 1d to 2d DataArray."""
-    import pandas as pd
+    # replace axis by sources and targets
+    dim_names = list(da.dims)
+    cut_at = dim_names.index(axis)
+    dim_names = dim_names[:cut_at] + ['sources', 'targets'] + dim_names[
+        cut_at+1:]
 
     # build the multi-index
-    da['roi'] = pd.MultiIndex.from_arrays(
+    da[axis] = pd.MultiIndex.from_arrays(
         [sources, targets], names=['sources', 'targets'])
+
     # test for duplicated entries
     st_names = pd.Series([f"{s}-{t}" for s, t in zip(sources, targets)])
     duplicates = np.array(list(st_names.duplicated(keep='first')))
     if duplicates.any():
         logger.warning(f"Duplicated entries found and removed : "
-                       f"{da['roi'].data[duplicates]}")
+                       f"{da[axis].data[duplicates]}")
         da = da.sel(roi=~duplicates)
+
     # unstack to be 2D/3D
     da = da.unstack(fill_value=fill_value)
 
     # transpose, reindex and reorder (if needed)
-    da = da.transpose('sources', 'targets', 'times')
+    da = da.transpose(*tuple(dim_names))
     da = da.reindex(dict(sources=roi_tot, targets=roi_tot),
                     fill_value=fill_value)
 
@@ -541,7 +558,7 @@ def _dataframe_conversion(da, order, rm_missing):
         "Dataframe conversion only possible for connectivity arrays when "
         "time dimension is missing")
     da = da.squeeze().to_dataframe('mi').reset_index()
-    da = da.pivot('sources', 'targets', 'mi')
+    da = da.pivot(index='sources', columns='targets', values='mi')
     if isinstance(order, (list, np.ndarray)):
         da = da.reindex(order, axis='index').reindex(order, axis='columns')
     # drop empty lines
