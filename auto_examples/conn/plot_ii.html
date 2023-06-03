@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Estimate interaction information &#8212; frites 0.4.4 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/conn/plot_ii';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lag estimation between delayed times-series using the cross-correlation" href="plot_ccf.html" />
+    <link rel="prev" title="Estimate comodulations between brain areas" href="plot_conn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../overview/index.html">
+                        Overview
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../overview/index.html">
+                        Overview
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/plot_dfc_estimator.html">Estimate the Dynamic Functional Connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/plot_stim_spec_network.html">Statistical analysis of a stimulus-specific network</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dataset/index.html">Multi-subjects dataset</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dataset/plot_dataset_mne.html">Define an electrophysiological dataset using MNE-Python structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataset/plot_dataset_ephy.html">Build an electrophysiological dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dataset/plot_dataset_xarray.html">Define an electrophysiological dataset using Xarray</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mi/index.html">Group-level statistics on measures of information</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_wf_mi_ccd.html">MI between two continuous variables conditioned by a discret one</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_wf_mi_cd.html">MI between a continuous and a discret variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_wf_mi_cc.html">MI between two continuous variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_mi_time_frequency.html">Compute MI across time and frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_wf_mi_combine.html">Investigate relation of order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_mi_conjunction.html">Compute a conjunction analysis on mutual-information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mi/plot_wf_mi_contact_level.html">Mutual-information at the contact level</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../estimators/index.html">Information-based estimators</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../estimators/plot_est_resample.html">Trial-resampling: correcting for unbalanced designs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../estimators/plot_est_custom.html">Defining a custom estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../estimators/plot_est_comparison.html">Estimator comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Connectivity and Information Transfer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_pid.html">PID: Decomposing the information carried by pairs of brain regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Estimate interaction information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../armodel/index.html">Autoregressive model</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../armodel/plot_ar_pairwise.html">AR : pairwise illustration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../armodel/plot_ar_instantaneous.html">AR : simulate common driving input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../armodel/plot_ar_condcovgc.html">AR : conditional covariance based Granger Causality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../utils/index.html">Utility</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../utils/plot_time_windows.html">Define temporal windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../statistics/index.html">Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_ffx.html">Compare within-subjects statistics when computing mutual information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics/plot_wf_mi_stats_compare_rfx.html">Compare between-subjects statistics when computing mutual information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics/plot_ci_cc.html">Estimate the empirical confidence interval</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../simulations/index.html">Simulations</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../simulations/plot_generate_random_data.html">Generate random electrophysiological data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../simulations/plot_ground_truth.html">Generate spatio-temporal ground-truths</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../performance/index.html">Performance</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../performance/plot_vector_vs_tensor.html">Comparison between tensor and vector based computations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../xarray/index.html">Xarray</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../xarray/plot_xr_export.html">Xarray : Saving the results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xarray/plot_xr_quick_tour.html">Xarray : Quick tour</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Connectivity and Information Transfer</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Estimate interaction information</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-conn-plot-ii-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="estimate-interaction-information">
+<span id="sphx-glr-auto-examples-conn-plot-ii-py"></span><h1>Estimate interaction information<a class="headerlink" href="#estimate-interaction-information" title="Permalink to this headline">#</a></h1>
+<p>This example illustrates how to compute the interaction information (II) to
+investigate if pairs of brain regions are mainly carrying redundant or
+synergistic information about task-related variables (e.g. stimulus type,
+outcomes, learning rate etc.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_single_suj_ephy</span>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <span class="n">conn_ii</span>
+
+<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">set_mpl_style</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="introduce-redundant-and-synergistic-informations">
+<h2>Introduce redundant and synergistic informations<a class="headerlink" href="#introduce-redundant-and-synergistic-informations" title="Permalink to this headline">#</a></h2>
+<p>No we can inject in the simulated data redundancy and synergy. We first start
+by defining a task-related variable (e.g. the learning rate) and we will
+then inject this variable into the two first brain regions to simulate
+redundant coding. Then, to simulate synergy, we will inject half of the
+trials of the learning rate into one brain region and the other half of
+trials to a different brain region. That way, the two brain regions are going
+to be needed to fully decode the learning rate which is going to be reflected
+by synergistic interactions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># simulate the brain data</span>
+<span class="n">n_roi</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">n_times</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="p">,</span> <span class="n">n_times</span><span class="p">)</span>
+
+<span class="c1"># let&#39;s start by defining the task-related variable</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)</span>
+
+<span class="c1"># reshape it to inject it inside the different brain regions</span>
+<span class="n">y_repeated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">y_repeated</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">y_repeated</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># inject y inside the first and second brain regions to introduce redundancy</span>
+<span class="c1"># between them</span>
+<span class="n">t_half</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">n_times</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t_half</span> <span class="o">-</span> <span class="mi">50</span><span class="p">:</span><span class="n">t_half</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span> <span class="o">+=</span> <span class="n">y_repeated</span>
+<span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t_half</span> <span class="o">-</span> <span class="mi">50</span><span class="p">:</span><span class="n">t_half</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span> <span class="o">+=</span> <span class="n">y_repeated</span>
+
+<span class="c1"># now, inject half of the trials inside the third brain region and the second</span>
+<span class="c1"># half of the trils in the fourth region. That way, we&#39;ll introduce synergy</span>
+<span class="c1"># between them as the two brain regions are going o be needed to fully decode</span>
+<span class="c1"># y</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">50</span><span class="p">:,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">t_half</span> <span class="o">-</span> <span class="mi">50</span><span class="p">:</span><span class="n">t_half</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span> <span class="o">+=</span> <span class="n">y_repeated</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">50</span><span class="p">::,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">t_half</span> <span class="o">-</span> <span class="mi">50</span><span class="p">:</span><span class="n">t_half</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span> <span class="o">+=</span> <span class="n">y_repeated</span><span class="p">[</span><span class="mi">50</span><span class="p">::,</span> <span class="o">...</span><span class="p">]</span>
+
+<span class="c1"># finally, merge everything inside a data array</span>
+<span class="n">times</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">)</span> <span class="o">-</span> <span class="n">t_half</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="mf">512.</span>
+<span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;roi_1&#39;</span><span class="p">,</span> <span class="s1">&#39;roi_2&#39;</span><span class="p">,</span> <span class="s1">&#39;roi_3&#39;</span><span class="p">,</span> <span class="s1">&#39;roi_4&#39;</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">),</span> <span class="n">coords</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-the-interaction-information">
+<h2>Compute the interaction information<a class="headerlink" href="#compute-the-interaction-information" title="Permalink to this headline">#</a></h2>
+<p>Now, we can estimate the interaction information. The II reflects whether
+pairs of brain regions are mainly carrying the same (i.e. redundant)
+information about the behavior or, if they are carrying complementary
+(i.e. synergy) information. Synergy is represented by a positive II and
+redundancy by a negative II.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the II</span>
+<span class="n">ii</span> <span class="o">=</span> <span class="n">conn_ii</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+
+<span class="c1"># plot the result</span>
+<span class="n">fg</span> <span class="o">=</span> <span class="n">ii</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">minmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ii</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ii</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="n">minmax</span><span class="p">,</span> <span class="n">minmax</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C3&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">fg</span><span class="o">.</span><span class="n">axs</span><span class="p">)]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+    <span class="s2">&quot;Interaction information (II, in bits) of pairs of brain regions about y&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># As we see in the results :</span>
+<span class="c1"># - The II between roi_1 and roi_2 is redundant (II &lt; 0)</span>
+<span class="c1"># - The II between roi_3 and roi_4 is synergistic (II &gt; 0)</span>
+<span class="c1"># - The remaining pairs of brain regions are mainly carrying slightly redundant</span>
+<span class="c1">#   information</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_ii_001.png" srcset="../../_images/sphx_glr_plot_ii_001.png" alt="Interaction information (II, in bits) of pairs of brain regions about y, roi = roi_1-roi_2, roi = roi_1-roi_3, roi = roi_1-roi_4, roi = roi_2-roi_3, roi = roi_2-roi_4, roi = roi_3-roi_4" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI on each node I(X;S) : 0/10 [00:00&lt;?,       ?it/s]
+ 30%|###       | Estimating MI on each node I(X;S) : 3/10 [00:00&lt;00:00,  177.49it/s]
+ 60%|######    | Estimating total information I(X,Y;S) : 6/10 [00:00&lt;00:00,  148.17it/s]
+ 90%|######### | Estimating total information I(X,Y;S) : 9/10 [00:00&lt;00:00,  152.32it/s]
+100%|##########| Estimating total information I(X,Y;S) : 10/10 [00:00&lt;00:00,  151.03it/s]
+&lt;xarray.DataArray &#39;II&#39; (roi: 6, times: 1000)&gt;
+array([[-8.49527632e-04,  5.86226415e-05, -2.25938633e-04, ...,
+         5.40654854e-05, -1.27253732e-04, -7.29253856e-07],
+       [-9.20332000e-04,  1.18759311e-08, -8.81174589e-04, ...,
+         2.45126061e-07, -9.19676505e-06,  9.22749372e-04],
+       [ 1.32757659e-03, -8.63393333e-05, -4.06273446e-04, ...,
+        -1.86864498e-05,  4.53978580e-04, -5.87910176e-04],
+       [-2.19488803e-04, -1.71686175e-04, -2.16927596e-04, ...,
+        -5.79707723e-04,  5.04457394e-06,  7.13106244e-05],
+       [-8.93692941e-04, -6.66342581e-04, -1.59652179e-04, ...,
+         6.47728650e-05, -4.46954060e-04,  3.74156640e-04],
+       [-9.44778964e-04,  2.73799085e-04, -7.27981872e-04, ...,
+        -1.86647275e-05, -1.79376748e-05, -5.87270206e-04]])
+Coordinates:
+  * roi      (roi) &lt;U11 &#39;roi_1-roi_2&#39; &#39;roi_1-roi_3&#39; ... &#39;roi_3-roi_4&#39;
+  * times    (times) float64 -0.8789 -0.877 -0.875 -0.873 ... 1.068 1.07 1.072
+Attributes:
+    sfreq:    512.0
+    sources:  [0, 0, 0, 1, 1, 2]
+    targets:  [1, 2, 3, 2, 3, 3]
+    mi_type:  cc
+    gcrn:     1
+    dt:       1
+    unit:     Bits
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.474 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  9 MB</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-ii-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/1b4f245428c5375a987576ab39eac032/plot_ii.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ii.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/7848fcbaa6301b8221ab4e9125008ebb/plot_ii.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ii.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="plot_conn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Estimate comodulations between brain areas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="plot_ccf.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lag estimation between delayed times-series using the cross-correlation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduce-redundant-and-synergistic-informations">Introduce redundant and synergistic informations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-interaction-information">Compute the interaction information</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="../../_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2023-06-03.</p>
+    </footer>
+
+  </body>
+</html>

@@ -53,7 +53,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Estimate comodulations between brain areas" href="plot_conn.html" />
+    <link rel="next" title="PID: Decomposing the information carried by pairs of brain regions" href="plot_pid.html" />
     <link rel="prev" title="Connectivity and Information Transfer" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
@@ -393,7 +393,9 @@ document.write(`
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Connectivity and Information Transfer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Estimate dynamic functional connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_pid.html">PID: Decomposing the information carried by pairs of brain regions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ii.html">Estimate interaction information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
 </ul>
@@ -575,8 +577,9 @@ each of the temporal window</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_dfc_001.png" srcset="../../_images/sphx_glr_plot_dfc_001.png" alt="Mean DFC across trials between pairs of roi" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating DFC : 0/3 [00:00&lt;?,       ?it/s]
- 67%|######6   | Estimating DFC : 2/3 [00:00&lt;00:00,   74.74it/s]
-100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   76.51it/s]
+ 33%|###3      | Estimating DFC : 1/3 [00:00&lt;00:00,   60.09it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   66.67it/s]
+100%|##########| Estimating DFC : 3/3 [00:00&lt;00:00,   66.11it/s]
 &lt;xarray.DataArray &#39;DFC (Gaussian Copula Mutual Information Estimator)&#39; (
                                                                         trials: 50,
                                                                         roi: 3,
@@ -632,12 +635,13 @@ Attributes:
     agg_ch:      0
     type:        dfc
     estimator:   Gaussian Copula Mutual Information Estimator
+    unit:        Bits
     sfreq:       499.50000000001125
     sources:     [0, 0, 1]
     targets:     [1, 2, 2]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.559 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.817 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-dfc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -672,11 +676,11 @@ Attributes:
       </div>
     </a>
     <a class="right-next"
-       href="plot_conn.html"
+       href="plot_pid.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Estimate comodulations between brain areas</p>
+        <p class="prev-next-title">PID: Decomposing the information carried by pairs of brain regions</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -728,7 +732,7 @@ Attributes:
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2023-05-31.</p>
+        <p>&copy; Copyright Last updated on 2023-06-03.</p>
     </footer>
 
   </body>

@@ -393,7 +393,9 @@ document.write(`
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../conn/index.html">Connectivity and Information Transfer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_dfc.html">Estimate dynamic functional connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conn/plot_pid.html">PID: Decomposing the information carried by pairs of brain regions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_conn.html">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conn/plot_ii.html">Estimate interaction information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
 </ul>
@@ -522,47 +524,47 @@ input for Y and Z</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;xarray.DataArray (trials: 150, roi: 3, times: 300)&gt;
-array([[[ 0.14227513,  0.02581772,  0.06311581, ..., -0.3426613 ,
-         -0.06105583,  0.19668754],
-        [ 0.43389993, -0.0495821 , -0.7048804 , ..., -0.22122528,
-          0.32299994,  0.05306065],
-        [-0.25779664, -0.2362246 , -0.23953329, ...,  0.13770933,
-          0.07714068, -0.32604894]],
+array([[[ 0.25134439, -0.04588286, -0.38997855, ...,  0.47525239,
+         -0.42996041, -0.35923828],
+        [ 0.28807864,  0.32943226, -0.15219402, ...,  0.13200512,
+          0.01481161,  0.18764986],
+        [ 0.23625422,  0.16773289,  0.12441169, ...,  0.21856348,
+         -0.46722405, -0.21981999]],
 
-       [[ 0.18389383,  0.07205693,  0.06822069, ..., -0.16059873,
-         -0.19935405,  0.00872403],
-        [-0.18647874, -0.08076791,  0.32507654, ..., -0.24354185,
-         -0.17806863, -0.00804439],
-        [ 0.21476403, -0.28992081, -0.36109203, ..., -0.21170389,
-         -0.09721882,  0.14785904]],
+       [[-0.23425387,  0.2383734 ,  0.12571813, ...,  0.01028065,
+          0.86762484,  0.64894575],
+        [-0.00829905, -0.39008386,  0.08640293, ..., -0.17602529,
+         -0.10660233, -0.25474297],
+        [ 0.41032334,  0.10277509, -0.36499451, ..., -0.20049947,
+         -0.44564005, -0.14311654]],
 
-       [[ 0.2691801 ,  0.08190934, -0.09202659, ...,  0.52077914,
-          0.30416114, -0.0966767 ],
-        [ 0.01484865, -0.09551393, -0.11096715, ...,  0.00899502,
-          0.24772128,  0.09266176],
-        [ 0.02610154, -0.27900484, -0.2532564 , ...,  0.13119139,
-         -0.28514618,  0.19349338]],
+       [[-0.4885944 , -0.24088023,  0.5716417 , ...,  0.42614904,
+          0.27062738, -0.17958764],
+        [-0.35214581, -0.18335921, -0.04724976, ..., -0.00556085,
+         -0.25871338, -0.35545094],
+        [ 0.05442133, -0.08335093,  0.08436663, ..., -0.30889446,
+         -0.3294228 ,  0.36430815]],
 ...
-       [[ 0.21155391,  0.2815949 , -0.05877527, ...,  0.37269054,
-          0.06758996, -0.12037739],
-        [-0.02636532, -0.11463568, -0.207102  , ...,  0.07423449,
-          0.28447629,  0.25580518],
-        [-0.16338073,  0.61243047,  0.55832482, ...,  0.11493111,
-         -0.13790927, -0.41116118]],
+       [[ 0.33821833,  0.13736941, -0.04772936, ..., -0.12733071,
+         -0.50344985, -0.06069676],
+        [-0.35159565, -0.06081666,  0.41416986, ...,  0.43957058,
+         -0.32255854, -0.14764446],
+        [-0.13518498,  0.10178025,  0.32153082, ...,  0.23252699,
+         -0.23642249,  0.07492754]],
 
-       [[-0.41794773, -0.03095628,  0.42535479, ..., -0.53460383,
-         -0.18030511, -0.14257987],
-        [ 0.0062672 , -0.34693004,  0.16727761, ...,  0.05142478,
-         -0.14993206, -0.02365464],
-        [ 0.05061982, -0.19163926, -0.02973647, ..., -0.34503496,
-         -0.16876596, -0.03356393]],
+       [[-0.19209026,  0.07261479,  0.11361513, ..., -0.25965606,
+         -0.14892411,  0.10439557],
+        [ 0.43026152, -0.02417257, -0.32028906, ...,  0.12009966,
+          0.31882895,  0.14351507],
+        [-0.1940527 , -0.06980799,  0.18732115, ..., -0.37826542,
+         -0.36238163,  0.00259724]],
 
-       [[-0.19681119,  0.08966961, -0.00762881, ...,  0.25433405,
-          0.20848445, -0.18389361],
-        [-0.08833805,  0.14678171, -0.05990056, ..., -0.28698298,
-          0.44531367, -0.00598908],
-        [ 0.03098834,  0.00932634,  0.17213706, ...,  0.19452218,
-          0.14619137, -0.03724947]]])
+       [[ 0.19648887,  0.05398445, -0.14429047, ..., -0.37445137,
+         -0.23278332,  0.33820427],
+        [-0.0631801 , -0.0741364 , -0.11359434, ...,  0.05873906,
+         -0.0372718 ,  0.13327158],
+        [-0.10949838,  0.04815722,  0.04406834, ..., -0.03883177,
+         -0.31380632, -0.14499861]]])
 Coordinates:
   * trials   (trials) int64 1 1 1 1 1 1 1 1 1 1 1 1 ... 3 3 3 3 3 3 3 3 3 3 3 3
   * roi      (roi) &lt;U1 &#39;x&#39; &#39;y&#39; &#39;z&#39;
@@ -615,11 +617,11 @@ addition, an instantaneous connectivity between Y.Z</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ar_instantaneous_004.png" srcset="../../_images/sphx_glr_plot_ar_instantaneous_004.png" alt="x$\rightarrow$y, x$\rightarrow$z, y$\rightarrow$z, y$\rightarrow$x, z$\rightarrow$x, z$\rightarrow$y, x . y, x . z, y . z" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
-100%|##########|  : 3/3 [00:00&lt;00:00, 1865.79it/s]
+100%|##########|  : 3/3 [00:00&lt;00:00, 1015.82it/s]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.413 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  15 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.727 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  16 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-armodel-plot-ar-instantaneous-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/066dcc2e9d4187aca1d10c945ae4d41b/plot_ar_instantaneous.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ar_instantaneous.py</span></code></a></p>
@@ -707,7 +709,7 @@ addition, an instantaneous connectivity between Y.Z</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2023-05-31.</p>
+        <p>&copy; Copyright Last updated on 2023-06-03.</p>
     </footer>
 
   </body>
