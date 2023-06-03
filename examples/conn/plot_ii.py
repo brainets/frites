@@ -78,6 +78,7 @@ x = xr.DataArray(x, dims=('trials', 'roi', 'times'), coords=(y, roi, times))
 ii = conn_ii(
     x, y, roi='roi', times='times', mi_type='cc'
 )
+print(ii)
 
 # plot the result
 fg = ii.plot(x='times', col='roi', col_wrap=3, size=4)

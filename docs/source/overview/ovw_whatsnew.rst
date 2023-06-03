@@ -9,6 +9,8 @@ v0.4.4
 New Features
 ++++++++++++
 * Functions :func:`frites.conn.conn_reshape_undirected` and :func:`frites.conn.conn_reshape_directed` now supports multidimensional arrays (:commit:`21ba7e05`)
+* New function :func:`frites.core.ent_nd_g` to compute entropy on tensors (:commit:`17587a15`)
+* New function :func:`frites.conn.conn_ii` to estimate the interaction information (:commit:`10938b46`)
 
 v0.4.3
 ------

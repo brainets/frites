@@ -75,6 +75,7 @@ def conn_ii(data, y, roi=None, times=None, mi_type='cc', gcrn=True, dt=1,
     --------
     conn_links, conn_pid
     """
+    set_log_level(verbose)
     # _________________________________ INPUTS ________________________________
     # inputs conversion
     kw_links.update({'directed': False, 'net': False})
@@ -93,7 +94,7 @@ def conn_ii(data, y, roi=None, times=None, mi_type='cc', gcrn=True, dt=1,
     assert dt >= 1
     idx = np.mgrid[0:len(times) - dt + 1, 0:dt].sum(0)
     times = times[idx].mean(1)
-    n_trials, n_roi, n_times = len(y), len(roi), len(times)
+    _, n_roi, n_times = len(y), len(roi), len(times)
 
     # copnorm the data
     if gcrn:
@@ -141,11 +142,13 @@ def conn_ii(data, y, roi=None, times=None, mi_type='cc', gcrn=True, dt=1,
     interinfo = infotot - mi_node[x_s, :] - mi_node[x_t, :]
 
     # _______________________________ OUTPUTS _________________________________
-    kw = dict(dims=('roi', 'times'), coords=(roi, times),
-              attrs=check_attrs(attrs))
-    kw_pairs = dict(dims=('roi', 'times'), coords=(roi_p, times))
-    interinfo = xr.DataArray(interinfo, name='II',
-                             **kw_pairs)
+    attrs['mi_type'] = mi_type
+    attrs['gcrn'] = gcrn
+    attrs['dt'] = dt
+    interinfo = xr.DataArray(
+        interinfo, dims=('roi', 'times'), coords=(roi_p, times), name='II',
+        attrs=check_attrs(attrs)
+    )
     interinfo.attrs['unit'] = 'bits'
 
     return interinfo
@@ -169,6 +172,7 @@ if __name__ == '__main__':
     interinfo = conn_ii(
         ar, 'trials', roi='roi', times='times', mi_type='cd', dt=1,
         verbose=True)
+    print(interinfo)
 
     interinfo.plot()
 
