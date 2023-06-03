@@ -3,10 +3,16 @@ import numpy as np
 
 from frites.core.gcmi_nd import (mi_nd_gg, mi_model_nd_gd, cmi_nd_ggg,
                                  gcmi_nd_cc, gcmi_model_nd_cd, gccmi_nd_ccnd,
-                                 gccmi_model_nd_cdnd, gccmi_nd_ccc)
+                                 gccmi_model_nd_cdnd, gccmi_nd_ccc, ent_nd_g)
 
 
 class TestGcmiNd(object):  # noqa
+
+    def ent_nd_g(self):
+        """Test function ent_nd_g."""
+        x_g = np.random.normal(size=(10, 1000, 20))
+        assert ent_nd_g(x_g, traxis=1).shape == (10, 20)
+        assert ent_nd_g(x_g, traxis=1, mvaxis=0).shape == (20,)
 
     def test_mi_nd_gg(self):
         """Test function mi_nd_gg."""
@@ -68,3 +74,6 @@ class TestGcmiNd(object):  # noqa
         z_c = np.random.uniform(0, 50, size=(10, 1000, 20))
         assert gccmi_nd_ccc(x_c, y_c, z_c, traxis=1).shape == (10, 20)
         assert gccmi_nd_ccc(x_c, y_c, z_c, traxis=1, mvaxis=0).shape == (20,)
+
+if __name__ == "__main__":
+    TestGcmiNd().ent_nd_g()

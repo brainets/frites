@@ -63,6 +63,63 @@ def nd_shape_checking(x, y, mvaxis, traxis):
 
 ###############################################################################
 ###############################################################################
+#                                  ENTROPY
+###############################################################################
+###############################################################################
+
+
+def ent_nd_g(x, mvaxis=None, traxis=-1, biascorrect=True, shape_checking=True):
+    """Entropy of a continuous variable.
+
+    Parameters
+    ----------
+    x : array_like
+        Array to consider for computing the entropy.
+    mvaxis : int | None
+        Spatial location of the axis to consider if multi-variate analysis
+        is needed
+    traxis : int | -1
+        Spatial location of the trial axis. By default the last axis is
+        considered
+    biascorrect : bool | True
+        Specifies whether bias correction should be applied to the estimated MI
+    shape_checking : bool | True
+        Perform a reshape and check that x and y shapes are consistents. For
+        high performances and to avoid extensive memory usage, it's better to
+        already have x and y with a shape of (..., mvaxis, traxis) and to set
+        this parameter to False
+
+    Returns
+    -------
+    mi : array_like
+        The mutual information with the same shape as x and y, without the
+        mvaxis and traxis
+    """
+    if shape_checking:
+        x = nd_reshape(x, mvaxis=mvaxis, traxis=traxis)
+    nvarx, ntrl = x.shape[-2], x.shape[-1]
+
+    # covariance
+    c = np.einsum('...ij, ...kj->...ik', x, x)
+    c /= float(ntrl - 1.)
+    chc = np.linalg.cholesky(c)
+
+    # entropy in nats
+    hx = np.log(np.einsum('...ii->...i', chc)).sum(-1) + 0.5 * nvarx * (
+        np.log(2 * np.pi) + 1.0)
+
+    ln2 = np.log(2)
+    if biascorrect:
+        psiterms = psi((ntrl - np.arange(1, nvarx + 1).astype(
+            float)) / 2.) / 2.
+        dterm = (ln2 - np.log(ntrl - 1.)) / 2.
+        hx = hx - nvarx * dterm - psiterms.sum()
+
+    return hx
+
+
+###############################################################################
+###############################################################################
 #                          MUTUAL INFORMATION
 ###############################################################################
 ###############################################################################

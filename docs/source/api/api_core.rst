@@ -41,6 +41,7 @@ Gaussian-Copula mutual-information supporting univariate / multivariate multi-di
 
    copnorm_nd
    copnorm_cat_nd
+   ent_nd_g
    mi_nd_gg
    mi_model_nd_gd
    cmi_nd_ggg
