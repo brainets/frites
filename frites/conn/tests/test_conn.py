@@ -2,7 +2,7 @@
 import numpy as np
 import xarray as xr
 
-from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf)
+from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf, conn_ii)
 
 
 class TestConn(object):
@@ -110,6 +110,36 @@ class TestConn(object):
         assert 50 - tol <= peaks[1] <= 50 + tol
         assert 70 - tol <= peaks[2] <= 70 + tol
 
+    def test_conn_ii(self):
+        """Test function conn_ii."""
+        # define the simulated data
+        n_trials = 100
+        n_roi = 4
+        n_times = 1000
+        y = np.random.rand(n_trials)
+        roi = ['roi_1', 'roi_2', 'roi_3', 'roi_4']
+        times = np.arange(n_times) / 512.
+        x = np.random.rand(n_trials, n_roi, n_times)
+        # introduce redundancy and synergy; Red=(0, 1), Syn=(2, 3)
+        y_repeated = np.tile(y.reshape(-1, 1), (1, 100))
+        y_repeated *= np.hanning(y_repeated.shape[-1]).reshape(1, -1)
+        x[:, 0, 500 - 50:500 + 50] += y_repeated
+        x[:, 1, 500 - 50:500 + 50] += y_repeated
+        x[0:50:, 2, 500 - 50:500 + 50] += y_repeated[0:50, ...]
+        x[50::, 3, 500 - 50:500 + 50] += y_repeated[50::, ...]
+        x = xr.DataArray(x, dims=('trials', 'roi', 'times'),
+                         coords=(y, roi, times))
+        # compute ii
+        ii = conn_ii(
+            x, y, roi='roi', times='times', mi_type='cc', dt=10
+        )
+        # test that min is (0, 1) and max is (2, 3)
+        ii = ii.min('times')
+        assert (ii['roi'].data[
+            np.where(ii.data == ii.data.min())[0]] == 'roi_1-roi_2')
+        assert (ii['roi'].data[
+            np.where(ii.data == ii.data.max())[0]] == 'roi_3-roi_4')
+
 
 if __name__ == '__main__':
-    TestConn().test_conn_te()
+    TestConn().test_conn_ii()

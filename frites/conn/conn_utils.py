@@ -5,6 +5,7 @@ import pandas as pd
 
 from frites.utils import nonsorted_unique
 from frites.io import set_log_level, logger
+from frites.core import ent_nd_g, mi_nd_gg, mi_model_nd_gd, copnorm_nd
 
 
 ###############################################################################
@@ -697,3 +698,64 @@ def conn_net(da, roi='roi', order=None, sep='-', invert=False, verbose=None):
     out.name = da.name + '_net' if da.name else 'Net conn'
 
     return out
+
+
+###############################################################################
+###############################################################################
+#                         CONN MUTUAL INFORMATION
+###############################################################################
+###############################################################################
+
+
+def _conn_mi(x, y, mi_type, minorm=False, **kw_mi):
+    """Compute the mutual information for connectivity-related functions.
+
+    This function compute the mutual information I(x, y) between a continuous x
+    and a continuous or discret y variable. In addition, we assume here that
+    the two last axes are multivariate and trials.
+
+    Parameters
+    ----------
+    x : array_like
+        Array of shape (n_vars, n_mvaxis, n_trials)
+    y : array_like
+        Array of shape (n_trials) or (n_vars, n_mvaxis, n_trials)
+    mi_type : {'cc', 'cd'}
+        Mutual information type
+    minorm : bool | False
+        Normalize the mutual information
+    kw_mi : dict
+        Additional arguments are sent to the MI function
+
+    Returns
+    -------
+    mi : array_like
+        Array of mutual information of shape (n_vars,)
+    """
+    assert isinstance(x, np.ndarray) and isinstance(y, np.ndarray)
+    assert (x.ndim == 3) and (1 <= y.ndim <= 3)
+    assert mi_type in ['cc', 'cd']
+    kw_mi['traxis'] = -1
+    kw_mi['mvaxis'] = -2
+    kw_mi['shape_checking'] = False
+
+    # compute mutual information
+    if mi_type == 'cc':
+        # reshape y, only if needed
+        if y.ndim in (1, 2):
+            y = np.atleast_2d(y)[np.newaxis, ...]
+            y = np.tile(y, (x.shape[0], 1, 1))
+        _mi = mi_nd_gg(x, y, **kw_mi)
+    elif mi_type == 'cd':
+        _mi = mi_model_nd_gd(x, y, **kw_mi)
+
+    # normalize the mi
+    if minorm:
+        kw_ent = dict(mvaxis=-2, traxis=-1, biascorrect=kw_mi["biascorrect"],
+                      shape_checking=False)
+        _ent_x = ent_nd_g(x, **kw_ent)
+        _ent_y = ent_nd_g(np.atleast_2d(y).astype(float), **kw_ent)
+        _ent_xy = np.minimum(_ent_x, _ent_y)
+        _mi /= _ent_xy
+
+    return _mi
