@@ -71,13 +71,12 @@ plt.title("Decomposition of the information carried by a pair of brain regions"
           "\nabout a task-related variable", fontweight='bold')
 plt.show()
 
-"""
-from the plot above, we can see that:
-1. The total information carried by the pairs of regions (Info_{Tot})
-2. At the beginning, a large portion of the information is carried by the first
-   brain region (Unique_{X})
-3. Then we can see a superimposition of redundancy (Redundancy_{XY}) and
-   synergy (Synergy_{XY}) carried by both regions
-4. Finally, later in time most of the information is carried by the second
-   brain region Y (Unique_{X})
-"""
+###############################################################################
+# from the plot above, we can see that:
+# 1. The total information carried by the pairs of regions (Info_{Tot})
+# 2. At the beginning, a large portion of the information is carried by the
+#    first brain region (Unique_{X})
+# 3. Then we can see a superimposition of redundancy (Redundancy_{XY}) and
+#    synergy (Synergy_{XY}) carried by both regions
+# 4. Finally, later in time most of the information is carried by the second
+#    brain region Y (Unique_{X})

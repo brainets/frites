@@ -20,6 +20,8 @@ Connectivity metrics
    conn_ccf
    conn_spec
    conn_te
+   conn_ii
+   conn_pid
 
 Utility functions
 +++++++++++++++++
