@@ -53,8 +53,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Estimate interaction information" href="plot_ii.html" />
-    <link rel="prev" title="PID: Decomposing the information carried by pairs of brain regions" href="plot_pid.html" />
+    <link rel="next" title="Lag estimation between delayed times-series using the cross-correlation" href="plot_ccf.html" />
+    <link rel="prev" title="Estimate interaction information" href="plot_ii.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -392,10 +392,10 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Connectivity and Information Transfer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_pid.html">PID: Decomposing the information carried by pairs of brain regions</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ii.html">Estimate interaction information</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Estimate comodulations between brain areas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
 </ul>
@@ -568,13 +568,13 @@ the pairwise connectivity</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/6 [00:00&lt;?,       ?it/s]
- 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:01,    2.91it/s]
- 33%|###3      | Estimating MI : 2/6 [00:00&lt;00:01,    3.17it/s]
- 50%|#####     | Estimating MI : 3/6 [00:00&lt;00:00,    3.29it/s]
- 67%|######6   | Estimating MI : 4/6 [00:01&lt;00:00,    3.25it/s]
- 83%|########3 | Estimating MI : 5/6 [00:01&lt;00:00,    3.30it/s]
-100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.28it/s]
-100%|##########| Estimating MI : 6/6 [00:01&lt;00:00,    3.27it/s]
+ 17%|#6        | Estimating MI : 1/6 [00:00&lt;00:01,    2.54it/s]
+ 33%|###3      | Estimating MI : 2/6 [00:00&lt;00:01,    2.75it/s]
+ 50%|#####     | Estimating MI : 3/6 [00:01&lt;00:01,    2.76it/s]
+ 67%|######6   | Estimating MI : 4/6 [00:01&lt;00:00,    2.71it/s]
+ 83%|########3 | Estimating MI : 5/6 [00:01&lt;00:00,    2.76it/s]
+100%|##########| Estimating MI : 6/6 [00:02&lt;00:00,    2.69it/s]
+100%|##########| Estimating MI : 6/6 [00:02&lt;00:00,    2.70it/s]
 &lt;xarray.DataArray &#39;mi&#39; (times: 100, roi: 6)&gt;
 array([[ 3.81100170e-02,  9.93129635e-03,  3.08063622e-02,
         -1.57432552e-02, -6.46413969e-03, -1.42072425e-02],
@@ -626,7 +626,7 @@ Attributes: (12/16)
     kernel:          [0.         0.11697778 0.41317591 0.75       0.96984631 ...
     n_perm:          100
     random_state:    None
-    ttest_pop_mean:  0.0001613143545760243
+    ttest_pop_mean:  -0.00010172257964751625
     ...              ...
     mcp:             cluster
     tail:            1
@@ -662,7 +662,7 @@ Attributes: (12/16)
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_conn_001.png" srcset="../../_images/sphx_glr_plot_conn_001.png" alt="Pairwise connectivity" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.326 seconds)</p>
+<img src="../../_images/sphx_glr_plot_conn_001.png" srcset="../../_images/sphx_glr_plot_conn_001.png" alt="Pairwise connectivity" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.768 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-conn-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -688,20 +688,20 @@ Attributes: (12/16)
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_pid.html"
+       href="plot_ii.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">PID: Decomposing the information carried by pairs of brain regions</p>
+        <p class="prev-next-title">Estimate interaction information</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_ii.html"
+       href="plot_ccf.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Estimate interaction information</p>
+        <p class="prev-next-title">Lag estimation between delayed times-series using the cross-correlation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

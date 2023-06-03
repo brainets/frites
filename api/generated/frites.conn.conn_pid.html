@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.core.mi_mixture_1d_gd &#8212; frites 0.4.4 documentation</title>
+    <title>frites.conn.conn_pid &#8212; frites 0.4.4 documentation</title>
   
   
   
@@ -49,12 +49,12 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.core.mi_mixture_1d_gd';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.conn.conn_pid';</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.core.cmi_1d_ggg" href="frites.core.cmi_1d_ggg.html" />
-    <link rel="prev" title="frites.core.mi_model_1d_gd" href="frites.core.mi_model_1d_gd.html" />
+    <link rel="next" title="frites.conn.conn_reshape_undirected" href="frites.conn.conn_reshape_undirected.html" />
+    <link rel="prev" title="frites.conn.conn_ii" href="frites.conn.conn_ii.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -251,6 +251,10 @@ document.write(`
   
 
   
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
 </div>
 
     </nav>
@@ -359,7 +363,7 @@ document.write(`
         <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../api_dataset.html">Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
@@ -372,14 +376,14 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="frites.workflow.WfStats.html">frites.workflow.WfStats</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../api_connectivity.html">Connectivity</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_connectivity.html">Connectivity</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_dfc.html">frites.conn.conn_dfc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_covgc.html">frites.conn.conn_covgc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_ccf.html">frites.conn.conn_ccf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_spec.html">frites.conn.conn_spec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_te.html">frites.conn.conn_te</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_ii.html">frites.conn.conn_ii</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_pid.html">frites.conn.conn_pid</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">frites.conn.conn_pid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_reshape_undirected.html">frites.conn.conn_reshape_undirected</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_reshape_directed.html">frites.conn.conn_reshape_directed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.conn.conn_ravel_directed.html">frites.conn.conn_ravel_directed</a></li>
@@ -426,7 +430,7 @@ document.write(`
 </ul>
 </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../api_statistics.html">Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.permute_mi_vector.html">frites.stats.permute_mi_vector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.permute_mi_trials.html">frites.stats.permute_mi_trials</a></li>
@@ -439,13 +443,13 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.cluster_threshold.html">frites.stats.cluster_threshold</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_core.html">Low-level core functions</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_core.html">Low-level core functions</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.copnorm_1d.html">frites.core.copnorm_1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.copnorm_cat_1d.html">frites.core.copnorm_cat_1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.ent_1d_g.html">frites.core.ent_1d_g</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.mi_1d_gg.html">frites.core.mi_1d_gg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.mi_model_1d_gd.html">frites.core.mi_model_1d_gd</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">frites.core.mi_mixture_1d_gd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frites.core.mi_mixture_1d_gd.html">frites.core.mi_mixture_1d_gd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.cmi_1d_ggg.html">frites.core.cmi_1d_ggg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.gcmi_1d_cc.html">frites.core.gcmi_1d_cc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.core.gcmi_model_1d_cd.html">frites.core.gcmi_model_1d_cd</a></li>
@@ -511,9 +515,9 @@ document.write(`
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API</a></li>
     
     
-    <li class="breadcrumb-item"><a href="../api_core.html" class="nav-link">Low-level core functions</a></li>
+    <li class="breadcrumb-item"><a href="../api_connectivity.html" class="nav-link">Connectivity</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">frites.core.mi_mixture_1d_gd</li>
+    <li class="breadcrumb-item active" aria-current="page">frites.conn.conn_pid</li>
   </ul>
 </nav>
 </div>
@@ -530,33 +534,89 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="frites-core-mi-mixture-1d-gd">
-<h1>frites.core.mi_mixture_1d_gd<a class="headerlink" href="#frites-core-mi-mixture-1d-gd" title="Permalink to this headline">#</a></h1>
+  <section id="frites-conn-conn-pid">
+<h1>frites.conn.conn_pid<a class="headerlink" href="#frites-conn-conn-pid" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.core.mi_mixture_1d_gd">
-<span class="sig-prename descclassname"><span class="pre">frites.core.</span></span><span class="sig-name descname"><span class="pre">mi_mixture_1d_gd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/core/gcmi_1d.py#L273-L369"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.core.mi_mixture_1d_gd" title="Permalink to this definition">#</a></dt>
-<dd><p>Mutual information between a Gaussian and a discrete variable in bits.</p>
-<p>This method evaluate MI from a Gaussian mixture.
-I = mi_mixture_gd(x,y) returns the MI between the (possibly
-multidimensional)</p>
+<dt class="sig sig-object py" id="frites.conn.conn_pid">
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw_links</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_pid.py#L13-L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_pid" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Partial Information Decomposition on connectivity pairs.</p>
+<p>This function can be used to untangle how the information about a stimulus
+is carried inside a brain network.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>x, y</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Gaussian arrays of shape (n_epochs,) or (n_dimensions, n_epochs). y
-must be an array of integers</p>
+<dt><strong>data</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Electrophysiological data. Several input types are supported :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Standard NumPy arrays of shape (n_epochs, n_roi, n_times)</p></li>
+<li><p>mne.Epochs</p></li>
+<li><p>xarray.DataArray of shape (n_epochs, n_roi, n_times)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>y</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The feature of shape (n_trials,). This feature vector can either be
+categorical and in that case, the mutual information type has to ‘cd’
+or y can also be a continuous regressor and in that case the mutual
+information type has to be ‘cc’</p>
+</dd>
+<dt><strong>roi</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Array of region of interest name of shape (n_roi,)</p>
+</dd>
+<dt><strong>times</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Array of time points of shape (n_times,)</p>
+</dd>
+<dt><strong>mi_type</strong><span class="classifier">{‘cc’, ‘cd’}</span></dt><dd><dl class="simple">
+<dt>Mutual information type. Switch between :</dt><dd><ul class="simple">
+<li><p>‘cc’ : if the y input is a continuous regressor</p></li>
+<li><p>‘cd’ : if the y input is a discret vector with categorical
+integers inside</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><strong>gcrn</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specify if the Gaussian Copula Rank Normalization should be applied.
+Default is True.</p>
+</dd>
+<dt><strong>dt</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of successive time points to consider when computing MI.
+Increasing this number increase the smoothness of the results but will
+also increase computing time.</p>
+</dd>
+<dt><strong>kw_links</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments for selecting links to compute are passed to the
+function <a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.conn.conn_links()</span></code></a></p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>i</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></span></dt><dd><p>Information shared by x and y (in bits)</p>
+<dt><strong>mi_node</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The array of mutual infromation estimated on each node of shape
+(n_roi, n_times)</p>
+</dd>
+<dt><strong>unique</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The unique contribution of each node of shape (n_roi, n_times)</p>
+</dd>
+<dt><strong>infotot</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The total information in the network of shape (n_pairs, n_times)</p>
+</dd>
+<dt><strong>redundancy</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The redundancy in the network of shape (n_pairs, n_times)</p>
+</dd>
+<dt><strong>synergy</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>The synergy in the network of shape (n_pairs, n_times)</p>
 </dd>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_links</span></code></a>, <a class="reference internal" href="frites.conn.conn_ii.html#frites.conn.conn_ii" title="frites.conn.conn_ii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conn_ii</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>Williams and Beer, 2010: <a class="bibtex reference internal" href="../../overview/ovw_refs.html#williamsbeers2010" id="id1">[20]</a></p>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-core-mi-mixture-1d-gd"></span></section>
+<section id="examples-using-frites-conn-conn-pid">
+<span id="sphx-glr-backreferences-frites-conn-conn-pid"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.conn.conn_pid</span></code><a class="headerlink" href="#examples-using-frites-conn-conn-pid" title="Permalink to this headline">#</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to decompose the information carried by pairs of brain regions abo..."><img alt="" src="../../_images/sphx_glr_plot_pid_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/conn/plot_pid.html#sphx-glr-auto-examples-conn-plot-pid-py"><span class="std std-ref">PID: Decomposing the information carried by pairs of brain regions</span></a></p>
+  <div class="sphx-glr-thumbnail-title">PID: Decomposing the information carried by pairs of brain regions</div>
+</div></div></section>
+</section>
 
 
                 </article>
@@ -570,20 +630,20 @@ must be an array of integers</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="frites.core.mi_model_1d_gd.html"
+       href="frites.conn.conn_ii.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">frites.core.mi_model_1d_gd</p>
+        <p class="prev-next-title">frites.conn.conn_ii</p>
       </div>
     </a>
     <a class="right-next"
-       href="frites.core.cmi_1d_ggg.html"
+       href="frites.conn.conn_reshape_undirected.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.core.cmi_1d_ggg</p>
+        <p class="prev-next-title">frites.conn.conn_reshape_undirected</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -596,6 +656,20 @@ must be an array of integers</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-using-frites-conn-conn-pid">Examples using <code class="docutils literal notranslate"><span class="pre">frites.conn.conn_pid</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

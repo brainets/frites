@@ -392,10 +392,10 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../conn/index.html">Connectivity and Information Transfer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../conn/plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_pid.html">PID: Decomposing the information carried by pairs of brain regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../conn/plot_conn.html">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conn/plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_ii.html">Estimate interaction information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conn/plot_conn.html">Estimate comodulations between brain areas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../conn/plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
 </ul>
@@ -572,14 +572,14 @@ data coming from the 10 subjects and y, the task-related variable.</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_001.png" srcset="../../_images/sphx_glr_plot_ci_cc_001.png" alt="CI - FFX model, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating MI : 1/2 [00:00&lt;00:00,    2.92it/s]
-100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    3.03it/s]
-100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    3.03it/s]
+ 50%|#####     | Estimating MI : 1/2 [00:00&lt;00:00,    2.84it/s]
+100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    2.96it/s]
+100%|##########| Estimating MI : 2/2 [00:00&lt;00:00,    2.96it/s]
 
   0%|          | Estimating CI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating CI : 1/2 [00:00&lt;00:00,    2.64it/s]
-100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    2.62it/s]
-100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    2.61it/s]
+ 50%|#####     | Estimating CI : 1/2 [00:00&lt;00:00,    2.46it/s]
+100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    2.38it/s]
+100%|##########| Estimating CI : 2/2 [00:00&lt;00:00,    2.38it/s]
 &lt;xarray.DataArray (ci: 2, bound: 2, times: 100, roi: 2)&gt;
 array([[[[-7.23073406e-04, -7.16491298e-04],
          [-7.22913892e-04, -7.21564212e-04],
@@ -646,14 +646,14 @@ or ‘tvalues’</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_002.png" srcset="../../_images/sphx_glr_plot_ci_cc_002.png" alt="CI - RFX model / MI, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.45s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.44s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.44s/it]
+ 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.70s/it]
+100%|##########| Estimating MI : 2/2 [00:03&lt;00:00,    1.69s/it]
+100%|##########| Estimating MI : 2/2 [00:03&lt;00:00,    1.69s/it]
 
   0%|          | Estimating CI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating CI : 1/2 [00:01&lt;00:01,    1.86s/it]
-100%|##########| Estimating CI : 2/2 [00:03&lt;00:00,    1.87s/it]
-100%|##########| Estimating CI : 2/2 [00:03&lt;00:00,    1.87s/it]
+ 50%|#####     | Estimating CI : 1/2 [00:02&lt;00:02,    2.21s/it]
+100%|##########| Estimating CI : 2/2 [00:04&lt;00:00,    2.20s/it]
+100%|##########| Estimating CI : 2/2 [00:04&lt;00:00,    2.21s/it]
 </pre></div>
 </div>
 <p>confidence interval on t-values</p>
@@ -667,23 +667,25 @@ or ‘tvalues’</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_003.png" srcset="../../_images/sphx_glr_plot_ci_cc_003.png" alt="CI - RFX model / T-values, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.45s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.45s/it]
-100%|##########| Estimating MI : 2/2 [00:02&lt;00:00,    1.45s/it]
+ 50%|#####     | Estimating MI : 1/2 [00:01&lt;00:01,    1.70s/it]
+100%|##########| Estimating MI : 2/2 [00:03&lt;00:00,    1.68s/it]
+100%|##########| Estimating MI : 2/2 [00:03&lt;00:00,    1.68s/it]
 
   0%|          | Estimating CI : 0/200 [00:00&lt;?,       ?it/s]
- 10%|#         | Estimating CI : 21/200 [00:00&lt;00:00, 1297.59it/s]
- 22%|##2       | Estimating CI : 45/200 [00:00&lt;00:00, 1385.19it/s]
- 34%|###4      | Estimating CI : 69/200 [00:00&lt;00:00, 1404.36it/s]
- 46%|####6     | Estimating CI : 92/200 [00:00&lt;00:00, 1408.30it/s]
- 57%|#####7    | Estimating CI : 115/200 [00:00&lt;00:00, 1411.41it/s]
- 70%|#######   | Estimating CI : 141/200 [00:00&lt;00:00, 1441.19it/s]
- 82%|########2 | Estimating CI : 165/200 [00:00&lt;00:00, 1449.55it/s]
- 94%|#########4| Estimating CI : 189/200 [00:00&lt;00:00, 1451.24it/s]
-100%|##########| Estimating CI : 200/200 [00:00&lt;00:00, 1396.33it/s]
+  9%|9         | Estimating CI : 18/200 [00:00&lt;00:00, 1108.76it/s]
+ 18%|#8        | Estimating CI : 37/200 [00:00&lt;00:00, 1121.92it/s]
+ 28%|##8       | Estimating CI : 56/200 [00:00&lt;00:00, 1135.24it/s]
+ 37%|###7      | Estimating CI : 74/200 [00:00&lt;00:00, 1126.32it/s]
+ 46%|####6     | Estimating CI : 93/200 [00:00&lt;00:00, 1133.46it/s]
+ 56%|#####6    | Estimating CI : 112/200 [00:00&lt;00:00, 1136.96it/s]
+ 66%|######5   | Estimating CI : 131/200 [00:00&lt;00:00, 1138.17it/s]
+ 74%|#######4  | Estimating CI : 149/200 [00:00&lt;00:00, 1134.09it/s]
+ 84%|########4 | Estimating CI : 168/200 [00:00&lt;00:00, 1136.50it/s]
+ 93%|#########3| Estimating CI : 186/200 [00:00&lt;00:00, 1135.09it/s]
+100%|##########| Estimating CI : 200/200 [00:00&lt;00:00, 1099.39it/s]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.500 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.626 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  83 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-ci-cc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">

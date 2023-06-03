@@ -53,8 +53,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Estimate comodulations between brain areas" href="plot_conn.html" />
-    <link rel="prev" title="Estimate dynamic functional connectivity" href="plot_dfc.html" />
+    <link rel="next" title="Estimate dynamic functional connectivity" href="plot_dfc.html" />
+    <link rel="prev" title="Connectivity and Information Transfer" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -392,10 +392,10 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Connectivity and Information Transfer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">PID: Decomposing the information carried by pairs of brain regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ii.html">Estimate interaction information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
 </ul>
@@ -509,7 +509,7 @@ leads four non-negative and exclusive atoms of information:
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../api/generated/frites.simulations.StimSpecAR.html#frites.simulations.StimSpecAR" title="frites.simulations.StimSpecAR" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-class"><span class="n">StimSpecAR</span></a>
-<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <span class="n">conn_pid</span>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.conn_pid.html#frites.conn.conn_pid" title="frites.conn.conn_pid" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_pid</span></a>
 
 <span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
@@ -586,7 +586,7 @@ Attributes:
 decompose at each time point, the information carried by pairs of brain
 regions about the two conditions.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the PID</span>
-<span class="n">infotot</span><span class="p">,</span> <span class="n">unique</span><span class="p">,</span> <span class="n">redundancy</span><span class="p">,</span> <span class="n">synergy</span> <span class="o">=</span> <span class="n">conn_pid</span><span class="p">(</span>
+<span class="n">infotot</span><span class="p">,</span> <span class="n">unique</span><span class="p">,</span> <span class="n">redundancy</span><span class="p">,</span> <span class="n">synergy</span> <span class="o">=</span> <a href="../../api/generated/frites.conn.conn_pid.html#frites.conn.conn_pid" title="frites.conn.conn_pid" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_pid</span></a><span class="p">(</span>
     <span class="n">ar</span><span class="p">,</span> <span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cd&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 
@@ -602,24 +602,22 @@ regions about the two conditions.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Decomposition of the information carried by a pair of brain regions&quot;</span>
           <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">about a task-related variable&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">from the plot above, we can see that:</span>
-<span class="sd">1. The total information carried by the pairs of regions (Info_{Tot})</span>
-<span class="sd">2. At the beginning, a large portion of the information is carried by the first</span>
-<span class="sd">   brain region (Unique_{X})</span>
-<span class="sd">3. Then we can see a superimposition of redundancy (Redundancy_{XY}) and</span>
-<span class="sd">   synergy (Synergy_{XY}) carried by both regions</span>
-<span class="sd">4. Finally, later in time most of the information is carried by the second</span>
-<span class="sd">   brain region Y (Unique_{X})</span>
-<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_pid_002.png" srcset="../../_images/sphx_glr_plot_pid_002.png" alt="Decomposition of the information carried by a pair of brain regions about a task-related variable" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;\nfrom the plot above, we can see that:\n1. The total information carried by the pairs of regions (Info_{Tot})\n2. At the beginning, a large portion of the information is carried by the first\n   brain region (Unique_{X})\n3. Then we can see a superimposition of redundancy (Redundancy_{XY}) and\n   synergy (Synergy_{XY}) carried by both regions\n4. Finally, later in time most of the information is carried by the second\n   brain region Y (Unique_{X})\n&#39;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.539 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  63 MB</p>
+<img src="../../_images/sphx_glr_plot_pid_002.png" srcset="../../_images/sphx_glr_plot_pid_002.png" alt="Decomposition of the information carried by a pair of brain regions about a task-related variable" class = "sphx-glr-single-img"/><p>from the plot above, we can see that:
+1. The total information carried by the pairs of regions (Info_{Tot})
+2. At the beginning, a large portion of the information is carried by the</p>
+<blockquote>
+<div><p>first brain region (Unique_{X})</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Then we can see a superimposition of redundancy (Redundancy_{XY}) and
+synergy (Synergy_{XY}) carried by both regions</p></li>
+<li><p>Finally, later in time most of the information is carried by the second
+brain region Y (Unique_{X})</p></li>
+</ol>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.343 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  13 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-pid-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9f98bea83ad903fa8e3ccccbf85196bf/plot_pid.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_pid.py</span></code></a></p>
@@ -644,20 +642,20 @@ regions about the two conditions.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_dfc.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Estimate dynamic functional connectivity</p>
+        <p class="prev-next-title">Connectivity and Information Transfer</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_conn.html"
+       href="plot_dfc.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Estimate comodulations between brain areas</p>
+        <p class="prev-next-title">Estimate dynamic functional connectivity</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

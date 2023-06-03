@@ -90,6 +90,7 @@ plt.gcf().suptitle(
     fontsize=20, fontweight='bold', y=1.02)
 plt.show()
 
+###############################################################################
 # As we see in the results :
 # - The II between roi_1 and roi_2 is redundant (II < 0)
 # - The II between roi_3 and roi_4 is synergistic (II > 0)

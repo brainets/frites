@@ -53,8 +53,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Lag estimation between delayed times-series using the cross-correlation" href="plot_ccf.html" />
-    <link rel="prev" title="Estimate comodulations between brain areas" href="plot_conn.html" />
+    <link rel="next" title="Estimate comodulations between brain areas" href="plot_conn.html" />
+    <link rel="prev" title="Estimate dynamic functional connectivity" href="plot_dfc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -392,10 +392,10 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Connectivity and Information Transfer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_pid.html">PID: Decomposing the information carried by pairs of brain regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_dfc.html">Estimate dynamic functional connectivity</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Estimate interaction information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_conn.html">Estimate comodulations between brain areas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_ccf.html">Lag estimation between delayed times-series using the cross-correlation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_covgc.html">Estimate the covariance-based Granger Causality</a></li>
 </ul>
@@ -505,7 +505,7 @@ outcomes, learning rate etc.)</p>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 <span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <span class="n">sim_single_suj_ephy</span>
-<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <span class="n">conn_ii</span>
+<span class="kn">from</span> <span class="nn">frites.conn</span> <span class="kn">import</span> <a href="../../api/generated/frites.conn.conn_ii.html#frites.conn.conn_ii" title="frites.conn.conn_ii" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_ii</span></a>
 
 <span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
 
@@ -564,7 +564,7 @@ information about the behavior or, if they are carrying complementary
 (i.e. synergy) information. Synergy is represented by a positive II and
 redundancy by a negative II.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the II</span>
-<span class="n">ii</span> <span class="o">=</span> <span class="n">conn_ii</span><span class="p">(</span>
+<span class="n">ii</span> <span class="o">=</span> <a href="../../api/generated/frites.conn.conn_ii.html#frites.conn.conn_ii" title="frites.conn.conn_ii" class="sphx-glr-backref-module-frites-conn sphx-glr-backref-type-py-function"><span class="n">conn_ii</span></a><span class="p">(</span>
     <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;trials&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
@@ -578,32 +578,26 @@ redundancy by a negative II.</p>
     <span class="s2">&quot;Interaction information (II, in bits) of pairs of brain regions about y&quot;</span><span class="p">,</span>
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># As we see in the results :</span>
-<span class="c1"># - The II between roi_1 and roi_2 is redundant (II &lt; 0)</span>
-<span class="c1"># - The II between roi_3 and roi_4 is synergistic (II &gt; 0)</span>
-<span class="c1"># - The remaining pairs of brain regions are mainly carrying slightly redundant</span>
-<span class="c1">#   information</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ii_001.png" srcset="../../_images/sphx_glr_plot_ii_001.png" alt="Interaction information (II, in bits) of pairs of brain regions about y, roi = roi_1-roi_2, roi = roi_1-roi_3, roi = roi_1-roi_4, roi = roi_2-roi_3, roi = roi_2-roi_4, roi = roi_3-roi_4" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI on each node I(X;S) : 0/10 [00:00&lt;?,       ?it/s]
- 30%|###       | Estimating MI on each node I(X;S) : 3/10 [00:00&lt;00:00,  177.49it/s]
- 60%|######    | Estimating total information I(X,Y;S) : 6/10 [00:00&lt;00:00,  148.17it/s]
- 90%|######### | Estimating total information I(X,Y;S) : 9/10 [00:00&lt;00:00,  152.32it/s]
-100%|##########| Estimating total information I(X,Y;S) : 10/10 [00:00&lt;00:00,  151.03it/s]
+ 30%|###       | Estimating MI on each node I(X;S) : 3/10 [00:00&lt;00:00,  139.20it/s]
+ 60%|######    | Estimating total information I(X,Y;S) : 6/10 [00:00&lt;00:00,  147.17it/s]
+ 90%|######### | Estimating total information I(X,Y;S) : 9/10 [00:00&lt;00:00,  153.70it/s]
+100%|##########| Estimating total information I(X,Y;S) : 10/10 [00:00&lt;00:00,  150.08it/s]
 &lt;xarray.DataArray &#39;II&#39; (roi: 6, times: 1000)&gt;
-array([[-8.49527632e-04,  5.86226415e-05, -2.25938633e-04, ...,
-         5.40654854e-05, -1.27253732e-04, -7.29253856e-07],
-       [-9.20332000e-04,  1.18759311e-08, -8.81174589e-04, ...,
-         2.45126061e-07, -9.19676505e-06,  9.22749372e-04],
-       [ 1.32757659e-03, -8.63393333e-05, -4.06273446e-04, ...,
-        -1.86864498e-05,  4.53978580e-04, -5.87910176e-04],
-       [-2.19488803e-04, -1.71686175e-04, -2.16927596e-04, ...,
-        -5.79707723e-04,  5.04457394e-06,  7.13106244e-05],
-       [-8.93692941e-04, -6.66342581e-04, -1.59652179e-04, ...,
-         6.47728650e-05, -4.46954060e-04,  3.74156640e-04],
-       [-9.44778964e-04,  2.73799085e-04, -7.27981872e-04, ...,
-        -1.86647275e-05, -1.79376748e-05, -5.87270206e-04]])
+array([[-3.55877346e-05,  1.07177756e-03,  3.57478593e-05, ...,
+        -2.06468240e-05,  1.75047855e-05, -9.71695737e-06],
+       [ 5.19280277e-06,  4.79825541e-05,  1.17727070e-03, ...,
+        -1.98780782e-05, -1.41096471e-04, -3.73062125e-05],
+       [-2.86675497e-05,  7.98898509e-04, -3.58633755e-04, ...,
+        -1.76841740e-06,  3.21195583e-04, -1.50849164e-05],
+       [ 7.62301673e-05, -7.39087452e-06, -4.78554388e-04, ...,
+         1.47675307e-04, -7.73725523e-05, -1.51109463e-04],
+       [ 1.39735429e-04,  6.37082269e-04,  1.31262167e-03, ...,
+        -1.13274486e-04, -1.34005129e-04, -2.09395359e-05],
+       [-7.71568707e-05, -1.21715388e-05,  1.28502118e-03, ...,
+        -6.42886884e-04, -4.54571259e-04,  1.70420687e-04]])
 Coordinates:
   * roi      (roi) &lt;U11 &#39;roi_1-roi_2&#39; &#39;roi_1-roi_3&#39; ... &#39;roi_3-roi_4&#39;
   * times    (times) float64 -0.8789 -0.877 -0.875 -0.873 ... 1.068 1.07 1.072
@@ -617,7 +611,14 @@ Attributes:
     unit:     Bits
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.474 seconds)</p>
+<p>As we see in the results :
+- The II between roi_1 and roi_2 is redundant (II &lt; 0)
+- The II between roi_3 and roi_4 is synergistic (II &gt; 0)
+- The remaining pairs of brain regions are mainly carrying slightly redundant</p>
+<blockquote>
+<div><p>information</p>
+</div></blockquote>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.553 seconds)</p>
 <p><strong>Estimated memory usage:</strong>  9 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-ii-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
@@ -643,20 +644,20 @@ Attributes:
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_conn.html"
+       href="plot_dfc.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Estimate comodulations between brain areas</p>
+        <p class="prev-next-title">Estimate dynamic functional connectivity</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_ccf.html"
+       href="plot_conn.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lag estimation between delayed times-series using the cross-correlation</p>
+        <p class="prev-next-title">Estimate comodulations between brain areas</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
