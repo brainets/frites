@@ -5,7 +5,7 @@ import pandas as pd
 
 from frites.utils import nonsorted_unique
 from frites.io import set_log_level, logger
-from frites.core import ent_nd_g, mi_nd_gg, mi_model_nd_gd, copnorm_nd
+from frites.core import ent_nd_g, mi_nd_gg, mi_model_nd_gd
 
 
 ###############################################################################

@@ -2,7 +2,10 @@
 import numpy as np
 import xarray as xr
 
-from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf, conn_ii)
+from frites.simulations import StimSpecAR
+
+from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf, conn_ii,
+                         conn_pid)
 
 
 class TestConn(object):
@@ -140,6 +143,18 @@ class TestConn(object):
         assert (ii['roi'].data[
             np.where(ii.data == ii.data.max())[0]] == 'roi_3-roi_4')
 
+    def test_conn_pid(self):
+        """Test function conn_pid."""
+        ar_type = 'hga'
+        n_stim = 2
+        n_epochs = 100
+        ss = StimSpecAR()
+        ar = ss.fit(ar_type=ar_type, n_epochs=n_epochs, n_stim=n_stim)
+        infotot, unique, redundancy, synergy = conn_pid(
+            ar, 'trials', roi='roi', times='times', mi_type='cd', dt=10,
+            verbose=False, gcrn=True
+        )
+
 
 if __name__ == '__main__':
-    TestConn().test_conn_ii()
+    TestConn().test_conn_pid()

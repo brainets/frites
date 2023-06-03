@@ -127,7 +127,7 @@ def conn_dfc(data, win_sample=None, times=None, roi=None, agg_ch=False,
     # add the windows used in the attributes
     cfg = dict(
         win_sample=np.r_[tuple(win_sample)], win_times=np.r_[tuple(win_times)],
-        agg_ch=agg_ch, type='dfc', estimator=estimator.name)
+        agg_ch=agg_ch, type='dfc', estimator=estimator.name, unit='Bits')
     dfc.attrs = check_attrs({**cfg, **attrs})
 
     return dfc

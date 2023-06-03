@@ -76,7 +76,7 @@ x = xr.DataArray(x, dims=('trials', 'roi', 'times'), coords=(y, roi, times))
 
 # compute the II
 ii = conn_ii(
-    x, y, roi='roi', times='times', mi_type='cc'
+    x, 'trials', roi='roi', times='times', mi_type='cc'
 )
 print(ii)
 

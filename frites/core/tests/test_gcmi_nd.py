@@ -75,5 +75,6 @@ class TestGcmiNd(object):  # noqa
         assert gccmi_nd_ccc(x_c, y_c, z_c, traxis=1).shape == (10, 20)
         assert gccmi_nd_ccc(x_c, y_c, z_c, traxis=1, mvaxis=0).shape == (20,)
 
+
 if __name__ == "__main__":
     TestGcmiNd().ent_nd_g()
