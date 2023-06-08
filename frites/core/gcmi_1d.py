@@ -15,7 +15,7 @@ import scipy as sp
 from frites.core import copnorm_nd, copnorm_cat_nd
 
 
-def ent_1d_g(x, biascorrect=True):
+def ent_1d_g(x, biascorrect=True, demeaned=False):
     """Entropy of a Gaussian variable in bits.
 
     H = ent_g(x) returns the entropy of a (possibly multidimensional) Gaussian
@@ -27,6 +27,9 @@ def ent_1d_g(x, biascorrect=True):
         Array of data of shape (n_epochs,)
     biascorrect : bool | True
         Specifies whether bias correction should be applied to the estimated MI
+    demeaned : bool | False
+        Specifies whether the input data already has zero mean (true if it has
+        been copula-normalized)
 
     Returns
     -------
@@ -39,7 +42,9 @@ def ent_1d_g(x, biascorrect=True):
     nvarx, ntrl = x.shape
 
     # demean data
-    x = x - x.mean(axis=1)[:, np.newaxis]
+    if not demeaned:
+        x = x - x.mean(axis=1)[:, np.newaxis]
+
     # covariance
     c = np.dot(x, x.T) / float(ntrl - 1)
     chc = np.linalg.cholesky(c)

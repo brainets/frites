@@ -68,7 +68,8 @@ def nd_shape_checking(x, y, mvaxis, traxis):
 ###############################################################################
 
 
-def ent_nd_g(x, mvaxis=None, traxis=-1, biascorrect=True, shape_checking=True):
+def ent_nd_g(x, mvaxis=None, traxis=-1, biascorrect=True, demeaned=False,
+             shape_checking=True):
     """Entropy of a continuous variable.
 
     Parameters
@@ -83,6 +84,9 @@ def ent_nd_g(x, mvaxis=None, traxis=-1, biascorrect=True, shape_checking=True):
         considered
     biascorrect : bool | True
         Specifies whether bias correction should be applied to the estimated MI
+    demeaned : bool | False
+        Specifies whether the input data already has zero mean (true if it has
+        been copula-normalized)
     shape_checking : bool | True
         Perform a reshape and check that x and y shapes are consistents. For
         high performances and to avoid extensive memory usage, it's better to
@@ -98,6 +102,10 @@ def ent_nd_g(x, mvaxis=None, traxis=-1, biascorrect=True, shape_checking=True):
     if shape_checking:
         x = nd_reshape(x, mvaxis=mvaxis, traxis=traxis)
     nvarx, ntrl = x.shape[-2], x.shape[-1]
+
+    # demean data
+    if not demeaned:
+        x -= x.mean(axis=-1, keepdims=True)
 
     # covariance
     c = np.einsum('...ij, ...kj->...ik', x, x)
@@ -115,7 +123,7 @@ def ent_nd_g(x, mvaxis=None, traxis=-1, biascorrect=True, shape_checking=True):
         dterm = (ln2 - np.log(ntrl - 1.)) / 2.
         hx = hx - nvarx * dterm - psiterms.sum()
 
-    return hx
+    return hx / ln2
 
 
 ###############################################################################
