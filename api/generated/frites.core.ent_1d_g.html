@@ -534,7 +534,7 @@ document.write(`
 <h1>frites.core.ent_1d_g<a class="headerlink" href="#frites-core-ent-1d-g" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.core.ent_1d_g">
-<span class="sig-prename descclassname"><span class="pre">frites.core.</span></span><span class="sig-name descname"><span class="pre">ent_1d_g</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/core/gcmi_1d.py#L18-L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.core.ent_1d_g" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.core.</span></span><span class="sig-name descname"><span class="pre">ent_1d_g</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">biascorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demeaned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/core/gcmi_1d.py#L18-L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.core.ent_1d_g" title="Permalink to this definition">#</a></dt>
 <dd><p>Entropy of a Gaussian variable in bits.</p>
 <p>H = ent_g(x) returns the entropy of a (possibly multidimensional) Gaussian
 variable x with bias correction.</p>
@@ -544,6 +544,9 @@ variable x with bias correction.</p>
 <dt><strong>x</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of data of shape (n_epochs,)</p>
 </dd>
 <dt><strong>biascorrect</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Specifies whether bias correction should be applied to the estimated MI</p>
+</dd>
+<dt><strong>demeaned</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Specifies whether the input data already has zero mean (true if it has
+been copula-normalized)</p>
 </dd>
 </dl>
 </dd>
@@ -618,7 +621,7 @@ variable x with bias correction.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2023-06-05.</p>
+        <p>&copy; Copyright Last updated on 2023-06-08.</p>
     </footer>
 
   </body>
