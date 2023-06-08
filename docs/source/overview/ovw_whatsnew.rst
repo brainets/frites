@@ -13,6 +13,10 @@ New Features
 * New function :func:`frites.conn.conn_ii` to estimate the interaction information (:commit:`10938b46`)
 * New function :func:`frites.conn.conn_pid` to estimate the partial information decomposition (:commit:`ac9798dd`)
 
+Bug fixes
++++++++++
+* Base 2 :func:`frites.core.ent_nd_g` (:commit:`686854de`)
+
 v0.4.3
 ------
 
