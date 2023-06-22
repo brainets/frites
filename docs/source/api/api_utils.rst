@@ -35,3 +35,4 @@ Data selection
 
    time_to_sample
    get_closest_sample
+   split_group

@@ -381,3 +381,108 @@ def normalize(x, to_min=0., to_max=1.):
         x_n.attrs['to_min'], x_n.attrs['to_max'] = to_min, to_max
 
     return x_n
+
+
+def split_group(x, names=None, axis='roi', new_axis='subjects', average=False):
+    """Split data group.
+
+    This function can be used to reorganize a list of matrices. For example,
+    if you have a list storing the data of n_subjects :
+
+    .. math::
+
+        data = [(roi_{1}, times), (roi_{2}, times), (roi_{3}, times)]
+
+    the data can be reorganized to become a list of brain regions with
+
+    .. math::
+
+        reshaped = [(suj_{1}, times), (suj_{2}, times), (suj_{3}, times)]
+
+    Parameters
+    ----------
+    x : list
+        List of xarray.DataArray, potentially multidimensional
+    names : list | None
+        List of names associated to each element of the list. Should have the
+        same length as x.
+    axis : str | 'roi'
+        Axis name along which data should be splitted. By default, the function
+        performs a spatial split over the 'roi' dimension
+    new_axis : str | 'subjects'
+        New name replacing axis. By default, the function is going to
+        concatenate over a new axis called 'subjects'
+    average : bool | False
+        If repeated coordinates are present for each element of the list (e.g.
+        repeated brain region names for a single subject), allow to take the
+        average over repeated coordinates.
+
+    Returns
+    -------
+    reshaped : list
+        List of reshaped xarray.DataArray
+    u_names : list
+        List of unique names describing each element of the reshaped data
+    """
+    assert isinstance(x, (list, tuple))
+    assert all([isinstance(k, xr.DataArray) and axis in k.dims for k in x])
+
+    # define element names
+    if names is None:
+        names = np.arange(len(x))
+    names = np.asarray(names)
+    assert len(names) == len(x)
+
+    # get list of non-sorted unique roi
+    all_roi = [r[axis].data for r in x]
+    u_roi = nonsorted_unique(np.concatenate(all_roi))
+
+    # split the data
+    x_split = []
+    for r in u_roi:
+        x_roi, suj_roi = [], []
+        for n_s, s in zip(names, x):
+            # skip if roi is absent (ieeg)
+            if r not in s[axis]: continue
+
+            # boolean selection
+            _x = s.isel(**{axis: np.where(s[axis].data == r)[0]})
+
+            # average (if required)
+            if average and (len(_x[axis]) > 1):
+                _x = _x.mean(axis, keepdims=True)
+
+            x_roi.append(_x)
+            suj_roi += [n_s] * len(_x[axis])
+
+        # merge over a new subject dimension
+        x_roi = xr.concat(x_roi, axis).rename({axis: new_axis})
+        x_roi[new_axis] = suj_roi
+        x_split.append(x_roi)
+
+    return x_split, u_roi
+
+
+if __name__ == '__main__':
+    n_suj = 4
+    n_times = 100
+    times = np.linspace(-.5, 1.5, n_times)
+
+
+    x = []
+    for i in range(n_suj):
+        _x = np.random.rand(np.random.randint(1, 10, (1,))[0], n_times)
+
+        # turn it into an xarray
+        roi = np.array([f"roi_{r}" for r in range(_x.shape[0])])
+        if len(roi) > 1:
+            roi[1] = roi[0]
+        _x = xr.DataArray(
+            _x, dims=['space', 'times'], coords=(roi, times)
+        )
+        x.append(_x)
+
+
+    x_split, u_roi = split_group(x, axis='space')
+    x_back, u_suj = split_group(x_split, names=u_roi, axis='subjects',
+                                new_axis='roi')

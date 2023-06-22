@@ -2,8 +2,10 @@
 import numpy as np
 import xarray as xr
 
-from frites.utils import (savgol_filter, kernel_smoothing, nonsorted_unique,
-                          acf, time_to_sample, get_closest_sample)
+from frites.utils import (
+    savgol_filter, kernel_smoothing, nonsorted_unique, acf, time_to_sample,
+    get_closest_sample, split_group
+)
 
 
 class TestPreproc(object):
@@ -99,6 +101,28 @@ class TestPreproc(object):
         assert corr['times'].data[0] == 0.
         assert corr.shape == x.shape
 
+    def test_split_group(self):
+        """Test function split_group."""
+        n_suj = 4
+        n_times = 100
+        times = np.linspace(-.5, 1.5, n_times)
+        x = []
+        for i in range(n_suj):
+            _x = np.random.rand(np.random.randint(1, 10, (1,))[0], n_times)
+            roi = np.array([f"roi_{r}" for r in range(_x.shape[0])])
+            if len(roi) > 1:
+                roi[1] = roi[0]
+            _x = xr.DataArray(
+                _x, dims=['space', 'times'], coords=(roi, times)
+            )
+            x.append(_x)
+
+        x_split, u_roi = split_group(x, axis='space')
+        x_back, u_suj = split_group(x_split, names=u_roi, axis='subjects',
+                                    new_axis='roi')
+        for i in range(n_suj):
+            np.testing.assert_array_equal(x[i], x_back[i])
+
 
 if __name__ == '__main__':
-    TestPreproc().test_acf()
+    TestPreproc().test_split_group()
