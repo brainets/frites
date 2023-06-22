@@ -1,8 +1,9 @@
 """
 FIT: Feature specific information transfer
-==================================================================
+==========================================
 
-This example illustrates how to discover a feature (e.g. sensory stimuli) in information transfer between brain regions.
+This example illustrates how to discover a feature (e.g. sensory stimuli) in
+information transfer between brain regions.
 """
 
 import numpy as np

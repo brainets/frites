@@ -221,6 +221,9 @@ def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
         dims, coords = ('roi', 'times'), (roi_p, times)
     attrs['max_delay'] = max_delay
     attrs['mi_type'] = mi_type
+    attrs['net'] = net
+    attrs['avg_delay'] = avg_delay
+    attrs['unit'] = 'Bits'
     fit = xr.DataArray(
         fit, name='FIT', dims=dims, coords=coords, attrs=check_attrs(attrs)
     )

@@ -12,6 +12,7 @@ New Features
 * New function :func:`frites.core.ent_nd_g` to compute entropy on tensors (:commit:`17587a15`)
 * New function :func:`frites.conn.conn_ii` to estimate the interaction information (:commit:`10938b46`)
 * New function :func:`frites.conn.conn_pid` to estimate the partial information decomposition (:commit:`ac9798dd`)
+- New function :func:`frites.conn.conn_fit` to estimate the feature specific information transfer (:PR:`59`) - :author:`aopy`
 
 Bug fixes
 +++++++++

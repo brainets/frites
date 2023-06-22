@@ -170,6 +170,15 @@ class TestConn(object):
                                    mi_type=m, max_delay=.3, net=n,
                                    verbose=False, avg_delay=ad)
                     print(fit.shape)
+                    if n:
+                        assert len(fit['roi']) == 1
+                    else:
+                        assert len(fit['roi']) == 2
+
+                    if ad:
+                        assert fit.ndim == 3
+                    else:
+                        assert fit.ndim == 2
 
 
 if __name__ == '__main__':

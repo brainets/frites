@@ -22,6 +22,7 @@ Connectivity metrics
    conn_te
    conn_ii
    conn_pid
+   conn_fit
 
 Utility functions
 +++++++++++++++++
