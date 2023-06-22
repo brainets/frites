@@ -2,19 +2,15 @@
 import numpy as np
 import xarray as xr
 
-from frites.utils import jit
-
 from frites.conn import conn_io, _conn_mi
-from frites.core import mi_nd_gg, mi_model_nd_gd, copnorm_nd
-from frites.io import set_log_level, logger, check_attrs
+from frites.core import mi_nd_gg, copnorm_nd
+from frites.io import logger, check_attrs
 from frites.config import CONFIG
-
-from mne.utils import ProgressBar
 
 
 def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
-             max_delay=.3, avg_delay=False, net=False, sfreq=None, verbose=None,
-             **kw_links):
+             max_delay=.3, avg_delay=False, net=False, sfreq=None,
+             verbose=None, **kw_links):
     """Feature-specific information transfer.
 
     Parameters
@@ -88,7 +84,7 @@ def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
     n_delays = int(np.round(max_delay * cfg['sfreq']))
 
     # build the indices when using multi-variate mi
-    n_trials, n_roi, n_times = len(y), len(roi), len(times)
+    n_roi, n_times = len(roi), len(times)
 
     logger.info(f"Compute FIT on {n_pairs} connectivity pairs "
                 f"(max_delay={max_delay})")
@@ -152,7 +148,7 @@ def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
     mi_xy_t_pres = mi_xy_t[..., t_start]
 
     # I(source_past; target_pres)
-    mi_x_st_pres =  mi_x_sptf[..., t_start]
+    mi_x_st_pres = mi_x_sptf[..., t_start]
 
     # I(target_past; target_pres) = mi_x_t
     mi_x_t_pres = mi_x_tptf[..., t_start]
@@ -196,11 +192,27 @@ def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
 
     # net transfer
     if net:
-        # get unique pairs
-        i_s, i_t = np.stack((i_s, i_t))[:, i_s < i_t]
+        roi_po = roi_p.copy()
+        done, roi_p, i_st = [], [], []
+        for n_s, (s, t) in enumerate(zip(i_s, i_t)):
+            # ignore if indices have already been stored
+            if ([s, t] in done) or ([t, s] in done): continue  # noqa
+            # find [source, target] and [target, source]
+            result = np.where((i_s == t) & (i_t == s))[0]
+            assert len(result) == 1
+            n_t = result[0]
+            # decide if (x->y - y->x) or (y->x - x->y)
+            r_s, r_t = roi_po[n_s], roi_po[n_t]
+            if not np.all(np.array([r_s, r_t]) == np.sort([r_s, r_t])):
+                n_s, n_t = n_t, n_s
+            r_s, r_t = roi_po[n_s].split('->')[0], roi_po[n_t].split('->')[0]
+            # store results
+            i_st.append([n_s, n_t])
+            roi_p.append(f"{r_s}-{r_t}")
+            done.append([s, t])
         # computes net transfer
+        i_s, i_t = np.array(i_st).T
         fit = fit[i_s, :] - fit[i_t, :]
-        roi_p = np.array(roi_p)[i_s]
 
     # xarray conversion
     if avg_delay:
@@ -216,30 +228,12 @@ def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
     return fit
 
 
-
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     net = False
     avg_delay = False
 
-    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    # import xarray as xr
-    # import numpy as np
-
-    # n_trials = 100
-    # n_roi = 3
-    # n_times = 1000
-    # sfreq = 512.
-
-    # trials = np.array([0] * 50 + [1] * 50)
-    # roi = [f"roi_{n_r}" for n_r in range(n_roi)]
-    # times = np.arange(n_times) / sfreq
-
-    # x = np.random.rand(n_trials, n_roi, n_times)
-    # x = xr.DataArray(
-    #     x, dims=('trials', 'roi', 'times'), coords=(trials, roi, times))
-    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     from frites.simulations import StimSpecAR
 
     ar_type = 'hga'
@@ -249,7 +243,6 @@ if __name__ == '__main__':
     ss = StimSpecAR()
     x = ss.fit(ar_type=ar_type, n_epochs=n_epochs, n_stim=n_stim,
                random_state=0)
-    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     fit = conn_fit(x, y='trials', roi='roi', times='times', mi_type='cd',
                    max_delay=.3, net=net, verbose=False, avg_delay=avg_delay)
