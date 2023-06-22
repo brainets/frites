@@ -5,7 +5,7 @@ import xarray as xr
 from frites.simulations import StimSpecAR
 
 from frites.conn import (conn_covgc, conn_te, conn_dfc, conn_ccf, conn_ii,
-                         conn_pid)
+                         conn_pid, conn_fit)
 
 
 class TestConn(object):
@@ -155,6 +155,21 @@ class TestConn(object):
             verbose=False, gcrn=True
         )
 
+    def test_conn_fit(self):
+        """Test function conn_fit."""
+        ar_type = 'hga'
+        n_stim = 2
+        n_epochs = 100
+        ss = StimSpecAR()
+        x = ss.fit(ar_type=ar_type, n_epochs=n_epochs, n_stim=n_stim)
+
+        for m in ['cc', 'cd']:  # mi_type
+            for n in [True, False]:  # net
+                for ad in [True, False]:  # avg_delay
+                    fit = conn_fit(x, y='trials', roi='roi', times='times', mi_type=m,
+                                   max_delay=.3, net=n, verbose=False, avg_delay=ad)
+                    print(fit.shape)
+
 
 if __name__ == '__main__':
-    TestConn().test_conn_pid()
+    TestConn().test_conn_fit()
