@@ -31,19 +31,19 @@ Frites
 
 
 .. _Documentation: https://brainets.github.io/frites/
-.. |Documentation| replace:: **Documentation** 
+.. |Documentation| replace:: **Documentation**
 
 .. _Installation: https://brainets.github.io/frites/install.html
-.. |Installation| replace:: **Installation** 
+.. |Installation| replace:: **Installation**
 
 .. _Usage: https://brainets.github.io/frites/auto_examples/index.html
-.. |Usage| replace:: **Usage example** 
+.. |Usage| replace:: **Usage example**
 
 .. _API: https://brainets.github.io/frites/api/index.html
-.. |API| replace:: **List of functions** 
+.. |API| replace:: **List of functions**
 
 .. _Cite: https://brainets.github.io/frites/overview/ovw_cite.html
-.. |Cite| replace:: **Cite Frites** 
+.. |Cite| replace:: **Cite Frites**
 
 |Documentation|_ | |Installation|_ | |Usage|_ | |API|_ | |Cite|_
 
