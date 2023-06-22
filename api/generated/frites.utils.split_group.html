@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>frites.stats.confidence_interval &#8212; frites 0.4.4 documentation</title>
+    <title>frites.utils.split_group &#8212; frites 0.4.4 documentation</title>
   
   
   
@@ -49,12 +49,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.stats.confidence_interval';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.utils.split_group';</script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="frites.stats.ttest_1samp" href="frites.stats.ttest_1samp.html" />
-    <link rel="prev" title="frites.stats.bootstrap_partitions" href="frites.stats.bootstrap_partitions.html" />
+    <link rel="next" title="Statistics" href="../api_statistics.html" />
+    <link rel="prev" title="frites.utils.get_closest_sample" href="frites.utils.get_closest_sample.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -359,7 +360,7 @@ document.write(`
         <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../api_dataset.html">Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="frites.dataset.SubjectEphy.html">frites.dataset.SubjectEphy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.dataset.DatasetEphy.html">frites.dataset.DatasetEphy</a></li>
@@ -417,23 +418,23 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html">frites.simulations.sim_local_ccd_ss</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../api_utils.html">Utility functions</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_utils.html">Utility functions</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="frites.utils.downsample.html">frites.utils.downsample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.utils.acf.html">frites.utils.acf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.utils.savgol_filter.html">frites.utils.savgol_filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.utils.kernel_smoothing.html">frites.utils.kernel_smoothing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.utils.time_to_sample.html">frites.utils.time_to_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.utils.get_closest_sample.html">frites.utils.get_closest_sample</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frites.utils.split_group.html">frites.utils.split_group</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">frites.utils.split_group</a></li>
 </ul>
 </li>
 </ul>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../api_statistics.html">Statistics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api_statistics.html">Statistics</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.permute_mi_vector.html">frites.stats.permute_mi_vector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.permute_mi_trials.html">frites.stats.permute_mi_trials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.bootstrap_partitions.html">frites.stats.bootstrap_partitions</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">frites.stats.confidence_interval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frites.stats.confidence_interval.html">frites.stats.confidence_interval</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.ttest_1samp.html">frites.stats.ttest_1samp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.rfx_ttest.html">frites.stats.rfx_ttest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frites.stats.cluster_correction_mcp.html">frites.stats.cluster_correction_mcp</a></li>
@@ -513,9 +514,9 @@ document.write(`
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API</a></li>
     
     
-    <li class="breadcrumb-item"><a href="../api_statistics.html" class="nav-link">Statistics</a></li>
+    <li class="breadcrumb-item"><a href="../api_utils.html" class="nav-link">Utility functions</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">frites.stats.confidence_interval</li>
+    <li class="breadcrumb-item active" aria-current="page">frites.utils.split_group</li>
   </ul>
 </nav>
 </div>
@@ -532,46 +533,51 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="frites-stats-confidence-interval">
-<h1>frites.stats.confidence_interval<a class="headerlink" href="#frites-stats-confidence-interval" title="Permalink to this headline">#</a></h1>
+  <section id="frites-utils-split-group">
+<h1>frites.utils.split_group<a class="headerlink" href="#frites-utils-split-group" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="frites.stats.confidence_interval">
-<span class="sig-prename descclassname"><span class="pre">frites.stats.</span></span><span class="sig-name descname"><span class="pre">confidence_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_boots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fcn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skipna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/stats/stats_nonparam.py#L211-L309"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.stats.confidence_interval" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute the confidence interval of repeated measurements.</p>
+<dt class="sig sig-object py" id="frites.utils.split_group">
+<span class="sig-prename descclassname"><span class="pre">frites.utils.</span></span><span class="sig-name descname"><span class="pre">split_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'roi'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'subjects'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/utils/preproc.py#L386-L464"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.utils.split_group" title="Permalink to this definition">#</a></dt>
+<dd><p>Split data group.</p>
+<p>This function can be used to reorganize a list of matrices. For example,
+if you have a list storing the data of n_subjects :</p>
+<div class="math notranslate nohighlight">
+\[data = [(roi_{1}, times), (roi_{2}, times), (roi_{3}, times)]\]</div>
+<p>the data can be reorganized to become a list of brain regions with</p>
+<div class="math notranslate nohighlight">
+\[reshaped = [(suj_{1}, times), (suj_{2}, times), (suj_{3}, times)]\]</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>data</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Numpy array (or xarray.DataArray) of data</p>
+<dt><strong>x</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of xarray.DataArray, potentially multidimensional</p>
 </dd>
-<dt><strong>axis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 0</span></dt><dd><p>Axis along which to compute the confidence interval</p>
+<dt><strong>names</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>List of names associated to each element of the list. Should have the
+same length as x.</p>
 </dd>
-<dt><strong>cis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code> | 95</span></dt><dd><p>Integer or list of confidence levels to extract. This input also
-supports computing standard deviation (‘sd’) and / or standard error on
-the mean (‘sem’)</p>
+<dt><strong>axis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘roi’</span></dt><dd><p>Axis name along which data should be splitted. By default, the function
+performs a spatial split over the ‘roi’ dimension</p>
 </dd>
-<dt><strong>n_boots</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 200</span></dt><dd><p>Number of bootstraps to perform</p>
+<dt><strong>new_axis</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code> | ‘subjects’</span></dt><dd><p>New name replacing axis. By default, the function is going to
+concatenate over a new axis called ‘subjects’</p>
 </dd>
-<dt><strong>random_state</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Fix the random state of the machine (use it for reproducibility). If
-None, a random state is randomly assigned.</p>
-</dd>
-<dt><strong>fcn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">function</span></code> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Summary statistics function. By default, the mean is used.</p>
-</dd>
-<dt><strong>skipna</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:True</span></code></span></dt><dd><p>Skip NaN when computing CI. By default NaN are skipped.</p>
+<dt><strong>average</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>If repeated coordinates are present for each element of the list (e.g.
+repeated brain region names for a single subject), allow to take the
+average over repeated coordinates.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>ci</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of confidence intervals of shape (n_ci, 2, …) where n_ci
-refers to the number of desired confidence intervals (see input <cite>cis</cite>)
-and 2 refers to the lower and upper bounds.</p>
+<dt><strong>reshaped</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of reshaped xarray.DataArray</p>
+</dd>
+<dt><strong>u_names</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of unique names describing each element of the reshaped data</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-frites-stats-confidence-interval"></span></section>
+<span class="target" id="sphx-glr-backreferences-frites-utils-split-group"></span></section>
 
 
                 </article>
@@ -585,20 +591,20 @@ and 2 refers to the lower and upper bounds.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="frites.stats.bootstrap_partitions.html"
+       href="frites.utils.get_closest_sample.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">frites.stats.bootstrap_partitions</p>
+        <p class="prev-next-title">frites.utils.get_closest_sample</p>
       </div>
     </a>
     <a class="right-next"
-       href="frites.stats.ttest_1samp.html"
+       href="../api_statistics.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">frites.stats.ttest_1samp</p>
+        <p class="prev-next-title">Statistics</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
