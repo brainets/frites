@@ -166,8 +166,9 @@ class TestConn(object):
         for m in ['cc', 'cd']:  # mi_type
             for n in [True, False]:  # net
                 for ad in [True, False]:  # avg_delay
-                    fit = conn_fit(x, y='trials', roi='roi', times='times', mi_type=m,
-                                   max_delay=.3, net=n, verbose=False, avg_delay=ad)
+                    fit = conn_fit(x, y='trials', roi='roi', times='times',
+                                   mi_type=m, max_delay=.3, net=n,
+                                   verbose=False, avg_delay=ad)
                     print(fit.shape)
 
 
