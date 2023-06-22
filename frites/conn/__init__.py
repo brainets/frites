@@ -28,3 +28,4 @@ from .conn_spec import conn_spec  # noqa
 from .conn_te import conn_te
 from .conn_ii import conn_ii  # noqa
 from .conn_pid import conn_pid  # noqa
+from .conn_fit import conn_fit
