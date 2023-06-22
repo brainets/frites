@@ -443,7 +443,8 @@ def split_group(x, names=None, axis='roi', new_axis='subjects', average=False):
         x_roi, suj_roi = [], []
         for n_s, s in zip(names, x):
             # skip if roi is absent (ieeg)
-            if r not in s[axis]: continue
+            if r not in s[axis]:
+                continue
 
             # boolean selection
             _x = s.isel(**{axis: np.where(s[axis].data == r)[0]})
@@ -468,7 +469,6 @@ if __name__ == '__main__':
     n_times = 100
     times = np.linspace(-.5, 1.5, n_times)
 
-
     x = []
     for i in range(n_suj):
         _x = np.random.rand(np.random.randint(1, 10, (1,))[0], n_times)
@@ -481,7 +481,6 @@ if __name__ == '__main__':
             _x, dims=['space', 'times'], coords=(roi, times)
         )
         x.append(_x)
-
 
     x_split, u_roi = split_group(x, axis='space')
     x_back, u_suj = split_group(x_split, names=u_roi, axis='subjects',
