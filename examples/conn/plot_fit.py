@@ -3,13 +3,13 @@ FIT: Feature specific information transfer
 ==========================================
 
 This example illustrates how to compute Feature-specific Information
-Transfer (FIT), quantifying how much information about a specific 
+Transfer (FIT), quantifying how much information about a specific
 feature flows between two regions. FIT merges the Wiener-Granger causality
 principle with information-content specificity.
-The theoretical background is described in [1]_ and the FIT is computed 
+The theoretical background is described in [1]_ and the FIT is computed
 using the :func:`frites.conn.conn_fit` function.
 [1] Celotto M, et al. (2023) An information-theoretic quantification of the
-content of communication between brain regions. bioRxiv 
+content of communication between brain regions. bioRxiv
  https://www.biorxiv.org/content/10.1101/2023.06.14.544903v1
 """
 
