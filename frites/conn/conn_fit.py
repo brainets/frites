@@ -13,7 +13,7 @@ def conn_fit(data, y, roi=None, times=None, mi_type='cc', gcrn=True,
              verbose=None, **kw_links):
     """Feature-specific information transfer.
     Celotto M, et al. (2023) An information-theoretic quantification
-    of the content of communication between brain regions. bioRxiv 
+    of the content of communication between brain regions. bioRxiv
     https://www.biorxiv.org/content/10.1101/2023.06.14.544903v1
 
     Parameters
