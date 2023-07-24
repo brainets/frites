@@ -47,8 +47,16 @@ def set_config(key, value, verbose=None):
 
 
 def set_mpl_style(style='frites'):
-    """Set matplotlib style."""
+    """Set matplotlib style.
+
+    Parameters
+    ----------
+    style : array_like
+        Style name. Use either "frites" for a white background or "ggfrites"
+        for a grey brackground like with ggplot.
+    """
     from pkg_resources import resource_filename
     import matplotlib.pyplot as plt
+    assert style in ["frites", "ggfrites"]
     path_style = resource_filename('frites', f'data/{style}.mplstyle')
     plt.style.use(path_style)
