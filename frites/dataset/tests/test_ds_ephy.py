@@ -211,4 +211,4 @@ class TestDatasetEphy(object):  # noqa
 
 
 if __name__ == '__main__':
-    TestDatasetEphy().test_nb_min_suj()
+    TestDatasetEphy().test_multiconditions()
