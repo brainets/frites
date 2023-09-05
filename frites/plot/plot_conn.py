@@ -527,7 +527,8 @@ def _draw_conn_circle(
 
     # scale linewidth and transparency
     if signed:
-        lw = normalize(np.abs(con_val_scaled), 1., edges_lw)
+        cval = np.clip(con, edges_vmin, edges_vmax)
+        lw = normalize(np.abs(cval), 1., edges_lw)
         alphas = normalize(np.abs(con_val_scaled), edges_alpha, 1.)
     else:
         lw = normalize(con_val_scaled, 1., edges_lw)
@@ -576,7 +577,7 @@ def _draw_conn_circle(
     rng = np.random.mtrand.RandomState(seed=0)
 
     n_con = len(indices[0])
-    noise_max = 0.25 * node_width
+    noise_max = 0. * node_width  # previously 0.25 * node_width
     start_noise = rng.uniform(-noise_max, noise_max, n_con)
     end_noise = rng.uniform(-noise_max, noise_max, n_con)
 

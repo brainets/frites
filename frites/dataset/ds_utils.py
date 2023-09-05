@@ -34,7 +34,7 @@ def multi_to_uni_conditions(x, var_name=None, verbose=None):
         return [x]
     assert all([type(x[0]) == type(k) for k in x])
     x_types = type(x[0])
-    if not x_types == np.ndarray:
+    if not isinstance(x_types, np.ndarray):
         return x
     # get if all variables are integers and multicolumns else skip it
     is_int = all([k.dtype in CONFIG['INT_DTYPE'] for k in x])
