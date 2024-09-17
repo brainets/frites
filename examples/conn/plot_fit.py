@@ -8,9 +8,11 @@ feature flows between two regions. FIT merges the Wiener-Granger causality
 principle with information-content specificity.
 The theoretical background is described in [1] and the FIT is computed
 using the :func:`frites.conn.conn_fit` function.
-[1] Celotto M, et al. (2023) An information-theoretic quantification of the 
-content of communication between brain regions.
-https://www.biorxiv.org/content/10.1101/2023.06.14.544903v1
+[1] Celotto M, Bím J, Tlaie A, De Feo V, Toso A, Lemke SM, Chicharro D, 
+Nili H, Bieler M, Hanganu-Opatz IL, Donner TH, Brovelli A, Panzeri S (2023) 
+An information-theoretic quantification of the content of communication 
+between brain regions. Advances in Neural Information Processing Systems 
+(NeurIPS) 36, 36, 64213–64265
 """
 
 import numpy as np
