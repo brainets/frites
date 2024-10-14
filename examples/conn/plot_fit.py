@@ -12,7 +12,7 @@ using the :func:`frites.conn.conn_fit` function.
 Nili H, Bieler M, Hanganu-Opatz IL, Donner TH, Brovelli A, Panzeri S
 (2023). An information-theoretic quantification of the content of
 communication between brain regions. Advances in Neural Information
-Processing Systems (NeurIPS) 36, 36, 64213–64265
+Processing Systems (NeurIPS), 36, 64213-64265
 """
 
 import numpy as np
