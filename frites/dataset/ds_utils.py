@@ -32,7 +32,7 @@ def multi_to_uni_conditions(x, var_name=None, verbose=None):
 
     if not isinstance(x, (list, tuple)):
         return [x]
-    assert all([type(x[0]) == type(k) for k in x])
+    assert all([isinstance(k, type(x[0])) for k in x])
     if not isinstance(x[0], np.ndarray):
         return x
     # get if all variables are integers and multicolumns else skip it
