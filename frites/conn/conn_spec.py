@@ -171,10 +171,8 @@ def conn_spec(
         returns tfr[…, decim].
     kw_cwt : dict | {}
         Additional arguments sent to the mne-function
-        :py:`mne.time_frequency.tfr_array_morlet`
     kw_mt : dict | {}
         Additional arguments sent to the mne-function
-        :py:`mne.time_frequency.tfr_array_multitaper`
     block_size : int | None
         Number of blocks of trials to process at once. This parameter can be
         use in order to decrease memory load. If None, all trials are used. If
