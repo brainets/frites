@@ -30,7 +30,7 @@ with open('requirements.txt') as f:
 core_deps = ['matplotlib', 'networkx', 'numba', 'dcor']
 test_deps = ['pytest', 'pytest-sugar', 'pytest-cov', 'codecov']
 doc_deps = [
-    'sphinx!=4.1.0', 'sphinx-gallery', 'pydata-sphinx-theme>=0.6.3',
+    'sphinx==7.0.0 ', 'sphinx-gallery', 'pydata-sphinx-theme>=0.6.3',
     'sphinxcontrib-bibtex==1.0.0', 'numpydoc', 'xlrd', 'openpyxl', 'seaborn',
     'memory-profiler', 'sphinx-panels', 'sphinx-copybutton'
 ]
