@@ -69,10 +69,10 @@ autosummary_generate = True
 autodoc_default_options = {'inherited-members': None}
 
 extlinks = {
-    "issue": ("https://github.com/brainets/frites/issues/%s", "IS"),
-    "pull": ("https://github.com/brainets/frites/pull/%s", "PR"),
-    "commit": ("https://github.com/brainets/frites/commit/%s", "CM"),
-    "author": ("https://github.com/%s", "by "),
+    "issue": ("https://github.com/brainets/frites/issues/%s", None),
+    "pull": ("https://github.com/brainets/frites/pull/%s", None),
+    "commit": ("https://github.com/brainets/frites/commit/%s", None),
+    "author": ("https://github.com/%s", None),
 }
 
 # The suffix(es) of source filenames.
