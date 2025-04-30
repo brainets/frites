@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Estimate the empirical confidence interval &#8212; frites 0.4.5 documentation</title>
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -35,28 +34,28 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/statistics/plot_ci_cc';</script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Simulations" href="../simulations/index.html" />
     <link rel="prev" title="Compare between-subjects statistics when computing mutual information" href="plot_wf_mi_stats_compare_rfx.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -70,6 +69,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
 </style>
 </head>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
@@ -111,9 +119,11 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -121,25 +131,26 @@
   
   
   
+  
     
     
       
     
     
-    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.5 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="frites 0.4.5 documentation - Home"/>`);</script>
   
   
 </a></div>
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     <div class="me-auto navbar-header-items__center">
       
-        <div class="navbar-item"><nav class="navbar-nav">
+        <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -185,23 +196,27 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
         <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -217,8 +232,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -229,8 +244,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
       
@@ -240,18 +255,21 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -271,7 +289,8 @@ document.write(`
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item"><nav class="navbar-nav">
+          <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -317,12 +336,13 @@ document.write(`
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -338,8 +358,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,8 +370,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
         
@@ -360,7 +380,8 @@ document.write(`
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
@@ -460,8 +481,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
@@ -474,7 +495,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Statistics</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Estimate the empirical confidence interval</li>
+    <li class="breadcrumb-item active" aria-current="page">Estimate...</li>
   </ul>
 </nav>
 </div>
@@ -494,27 +515,27 @@ document.write(`
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="estimate-the-empirical-confidence-interval">
-<span id="sphx-glr-auto-examples-statistics-plot-ci-cc-py"></span><h1>Estimate the empirical confidence interval<a class="headerlink" href="#estimate-the-empirical-confidence-interval" title="Permalink to this headline">#</a></h1>
+<span id="sphx-glr-auto-examples-statistics-plot-ci-cc-py"></span><h1>Estimate the empirical confidence interval<a class="headerlink" href="#estimate-the-empirical-confidence-interval" title="Permalink to this heading">#</a></h1>
 <p>This example illustrates how to estimate the confidence interval</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../api/generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms" title="frites.simulations.sim_local_cc_ms" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_local_cc_ms</span></a>
-<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
-<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
-<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites.simulations</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms" title="frites.simulations.sim_local_cc_ms" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_local_cc_ms</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites.dataset</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites.workflow</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_mpl_style</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="plotting-functions">
-<h2>Plotting functions<a class="headerlink" href="#plotting-functions" title="Permalink to this headline">#</a></h2>
+<h2>Plotting functions<a class="headerlink" href="#plotting-functions" title="Permalink to this heading">#</a></h2>
 <p>First, we define the function that is then going to be used for plotting the
 results</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">ci</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;MI (bits)&#39;</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">ci</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;MI (bits)&#39;</span><span class="p">):</span>
     <span class="c1"># figure definition</span>
     <span class="n">n_cis</span><span class="p">,</span> <span class="n">n_rois</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ci</span><span class="p">[</span><span class="s1">&#39;ci&#39;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">mi</span><span class="p">[</span><span class="s1">&#39;roi&#39;</span><span class="p">])</span>
     <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n_rois</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n_cis</span><span class="p">))</span>
@@ -543,11 +564,11 @@ results</p>
 </div>
 </section>
 <section id="data-simulation">
-<h2>Data simulation<a class="headerlink" href="#data-simulation" title="Permalink to this headline">#</a></h2>
+<h2>Data simulation<a class="headerlink" href="#data-simulation" title="Permalink to this heading">#</a></h2>
 <p>Let’s simulate some data with 10 subjects, 100 epochs per subject and 2 brain
 regions. As a result, we get a variable x representing the simulated neural
 data coming from the 10 subjects and y, the task-related variable.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <a href="../../api/generated/frites.simulations.sim_local_cc_ms.html#frites.simulations.sim_local_cc_ms" title="frites.simulations.sim_local_cc_ms" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_local_cc_ms</span></a><span class="p">(</span><span class="n">n_subjects</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_roi</span><span class="o">=</span><span class="n">n_roi</span><span class="p">,</span>
                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="n">roi</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
@@ -555,9 +576,9 @@ data coming from the 10 subjects and y, the task-related variable.</p>
 </div>
 </section>
 <section id="empirical-confidence-interval-with-ffx-models">
-<h2>Empirical confidence interval with FFX models<a class="headerlink" href="#empirical-confidence-interval-with-ffx-models" title="Permalink to this headline">#</a></h2>
+<h2>Empirical confidence interval with FFX models<a class="headerlink" href="#empirical-confidence-interval-with-ffx-models" title="Permalink to this heading">#</a></h2>
 <p>Then, we estimate the confidence interval when using a fixed-effect model</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># computes mi</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># computes mi</span>
 <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wf</span></a> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;ffx&#39;</span><span class="p">)</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
@@ -573,14 +594,14 @@ data coming from the 10 subjects and y, the task-related variable.</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_001.png" srcset="../../_images/sphx_glr_plot_ci_cc_001.png" alt="CI - FFX model, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|█████     | Estimating MI : 1/2 [00:00&lt;00:00,    3.42it/s]
-100%|██████████| Estimating MI : 2/2 [00:00&lt;00:00,    3.50it/s]
-100%|██████████| Estimating MI : 2/2 [00:00&lt;00:00,    3.50it/s]
+ 50%|█████     | Estimating MI : 1/2 [00:00&lt;00:00,    4.77it/s]
+100%|██████████| Estimating MI : 2/2 [00:00&lt;00:00,    4.94it/s]
+100%|██████████| Estimating MI : 2/2 [00:00&lt;00:00,    4.93it/s]
 
   0%|          | Estimating CI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|█████     | Estimating CI : 1/2 [00:00&lt;00:00,    2.82it/s]
-100%|██████████| Estimating CI : 2/2 [00:00&lt;00:00,    2.82it/s]
-100%|██████████| Estimating CI : 2/2 [00:00&lt;00:00,    2.82it/s]
+ 50%|█████     | Estimating CI : 1/2 [00:00&lt;00:00,    3.87it/s]
+100%|██████████| Estimating CI : 2/2 [00:00&lt;00:00,    3.85it/s]
+100%|██████████| Estimating CI : 2/2 [00:00&lt;00:00,    3.85it/s]
 &lt;xarray.DataArray (ci: 2, bound: 2, times: 100, roi: 2)&gt;
 array([[[[-7.23073406e-04, -7.16491298e-04],
          [-7.22913892e-04, -7.21564212e-04],
@@ -632,12 +653,12 @@ Coordinates:
 </div>
 </section>
 <section id="empirical-confidence-interval-with-rfx-models">
-<h2>Empirical confidence interval with RFX models<a class="headerlink" href="#empirical-confidence-interval-with-rfx-models" title="Permalink to this headline">#</a></h2>
+<h2>Empirical confidence interval with RFX models<a class="headerlink" href="#empirical-confidence-interval-with-rfx-models" title="Permalink to this heading">#</a></h2>
 <p>When using the random-effect model, it’s either possible to estimate the
 confidence interval on the returned mutual-information or on t-values. To
 do the switch, you can use the parameter <cite>rfx_es</cite> for choosing between ‘mi’
 or ‘tvalues’</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># confidence interval on mi</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># confidence interval on mi</span>
 <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wf</span></a> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
 <span class="n">mi</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">ci</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.confidence_interval" title="frites.workflow.WfMi.confidence_interval" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">confidence_interval</span></a><span class="p">(</span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a><span class="p">,</span> <span class="n">n_boots</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="p">[</span><span class="mi">95</span><span class="p">,</span> <span class="mf">99.9</span><span class="p">],</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -647,18 +668,18 @@ or ‘tvalues’</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_002.png" srcset="../../_images/sphx_glr_plot_ci_cc_002.png" alt="CI - RFX model / MI, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|█████     | Estimating MI : 1/2 [00:01&lt;00:01,    1.17s/it]
-100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.16s/it]
-100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.16s/it]
+ 50%|█████     | Estimating MI : 1/2 [00:01&lt;00:01,    1.08s/it]
+100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.07s/it]
+100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.07s/it]
 
   0%|          | Estimating CI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|█████     | Estimating CI : 1/2 [00:01&lt;00:01,    1.75s/it]
-100%|██████████| Estimating CI : 2/2 [00:03&lt;00:00,    1.75s/it]
-100%|██████████| Estimating CI : 2/2 [00:03&lt;00:00,    1.75s/it]
+ 50%|█████     | Estimating CI : 1/2 [00:01&lt;00:01,    1.60s/it]
+100%|██████████| Estimating CI : 2/2 [00:03&lt;00:00,    1.60s/it]
+100%|██████████| Estimating CI : 2/2 [00:03&lt;00:00,    1.60s/it]
 </pre></div>
 </div>
 <p>confidence interval on t-values</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wf</span></a> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wf</span></a> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a><span class="p">(</span><span class="n">mi_type</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;rfx&#39;</span><span class="p">)</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.fit" title="frites.workflow.WfMi.fit" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">tv</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.tvalues" title="frites.workflow.WfMi.tvalues" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-property"><span class="n">wf</span><span class="o">.</span><span class="n">tvalues</span></a>
 <span class="n">ci</span> <span class="o">=</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi.confidence_interval" title="frites.workflow.WfMi.confidence_interval" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-method"><span class="n">wf</span><span class="o">.</span><span class="n">confidence_interval</span></a><span class="p">(</span><a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a><span class="p">,</span> <span class="n">n_boots</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="p">[</span><span class="mi">95</span><span class="p">,</span> <span class="mf">99.9</span><span class="p">],</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -668,29 +689,30 @@ or ‘tvalues’</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ci_cc_003.png" srcset="../../_images/sphx_glr_plot_ci_cc_003.png" alt="CI - RFX model / T-values, ROI=roi_0; CI=95.0%, ROI=roi_1; CI=95.0%, ROI=roi_0; CI=99.9%, ROI=roi_1; CI=99.9%" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/2 [00:00&lt;?,       ?it/s]
- 50%|█████     | Estimating MI : 1/2 [00:01&lt;00:01,    1.15s/it]
-100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.14s/it]
-100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.14s/it]
+ 50%|█████     | Estimating MI : 1/2 [00:01&lt;00:01,    1.07s/it]
+100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.07s/it]
+100%|██████████| Estimating MI : 2/2 [00:02&lt;00:00,    1.07s/it]
 
   0%|          | Estimating CI : 0/200 [00:00&lt;?,       ?it/s]
- 14%|█▍        | Estimating CI : 28/200 [00:00&lt;00:00, 1715.71it/s]
- 28%|██▊       | Estimating CI : 56/200 [00:00&lt;00:00, 1721.45it/s]
- 42%|████▏     | Estimating CI : 83/200 [00:00&lt;00:00, 1703.86it/s]
- 56%|█████▌    | Estimating CI : 111/200 [00:00&lt;00:00, 1709.12it/s]
- 70%|██████▉   | Estimating CI : 139/200 [00:00&lt;00:00, 1714.58it/s]
- 84%|████████▎ | Estimating CI : 167/200 [00:00&lt;00:00, 1718.24it/s]
- 98%|█████████▊| Estimating CI : 195/200 [00:00&lt;00:00, 1720.42it/s]
-100%|██████████| Estimating CI : 200/200 [00:00&lt;00:00, 1648.96it/s]
+ 18%|█▊        | Estimating CI : 36/200 [00:00&lt;00:00, 2239.55it/s]
+ 36%|███▋      | Estimating CI : 73/200 [00:00&lt;00:00, 2248.31it/s]
+ 55%|█████▌    | Estimating CI : 110/200 [00:00&lt;00:00, 2255.81it/s]
+ 72%|███████▎  | Estimating CI : 145/200 [00:00&lt;00:00, 2228.90it/s]
+ 90%|█████████ | Estimating CI : 181/200 [00:00&lt;00:00, 2230.75it/s]
+100%|██████████| Estimating CI : 200/200 [00:00&lt;00:00, 2130.04it/s]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 13.241 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  83 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.203 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  469 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-statistics-plot-ci-cc-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d3fcc3c3a371b071143d7031c101917b/plot_ci_cc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ci_cc.ipynb</span></code></a></p>
+</div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/53afe2b5ab92521d296dace174517643/plot_ci_cc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ci_cc.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/d3fcc3c3a371b071143d7031c101917b/plot_ci_cc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ci_cc.ipynb</span></code></a></p>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/8280dc2d833c475137f3e740b05be53b/plot_ci_cc.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_ci_cc.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -702,11 +724,10 @@ or ‘tvalues’</p>
               
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="plot_wf_mi_stats_compare_rfx.html"
@@ -726,10 +747,7 @@ or ‘tvalues’</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -739,6 +757,7 @@ or ‘tvalues’</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
@@ -764,8 +783,8 @@ or ‘tvalues’</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
     <hr>
     <footer>
@@ -774,7 +793,7 @@ or ‘tvalues’</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2023-09-05.</p>
+        <p>&copy; Copyright Last updated on 2025-04-30.</p>
     </footer>
 
   </body>

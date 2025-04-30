@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Generate spatio-temporal ground-truths &#8212; frites 0.4.5 documentation</title>
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -35,28 +34,28 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/simulations/plot_ground_truth';</script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Performance" href="../performance/index.html" />
     <link rel="prev" title="Generate random electrophysiological data" href="plot_generate_random_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -70,6 +69,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
 </style>
 </head>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
@@ -111,9 +119,11 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -121,25 +131,26 @@
   
   
   
+  
     
     
       
     
     
-    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.5 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="frites 0.4.5 documentation - Home"/>`);</script>
   
   
 </a></div>
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     <div class="me-auto navbar-header-items__center">
       
-        <div class="navbar-item"><nav class="navbar-nav">
+        <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -185,23 +196,27 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
         <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -217,8 +232,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -229,8 +244,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
       
@@ -240,18 +255,21 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -271,7 +289,8 @@ document.write(`
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item"><nav class="navbar-nav">
+          <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -317,12 +336,13 @@ document.write(`
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -338,8 +358,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,8 +370,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
         
@@ -360,7 +380,8 @@ document.write(`
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
@@ -460,8 +481,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
@@ -474,7 +495,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Simulations</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Generate spatio-temporal ground-truths</li>
+    <li class="breadcrumb-item active" aria-current="page">Generate...</li>
   </ul>
 </nav>
 </div>
@@ -494,10 +515,10 @@ document.write(`
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="generate-spatio-temporal-ground-truths">
-<span id="sphx-glr-auto-examples-simulations-plot-ground-truth-py"></span><h1>Generate spatio-temporal ground-truths<a class="headerlink" href="#generate-spatio-temporal-ground-truths" title="Permalink to this headline">#</a></h1>
+<span id="sphx-glr-auto-examples-simulations-plot-ground-truth-py"></span><h1>Generate spatio-temporal ground-truths<a class="headerlink" href="#generate-spatio-temporal-ground-truths" title="Permalink to this heading">#</a></h1>
 <p>Frites provides some functions to generate spatio-temporal ground-truths (i.e.
 effects that are distributed across time and space with a predefined profile).
 Those ground-truths can be particularly interesting to simulate the data coming
@@ -513,25 +534,25 @@ multiple comparisons.</p>
 significant and the ground-truth</p></li>
 </ul>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
-<span class="kn">from</span> <span class="nn">frites.simulations</span> <span class="kn">import</span> <a href="../../api/generated/frites.simulations.sim_ground_truth.html#frites.simulations.sim_ground_truth" title="frites.simulations.sim_ground_truth" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_ground_truth</span></a>
-<span class="kn">from</span> <span class="nn">frites.dataset</span> <span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
-<span class="kn">from</span> <span class="nn">frites.workflow</span> <span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
-<span class="kn">from</span> <span class="nn">frites</span> <span class="kn">import</span> <span class="n">set_mpl_style</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites.simulations</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/frites.simulations.sim_ground_truth.html#frites.simulations.sim_ground_truth" title="frites.simulations.sim_ground_truth" class="sphx-glr-backref-module-frites-simulations sphx-glr-backref-type-py-function"><span class="n">sim_ground_truth</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites.dataset</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites.workflow</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/frites.workflow.WfMi.html#frites.workflow.WfMi" title="frites.workflow.WfMi" class="sphx-glr-backref-module-frites-workflow sphx-glr-backref-type-py-class"><span class="n">WfMi</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">frites</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_mpl_style</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
 <span class="n">set_mpl_style</span><span class="p">()</span>
 </pre></div>
 </div>
 <section id="comparison-of-the-implemented-ground-truth">
-<h2>Comparison of the implemented ground truth<a class="headerlink" href="#comparison-of-the-implemented-ground-truth" title="Permalink to this headline">#</a></h2>
+<h2>Comparison of the implemented ground truth<a class="headerlink" href="#comparison-of-the-implemented-ground-truth" title="Permalink to this heading">#</a></h2>
 <p>In this first part we illustrate the implemented ground-truths profiles. This
 includes effects with varying covariance over time and space, weak and
 diffuse effects and strong and focal effect.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tri&#39;</span><span class="p">,</span> <span class="s1">&#39;tri_r&#39;</span><span class="p">,</span> <span class="s1">&#39;diffuse&#39;</span><span class="p">,</span> <span class="s1">&#39;focal&#39;</span><span class="p">]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tri&#39;</span><span class="p">,</span> <span class="s1">&#39;tri_r&#39;</span><span class="p">,</span> <span class="s1">&#39;diffuse&#39;</span><span class="p">,</span> <span class="s1">&#39;focal&#39;</span><span class="p">]</span>
 <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">5</span>
 
@@ -573,13 +594,13 @@ the continuous y variable are weakly correlated.</p>
 </div>
 </section>
 <section id="data-simulation">
-<h2>Data simulation<a class="headerlink" href="#data-simulation" title="Permalink to this headline">#</a></h2>
+<h2>Data simulation<a class="headerlink" href="#data-simulation" title="Permalink to this heading">#</a></h2>
 <p>In this second part, we use the same function to simulate the data coming
 from multiple subjects. The returned data are a list of length n_subjects
 where each element of the list is an array (xarray.DataArray) of shape
 (n_epochs, n_roi, n_times). In addition to the simulated data, the external
 continuous variable is set as a coordinate of the trial dimension (‘y’)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gtype</span> <span class="o">=</span> <span class="s1">&#39;tri&#39;</span>    <span class="c1"># ground truth type</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gtype</span> <span class="o">=</span> <span class="s1">&#39;tri&#39;</span>    <span class="c1"># ground truth type</span>
 <span class="n">n_subjects</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># number of simulated subjects</span>
 <span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># number of trials per subject</span>
 
@@ -624,7 +645,7 @@ continuous variable is set as a coordinate of the trial dimension (‘y’)</p>
 </div>
 <img src="../../_images/sphx_glr_plot_ground_truth_002.png" srcset="../../_images/sphx_glr_plot_ground_truth_002.png" alt="Subject #0, Subject #1, Subject #2, Subject #3, Subject #4, Subject #5, Subject #6, Subject #7, Subject #8, Subject #9" class = "sphx-glr-single-img"/></section>
 <section id="compute-the-effect-size-and-group-level-statistics">
-<h2>Compute the effect size and group-level statistics<a class="headerlink" href="#compute-the-effect-size-and-group-level-statistics" title="Permalink to this headline">#</a></h2>
+<h2>Compute the effect size and group-level statistics<a class="headerlink" href="#compute-the-effect-size-and-group-level-statistics" title="Permalink to this heading">#</a></h2>
 <p>In this third part, we compute the mutual-information and the statistics at
 the group-level using the data simulated above. To this end, we first define
 a dataset containing the electrophysiological. In the simulated data, the
@@ -633,7 +654,7 @@ and the external continuous y variable is attached along the trial dimension
 and is called ‘y’. After that, we use a random-effect model for the
 population with p-values corrected for multiple comparisons using a cluster-
 based approach.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a dataset hosting the data coming from multiple subjects</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a dataset hosting the data coming from multiple subjects</span>
 <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dt</span></a> <span class="o">=</span> <a href="../../api/generated/frites.dataset.DatasetEphy.html#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy" class="sphx-glr-backref-module-frites-dataset sphx-glr-backref-type-py-class"><span class="n">DatasetEphy</span></a><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="s1">&#39;roi&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">)</span>
 
 <span class="c1"># run the statistics at the group-level</span>
@@ -682,32 +703,32 @@ based approach.</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_ground_truth_003.png" srcset="../../_images/sphx_glr_plot_ground_truth_003.png" alt="Effect-size at the group-level (t-values), Effects detected as significant at the group-level (p<0.05), Ground-truth (gtype=tri)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Estimating MI : 0/15 [00:00&lt;?,       ?it/s]
-  7%|▋         | Estimating MI : 1/15 [00:00&lt;00:06,    2.03it/s]
- 13%|█▎        | Estimating MI : 2/15 [00:00&lt;00:06,    2.05it/s]
- 20%|██        | Estimating MI : 3/15 [00:01&lt;00:05,    2.07it/s]
- 27%|██▋       | Estimating MI : 4/15 [00:02&lt;00:05,    1.85it/s]
- 33%|███▎      | Estimating MI : 5/15 [00:02&lt;00:05,    1.89it/s]
- 40%|████      | Estimating MI : 6/15 [00:03&lt;00:04,    1.92it/s]
- 47%|████▋     | Estimating MI : 7/15 [00:03&lt;00:04,    1.95it/s]
- 53%|█████▎    | Estimating MI : 8/15 [00:04&lt;00:03,    1.97it/s]
- 60%|██████    | Estimating MI : 9/15 [00:04&lt;00:03,    1.98it/s]
- 67%|██████▋   | Estimating MI : 10/15 [00:05&lt;00:02,    1.99it/s]
- 73%|███████▎  | Estimating MI : 11/15 [00:05&lt;00:02,    2.00it/s]
- 80%|████████  | Estimating MI : 12/15 [00:06&lt;00:01,    2.01it/s]
- 87%|████████▋ | Estimating MI : 13/15 [00:06&lt;00:00,    2.01it/s]
- 93%|█████████▎| Estimating MI : 14/15 [00:07&lt;00:00,    2.01it/s]
-100%|██████████| Estimating MI : 15/15 [00:07&lt;00:00,    2.01it/s]
-100%|██████████| Estimating MI : 15/15 [00:07&lt;00:00,    2.00it/s]
+  7%|▋         | Estimating MI : 1/15 [00:00&lt;00:06,    2.33it/s]
+ 13%|█▎        | Estimating MI : 2/15 [00:00&lt;00:05,    2.38it/s]
+ 20%|██        | Estimating MI : 3/15 [00:01&lt;00:05,    2.39it/s]
+ 27%|██▋       | Estimating MI : 4/15 [00:01&lt;00:04,    2.41it/s]
+ 33%|███▎      | Estimating MI : 5/15 [00:02&lt;00:04,    2.43it/s]
+ 40%|████      | Estimating MI : 6/15 [00:02&lt;00:03,    2.42it/s]
+ 47%|████▋     | Estimating MI : 7/15 [00:02&lt;00:03,    2.42it/s]
+ 53%|█████▎    | Estimating MI : 8/15 [00:03&lt;00:02,    2.41it/s]
+ 60%|██████    | Estimating MI : 9/15 [00:03&lt;00:02,    2.24it/s]
+ 67%|██████▋   | Estimating MI : 10/15 [00:04&lt;00:02,    2.27it/s]
+ 73%|███████▎  | Estimating MI : 11/15 [00:04&lt;00:01,    2.28it/s]
+ 80%|████████  | Estimating MI : 12/15 [00:05&lt;00:01,    2.29it/s]
+ 87%|████████▋ | Estimating MI : 13/15 [00:05&lt;00:00,    2.29it/s]
+ 93%|█████████▎| Estimating MI : 14/15 [00:06&lt;00:00,    2.30it/s]
+100%|██████████| Estimating MI : 15/15 [00:06&lt;00:00,    2.30it/s]
+100%|██████████| Estimating MI : 15/15 [00:06&lt;00:00,    2.31it/s]
 </pre></div>
 </div>
 </section>
 <section id="comparison-between-the-effect-detected-as-significant-and-the-ground-truth">
-<h2>Comparison between the effect detected as significant and the ground-truth<a class="headerlink" href="#comparison-between-the-effect-detected-as-significant-and-the-ground-truth" title="Permalink to this headline">#</a></h2>
+<h2>Comparison between the effect detected as significant and the ground-truth<a class="headerlink" href="#comparison-between-the-effect-detected-as-significant-and-the-ground-truth" title="Permalink to this heading">#</a></h2>
 <p>This last section quantifies how well the statistical framework performed
 on this particular ground-truth. The overall idea is to use statistical
 measures (namely false / true positive / negative rates) to quantify how well
 the framework of group-level statistics is able to retrieve the ground-truth.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># bins with / without effect in the ground-truth</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># bins with / without effect in the ground-truth</span>
 <span class="n">tp_gt</span><span class="p">,</span> <span class="n">tn_gt</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">dim_gt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">df_gt</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
@@ -799,14 +820,17 @@ Statistics
 - Matthews Correlation Coefficient: 0.8411594148150925
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 13.749 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  108 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.548 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  484 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-simulations-plot-ground-truth-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/4b66f62d558ab836b7423e3f50473b91/plot_ground_truth.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ground_truth.ipynb</span></code></a></p>
+</div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/67c874a55fd51105be662ebc8ce0a485/plot_ground_truth.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ground_truth.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/4b66f62d558ab836b7423e3f50473b91/plot_ground_truth.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ground_truth.ipynb</span></code></a></p>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/802b9ba46502665521cef390172cadb8/plot_ground_truth.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_ground_truth.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -818,11 +842,10 @@ Statistics
               
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="plot_generate_random_data.html"
@@ -842,10 +865,7 @@ Statistics
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -855,6 +875,7 @@ Statistics
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
@@ -880,8 +901,8 @@ Statistics
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
     <hr>
     <footer>
@@ -890,7 +911,7 @@ Statistics
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2023-09-05.</p>
+        <p>&copy; Copyright Last updated on 2025-04-30.</p>
     </footer>
 
   </body>

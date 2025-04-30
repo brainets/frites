@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>frites.dataset.DatasetEphy &#8212; frites 0.4.5 documentation</title>
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -35,28 +34,28 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/frites_style.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/frites.dataset.DatasetEphy';</script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Workflow" href="../api_workflow.html" />
     <link rel="prev" title="frites.dataset.SubjectEphy" href="frites.dataset.SubjectEphy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -70,6 +69,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
 </style>
 </head>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
@@ -111,9 +119,11 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -121,25 +131,26 @@
   
   
   
+  
     
     
       
     
     
-    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.5 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/frites_top.png" class="logo__image only-dark" alt="frites 0.4.5 documentation - Home"/>`);</script>
   
   
 </a></div>
     
   </div>
   
-  
   <div class="col-lg-9 navbar-header-items">
     
     <div class="me-auto navbar-header-items__center">
       
-        <div class="navbar-item"><nav class="navbar-nav">
+        <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -185,23 +196,27 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
         <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -217,8 +232,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -229,8 +244,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
       
@@ -240,18 +255,21 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -271,7 +289,8 @@ document.write(`
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item"><nav class="navbar-nav">
+          <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -317,12 +336,13 @@ document.write(`
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -338,8 +358,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,8 +370,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
         
@@ -360,7 +380,8 @@ document.write(`
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
@@ -505,8 +526,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
@@ -519,7 +540,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../api_dataset.html" class="nav-link">Dataset</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">frites.dataset.DatasetEphy</li>
+    <li class="breadcrumb-item active" aria-current="page">frites.datas...</li>
   </ul>
 </nav>
 </div>
@@ -537,7 +558,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="frites-dataset-datasetephy">
-<h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this headline">#</a></h1>
+<h1>frites.dataset.DatasetEphy<a class="headerlink" href="#frites-dataset-datasetephy" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="frites.dataset.DatasetEphy">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">frites.dataset.</span></span><span class="sig-name descname"><span class="pre">DatasetEphy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multivariate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_suj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L16-L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy" title="Permalink to this definition">#</a></dt>
@@ -549,7 +570,7 @@ task-related variables (continuous or discret). Then, the created object
 can be used to compute the mutual information (MI) between the data and the
 task variable and group-level.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>x</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:list</span></code></span></dt><dd><p>List of length (n_subjects,) where each element of the list should be
 the neural data of single subject. Supported types for each element of
@@ -582,7 +603,7 @@ subjects</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Attributes</dt>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><a class="reference internal" href="#frites.dataset.DatasetEphy.df_rs" title="frites.dataset.DatasetEphy.df_rs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">df_rs</span></code></a></dt><dd><p>Pandas DataFrame of cross-subjects anatomical repartition.</p>
 </dd>
@@ -597,10 +618,6 @@ subjects</p>
 </dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#frites.dataset.DatasetEphy.get_connectivity_pairs" title="frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_pairs</span></code></a>([as_blocks, ...])</p></td>
 <td><p>Get the connectivity pairs for this dataset.</p></td>
@@ -634,13 +651,13 @@ subjects</p>
 some pairs are going to be ignored because of a number of subjects to
 low.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>directed</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Get either directed (True) or non-directed (False) pairs</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
 <dt><strong>df_conn</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pd.DataFrame</span></code></span></dt><dd><p>The table describing the connectivity informations per pair of
 brain regions</p>
@@ -657,7 +674,7 @@ brain regions</p>
 <span class="sig-name descname"><span class="pre">get_roi_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'subjects'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcrn_per_suj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/dataset/ds_ephy.py#L197-L279"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.dataset.DatasetEphy.get_roi_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the data of a single brain region.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>roi</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:str</span></code></span></dt><dd><p>ROI name to get</p>
 </dd>
@@ -674,7 +691,7 @@ applied per subject (True - RFX) or across subjects (False - FFX)</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
 <dt><strong>da</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xr.DataArray</span></code></span></dt><dd><p>The data of the single brain region</p>
 </dd>
@@ -689,14 +706,14 @@ applied per subject (True - RFX) or across subjects (False - FFX)</p>
 <dd><p>Index-based data slicing.</p>
 <p>Slice the entire dataset based on indexes.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>kwargs</strong><span class="classifier">{} | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Additional inputs are sent to to the method <cite>xr.DataArray.isel</cite> of
 the data of each subject.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
 <dt><strong>inst</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <a class="reference internal" href="#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a></span></dt><dd><p>The sliced object.</p>
 </dd>
@@ -725,7 +742,7 @@ the data of each subject.</p>
 <p>This method is an adaptation of the mne-python one. Note that this
 smoothing operation is performed inplace to avoid data copy.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>h_freq</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code></span></dt><dd><p>Approximate high cut-off frequency in Hz. Note that this is not an
 exact cutoff, since Savitzky-Golay filtering is done using
@@ -740,7 +757,7 @@ edges=0.2 drop 200ms at the begining and at the end)</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
 <dt><strong>inst</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <a class="reference internal" href="#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a></span></dt><dd><p>The object with the filtering applied.</p>
 </dd>
@@ -753,7 +770,7 @@ edges=0.2 drop 200ms at the begining and at the end)</p>
 </dd>
 </dl>
 <p class="rubric" id="sphx-glr-backreferences-frites-dataset-datasetephy-savgol-filter">Examples using <code class="docutils literal notranslate"><span class="pre">savgol_filter</span></code>:</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG /..."><img alt="" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG / Intracranial) coming from multiple subjects. In addition, some basic operations can also be performed (like slicing, smoothing etc.). In this example we illutrate how to define a dataset using NumPy arrays."><img alt="" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Build an electrophysiological dataset</div>
 </div></div></dd></dl>
@@ -764,14 +781,14 @@ edges=0.2 drop 200ms at the begining and at the end)</p>
 <dd><p>Coordinate-based data slicing.</p>
 <p>Slice the entire dataset based on the coordinates values.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>kwargs</strong><span class="classifier">{} | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:None</span></code></span></dt><dd><p>Additional inputs are sent to to the method <cite>xr.DataArray.sel</cite> of
 the data of each subject.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
 <dt><strong>inst</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <a class="reference internal" href="#frites.dataset.DatasetEphy" title="frites.dataset.DatasetEphy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a></span></dt><dd><p>The sliced object.</p>
 </dd>
@@ -786,7 +803,7 @@ the data of each subject.</p>
 </pre></div>
 </div>
 <p class="rubric" id="sphx-glr-backreferences-frites-dataset-datasetephy-sel">Examples using <code class="docutils literal notranslate"><span class="pre">sel</span></code>:</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG /..."><img alt="" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG / Intracranial) coming from multiple subjects. In addition, some basic operations can also be performed (like slicing, smoothing etc.). In this example we illutrate how to define a dataset using NumPy arrays."><img alt="" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Build an electrophysiological dataset</div>
 </div></div></dd></dl>
@@ -806,55 +823,55 @@ the data of each subject.</p>
 </dd></dl>
 
 <section id="examples-using-frites-dataset-datasetephy">
-<span id="sphx-glr-backreferences-frites-dataset-datasetephy"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code><a class="headerlink" href="#examples-using-frites-dataset-datasetephy" title="Permalink to this headline">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the node..."><img alt="" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Statistical analysis of a stimulus-specific network</div>
+<span id="sphx-glr-backreferences-frites-dataset-datasetephy"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code><a class="headerlink" href="#examples-using-frites-dataset-datasetephy" title="Permalink to this heading">#</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual information between pairwise ROI and also perform statistics."><img alt="" src="../../_images/sphx_glr_plot_conn_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Estimate comodulations between brain areas</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG / Intracranial) coming from multiple subjects. In addition, some basic operations can also be performed (like slicing, smoothing etc.). In this example we illutrate how to define a dataset using NumPy arrays."><img alt="" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Build an electrophysiological dataset</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define a dataset using MNE-Python Epochs."><img alt="" src="../../_images/sphx_glr_plot_dataset_mne_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_mne.html#sphx-glr-auto-examples-dataset-plot-dataset-mne-py"><span class="std std-ref">Define an electrophysiological dataset using MNE-Python structures</span></a></p>
   <div class="sphx-glr-thumbnail-title">Define an electrophysiological dataset using MNE-Python structures</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In Frites, a dataset is a structure for grouping the electrophysiological data (e.g MEG / EEG /..."><img alt="" src="../../_images/sphx_glr_plot_dataset_ephy_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Build an electrophysiological dataset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define a dataset using Xarray. If you don&#x27;t know this library, ..."><img alt="" src="../../_images/sphx_glr_plot_dataset_xarray_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define a dataset using Xarray. If you don&#x27;t know this library, we can simplify by saying that it provides containers that accept arrays but you can also labelize your dimensions. Another way of seeing it, pandas is mostly made for tables (i.e 2D arrays) while Xarray provide almost the same functionalities but for multi-dimensional arrays."><img alt="" src="../../_images/sphx_glr_plot_dataset_xarray_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/dataset/plot_dataset_xarray.html#sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"><span class="std std-ref">Define an electrophysiological dataset using Xarray</span></a></p>
   <div class="sphx-glr-thumbnail-title">Define an electrophysiological dataset using Xarray</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></p>
-  <div class="sphx-glr-thumbnail-title">MI between two continuous variables conditioned by a discret one</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discr..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></p>
-  <div class="sphx-glr-thumbnail-title">MI between a continuous and a discret variables</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></p>
-  <div class="sphx-glr-thumbnail-title">MI between two continuous variables</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g ..."><img alt="" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Compute MI across time and frequencies</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exce..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Investigate relation of order</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the num..."><img alt="" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to perform a conjunction analysis which consist in getting the number of subjects that present significant effect."><img alt="" src="../../_images/sphx_glr_plot_mi_conjunction_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a></p>
   <div class="sphx-glr-thumbnail-title">Compute a conjunction analysis on mutual-information</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and als..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_contact_level_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information with time-frequency inputs (e.g time-frequency maps). Then, it uses cluster-based to correct for multiple comparisons."><img alt="" src="../../_images/sphx_glr_plot_mi_time_frequency_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Compute MI across time and frequencies</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables and also perform statistics. Usually, the first variable is an electrophysiological data (M/EEG, intracranial) and a regressor. This kind of mutual information is equivalent to a traditional correlation. Note that the regressor variable can either be univariate (single column) or multivariate (multiple columns). For further details, see Ince et al., 2017 ince2017statistical"><img alt="" src="../../_images/sphx_glr_plot_wf_mi_cc_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a></p>
+  <div class="sphx-glr-thumbnail-title">MI between two continuous variables</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between two continuous variables, conditioned by a discret one. The first variable is an electrophysiological data (M/EEG, intracranial). The second continuous is usually a regressor and the third is a discret variable composed with integers generally describing conditions. This type of mutual information is equivalent to partial correlation. For further details, see Ince et al., 2017 ince2017statistical"><img alt="" src="../../_images/sphx_glr_plot_wf_mi_ccd_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a></p>
+  <div class="sphx-glr-thumbnail-title">MI between two continuous variables conditioned by a discret one</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information between a continuous and a discret variables. The first variable is an electrophysiological data (M/EEG, intracranial). The discret variable, composed with integers, can for example describe conditions. This type of mutual information is equivalent to was is performed in machine-learning. For further details, see Ince et al., 2017 ince2017statistical"><img alt="" src="../../_images/sphx_glr_plot_wf_mi_cd_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a></p>
+  <div class="sphx-glr-thumbnail-title">MI between a continuous and a discret variables</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to investigate whether the effect size between two conditions exceed the effect between two other conditions. To this end, we are first going to going the effect sizes inside the two conditions and then combine the effects (subtraction)."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_combine_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Investigate relation of order</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to compute the mutual information inside each brain region and also by taking into consideration the information at a lower anatomical level (e.g sEEG contact, MEG sensor etc.)."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_contact_level_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a></p>
   <div class="sphx-glr-thumbnail-title">Mutual-information at the contact level</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the instantaneous comodulations using mutual informati..."><img alt="" src="../../_images/sphx_glr_plot_conn_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Estimate comodulations between brain areas</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Compare within-subjects statistics when computing mutual information</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and ..."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Compare between-subjects statistics when computing mutual information</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are distributed across time and space with a predefined profile). Those ground-truths can be particularly interesting to simulate the data coming from multiple subjects, compare group-level strategies such as methods for multiple comparisons."><img alt="" src="../../_images/sphx_glr_plot_ground_truth_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Generate spatio-temporal ground-truths</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to estimate the confidence interval"><img alt="" src="../../_images/sphx_glr_plot_ci_cc_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a></p>
   <div class="sphx-glr-thumbnail-title">Estimate the empirical confidence interval</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Frites provides some functions to generate spatio-temporal ground-truths (i.e. effects that are..."><img alt="" src="../../_images/sphx_glr_plot_ground_truth_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Generate spatio-temporal ground-truths</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and evaluate stastitics. Inference are made within-subjects (fixed effect = ffx)."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_ffx_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Compare within-subjects statistics when computing mutual information</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to define and run a workflow for computing mutual information and evaluate stastitics. Inference are made within-subjects (random effect = rfx)."><img alt="" src="../../_images/sphx_glr_plot_wf_mi_stats_compare_rfx_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Compare between-subjects statistics when computing mutual information</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this tutorial we illustrate how to analyze a stimulus-specific network i.e first if the nodes of the network present an activity that is modulated according to a stimulus (for example two conditions) and second, if the connectivity strength (i.e the links between the nodes) is also modulated by the stimulus."><img alt="" src="../../_images/sphx_glr_plot_stim_spec_network_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Statistical analysis of a stimulus-specific network</div>
 </div></div></section>
 </section>
 
@@ -863,11 +880,10 @@ the data of each subject.</p>
               
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="frites.dataset.SubjectEphy.html"
@@ -887,10 +903,7 @@ the data of each subject.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -900,11 +913,24 @@ the data of each subject.</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy"><code class="docutils literal notranslate"><span class="pre">DatasetEphy</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.df_rs"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.df_rs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.get_connectivity_pairs"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.get_connectivity_pairs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.get_roi_data"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.get_roi_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.isel"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.isel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.roi_names"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.roi_names</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.savgol_filter"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.savgol_filter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.sel"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.sel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.times"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.times</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frites.dataset.DatasetEphy.x"><code class="docutils literal notranslate"><span class="pre">DatasetEphy.x</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-using-frites-dataset-datasetephy">Examples using <code class="docutils literal notranslate"><span class="pre">frites.dataset.DatasetEphy</span></code></a></li>
 </ul>
   </nav></div>
@@ -922,8 +948,8 @@ the data of each subject.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
     <hr>
     <footer>
@@ -932,7 +958,7 @@ the data of each subject.</p>
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2023-09-05.</p>
+        <p>&copy; Copyright Last updated on 2025-04-30.</p>
     </footer>
 
   </body>

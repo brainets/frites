@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Computation times &#8212; frites 0.4.5 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/frites_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sg_execution_times';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Mono:wght@332&display=swap');
+</style>
+</head>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.5 documentation - Home"/>
+    <script>document.write(`<img src="_static/frites_top.png" class="logo__image only-dark" alt="frites 0.4.5 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="overview/index.html">
+                        Overview
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="auto_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="overview/index.html">
+                        Overview
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="auto_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/brainets/frites" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/kNearNeighbors" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter-square fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Computation times</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="computation-times">
+<span id="sphx-glr-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this heading">#</a></h1>
+<p><strong>06:19.877</strong> total execution time for 34 files <strong>from all galleries</strong>:</p>
+<div class="docutils container">
+<style scoped>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+</style>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" class="init">
+$(document).ready( function () {
+    $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+} );
+</script><table class="table table-striped sg-datatable">
+<thead>
+<tr class="row-odd"><th class="head"><p>Example</p></th>
+<th class="head"><p>Time</p></th>
+<th class="head"><p>Mem (MB)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/tutorials/plot_dfc_estimator.html#sphx-glr-auto-examples-tutorials-plot-dfc-estimator-py"><span class="std std-ref">Estimate the Dynamic Functional Connectivity</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/tutorials/plot_dfc_estimator.py</span></code>)</p></td>
+<td><p>01:46.932</p></td>
+<td><p>825.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/tutorials/plot_stim_spec_network.html#sphx-glr-auto-examples-tutorials-plot-stim-spec-network-py"><span class="std std-ref">Statistical analysis of a stimulus-specific network</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/tutorials/plot_stim_spec_network.py</span></code>)</p></td>
+<td><p>01:26.160</p></td>
+<td><p>582.6</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/performance/plot_vector_vs_tensor.html#sphx-glr-auto-examples-performance-plot-vector-vs-tensor-py"><span class="std std-ref">Comparison between tensor and vector based computations</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/performance/plot_vector_vs_tensor.py</span></code>)</p></td>
+<td><p>00:27.563</p></td>
+<td><p>394.8</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/armodel/plot_ar_condcovgc.html#sphx-glr-auto-examples-armodel-plot-ar-condcovgc-py"><span class="std std-ref">AR : conditional covariance based Granger Causality</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/armodel/plot_ar_condcovgc.py</span></code>)</p></td>
+<td><p>00:23.382</p></td>
+<td><p>509.2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/simulations/plot_ground_truth.html#sphx-glr-auto-examples-simulations-plot-ground-truth-py"><span class="std std-ref">Generate spatio-temporal ground-truths</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/simulations/plot_ground_truth.py</span></code>)</p></td>
+<td><p>00:12.548</p></td>
+<td><p>484.2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/statistics/plot_ci_cc.html#sphx-glr-auto-examples-statistics-plot-ci-cc-py"><span class="std std-ref">Estimate the empirical confidence interval</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/statistics/plot_ci_cc.py</span></code>)</p></td>
+<td><p>00:12.203</p></td>
+<td><p>468.5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/armodel/plot_ar_instantaneous.html#sphx-glr-auto-examples-armodel-plot-ar-instantaneous-py"><span class="std std-ref">AR : simulate common driving input</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/armodel/plot_ar_instantaneous.py</span></code>)</p></td>
+<td><p>00:11.636</p></td>
+<td><p>400.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/mi/plot_mi_conjunction.html#sphx-glr-auto-examples-mi-plot-mi-conjunction-py"><span class="std std-ref">Compute a conjunction analysis on mutual-information</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_mi_conjunction.py</span></code>)</p></td>
+<td><p>00:08.200</p></td>
+<td><p>431.3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_rfx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-rfx-py"><span class="std std-ref">Compare between-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/statistics/plot_wf_mi_stats_compare_rfx.py</span></code>)</p></td>
+<td><p>00:06.926</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/xarray/plot_xr_export.html#sphx-glr-auto-examples-xarray-plot-xr-export-py"><span class="std std-ref">Xarray : Saving the results</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/xarray/plot_xr_export.py</span></code>)</p></td>
+<td><p>00:06.635</p></td>
+<td><p>405.3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/estimators/plot_est_resample.html#sphx-glr-auto-examples-estimators-plot-est-resample-py"><span class="std std-ref">Trial-resampling: correcting for unbalanced designs</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/estimators/plot_est_resample.py</span></code>)</p></td>
+<td><p>00:05.808</p></td>
+<td><p>401.7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cc.html#sphx-glr-auto-examples-mi-plot-wf-mi-cc-py"><span class="std std-ref">MI between two continuous variables</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_wf_mi_cc.py</span></code>)</p></td>
+<td><p>00:05.723</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/mi/plot_wf_mi_combine.html#sphx-glr-auto-examples-mi-plot-wf-mi-combine-py"><span class="std std-ref">Investigate relation of order</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_wf_mi_combine.py</span></code>)</p></td>
+<td><p>00:05.643</p></td>
+<td><p>405.7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/estimators/plot_est_custom.html#sphx-glr-auto-examples-estimators-plot-est-custom-py"><span class="std std-ref">Defining a custom estimator</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/estimators/plot_est_custom.py</span></code>)</p></td>
+<td><p>00:04.834</p></td>
+<td><p>416.2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/conn/plot_covgc.html#sphx-glr-auto-examples-conn-plot-covgc-py"><span class="std std-ref">Estimate the covariance-based Granger Causality</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_covgc.py</span></code>)</p></td>
+<td><p>00:04.823</p></td>
+<td><p>457.7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/dataset/plot_dataset_ephy.html#sphx-glr-auto-examples-dataset-plot-dataset-ephy-py"><span class="std std-ref">Build an electrophysiological dataset</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/dataset/plot_dataset_ephy.py</span></code>)</p></td>
+<td><p>00:04.392</p></td>
+<td><p>464.3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/estimators/plot_est_comparison.html#sphx-glr-auto-examples-estimators-plot-est-comparison-py"><span class="std std-ref">Estimator comparison</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/estimators/plot_est_comparison.py</span></code>)</p></td>
+<td><p>00:04.360</p></td>
+<td><p>438.7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/conn/plot_conn.html#sphx-glr-auto-examples-conn-plot-conn-py"><span class="std std-ref">Estimate comodulations between brain areas</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_conn.py</span></code>)</p></td>
+<td><p>00:03.793</p></td>
+<td><p>394.9</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/mi/plot_wf_mi_contact_level.html#sphx-glr-auto-examples-mi-plot-wf-mi-contact-level-py"><span class="std std-ref">Mutual-information at the contact level</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_wf_mi_contact_level.py</span></code>)</p></td>
+<td><p>00:03.325</p></td>
+<td><p>443.4</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/statistics/plot_wf_mi_stats_compare_ffx.html#sphx-glr-auto-examples-statistics-plot-wf-mi-stats-compare-ffx-py"><span class="std std-ref">Compare within-subjects statistics when computing mutual information</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/statistics/plot_wf_mi_stats_compare_ffx.py</span></code>)</p></td>
+<td><p>00:03.199</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/armodel/plot_ar_pairwise.html#sphx-glr-auto-examples-armodel-plot-ar-pairwise-py"><span class="std std-ref">AR : pairwise illustration</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/armodel/plot_ar_pairwise.py</span></code>)</p></td>
+<td><p>00:03.087</p></td>
+<td><p>448.6</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/utils/plot_time_windows.html#sphx-glr-auto-examples-utils-plot-time-windows-py"><span class="std std-ref">Define temporal windows</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/utils/plot_time_windows.py</span></code>)</p></td>
+<td><p>00:02.889</p></td>
+<td><p>464.4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/conn/plot_fit.html#sphx-glr-auto-examples-conn-plot-fit-py"><span class="std std-ref">FIT: Feature specific information transfer</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_fit.py</span></code>)</p></td>
+<td><p>00:02.815</p></td>
+<td><p>456.2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/conn/plot_pid.html#sphx-glr-auto-examples-conn-plot-pid-py"><span class="std std-ref">PID: Decomposing the information carried by pairs of brain regions</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_pid.py</span></code>)</p></td>
+<td><p>00:02.810</p></td>
+<td><p>441.8</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/mi/plot_wf_mi_cd.html#sphx-glr-auto-examples-mi-plot-wf-mi-cd-py"><span class="std std-ref">MI between a continuous and a discret variables</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_wf_mi_cd.py</span></code>)</p></td>
+<td><p>00:02.575</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/simulations/plot_generate_random_data.html#sphx-glr-auto-examples-simulations-plot-generate-random-data-py"><span class="std std-ref">Generate random electrophysiological data</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/simulations/plot_generate_random_data.py</span></code>)</p></td>
+<td><p>00:02.511</p></td>
+<td><p>458.8</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/mi/plot_wf_mi_ccd.html#sphx-glr-auto-examples-mi-plot-wf-mi-ccd-py"><span class="std std-ref">MI between two continuous variables conditioned by a discret one</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_wf_mi_ccd.py</span></code>)</p></td>
+<td><p>00:02.449</p></td>
+<td><p>394.7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/conn/plot_ccf.html#sphx-glr-auto-examples-conn-plot-ccf-py"><span class="std std-ref">Lag estimation between delayed times-series using the cross-correlation</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_ccf.py</span></code>)</p></td>
+<td><p>00:02.339</p></td>
+<td><p>394.7</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/mi/plot_mi_time_frequency.html#sphx-glr-auto-examples-mi-plot-mi-time-frequency-py"><span class="std std-ref">Compute MI across time and frequencies</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/mi/plot_mi_time_frequency.py</span></code>)</p></td>
+<td><p>00:02.110</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/conn/plot_ii.html#sphx-glr-auto-examples-conn-plot-ii-py"><span class="std std-ref">Estimate interaction information</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_ii.py</span></code>)</p></td>
+<td><p>00:02.058</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/conn/plot_dfc.html#sphx-glr-auto-examples-conn-plot-dfc-py"><span class="std std-ref">Estimate dynamic functional connectivity</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/conn/plot_dfc.py</span></code>)</p></td>
+<td><p>00:01.967</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/xarray/plot_xr_quick_tour.html#sphx-glr-auto-examples-xarray-plot-xr-quick-tour-py"><span class="std std-ref">Xarray : Quick tour</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/xarray/plot_xr_quick_tour.py</span></code>)</p></td>
+<td><p>00:01.884</p></td>
+<td><p>394.5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="auto_examples/dataset/plot_dataset_xarray.html#sphx-glr-auto-examples-dataset-plot-dataset-xarray-py"><span class="std std-ref">Define an electrophysiological dataset using Xarray</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/dataset/plot_dataset_xarray.py</span></code>)</p></td>
+<td><p>00:01.302</p></td>
+<td><p>394.7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="auto_examples/dataset/plot_dataset_mne.html#sphx-glr-auto-examples-dataset-plot-dataset-mne-py"><span class="std std-ref">Define an electrophysiological dataset using MNE-Python structures</span></a> (<code class="docutils literal notranslate"><span class="pre">../../examples/dataset/plot_dataset_mne.py</span></code>)</p></td>
+<td><p>00:00.995</p></td>
+<td><p>394.5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+    <hr>
+    <footer>
+        <div class="container">
+            <img src="_static/baniere.png" alt="Ban" height="80">
+        </div>
+        <br>
+        <!-- <br> -->
+        <p>&copy; Copyright Last updated on 2025-04-30.</p>
+    </footer>
+
+  </body>
+</html>
