@@ -7,8 +7,8 @@ from setuptools import setup, find_packages
 __version__ = "0.4.5"
 NAME = 'frites'
 AUTHOR = "BraiNets"
-MAINTAINER = "Etienne Combrisson"
-EMAIL = 'e.combrisson@gmail.com'
+MAINTAINER = "Andrea Brovelli"
+EMAIL = 'andrea.brovelli@univ-amu.fr'
 KEYWORDS = "information-theory statistics"
 DESCRIPTION = ("Framework of Information Theory for Electrophysiological data "
                "and Statistics")
