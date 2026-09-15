@@ -3,8 +3,15 @@
 What's new
 ==========
 
-v0.4.5.dev
-----------
+v0.4.5
+------
+
+Bug fixes
++++++++++
+* Compatibility with NumPy 2 (:commit:`0e85f55d`, :commit:`bc45cab7`)
+* Support mne-python versions newer than 1.5.0, up to the current release (:commit:`9a81a6dc`)
+* Restore a compatibility shim so mne keeps working with NumPy >= 2.4, which removed ``np.in1d`` while mne still relies on it internally (:commit:`ad7cfe65`)
+* Fix type comparison in :func:`frites.dataset.ds_utils.multi_to_uni_conditions` and in :func:`frites.plot.plot_conn_circle` (:commit:`cee7ed4a`)
 
 v0.4.4
 ------
