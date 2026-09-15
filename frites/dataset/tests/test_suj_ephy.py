@@ -46,7 +46,11 @@ class TestSubjectEphy(object):  # noqa
             x_out = mne.EpochsArray(x_3d, info, tmin=times[0])
         elif (dtype == 'mne') and (ndim == 4):
             info = mne.create_info(ch_names, sfreq, ch_types='seeg')
-            x_out = mne.time_frequency.EpochsTFR(info, x_4d, times, freqs)
+            # mne >= 1.7 moved array-based construction to EpochsTFRArray
+            # and turned EpochsTFR into the (non-instantiable) base class
+            tfr_cls = getattr(
+                mne.time_frequency, 'EpochsTFRArray', mne.time_frequency.EpochsTFR)
+            x_out = tfr_cls(info, x_4d, times, freqs)
 
         return x_out
 

@@ -135,7 +135,12 @@ class SubjectEphy(Attributes):
             roi = x.info['ch_names'] if roi is None else roi
             sfreq = x.info['sfreq'] if sfreq is None else sfreq
             if isinstance(x, CONFIG["MNE_EPOCHS_TYPE"]):
-                data = x.get_data()
+                try:
+                    # mne >= 1.6 copies by default; avoid the extra copy
+                    data = x.get_data(copy=False)
+                except TypeError:
+                    # mne < 1.6 doesn't support the `copy` keyword
+                    data = x.get_data()
             elif isinstance(x, CONFIG["MNE_EPOCHSTFR_TYPE"]):
                 data = x.data
                 if multivariate:

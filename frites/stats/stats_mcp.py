@@ -9,6 +9,21 @@ from mne.stats import fdr_correction, bonferroni_correction
 logger = logging.getLogger('frites')
 
 
+def _tfce_clusters(shape):
+    """Rebuild per-point TFCE clusters (adjacency=None case).
+
+    mne's private `_find_clusters` used to return one cluster per point when
+    thresholding with TFCE (a dict threshold). Since mne 1.8, it instead
+    returns `None` for `clusters` and builds them internally in its own
+    permutation routine. This reproduces the old per-point construction so
+    frites keeps working with both old and new mne versions.
+    """
+    idx = np.arange(int(np.prod(shape)))
+    if len(shape) == 1:
+        return [slice(c, c + 1) for c in idx]
+    return [(idx == ii).ravel() for ii in range(len(idx))]
+
+
 ###############################################################################
 ###############################################################################
 #                         TESTWISE CORRECTION MCP
@@ -127,8 +142,12 @@ def cluster_correction_mcp(x, x_p, th, tail=1, **kwargs):
     cl_loc, cl_mass = [], []
     for r in range(n_roi):
         _cl_loc, _cl_mass = _find_clusters(x[r, ...], th, **kwargs)
-        # for non-tfce, clusters are returned as a list of tuples
-        _cl_loc = [k[0] if isinstance(k, tuple) else k for k in _cl_loc]
+        if _cl_loc is None:
+            # mne >= 1.8 doesn't build TFCE clusters itself anymore
+            _cl_loc = _tfce_clusters(x[r, ...].shape)
+        else:
+            # for non-tfce, clusters are returned as a list of tuples
+            _cl_loc = [k[0] if isinstance(k, tuple) else k for k in _cl_loc]
         # update cluster mass according to the tail
         if tail == 0:
             np.abs(_cl_mass, out=_cl_mass)
