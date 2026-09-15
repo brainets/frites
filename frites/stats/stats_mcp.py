@@ -224,7 +224,7 @@ def cluster_threshold(x, x_p, alpha=.05, tail=1, tfce=False, n_steps=100,
     """
     logger.info(f"    Cluster forming threshold (tail={tail}; alpha={alpha}; "
                 f"tfce={tfce})")
-    kw = dict(interpolation='nearest')
+    kw = dict(method='nearest')
     if tfce or isinstance(tfce, dict):
         # tfce is a dict that is only used to set MNE parameters
         # (n_steps, e_power, h_power)
