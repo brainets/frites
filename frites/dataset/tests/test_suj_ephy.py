@@ -49,7 +49,8 @@ class TestSubjectEphy(object):  # noqa
             # mne >= 1.7 moved array-based construction to EpochsTFRArray
             # and turned EpochsTFR into the (non-instantiable) base class
             tfr_cls = getattr(
-                mne.time_frequency, 'EpochsTFRArray', mne.time_frequency.EpochsTFR)
+                mne.time_frequency, 'EpochsTFRArray',
+                mne.time_frequency.EpochsTFR)
             x_out = tfr_cls(info, x_4d, times, freqs)
 
         return x_out
