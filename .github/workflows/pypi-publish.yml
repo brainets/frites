@@ -1,5 +1,6 @@
-# This workflow will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+# This workflow builds and uploads a Python package to PyPI when a release
+# is created, using PyPI's Trusted Publishing (OIDC) - no stored secret.
+# For more information see: https://docs.pypi.org/trusted-publishers/
 
 name: Upload Python Package
 
@@ -10,6 +11,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
     - uses: actions/checkout@v4.0.0
     - name: Set up Python
@@ -20,12 +23,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
-    - name: Build and publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Build and check
       run: |
         make clean_dist
         make build_dist
         make check_dist
-        make upload_dist
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
