@@ -55,7 +55,13 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
     Returns
     -------
     out : array_like
-        Time-frequency transform of shape (n_epochs, n_chans, n_freqs, n_times)
+        Complex time-frequency coefficients. In 'morlet' mode the shape is
+        (n_epochs, n_chans, n_freqs, n_times). In 'multitaper' mode the taper
+        axis is kept, (n_epochs, n_chans, n_tapers, n_freqs, n_times), so that
+        the spectra (and not the complex coefficients) can be averaged over
+        tapers downstream. DPSS tapers are orthogonal, hence averaging the
+        complex coefficients across tapers cancels most of the signal and does
+        not give the multitaper estimator.
     """
     if mode == 'morlet':
         out = tfr_array_morlet(
@@ -67,6 +73,9 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
         # Frequency center
         if isinstance(mt_bandwidth, (list, tuple, np.ndarray)):
             # Arrays freqs, n_cycles, mt_bandwidth should have the same size
+            # (a scalar n_cycles is broadcasted over frequencies)
+            n_cycles = np.broadcast_to(np.asarray(n_cycles, dtype=float),
+                                       (len(freqs),))
             assert len(freqs) == len(n_cycles) == len(mt_bandwidth)
             out = []
             for f_c, n_c, mt in zip(freqs, n_cycles, mt_bandwidth):
@@ -74,15 +83,17 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
                     data, sf, [f_c], n_cycles=float(n_c), time_bandwidth=mt,
                     output='complex', decim=decim, n_jobs=n_jobs, **kw_mt
                 )
-                out.append(_out.mean(2))
-            out = np.concatenate(out, axis=2)
+                out.append(_out)
+            # concatenate along the frequency axis (tapers axis is kept)
+            out = np.concatenate(out, axis=3)
         elif isinstance(mt_bandwidth, (type(None), int, float)):
             out = tfr_array_multitaper(
                 data, sf, freqs, n_cycles=n_cycles,
                 time_bandwidth=mt_bandwidth, output='complex', decim=decim,
                 n_jobs=n_jobs, **kw_mt)
-            # mean across tapers
-            out = out.mean(axis=2)
+        else:
+            raise TypeError("mt_bandwidth should be None, a number or an "
+                            "array of numbers (one per frequency)")
     else:
         raise ValueError('Method should be either "morlet" or "multitaper"')
 
@@ -126,7 +137,12 @@ def _create_kernel(sm_times, sm_freqs, kernel='hanning'):
     if kernel == 'square':
         return np.full((sm_freqs, sm_times), 1. / (sm_times * sm_freqs))
     elif kernel == 'hanning':
-        hann_t, hann_f = np.hanning(sm_times), np.hanning(sm_freqs)
+        # np.hanning(n) has zero end points, so np.hanning(2) is all zeros
+        # (NaN kernel after normalisation) and np.hanning(3) is a delta (no
+        # smoothing at all). Use the n interior points of a (n + 2) window so
+        # that sm_times / sm_freqs is the number of non-zero taps.
+        hann_t = np.hanning(sm_times + 2)[1:-1]
+        hann_f = np.hanning(sm_freqs + 2)[1:-1]
         hann = hann_f.reshape(-1, 1) * hann_t.reshape(1, -1)
         return hann / np.sum(hann)
     else:
@@ -171,6 +187,9 @@ def _smooth_spectra(spectra, kernel, scale=False, decim=1):
 def __smooth_spectra(spectra, kernel, axes):
     """Single kernel smoothing."""
     # fill potentially missing dimensions
+    if kernel.ndim > spectra.ndim:
+        raise ValueError(f"Smoothing kernel has more dimensions "
+                         f"({kernel.ndim}) than the spectra ({spectra.ndim})")
     while kernel.ndim != spectra.ndim:
         kernel = kernel[np.newaxis, ...]
 
