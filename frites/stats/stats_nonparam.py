@@ -346,7 +346,7 @@ def trial_swap_surrogates(x, random_state=0, verbose=False):
 
     for c in range(n_nodes):
         # destroy roi-roi trial relation
-        np.random.shuffle(trials)
+        rnd.shuffle(trials)
         x_surr[:, c, :] = x[trials, c, :]
         pbar.update_with_increment_value(1)
 
