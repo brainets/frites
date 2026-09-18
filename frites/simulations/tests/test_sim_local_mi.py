@@ -73,6 +73,19 @@ class TestSimLocalMi(object):  # noqa
         assert times.shape == (n_times,)
         assert roi.shape == (n_roi,)
 
+    def test_sim_local_ccd_ms_random_state(self):
+        """Test the reproducibility of sim_local_ccd_ms."""
+        kw = dict(n_epochs=n_epochs, n_roi=n_roi, n_times=n_times,
+                  n_conditions=n_conditions, cl_index=cl_index)
+        x_0, y_0, z_0, _, _ = sim_local_ccd_ms(3, random_state=0, **kw)
+        x_0b, y_0b, z_0b, _, _ = sim_local_ccd_ms(3, random_state=0, **kw)
+        _, _, z_1, _, _ = sim_local_ccd_ms(3, random_state=1, **kw)
+        for k in range(3):
+            np.testing.assert_array_equal(x_0[k], x_0b[k])
+            np.testing.assert_array_equal(y_0[k], y_0b[k])
+            np.testing.assert_array_equal(z_0[k], z_0b[k])
+        assert not all([np.array_equal(z_0[k], z_1[k]) for k in range(3)])
+
     def test_sim_local_ccd_ss(self):
         """Test function sim_local_ccd_ss."""
         x, y, z, roi, times = sim_local_ccd_ms(

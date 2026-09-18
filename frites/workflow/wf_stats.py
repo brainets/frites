@@ -101,7 +101,8 @@ class WfStats(WfBase):
         assert all([isinstance(k, np.ndarray) and k.ndim >= 2 for k in effect])
         n_roi, n_times, tvalues = len(effect), effect[0].shape[-1], None
         # don't compute statistics if `mcp` is None
-        if (mcp in [None, 'noperm']) or not len(perms):
+        no_perm = (not len(perms)) or all([k.size == 0 for k in perms])
+        if (mcp in [None, 'noperm']) or no_perm:
             return np.ones((n_times, n_roi), dtype=float), tvalues
         assert all([isinstance(k, np.ndarray) and k.ndim >= 3 for k in perms])
         assert len(effect) == len(perms)

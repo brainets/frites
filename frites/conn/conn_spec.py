@@ -325,7 +325,7 @@ def conn_spec(
         w = _tf_decomp(
             x[tr, ...], sfreq, freqs, n_cycles=n_cycles, decim=decim,
             mode=mode, mt_bandwidth=mt_bandwidth, kw_cwt=kw_cwt, kw_mt=kw_mt,
-            n_jobs=n_jobs)
+            n_jobs=1)  # parallelism is at the pair level (below)
 
         # ----------------------------- CONN TRIALS ---------------------------
         # give indication about computed trials

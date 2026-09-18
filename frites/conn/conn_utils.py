@@ -474,10 +474,13 @@ def conn_reshape_directed(
     # transpose, reindex and reorder (if needed)
     if 'direction' in list(da.dims):
         da_xy, da_yx = da.sel(direction='x->y'), da.sel(direction='y->x')
+        # (explicit `coords` / `compat` : xarray is changing its defaults)
         if net:
-            da = xr.concat((da_xy - da_yx, da_xy - da_yx), axis)
+            da = xr.concat((da_xy - da_yx, da_xy - da_yx), axis,
+                           coords='different', compat='equals')
         else:
-            da = xr.concat((da_xy, da_yx), axis)
+            da = xr.concat((da_xy, da_yx), axis, coords='different',
+                           compat='equals')
         s_, t_ = sources + targets, targets + sources
     else:
         s_, t_ = sources, targets
@@ -516,9 +519,11 @@ def _dataarray_unstack(
     dim_names = dim_names[:cut_at] + ['sources', 'targets'] + dim_names[
         cut_at + 1:]
 
-    # build the multi-index
-    da[axis] = pd.MultiIndex.from_arrays(
+    # build the multi-index (xarray no longer promotes a raw pandas
+    # MultiIndex assigned to a coordinate)
+    midx = pd.MultiIndex.from_arrays(
         [sources, targets], names=['sources', 'targets'])
+    da = da.assign_coords(xr.Coordinates.from_pandas_multiindex(midx, axis))
 
     # test for duplicated entries
     st_names = pd.Series([f"{s}-{t}" for s, t in zip(sources, targets)])
@@ -526,7 +531,7 @@ def _dataarray_unstack(
     if duplicates.any():
         logger.warning(f"Duplicated entries found and removed : "
                        f"{da[axis].data[duplicates]}")
-        da = da.sel(roi=~duplicates)
+        da = da.isel({axis: ~duplicates})
 
     # unstack to be 2D/3D
     da = da.unstack(fill_value=fill_value)

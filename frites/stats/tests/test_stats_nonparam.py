@@ -4,7 +4,7 @@ import xarray as xr
 
 from frites.stats import (permute_mi_vector, permute_mi_trials,
                           bootstrap_partitions, dist_to_ci,
-                          confidence_interval)
+                          confidence_interval, trial_swap_surrogates)
 
 rnd = np.random.RandomState(0)
 
@@ -63,6 +63,20 @@ class TestNonParam(object):  # noqa
             assert (0 <= k[0:2].min()) and (k[0:2].max() <= 1)
             assert (2 <= k[2:4].min()) and (k[2:4].max() <= 3)
             assert (4 <= k[4::].min()) and (k[4::].max() <= 5)
+
+    def test_trial_swap_surrogates(self):
+        """Test function trial_swap_surrogates (reproducibility)."""
+        x = np.random.RandomState(0).rand(10, 3, 20)
+        s_0 = trial_swap_surrogates(x, random_state=0, verbose=False)
+        s_0b = trial_swap_surrogates(x, random_state=0, verbose=False)
+        s_1 = trial_swap_surrogates(x, random_state=1, verbose=False)
+        # same seed -> same surrogates ; different seed -> different ones
+        np.testing.assert_array_equal(s_0, s_0b)
+        assert not np.array_equal(s_0, s_1)
+        # every channel is a permutation of the trials of that channel
+        for c in range(x.shape[1]):
+            np.testing.assert_array_equal(
+                np.sort(s_0[:, c, :], axis=0), np.sort(x[:, c, :], axis=0))
 
     def test_dist_to_ci(self):
         """Test function dist_to_ci."""

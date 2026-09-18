@@ -2,9 +2,18 @@
 # -*- coding: utf-8 -*-
 # License: 3-clause BSD
 import os
+import re
 from setuptools import setup, find_packages
 
-__version__ = "0.4.5"
+
+def get_version():
+    """Read the version from frites/__init__.py (single source of truth)."""
+    init = os.path.join(os.path.dirname(__file__), 'frites', '__init__.py')
+    with open(init) as f:
+        return re.search(r'^__version__ = "([^"]+)"', f.read(), re.M).group(1)
+
+
+__version__ = get_version()
 NAME = 'frites'
 AUTHOR = "BraiNets"
 MAINTAINER = "Andrea Brovelli"
@@ -39,6 +48,7 @@ flake_deps = ['flake8', 'pep8-naming']
 setup(
     name=NAME,
     version=__version__,
+    python_requires='>=3.10',
     packages=find_packages(),
     package_dir={'frites': 'frites'},
     package_data=PACKAGE_DATA,

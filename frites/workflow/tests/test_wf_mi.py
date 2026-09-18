@@ -77,6 +77,18 @@ class TestWfMi(object):  # noqa
             WfMi(mi_type='ccd', inference='rfx', estimator=estimator,
                  verbose=False).fit(dt, **kw_mi)
 
+    def test_n_perm_zero(self):
+        """n_perm=0 is only valid without a permutation-based correction."""
+        import pytest
+        y, gt = sim_mi_cc(x.copy(), snr=1.)
+        dt = DatasetEphy(x.copy(), y=y, roi=roi, times=time)
+        with pytest.raises(ValueError, match="n_perm=0"):
+            WfMi('cc', 'ffx', verbose=False).fit(
+                dt, mcp='cluster', n_perm=0, n_jobs=1)
+        mi, pv = WfMi('cc', 'ffx', verbose=False).fit(
+            dt, mcp='noperm', n_perm=0, n_jobs=1)
+        assert pv.min() == pv.max() == 1.
+
     def test_no_stat(self):
         """Test on no stats / no permutations / don't repeat computations."""
         y, gt = sim_mi_cc(x.copy(), snr=1.)

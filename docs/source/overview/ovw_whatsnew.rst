@@ -3,6 +3,32 @@
 What's new
 ==========
 
+v0.4.6
+------
+
+Bug fixes
++++++++++
+* Fix :func:`frites.conn.conn_spec` in multitaper mode : the cross- and auto-spectra are now averaged over tapers (the complex coefficients used to be averaged before, cancelling most of the signal). **Coherence and PLV values change for every multitaper user** (:pull:`69`)
+* Fix the hanning smoothing kernel of :func:`frites.conn.conn_spec` (``sm_times`` of 2 samples gave a NaN output, 3 samples no smoothing) (:pull:`69`)
+* The cross-spectrum (``metric='sxy'``) of :func:`frites.conn.conn_spec` is now complex (the imaginary part used to be silently dropped) (:pull:`69`)
+* :func:`frites.conn.conn_spec` sets ``zero_mean=False`` explicitly in the time-frequency decomposition : mne changed its default to ``True``, which silently changed the results between mne versions (:pull:`70`)
+* :func:`frites.set_mpl_style` no longer depends on ``pkg_resources`` (absent from Python >= 3.12 environments) (:pull:`70`)
+* Remove the ``np.in1d`` compatibility shim added in v0.4.5 : no supported mne release uses ``np.in1d`` and the shim modified the NumPy namespace globally
+* :func:`frites.stats.trial_swap_surrogates` ignored its ``random_state`` (the trials were shuffled with the global random generator) ; surrogates are now reproducible
+* New ``random_state`` parameter for :func:`frites.simulations.sim_local_ccd_ms` (the conditions were drawn from the global random generator)
+* The copula normalization (:func:`frites.core.copnorm_nd` and the GCMI estimators built on it) now raises a ``ValueError`` on NaN values instead of silently ranking them and returning a finite, meaningless mutual information
+* :class:`frites.workflow.WfMi` and :class:`frites.workflow.WfConnComod` raise an explicit ``ValueError`` when ``n_perm=0`` is combined with a permutation-based correction (used to fail with a bare ``AssertionError``) ; use ``mcp='noperm'`` to only compute the mutual information
+* :func:`frites.conn.conn_reshape_undirected` and :func:`frites.conn.conn_reshape_directed` no longer rely on deprecated xarray behaviours (``xr.concat`` default ``coords`` and implicit ``pandas.MultiIndex`` promotion) that were about to change their results
+* :func:`frites.conn.conn_spec` no longer parallelizes both the time-frequency decomposition and the loop over pairs (nested parallelism oversubscribed the CPU with the default ``n_jobs=-1``)
+* :func:`frites.plot.plot_conn_circle` uses ``Colormap.with_extremes`` (``set_bad`` is pending deprecation in matplotlib)
+
+Dependencies
+++++++++++++
+* Python >= 3.10 is now required (``python_requires``) ; the continuous integration matrix moved from Python 3.8/3.9 to 3.10/3.11/3.12
+* Tested against mne 1.5 up to 1.13 (mne >= 1.13 requires Python >= 3.11) and NumPy 2.x up to 2.5
+* Documentation build : ``sphinxcontrib-bibtex >= 2.6`` and ``sphinx >= 7.4`` (:pull:`70`)
+* ``xarray >= 2023.8`` (``xarray.Coordinates.from_pandas_multiindex``)
+
 v0.4.5
 ------
 
@@ -12,14 +38,6 @@ Bug fixes
 * Support mne-python versions newer than 1.5.0, up to the current release (:commit:`9a81a6dc`)
 * Restore a compatibility shim so mne keeps working with NumPy >= 2.4, which removed ``np.in1d`` while mne still relies on it internally (:commit:`ad7cfe65`)
 * Fix type comparison in :func:`frites.dataset.ds_utils.multi_to_uni_conditions` and in :func:`frites.plot.plot_conn_circle` (:commit:`cee7ed4a`)
-* Fix :func:`frites.conn.conn_spec` in multitaper mode : the cross- and auto-spectra are now averaged over tapers (the complex coefficients used to be averaged before, cancelling most of the signal). Coherence and PLV values change for every multitaper user (:pull:`69`)
-* Fix the hanning smoothing kernel of :func:`frites.conn.conn_spec` (``sm_times`` of 2 samples gave a NaN output, 3 samples no smoothing) (:pull:`69`)
-* The cross-spectrum (``metric='sxy'``) of :func:`frites.conn.conn_spec` is now complex (the imaginary part used to be silently dropped) (:pull:`69`)
-* :func:`frites.conn.conn_spec` sets ``zero_mean=False`` explicitly in the time-frequency decomposition : mne changed its default to ``True``, which silently changed the results between mne versions
-
-Dependencies
-++++++++++++
-* Tested against mne 1.5 up to 1.13 (mne >= 1.13 requires Python >= 3.11) and Python 3.10 to 3.12 ; the continuous integration matrix moved from Python 3.8/3.9 to 3.10/3.11/3.12
 
 v0.4.4
 ------
@@ -30,7 +48,7 @@ New Features
 * New function :func:`frites.core.ent_nd_g` to compute entropy on tensors (:commit:`17587a15`)
 * New function :func:`frites.conn.conn_ii` to estimate the interaction information (:commit:`10938b46`)
 * New function :func:`frites.conn.conn_pid` to estimate the partial information decomposition (:commit:`ac9798dd`)
-- New function :func:`frites.conn.conn_fit` to estimate the feature specific information transfer (:pull:`59`) - :author:`aopy`
+* New function :func:`frites.conn.conn_fit` to estimate the feature specific information transfer (:pull:`59`) - :author:`aopy`
 
 Bug fixes
 +++++++++

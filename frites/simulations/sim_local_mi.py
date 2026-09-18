@@ -304,7 +304,7 @@ def sim_local_cd_ss(n_conditions=2, n_epochs=10, n_times=100, n_roi=1,
 """
 
 
-def sim_local_ccd_ms(n_subjects, **kwargs):
+def sim_local_ccd_ms(n_subjects, random_state=None, **kwargs):
     """Multi-subjects simulations for computing local MI (CCD).
 
     This function can be used for simulating local representations of mutual
@@ -315,6 +315,9 @@ def sim_local_ccd_ms(n_subjects, **kwargs):
     ----------
     n_subjects : int
         Number of subjects
+    random_state : int | None
+        Fix the random state of the machine (use it for reproducibility). If
+        None, a random state is randomly assigned.
     kwargs : dict | {}
         Additional arguments are send to the function :func:`sim_local_ccd_ss`
 
@@ -337,9 +340,13 @@ def sim_local_ccd_ms(n_subjects, **kwargs):
     n_c = kwargs.get('n_conditions', 2)
     if 'n_conditions' in list(kwargs.keys()):
         kwargs.pop('n_conditions')
-    x, y, roi, times = sim_local_cc_ms(n_subjects, **kwargs)
+    if not isinstance(random_state, int):
+        random_state = np.random.randint(1000)
+    rnd = np.random.RandomState(random_state)
+    x, y, roi, times = sim_local_cc_ms(
+        n_subjects, random_state=random_state, **kwargs)
     n_e = len(y[0])
-    z = [np.random.randint(0, n_c, (n_e,)) for k in range(n_subjects)]
+    z = [rnd.randint(0, n_c, (n_e,)) for k in range(n_subjects)]
 
     return x, y, z, roi, times
 

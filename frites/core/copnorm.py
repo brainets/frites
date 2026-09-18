@@ -19,6 +19,12 @@ def ctransform(x):
         Empirical CDF value along the last axis of x. Data is ranked and scaled
         within [0 1] (open interval)
     """
+    # NaN would silently be ranked like any other value
+    if np.isnan(x).any():
+        raise ValueError(
+            "The data contain NaN values. The copula normalization ranks NaN "
+            "like any other value, which silently corrupts the mutual "
+            "information estimate. Remove or impute NaN values first.")
     xr = np.argsort(np.argsort(x)).astype(float)
     xr += 1.
     xr /= float(xr.shape[-1] + 1)

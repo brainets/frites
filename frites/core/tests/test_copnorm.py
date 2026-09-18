@@ -12,6 +12,16 @@ class TestCopnorm(object):  # noqa
         arr = np.random.randint(0, 10, (20,))
         copnorm_1d(arr)
 
+    def test_copnorm_nan(self):
+        """NaN values must raise instead of being silently ranked."""
+        import pytest
+        x = np.random.rand(50)
+        x[3] = np.nan
+        with pytest.raises(ValueError, match="NaN"):
+            copnorm_1d(x)
+        with pytest.raises(ValueError, match="NaN"):
+            copnorm_nd(np.tile(x, (2, 1)), axis=-1)
+
     def test_copnorm_cat_1d(self):
         """Test function copnorm_cat_1d."""
         arr = np.random.randint(0, 10, (20,))

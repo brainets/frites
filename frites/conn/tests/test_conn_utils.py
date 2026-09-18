@@ -1,4 +1,6 @@
 """Test window functions."""
+import warnings
+
 import numpy as np
 import xarray as xr
 
@@ -51,6 +53,11 @@ class TestConnUtils(object):
         # reshape it with the time dimension
         gc_times = conn_reshape_directed(gc.copy())
         assert gc_times.shape == (n_roi, n_roi, len(gc['times']))
+        # the reshape must not rely on deprecated xarray behaviours
+        with warnings.catch_warnings():
+            warnings.simplefilter('error', FutureWarning)
+            conn_reshape_directed(gc.copy())
+            conn_reshape_directed(gc.copy(), net=True)
         # try the reorder
         gc_order = conn_reshape_directed(gc.copy(), order=order)
         assert gc_order.shape == (2, 2, len(gc['times']))
