@@ -200,6 +200,12 @@ class WfConnComod(WfBase):
         # don't compute permutations if mcp is either nostat / None
         if mcp in ['noperm', None]:
             n_perm = 0
+        elif (n_perm < 1) and (mcp != 'nostat'):
+            raise ValueError(
+                f"n_perm={n_perm} : permutations are required for the "
+                f"multiple comparison correction mcp='{mcp}'. Use "
+                "mcp='noperm' (or None) to only compute the mutual "
+                "information")
         # get important dataset's variables
         self._times = dataset.times
 
