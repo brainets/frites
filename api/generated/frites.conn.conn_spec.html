@@ -561,7 +561,7 @@ document.write(`
 <h1>frites.conn.conn_spec<a class="headerlink" href="#frites-conn-conn-spec" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.conn.conn_spec">
-<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric='coh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_times=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_freqs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_kernel='hanning'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='morlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cycles=7.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mt_bandwidth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decim=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_cwt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_mt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_trials=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kw_links</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_spec.py#L113-L307"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_spec" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.conn.</span></span><span class="sig-name descname"><span class="pre">conn_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric='coh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foi=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_times=0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_freqs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm_kernel='hanning'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='morlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cycles=7.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mt_bandwidth=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decim=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_cwt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw_mt={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_trials=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kw_links</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/conn/conn_spec.py#L131-L361"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.conn.conn_spec" title="Permalink to this definition">#</a></dt>
 <dd><p>Wavelet-based single-trial time-resolved spectral connectivity.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -580,10 +580,20 @@ document.write(`
 <div><ul class="simple">
 <li><p>‘coh’ : Coherence</p></li>
 <li><p>‘plv’ : Phase-Locking Value (PLV)</p></li>
-<li><p>‘sxy’ : Cross-spectrum</p></li>
+<li><p>‘sxy’ : Cross-spectrum (complex). The output dtype is promoted
+to a complex type if needed. The phase convention is
+arg(sxy) = phase(source) - phase(target), sources and targets
+being the first and second region of each pair.</p></li>
 </ul>
 </div></blockquote>
-<p>By default, the coherenc is used.</p>
+<p>By default, the coherence is used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These are single-trial estimates: the temporal (<cite>sm_times</cite>) and
+frequency (<cite>sm_freqs</cite>) smoothing, and the tapers in ‘multitaper’
+mode, are the only averaging involved. Without any of them the
+single-trial coherence and PLV are identically equal to one.</p>
+</div>
 </dd>
 <dt><strong>freqs</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span></span></dt><dd><p>Array of central frequencies of shape (n_freqs,).</p>
 </dd>
@@ -599,15 +609,20 @@ name of the time dimension can be provided</p>
 shapes (n_foi, 2) defining where each band of interest start and
 finish.</p>
 </dd>
-<dt><strong>sm_times</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | .5</span></dt><dd><p>Number of points to consider for the temporal smoothing in seconds. By
-default, a 500ms smoothing is used.</p>
+<dt><strong>sm_times</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:float</span></code> | .5</span></dt><dd><p>Temporal smoothing in seconds. By default, a 500ms smoothing is
+used. The kernel length in samples is rounded (after decimation) and
+is at least one point (no smoothing).</p>
 </dd>
 <dt><strong>sm_freqs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of points for frequency smoothing. By default, 1 is used which
 is equivalent to no smoothing</p>
 </dd>
-<dt><strong>kernel</strong><span class="classifier">{‘square’, ‘hanning’}</span></dt><dd><p>Kernel type to use. Choose either ‘square’ or ‘hanning’</p>
+<dt><strong>sm_kernel</strong><span class="classifier">{‘square’, ‘hanning’}</span></dt><dd><p>Kernel type to use. Choose either ‘square’ or ‘hanning’. For the
+‘hanning’ kernel, <cite>sm_times</cite> and <cite>sm_freqs</cite> are the number of non-zero
+taps.</p>
 </dd>
-<dt><strong>mode</strong><span class="classifier">{‘morlet’, ‘multitaper’}</span></dt><dd><p>Spectrum estimation mode can be either: ‘multitaper’ or ‘morlet’.</p>
+<dt><strong>mode</strong><span class="classifier">{‘morlet’, ‘multitaper’}</span></dt><dd><p>Spectrum estimation mode can be either: ‘multitaper’ or ‘morlet’. In
+‘multitaper’ mode the cross- and auto-spectra are averaged over the
+DPSS tapers (MNE uses floor(mt_bandwidth - 1) tapers).</p>
 </dd>
 <dt><strong>n_cycles</strong><span class="classifier"><span class="xref std std-term">numpy:array_like</span> | 7.</span></dt><dd><p>Number of cycles to use for each frequency. If a float or an integer is
 used, the same number of cycles is going to be used for all frequencies</p>
@@ -630,6 +645,12 @@ groups and each group is process one after the other.</p>
 </dd>
 <dt><strong>n_jobs</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:int</span></code> | 1</span></dt><dd><p>Number of jobs to use for parallel computing (use -1 to use all
 jobs). The parallel loop is set at the pair level.</p>
+</dd>
+<dt><strong>dtype</strong><span class="classifier"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">np.float32</span></code></span></dt><dd><p>Output dtype. Promoted to np.complex64 for the complex ‘sxy’ metric
+when a real dtype is given.</p>
+</dd>
+<dt><strong>mean_trials</strong><span class="classifier"><span class="xref std std-ref">bool</span> | <code class="xref py py-data docutils literal notranslate"><span class="pre">python:False</span></code></span></dt><dd><p>Average the connectivity across trials (output without the <cite>trials</cite>
+dimension).</p>
 </dd>
 <dt><strong>kw_links</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">python:dict</span></code> | {}</span></dt><dd><p>Additional arguments for selecting links to compute are passed to the
 function <a class="reference internal" href="frites.conn.conn_links.html#frites.conn.conn_links" title="frites.conn.conn_links"><code class="xref py py-func docutils literal notranslate"><span class="pre">frites.conn.conn_links()</span></code></a></p>
@@ -724,7 +745,7 @@ function <a class="reference internal" href="frites.conn.conn_links.html#frites.
         </div>
         <br>
         <!-- <br> -->
-        <p>&copy; Copyright Last updated on 2026-09-15.</p>
+        <p>&copy; Copyright Last updated on 2026-09-18.</p>
     </footer>
 
   </body>
