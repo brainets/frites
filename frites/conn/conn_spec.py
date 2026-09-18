@@ -22,7 +22,15 @@ from frites.conn.conn_tf import (_tf_decomp, _create_kernel,
 ###############################################################################
 
 def _coh(w, kernel, foi_idx, x_s, x_t, kw_para, average):
-    """Pairwise coherence."""
+    """Pairwise coherence.
+
+    `w` is either (n_trials, n_roi, n_freqs, n_times) or, when `average` is
+    True, (n_trials, n_roi, n_tapers, n_freqs, n_times). In that case the
+    cross- and auto-spectra are averaged over tapers *before* the ratio is
+    taken (multitaper estimator). Averaging the per-taper coherence instead
+    is wrong: for a single taper, single trial and no smoothing
+    |s_xy|^2 == s_xx * s_yy, so every per-taper coherence is identically 1.
+    """
     # auto spectra (faster that w * w.conj())
     s_auto = w.real ** 2 + w.imag ** 2
 
@@ -31,17 +39,18 @@ def _coh(w, kernel, foi_idx, x_s, x_t, kw_para, average):
 
     # define the pairwise coherence
     def pairwise_coh(w_x, w_y):
-        # computes the coherence
-        s_xy = w[:, w_y, :, :] * np.conj(w[:, w_x, :, :])
+        # computes the (smoothed) cross- and auto-spectra
+        s_xy = w[:, w_y, ...] * np.conj(w[:, w_x, ...])
         s_xy = _smooth_spectra(s_xy, kernel)
-        s_xx = s_auto[:, w_x, :, :]
-        s_yy = s_auto[:, w_y, :, :]
-        # average over tapers
-        out = np.abs(s_xy) ** 2 / (s_xx * s_yy)
+        s_xx = s_auto[:, w_x, ...]
+        s_yy = s_auto[:, w_y, ...]
+        # average the spectra over tapers (not the coherence)
         if average:
-            out = np.mean(out, axis=1)
+            s_xy, s_xx, s_yy = s_xy.mean(1), s_xx.mean(1), s_yy.mean(1)
+        # computes the coherence
+        out = np.abs(s_xy) ** 2 / (s_xx * s_yy)
         # mean inside frequency sliding window (if needed)
-        if isinstance(foi_idx, np.ndarray):
+        if foi_idx is not None:
             return _foi_average(out, foi_idx)
         else:
             return out
@@ -54,22 +63,27 @@ def _coh(w, kernel, foi_idx, x_s, x_t, kw_para, average):
 
 
 def _plv(w, kernel, foi_idx, x_s, x_t, kw_para, average):
-    """Pairwise phase-locking value."""
+    """Pairwise phase-locking value.
+
+    With a taper axis (`average=True`), the unit phase vectors are averaged
+    over tapers before taking the modulus, i.e. tapers act as additional
+    phase samples (like the temporal smoothing does).
+    """
     # define the pairwise plv
     def pairwise_plv(w_x, w_y):
         # computes the plv
-        s_xy = w[:, w_y, :, :] * np.conj(w[:, w_x, :, :])
+        s_xy = w[:, w_y, ...] * np.conj(w[:, w_x, ...])
         # complex exponential of phase differences
         exp_dphi = s_xy / np.abs(s_xy)
         # smooth e^(-i*\delta\phi)
         exp_dphi = _smooth_spectra(exp_dphi, kernel)
+        # average the phase vectors over tapers
+        if average:
+            exp_dphi = np.mean(exp_dphi, axis=1)
         # computes plv
         out = np.abs(exp_dphi)
-        # average over tapers
-        if average:
-            out = np.mean(out, axis=1)
         # mean inside frequency sliding window (if needed)
-        if isinstance(foi_idx, np.ndarray):
+        if foi_idx is not None:
             return _foi_average(out, foi_idx)
         else:
             return out
@@ -82,13 +96,17 @@ def _plv(w, kernel, foi_idx, x_s, x_t, kw_para, average):
 
 
 def _cs(w, kernel, foi_idx, x_s, x_t, kw_para, average):
-    """Pairwise cross-spectra."""
+    """Pairwise cross-spectra s_xy = w_x * conj(w_y).
+
+    Note the phase convention: arg(s_xy) = phase(x) - phase(y), where x is
+    the first (source) and y the second (target) region of the pair.
+    """
     # define the pairwise cross-spectra
     def pairwise_cs(w_x, w_y):
         #  computes the cross-spectra
-        out = w[:, w_x, :, :] * np.conj(w[:, w_y, :, :])
+        out = w[:, w_x, ...] * np.conj(w[:, w_y, ...])
         out = _smooth_spectra(out, kernel)
-        # average over tapers
+        # average the cross-spectra over tapers
         if average:
             out = np.mean(out, axis=1)
         if foi_idx is not None:
@@ -132,9 +150,18 @@ def conn_spec(
 
             * 'coh' : Coherence
             * 'plv' : Phase-Locking Value (PLV)
-            * 'sxy' : Cross-spectrum
+            * 'sxy' : Cross-spectrum (complex). The output dtype is promoted
+              to a complex type if needed. The phase convention is
+              arg(sxy) = phase(source) - phase(target), sources and targets
+              being the first and second region of each pair.
 
-        By default, the coherenc is used.
+        By default, the coherence is used.
+
+        .. note::
+            These are single-trial estimates: the temporal (`sm_times`) and
+            frequency (`sm_freqs`) smoothing, and the tapers in 'multitaper'
+            mode, are the only averaging involved. Without any of them the
+            single-trial coherence and PLV are identically equal to one.
     freqs : array_like
         Array of central frequencies of shape (n_freqs,).
     roi : array_like | None
@@ -150,15 +177,20 @@ def conn_spec(
         shapes (n_foi, 2) defining where each band of interest start and
         finish.
     sm_times : float | .5
-        Number of points to consider for the temporal smoothing in seconds. By
-        default, a 500ms smoothing is used.
+        Temporal smoothing in seconds. By default, a 500ms smoothing is
+        used. The kernel length in samples is rounded (after decimation) and
+        is at least one point (no smoothing).
     sm_freqs : int | 1
         Number of points for frequency smoothing. By default, 1 is used which
         is equivalent to no smoothing
-    kernel : {'square', 'hanning'}
-        Kernel type to use. Choose either 'square' or 'hanning'
+    sm_kernel : {'square', 'hanning'}
+        Kernel type to use. Choose either 'square' or 'hanning'. For the
+        'hanning' kernel, `sm_times` and `sm_freqs` are the number of non-zero
+        taps.
     mode : {'morlet', 'multitaper'}
-        Spectrum estimation mode can be either: 'multitaper' or 'morlet'.
+        Spectrum estimation mode can be either: 'multitaper' or 'morlet'. In
+        'multitaper' mode the cross- and auto-spectra are averaged over the
+        DPSS tapers (MNE uses floor(mt_bandwidth - 1) tapers).
     n_cycles : array_like | 7.
         Number of cycles to use for each frequency. If a float or an integer is
         used, the same number of cycles is going to be used for all frequencies
@@ -181,6 +213,12 @@ def conn_spec(
     n_jobs : int | 1
         Number of jobs to use for parallel computing (use -1 to use all
         jobs). The parallel loop is set at the pair level.
+    dtype : numpy dtype | np.float32
+        Output dtype. Promoted to np.complex64 for the complex 'sxy' metric
+        when a real dtype is given.
+    mean_trials : bool | False
+        Average the connectivity across trials (output without the `trials`
+        dimension).
     kw_links : dict | {}
         Additional arguments for selecting links to compute are passed to the
         function :func:`frites.conn.conn_links`
@@ -202,6 +240,13 @@ def conn_spec(
         'plv': (_plv, "Phase-Locking Value"),
         'sxy': (_cs, "Cross-spectrum")
     }[metric]
+
+    # the cross-spectrum is complex : a real container would silently drop the
+    # imaginary part (numpy only emits a ComplexWarning)
+    if (metric == 'sxy') and not np.issubdtype(dtype, np.complexfloating):
+        logger.info(f"Cross-spectrum is complex, dtype promoted from "
+                    f"{np.dtype(dtype).name} to complex64")
+        dtype = np.complex64
 
     # _________________________________ INPUTS ________________________________
     # inputs conversion
@@ -239,9 +284,18 @@ def conn_spec(
     # Create smoothing kernel
     kernel = _create_kernel(sm_times, sm_freqs, kernel=sm_kernel)
 
-    # average over tapers
-    tapers_average = False
-    # tapers_average = mode == 'multitaper'
+    # in multitaper mode, _tf_decomp keeps the taper axis and the metric
+    # functions average the spectra over tapers
+    tapers_average = mode == 'multitaper'
+
+    # single-trial coherence / plv are identically 1 without any averaging
+    _kernels = kernel if isinstance(kernel, list) else [kernel]
+    if (metric in ('coh', 'plv')) and (not tapers_average) and all(
+            k.size == 1 for k in _kernels):
+        logger.warning(
+            f"Single-trial {f_name} without temporal (sm_times) or frequency "
+            "(sm_freqs) smoothing is identically equal to one. Increase "
+            "sm_times / sm_freqs or use mode='multitaper'")
 
     # define arguments for parallel computing
     mesg = f'Estimating pairwise {f_name} for trials %s'
