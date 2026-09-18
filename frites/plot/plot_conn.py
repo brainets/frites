@@ -87,7 +87,7 @@ def _prepare_plot_conn(
     if (nodes_cmap is None) or isinstance(nodes_cmap, str):
         nodes_cmap = plt.get_cmap(nodes_cmap).copy()
     if nodes_bad:
-        nodes_cmap.set_bad(color=nodes_bad)
+        nodes_cmap = nodes_cmap.with_extremes(bad=nodes_bad)
     cfg['nodes_color'] = [nodes_cmap(k) for k in cfg['nodes_data']]
 
     # _________________________________ COLOR _________________________________
@@ -95,7 +95,7 @@ def _prepare_plot_conn(
     if (cmap is None) or isinstance(cmap, str):
         cmap = plt.get_cmap(cmap).copy()
     if bad:
-        cmap.set_bad(color=bad)
+        cmap = cmap.with_extremes(bad=bad)
     cfg['cmap'] = cmap
 
     # vmin, vmax trick
