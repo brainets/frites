@@ -6,26 +6,11 @@ Framework for Information Theoretical analyses of Electrophysiological data and 
 """
 import logging
 
-import numpy as np
-
-# -----------------------------------------------------------------------------
-# numpy / mne transitional compatibility shim
-#
-# numpy >= 2.4 removed `np.in1d` (deprecated since numpy 2.0 in favor of
-# `np.isin`), but mne (up to and including 1.12.1, its latest release as of
-# writing) still calls `np.in1d` internally (e.g. in mne/epochs.py) when
-# building Epochs. mne's development branch has already dropped that call,
-# but no release with the fix is out yet. Restore the alias so mne keeps
-# working until such a release is available.
-# TODO: drop this once the minimum supported mne version no longer needs it.
-if not hasattr(np, 'in1d'):
-    np.in1d = np.isin
-
 from frites import (
     io, core, conn, plot, stats, utils, workflow, simulations,  estimator  # noqa
 )
 
-__version__ = "0.4.5"
+__version__ = "0.4.6"
 
 # -----------------------------------------------------------------------------
 # Set 'info' as the default logging level
