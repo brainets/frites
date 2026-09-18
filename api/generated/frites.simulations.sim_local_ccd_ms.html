@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>frites.simulations.sim_local_ccd_ms &#8212; frites 0.4.5 documentation</title>
+    <title>frites.simulations.sim_local_ccd_ms &#8212; frites 0.4.6 documentation</title>
   
   
   
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=59f5c6d0"></script>
+    <script src="../../_static/documentation_options.js?v=f4a5b61c"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -61,7 +61,7 @@
     <link rel="prev" title="frites.simulations.sim_local_cd_ms" href="frites.simulations.sim_local_cd_ms.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.5" />
+  <meta name="docsearch:version" content="0.4.6" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -135,8 +135,8 @@
       
     
     
-    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.5 documentation - Home"/>
-    <img src="../../_static/frites_top.png" class="logo__image only-dark pst-js-only" alt="frites 0.4.5 documentation - Home"/>
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.6 documentation - Home"/>
+    <img src="../../_static/frites_top.png" class="logo__image only-dark pst-js-only" alt="frites 0.4.6 documentation - Home"/>
   
   
 </a></div>
@@ -559,7 +559,7 @@
 <h1>frites.simulations.sim_local_ccd_ms<a class="headerlink" href="#frites-simulations-sim-local-ccd-ms" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="frites.simulations.sim_local_ccd_ms">
-<span class="sig-prename descclassname"><span class="pre">frites.simulations.</span></span><span class="sig-name descname"><span class="pre">sim_local_ccd_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_subjects</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/simulations/sim_local_mi.py#L307-L344"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.simulations.sim_local_ccd_ms" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">frites.simulations.</span></span><span class="sig-name descname"><span class="pre">sim_local_ccd_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_subjects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/brainets/frites/tree/master/frites/simulations/sim_local_mi.py#L307-L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#frites.simulations.sim_local_ccd_ms" title="Link to this definition">#</a></dt>
 <dd><p>Multi-subjects simulations for computing local MI (CCD).</p>
 <p>This function can be used for simulating local representations of mutual
 information between two continuous variables conditioned by a third discret
@@ -568,6 +568,9 @@ one (CCD) across multiple subjects.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>n_subjects</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Number of subjects</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Fix the random state of the machine (use it for reproducibility). If
+None, a random state is randomly assigned.</p>
 </dd>
 <dt><strong>kwargs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a> | {}</span></dt><dd><p>Additional arguments are send to the function <a class="reference internal" href="frites.simulations.sim_local_ccd_ss.html#frites.simulations.sim_local_ccd_ss" title="frites.simulations.sim_local_ccd_ss"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_local_ccd_ss()</span></code></a></p>
 </dd>

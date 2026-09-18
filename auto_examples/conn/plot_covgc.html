@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Estimate the covariance-based Granger Causality &#8212; frites 0.4.5 documentation</title>
+    <title>Estimate the covariance-based Granger Causality &#8212; frites 0.4.6 documentation</title>
   
   
   
@@ -46,7 +46,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=59f5c6d0"></script>
+    <script src="../../_static/documentation_options.js?v=f4a5b61c"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -61,7 +61,7 @@
     <link rel="prev" title="Lag estimation between delayed times-series using the cross-correlation" href="plot_ccf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.5" />
+  <meta name="docsearch:version" content="0.4.6" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -135,8 +135,8 @@
       
     
     
-    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.5 documentation - Home"/>
-    <img src="../../_static/frites_top.png" class="logo__image only-dark pst-js-only" alt="frites 0.4.5 documentation - Home"/>
+    <img src="../../_static/frites_top.png" class="logo__image only-light" alt="frites 0.4.6 documentation - Home"/>
+    <img src="../../_static/frites_top.png" class="logo__image only-dark pst-js-only" alt="frites 0.4.6 documentation - Home"/>
   
   
 </a></div>
@@ -570,10 +570,10 @@ each of the temporal window</p>
 </span><span class="n">roi_p</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">'</span><span class="s1">roi</span><span class="s1">'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="w">
 </span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          |  : 0/3 [00:00&lt;?,       ?it/s]
- 33%|███▎      |  : 1/3 [00:00&lt;00:00,    2.20it/s]
- 67%|██████▋   |  : 2/3 [00:00&lt;00:00,    2.20it/s]
-100%|██████████|  : 3/3 [00:01&lt;00:00,    2.20it/s]
-100%|██████████|  : 3/3 [00:01&lt;00:00,    2.20it/s]
+ 33%|███▎      |  : 1/3 [00:00&lt;00:01,    1.74it/s]
+ 67%|██████▋   |  : 2/3 [00:01&lt;00:00,    1.74it/s]
+100%|██████████|  : 3/3 [00:01&lt;00:00,    1.75it/s]
+100%|██████████|  : 3/3 [00:01&lt;00:00,    1.74it/s]
 </pre></div>
 </div>
 <p>Below we plot the mean time series of both directed and undirected covgc</p>
@@ -629,20 +629,8 @@ each of the temporal window</p>
 </span><span class="w">
 </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
 </span></pre></div></div>
-<img src="../../_images/sphx_glr_plot_covgc_002.png" srcset="../../_images/sphx_glr_plot_covgc_002.png" alt="Instantaneous connectivity at -0.4s, Directed connectivity at 0s, Directed connectivity at 0.4s" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/frites/frites/frites/conn/conn_utils.py:520: FutureWarning: the `pandas.MultiIndex` object(s) passed as 'roi' coordinate(s) or data variable(s) will no longer be implicitly promoted and wrapped into multiple indexed coordinates in the future (i.e., one coordinate for each multi-index level + one dimension coordinate). If you want to keep this behavior, you need to first wrap it explicitly using `mindex_coords = xarray.Coordinates.from_pandas_multiindex(mindex_obj, 'dim')` and pass it as coordinates, e.g., `xarray.Dataset(coords=mindex_coords)`, `dataset.assign_coords(mindex_coords)` or `dataarray.assign_coords(mindex_coords)`.
-  da[axis] = pd.MultiIndex.from_arrays(
-/home/runner/work/frites/frites/frites/conn/conn_utils.py:480: FutureWarning: In a future version of xarray the default value for coords will change from coords='different' to coords='minimal'. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set coords explicitly.
-  da = xr.concat((da_xy, da_yx), axis)
-/home/runner/work/frites/frites/frites/conn/conn_utils.py:520: FutureWarning: the `pandas.MultiIndex` object(s) passed as 'roi' coordinate(s) or data variable(s) will no longer be implicitly promoted and wrapped into multiple indexed coordinates in the future (i.e., one coordinate for each multi-index level + one dimension coordinate). If you want to keep this behavior, you need to first wrap it explicitly using `mindex_coords = xarray.Coordinates.from_pandas_multiindex(mindex_obj, 'dim')` and pass it as coordinates, e.g., `xarray.Dataset(coords=mindex_coords)`, `dataset.assign_coords(mindex_coords)` or `dataarray.assign_coords(mindex_coords)`.
-  da[axis] = pd.MultiIndex.from_arrays(
-/home/runner/work/frites/frites/frites/conn/conn_utils.py:480: FutureWarning: In a future version of xarray the default value for coords will change from coords='different' to coords='minimal'. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set coords explicitly.
-  da = xr.concat((da_xy, da_yx), axis)
-/home/runner/work/frites/frites/frites/conn/conn_utils.py:520: FutureWarning: the `pandas.MultiIndex` object(s) passed as 'roi' coordinate(s) or data variable(s) will no longer be implicitly promoted and wrapped into multiple indexed coordinates in the future (i.e., one coordinate for each multi-index level + one dimension coordinate). If you want to keep this behavior, you need to first wrap it explicitly using `mindex_coords = xarray.Coordinates.from_pandas_multiindex(mindex_obj, 'dim')` and pass it as coordinates, e.g., `xarray.Dataset(coords=mindex_coords)`, `dataset.assign_coords(mindex_coords)` or `dataarray.assign_coords(mindex_coords)`.
-  da[axis] = pd.MultiIndex.from_arrays(
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.472 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  476 MB</p>
+<img src="../../_images/sphx_glr_plot_covgc_002.png" srcset="../../_images/sphx_glr_plot_covgc_002.png" alt="Instantaneous connectivity at -0.4s, Directed connectivity at 0s, Directed connectivity at 0.4s" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.010 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  483 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-conn-plot-covgc-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/244e7549525456d9b0b685021514e04b/plot_covgc.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_covgc.ipynb</span></code></a></p>
