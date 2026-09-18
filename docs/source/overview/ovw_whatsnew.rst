@@ -12,9 +12,9 @@ Bug fixes
 * Support mne-python versions newer than 1.5.0, up to the current release (:commit:`9a81a6dc`)
 * Restore a compatibility shim so mne keeps working with NumPy >= 2.4, which removed ``np.in1d`` while mne still relies on it internally (:commit:`ad7cfe65`)
 * Fix type comparison in :func:`frites.dataset.ds_utils.multi_to_uni_conditions` and in :func:`frites.plot.plot_conn_circle` (:commit:`cee7ed4a`)
-* Fix :func:`frites.conn.conn_spec` in multitaper mode : the cross- and auto-spectra are now averaged over tapers (the complex coefficients used to be averaged before, cancelling most of the signal). Coherence and PLV values change for every multitaper user (:PR:`69`)
-* Fix the hanning smoothing kernel of :func:`frites.conn.conn_spec` (``sm_times`` of 2 samples gave a NaN output, 3 samples no smoothing) (:PR:`69`)
-* The cross-spectrum (``metric='sxy'``) of :func:`frites.conn.conn_spec` is now complex (the imaginary part used to be silently dropped) (:PR:`69`)
+* Fix :func:`frites.conn.conn_spec` in multitaper mode : the cross- and auto-spectra are now averaged over tapers (the complex coefficients used to be averaged before, cancelling most of the signal). Coherence and PLV values change for every multitaper user (:pull:`69`)
+* Fix the hanning smoothing kernel of :func:`frites.conn.conn_spec` (``sm_times`` of 2 samples gave a NaN output, 3 samples no smoothing) (:pull:`69`)
+* The cross-spectrum (``metric='sxy'``) of :func:`frites.conn.conn_spec` is now complex (the imaginary part used to be silently dropped) (:pull:`69`)
 * :func:`frites.conn.conn_spec` sets ``zero_mean=False`` explicitly in the time-frequency decomposition : mne changed its default to ``True``, which silently changed the results between mne versions
 
 Dependencies
@@ -30,7 +30,7 @@ New Features
 * New function :func:`frites.core.ent_nd_g` to compute entropy on tensors (:commit:`17587a15`)
 * New function :func:`frites.conn.conn_ii` to estimate the interaction information (:commit:`10938b46`)
 * New function :func:`frites.conn.conn_pid` to estimate the partial information decomposition (:commit:`ac9798dd`)
-- New function :func:`frites.conn.conn_fit` to estimate the feature specific information transfer (:PR:`59`) - :author:`aopy`
+- New function :func:`frites.conn.conn_fit` to estimate the feature specific information transfer (:pull:`59`) - :author:`aopy`
 
 Bug fixes
 +++++++++
