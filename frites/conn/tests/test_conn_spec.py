@@ -150,7 +150,7 @@ class TestConnSpec:
         # reference : (trials, chans, tapers, freqs, times)
         w = tfr_array_multitaper(x.data, sfreq, freqs, n_cycles=n_cycles,
                                  time_bandwidth=tw, output='complex',
-                                 verbose=False)
+                                 zero_mean=False, verbose=False)
         s_xy = (w[:, 0] * np.conj(w[:, 1])).mean(1)
         s_xx = (np.abs(w[:, 0]) ** 2).mean(1)
         s_yy = (np.abs(w[:, 1]) ** 2).mean(1)
@@ -183,7 +183,7 @@ class TestConnSpec:
         assert np.abs(sxy.data.imag).max() > 0
         # morlet cross-spectrum is exactly w_x * conj(w_y)
         w = tfr_array_morlet(x.data, sfreq, freqs, n_cycles=n_cycles,
-                             output='complex', verbose=False)
+                             output='complex', zero_mean=False, verbose=False)
         sxy = conn_spec(x, metric='sxy', dtype=np.complex128, **kw)
         np.testing.assert_allclose(sxy.sel(roi='x-y').data,
                                    w[:, 0] * np.conj(w[:, 1]), rtol=1e-6)

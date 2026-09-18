@@ -70,8 +70,10 @@ def set_mpl_style(style='frites'):
         Style name. Use either "frites" for a white background or "ggfrites"
         for a grey brackground like with ggplot.
     """
-    from pkg_resources import resource_filename
+    # pkg_resources (setuptools) is no longer available by default on
+    # Python >= 3.12 and is deprecated; use the stdlib instead
+    from importlib.resources import files
     import matplotlib.pyplot as plt
     assert style in ["frites", "ggfrites"]
-    path_style = resource_filename('frites', f'data/{style}.mplstyle')
-    plt.style.use(path_style)
+    path_style = files('frites') / 'data' / f'{style}.mplstyle'
+    plt.style.use(str(path_style))
