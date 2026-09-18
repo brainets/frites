@@ -63,6 +63,12 @@ def _tf_decomp(data, sf, freqs, mode='morlet', n_cycles=7.0, mt_bandwidth=None,
         complex coefficients across tapers cancels most of the signal and does
         not give the multitaper estimator.
     """
+    # mne changed the default of `zero_mean` from False (<=1.5) to True. Fix it
+    # explicitly so that the results do not depend on the mne version (a
+    # user-defined value in kw_cwt / kw_mt takes precedence)
+    kw_cwt = {'zero_mean': False, **kw_cwt}
+    kw_mt = {'zero_mean': False, **kw_mt}
+
     if mode == 'morlet':
         out = tfr_array_morlet(
             data, sf, freqs, n_cycles=n_cycles, output='complex', decim=decim,
